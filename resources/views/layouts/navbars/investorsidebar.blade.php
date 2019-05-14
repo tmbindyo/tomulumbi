@@ -97,11 +97,21 @@
                                     {{ __('User profile') }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
-                                    {{ __('User Management') }}
-                                </a>
-                            </li>
+
+                            @if (Auth::user()->user_type_id == 1)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('user.index') }}">
+                                        {{ __('User Management') }}
+                                    </a>
+                                </li>
+                            @elseif (Auth::user()->user_type_id == 4)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('user.index') }}">
+                                        {{ __('User Management') }}
+                                    </a>
+                                </li>
+                            @endif
+
                         </ul>
                     </div>
                 </li>

@@ -73,22 +73,22 @@ class ProjectController extends Controller
         $project = Project::find($project->id);
         // $projectTasks = ProjectTask::all();
         if (Auth::user()->user_type_id == 1)
-            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->get();
+            $projectBids = DB::table('project_bids')->where('status_id',1)->where('project_id', $project->id)->get();
         elseif (Auth::user()->user_type_id == 3) {
-            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
+            $projectBids = DB::table('project_bids')->where('status_id',1)->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
         }elseif (Auth::user()->user_type_id == 4) {
-            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->get();
+            $projectBids = DB::table('project_bids')->where('status_id',1)->where('project_id', $project->id)->get();
         }else {
             $projectBids = [];
         }
         $projectTasks = DB::table('project_tasks')->where('project_id', $project->id)->get();
         // echo ($projectTasks);
         if (Auth::user()->user_type_id == 1)
-        $projectInvestments = DB::table('project_investments')->where('project_id', $project->id)->get();
+        $projectInvestments = DB::table('project_investments')->where('status_id',2)->where('project_id', $project->id)->get();
         elseif (Auth::user()->user_type_id == 3) {
-            $projectInvestments = DB::table('project_investments')->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
+            $projectInvestments = DB::table('project_investments')->where('status_id',2)->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
         }elseif (Auth::user()->user_type_id == 4) {
-            $projectInvestments = DB::table('project_investments')->where('project_id', $project->id)->get();
+            $projectInvestments = DB::table('project_investments')->where('status_id',2)->where('project_id', $project->id)->get();
         }else {
             $projectInvestments = [];
         }

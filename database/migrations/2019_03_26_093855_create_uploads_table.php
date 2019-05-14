@@ -18,9 +18,7 @@ class CreateUploadsTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->integer('upload_type_id')->unsigned();
-            // $table->foreign('upload_type_id')->references('id')->on('upload_types');
             $table->integer('user_id')->unsigned();
-            // $table->foreign('user_id')->references('id')->on('users');
             $table->integer('status_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();

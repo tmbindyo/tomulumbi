@@ -43,11 +43,12 @@ class ProjectBidController extends Controller
 
         $projectBid = new ProjectBid;
         $projectBid->project_id = $project->id;
+        $projectBid->description = "";
         $projectBid->bid_amount = $request->bid_amount;
         $projectBid->user_id = Auth::user()->id;
         $projectBid->status_id = 1;
         $projectBid->save();
-        return redirect()->route('project.index')->withID($id)->withStatus(__('Project task successfully created.'));
+        return redirect()->route('project.index')->withID($id)->withStatus(__('Project bid successfully created.'));
     }
 
     /**
@@ -91,7 +92,7 @@ class ProjectBidController extends Controller
         $projectBid->bid_amount = $request->bid_amount;
         $projectBid->status_id = $request->status_id;
         $projectBid->save();
-        return redirect()->route('project.index')->withID($id)->withStatus(__('Project task successfully updated.'));
+        return redirect()->route('project.index')->withID($id)->withStatus(__('Project bid successfully updated.'));
     }
 
     /**

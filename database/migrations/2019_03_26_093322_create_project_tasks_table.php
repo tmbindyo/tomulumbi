@@ -16,6 +16,7 @@ class CreateProjectTasksTable extends Migration
         Schema::create('project_tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('priority');
+            $table->integer('priority');
             $table->string('name');
             $table->longText('description');
             $table->double('total_budget', 8, 2);

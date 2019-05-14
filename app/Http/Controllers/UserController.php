@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,15 @@ class UserController extends Controller
     public function index(User $model)
     {
         return view('users.index', ['users' => $model->paginate(15)]);
+
+        // TODO Check user if admin or belongs to an institution, if institution (project manager, show institution users)
+
+        
+        // if (Auth::user()->user_type_id == 1)
+        //     return view('users.index', ['users' => $model->paginate(15)]);
+        // elseif (Auth::user()->user_type_id == 3) {
+        //     return view('users.index', ['users' => $model->paginate(15)]);
+        // else
     }
 
     /**
