@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Institution;
+use App\User;
 use App\Industry;
+use App\UserType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\InstitutionRequest;
+use Illuminate\Support\Facades\Hash;
 
 class InstitutionController extends Controller
 {
@@ -28,7 +32,10 @@ class InstitutionController extends Controller
     public function create()
     {
         $industries = Industry::all();
-        return view('institutions.create',compact('industries'));
+        // $user_types = UserType::all();
+        $user_types = DB::table('user_types')->whereIn('id', [2,4])->get();
+    
+        return view('institutions.create',compact('industries','user_types'));
     }
 
     /**
@@ -39,7 +46,6 @@ class InstitutionController extends Controller
      */
     public function store(InstitutionRequest $request, Institution $model)
     {
-        // echo $request;
         $institution = new Institution;
         $institution->name = $request->name;
         $institution->description = $request->description;
@@ -47,7 +53,20 @@ class InstitutionController extends Controller
         $institution->user_id = Auth::user()->id;
         $institution->status_id = 1;
         $institution->save();
-        return redirect()->route('institution.index')->withStatus(__('Institution successfully created.'));
+
+
+        // Institution users
+        $user = new User;
+        $user->name = $request->user_name;
+        $user->email = $request->email;
+        $user->institution_id = $institution->id;
+        $user->password = Hash::make($request->get('password'));
+        $user->user_type_id = $request->user_type;
+        $user->save();
+
+
+
+        return redirect()->route('institution.index')->withStatus(('Institution successfully created.'));
     }
 
     /**

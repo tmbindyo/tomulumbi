@@ -23,6 +23,9 @@
                             
                             <h6 class="heading-small text-muted mb-4">{{ __('Project information') }}</h6>
                             <div class="pl-lg-4">
+
+                            
+
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
                                     <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
@@ -63,6 +66,24 @@
                                         </span>
                                     @endif
                                 </div>
+
+                                @if (Auth::user()->user_type_id == 1)
+                                    <div class="form-group{{ $errors->has('institution') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-institution">{{ __('Institution:') }}</label>
+                                        <select name="project_type" class="form-control form-control-alternative {{ $errors->has('institution') ? ' is-invalid' : '' }}" value="{{ old('institution') }}" required>
+
+                                            @foreach($institutions as $institution)
+                                                <option value="{{ $institution->id }}">{{ $institution->name }}</option>
+                                            @endforeach
+
+                                        </select>
+                                        @if ($errors->has('institution'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('institution') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div> 
+                                @endif
 
                                 <div class="form-group{{ $errors->has('projectType') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-projectType">{{ __('Project type:') }}</label>

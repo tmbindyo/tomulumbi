@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Status;
 use App\Project;
-use App\ProjectType;
 use App\ProjectBid;
+use App\Institution;
+use App\ProjectType;
 use App\ProjectMilestone;
 use App\ProjectInvestment;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class ProjectController extends Controller
     public function create()
     {
         $projectTypes = ProjectType::all();
-        return view('projects.create',compact('projectTypes'));
+        $institutions = Institution::all();
+        return view('projects.create',compact('projectTypes','institutions'));
     }
 
     /**
@@ -45,9 +47,16 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request, Project $model)
     {
         
+        // Institution 
+        if (Auth::user()->user_type_id == 1)
+            $institution_id = $request->institution;
+        else
+            $institution_id = Auth::user()->institution_id;
+
         $project = new Project;
         $project->name = $request->name;
         $project->description = $request->description;
+        $project->institution_id = $request->institution_id;
         $project->project_type_id = $request->project_type;
         $project->return_rate = $request->return_rate;
         $project->total_budget = $request->total_budget;

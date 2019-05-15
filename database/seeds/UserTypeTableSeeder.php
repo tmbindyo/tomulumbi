@@ -19,8 +19,8 @@ class UserTypeTableSeeder extends Seeder
             'updated_at' => now()
         ]);
         DB::table('user_types')->insert([
-            'name' => 'User',
-            'description' => 'User',
+            'name' => 'Project User',
+            'description' => 'Project User',
             'status_id' => 6,
             'created_at' => now(),
             'updated_at' => now()

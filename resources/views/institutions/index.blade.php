@@ -1,7 +1,8 @@
 @extends('layouts.app', ['title' => __('Institution Management')])
 
 @section('content')
-    @@if (Auth::user()->user_type_id == 1)
+
+    @if (Auth::user()->user_type_id == 1)
         @include('layouts.headers.admin_cards')
     @elseif (Auth::user()->user_type_id == 3)
         @include('layouts.headers.investor_cards')
