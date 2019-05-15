@@ -16,7 +16,6 @@ class CreateProjectMilestonesTable extends Migration
         Schema::create('project_milestones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('priority');
-            $table->integer('priority');
             $table->string('name');
             $table->longText('description');
             $table->double('total_budget', 8, 2);
