@@ -47,4 +47,20 @@ class Project extends Model
     {
         return $this->belongsTo('App\ProjectType');
     }
+    public function project_images()
+    {
+        return $this->hasMany('App\ProjectImage');
+    }
+    public function project_teams()
+    {
+        return $this->hasMany('App\ProjectTeam');
+    }
+    public function project_key_activitys()
+    {
+        return $this->hasMany('App\ProjectKeyActivity');
+    }
+    public function project_metrics()
+    {
+        return $this->hasMany('App\ProjectMetric');
+    }
 }
