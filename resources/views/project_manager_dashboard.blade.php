@@ -72,7 +72,7 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col">
-                                <h3 class="mb-0">Page Bids</h3>
+                                <h3 class="mb-0">PROJECT STATUS</h3>
                             </div>
                             <div class="col text-right">
                                 <a href="#!" class="btn btn-sm btn-primary">See all</a>
@@ -85,82 +85,33 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Project type</th>
-                                    <th scope="col">Bids</th>
-                                    <th scope="col">Projects</th>
-                                    <th scope="col">Bounce rate</th>
+                                    <th scope="col">Total Budget</th>
+                                    <th scope="col">Offer Amount</th>
+                                    <th scope="col">Used Amount</th>
+                                    <th scope="col">Rate</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        Education
-                                    </th>
-                                    <td>
-                                        4,569
-                                    </td>
-                                    <td>
-                                        340
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Infrastructure
-                                    </th>
-                                    <td>
-                                        3,985
-                                    </td>
-                                    <td>
-                                        319
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Lands
-                                    </th>
-                                    <td>
-                                        3,513
-                                    </td>
-                                    <td>
-                                        294
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Healthcare
-                                    </th>
-                                    <td>
-                                        2,050
-                                    </td>
-                                    <td>
-                                        147
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        ICT
-                                    </th>
-                                    <td>
-                                        1,795
-                                    </td>
-                                    <td>
-                                        190
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
+                                @foreach ($projects as $project)
+                                    <tr>
+                                        <th scope="row">
+                                            {{ $project->name }}
+                                        </th>
+                                        <td>
+                                            $ {{ $project->total_budget }}
+                                        </td>
+                                        <td>
+                                            $ {{ $project->contributed_budget }}
+                                        </td>
+                                        <td>
+                                            $ {{ $project->used_budget }}
+                                        </td>
+                                        <td>
+                                            <i class="fas fa-arrow-up text-success mr-3"></i> {{ ($project->used_budget / $project->total_budget) * 100 }}%
+                                        </td>
+                                    </tr>        
+                                @endforeach
+                            
                             </tbody>
                         </table>
                     </div>
@@ -183,102 +134,23 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Referral</th>
-                                    <th scope="col">Visitors</th>
-                                    <th scope="col"></th>
+                                        <th scope="col">Project Name</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        Facebook
-                                    </th>
-                                    <td>
-                                        1,480
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">60%</span>
-                                            <div>
-                                                <div class="progress">
-                                                <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Facebook
-                                    </th>
-                                    <td>
-                                        5,480
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">70%</span>
-                                            <div>
-                                                <div class="progress">
-                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Google
-                                    </th>
-                                    <td>
-                                        4,807
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">80%</span>
-                                            <div>
-                                                <div class="progress">
-                                                <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Instagram
-                                    </th>
-                                    <td>
-                                        3,678
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">75%</span>
-                                            <div>
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        twitter
-                                    </th>
-                                    <td>
-                                        2,645
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">30%</span>
-                                            <div>
-                                                <div class="progress">
-                                                <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($offers as $offer)
+                                    <tr>
+                                        <th scope="row">
+                                            {{ $offer->name }}
+                                        </th>
+                                        <td>{{ $offer->status_id }}</td>
+                                        {{-- @if ($offer->status_id = 2)
+                                            <td>Offer Accepted</td>
+                                        @endif --}}
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
