@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('project.project_team.store', $project->id) }}" autocomplete="off">
+                        <form method="post" action="{{ route('project.project_team.store', $project->id) }}" autocomplete="off" enctype="multipart/form-data">
                             @csrf
                             
                             <h6 class="heading-small text-muted mb-4">{{ __('Project team information') }}</h6>

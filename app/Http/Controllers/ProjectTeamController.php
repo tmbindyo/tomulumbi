@@ -41,14 +41,21 @@ class ProjectTeamController extends Controller
     {
         $project = Project::find($id);
         
-        // REFER to: https://hdtuto.com/article/laravel-57-image-upload-with-validation-example
-        $imageName = time().'.'.request()->image->getClientOriginalExtension();
-        request()->image->move(public_path('images'), $imageName);
+        if ($request->has('image')) {
+            $image = $request->file('image');
+            $name = str_slug($request->input('name')).'_'.time();
+            $folder = '/uploads/images/';
+            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+            $this->uploadOne($image, $folder, 'public', $name);
+        } else{
+            $filePath = '';
+        }
 
         $projectTeam = new ProjectTeam;
         $projectTeam->description = "";
         $projectTeam->name = $request->name;
         $projectTeam->position = $request->position;
+        $projectTeam->image = $filePath;
         $projectTeam->description = $request->description;
         $projectTeam->project_id = $project->id;
         $projectTeam->user_id = Auth::user()->id;
