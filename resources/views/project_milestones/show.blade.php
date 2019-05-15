@@ -1,7 +1,7 @@
-@extends('layouts.app', ['title' => __('Project task Management')])
+@extends('layouts.app', ['title' => __('Project milestone Management')])
 
 @section('content')
-    @include('users.partials.header', ['title' => __('Edit Project task')])   
+    @include('users.partials.header', ['title' => __('Edit Project milestone')])   
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -10,7 +10,7 @@
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Project task Management') }}</h3>
+                                <h3 class="mb-0">{{ __('Project milestone Management') }}</h3>
                             </div>
                             <div class="col-4 text-right">
                                 <a href="{{ route('project.index') }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
@@ -18,15 +18,15 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('project.project_task.update', [$project->id, $projectTask]) }}" autocomplete="off">
+                        <form method="post" action="{{ route('project.project_milestone.update', [$project->id, $projectMilestone]) }}" autocomplete="off">
                             @csrf
                             @method('put')
 
-                            <h6 class="heading-small text-muted mb-4">{{ __('Project task information') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">{{ __('Project milestone information') }}</h6>
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', $projectTask->name) }}" required readonly autofocus>
+                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', $projectMilestone->name) }}" required readonly autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                    <input type="text" name="description" id="input-description" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description', $projectTask->description) }}" required readonly>
+                                    <input type="text" name="description" id="input-description" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description', $projectMilestone->description) }}" required readonly>
 
                                     @if ($errors->has('description'))
                                         <span class="invalid-feedback" role="alert">
@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('priority') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-priority">{{ __('Priority') }}</label>
-                                    <input type="text" name="priority" id="input-priority" class="form-control form-control-alternative{{ $errors->has('priority') ? ' is-invalid' : '' }}" placeholder="{{ __('Priority') }}" value="{{ old('priority', $projectTask->priority) }}" required readonly>
+                                    <input type="text" name="priority" id="input-priority" class="form-control form-control-alternative{{ $errors->has('priority') ? ' is-invalid' : '' }}" placeholder="{{ __('Priority') }}" value="{{ old('priority', $projectMilestone->priority) }}" required readonly>
 
                                     @if ($errors->has('priority'))
                                         <span class="invalid-feedback" role="alert">
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('total_budget') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-total_budget">{{ __('Total budget') }}</label>
-                                    <input type="text" name="total_budget" id="input-total_budget" class="form-control form-control-alternative{{ $errors->has('total_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Total budget') }}" value="{{ old('total_budget', $projectTask->total_budget) }}" required readonly>
+                                    <input type="text" name="total_budget" id="input-total_budget" class="form-control form-control-alternative{{ $errors->has('total_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Total budget') }}" value="{{ old('total_budget', $projectMilestone->total_budget) }}" required readonly>
 
                                     @if ($errors->has('total_budget'))
                                         <span class="invalid-feedback" role="alert">
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('used_budget') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-used_budget">{{ __('Used budget') }}</label>
-                                    <input type="text" name="used_budget" id="input-used_budget" class="form-control form-control-alternative{{ $errors->has('used_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Used budget') }}" value="{{ old('used_budget', $projectTask->used_budget) }}" required readonly>
+                                    <input type="text" name="used_budget" id="input-used_budget" class="form-control form-control-alternative{{ $errors->has('used_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Used budget') }}" value="{{ old('used_budget', $projectMilestone->used_budget) }}" required readonly>
 
                                     @if ($errors->has('used_budget'))
                                         <span class="invalid-feedback" role="alert">
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('remaining_budget') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-remaining_budget">{{ __('Remaining budget') }}</label>
-                                    <input type="text" name="remaining_budget" id="input-remaining_budget" class="form-control form-control-alternative{{ $errors->has('remaining_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Remaining budget') }}" value="{{ old('remaining_budget', $projectTask->remaining_budget) }}" required readonly>
+                                    <input type="text" name="remaining_budget" id="input-remaining_budget" class="form-control form-control-alternative{{ $errors->has('remaining_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Remaining budget') }}" value="{{ old('remaining_budget', $projectMilestone->remaining_budget) }}" required readonly>
 
                                     @if ($errors->has('remaining_budget'))
                                         <span class="invalid-feedback" role="alert">
@@ -100,15 +100,15 @@
                         <div class="card-header bg-white border-0">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <h3 class="mb-0">{{ __('Project task') }}</h3>
+                                    <h3 class="mb-0">{{ __('Project milestone') }}</h3>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <a href="{{ route('project_task.requisition.create', [$project->id] ) }}" class="btn btn-sm btn-primary">{{ __('Make requisition') }}</a>
+                                    <a href="{{ route('project_milestone.requisition.create', [$project->id] ) }}" class="btn btn-sm btn-primary">{{ __('Make requisition') }}</a>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('project.project_task.update', [$project->id,'1']) }}" autocomplete="off">
+                            <form method="post" action="{{ route('project.project_milestone.update', [$project->id,'1']) }}" autocomplete="off">
                                 @csrf
                                 @method('put')
     
@@ -155,17 +155,17 @@
                                                                     </a>
                                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                                         @if ($project->id != auth()->id())
-                                                                            <form action="{{ route('project.project_task.destroy', [$project->id,$requisition->id]) }}" method="post">
+                                                                            <form action="{{ route('project.project_milestone.destroy', [$project->id,$requisition->id]) }}" method="post">
                                                                                 @csrf
                                                                                 @method('delete')
                                                                                 
-                                                                                <a class="dropdown-item" href="{{ route('project.project_task.edit', [$project->id, $requisition->id]) }}">{{ __('Edit') }}</a>
+                                                                                <a class="dropdown-item" href="{{ route('project.project_milestone.edit', [$project->id, $requisition->id]) }}">{{ __('Edit') }}</a>
                                                                                 <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this project?") }}') ? this.parentElement.submit() : ''">
                                                                                     {{ __('Delete') }}
                                                                                 </button>
                                                                             </form>    
                                                                         @else
-                                                                            <a class="dropdown-item" href="{{ route('project.project_task.edit', [$project->id, $requisition->id] ) }}">{{ __('Edit') }}</a>
+                                                                            <a class="dropdown-item" href="{{ route('project.project_milestone.edit', [$project->id, $requisition->id] ) }}">{{ __('Edit') }}</a>
                                                                         @endif
                                                                     </div>
                                                                 </div>

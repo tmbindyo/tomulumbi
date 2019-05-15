@@ -117,21 +117,21 @@
                         <div class="card-header bg-white border-0">
                             <div class="row align-items-center">
                                 <div class="col-8">
-                                    <h3 class="mb-0">{{ __('Project task') }}</h3>
+                                    <h3 class="mb-0">{{ __('Project milestone') }}</h3>
                                 </div>
                                 <div class="col-4 text-right">
                                     @if (Auth::user()->user_type_id == 4)
-                                        <a href="{{ route('project.project_task.create', [$project->id] ) }}" class="btn btn-sm btn-primary">{{ __('Create project tasks') }}</a>
+                                        <a href="{{ route('project.project_milestone.create', [$project->id] ) }}" class="btn btn-sm btn-primary">{{ __('Create project milestones') }}</a>
                                     @endif
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('project.project_task.update', [$project->id,'1']) }}" autocomplete="off">
+                            <form method="post" action="{{ route('project.project_milestone.update', [$project->id,'1']) }}" autocomplete="off">
                                 @csrf
                                 @method('put')
     
-                                <h6 class="heading-small text-muted mb-4">{{ __('Project task') }}</h6>
+                                <h6 class="heading-small text-muted mb-4">{{ __('Project milestone') }}</h6>
                                 <div class="pl-lg-4">
                                     <div class="col-12">
                                             @if (session('status'))
@@ -158,15 +158,15 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($projectTasks as $projectTask)
+                                                    @foreach ($projectMilestones as $projectMilestone)
                                                     
                                                         <tr>
-                                                            <td>{{ $projectTask->name }}</td>
-                                                            <td>{{ $projectTask->priority }}</td>
-                                                            <td>{{ $projectTask->start_date }}</td>
-                                                            <td>{{ $projectTask->end_date }}</td>
-                                                            <td>{{ $projectTask->total_budget }}</td>
-                                                            <td>{{ $projectTask->created_at }}</td>
+                                                            <td>{{ $projectMilestone->name }}</td>
+                                                            <td>{{ $projectMilestone->priority }}</td>
+                                                            <td>{{ $projectMilestone->start_date }}</td>
+                                                            <td>{{ $projectMilestone->end_date }}</td>
+                                                            <td>{{ $projectMilestone->total_budget }}</td>
+                                                            <td>{{ $projectMilestone->created_at }}</td>
                                                             @if (Auth::user()->user_type_id == 4)
                                                             <td class="text-right">
                                                                 <div class="dropdown">
@@ -175,22 +175,22 @@
                                                                     </a>
                                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                                         @if ($project->id != auth()->id())
-                                                                            <form action="{{ route('project.project_task.destroy', [$project->id,$projectTask->id]) }}" method="post">
+                                                                            <form action="{{ route('project.project_milestone.destroy', [$project->id,$projectMilestone->id]) }}" method="post">
                                                                                 @csrf
                                                                                 @method('delete')
                                                                                 
-                                                                                <a class="dropdown-item" href="{{ route('project.project_task.edit', [$project->id, $projectTask->id]) }}">{{ __('Edit') }}</a>
+                                                                                <a class="dropdown-item" href="{{ route('project.project_milestone.edit', [$project->id, $projectMilestone->id]) }}">{{ __('Edit') }}</a>
                                                                                 <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this project?") }}') ? this.parentElement.submit() : ''">
                                                                                     {{ __('Delete') }}
                                                                                 </button>
-                                                                                <a class="dropdown-item" href="{{ route('project.project_task.show', [$project->id, $projectTask->id]) }}">{{ __('Edit') }}</a>
+                                                                                <a class="dropdown-item" href="{{ route('project.project_milestone.show', [$project->id, $projectMilestone->id]) }}">{{ __('Edit') }}</a>
                                                                                 <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this project?") }}') ? this.parentElement.submit() : ''">
                                                                                     {{ __('Delete') }}
                                                                                 </button>
                                                                             </form>    
                                                                         @else
-                                                                            <a class="dropdown-item" href="{{ route('project.project_task.edit', [$project->id, $projectTask->id] ) }}">{{ __('Edit') }}</a>
-                                                                            <a class="dropdown-item" href="{{ route('project.project_task.show', [$project->id, $projectTask->id] ) }}">{{ __('Show') }}</a>
+                                                                            <a class="dropdown-item" href="{{ route('project.project_milestone.edit', [$project->id, $projectMilestone->id] ) }}">{{ __('Edit') }}</a>
+                                                                            <a class="dropdown-item" href="{{ route('project.project_milestone.show', [$project->id, $projectMilestone->id] ) }}">{{ __('Show') }}</a>
                                                                         @endif
                                                                     </div>
                                                                 </div>

@@ -31,9 +31,9 @@ class Project extends Model
     {
         return $this->hasMany('App\ProjectInvestment');
     }
-    public function project_tasks()
+    public function project_milestones()
     {
-        return $this->hasMany('App\ProjectTasks');
+        return $this->hasMany('App\ProjectMilestones');
     }
     public function status()
     {

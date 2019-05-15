@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Project task Management')])
+@extends('layouts.app', ['title' => __('Project milestone Management')])
 
 @section('content')
     @include('layouts.headers.cards')
@@ -10,10 +10,10 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Project tasks') }}</h3>
+                                <h3 class="mb-0">{{ __('Project milestones') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('project_task.create') }}" class="btn btn-sm btn-primary">{{ __('Add project task') }}</a>
+                                <a href="{{ route('project_milestone.create') }}" class="btn btn-sm btn-primary">{{ __('Add project milestone') }}</a>
                             </div>
                         </div>
                     </div>
@@ -46,36 +46,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(is_array($projectTasks)){
-                                    @foreach ($projectTasks as $project_task)
+                                @if(is_array($projectMilestones)){
+                                    @foreach ($projectMilestones as $project_milestone)
                                         <tr>
-                                            <td>{{ $project_task->name }}</td>
-                                            <td>{{ $project_task->description }}</td>
-                                            <td>{{ $project_task->priority }}</td>
-                                            <td>{{ $project_task->total_budget }}</td>
-                                            <td>{{ $project_task->used_budget }}</td>
-                                            <td>{{ $project_task->remaining_budget }}</td>
-                                            <td>{{ $project_task->start_date }}</td>
-                                            <td>{{ $project_task->end_date }}</td>
-                                            <td>{{ $project_task->created_at->format('d/m/Y H:i') }}</td>
+                                            <td>{{ $project_milestone->name }}</td>
+                                            <td>{{ $project_milestone->description }}</td>
+                                            <td>{{ $project_milestone->priority }}</td>
+                                            <td>{{ $project_milestone->total_budget }}</td>
+                                            <td>{{ $project_milestone->used_budget }}</td>
+                                            <td>{{ $project_milestone->remaining_budget }}</td>
+                                            <td>{{ $project_milestone->start_date }}</td>
+                                            <td>{{ $project_milestone->end_date }}</td>
+                                            <td>{{ $project_milestone->created_at->format('d/m/Y H:i') }}</td>
                                             <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        @if ($project_task->id != auth()->id())
-                                                            <form action="{{ route('project_task.destroy', $project_task) }}" method="post">
+                                                        @if ($project_milestone->id != auth()->id())
+                                                            <form action="{{ route('project_milestone.destroy', $project_milestone) }}" method="post">
                                                                 @csrf
                                                                 @method('delete')
                                                                 
-                                                                <a class="dropdown-item" href="{{ route('project_task.edit', $project_task) }}">{{ __('Edit') }}</a>
-                                                                <button task="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this project task?") }}') ? this.parentElement.submit() : ''">
+                                                                <a class="dropdown-item" href="{{ route('project_milestone.edit', $project_milestone) }}">{{ __('Edit') }}</a>
+                                                                <button milestone="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this project milestone?") }}') ? this.parentElement.submit() : ''">
                                                                     {{ __('Delete') }}
                                                                 </button>
                                                             </form>    
                                                         @else
-                                                            <a class="dropdown-item" href="{{ route('project_task.edit', $project_task->id ) }}">{{ __('Edit') }}</a>
+                                                            <a class="dropdown-item" href="{{ route('project_milestone.edit', $project_milestone->id ) }}">{{ __('Edit') }}</a>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="card-footer py-4">
                         {{-- <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $project_tasks->links() }}
+                            {{ $project_milestones->links() }}
                         </nav> --}}
                     </div>
                 </div>

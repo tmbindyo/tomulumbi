@@ -17,6 +17,7 @@ class CreateCommunicationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->longText('description');
+            $table->boolean('is_read');
             $table->integer('communication_type_id')->unsigned();
             // $table->foreign('communication_type_id')->references('id')->on('communication_types');
             $table->integer('recipient_id')->unsigned();

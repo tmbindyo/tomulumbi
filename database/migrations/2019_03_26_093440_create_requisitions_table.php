@@ -20,9 +20,8 @@ class CreateRequisitionsTable extends Migration
             $table->longText('reason');
             $table->integer('number');
             $table->double('amount', 8, 2);
-            $table->integer('project_tasks_id')->unsigned();
-            $table->renameColumn('project_tasks_id', 'project_tasks_id');
-            // $table->foreign('project_tasks_id')->references('id')->on('project_tasks');
+            $table->integer('project_milestones_id')->unsigned();
+            // $table->foreign('project_milestones_id')->references('id')->on('project_milestones');
             $table->integer('user_id')->unsigned();
             // $table->foreign('user_id')->references('id')->on('users');
             $table->integer('status_id')->unsigned();

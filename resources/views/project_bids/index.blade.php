@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Project task Management')])
+@extends('layouts.app', ['title' => __('Project milestone Management')])
 
 @section('content')
     @include('layouts.headers.cards')

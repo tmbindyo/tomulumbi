@@ -1,7 +1,7 @@
-@extends('layouts.app', ['title' => __('Project task Management')])
+@extends('layouts.app', ['title' => __('Project milestone Management')])
 
 @section('content')
-    @include('users.partials.header', ['title' => __('Add Project task')])   
+    @include('users.partials.header', ['title' => __('Add Project milestone')])   
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -10,18 +10,18 @@
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Project task Management') }}</h3>
+                                <h3 class="mb-0">{{ __('Project milestone Management') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('project.project_task.index', $project->id) }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
+                                <a href="{{ route('project.project_milestone.index', $project->id) }}" class="btn btn-sm btn-primary">{{ __('Back to list') }}</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('project.project_task.store', $project->id) }}" autocomplete="off">
+                        <form method="post" action="{{ route('project.project_milestone.store', $project->id) }}" autocomplete="off">
                             @csrf
                             
-                            <h6 class="heading-small text-muted mb-4">{{ __('Project task information') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">{{ __('Project milestone information') }}</h6>
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Name') }}</label>

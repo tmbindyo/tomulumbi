@@ -7,7 +7,7 @@ use App\Status;
 use App\Project;
 use App\ProjectType;
 use App\ProjectBid;
-use App\ProjectTask;
+use App\ProjectMilestone;
 use App\ProjectInvestment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -70,8 +70,24 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+
+        // Project milestones
+        // Project problems
+        // Project solutions
+        // Project key metrics
+        // Project unique value propositions
+        // Project unfair advantages
+        // Project channels
+        // Project customer segments
+        // Project cost structures
+        // Project revenue streams
+        // Project key partners
+        // Project key activities
+        // Project key resources
+        // Project customer relationships
+
         $project = Project::find($project->id);
-        // $projectTasks = ProjectTask::all();
+        // $projectMilestones = ProjectMilestone::all();
         if (Auth::user()->user_type_id == 1)
             $projectBids = DB::table('project_bids')->where('status_id',1)->where('project_id', $project->id)->get();
         elseif (Auth::user()->user_type_id == 3) {
@@ -81,8 +97,8 @@ class ProjectController extends Controller
         }else {
             $projectBids = [];
         }
-        $projectTasks = DB::table('project_tasks')->where('project_id', $project->id)->get();
-        // echo ($projectTasks);
+        $projectMilestones = DB::table('project_milestones')->where('project_id', $project->id)->get();
+        // echo ($projectMilestones);
         if (Auth::user()->user_type_id == 1)
         $projectInvestments = DB::table('project_investments')->where('status_id',2)->where('project_id', $project->id)->get();
         elseif (Auth::user()->user_type_id == 3) {
@@ -92,7 +108,7 @@ class ProjectController extends Controller
         }else {
             $projectInvestments = [];
         }
-        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectTasks($projectTasks)->withProjectInvestments($projectInvestments);
+        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectMilestones($projectMilestones)->withProjectInvestments($projectInvestments);
     }
 
     /**

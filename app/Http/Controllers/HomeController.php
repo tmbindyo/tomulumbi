@@ -22,10 +22,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Admin
         if (Auth::user()->user_type_id == 1){
-            return view('dashboard');
+            return view('admin_dashboard');
+            
+        // Investor
         } elseif (Auth::user()->user_type_id == 3) {
             return view('investor_dashboard');
+
+        // Project manager
         } elseif (Auth::user()->user_type_id == 4) {
             return view('project_manager_dashboard');
         } else {

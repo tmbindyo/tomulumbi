@@ -19,8 +19,8 @@ class Requisition extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function project_task()
+    public function project_milestone()
     {
-        return $this->belongsTo('App\ProjectTask');
+        return $this->belongsTo('App\ProjectMilestone');
     }
 }

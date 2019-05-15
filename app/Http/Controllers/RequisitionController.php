@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Project;
-use App\ProjectTask;
+use App\ProjectMilestone;
 use App\Requisition;
 use Illuminate\Http\Request;
 use App\Http\Requests\RequisitionRequest;
@@ -28,8 +28,8 @@ class RequisitionController extends Controller
      */
     public function create($id)
     {
-        $projectTask = ProjectTask::find($id);
-        return view("requisitions.create", ["projectTask"=>$projectTask]);
+        $projectMilestone = ProjectMilestone::find($id);
+        return view("requisitions.create", ["projectMilestone"=>$projectMilestone]);
     }
 
     /**
@@ -40,12 +40,12 @@ class RequisitionController extends Controller
      */
     public function store($id, RequisitionRequest $request, Requisition $model)
     {
-        $projectTask = ProjectTask::find($id);
-        $projectTask->used_budget = (int)$projectTask->used_budget+$request->amount;
-        $projectTask->remaining_budget = (int)$projectTask->total_budget-($projectTask->used_budget+$request->amount);
-        $projectTask->save();
+        $projectMilestone = ProjectMilestone::find($id);
+        $projectMilestone->used_budget = (int)$projectMilestone->used_budget+$request->amount;
+        $projectMilestone->remaining_budget = (int)$projectMilestone->total_budget-($projectMilestone->used_budget+$request->amount);
+        $projectMilestone->save();
 
-        $project = Project::find($projectTask->id);
+        $project = Project::find($projectMilestone->id);
         $project->used_budget = (int)$project->used_budget+$request->amount;
         $project->remaining_budget = (int)$project->contributed_budget-($project->used_budget+$request->amount);
         $project->save();
@@ -54,13 +54,13 @@ class RequisitionController extends Controller
         $requsitition->item_name = $request->item_name;
         $requsitition->description = $request->description;
         $requsitition->reason = $request->reason;
-        $requsitition->project_tasks_id = $projectTask->id;
+        $requsitition->project_milestones_id = $projectMilestone->id;
         $requsitition->number = $request->number;
         $requsitition->amount = $request->amount;
         $requsitition->user_id = Auth::user()->id;
         $requsitition->status_id = 1;
         $requsitition->save();
-        return redirect()->route('project.index')->withID($id)->withStatus(__('Project task successfully created.'));
+        return redirect()->route('project.index')->withID($id)->withStatus(__('Project milestone successfully created.'));
     }
 
     /**
@@ -80,12 +80,12 @@ class RequisitionController extends Controller
      * @param  \App\Requisition  $requisition
      * @return \Illuminate\Http\Response
      */
-    public function edit($project_id, ProjectTask $projectTask)
+    public function edit($project_id, ProjectMilestone $projectMilestone)
     {
         $project = Project::find($project_id);
-        $projectTask = ProjectTask::find($projectTask->id);
-        $requisitions = DB::table('requisitions')->where('project_tasks_id', $projectTask->id)->get();
-        return view('project_tasks.edit')->withProject($project)->withProjectTask($projectTask)->withRequisitions($requisitions);
+        $projectMilestone = ProjectMilestone::find($projectMilestone->id);
+        $requisitions = DB::table('requisitions')->where('project_milestones_id', $projectMilestone->id)->get();
+        return view('project_milestones.edit')->withProject($project)->withProjectMilestone($projectMilestone)->withRequisitions($requisitions);
     }
 
     /**

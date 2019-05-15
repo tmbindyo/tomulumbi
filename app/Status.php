@@ -43,9 +43,9 @@ class Status extends Model
     {
         return $this->hasMany('App\ProjectInvestment');
     }
-    public function project_task()
+    public function project_milestone()
     {
-        return $this->hasMany('App\ProjectTask');
+        return $this->hasMany('App\ProjectMilestone');
     }
     public function project_type()
     {

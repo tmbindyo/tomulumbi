@@ -33,9 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('project', 'ProjectController');
 	Route::resource('project.project_bid', 'ProjectBidController');
 	Route::resource('project.project_investment', 'ProjectInvestmentController');
-	Route::resource('project.project_task', 'ProjectTaskController');
+	Route::resource('project.project_milestone', 'ProjectMilestoneController');
 	Route::resource('project_type', 'ProjectTypeController');
-	Route::resource('project_task.requisition', 'RequisitionController');
+	Route::resource('project_milestone.requisition', 'RequisitionController');
 	Route::resource('review', 'ReviewController');
 	Route::resource('review_type', 'ReviewTypeController');
 	Route::resource('status', 'StatusController');
