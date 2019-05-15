@@ -119,6 +119,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('opportunities') }}">
                         <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Opportunities') }}
+                        <span class="badge badge-dark">4</span>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -1,7 +1,14 @@
 @extends('layouts.app', ['title' => __('User Management')])
 
 @section('content')
-    @include('layouts.headers.cards')
+    @if (Auth::user()->user_type_id == 1)
+        @include('layouts.headers.admin_cards')
+    @elseif (Auth::user()->user_type_id == 3)
+        @include('layouts.headers.investor_cards')
+    @elseif (Auth::user()->user_type_id == 4)
+        @include('layouts.headers.project_manager_cards')
+    @endif
+
 
     <div class="container-fluid mt--7">
         <div class="row">
