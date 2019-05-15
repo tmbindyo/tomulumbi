@@ -36,9 +36,19 @@
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group{{ $errors->has('video') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-video">{{ __('Video') }}</label>
+                                    <input type="text" name="video" id="input-video" class="form-control form-control-alternative{{ $errors->has('video') ? ' is-invalid' : '' }}" placeholder="{{ __('Video') }}" value="{{ old('video') }}" required autofocus>
+
+                                    @if ($errors->has('video'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('video') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                    <input type="text" name="description" id="input-description" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description') }}" required>
+                                    <textarea class="form-control" name="description" id="input-description" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description') }}" required rows="5" placeholder="Institution description ..."></textarea>
 
                                     @if ($errors->has('description'))
                                         <span class="invalid-feedback" role="alert">
@@ -56,6 +66,16 @@
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group{{ $errors->has('valuation') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-valuation">{{ __('Valuation') }}</label>
+                                    <input type="number" name="valuation" id="input-valuation" class="form-control form-control-alternative{{ $errors->has('valuation') ? ' is-invalid' : '' }}" placeholder="{{ __('Total budget') }}" value="{{ old('valuation') }}" required>
+
+                                    @if ($errors->has('valuation'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('valuation') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="form-group{{ $errors->has('total_budget') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-total_budget">{{ __('Total budget') }}</label>
                                     <input type="number" name="total_budget" id="input-total_budget" class="form-control form-control-alternative{{ $errors->has('total_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Total budget') }}" value="{{ old('total_budget') }}" required>
@@ -63,6 +83,26 @@
                                     @if ($errors->has('total_budget'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('total_budget') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('share_price') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-share_price">{{ __('Share price') }}</label>
+                                    <input type="number" name="share_price" id="input-share_price" class="form-control form-control-alternative{{ $errors->has('share_price') ? ' is-invalid' : '' }}" placeholder="{{ __('Total budget') }}" value="{{ old('share_price') }}" required>
+
+                                    @if ($errors->has('share_price'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('share_price') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('minimum_investment') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-minimum_investment">{{ __('Minimum investment') }}</label>
+                                    <input type="number" name="minimum_investment" id="input-minimum_investment" class="form-control form-control-alternative{{ $errors->has('minimum_investment') ? ' is-invalid' : '' }}" placeholder="{{ __('Total budget') }}" value="{{ old('minimum_investment') }}" required>
+
+                                    @if ($errors->has('minimum_investment'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('minimum_investment') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -97,6 +137,22 @@
                                     @if ($errors->has('projectType'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('projectType') }}</strong>
+                                        </span>
+                                    @endif
+                                </div> 
+
+                                <div class="form-group{{ $errors->has('offeringType') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-offeringType">{{ __('Offering type:') }}</label>
+                                    <select name="offering_type" class="form-control form-control-alternative {{ $errors->has('offeringType') ? ' is-invalid' : '' }}" value="{{ old('offeringType') }}" required>
+
+                                        @foreach($offeringTypes as $offeringType)
+                                            <option value="{{ $offeringType->id }}">{{ $offeringType->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                    @if ($errors->has('offeringType'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('offeringType') }}</strong>
                                         </span>
                                     @endif
                                 </div> 

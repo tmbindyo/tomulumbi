@@ -122,6 +122,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('offering_type.index') }}">
+                        <i class="fas fa-archive text-pink" style="color: #f4645f;"></i> {{ __('Ofering type') }}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('project.index') }}">
                         <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Project') }}
                     </a>

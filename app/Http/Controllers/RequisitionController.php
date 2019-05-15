@@ -29,6 +29,7 @@ class RequisitionController extends Controller
     public function create($id)
     {
         $projectMilestone = ProjectMilestone::find($id);
+        return $id;
         return view("requisitions.create", ["projectMilestone"=>$projectMilestone]);
     }
 

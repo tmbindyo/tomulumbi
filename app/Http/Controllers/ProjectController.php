@@ -7,6 +7,7 @@ use App\Status;
 use App\Project;
 use App\ProjectBid;
 use App\Institution;
+use App\OfferingType;
 use App\ProjectType;
 use App\ProjectMilestone;
 use App\ProjectInvestment;
@@ -33,9 +34,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $offeringTypes = OfferingType::all();
         $projectTypes = ProjectType::all();
         $institutions = Institution::all();
-        return view('projects.create',compact('projectTypes','institutions'));
+        return view('projects.create',compact('projectTypes','institutions','offeringTypes'));
     }
 
     /**
@@ -56,8 +58,13 @@ class ProjectController extends Controller
         $project = new Project;
         $project->name = $request->name;
         $project->description = $request->description;
+        $project->video = $request->video;
         $project->institution_id = $request->institution_id;
         $project->project_type_id = $request->project_type;
+        $project->offering_type_id = $request->offering_type;
+        $project->valuation = $request->valuation;
+        $project->share_price = $request->share_price;
+        $project->minimum_investment = $request->minimum_investment;
         $project->return_rate = $request->return_rate;
         $project->total_budget = $request->total_budget;
         $project->used_budget = 0;
@@ -106,6 +113,18 @@ class ProjectController extends Controller
         }else {
             $projectBids = [];
         }
+
+
+        if (Auth::user()->user_type_id == 1)
+            $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->get();
+        elseif (Auth::user()->user_type_id == 3) {
+            $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
+        }elseif (Auth::user()->user_type_id == 4) {
+            $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->get();
+        }else {
+            $projectBids = [];
+        }
+
         $projectMilestones = DB::table('project_milestones')->where('project_id', $project->id)->get();
         // echo ($projectMilestones);
         if (Auth::user()->user_type_id == 1)
@@ -117,7 +136,7 @@ class ProjectController extends Controller
         }else {
             $projectInvestments = [];
         }
-        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectMilestones($projectMilestones)->withProjectInvestments($projectInvestments);
+        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectMilestones($projectMilestones)->withProjectTeams($projectTeams)->withProjectInvestments($projectInvestments);
     }
 
     /**

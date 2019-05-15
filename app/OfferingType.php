@@ -5,19 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProjectMilestone extends Model
+class OfferingType extends Model
 {
     use SoftDeletes;
     
     
     //
-    public function requisition()
+    public function projects()
     {
-        return $this->hasMany('App\Requisition');
-    }
-    public function milestone_deliverables()
-    {
-        return $this->hasMany('App\MilestoneDeliverable');
+        return $this->hasMany('App\Project');
     }
     public function status()
     {
@@ -26,9 +22,5 @@ class ProjectMilestone extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-    public function project()
-    {
-        return $this->belongsTo('App\Project');
     }
 }

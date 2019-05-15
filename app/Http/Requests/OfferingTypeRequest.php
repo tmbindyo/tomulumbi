@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectRequest extends FormRequest
+class OfferingTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,27 +28,6 @@ class ProjectRequest extends FormRequest
         return [
             'name' => [
                 'required', 'min:3'
-            ],
-            'project_type' => [
-                'required'
-            ],
-            'offering_type' => [
-                'required'
-            ],
-            'valuation' => [
-                'required'
-            ],
-            'share_price' => [
-                'required'
-            ],
-            'minimum_investment' => [
-                'required'
-            ],
-            'return_rate' => [
-                'required'
-            ],
-            'total_budget' => [
-                'required'
             ],
             'description' => [
                 'required'
