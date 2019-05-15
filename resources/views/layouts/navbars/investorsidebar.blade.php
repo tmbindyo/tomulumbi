@@ -6,7 +6,8 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
+            <h4 style="font-weight:'bold'; font-size:'24px'">AIP: INVESTOR</h4>
+            <!-- <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="..."> -->
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">

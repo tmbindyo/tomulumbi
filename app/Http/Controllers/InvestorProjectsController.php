@@ -29,7 +29,7 @@ class InvestorProjectsController extends Controller
         $projects = Project::with(['project_bids'])
             ->whereHas('project_bids', function($q) use($user_id) {
             // Query the name field in status table
-            $q->where('user_id', '=', $user_id); // '=' is optional
+            $q->where('user_id', '=', $user_id)->where('status_id', '=', 1); // '=' is optional
         })
         ->get();
         return view('projects.pending', ['projects' => $projects]);
@@ -38,22 +38,22 @@ class InvestorProjectsController extends Controller
     {
         // Get projects
         $user_id = Auth::user()->id;
-        $projects = Project::with(['project_bids'])
-            ->whereHas('project_bids', function($q) use($user_id) {
+        $projects = Project::with(['project_investments'])
+            ->whereHas('project_investments', function($q) use($user_id) {
             // Query the name field in status table
-            $q->where('user_id', '=', $user_id); // '=' is optional
+            $q->where('investor_id', '=', $user_id); // '=' is optional
         })
-        ->where('status_id', '=', 5)
+        ->where('status_id', '=', 1)
         ->get();
         return view('projects.ongoing', ['projects' => $projects]);
     }
     public function portfolio()
     {
         $user_id = Auth::user()->id;
-        $projects = Project::with(['project_bids'])
-            ->whereHas('project_bids', function($q) use($user_id) {
+        $projects = Project::with(['project_investments'])
+            ->whereHas('project_investments', function($q) use($user_id) {
             // Query the name field in status table
-            $q->where('user_id', '=', $user_id); // '=' is optional
+            $q->where('investor_id', '=', $user_id)->where('status_id', '=', 2); // '=' is optional
         })
         ->where('status_id', '=', 4)
         ->get();
