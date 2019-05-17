@@ -51,7 +51,7 @@ class ProjectTeamController extends Controller
         $projectTeam->description = "";
         $projectTeam->name = $request->name;
         $projectTeam->position = $request->position;
-        $projectTeam->image = $image;
+        $projectTeam->image = "/images/projects/.$image_name";
         $projectTeam->description = $request->description;
         $projectTeam->project_id = $project->id;
         $projectTeam->user_id = Auth::user()->id;
