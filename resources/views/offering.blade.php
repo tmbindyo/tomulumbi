@@ -231,90 +231,36 @@
     <section class="py-7 section-nucleo-icons bg-white overflow-hidden">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="card">
-                        <!-- Card body -->
-                        <div class="card-body">
-                            <a href="#!">
-                                <img src="{{ asset('images') }}/2.jpg" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px; height: 130px">
-                            </a>
-                            <div class="pt-4 text-center">
-                                <h5 class="h3 title">
-                                    <span class="d-block mb-1">Antony Mwathi</span>
-                                    <small class="h4 font-weight-light text-muted">Full Stack Developer</small>
-                                </h5>
-                                <div class="mt-3">
-                                    <a href="#" class="btn btn-twitter btn-icon-only rounded-circle">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-facebook btn-icon-only rounded-circle">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-dribbble btn-icon-only rounded-circle">
-                                        <i class="fab fa-dribbble"></i>
-                                    </a>
+                @foreach ($project->project_teams as $team)
+                     <div class="col-lg-4">
+                        <div class="card">
+                            <!-- Card body -->
+                            <div class="card-body">
+                                <a href="#!">
+                                    <img src="{{ asset('images') }}/{{ $team->image }}" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px; height: 130px">
+                                </a>
+                                <div class="pt-4 text-center">
+                                    <h5 class="h3 title">
+                                        <span class="d-block mb-1">{{ $team->name }}</span>
+                                        <small class="h4 font-weight-light text-muted">{{ $team->position }}</small>
+                                    </h5>
+                                    <div class="mt-3">
+                                        <a href="#" class="btn btn-twitter btn-icon-only rounded-circle">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-facebook btn-icon-only rounded-circle">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-dribbble btn-icon-only rounded-circle">
+                                            <i class="fab fa-dribbble"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        
-                        </div>       
+                            
+                            </div>       
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card">
-                        <!-- Card body -->
-                        <div class="card-body">
-                            <a href="#!">
-                                <img src="{{ asset('images') }}/2.jpg" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px; height: 130px">
-                            </a>
-                            <div class="pt-4 text-center">
-                                <h5 class="h3 title">
-                                    <span class="d-block mb-1">Thomas Mulumbi</span>
-                                    <small class="h4 font-weight-light text-muted">Project Manager</small>
-                                </h5>
-                                <div class="mt-3">
-                                    <a href="#" class="btn btn-twitter btn-icon-only rounded-circle">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-facebook btn-icon-only rounded-circle">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-dribbble btn-icon-only rounded-circle">
-                                        <i class="fab fa-dribbble"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        
-                        </div>       
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card">
-                        <!-- Card body -->
-                        <div class="card-body">
-                            <a href="#!">
-                                <img src="{{ asset('images') }}/2.jpg" class="rounded-circle img-center img-fluid shadow shadow-lg--hover" style="width: 140px; height: 130px">
-                            </a>
-                            <div class="pt-4 text-center">
-                                <h5 class="h3 title">
-                                    <span class="d-block mb-1">Micheal Wanyoike</span>
-                                    <small class="h4 font-weight-light text-muted">Product Lead</small>
-                                </h5>
-                                <div class="mt-3">
-                                    <a href="#" class="btn btn-twitter btn-icon-only rounded-circle">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-facebook btn-icon-only rounded-circle">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-dribbble btn-icon-only rounded-circle">
-                                        <i class="fab fa-dribbble"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        
-                        </div>       
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
