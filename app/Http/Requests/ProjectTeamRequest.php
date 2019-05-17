@@ -32,9 +32,6 @@ class ProjectTeamRequest extends FormRequest
             'position' => [
                 'required'
             ],
-            'image' => [
-                'required'
-            ],
         ];
     }
 }

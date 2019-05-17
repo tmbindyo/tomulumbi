@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Share;
-use App\Institution;
-
+use App\InvestorProfile;
 use Illuminate\Http\Request;
 
-class ShareController extends Controller
+class InvestorProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Share $share)
+    public function index()
     {
-        
-        return view("shares.index", ["shares" => $share->paginate(15)]);
-
+        //
     }
 
     /**
@@ -26,11 +22,9 @@ class ShareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Institution $institution)
+    public function create()
     {
-        
-        return view("shares.create", ["institutions" => $institution->all()]);
-
+        //
     }
 
     /**
@@ -41,28 +35,16 @@ class ShareController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-        $share = new Share;
-
-        $share->institution_id = $request->institution;
-        $share->share_type = $request->share_type;
-        $share->no_of_shares = $request->no_of_shares;
-        $share->share_price = $request->share_price;
-        $share->min_shares = $request->min_shares;
-
-        $share->save();
-
-        return redirect()->route("shares.create")->withStatus(_("Shares listing saved."));
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\InvestorProfile  $investorProfile
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(InvestorProfile $investorProfile)
     {
         //
     }
@@ -70,10 +52,10 @@ class ShareController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\InvestorProfile  $investorProfile
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(InvestorProfile $investorProfile)
     {
         //
     }
@@ -82,10 +64,10 @@ class ShareController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\InvestorProfile  $investorProfile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, InvestorProfile $investorProfile)
     {
         //
     }
@@ -93,10 +75,10 @@ class ShareController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\InvestorProfile  $investorProfile
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(InvestorProfile $investorProfile)
     {
         //
     }
