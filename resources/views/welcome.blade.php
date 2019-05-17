@@ -68,11 +68,25 @@
             <div class="col-lg-8 text-center">
                 <h2 class="display-3">Who are we?</h2>
                 <p class="lead">
-                The official package contains over 21.000 icons which are looking great in combination with Argon Design System. Make sure you check all of them and use those that you like the most.
+                        Be the first to hear about our investment opportunities when they launch
                 </p>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 text-center">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter Email Address" aria-label="Enter Email Address" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                <button class="btn btn-md btn-primary">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
                 <div class="btn-wrapper">
-                    <a href="./docs/foundation/icons.html" class="btn btn-primary">View demo icons</a>
-                    <a href="https://nucleoapp.com/?ref=1712" target="_blank" class="btn btn-default mt-3 mt-md-0">View all icons</a>
+                    <a href="/login" class="btn btn-primary">Raise Capital</a>
+                    <a href="/login" target="_blank" class="btn btn-default mt-3 mt-md-0">Start Investing</a>
                 </div>
             </div>
         </div>
@@ -88,44 +102,70 @@
                 <h2 class="display-3">Current Offerings</h2>
                 <br>
                 <div class="row">
-                    @foreach ([1,2,3,4] as $item)
+                    @foreach ($projects as $project)
                         <div class="col-lg-4">
                             <div class="card" style="margin-bottom:10%">
                                 <img class="card-img-top" src="{{ asset('images') }}/1.jpg" alt="Offering Image">                    
                                         <!-- Card body -->
                                 <div class="card-body">
-                                    <h3 class="card-title mb-3">Enda Lapatet: The Game-Changing Running Shoe</h3>
+                                    <h3 class="card-title mb-3">{{ $project->name }}</h3>
                                     <p class="card-text mb-4">
-                                        Hi! We’re Enda. We deliver high quality running gear, coaching, and advice for the global running community. All our products are proudly made in Kenya. 
+                                            {{ str_limit($project->description, $limit = 100, $end = '...') }}
                                     </p>
                                 </div>
                                 <hr>
                                 <div class="progress-wrapper">
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                        @if(count($project->project_investments) > 0)
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ $project->project_investments->sum('amount')/$project->total_budget * 100  }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $project->project_investments->sum('amount')/$project->total_budget * 100  }}%;"></div>
+                                        @else
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                        @endif
                                     </div>
                                 </div>
                                 <hr>
                                 <ul class="list-group list-group-flush">
                                     <div class="row">
-                                        <div class="col-md-4 stat">
-                                            <div class="num">$3.4
-                                                <span class="abbrev-number">M</span>
-                                            </div>
+                                        <div class="col-md-3 stat">
+                                            @if(count($project->project_investments) > 0)
+                                                @if($project->project_investments->sum('amount') > 1000000)
+                                                    <div class="num">{{ $project->project_investments->sum('amount') }}
+                                                        <span class="abbrev-number">M</span>
+                                                    </div>
+                                                @else
+                                                    <div class="num">${{ $project->project_investments->sum('amount')/1000 }}
+                                                        <span class="abbrev-number">K</span>
+                                                    </div>
+                                                @endif
+                                            @else
+                                                <div class="num">$0
+                                                    <span class="abbrev-number">M</span>
+                                                </div>
+                                            @endif
                                             <span>Raised</span>
                                         </div>
                                         <div class="col-md-4 stat">
-                                            <div class="num">3.4
-                                                <span class="abbrev-number">K</span>
-                                            </div>
+                                            @if(count($project->project_investments) > 0)
+                                                <div class="num">{{ $project->project_investments->count('amount') }}
+                                                    @if($project->project_investments->count('amount') > 1000)
+                                                        <span class="abbrev-number">K</span>
+                                                    @else
+                                                        <span class="abbrev-number"></span>
+                                                    @endif
+                                                </div>
+                                            @else
+                                                <div class="num">0
+                                                    <span class="abbrev-number"></span>
+                                                </div>
+                                            @endif
                                             <span>Investors</span>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="num">$500</div>
-                                            <span>Min</span>
+                                        <div class="col-md-5" style="padding-right:5%">
+                                            <div class="num">${{ $project->minimum_investment }}</div>
+                                            <span>Min Investment</span>
                                         </div>
                                     </div>
-                                    <li class="list-group-item"><a href="{{ route('offering', 1) }}">View Offering</a></li>
+                                    <li class="list-group-item"><a href="{{ route('offering', encrypt($project->id)) }}">View Offering</a></li>
                                 </ul>      
                             </div>
                         </div>

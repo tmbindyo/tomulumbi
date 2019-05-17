@@ -52,8 +52,20 @@ class BidManagementController extends Controller
             $projectBids = [];
         }
         $projectMilestones = DB::table('project_milestones')->where('project_id', $project_id)->get();
+
+        if (Auth::user()->user_type_id == 1)
+            $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->get();
+        elseif (Auth::user()->user_type_id == 3) {
+            $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
+        }elseif (Auth::user()->user_type_id == 4) {
+            $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->get();
+        }else {
+            $projectBids = [];
+        }
+
+
         // echo ($projectMilestones);
         $projectInvestments = DB::table('project_investments')->where('project_id', $project_id)->get();
-        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectMilestones($projectMilestones)->withProjectInvestments($projectInvestments);
+        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectTeams($projectTeams)->withProjectMilestones($projectMilestones)->withProjectInvestments($projectInvestments);
     }
 }

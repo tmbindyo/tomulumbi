@@ -11,11 +11,13 @@
 |
 */
 // Landing Page Routes
-Route::get('/', function () {
-    return view('welcome');
-})->name('landing');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('landing');
 
-Route::get('/offering/{id}', 'HomeController@offerings')->name('offering');
+Route::get('/', 'LandingController@index')->name('landing');
+
+Route::get('/offering/{id}', 'LandingController@offerings')->name('offering');
 
 Auth::routes();
 

@@ -65,6 +65,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-xl-8 order-xl-1">
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
@@ -165,7 +166,185 @@
                     </div>
                 </div>
             </div>
+            
         </div>
+        @if (Auth::user()->user_type_id == 3)
+        <br>
+            <div class = "row">
+                <div class="col-xl-8 col-xs-offset-1 order-xl-1">
+                    <div class="card bg-secondary shadow">
+                        <div class="card-header bg-white border-0">
+                            <div class="row align-items-center">
+                                <h3 class="mb-0">{{ __('Investor Profile') }}</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="{{ route('profile.update') }}" autocomplete="off">
+                                @csrf
+                                @method('put')
+
+                                <h6 class="heading-small text-muted mb-4">{{ __('Investor information') }}</h6>
+                                
+                                @if (session('status'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        {{ session('status') }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                @endif
+
+                                <div class="pl-lg-4">
+
+                                    <div class="form-group{{ $errors->has('phone_number') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-phone_number">{{ __('Phone number') }}</label>
+                                        <input type="text" name="phone_number" id="input-phone_number" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Phone number') }}" value="{{ old('phone_number', auth()->user()->phone_number) }}" required autofocus>
+
+                                        @if ($errors->has('phone_number'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('phone_number') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group{{ $errors->has('date_of_birth') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-date_of_birth">{{ __('Date of birth') }}</label>
+                                        <div class="input-group input-group-alternative">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                            </div>
+                                            <input class="form-control datepicker" name="date_of_birth" placeholder="Date of birth" type="text" value="{{ date('d/m/Y', strtotime(now())) }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group{{ $errors->has('address_line_1') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-address_line_1">{{ __('Address line 1') }}</label>
+                                        <input type="text" name="address_line_1" id="input-address_line_1" class="form-control form-control-alternative{{ $errors->has('address_line_1') ? ' is-invalid' : '' }}" placeholder="{{ __('Address line 1') }}" value="{{ old('address_line_1', auth()->user()->address_line_1) }}" required>
+
+                                        @if ($errors->has('address_line_1'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('address_line_1') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group{{ $errors->has('address_line_2') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-address_line_2">{{ __('Address line 2') }}</label>
+                                        <input type="text" name="address_line_2" id="input-address_line_2" class="form-control form-control-alternative{{ $errors->has('address_line_2') ? ' is-invalid' : '' }}" placeholder="{{ __('Address line 2') }}" value="{{ old('address_line_2', auth()->user()->address_line_2) }}" required>
+
+                                        @if ($errors->has('address_line_2'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('address_line_2') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class = "row">
+                                        <div class = "col-md-4">
+                                            
+                                            <div class="form-group{{ $errors->has('city') ? ' has-danger' : '' }}">
+                                                <label class="form-control-label" for="input-city">{{ __('City') }}</label>
+                                                <input type="text" name="city" id="input-city" class="form-control form-control-alternative{{ $errors->has('city') ? ' is-invalid' : '' }}" placeholder="{{ __('City') }}" value="{{ old('city', auth()->user()->city) }}" required autofocus>
+
+                                                @if ($errors->has('city'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('city') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+
+                                        </div>
+
+                                        <div class = "col-md-4">
+                                            
+                                            <div class="form-group{{ $errors->has('region') ? ' has-danger' : '' }}">
+                                                <label class="form-control-label" for="input-region">{{ __('Region') }}</label>
+                                                <input type="text" name="region" id="input-region" class="form-control form-control-alternative{{ $errors->has('region') ? ' is-invalid' : '' }}" placeholder="{{ __('Region') }}" value="{{ old('region', auth()->user()->region) }}" required autofocus>
+
+                                                @if ($errors->has('region'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('region') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+
+                                        </div>
+                                        <div class = "col-md-4">
+                                            
+                                            <div class="form-group{{ $errors->has('postal_code') ? ' has-danger' : '' }}">
+                                                <label class="form-control-label" for="input-postal_code">{{ __('Postal code') }}</label>
+                                                <input type="text" name="postal_code" id="input-postal_code" class="form-control form-control-alternative{{ $errors->has('postal_code') ? ' is-invalid' : '' }}" placeholder="{{ __('Postal code') }}" value="{{ old('postal_code', auth()->user()->postal_code) }}" required autofocus>
+
+                                                @if ($errors->has('postal_code'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('postal_code') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class = "row">
+                                        <div class = "col-md-4">
+                                        <label class="form-control-label" for="input-postal_code">{{ __('International Identification*') }}</label>
+                                        </div>
+                                        <div class = "col-md-8">
+                                            <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                                                <div class="fallback">
+                                                    <div class="custom-file">
+                                                        <input name = "image" type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                                        <label class="custom-file-label" for="dropzoneBasicUpload">Choose file</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="dz-preview dz-preview-single">
+                                                    <div class="dz-preview-cover">
+                                                        <img class="dz-preview-img" src="..." alt="..." data-dz-thumbnail>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class = "row">
+                                        <div class = "col-md-4">
+                                        <label class="form-control-label" for="input-postal_code">{{ __('Passport Identification*') }}</label>
+                                        </div>
+                                        <div class = "col-md-8">
+                                            <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                                                <div class="fallback">
+                                                    <div class="custom-file">
+                                                        <input name = "image" type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                                        <label class="custom-file-label" for="dropzoneBasicUpload">Choose file</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="dz-preview dz-preview-single">
+                                                    <div class="dz-preview-cover">
+                                                        <img class="dz-preview-img" src="..." alt="..." data-dz-thumbnail>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                                    </div>
+
+                                </div>
+                            </form>
+ 
+
+
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        @endif
+        
         
         @include('layouts.footers.auth')
     </div>
