@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->longText('video');
+            $table->longText('thumbnail');
             $table->integer('return_rate');
             $table->double('valuation', 20, 2)->nullable();
             $table->double('share_price', 20, 2)->nullable();
