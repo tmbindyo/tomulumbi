@@ -196,13 +196,13 @@
 
                                 <div class="pl-lg-4">
 
-                                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label" for="input-name">{{ __('Date of birth') }}</label>
-                                        <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Date of birth') }}" value="{{ old('name', auth()->user()->name) }}" required autofocus>
+                                    <div class="form-group{{ $errors->has('phone_number') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-phone_number">{{ __('Phone number') }}</label>
+                                        <input type="text" name="phone_number" id="input-phone_number" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Phone number') }}" value="{{ old('phone_number', auth()->user()->phone_number) }}" required autofocus>
 
-                                        @if ($errors->has('name'))
+                                        @if ($errors->has('phone_number'))
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('name') }}</strong>
+                                                <strong>{{ $errors->first('phone_number') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -284,6 +284,50 @@
 
                                         </div>
                                         
+                                    </div>
+
+                                    <div class = "row">
+                                        <div class = "col-md-4">
+                                        <label class="form-control-label" for="input-postal_code">{{ __('International Identification*') }}</label>
+                                        </div>
+                                        <div class = "col-md-8">
+                                            <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                                                <div class="fallback">
+                                                    <div class="custom-file">
+                                                        <input name = "image" type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                                        <label class="custom-file-label" for="dropzoneBasicUpload">Choose file</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="dz-preview dz-preview-single">
+                                                    <div class="dz-preview-cover">
+                                                        <img class="dz-preview-img" src="..." alt="..." data-dz-thumbnail>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class = "row">
+                                        <div class = "col-md-4">
+                                        <label class="form-control-label" for="input-postal_code">{{ __('Passport Identification*') }}</label>
+                                        </div>
+                                        <div class = "col-md-8">
+                                            <div class="dropzone dropzone-single" data-toggle="dropzone" data-dropzone-url="http://">
+                                                <div class="fallback">
+                                                    <div class="custom-file">
+                                                        <input name = "image" type="file" class="custom-file-input" id="dropzoneBasicUpload">
+                                                        <label class="custom-file-label" for="dropzoneBasicUpload">Choose file</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="dz-preview dz-preview-single">
+                                                    <div class="dz-preview-cover">
+                                                        <img class="dz-preview-img" src="..." alt="..." data-dz-thumbnail>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="text-center">
