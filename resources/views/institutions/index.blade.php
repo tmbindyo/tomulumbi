@@ -52,7 +52,7 @@
                                     <tr>
                                         <td>{{ $institution->name }}</td>
                                         <td>
-                                            {{ $institution->description }}
+                                            {{ str_limit($institution->description, $limit = 50, $end = '...') }}
                                         </td>
                                         <td>{{ $institution->created_at->format('d/m/Y H:i') }}</td>
                                         <td class="text-right">

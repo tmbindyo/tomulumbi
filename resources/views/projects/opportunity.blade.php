@@ -51,7 +51,7 @@
                                 @foreach ($projects as $project)
                                     <tr>
                                         <td>{{ $project->name }}</td>
-                                        <td>{{ $project->description }}</td>
+                                        <td>{{ str_limit($project->description, $limit = 50, $end = '...') }}</td>
                                         <td>{{ $project->total_budget }}</td>
                                         <td>{{ $project->used_budget }}</td>
                                         <td>{{ $project->remaining_budget }}</td>
