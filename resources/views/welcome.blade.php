@@ -105,7 +105,7 @@
                     @foreach ($projects as $project)
                         <div class="col-lg-4">
                             <div class="card" style="margin-bottom:10%">
-                                <img class="card-img-top" src="{{ asset('images') }}/1.jpg" alt="Offering Image">                    
+                                <img class="card-img-top" src="{{ asset('images') }}{{ $project->thumbnail }}" alt="Offering Image">                    
                                         <!-- Card body -->
                                 <div class="card-body">
                                     <h3 class="card-title mb-3">{{ $project->name }}</h3>

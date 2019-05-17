@@ -10,59 +10,59 @@
                             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="{{ asset('images') }}/single.jpg" class="d-block w-100" style="height: 70%">
+                                    <img src="{{ asset('images') }}/{{ $project->thumbnail }}" class="d-block w-100" style="height: 70%">
                                     <div class="carousel-caption d-none d-md-block bg-white">
                                         <h2 class="text-black">{{ $project->name }}</h5>
                                             <br>
                                             <ul class="list-group list-group-flush">
-                                                    <div class="row">
-                                                        <div class="col-md-3 stat">
-                                                            @if(count($project->project_investments) > 0)
-                                                                @if($project->project_investments->sum('amount') > 1000000)
-                                                                    <div class="num">{{ $project->project_investments->sum('amount') }}
-                                                                        <span class="abbrev-number">M</span>
-                                                                    </div>
-                                                                @else
-                                                                    <div class="num">${{ $project->project_investments->sum('amount') }}
-                                                                        <span class="abbrev-number">K</span>
-                                                                    </div>
-                                                                @endif
-                                                            @else
-                                                                <div class="num">$0
+                                                <div class="row">
+                                                    <div class="col-md-3 stat">
+                                                        @if(count($project->project_investments) > 0)
+                                                            @if($project->project_investments->sum('amount') > 1000000)
+                                                                <div class="num">{{ $project->project_investments->sum('amount') }}
                                                                     <span class="abbrev-number">M</span>
                                                                 </div>
-                                                            @endif
-                                                            <span class="span">Raised</span>
-                                                        </div>
-                                                        <div class="col-md-3 stat">
-                                                            @if(count($project->project_investments) > 0)
-                                                                <div class="num">{{ $project->project_investments->count('amount') }}
-                                                                    @if($project->project_investments->count('amount') > 1000)
-                                                                        <span class="abbrev-number">K</span>
-                                                                    @else
-                                                                        <span class="abbrev-number"></span>
-                                                                    @endif
-                                                                </div>
                                                             @else
-                                                                <div class="num">0
-                                                                    <span class="abbrev-number"></span>
+                                                                <div class="num">${{ $project->project_investments->sum('amount') }}
+                                                                    <span class="abbrev-number">K</span>
                                                                 </div>
                                                             @endif
-                                                            <span class="span">Investors</span>
-                                                        </div>
-                                                        <div class="col-md-3 stat">
-                                                            <div class="num">${{ $project->minimum_investment }}</div>
-                                                            <span class="span">Min Investment</span>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <a data-toggle="modal" data-target="#exampleModal">
-                                                                <div class="num"><i class="fa fa-play"></i></div>
-                                                                <span class="span">Play Video</span>
-                                                            </a>
-                                                        </div>
+                                                        @else
+                                                            <div class="num">$0
+                                                                <span class="abbrev-number">M</span>
+                                                            </div>
+                                                        @endif
+                                                        <span class="span">Raised</span>
                                                     </div>
-                                                </ul> 
-                                        <button type="button" class="btn btn-success">Invest Now</button>
+                                                    <div class="col-md-3 stat">
+                                                        @if(count($project->project_investments) > 0)
+                                                            <div class="num">{{ $project->project_investments->count('amount') }}
+                                                                @if($project->project_investments->count('amount') > 1000)
+                                                                    <span class="abbrev-number">K</span>
+                                                                @else
+                                                                    <span class="abbrev-number"></span>
+                                                                @endif
+                                                            </div>
+                                                        @else
+                                                            <div class="num">0
+                                                                <span class="abbrev-number"></span>
+                                                            </div>
+                                                        @endif
+                                                        <span class="span">Investors</span>
+                                                    </div>
+                                                    <div class="col-md-3 stat">
+                                                        <div class="num">${{ $project->minimum_investment }}</div>
+                                                        <span class="span">Min Investment</span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a data-toggle="modal" data-target="#exampleModal">
+                                                            <div class="num"><i class="fa fa-play"></i></div>
+                                                            <span class="span">Play Video</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ul> 
+                                        <a href="/login" type="button" class="btn btn-success">Invest Now</a>
                                     </div>
                                 </div>
                                 </div>
@@ -80,7 +80,7 @@
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-body">
-                        <iframe width="1000" height="700" src="https://www.youtube.com/embed/7ZeJRLsYRfg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="1000" height="700" src="{{ $project->video }} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     </div>
                 </div>
@@ -177,7 +177,6 @@
             </div>
         </div>
     </div>
-    <hr>
 </section>
 @endsection
 
@@ -230,6 +229,9 @@
 @section('team')
     <section class="py-7 section-nucleo-icons bg-white overflow-hidden">
         <div class="container">
+            @if(count($project->project_teams) > 0)
+                <h2 class="display-3 text-center">Meet The Team</h2>
+            @endif
             <div class="row">
                 @foreach ($project->project_teams as $team)
                      <div class="col-lg-4">
@@ -273,33 +275,19 @@
 @section('updates')
 <section class="py-7 section-nucleo-icons bg-white overflow-hidden">
     <div class="container">
-        <h2>PROJECT UPDATES</h4>
+        @if(count($project->project_updates) > 0)
+            <h2>PROJECT UPDATES</h4>
+        @endif
         <div class="row updates">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Notice of Funds Disbursement</h5>
-                    <p class="card-text">As you might know, Fusion Farms has exceeded its minimum funding goal. When a company reaches its minimum on StartEngine, it's about to begin withdrawing funds. If you invested in Fusion Farms be on the lookout for an email that describes more about the disbursement process.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            @foreach($project->project_updates as $updates)
+                <div class="card" style="margin-bottom:4%">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">{{ $updates->name }}</h3>
+                        <p class="card-text">{{ $updates->description }}</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row updates">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Notice of Funds Disbursement</h5>
-                    <p class="card-text">As you might know, Fusion Farms has exceeded its minimum funding goal. When a company reaches its minimum on StartEngine, it's about to begin withdrawing funds. If you invested in Fusion Farms be on the lookout for an email that describes more about the disbursement process.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-        </div>
-        <div class="row updates">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Notice of Funds Disbursement</h5>
-                    <p class="card-text">As you might know, Fusion Farms has exceeded its minimum funding goal. When a company reaches its minimum on StartEngine, it's about to begin withdrawing funds. If you invested in Fusion Farms be on the lookout for an email that describes more about the disbursement process.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
