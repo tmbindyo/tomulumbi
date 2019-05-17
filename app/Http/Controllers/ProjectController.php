@@ -69,7 +69,7 @@ class ProjectController extends Controller
         $project->name = $request->name;
         $project->description = $request->description;
         $project->video = $request->video;
-        $project->thumbnail = "/images/projects/.$thumbnail_name";
+        $project->thumbnail = "/projects/".$thumbnail_name;
         // $project->institution_id = $request->institution_id;
         $project->institution_id = $institution_id;
         $project->project_type_id = $request->project_type;
