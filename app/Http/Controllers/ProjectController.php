@@ -114,7 +114,12 @@ class ProjectController extends Controller
         // Project key resources
         // Project customer relationships
 
+        
         $project = Project::find($project->id);
+
+        // Project updates
+        $projectUpdates = DB::table('project_updates')->where('status_id',1)->where('project_id', $project->id)->get();
+
         // $projectMilestones = ProjectMilestone::all();
         if (Auth::user()->user_type_id == 1)
             $projectBids = DB::table('project_bids')->where('status_id',1)->where('project_id', $project->id)->get();
@@ -125,7 +130,6 @@ class ProjectController extends Controller
         }else {
             $projectBids = [];
         }
-
 
         if (Auth::user()->user_type_id == 1)
             $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->get();
@@ -148,7 +152,7 @@ class ProjectController extends Controller
         }else {
             $projectInvestments = [];
         }
-        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectMilestones($projectMilestones)->withProjectTeams($projectTeams)->withProjectInvestments($projectInvestments);
+        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectUpdates($projectUpdates)->withProjectMilestones($projectMilestones)->withProjectTeams($projectTeams)->withProjectInvestments($projectInvestments);
     }
 
     /**

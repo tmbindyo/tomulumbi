@@ -55,6 +55,10 @@ class Project extends Model
     {
         return $this->hasMany('App\ProjectTeam');
     }
+    public function project_updates()
+    {
+        return $this->hasMany('App\ProjectUpdate');
+    }
     public function project_key_activitys()
     {
         return $this->hasMany('App\ProjectKeyActivity');
