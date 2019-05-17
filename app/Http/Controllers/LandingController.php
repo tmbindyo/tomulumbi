@@ -11,7 +11,7 @@ class LandingController extends Controller
     public function index () {
         // Fetch All Project [limit to 12]
 
-        $projects = Project::with('project_investments')->get();
+        $projects = Project::with('project_investments')->limit(12)->get();
 
         // return ($projects);
         return view('welcome',compact('projects'));

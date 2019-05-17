@@ -10,7 +10,7 @@
                             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="{{ asset('images') }}/single.jpg" class="d-block w-100" style="height: 70%">
+                                    <img src="{{ asset('images') }}/{{ $project->thumbnail }}" class="d-block w-100" style="height: 70%">
                                     <div class="carousel-caption d-none d-md-block bg-white">
                                         <h2 class="text-black">{{ $project->name }}</h5>
                                             <br>
