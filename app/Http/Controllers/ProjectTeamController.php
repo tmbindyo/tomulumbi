@@ -6,6 +6,7 @@ use Auth;
 use App\Project;
 use App\ProjectTeam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Http\Requests\ProjectTeamRequest;
 
 class ProjectTeamController extends Controller
@@ -41,21 +42,16 @@ class ProjectTeamController extends Controller
     {
         $project = Project::find($id);
         
-        // if ($request->has('image')) {
-        //     $image = $request->file('image');
-        //     $name = str_slug($request->input('name')).'_'.time();
-        //     $folder = '/uploads/images/';
-        //     $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
-        //     $this->uploadOne($image, $folder, 'public', $name);
-        // } else{
-        $filePath = '';
-        // }
+        $image = Input::file("image");
+        $image_name = $image->getClientOriginalName();
+        $image->move(public_path()."/images/projects/", $image_name);
+ 
 
         $projectTeam = new ProjectTeam;
         $projectTeam->description = "";
         $projectTeam->name = $request->name;
         $projectTeam->position = $request->position;
-        $projectTeam->image = $filePath;
+        $projectTeam->image = $image;
         $projectTeam->description = $request->description;
         $projectTeam->project_id = $project->id;
         $projectTeam->user_id = Auth::user()->id;

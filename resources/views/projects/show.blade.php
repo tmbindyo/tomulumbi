@@ -26,72 +26,93 @@
 
                             <h6 class="heading-small text-muted mb-4">{{ __('Project information') }}</h6>
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', $project->name) }}" required autofocus readonly>
+                                <!-- <div class = "row"> -->
+                                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
+                                        <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', $project->name) }}" required autofocus readonly>
 
-                                    @if ($errors->has('name'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
-                                        </span>
-                                    @endif
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    
+
+                                    <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
+                                        <textarea  class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="input-description" rows="5" placeholder="{{ __('Description') }}" value="{{ old('description', $project->description) }}" required autofocus readonly></textarea>
+
+                                        @if ($errors->has('description'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('description') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                <!-- </div> -->
+
+                                <div class = "row">
+                                    <div class = "col-md-3">
+                                        <div class="form-group{{ $errors->has('total_budget') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-total_budget">{{ __('Total budget') }}</label>
+                                            <input type="text" name="total_budget" id="input-total_budget" class="form-control form-control-alternative{{ $errors->has('total_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Total budget') }}" value="{{ old('total_budget', $project->total_budget) }}" required autofocus readonly>
+
+                                            @if ($errors->has('total_budget'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('total_budget') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class = "col-md-3">
+                                        <div class="form-group{{ $errors->has('used_budget') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-used_budget">{{ __('Used budget') }}</label>
+                                            <input type="text" name="used_budget" id="input-used_budget" class="form-control form-control-alternative{{ $errors->has('used_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Used budget') }}" value="{{ old('used_budget', $project->used_budget) }}" required autofocus readonly>
+
+                                            @if ($errors->has('used_budget'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('used_budget') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class = "col-md-3">
+                                        <div class="form-group{{ $errors->has('remaining_budget') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-remaining_budget">{{ __('Remaining budget') }}</label>
+                                            <input type="text" name="remaining_budget" id="input-remaining_budget" class="form-control form-control-alternative{{ $errors->has('remaining_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Remaining budget') }}" value="{{ old('remaining_budget', $project->remaining_budget) }}" required autofocus readonly>
+
+                                            @if ($errors->has('remaining_budget'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('remaining_budget') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class = "col-md-3">
+                                        <div class="form-group{{ $errors->has('contributed_budget') ? ' has-danger' : '' }}">
+                                            <label class="form-control-label" for="input-contributed_budget">{{ __('Contributed budget') }}</label>
+                                            <input type="text" name="contributed_budget" id="input-contributed_budget" class="form-control form-control-alternative{{ $errors->has('contributed_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Contributed budget') }}" value="{{ old('contributed_budget', $project->contributed_budget) }}" required autofocus readonly>
+
+                                            @if ($errors->has('contributed_budget'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('contributed_budget') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
+                                
 
 
-                                <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                    <input type="text" name="description" id="input-description" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description', $project->description) }}" required autofocus readonly>
+                                
 
-                                    @if ($errors->has('description'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('description') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                        
 
-                                <div class="form-group{{ $errors->has('total_budget') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-total_budget">{{ __('Total budget') }}</label>
-                                    <input type="text" name="total_budget" id="input-total_budget" class="form-control form-control-alternative{{ $errors->has('total_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Total budget') }}" value="{{ old('total_budget', $project->total_budget) }}" required autofocus readonly>
+                                        
 
-                                    @if ($errors->has('total_budget'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('total_budget') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                        
 
-                                <div class="form-group{{ $errors->has('used_budget') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-used_budget">{{ __('Used budget') }}</label>
-                                    <input type="text" name="used_budget" id="input-used_budget" class="form-control form-control-alternative{{ $errors->has('used_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Used budget') }}" value="{{ old('used_budget', $project->used_budget) }}" required autofocus readonly>
-
-                                    @if ($errors->has('used_budget'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('used_budget') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-
-                                <div class="form-group{{ $errors->has('remaining_budget') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-remaining_budget">{{ __('Remaining budget') }}</label>
-                                    <input type="text" name="remaining_budget" id="input-remaining_budget" class="form-control form-control-alternative{{ $errors->has('remaining_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Remaining budget') }}" value="{{ old('remaining_budget', $project->remaining_budget) }}" required autofocus readonly>
-
-                                    @if ($errors->has('remaining_budget'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('remaining_budget') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-
-                                <div class="form-group{{ $errors->has('contributed_budget') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-contributed_budget">{{ __('Contributed budget') }}</label>
-                                    <input type="text" name="contributed_budget" id="input-contributed_budget" class="form-control form-control-alternative{{ $errors->has('contributed_budget') ? ' is-invalid' : '' }}" placeholder="{{ __('Contributed budget') }}" value="{{ old('contributed_budget', $project->contributed_budget) }}" required autofocus readonly>
-
-                                    @if ($errors->has('contributed_budget'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('contributed_budget') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                        
 
                                 <div class="text-center">
                                     {{-- <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button> --}}
@@ -309,9 +330,6 @@
                                 <h3 class="mb-0">{{ __('Project investment') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                {{-- @if (Auth::user()->user_type_id == 4)
-                                    <a href="{{ route('project.project_investment.create', $project->id ) }}" class="btn btn-sm btn-primary">{{ __('Create project investment') }}</a>
-                                @endif --}}
                             </div>
                         </div>
                     </div>
@@ -437,7 +455,7 @@
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th scope="col">{{ __('Name') }}</th>
-                                                        <th scope="col">{{ __('Amount') }}</th>
+                                                        <th scope="col">{{ __('Position') }}</th>
                                                         <th scope="col">{{ __('Creation Date') }}</th>
                                                         <th scope="col"></th>
                                                     </tr>
@@ -488,21 +506,21 @@
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Project investment') }}</h3>
+                                <h3 class="mb-0">{{ __('Project update') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                {{-- @if (Auth::user()->user_type_id == 4)
-                                    <a href="{{ route('project.project_investment.create', $project->id ) }}" class="btn btn-sm btn-primary">{{ __('Create project investment') }}</a>
-                                @endif --}}
+                                @if (Auth::user()->user_type_id == 4)
+                                    <a href="{{ route('project.project_update.create', $project->id ) }}" class="btn btn-sm btn-primary">{{ __('Create project update') }}</a>
+                                @endif 
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('project.project_investment.update', [$project->id,'1']) }}" autocomplete="off">
+                        <form method="post" action="{{ route('project.project_update.update', [$project->id,'1']) }}" autocomplete="off">
                             @csrf
                             @method('put')
 
-                            <h6 class="heading-small text-muted mb-4">{{ __('Project investment') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">{{ __('Project update') }}</h6>
                             <div class="pl-lg-4">
                                 <div class="col-12">
                                         @if (session('status'))
@@ -519,18 +537,18 @@
                                         <table class="table align-items-center table-flush">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th scope="col">{{ __('Amount') }}</th>
-                                                    <th scope="col">{{ __('Investor') }}</th>
+                                                    <th scope="col">{{ __('Title') }}</th>
+                                                    <th scope="col">{{ __('Description') }}</th>
                                                     <th scope="col">{{ __('Creation Date') }}</th>
                                                     <th scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($projectInvestments as $projectInvestment)
+                                                @foreach ($projectUpdates as $projectUpdate)
                                                     <tr>
-                                                        <td>{{ $projectInvestment->amount }}</td>
-                                                        <td>{{ Auth::user()->name }}</td>
-                                                        <td>{{ $projectInvestment->created_at }}</td>
+                                                        <td>{{ $projectUpdate->name }}</td>
+                                                        <td>{{ $projectUpdate->description }}</td>
+                                                        <td>{{ $projectUpdate->created_at }}</td>
                                                         @if (Auth::user()->user_type_id == 4)
                                                         <td class="text-right">
                                                             <div class="dropdown">
@@ -539,17 +557,17 @@
                                                                 </a>
                                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                                     @if ($project->id != auth()->id())
-                                                                        <form action="{{ route('project.project_investment.destroy', [$project->id,$projectInvestment->id]) }}" method="post">
+                                                                        <form action="{{ route('project.project_update.destroy', [$project->id,$projectUpdate->id]) }}" method="post">
                                                                             @csrf
                                                                             @method('delete')
                                                                             
-                                                                            <a class="dropdown-item" href="{{ route('project.project_investment.edit', [$project->id,$projectInvestment->id]) }}">{{ __('Edit') }}</a>
+                                                                            <a class="dropdown-item" href="{{ route('project.project_update.edit', [$project->id,$projectUpdate->id]) }}">{{ __('Edit') }}</a>
                                                                             <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this project?") }}') ? this.parentElement.submit() : ''">
                                                                                 {{ __('Delete') }}
                                                                             </button>
                                                                         </form>    
                                                                     @else
-                                                                        <a class="dropdown-item" href="{{ route('project.project_investment.edit', [$project->id,$projectInvestment->id] ) }}">{{ __('Edit') }}</a>
+                                                                        <a class="dropdown-item" href="{{ route('project.project_update.edit', [$project->id,$projectUpdate->id] ) }}">{{ __('Edit') }}</a>
                                                                     @endif
                                                                 </div>
                                                             </div>
