@@ -51,7 +51,7 @@
                                     <tr>
                                         <td>{{ $offering_type->name }}</td>
                                         <td>
-                                            {{ $offering_type->description }}
+                                            {{ str_limit($offering_type->description, $limit = 50, $end = '...') }}
                                         </td>
                                         <td>{{ $offering_type->created_at->format('d/m/Y H:i') }}</td>
                                         <td class="text-right">

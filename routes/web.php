@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('status', 'StatusController');
 	Route::resource('upload', 'UploadController');
 	Route::resource('upload_type', 'UploadTypeController');
+	Route::resource('shares', 'ShareController');
 
 	// User resource
 	Route::resource('user_detail', 'UserDetailController');
