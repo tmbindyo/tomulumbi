@@ -61,7 +61,7 @@ class ProjectController extends Controller
 
         $thumbnail = Input::file("thumbnail");
         $thumbnail_name = $thumbnail->getClientOriginalName();
-        $thumbnail->move(public_path()."/images/projects/".$thumbnail_name);
+        $thumbnail->move(public_path()."/images/projects/", $thumbnail_name);
 
         $institution_id = 1;
 
