@@ -29,9 +29,6 @@ class ProjectUpdateRequest extends FormRequest
             'name' => [
                 'required', 'min:3'
             ],
-            'position' => [
-                'required'
-            ],
         ];
     }
 }

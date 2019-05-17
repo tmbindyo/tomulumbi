@@ -546,8 +546,8 @@
                                             <tbody>
                                                 @foreach ($projectUpdates as $projectUpdate)
                                                     <tr>
-                                                        <td>{{ $projectUpdate->amount }}</td>
-                                                        <td>{{ Auth::user()->name }}</td>
+                                                        <td>{{ $projectUpdate->name }}</td>
+                                                        <td>{{ $projectUpdate->description }}</td>
                                                         <td>{{ $projectUpdate->created_at }}</td>
                                                         @if (Auth::user()->user_type_id == 4)
                                                         <td class="text-right">
