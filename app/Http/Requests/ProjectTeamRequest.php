@@ -33,7 +33,7 @@ class ProjectTeamRequest extends FormRequest
                 'required'
             ],
             'image' => [
-                'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'required'
             ],
         ];
     }
