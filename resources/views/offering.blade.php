@@ -275,33 +275,19 @@
 @section('updates')
 <section class="py-7 section-nucleo-icons bg-white overflow-hidden">
     <div class="container">
-        <h2>PROJECT UPDATES</h4>
+        @if(count($project->project_updates) > 0)
+            <h2>PROJECT UPDATES</h4>
+        @endif
         <div class="row updates">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Notice of Funds Disbursement</h5>
-                    <p class="card-text">As you might know, Fusion Farms has exceeded its minimum funding goal. When a company reaches its minimum on StartEngine, it's about to begin withdrawing funds. If you invested in Fusion Farms be on the lookout for an email that describes more about the disbursement process.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            @foreach($project->project_updates as $updates)
+                <div class="card" style="margin-bottom:4%">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">{{ $updates->name }}</h3>
+                        <p class="card-text">{{ $updates->description }}</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row updates">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Notice of Funds Disbursement</h5>
-                    <p class="card-text">As you might know, Fusion Farms has exceeded its minimum funding goal. When a company reaches its minimum on StartEngine, it's about to begin withdrawing funds. If you invested in Fusion Farms be on the lookout for an email that describes more about the disbursement process.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-        </div>
-        <div class="row updates">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Notice of Funds Disbursement</h5>
-                    <p class="card-text">As you might know, Fusion Farms has exceeded its minimum funding goal. When a company reaches its minimum on StartEngine, it's about to begin withdrawing funds. If you invested in Fusion Farms be on the lookout for an email that describes more about the disbursement process.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
