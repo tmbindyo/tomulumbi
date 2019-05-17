@@ -10,10 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Landing Page Routes
 Route::get('/', function () {
     return view('welcome');
 })->name('landing');
+
+Route::get('/offering/{id}', 'HomeController@offerings')->name('offering');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

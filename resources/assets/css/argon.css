@@ -36,6 +36,7 @@
     --secondary: #f7fafc;
     --success: #2dce89;
     --info: #11cdef;
+    --projects: #f7f7f7;
     --warning: #fb6340;
     --danger: #f5365c;
     --light: #adb5bd;
@@ -104,6 +105,7 @@ body
     color: #525f7f;
     background-color: #f8f9fe;
 }
+
 
 [tabindex='-1']:focus
 {

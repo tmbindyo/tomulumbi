@@ -49,17 +49,21 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request, Project $model)
     {
         
+        ## TODO: Institution ID
         // Institution 
-        if (Auth::user()->user_type_id == 1)
-            $institution_id = $request->institution;
-        else
-            $institution_id = Auth::user()->institution_id;
+        // if (Auth::user()->user_type_id == 1)
+        //     $institution_id = $request->institution;
+        // else
+        //     $institution_id = Auth::user()->institution_id;
+
+        $institution_id = 1;
 
         $project = new Project;
         $project->name = $request->name;
         $project->description = $request->description;
         $project->video = $request->video;
-        $project->institution_id = $request->institution_id;
+        // $project->institution_id = $request->institution_id;
+        $project->institution_id = $institution_id;
         $project->project_type_id = $request->project_type;
         $project->offering_type_id = $request->offering_type;
         $project->valuation = $request->valuation;

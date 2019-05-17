@@ -7,7 +7,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Argon Dashboard') }}</title>
+        <title>{{ config('app.name', 'BIP') }}</title>
         <!-- Favicon -->
         <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
         <!-- Fonts -->
@@ -17,6 +17,46 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+        <style>
+            .stat {
+                border-right: 1px solid #ebedef;
+                padding: 0px 19px;
+                margin-bottom: 25px;
+                position: initial;
+                max-height: 32px;
+            }
+            .num {
+                color: #1e1e1e;
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 1;
+                margin: 0;
+            }
+            .abbrev-number {
+                font-size: 15px;
+            }
+            .span {
+                color: #1e1e1e
+            }
+            .modal.fade .modal-dialog {
+                -webkit-transform: translate(0, 25%);
+                    -ms-transform: translate(0, 25%);
+                        transform: translate(0, 25%);
+                -webkit-transition: -webkit-transform 0.3s ease-out;
+                   -moz-transition: -moz-transform 0.3s ease-out;
+                     -o-transition: -o-transform 0.3s ease-out;
+                        transition: transform 0.3s ease-out;
+              }
+              
+              .modal.in .modal-dialog {
+                -webkit-transform: translate(0, 0);
+                    -ms-transform: translate(0, 0);
+                        transform: translate(0, 0);
+              }
+              .updates {
+                  margin-bottom: 5%;
+              }
+        </style>
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -38,6 +78,16 @@
         <div class="main-content">
             @include('layouts.navbars.navbar')
             @yield('content')
+            @yield('banner')
+            @yield('projects')
+            @yield('project-info')
+            @yield('equity')
+            @yield('milestones')
+            @yield('testimonials')
+            @yield('team')
+            @yield('project-images')
+            @yield('updates')
+            @yield('comments')
         </div>
 
         @guest()
@@ -57,5 +107,24 @@
         
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+        <script>
+
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+            /*
+            var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+            */
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://bip.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </body>
 </html>

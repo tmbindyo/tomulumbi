@@ -165,7 +165,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                                 </div>
-                                                <input class="form-control" name="start_date" placeholder="Start date" type="text" value="06/18/2018">
+                                                <input class="form-control" name="start_date" placeholder="Start date" type="text" value="{{ date('d/m/Y', strtotime(now())) }}">
                                             </div>
                                         </div>
                                     </div>
@@ -176,7 +176,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                                 </div>
-                                                <input class="form-control" name="end_date" placeholder="End date" type="text" value="06/22/2018">
+                                                <input class="form-control" name="end_date" placeholder="End date" type="text" value="{{ date('d/m/Y', strtotime(now())) }}">
                                             </div>
                                         </div>
                                     </div>
