@@ -12,24 +12,46 @@
                                 <div class="carousel-item active">
                                     <img src="{{ asset('images') }}/single.jpg" class="d-block w-100" style="height: 70%">
                                     <div class="carousel-caption d-none d-md-block bg-white">
-                                        <h2 class="text-black">The future of investing is here.</h5>
+                                        <h2 class="text-black">{{ $project->name }}</h5>
                                             <br>
                                             <ul class="list-group list-group-flush">
                                                     <div class="row">
                                                         <div class="col-md-3 stat">
-                                                            <div class="num">$3.4
-                                                                <span class="abbrev-number">M</span>
-                                                            </div>
+                                                            @if(count($project->project_investments) > 0)
+                                                                @if($project->project_investments->sum('amount') > 1000000)
+                                                                    <div class="num">{{ $project->project_investments->sum('amount') }}
+                                                                        <span class="abbrev-number">M</span>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="num">${{ $project->project_investments->sum('amount') }}
+                                                                        <span class="abbrev-number">K</span>
+                                                                    </div>
+                                                                @endif
+                                                            @else
+                                                                <div class="num">$0
+                                                                    <span class="abbrev-number">M</span>
+                                                                </div>
+                                                            @endif
                                                             <span class="span">Raised</span>
                                                         </div>
                                                         <div class="col-md-3 stat">
-                                                            <div class="num">3.4
-                                                                <span class="abbrev-number">K</span>
-                                                            </div>
+                                                            @if(count($project->project_investments) > 0)
+                                                                <div class="num">{{ $project->project_investments->count('amount') }}
+                                                                    @if($project->project_investments->count('amount') > 1000)
+                                                                        <span class="abbrev-number">K</span>
+                                                                    @else
+                                                                        <span class="abbrev-number"></span>
+                                                                    @endif
+                                                                </div>
+                                                            @else
+                                                                <div class="num">0
+                                                                    <span class="abbrev-number"></span>
+                                                                </div>
+                                                            @endif
                                                             <span class="span">Investors</span>
                                                         </div>
                                                         <div class="col-md-3 stat">
-                                                            <div class="num">$500</div>
+                                                            <div class="num">${{ $project->minimum_investment }}</div>
                                                             <span class="span">Min Investment</span>
                                                         </div>
                                                         <div class="col-md-3">
@@ -71,16 +93,14 @@
 <section class="py-7 section-nucleo-icons bg-white overflow-hidden">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
+            <div class="col-lg-8">
                 <hr>
-                    <h2 class="display-3">DIGITAL BRANDS GROUP: A PORTFOLIO OF HIGH GROWTH DIGITAL FIRST APPAREL BRANDS</h2>
+                    <h2 class="display-3 text-center">{{ $project->name }}</h2>
                 <hr>
                 <div class="row">
                     <div class="col-lg-8">
                         <p class="lead">
-                                Our portfolio model significantly increases revenues, decreases operating expenses, and establishes brand longevity.
-                                Our strategy reflects what traditional luxury holding companies have done for decades. But instead of wholesale first, we modernized the model to reflect how consumers discover and shop today, which is digital-first. 
-                                By eliminating administrative and operational responsibilities for our brands, we stimulate creativity, innovation, and a maniacal commitment to the product and customer experience.  This in turn drives emotional customer connections and brand longevity
+                            {{ $project->description }}
                         </p>
                     </div>
                     <div class="col-lg-4">
@@ -117,7 +137,7 @@
                             </div>
                             <div class="col ml--2">
                                 <h1 class="mb-0">Price Per Share</h1>
-                                <h2 class="text-md text-muted mb-0">7.05%</h2>
+                                <h2 class="text-md text-muted mb-0">{{ $project->return_rate }}</h2>
                             </div>
                         </div>
                     </div>
@@ -133,7 +153,7 @@
                             </div>
                             <div class="col ml--2">
                                 <h1 class="mb-0">Minimum Investment</h1>
-                                <h2 class="text-md text-muted mb-0">$504.89</h2>
+                                <h2 class="text-md text-muted mb-0">${{ $project->minimum_investment }}</h2>
                             </div>
                         </div>
                     </div>
@@ -149,7 +169,7 @@
                             </div>
                             <div class="col ml--2">
                                 <h1 class="mb-0">Valuation</h1>
-                                <h2 class="text-md text-muted mb-0">$119M</h2>
+                                <h2 class="text-md text-muted mb-0">{{ sprintf('$ %s', number_format($project->total_budget, 0)) }}</h2>
                             </div>
                         </div>
                     </div>
