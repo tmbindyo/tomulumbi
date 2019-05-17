@@ -57,7 +57,7 @@ class ProjectMilestoneController extends Controller
         $projectMilestone->assignee_id = 0;
         $projectMilestone->status_id = 1;
         $projectMilestone->save();
-        return redirect()->route('project.index')->withID($id)->withStatus(__('Project milestone successfully created.'));
+        return redirect()->route('project.show')->withID($id)->withStatus(__('Project milestone successfully created.'));
     }
 
     /**
