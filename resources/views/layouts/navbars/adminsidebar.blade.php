@@ -80,7 +80,12 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Home') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin-indepth') }}">
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('InDepth Dashbaord') }}
                     </a>
                 </li>
                 <li class="nav-item">
