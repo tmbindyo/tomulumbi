@@ -20,6 +20,9 @@ Route::get('/offering/{id}', 'HomeController@offerings')->name('offering');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/indepth', 'HomeController@investorDepth')->name('home-indepth');
+Route::get('/admin/indepth', 'HomeController@investorDepth')->name('admin-indepth');
+Route::get('/pm/indepth', 'HomeController@projectmanagerInDepth')->name('pm-indepth');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'UserController', ['except' => ['show']]);

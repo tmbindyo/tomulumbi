@@ -86,8 +86,12 @@ class HomeController extends Controller
     {
         return view('investor.dashboard');
     }
-    public function projectmanager()
+    public function investorDepth()
     {
-        return view('project.manager.dashboard');
+        return view('investor.in-depth');
+    }
+    public function projectmanagerInDepth()
+    {
+        return view('projectmanager.in-depth');
     }
 }

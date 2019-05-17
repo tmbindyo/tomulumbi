@@ -6,8 +6,8 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            <h4 style="font-weight:'bold'; font-size:'24px'">AIP: INVESTOR</h4>
-            <!-- <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="..."> -->
+            {{-- <h4 style="font-weight:'bold'; font-size:'24px'">AIP: INVESTOR</h4> --}}
+            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="logo">
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -81,7 +81,12 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Home') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home-indepth') }}">
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('In-Depth Dashbaord') }}
                     </a>
                 </li>
                 <li class="nav-item">
