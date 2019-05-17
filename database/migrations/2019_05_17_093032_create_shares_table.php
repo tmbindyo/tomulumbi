@@ -16,7 +16,7 @@ class CreateSharesTable extends Migration
         Schema::create('shares', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('institution_id')->unsigned();
-            $table->integer('share_type')->unsigned();
+            $table->string('share_type');
             $table->integer('no_of_shares')->unsigned();
             $table->double('share_price', 20, 2)->nullable();
             $table->integer('min_shares')->unsigned();

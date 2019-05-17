@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Share;
+use App\Institution;
+
 use Illuminate\Http\Request;
 
 class ShareController extends Controller
@@ -11,9 +14,11 @@ class ShareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Share $share)
     {
-        //
+        
+        return view("shares.index", ["shares" => $share->paginate(15)]);
+
     }
 
     /**
@@ -21,9 +26,11 @@ class ShareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Institution $institution)
     {
-        //
+        
+        return view("shares.create", ["institutions" => $institution->all()]);
+
     }
 
     /**
@@ -34,7 +41,19 @@ class ShareController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $share = new Share;
+
+        $share->institution_id = $request->institution;
+        $share->share_type = $request->share_type;
+        $share->no_of_shares = $request->no_of_shares;
+        $share->share_price = $request->share_price;
+        $share->min_shares = $request->min_shares;
+
+        $share->save();
+
+        return redirect()->route("shares.create")->withStatus(_("Shares listing saved."));
+
     }
 
     /**
