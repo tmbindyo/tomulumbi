@@ -96,12 +96,14 @@
 
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
+        <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
         <!-- <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/dropzone.min.js"></script> -->
         <script src="https://demos.creative-tim.com/argon-dashboard-pro/assets/vendor/dropzone/dist/min/dropzone.min.js"></script>
 
         <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
         <!-- <script src="{{ asset('argon') }}/vendor/dropzone/dist/min/dropzone.min.js"></script> -->
-        <script src="/assets"></script>
+        {{-- <script src="/assets"></script> --}}
         
         @stack('js')
         
