@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('project.store') }}" autocomplete="off">
+                        <form method="post" action="{{ route('project.store') }}" autocomplete="off" enctype = "multipart/form-data">
                             @csrf
                             
                             <h6 class="heading-small text-muted mb-4">{{ __('Project information') }}</h6>
@@ -43,6 +43,16 @@
                                     @if ($errors->has('video'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('video') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('thumbnail') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-thumbnail">{{ __('Thumbnail') }}</label>
+                                    <input type="file" name="thumbnail" id="input-thumbnail" class="form-control form-control-alternative{{ $errors->has('thumbnail') ? ' is-invalid' : '' }}" placeholder="{{ __('Thumbnail') }}" value="{{ old('thumbnail') }}" required autofocus>
+
+                                    @if ($errors->has('thumbnail'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('thumbnail') }}</strong>
                                         </span>
                                     @endif
                                 </div>

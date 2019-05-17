@@ -12,6 +12,7 @@ use App\ProjectType;
 use App\ProjectMilestone;
 use App\ProjectInvestment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProjectRequest;
 
@@ -56,12 +57,19 @@ class ProjectController extends Controller
         // else
         //     $institution_id = Auth::user()->institution_id;
 
+        // return $request;
+
+        $thumbnail = Input::file("thumbnail");
+        $thumbnail_name = $thumbnail->getClientOriginalName();
+        $thumbnail->move(public_path()."/images/projects/".$thumbnail_name);
+
         $institution_id = 1;
 
         $project = new Project;
         $project->name = $request->name;
         $project->description = $request->description;
         $project->video = $request->video;
+        $project->thumbnail = "/images/projects/.$thumbnail_name";
         // $project->institution_id = $request->institution_id;
         $project->institution_id = $institution_id;
         $project->project_type_id = $request->project_type;
