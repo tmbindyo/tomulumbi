@@ -165,7 +165,7 @@
                                             <span>Min Investment</span>
                                         </div>
                                     </div>
-                                    <li class="list-group-item"><a href="{{ route('offering', encrypt($project->id)) }}">View Offering</a></li>
+                                    <li class="list-group-item"><a href="{{ route('offering', $project->id) }}">View Offering</a></li>
                                 </ul>      
                             </div>
                         </div>
