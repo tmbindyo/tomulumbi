@@ -19,7 +19,7 @@ class LandingController extends Controller
 
     public function offerings($id) {
         // $id = decrypt($id);
-        $project = Project::where('id', $id)->with('project_investments')->with('project_teams')->first();
+        $project = $projects = Project::where('id', $id)->with('project_investments')->with('project_teams')->first();
         // echo $project;
         return view('offering')->withProject($project);
     }
