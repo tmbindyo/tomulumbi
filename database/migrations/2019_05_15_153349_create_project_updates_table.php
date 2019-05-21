@@ -16,7 +16,6 @@ class CreateProjectUpdatesTable extends Migration
         Schema::create('project_updates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->longText('image');
             $table->longText('description');
             $table->integer('project_id')->unsigned();
             $table->integer('status_id')->unsigned();

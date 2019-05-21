@@ -44,14 +44,14 @@ class ProjectTeamController extends Controller
         
         $image = Input::file("image");
         $image_name = $image->getClientOriginalName();
-        $image->move(public_path()."/images/projects/", $image_name);
+        $image->move(public_path()."/projects/", $image_name);
  
 
         $projectTeam = new ProjectTeam;
         $projectTeam->description = "";
         $projectTeam->name = $request->name;
         $projectTeam->position = $request->position;
-        $projectTeam->image = "/images/projects/.$image_name";
+        $projectTeam->image = "/projects/.$image_name";
         $projectTeam->description = $request->description;
         $projectTeam->project_id = $project->id;
         $projectTeam->user_id = Auth::user()->id;

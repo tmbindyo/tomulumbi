@@ -278,6 +278,7 @@
                                                         <th scope="col">{{ __('Name') }}</th>
                                                         <th scope="col">{{ __('Amount') }}</th>
                                                         <th scope="col">{{ __('Creation Date') }}</th>
+                                                        <th scope="col">{{ __('Status') }}</th>
                                                         <th scope="col"></th>
                                                     </tr>
                                                 </thead>
@@ -286,7 +287,9 @@
                                                         <tr>
                                                             <td>{{ Auth::user()->name }}</td>
                                                             <td>{{ $projectBid->bid_amount }}</td>
+                                                            <td><span class="badge badge-pill badge-warning">Under review</span></td>
                                                             <td>{{ $projectBid->created_at }}</td>
+                                                            <td></td>
                                                             @if (Auth::user()->user_type_id == 4)
                                                             <td class="text-right">
                                                                 <div class="dropdown">
@@ -358,6 +361,7 @@
                                                     <th scope="col">{{ __('Amount') }}</th>
                                                     <th scope="col">{{ __('Investor') }}</th>
                                                     <th scope="col">{{ __('Creation Date') }}</th>
+                                                    <th scope="col">{{ __('Status') }}</th>
                                                     <th scope="col"></th>
                                                 </tr>
                                             </thead>
@@ -367,6 +371,7 @@
                                                         <td>{{ $projectInvestment->amount }}</td>
                                                         <td>{{ Auth::user()->name }}</td>
                                                         <td>{{ $projectInvestment->created_at }}</td>
+                                                        <td><span class="badge badge-pill badge-success">Approved</span></td>
                                                         @if (Auth::user()->user_type_id == 4)
                                                         <td class="text-right">
                                                             <div class="dropdown">

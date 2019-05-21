@@ -104,7 +104,7 @@
                 <div class="row">
                     @foreach ($projects as $project)
                         <div class="col-lg-4">
-                            <div class="card" style="margin-bottom:10%">
+                            <div class="card" style="margin-bottom:10%"><a href="{{ route('offering', $project->id) }}">
                                 <img class="card-img-top" src="{{ asset('images') }}{{ $project->thumbnail }}" alt="Offering Image">                    
                                         <!-- Card body -->
                                 <div class="card-body">
@@ -167,6 +167,7 @@
                                     </div>
                                     <li class="list-group-item"><a href="{{ route('offering', $project->id) }}">View Offering</a></li>
                                 </ul>      
+                                </a>
                             </div>
                         </div>
                     @endforeach

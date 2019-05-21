@@ -40,6 +40,9 @@ class BidManagementController extends Controller
         
 
         // Create record 
+        // Project updates
+        $projectUpdates = DB::table('project_updates')->where('status_id',1)->where('project_id', $project->id)->get();
+
 
         // $projectMilestones = ProjectMilestone::all();
         if (Auth::user()->user_type_id == 1)
@@ -66,6 +69,6 @@ class BidManagementController extends Controller
 
         // echo ($projectMilestones);
         $projectInvestments = DB::table('project_investments')->where('project_id', $project_id)->get();
-        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectTeams($projectTeams)->withProjectMilestones($projectMilestones)->withProjectInvestments($projectInvestments);
+        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectTeams($projectTeams)->withProjectUpdates($projectUpdates)->withProjectMilestones($projectMilestones)->withProjectInvestments($projectInvestments);
     }
 }

@@ -41,11 +41,22 @@ class ProjectMilestoneController extends Controller
      */
     public function store($id, ProjectMilestoneRequest $request, ProjectMilestone $model)
     {
+        if (Input::file("image")){
+
+        $image = Input::file("image");
+        $image_name = $image->getClientOriginalName();
+        $image->move(public_path()."/projects/", $image_name);
+        }
+        else {
+            $image_name = '';
+        }
+
         $project = Project::find($id);
 
         $projectMilestone = new ProjectMilestone;
         $projectMilestone->name = $request->name;
         $projectMilestone->description = $request->description;
+        $projectMilestone->image = "/projects/.$image_name";
         $projectMilestone->priority = $request->priority;
         $projectMilestone->project_id = $project->id;
         $projectMilestone->total_budget = $request->total_budget;
@@ -57,7 +68,38 @@ class ProjectMilestoneController extends Controller
         $projectMilestone->assignee_id = 0;
         $projectMilestone->status_id = 1;
         $projectMilestone->save();
-        return redirect()->route('project.show')->withID($id)->withStatus(__('Project milestone successfully created.'));
+
+
+        // Project updates
+        $projectUpdates = DB::table('project_updates')->where('status_id',1)->where('project_id', $project->id)->get();
+
+
+        // $projectMilestones = ProjectMilestone::all();
+        if (Auth::user()->user_type_id == 1)
+            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->where('status_id', 1)->get();
+        elseif (Auth::user()->user_type_id == 3) {
+            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->where('status_id', 1)->where('user_id', Auth::user()->id)->get();
+        }elseif (Auth::user()->user_type_id == 4) {
+            $projectBids = DB::table('project_bids')->where('project_id', $project->id)->where('status_id', 1)->get();
+        }else {
+            $projectBids = [];
+        }
+        $projectMilestones = DB::table('project_milestones')->where('project_id', $project->id)->get();
+
+        if (Auth::user()->user_type_id == 1)
+            $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->get();
+        elseif (Auth::user()->user_type_id == 3) {
+            $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->where('user_id', Auth::user()->id)->get();
+        }elseif (Auth::user()->user_type_id == 4) {
+            $projectTeams = DB::table('project_teams')->where('status_id',1)->where('project_id', $project->id)->get();
+        }else {
+            $projectBids = [];
+        }
+
+
+        // echo ($projectMilestones);
+        $projectInvestments = DB::table('project_investments')->where('project_id', $project->id)->get();
+        return view('projects.show')->withProject($project)->withProjectBids($projectBids)->withProjectTeams($projectTeams)->withProjectUpdates($projectUpdates)->withProjectMilestones($projectMilestones)->withProjectInvestments($projectInvestments);
     }
 
     /**
