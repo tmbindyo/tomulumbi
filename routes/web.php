@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('institution', 'InstitutionController');
 	Route::resource('investor', 'InvestorController');
 	Route::resource('project', 'ProjectController');
+	Route::resource('project.project_update', 'ProjectUpdateController');
 	Route::resource('project.project_team', 'ProjectTeamController');
 	Route::resource('project.project_bid', 'ProjectBidController');
 	Route::resource('project.project_investment', 'ProjectInvestmentController');
