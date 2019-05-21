@@ -43,9 +43,14 @@ class ProjectUpdateController extends Controller
     {
         $project = Project::find($id);
         
-        $image = Input::file("image");
-        $image_name = $image->getClientOriginalName();
-        $image->move(public_path()."/projects/", $image_name);
+        if (Input::file("image")){
+            $image = Input::file("image");
+            $image_name = $image->getClientOriginalName();
+            $image->move(public_path()."/projects/", $image_name);
+        }else{
+            $image_name = "";
+        }
+        
  
 
         $projectUpdate = new ProjectUpdate;
