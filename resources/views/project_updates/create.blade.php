@@ -37,7 +37,7 @@
 
                                 <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
                                         <label class="form-control-label" for="input-description">{{ __('Description') }}</label>
-                                        <input type="text" name="description" id="input-description" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ $project->description }}" required autofocus>
+                                        <textarea class="form-control" name="description" id="input-description" class="form-control form-control-alternative{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="{{ __('Description') }}" value="{{ old('description') }}" required rows="5" placeholder="Project update description ..."></textarea>
     
                                         @if ($errors->has('description'))
                                             <span class="invalid-feedback" role="alert">
