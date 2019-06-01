@@ -9,10 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use SoftDeletes;
-    
-    
-    use Notifiable;
+    use SoftDeletes, Notifiable;
+
 
     public function industries()
     {
@@ -68,7 +66,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'email_verified_at', 'user_type_id'
     ];
 
     /**

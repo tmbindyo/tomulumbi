@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CommunicationType extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, UuidTraitt;
+
+    public $incrementing = false;
     
     
     //
