@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -60,6 +61,16 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\UserType');
     }
+
+    public function findUserType($userKey)
+    {
+
+        if (UserType::all()[$userKey]['id'] == Auth::user()->user_type_id) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * The attributes that are mass assignable.
      *
