@@ -64,14 +64,15 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-            
-            @if (Auth::user()->user_type_id == 1)
+
+            @if (Auth::user()->findUserType(0))
                 @include('layouts.navbars.adminsidebar')
-            @elseif (Auth::user()->user_type_id == 3)
+            @endif
+            @if (Auth::user()->findUserType(2))
                 @include('layouts.navbars.investorsidebar')
-            @elseif (Auth::user()->user_type_id == 4)
+            @endif
+            @if (Auth::user()->findUserType(3))
                 @include('layouts.navbars.project_managersidebar')
-            @else
             @endif
 
         @endauth
