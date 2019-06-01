@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OfferingType extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, UuidTrait;
+
+    public $incrementing = false;
     
     
     //

@@ -14,7 +14,9 @@ class CreateProjectImagesTable extends Migration
     public function up()
     {
         Schema::create('project_images', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('image');
             $table->integer('project_id')->unsigned();

@@ -14,7 +14,9 @@ class CreateUploadsTable extends Migration
     public function up()
     {
         Schema::create('uploads', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('description');
             $table->integer('upload_type_id')->unsigned();

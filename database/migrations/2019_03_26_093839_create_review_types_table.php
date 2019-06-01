@@ -14,7 +14,9 @@ class CreateReviewTypesTable extends Migration
     public function up()
     {
         Schema::create('review_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('description');
             $table->integer('user_id')->unsigned();

@@ -2,13 +2,16 @@
 
 namespace App;
 
+use App\Traits\UuidTrait;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, UuidTrait;
+
+    public $incrementing = false;
     
     //
     public function project_bids()

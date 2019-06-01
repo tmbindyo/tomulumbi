@@ -14,7 +14,9 @@ class CreateInvestorsTable extends Migration
     public function up()
     {
         Schema::create('investors', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('description');
             $table->integer('institution_id')->unsigned();

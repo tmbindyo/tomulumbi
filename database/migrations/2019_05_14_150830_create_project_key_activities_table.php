@@ -14,7 +14,9 @@ class CreateProjectKeyActivitiesTable extends Migration
     public function up()
     {
         Schema::create('project_key_activities', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->integer('priority');
             $table->string('name');
             $table->longText('description');

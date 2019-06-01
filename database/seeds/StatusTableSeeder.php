@@ -11,54 +11,48 @@ class StatusTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('statuses')->insert([
-            'name' => 'Pending',
-            'description' => 'Pending',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('statuses')->insert([
-            'name' => 'Approved',
-            'description' => 'Approved',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('statuses')->insert([
-            'name' => 'Open',
-            'description' => 'Open',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('statuses')->insert([
-            'name' => 'Completed',
-            'description' => 'Completed',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('statuses')->insert([
-            'name' => 'Ongoing',
-            'description' => 'Ongoing',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('statuses')->insert([
-            'name' => 'Active',
-            'description' => 'Active',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('statuses')->insert([
-            'name' => 'Inactive',
-            'description' => 'Inactive',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        $data = [
+            [
+                'name' => 'Pending',
+                'description' => 'Pending',
+                'user_id' => 1,
+            ],
+            [
+                'name' => 'Approved',
+                'description' => 'Approved',
+                'user_id' => 1,
+            ],
+            [
+                'name' => 'Open',
+                'description' => 'Open',
+                'user_id' => 1,
+            ],
+            [
+                'name' => 'Completed',
+                'description' => 'Completed',
+                'user_id' => 1,
+            ],
+            [
+                'name' => 'Ongoing',
+                'description' => 'Ongoing',
+                'user_id' => 1,
+            ],
+            [
+                'name' => 'Active',
+                'description' => 'Active',
+                'user_id' => 1,
+            ],
+            [
+                'name' => 'Inactive',
+                'description' => 'Inactive',
+                'user_id' => 1,
+            ]
+        ];
+
+        foreach ($data as $entry) {
+            \App\Status::create(
+                $entry
+            );
+        }
     }
 }
