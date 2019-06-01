@@ -11,33 +11,33 @@ class UserTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('user_types')->insert([
-            'name' => 'Admin',
-            'description' => 'Admin',
-            'status_id' => 6,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('user_types')->insert([
-            'name' => 'Project User',
-            'description' => 'Project User',
-            'status_id' => 6,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('user_types')->insert([
-            'name' => 'Investor',
-            'description' => 'Investor',
-            'status_id' => 6,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('user_types')->insert([
-            'name' => 'Project Manager',
-            'description' => 'project manager',
-            'status_id' => 6,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        $data = [
+            [
+                'name' => 'Admin',
+                'description' => 'Admin',
+                'status_id' => 6,
+            ],
+            [
+                'name' => 'Project User',
+                'description' => 'Project User',
+                'status_id' => 6,
+            ],
+            [
+                'name' => 'Investor',
+                'description' => 'Investor',
+                'status_id' => 6,
+            ],
+            [
+                'name' => 'Project Manager',
+                'description' => 'project manager',
+                'status_id' => 6,
+            ]
+        ];
+
+        foreach ($data as $entry) {
+            \App\UserType::create(
+                $entry
+            );
+        }
     }
 }
