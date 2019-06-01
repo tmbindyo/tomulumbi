@@ -14,7 +14,9 @@ class CreateMilestoneDeliverablesTable extends Migration
     public function up()
     {
         Schema::create('milestone_deliverables', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('description');
             $table->integer('milestone_id')->unsigned();

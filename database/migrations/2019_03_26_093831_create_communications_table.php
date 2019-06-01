@@ -14,7 +14,9 @@ class CreateCommunicationsTable extends Migration
     public function up()
     {
         Schema::create('communications', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('description');
             $table->boolean('is_read');

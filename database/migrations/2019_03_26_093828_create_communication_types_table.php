@@ -14,7 +14,9 @@ class CreateCommunicationTypesTable extends Migration
     public function up()
     {
         Schema::create('communication_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('description');
             $table->integer('user_id')->unsigned();

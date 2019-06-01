@@ -14,7 +14,9 @@ class CreateIndustriesTable extends Migration
     public function up()
     {
         Schema::create('industries', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('description');
             $table->string('color_code', 16)->nullable(); //should be a hex code

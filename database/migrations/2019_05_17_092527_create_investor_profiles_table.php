@@ -14,7 +14,8 @@ class CreateInvestorProfilesTable extends Migration
     public function up()
     {
         Schema::create('investor_profiles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
 
             $table->string('phone_number');
             $table->date('date_of_birth');

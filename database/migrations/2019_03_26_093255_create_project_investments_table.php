@@ -14,7 +14,9 @@ class CreateProjectInvestmentsTable extends Migration
     public function up()
     {
         Schema::create('project_investments', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->integer('project_id')->unsigned();
             // $table->foreign('project_id')->references('id')->on('projects');
             $table->integer('investor_id')->unsigned();

@@ -14,7 +14,9 @@ class CreateProjectTeamsTable extends Migration
     public function up()
     {
         Schema::create('project_teams', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('image');
             $table->longText('position');

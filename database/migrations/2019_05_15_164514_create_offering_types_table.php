@@ -14,7 +14,9 @@ class CreateOfferingTypesTable extends Migration
     public function up()
     {
         Schema::create('offering_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->uuid('id');
+
             $table->string('name');
             $table->longText('description');
             $table->integer('user_id')->unsigned();
