@@ -1,15 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (Auth::user()->user_type_id == 1)
-        @include('layouts.headers.admin_cards')
-    @elseif (Auth::user()->user_type_id == 3)
-        @include('layouts.headers.investor_cards')
-    @elseif (Auth::user()->user_type_id == 4)
-        @include('layouts.headers.project_manager_cards')
-    @endif
+   @include('partials.dashboard_cards')
 
-    
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-8 mb-5 mb-xl-0">

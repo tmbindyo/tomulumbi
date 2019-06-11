@@ -70,4 +70,19 @@ class Project extends Model
     {
         return $this->hasMany('App\ProjectMetric');
     }
+
+    public function authenticatedUserInvestment()
+    {
+        return $this->with(['project_investments' => function($query) {
+            $query->where('investor_id', Auth::user()->id);
+        }]);
+    }
+
+    public function authenticatedUserProjectBids()
+    {
+        return $this->with(['project_bids' => function($query) {
+            $query->where('user_id', Auth::user()->id);
+            $query->where('status_id',  Status::all()[0]['id']);
+        }]);
+    }
 }
