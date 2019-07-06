@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddImageToProjectUpdates extends Migration
+class CreateAlbumImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddImageToProjectUpdates extends Migration
      */
     public function up()
     {
-        Schema::table('project_updates', function (Blueprint $table) {
-            //
-            $table->longText("image");
+        Schema::create('album_images', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +26,6 @@ class AddImageToProjectUpdates extends Migration
      */
     public function down()
     {
-        Schema::table('project_updates', function (Blueprint $table) {
-            //
-            $table->longText("image");
-        });
+        Schema::dropIfExists('album_images');
     }
 }

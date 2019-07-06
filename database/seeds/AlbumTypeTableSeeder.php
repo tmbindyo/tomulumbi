@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UserTypeTableSeeder extends Seeder
+class AlbumTypeTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
