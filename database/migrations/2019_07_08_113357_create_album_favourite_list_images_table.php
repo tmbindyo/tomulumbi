@@ -17,6 +17,7 @@ class CreateAlbumFavouriteListImagesTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('album_list_id');
             $table->uuid('album_image_id');
+            $table->text('notes');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();

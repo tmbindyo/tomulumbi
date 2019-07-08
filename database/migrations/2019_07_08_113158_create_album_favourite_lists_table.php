@@ -18,6 +18,7 @@ class CreateAlbumFavouriteListsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->integer('max_selection');
+            $table->uuid('album_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();
