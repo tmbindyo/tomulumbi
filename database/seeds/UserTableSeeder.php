@@ -14,25 +14,18 @@ class UserTableSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Admin Admin',
-                'email' => 'admin@argon.com',
+                'name' => 'info',
+                'email' => 'info@tolumumbi.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('secret'),
-                'user_type_id' => \App\UserType::all()[0]['id'],
+                'password' => Hash::make('jN56Fi3@G96avgYa'),
+                'user_type_id' => 1,
             ],
             [
-                'name' => 'Brady Trujillo',
-                'email' => 'investor@gmail.com',
+                'name' => 'Thomas Mulumbi',
+                'email' => 'tomulumbi@tomulumbi.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('secret'),
-                'user_type_id' => \App\UserType::all()[2]['id'],
-            ],
-            [
-                'name' => 'Ella Martinez',
-                'email' => 'projectmanager@gmail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('secret'),
-                'user_type_id' => \App\UserType::all()[3]['id'],
+                'password' => Hash::make('zC^2$m@45QycTUNO'),
+                'user_type_id' => 1,
             ]
         ];
 
