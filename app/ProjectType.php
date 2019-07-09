@@ -13,11 +13,14 @@ class ProjectType extends Model
     public $incrementing = false;
     
     
-    //
+    // Children
     public function projects()
     {
         return $this->hasMany('App\Project');
     }
+
+
+    // Parents
     public function status()
     {
         return $this->belongsTo('App\Status');

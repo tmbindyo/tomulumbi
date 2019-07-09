@@ -13,31 +13,9 @@ class Project extends Model
 
     public $incrementing = false;
     
-    //
-    public function project_bids()
-    {
-        return $this->hasMany('App\ProjectBid');
-    }
-    public function ongoing_project_bids() {
-        return $this->project_bids()->where('user_id','=', Auth::user()->id)->where('status_id','=', 1);
-    }
-    public function bid_project_bids() {
-        return $this->project_bids()->where('user_id','!=', Auth::user()->id)->where('status_id','=', 1);
-    }
-    public function opportunity_project_bids() {
-        return $this->project_bids()->where('user_id','!=', Auth::user()->id);
-    }
-    public function portfolio_project_bids() {
-        return $this->project_bids()->where('user_id','=', Auth::user()->id);
-    }
-    public function project_investments()
-    {
-        return $this->hasMany('App\ProjectInvestment');
-    }
-    public function project_milestones()
-    {
-        return $this->hasMany('App\ProjectMilestones');
-    }
+    // Children
+
+    // Parents
     public function status()
     {
         return $this->belongsTo('App\Status');
@@ -49,40 +27,5 @@ class Project extends Model
     public function project_type()
     {
         return $this->belongsTo('App\ProjectType');
-    }
-    public function project_images()
-    {
-        return $this->hasMany('App\ProjectImage');
-    }
-    public function project_teams()
-    {
-        return $this->hasMany('App\ProjectTeam');
-    }
-    public function project_updates()
-    {
-        return $this->hasMany('App\ProjectUpdate');
-    }
-    public function project_key_activitys()
-    {
-        return $this->hasMany('App\ProjectKeyActivity');
-    }
-    public function project_metrics()
-    {
-        return $this->hasMany('App\ProjectMetric');
-    }
-
-    public function authenticatedUserInvestment()
-    {
-        return $this->with(['project_investments' => function($query) {
-            $query->where('investor_id', Auth::user()->id);
-        }]);
-    }
-
-    public function authenticatedUserProjectBids()
-    {
-        return $this->with(['project_bids' => function($query) {
-            $query->where('user_id', Auth::user()->id);
-            $query->where('status_id',  Status::all()[0]['id']);
-        }]);
     }
 }

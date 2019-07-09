@@ -23,6 +23,7 @@ class CreateAlbumExpiryRemindersTable extends Migration
             $table->boolean('to_purchased_clients');
             $table->boolean('to_expiry_email_clients');
 
+            $table->uuid('album_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();

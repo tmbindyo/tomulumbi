@@ -6,7 +6,7 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AlbumDownload extends Model
+class AlbumDownloadRestrictionEmail extends Model
 {
     use SoftDeletes, UuidTrait;
     public $incrementing = false;

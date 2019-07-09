@@ -9,11 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Upload extends Model
 {
     use SoftDeletes, UuidTrait;
-
     public $incrementing = false;
     
     
-    //
+    // Parents
     public function status()
     {
         return $this->belongsTo('App\Status');
@@ -22,7 +21,7 @@ class Upload extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function upload_type()
+    public function uploadType()
     {
         return $this->belongsTo('App\UploadType');
     }
