@@ -338,7 +338,7 @@
       <workItem from="1562576838746" duration="1822000" />
       <workItem from="1562579608464" duration="20756000" />
       <workItem from="1562605440041" duration="11330000" />
-      <workItem from="1562844474287" duration="243000" />
+      <workItem from="1562844474287" duration="606000" />
     </task>
     <task id="LOCAL-00001" summary="remove auto incrementing id">
       <created>1559412316833</created>
@@ -414,7 +414,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56342000" />
+    <option name="totallyTimeSpent" value="56705000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="6" />
