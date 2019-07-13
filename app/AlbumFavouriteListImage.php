@@ -12,9 +12,9 @@ class AlbumFavouriteListImage extends Model
     public $incrementing = false;
 
     // Parents
-    public function albumList()
+    public function albumFavouriteList()
     {
-        return $this->belongsTo('App\AlbumList');
+        return $this->belongsTo('App\AlbumFavouriteList');
     }
     public function albumImage()
     {

@@ -15,7 +15,7 @@ class CreateAlbumFavouriteListImagesTable extends Migration
     {
         Schema::create('album_favourite_list_images', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('album_list_id');
+            $table->uuid('album_favourite_list_id');
             $table->uuid('album_image_id');
             $table->text('notes');
             $table->integer('user_id')->unsigned();

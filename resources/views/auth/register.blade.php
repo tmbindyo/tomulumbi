@@ -1,7 +1,7 @@
-@extends('layouts.app', ['class' => 'bg-white'])
+@extends('auth.layouts.app', ['class' => 'bg-white'])
 
 @section('content')
-    @include('layouts.headers.guest')
+    @include('auth.layouts.headers.guest')
 
     <div class="container mt--8 pb-5">
         <!-- Table -->

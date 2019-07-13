@@ -16,7 +16,6 @@ class CreateGridStylesTable extends Migration
         Schema::create('grid_styles', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->text('url');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();

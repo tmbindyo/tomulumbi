@@ -31,6 +31,6 @@ class CreateAlbumDownloadRestrictionEmailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('album_download_restrict_emails');
+        Schema::dropIfExists('album_download_restriction_emails');
     }
 }

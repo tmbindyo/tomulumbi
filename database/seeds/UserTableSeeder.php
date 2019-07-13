@@ -14,7 +14,7 @@ class UserTableSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'info',
+                'name' => 'Admin',
                 'email' => 'info@tolumumbi.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('jN56Fi3@G96avgYa'),

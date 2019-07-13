@@ -16,7 +16,7 @@ class CreateDownloadResolutionsTable extends Migration
         Schema::create('download_resolutions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->uuid('resolution');
+            $table->uuid('description');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();

@@ -16,7 +16,6 @@ class CreateProjectTypesTable extends Migration
         Schema::create('project_types', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->longText('description');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();
