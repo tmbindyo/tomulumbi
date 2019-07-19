@@ -6,7 +6,7 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/tomulumbi_photography.png" class="navbar-brand-img" alt="...">
+            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('argon') }}/img/brand/tomulumbi_photography.png">
+                            <img src="{{ asset('argon') }}/img/brand/blue.png">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -79,87 +79,53 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('ira.dashboard') }}">
+                    <a class="nav-link" href="{{ route('home') }}">
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
+                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
                         {{-- <i class="fas fa-heart" ></i> --}}
                         <i class="far fa-address-card" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('User details') }}</span>
-                    </a>
-
-                    <div class="collapse" id="navbar-examples">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('ira.profile.edit') }}">
-                                    {{ __('User profile') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-policy-management" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-policy-management">
-                        {{-- <i class="fas fa-heart" ></i> --}}
-                        <i class="fa fa-address-book" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Policy management') }}</span>
-                    </a>
-
-                    <div class="collapse" id="navbar-policy-management">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('ira.policies') }}">
-                                    {{ __('Polices') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="collapse" id="navbar-policy-management">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('ira.validate.asset.show') }}">
-                                    {{ __('Validate Asset') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('ira.institutions') }}">
-                        <i class="fas fa-file-invoice text-pink" style="color: #f4645f;"></i> {{ __('Underwriters') }}
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('ira.claims') }}">
-                        <i class="fas fa-hand-paper text-pink" style="color: #f4645f;"></i> {{ __('Claims') }}
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-user-management" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-user-management">
-                        {{-- <i class="fas fa-heart" ></i> --}}
-                        <i class="fa fa-users" style="color: #f4645f;"></i>
                         <span class="nav-link-text" style="color: #f4645f;">{{ __('User management') }}</span>
                     </a>
 
-                    <div class="collapse" id="navbar-user-management">
+                    <div class="collapse show" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('ira.users') }}">
-                                    {{ __('Users') }}
+                                <a class="nav-link" href="{{ route('profile.edit') }}">
+                                    {{ __('User profile') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.index') }}">
+                                    {{ __('User Management') }}
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
 
-                
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('industry.index') }}">
+                        <i class="fas fa-building text-pink" style="color: #f4645f;"></i> {{ __('Industry') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('institution.index') }}">
+                        <i class="fas fa-landmark" style="color: #f4645f;"></i> {{ __('Institution') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('project_type.index') }}">
+                        <i class="fas fa-archive text-pink" style="color: #f4645f;"></i> {{ __('Project type') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('project.index') }}">
+                        <i class="fas fa-landmark text-pink" style="color: #f4645f;"></i> {{ __('Project') }}
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
