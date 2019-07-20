@@ -21,7 +21,7 @@ class Upload extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function uploadType()
+    public function upload_type()
     {
         return $this->belongsTo('App\UploadType');
     }

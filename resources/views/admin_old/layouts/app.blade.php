@@ -73,13 +73,13 @@
         @csrf
     </form>
 
-    @include('admin.layouts.navbars.sidebar')
+    @include('admin_old.layouts.navbars.sidebar')
 
 
 @endauth
 
 <div class="main-content">
-    @include('admin.layouts.navbars.navbar')
+    @include('admin_old.layouts.navbars.navbar')
     @yield('content')
 
     @yield('insurances')

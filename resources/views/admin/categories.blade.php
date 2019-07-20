@@ -21,7 +21,7 @@
   <link href="{{ asset('gentelella') }}/build/css/custom.min.css" rel="stylesheet">
 @endsection
 
-@include('admin.layouts.modals.tag')
+@include('admin.layouts.modals.category')
 
 @section('content')
   <!-- page content -->
@@ -31,7 +31,7 @@
         <div class="title_left">
           <h3>
             <small>
-              Settings->Tags
+              Settings->Categories
             </small>
           </h3>
         </div>
@@ -39,8 +39,8 @@
         <div class="title_right">
           <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tagRegistration">
-                Add tag
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryRegistration">
+                Add category
               </button>
             </div>
           </div>
@@ -56,7 +56,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Tags</h2>
+              <h2>Categories</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -81,41 +81,21 @@
                   <th>Name</th>
                   <th>User</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th style="width: 20%">Action</th>
                 </tr>
                 </thead>
 
 
                 <tbody>
-                @foreach($tags as $tag)
+                @foreach($categories as $category)
                   <tr>
-                    <td>{{$tag->name}}</td>
-                    <td>{{$tag->user->name}}</td>
-                    <td>{{$tag->status->name}}</td>
-                    <td class="text-right">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-danger">Action</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a class="dropdown-item" href="{{ route('admin.tag.update', $tag) }}">{{ __('Edit') }}
-                          </li>
-                          <li><a class="dropdown-item" href="{{ route('admin.tag.delete', $tag) }}">{{ __('Delete') }}
-                          </li>
-
-                        </ul>
-                      </div>
-
-                      <div class="dropdown">
-
-
-
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-
-                        </div>
-                      </div>
+                    <td>{{$category->name}}</td>
+                    <td>{{$category->user->name}}</td>
+                    <td>{{$category->status->name}}</td>
+                    <td>
+                      <a href="{{ route('admin.category', $category->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                      <a href="{{ route('admin.category', $category->id) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                      <a href="{{ route('admin.category.delete', $category->id) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                     </td>
                   </tr>
                 @endforeach
@@ -127,7 +107,7 @@
                   <th>Name</th>
                   <th>User</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th style="width: 20%">Action</th>
                 </tr>
                 </tfoot>
               </table>

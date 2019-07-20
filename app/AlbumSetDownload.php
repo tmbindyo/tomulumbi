@@ -12,7 +12,7 @@ class AlbumSetDownload extends Model
     public $incrementing = false;
 
     // Parents
-    public function albumSet()
+    public function album_set()
     {
         return $this->belongsTo('App\AlbumSet');
     }

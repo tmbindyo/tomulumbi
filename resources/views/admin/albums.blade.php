@@ -9,8 +9,12 @@
   <link href="{{ asset('gentelella') }}/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <!-- NProgress -->
   <link href="{{ asset('gentelella') }}/vendors/nprogress/nprogress.css" rel="stylesheet">
+  <!-- bootstrap-daterangepicker -->
+  <link href="{{ asset('gentelella') }}/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
   <!-- iCheck -->
   <link href="{{ asset('gentelella') }}/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+  <!-- Switchery -->
+  <link href="{{ asset('gentelella') }}/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
   <!-- Datatables -->
   <link href="{{ asset('gentelella') }}/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
   <link href="{{ asset('gentelella') }}/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -21,7 +25,7 @@
   <link href="{{ asset('gentelella') }}/build/css/custom.min.css" rel="stylesheet">
 @endsection
 
-@include('admin.layouts.modals.albumType')
+@include('admin.layouts.modals.album')
 
 @section('content')
   <!-- page content -->
@@ -31,7 +35,7 @@
         <div class="title_left">
           <h3>
             <small>
-              Settings->Album Types
+              Settings->Album
             </small>
           </h3>
         </div>
@@ -39,8 +43,8 @@
         <div class="title_right">
           <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#albumTypeRegistration">
-                Add Album Type
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#albumRegistration">
+                Add Album
               </button>
             </div>
           </div>
@@ -56,7 +60,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Album Types</h2>
+              <h2>Album</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -79,45 +83,25 @@
                 <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Description</th>
+                  <th>Date</th>
                   <th>User</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th style="width: 20%">Action</th>
                 </tr>
                 </thead>
 
 
                 <tbody>
-                @foreach($albumTypes as $albumType)
+                @foreach($albums as $album)
                   <tr>
-                    <td>{{$albumType->name}}</td>
-                    <td>{{$albumType->description}}</td>
-                    <td>{{$albumType->user->name}}</td>
-                    <td>{{$albumType->status->name}}</td>
-                    <td class="text-right">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-danger">Action</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a class="dropdown-item" href="{{ route('admin.album.type.update', $albumType) }}">{{ __('Edit') }}
-                          </li>
-                          <li><a class="dropdown-item" href="{{ route('admin.album.type.delete', $albumType) }}">{{ __('Delete') }}
-                          </li>
-
-                        </ul>
-                      </div>
-
-                      <div class="dropdown">
-
-
-
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-
-                        </div>
-                      </div>
+                    <td>{{$album->name}}</td>
+                    <td>{{$album->date}}</td>
+                    <td>{{$album->user->name}}</td>
+                    <td>{{$album->status->name}}</td>
+                    <td>
+                      <a href="{{ route('admin.album', $album->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                      <a href="{{ route('admin.album', $album->id) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                      <a href="{{ route('admin.album.delete', $album->id) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                     </td>
                   </tr>
                 @endforeach
@@ -127,10 +111,10 @@
                 <tfoot>
                 <tr>
                   <th>Name</th>
-                  <th>Description</th>
+                  <th>Date</th>
                   <th>User</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th style="width: 20%">Action</th>
                 </tr>
                 </tfoot>
               </table>
@@ -153,8 +137,15 @@
 <script src="{{ asset('gentelella') }}/vendors/fastclick/lib/fastclick.js"></script>
 <!-- NProgress -->
 <script src="{{ asset('gentelella') }}/vendors/nprogress/nprogress.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="{{ asset('gentelella') }}/vendors/moment/min/moment.min.js"></script>
+<script src="{{ asset('gentelella') }}/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- jQuery Tags Input -->
+<script src="{{ asset('gentelella') }}/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
 <!-- iCheck -->
 <script src="{{ asset('gentelella') }}/vendors/iCheck/icheck.min.js"></script>
+<!-- Switchery -->
+<script src="{{ asset('gentelella') }}/vendors/switchery/dist/switchery.min.js"></script>
 <!-- Datatables -->
 <script src="{{ asset('gentelella') }}/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('gentelella') }}/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>

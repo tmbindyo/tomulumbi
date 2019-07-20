@@ -12,11 +12,11 @@ class AlbumFavouriteList extends Model
     public $incrementing = false;
 
     // Children
-    public function albumFavouriteListEmails()
+    public function album_favourite_list_emails()
     {
         return $this->hasMany('App\AlbumFavouriteListEmail');
     }
-    public function albumFavouriteListImages()
+    public function album_favourite_list_images()
     {
         return $this->hasMany('App\AlbumFavouriteListImage');
     }

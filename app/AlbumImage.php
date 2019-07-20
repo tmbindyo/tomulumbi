@@ -11,22 +11,22 @@ class AlbumImage extends Model
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
     // Children
-    public function albumImageDownloads()
+    public function album_image_downloads()
     {
         return $this->hasMany('App\AlbumImageDownload');
     }
-    public function albumImageFavourites()
+    public function album_image_favourites()
     {
         return $this->hasMany('App\AlbumImageFavourite');
     }
-    public function albumFavouriteListImages()
+    public function album_favourite_list_images()
     {
         return $this->hasMany('App\AlbumFavouriteListImage');
     }
 
 
     // Parents
-    public function albumSet()
+    public function album_set()
     {
         return $this->belongsTo('App\AlbumSet');
     }

@@ -7,6 +7,8 @@
   <link href="{{ asset('gentelella') }}/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link href="{{ asset('gentelella') }}/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Dropzone.js -->
+  <link href="{{ asset('gentelella') }}/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
   <!-- NProgress -->
   <link href="{{ asset('gentelella') }}/vendors/nprogress/nprogress.css" rel="stylesheet">
   <!-- bootstrap-daterangepicker -->
@@ -40,27 +42,144 @@
           </h3>
         </div>
 
-        <div class="title_right">
-          <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
-            <div class="input-group">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#albumRegistration">
-                Add Album
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
       <div class="clearfix"></div>
 
       @include('admin.layouts.popover.popover')
+      @include('admin.layouts.modals.albumSet')
 
       <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                  <div class="x_title">
+                      <h2><i class="fa fa-picture-o"></i> Album Sets </h2>
+                      <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li><a href="#">Settings 1</a>
+                                  </li>
+                                  <li><a href="#">Settings 2</a>
+                                  </li>
+                              </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                      </ul>
+                      <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+
+                      <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                          <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+
+
+                              @foreach($albumSets as $albumSet)
+                                  <li role="presentation" ><a href="#{{$albumSet->name}}" id="{{$albumSet->id}}" role="tab" data-toggle="tab" aria-expanded="true"> <i class="fa fa-cogs"></i>  {{$albumSet->name}} ({{$albumSet->album_images_count}}) </a>
+                                  </li>
+                              @endforeach
+
+                              <li role="presentation" class=""><a data-toggle="modal" data-target="#albumSetRegistration" aria-expanded="false"> <i class="fa fa-plus"></i> Add Set</a>
+                              </li>
+                          </ul>
+                          <div id="myTabContent" class="tab-content">
+                              <div role="tabpanel" class="tab-pane fade active in" id="active_" aria-labelledby="active">
+                                  <p>Rar.</p>
+                              </div>
+                              @foreach($albumSets as $albumSet)
+
+                                  <div role="tabpanel" class="tab-pane fade" id="{{$albumSet->name}}" aria-labelledby="{{$albumSet->id}}">
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="x_panel">
+                                          <div class="x_title">
+                                            <h2>{{$albumSet->name}} </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                              </li>
+                                              <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                  <li><a href="#">Settings 1</a>
+                                                  </li>
+                                                  <li><a href="#">Settings 2</a>
+                                                  </li>
+                                                </ul>
+                                              </li>
+                                              <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                              </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                          </div>
+                                          <div class="x_content">
+
+                                            <div class="row">
+
+                                              @isset($albumSet->album_images)
+                                                @foreach($albumSet->album_images as $albumSetImage)
+
+                                                  <div class="col-md-55">
+                                                    <div class="thumbnail">
+                                                      <div class="image view view-first">
+                                                        <img style="width: 100%; display: block;" src="{{ asset('') }}{{ $albumSetImage->thumbnail }}" />
+                                                        <div class="mask">
+                                                          <p>Position</p>
+                                                          <div class="tools tools-bottom">
+                                                            <a href="#"><i class="fa fa-link"></i></a>
+                                                            <a href="#"><i class="fa fa-pencil"></i></a>
+                                                            <a href="#"><i class="fa fa-times"></i></a>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="caption">
+                                                        <p>Snow and Ice Incoming for the South</p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+
+                                                @endforeach
+                                              @endisset
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12 col-xs-12">
+                                              <div class="x_panel">
+                                                  <div class="x_content">
+                                                      <p>Upload album set files.</p>
+                                                      <form method="post" action="{{route('admin.album.set.image.upload',$albumSet->id)}}" class="dropzone">
+                                                          @csrf
+                                                      </form>
+
+                                                      <br />
+                                                      <br />
+                                                      <br />
+                                                      <br />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                              @endforeach
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+            </div>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Album</h2>
+              <h2><i class="fa fa-cog"></i> Setting</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -79,65 +198,221 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <table id="datatable-buttons" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>User</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
 
 
-                <tbody>
-                @foreach($albums as $album)
-                  <tr>
-                    <td>{{$album->name}}</td>
-                    <td>{{$album->date}}</td>
-                    <td>{{$album->user->name}}</td>
-                    <td>{{$album->status->name}}</td>
-                    <td class="text-right">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-danger">Action</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a class="dropdown-item" href="{{ route('admin.album', $album->id) }}">{{ __('Edit') }}
-                          </li>
-                          <li><a class="dropdown-item" href="{{ route('admin.album.delete', $album->id) }}">{{ __('Delete') }}
-                          </li>
+              <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#collection_settings" id="collection-settings" role="tab" data-toggle="tab" aria-expanded="true"> <i class="fa fa-cogs"></i> Collection Settings</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#design_tab" role="tab" id="design" data-toggle="tab" aria-expanded="false"> <i class="fa fa-bookmark"></i> Design</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#download_tab" role="tab" id="download" data-toggle="tab" aria-expanded="false"> <i class="fa fa-download"></i> Download</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#favourite_tab" role="tab" id="favourite" data-toggle="tab" aria-expanded="false"> <i class="fa fa-heart"></i> Favourite</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#sharing_tab" role="tab" id="sharing" data-toggle="tab" aria-expanded="false"> <i class="fa fa-share"></i> Sharing</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#store_tab" role="tab" id="store" data-toggle="tab" aria-expanded="false"> <i class="fa fa-shopping-cart"></i> Store</a>
+                  </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade active in" id="collection_settings" aria-labelledby="collection-settings">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <form method="post" action="{{ route('admin.album.update',$album->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                          @csrf
 
-                        </ul>
-                      </div>
+                        @if ($errors->any())
+                          <div class="alert alert-danger">
+                            <ul>
+                              @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                              @endforeach
+                            </ul>
+                          </div>
+                        @endif
 
-                      <div class="dropdown">
+                        <div class="form-group">
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input type="text" placeholder="Collection Name" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12" value="{{$album->name}}">
+                            <i>Give your collection a name</i>
+                          </div>
+                        </div>
 
 
-
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                            Collection Date <span class="required">*</span>
+                          </label>
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <input name="date" type="text" class="form-control has-feedback-left" id="single_cal4" placeholder="First Name" aria-describedby="inputSuccess2Status4">
+                            <i>What is the date of the event?</i>
+                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                          </div>
 
                         </div>
+
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                Tags <span class="required">*</span>
+                              </label>
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input id="tags_1" name="tags" type="text" class="tags form-control" />
+                                <i>What kind of collection is this? Separate your tags with a comma. e.g. wedding, outdoor, summer</i>
+                              </div>
+
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                AutoExpiry*
+                              </label>
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                <fieldset>
+                                  <div class="control-group">
+                                    <div class="controls">
+                                      <div class="col-md-12 xdisplay_inputx form-group has-feedback">
+                                        <input name="expiry_date" type="text" class="form-control has-feedback-left" id="single_cal3" placeholder="Auto Expiry" aria-describedby="inputSuccess2Status4">
+                                        <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                                        <i>Collection will become Hidden when it reaches 11:59pm on the expiry date.</i>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </fieldset>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label>
+                                  <input name="is_homepage_visible" type="checkbox" class="js-switch" checked /> Homepage Visibility
+
+                                </label>
+                                <i>Show or hide your collection in your Homepage area.</i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label>
+                                  <input name="is_auto_expiry" type="checkbox" class="js-switch" checked /> Auto Expiry
+
+                                </label>
+                                <i>Auto expiry.</i>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                        <br />
+
+                        <div class="ln_solid"></div>
+
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                        </div>
+
+                      </form>
                       </div>
-                    </td>
-                  </tr>
-                @endforeach
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="design_tab" aria-labelledby="design">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                      booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="download_tab" aria-labelledby="download">
+                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                      booth letterpress, commodo enim craft beer mlkshk </p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="favourite_tab" aria-labelledby="favourite">
+                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                      booth letterpress, commodo enim craft beer mlkshk </p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="sharing_tab" aria-labelledby="sharing">
+                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                      booth letterpress, commodo enim craft beer mlkshk </p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="store_tab" aria-labelledby="store">
+                    <p>Store </p>
+                  </div>
+                </div>
+              </div>
 
-                </tbody>
+            </div>
+          </div>
+        </div>
 
-                <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>User</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </tfoot>
-              </table>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2><i class="fa fa-rss"></i> Activities </h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Settings 1</a>
+                    </li>
+                    <li><a href="#">Settings 2</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+
+              <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#download_activity" id="download-activity" role="tab" data-toggle="tab" aria-expanded="true"> <i class="fa fa-download"></i> Download Activity</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#favourite_activity" role="tab" id="favourite-activity" data-toggle="tab" aria-expanded="false"> <i class="fa fa-heart"></i> Favourite Activity</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#private_photo_activity" role="tab" id="private-photo-activity" data-toggle="tab" aria-expanded="false"> <i class="fa fa-eye-slash"></i> Private Photo Activity</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#email_registration" role="tab" id="email-registration" data-toggle="tab" aria-expanded="false"> <i class="fa fa-envelope"></i> Email Registrations</a>
+                  </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade active in" id="download_activity" aria-labelledby="download-activity">
+                    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
+                      synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="favourite_activity" aria-labelledby="favourite-activity">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                      booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="private_photo_activity" aria-labelledby="private-photo-activity">
+                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                      booth letterpress, commodo enim craft beer mlkshk </p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="email_registration" aria-labelledby="email-registration">
+                    <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                      booth letterpress, commodo enim craft beer mlkshk </p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -166,6 +441,8 @@
 <script src="{{ asset('gentelella') }}/vendors/iCheck/icheck.min.js"></script>
 <!-- Switchery -->
 <script src="{{ asset('gentelella') }}/vendors/switchery/dist/switchery.min.js"></script>
+<!-- Dropzone.js -->
+<script src="{{ asset('gentelella') }}/vendors/dropzone/dist/min/dropzone.min.js"></script>
 <!-- Datatables -->
 <script src="{{ asset('gentelella') }}/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('gentelella') }}/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>

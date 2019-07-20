@@ -2,15 +2,15 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
     <div class="container-fluid">
         <!-- Brand -->
-            @if (Auth::user()->findUserType(0))
+            @if (Auth::user()->find_user_type(0))
             <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ route('home') }}">{{ __('Admin Dashboard') }}</a>
             @endif
 
-            @if (Auth::user()->findUserType(2))
+            @if (Auth::user()->find_user_type(2))
             <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ route('home') }}">{{ __('Investor Dashboard') }}</a>
             @endif
 
-            @if (Auth::user()->findUserType(3))
+            @if (Auth::user()->find_user_type(3))
             <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ route('home') }}">{{ __('Project Manager Dashboard') }}</a>
             @endif
         {{-- <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ route('home') }}">{{ __('Dashboard') }}</a> --}}

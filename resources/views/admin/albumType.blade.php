@@ -74,67 +74,46 @@
               </ul>
               <div class="clearfix"></div>
             </div>
-            <div class="x_content">
-              <table id="datatable-buttons" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>User</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
+            <form method="post" action="{{ route('admin.album.type.update',$albumType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+              @csrf
+
+              @if ($errors->any())
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
 
 
-                <tbody>
-                @foreach($albumTypes as $albumType)
-                  <tr>
-                    <td>{{$albumType->name}}</td>
-                    <td>{{$albumType->description}}</td>
-                    <td>{{$albumType->user->name}}</td>
-                    <td>{{$albumType->status->name}}</td>
-                    <td class="text-right">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-danger">Action</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a class="dropdown-item" href="{{ route('admin.album.type', $albumType) }}">{{ __('Edit') }}
-                          </li>
-                          <li><a class="dropdown-item" href="{{ route('admin.album.type.delete', $albumType) }}">{{ __('Delete') }}
-                          </li>
-
-                        </ul>
-                      </div>
-
-                      <div class="dropdown">
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                  Name <span class="required">*</span>
+                </label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12" value="{{$albumType->name}}" required="required">
+                </div>
+              </div>
 
 
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                  Description <span class="required">*</span>
+                </label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <textarea id="description" name="description" class="resizable_textarea form-control" required="required" placeholder="Description...">{{$albumType->description}}</textarea>
+                </div>
+              </div>
 
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+              <div class="ln_solid"></div>
 
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                @endforeach
+              <div class="text-center">
+                <button type="submit" class="btn btn-success mt-4">{{ __('Update') }}</button>
+              </div>
 
-                </tbody>
-
-                <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>User</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
+            </form>
           </div>
         </div>
 

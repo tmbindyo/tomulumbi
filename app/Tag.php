@@ -12,7 +12,7 @@ class Tag extends Model
     public $incrementing = false;
 
     // Children
-    public function albumTags()
+    public function album_tags()
     {
         return $this->hasMany('App\AlbumTag');
     }

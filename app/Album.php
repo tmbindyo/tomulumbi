@@ -12,47 +12,47 @@ class Album extends Model
     public $incrementing = false;
 
     // Children
-    public function coverImage()
+    public function cover_image()
     {
         return $this->hasOne('App\Status','id', 'cover_image_id');
     }
-    public function albumSets()
+    public function album_sets()
     {
         return $this->hasMany('App\AlbumSet');
     }
-    public function albumTags()
+    public function album_tags()
     {
         return $this->hasMany('App\AlbumTag');
     }
-    public function albumCategories()
+    public function album_categories()
     {
         return $this->hasMany('App\AlbumCategory');
     }
-    public function albumRegistrations()
+    public function album_registrations()
     {
         return $this->hasMany('App\AlbumRegistration');
     }
-    public function albumExpiryReminders()
+    public function album_expiry_reminders()
     {
         return $this->hasMany('App\AlbumExpiryReminder');
     }
-    public function albumExpiryReminderEmails()
+    public function album_expiry_reminder_emails()
     {
         return $this->hasMany('App\AlbumExpiryReminderEmail');
     }
-    public function albumDownloadRestrictionEmails()
+    public function album_download_restriction_emails()
     {
         return $this->hasMany('App\AlbumDownloadRestrictionEmail');
     }
-    public function albumDownloads()
+    public function album_downloads()
     {
         return $this->hasMany('App\AlbumDownload');
     }
-    public function albumFavourites()
+    public function album_favourites()
     {
         return $this->hasMany('App\AlbumFavourite');
     }
-    public function albumFavouriteLists()
+    public function album_favourite_lists()
     {
         return $this->hasMany('App\AlbumFavouriteList');
     }

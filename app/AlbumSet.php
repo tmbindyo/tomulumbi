@@ -12,15 +12,15 @@ class AlbumSet extends Model
     public $incrementing = false;
 
     // Children
-    public function albumImages()
+    public function album_images()
     {
         return $this->hasMany('App\AlbumImage');
     }
-    public function albumSetDownloads()
+    public function album_set_downloads()
     {
         return $this->hasMany('App\AlbumSetDownload');
     }
-    public function albumSetFavourites()
+    public function album_set_favourites()
     {
         return $this->belongsTo('App\AlbumSetFavourite');
     }

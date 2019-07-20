@@ -12,7 +12,7 @@ class AlbumImageDownload extends Model
     public $incrementing = false;
 
     // Parents
-    public function albumImage()
+    public function album_image()
     {
         return $this->belongsTo('App\AlbumImage');
     }

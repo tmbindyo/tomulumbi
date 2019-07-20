@@ -1,75 +1,58 @@
-
-<div class="modal fade" id="userRegistration" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+<div class="modal fade" id="albumTypeRegistration" tabindex="-1" role="dialog" aria-labelledby="albumTypeRegistrationLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-body p-0">	
-                <div class="card bg-secondary border-0 mb-0">
-                    <div class="card-header bg-transparent pb-5">
-                        <div class="text-muted text-center mt-2 mb-3"><h3>Member Registration</h3></div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="albumTypeRegistrationLabel">Album Type Registration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ route('admin.album.type.save') }}" autocomplete="off" class="form-horizontal form-label-left">
+                    @csrf
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12" required="required">
+                        </div>
                     </div>
-                    <div class="card-body px-lg-5 py-lg-5">
-                        
 
-                        <form method="post" action="{{ route('ira.user.save', $institution->id) }}" autocomplete="off">
-                            @csrf
 
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
-                            <div class="row">
-                                <div class="col-lg-12 col-xl-6 col-md-12 col-sm-12 col-12">
-                                    <div class="form-group mb-3">
-                                        <div class="input-group input-group-merge input-group-alternative">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                            </div>
-                                            <input name="email" class="form-control" placeholder="Email" type="email" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-xl-6 col-md-12 col-sm-12 col-12">
-                                    <div class="form-group mb-3">
-                                        <div class="input-group input-group-merge input-group-alternative">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                            </div>
-                                            <input name="phone_number" class="form-control" placeholder="+254" type="text" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-xl-6 col-md-12 col-sm-12 col-12">
-                                    <div class="form-group mb-3">
-                                        <div class="input-group input-group-merge input-group-alternative">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                            </div>
-                                            <input name="name" class="form-control" placeholder="Name" type="text" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                                
-                                    
-                                    
-                                    
-                                    
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
-                            </div>
-                        </form>
-
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Description <span class="required">*</span>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea id="description" name="description" class="resizable_textarea form-control" required="required" placeholder="Description..."></textarea>
+                        </div>
                     </div>
-                </div>
-            </div>  
+
+                    <div class="ln_solid"></div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@ class AlbumFavouriteListEmail extends Model
     public $incrementing = false;
 
     // Parents
-    public function albumList()
+    public function album_list()
     {
         return $this->belongsTo('App\AlbumList');
     }

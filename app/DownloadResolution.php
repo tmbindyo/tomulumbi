@@ -11,6 +11,8 @@ class DownloadResolution extends Model
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
+    //Children
+
     // Parents
     public function status()
     {

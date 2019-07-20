@@ -21,8 +21,6 @@
   <link href="{{ asset('gentelella') }}/build/css/custom.min.css" rel="stylesheet">
 @endsection
 
-@include('admin.layouts.modals.albumType')
-
 @section('content')
   <!-- page content -->
   <div class="right_col" role="main">
@@ -31,7 +29,7 @@
         <div class="title_left">
           <h3>
             <small>
-              Settings->Album Types
+              Settings->Categories
             </small>
           </h3>
         </div>
@@ -39,8 +37,8 @@
         <div class="title_right">
           <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#albumTypeRegistration">
-                Add Album Type
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryRegistration">
+                Add Category
               </button>
             </div>
           </div>
@@ -56,7 +54,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Album Types</h2>
+              <h2>Categories</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -74,7 +72,7 @@
               </ul>
               <div class="clearfix"></div>
             </div>
-            <form method="post" action="{{ route('admin.album.type.update',$albumType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+            <form method="post" action="{{ route('admin.category.update',$category->id) }}" autocomplete="off" class="form-horizontal form-label-left">
               @csrf
 
               @if ($errors->any())
@@ -93,17 +91,7 @@
                   Name <span class="required">*</span>
                 </label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12" value="{{$albumType->name}}" required="required">
-                </div>
-              </div>
-
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                  Description <span class="required">*</span>
-                </label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <textarea id="description" name="description" class="resizable_textarea form-control" required="required" placeholder="Description...">{{$albumType->description}}</textarea>
+                  <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12" value="{{$category->name}}" required="required">
                 </div>
               </div>
 

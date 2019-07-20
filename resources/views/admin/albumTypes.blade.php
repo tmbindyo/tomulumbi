@@ -17,10 +17,11 @@
   <link href="{{ asset('gentelella') }}/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
   <link href="{{ asset('gentelella') }}/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
   <link href="{{ asset('gentelella') }}/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
   <!-- Custom Theme Style -->
   <link href="{{ asset('gentelella') }}/build/css/custom.min.css" rel="stylesheet">
 @endsection
+
+@include('admin.layouts.modals.albumType')
 
 @section('content')
   <!-- page content -->
@@ -28,22 +29,27 @@
     <div class="">
       <div class="page-title">
         <div class="title_left">
-          <h3>Users <small>Some examples to get you started</small></h3>
+          <h3>
+            <small>
+              Settings->Album Types
+            </small>
+          </h3>
         </div>
 
         <div class="title_right">
-          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for...">
-              <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                  </span>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#albumTypeRegistration">
+                Add Album Type
+              </button>
             </div>
           </div>
         </div>
       </div>
 
       <div class="clearfix"></div>
+
+      @include('admin.layouts.popover.popover')
 
       <div class="row">
 
@@ -73,159 +79,38 @@
                 <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Salary</th>
+                  <th>Description</th>
+                  <th>User</th>
+                  <th>Status</th>
+                  <th style="width: 20%">Action</th>
                 </tr>
                 </thead>
 
 
                 <tbody>
-                <tr>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
-                  <td>$320,800</td>
-                </tr>
+                @foreach($albumTypes as $albumType)
+                  <tr>
+                    <td>{{$albumType->name}}</td>
+                    <td>{{$albumType->description}}</td>
+                    <td>{{$albumType->user->name}}</td>
+                    <td>{{$albumType->status->name}}</td>
+                    <td>
+                      <a href="{{ route('admin.album.type', $albumType->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                      <a href="{{ route('admin.album.type', $albumType->id) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                      <a href="{{ route('admin.album.type.delete', $albumType->id) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                    </td>
+                  </tr>
+                @endforeach
 
                 </tbody>
 
                 <tfoot>
                 <tr>
                   <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Salary</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>Tags</h2>
-              <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Settings 1</a>
-                    </li>
-                    <li><a href="#">Settings 2</a>
-                    </li>
-                  </ul>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-              </ul>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-              <table id="datatable-buttons" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Salary</th>
-                </tr>
-                </thead>
-
-
-                <tbody>
-                <tr>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
-                  <td>$320,800</td>
-                </tr>
-
-                </tbody>
-
-                <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Salary</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>Categories</h2>
-              <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Settings 1</a>
-                    </li>
-                    <li><a href="#">Settings 2</a>
-                    </li>
-                  </ul>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-              </ul>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-              <table id="datatable-buttons" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Salary</th>
-                </tr>
-                </thead>
-
-
-                <tbody>
-                <tr>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
-                  <td>$320,800</td>
-                </tr>
-
-                </tbody>
-
-                <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Salary</th>
+                  <th>Description</th>
+                  <th>User</th>
+                  <th>Status</th>
+                  <th style="width: 20%">Action</th>
                 </tr>
                 </tfoot>
               </table>
@@ -266,7 +151,6 @@
 <script src="{{ asset('gentelella') }}/vendors/jszip/dist/jszip.min.js"></script>
 <script src="{{ asset('gentelella') }}/vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="{{ asset('gentelella') }}/vendors/pdfmake/build/vfs_fonts.js"></script>
-
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('gentelella') }}/build/js/custom.min.js"></script>
 

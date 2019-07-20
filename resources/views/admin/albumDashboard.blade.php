@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Album Dashboard')
+
 @section('css')
 
   <!-- Bootstrap -->

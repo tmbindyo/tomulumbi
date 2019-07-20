@@ -1,14 +1,14 @@
-<div class="modal fade" id="albumTypeRegistration" tabindex="-1" role="dialog" aria-labelledby="albumTypeRegistrationLabel" aria-hidden="true">
+<div class="modal fade" id="tagRegistration" tabindex="-1" role="dialog" aria-labelledby="tagRegistrationLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="albumTypeRegistrationLabel">Modal title</h5>
+                <h5 class="modal-title" id="tagRegistrationLabel">Add Tag</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.album.type.save') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.tag.save') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())
@@ -28,16 +28,6 @@
                         </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12" required="required">
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                            Description <span class="required">*</span>
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea id="description" name="description" class="resizable_textarea form-control" required="required" placeholder="Description..."></textarea>
                         </div>
                     </div>
 

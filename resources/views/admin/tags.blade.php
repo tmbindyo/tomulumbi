@@ -21,7 +21,7 @@
   <link href="{{ asset('gentelella') }}/build/css/custom.min.css" rel="stylesheet">
 @endsection
 
-@include('admin.layouts.modals.albumType')
+@include('admin.layouts.modals.tag')
 
 @section('content')
   <!-- page content -->
@@ -31,7 +31,7 @@
         <div class="title_left">
           <h3>
             <small>
-              Settings->Album Types
+              Settings->Tags
             </small>
           </h3>
         </div>
@@ -39,8 +39,8 @@
         <div class="title_right">
           <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#albumTypeRegistration">
-                Add Album Type
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tagRegistration">
+                Add tag
               </button>
             </div>
           </div>
@@ -56,7 +56,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>Album Types</h2>
+              <h2>Tags</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -79,45 +79,23 @@
                 <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Description</th>
                   <th>User</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th style="width: 20%">Action</th>
                 </tr>
                 </thead>
 
 
                 <tbody>
-                @foreach($albumTypes as $albumType)
+                @foreach($tags as $tag)
                   <tr>
-                    <td>{{$albumType->name}}</td>
-                    <td>{{$albumType->description}}</td>
-                    <td>{{$albumType->user->name}}</td>
-                    <td>{{$albumType->status->name}}</td>
-                    <td class="text-right">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-danger">Action</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a class="dropdown-item" href="{{ route('admin.album.type.update', $albumType) }}">{{ __('Edit') }}
-                          </li>
-                          <li><a class="dropdown-item" href="{{ route('admin.album.type.delete', $albumType) }}">{{ __('Delete') }}
-                          </li>
-
-                        </ul>
-                      </div>
-
-                      <div class="dropdown">
-
-
-
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-
-                        </div>
-                      </div>
+                    <td>{{$tag->name}}</td>
+                    <td>{{$tag->user->name}}</td>
+                    <td>{{$tag->status->name}}</td>
+                    <td>
+                      <a href="{{ route('admin.tag', $tag->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                      <a href="{{ route('admin.tag', $tag->id) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                      <a href="{{ route('admin.tag.delete', $tag->id) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                     </td>
                   </tr>
                 @endforeach
@@ -127,10 +105,9 @@
                 <tfoot>
                 <tr>
                   <th>Name</th>
-                  <th>Description</th>
                   <th>User</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th style="width: 20%">Action</th>
                 </tr>
                 </tfoot>
               </table>

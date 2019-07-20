@@ -1,4 +1,4 @@
 <?php
 
-Route::get('/', 'Investor\ProjectInvestorController@dashboard')->name('dashboard');
+// Album routes
 
