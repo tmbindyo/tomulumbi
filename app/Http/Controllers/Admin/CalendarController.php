@@ -12,7 +12,7 @@ class CalendarController extends Controller
     {
         $this->middleware('auth');
     }
-    public function calendar()
+    public function viewCalender()
     {
         // User
         $user = $this->getAdmin();

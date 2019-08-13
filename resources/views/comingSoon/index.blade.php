@@ -26,7 +26,7 @@
         <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        
+
         <!-- CSS -->
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,900' rel='stylesheet' type='text/css'><!-- Styles -->
         <link href="{{ asset('imminent') }}/css/loader.css" rel="stylesheet" type="text/css">
@@ -175,7 +175,7 @@
         <!-- Javascript -->
         <script>
             // Set the date we're counting down to
-            var countDownDate = new Date("July 27, 2019 24:00:00").getTime();
+            var countDownDate = new Date("August 27, 2019 24:00:00").getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function() {

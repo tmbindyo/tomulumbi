@@ -16,6 +16,7 @@ class CreateCoverDesignsTable extends Migration
         Schema::create('cover_designs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->string('reference');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();

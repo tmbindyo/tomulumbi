@@ -1,11 +1,11 @@
-<div class="modal fade" id="categoryRegistration" tabindex="-1" role="dialog" aria-labelledby="categoryRegistrationLabel" aria-hidden="true">
+<div class="modal inmodal" id="categoryRegistration" tabindex="-1" role="dialog" aria-labelledby="categoryRegistrationLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content animated bounceInRight">
             <div class="modal-header">
-                <h5 class="modal-title" id="categoryRegistrationLabel">Add Category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-laptop modal-icon"></i>
+                <h4 class="modal-title">Category Registration</h4>
+                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
             </div>
             <div class="modal-body">
                 <form method="post" action="{{ route('admin.category.save') }}" autocomplete="off" class="form-horizontal form-label-left">
@@ -27,7 +27,7 @@
                             Name <span class="required">*</span>
                         </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12" required="required">
+                            <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required">
                         </div>
                     </div>
 

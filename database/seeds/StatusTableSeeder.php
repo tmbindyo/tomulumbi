@@ -16,18 +16,21 @@ class StatusTableSeeder extends Seeder
             'id' => 'f6654b11-8f04-4ac9-993f-116a8a6ecaae',
             'name' => 'Ongoing',
             'description' => 'Ongoing',
+            'status_type_id' => 'e6dc4713-612f-455e-a30c-3e29ebdddf70',
             'user_id' => 1,
         ]);
         DB::table('statuses')->insert([
             'id' => '0fa108dc-22b6-40d9-911b-f692ec90e4a4',
             'name' => 'Preview',
             'description' => 'Preview',
+            'status_type_id' => 'e6dc4713-612f-455e-a30c-3e29ebdddf70',
             'user_id' => 1,
         ]);
         DB::table('statuses')->insert([
             'id' => 'a6c4c2cc-95ca-4ecf-8ce3-3d08512aad15',
             'name' => 'Completed',
             'description' => 'Completed',
+            'status_type_id' => 'e6dc4713-612f-455e-a30c-3e29ebdddf70',
             'user_id' => 1,
         ]);
         // Record status
@@ -35,31 +38,68 @@ class StatusTableSeeder extends Seeder
             'id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'name' => 'Active',
             'description' => 'Active record',
+            'status_type_id' => 'a558001b-69ae-4872-ba0f-ecadd154a70a',
             'user_id' => 1,
         ]);
         DB::table('statuses')->insert([
             'id' => '402c447e-939f-41b3-bf4b-82a3faecc3db',
             'name' => 'Inactive',
             'description' => 'Inactive record',
+            'status_type_id' => 'a558001b-69ae-4872-ba0f-ecadd154a70a',
             'user_id' => 1,
         ]);
+
         // Image or album status
         DB::table('statuses')->insert([
             'id' => 'cad5abf4-ed94-4184-8f7a-fe5084fb7d56',
             'name' => 'Preview',
             'description' => 'Preview album or image',
+            'status_type_id' => '12a49330-14a5-41d2-b62d-87cdf8b252f8',
             'user_id' => 1,
         ]);
         DB::table('statuses')->insert([
             'id' => '389842b7-a010-40c1-85cf-4f5b5144ccea',
             'name' => 'Hidden',
             'description' => 'Hidden album or image',
+            'status_type_id' => '12a49330-14a5-41d2-b62d-87cdf8b252f8',
             'user_id' => 1,
         ]);
         DB::table('statuses')->insert([
             'id' => 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5',
             'name' => 'Published',
             'description' => 'Published album or image',
+            'status_type_id' => '12a49330-14a5-41d2-b62d-87cdf8b252f8',
+            'user_id' => 1,
+        ]);
+
+
+        // todo add statuses for todo
+        DB::table('statuses')->insert([
+            'id' => 'f3df38e3-c854-4a06-be26-43dff410a3bc',
+            'name' => 'Pending',
+            'description' => 'Pending',
+            'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '2a2d7a53-0abd-4624-b7a1-a123bfe6e568',
+            'name' => 'In progress',
+            'description' => 'In progress',
+            'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => 'facb3c47-1e2c-46e9-9709-ca479cc6e77f',
+            'name' => 'Completed',
+            'description' => 'Completed',
+            'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '99372fdc-9ca0-4bca-b483-3a6c95a73782',
+            'name' => 'Overdue',
+            'description' => 'Overdue',
+            'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
             'user_id' => 1,
         ]);
 

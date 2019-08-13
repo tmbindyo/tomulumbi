@@ -1,168 +1,217 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Settings')
+@section('title', 'Albums')
 
 @section('css')
-  <!-- Bootstrap -->
-  <link href="{{ asset('gentelella') }}/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link href="{{ asset('gentelella') }}/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <!-- NProgress -->
-  <link href="{{ asset('gentelella') }}/vendors/nprogress/nprogress.css" rel="stylesheet">
-  <!-- bootstrap-daterangepicker -->
-  <link href="{{ asset('gentelella') }}/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-  <!-- iCheck -->
-  <link href="{{ asset('gentelella') }}/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-  <!-- Switchery -->
-  <link href="{{ asset('gentelella') }}/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
-  <!-- Datatables -->
-  <link href="{{ asset('gentelella') }}/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-  <link href="{{ asset('gentelella') }}/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-  <link href="{{ asset('gentelella') }}/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-  <link href="{{ asset('gentelella') }}/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-  <link href="{{ asset('gentelella') }}/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-  <!-- Custom Theme Style -->
-  <link href="{{ asset('gentelella') }}/build/css/custom.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
+    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
+
+
 @endsection
 
-@include('admin.layouts.modals.album')
 
 @section('content')
-  <!-- page content -->
-  <div class="right_col" role="main">
-    <div class="">
-      <div class="page-title">
-        <div class="title_left">
-          <h3>
-            <small>
-              Settings->Album
-            </small>
-          </h3>
-        </div>
 
-        <div class="title_right">
-          <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
-            <div class="input-group">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#albumRegistration">
-                Add Album
-              </button>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Album</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a href="{{route('admin.album.create')}}">
+                                <i class="fa fa-plus-circle"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Expiry</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($albums as $album)
+                                    <tr class="gradeX">
+                                        <td>{{$album->name}}</td>
+                                        <td>{{$album->date}}</td>
+                                        <td>{{$album->expiry_date}}</td>
+                                        <td>{{$album->user->name}}</td>
+                                        @if($album->status->name === "Active")
+                                            <td>
+                                                <span class="label label-primary">{{$album->status->name}}</span>
+                                            </td>
+                                        @elseif($album->status->name === "Inactive")
+                                            <td>
+                                                <span class="label label-danger">{{$album->status->name}}</span>
+                                            </td>
+                                        @elseif($album->status->name === "Ongoing")
+                                            <td>
+                                                <span class="label label-danger">{{$album->status->name}}</span>
+                                            </td>
+                                        @elseif($album->status->name === "Preview")
+                                            <td>
+                                                <span class="label label-warning">{{$album->status->name}}</span>
+                                            </td>
+                                        @elseif($album->status->name === "Completed")
+                                            <td>
+                                                <span class="label label-primary">{{$album->status->name}}</span>
+                                            </td>
+                                        @elseif($album->status->name === "Hidden")
+                                            <td>
+                                                <span class="label label-danger">{{$album->status->name}}</span>
+                                            </td>
+                                        @elseif($album->status->name === "Published")
+                                            <td>
+                                                <span class="label label-warning">{{$album->status->name}}</span>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <span class="label label-default">{{$album->status->name}}</span>
+                                            </td>
+                                        @endif
+
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{ route('admin.album', $album->id) }}" class="btn-white btn btn-xs">View</a>
+                                                <a href="{{ route('admin.album.delete', $album->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Expiry</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-
-      <div class="clearfix"></div>
-
-      @include('admin.layouts.popover.popover')
-
-      <div class="row">
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>Album</h2>
-              <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Settings 1</a>
-                    </li>
-                    <li><a href="#">Settings 2</a>
-                    </li>
-                  </ul>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-              </ul>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-              <table id="datatable-buttons" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>User</th>
-                  <th>Status</th>
-                  <th style="width: 20%">Action</th>
-                </tr>
-                </thead>
-
-
-                <tbody>
-                @foreach($albums as $album)
-                  <tr>
-                    <td>{{$album->name}}</td>
-                    <td>{{$album->date}}</td>
-                    <td>{{$album->user->name}}</td>
-                    <td>{{$album->status->name}}</td>
-                    <td>
-                      <a href="{{ route('admin.album', $album->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                      <a href="{{ route('admin.album', $album->id) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                      <a href="{{ route('admin.album.delete', $album->id) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                    </td>
-                  </tr>
-                @endforeach
-
-                </tbody>
-
-                <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>User</th>
-                  <th>Status</th>
-                  <th style="width: 20%">Action</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
-  </div>
-  <!-- /page content -->
+
+
 @endsection
 
 @section('js')
-<!-- jQuery -->
-<script src="{{ asset('gentelella') }}/vendors/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="{{ asset('gentelella') }}/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="{{ asset('gentelella') }}/vendors/fastclick/lib/fastclick.js"></script>
-<!-- NProgress -->
-<script src="{{ asset('gentelella') }}/vendors/nprogress/nprogress.js"></script>
-<!-- bootstrap-daterangepicker -->
-<script src="{{ asset('gentelella') }}/vendors/moment/min/moment.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!-- jQuery Tags Input -->
-<script src="{{ asset('gentelella') }}/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-<!-- iCheck -->
-<script src="{{ asset('gentelella') }}/vendors/iCheck/icheck.min.js"></script>
-<!-- Switchery -->
-<script src="{{ asset('gentelella') }}/vendors/switchery/dist/switchery.min.js"></script>
-<!-- Datatables -->
-<script src="{{ asset('gentelella') }}/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/jszip/dist/jszip.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/pdfmake/build/pdfmake.min.js"></script>
-<script src="{{ asset('gentelella') }}/vendors/pdfmake/build/vfs_fonts.js"></script>
-<!-- Custom Theme Scripts -->
-<script src="{{ asset('gentelella') }}/build/js/custom.min.js"></script>
+
+
+    <!-- Mainly scripts -->
+    <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
+    <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+
+
+
+
+
+            $('.dataTables-example').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                        customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+
+
+
+
+        });
+
+    </script>
 
 @endsection
+
+
+
+

@@ -14,7 +14,7 @@ class Album extends Model
     // Children
     public function cover_image()
     {
-        return $this->hasOne('App\Status','id', 'cover_image_id');
+        return $this->hasOne('App\AlbumImage','id', 'cover_image_id');
     }
     public function album_sets()
     {
@@ -59,7 +59,7 @@ class Album extends Model
 
 
     // Parents
-    public function albumType()
+    public function album_type()
     {
         return $this->belongsTo('App\AlbumType');
     }
@@ -67,19 +67,35 @@ class Album extends Model
     {
         return $this->belongsTo('App\Color');
     }
-    public function coverDesign()
+    public function content_align()
+    {
+        return $this->belongsTo('App\ContentAlign');
+    }
+    public function cover_design()
     {
         return $this->belongsTo('App\CoverDesign');
     }
-    public function gridSpacing()
+    public function grid_spacing()
     {
         return $this->belongsTo('App\GridSpacing');
     }
-    public function gridStyle()
+    public function grid_style()
     {
         return $this->belongsTo('App\GridStyle');
     }
-    public function thumbnailSize()
+    public function image_position()
+    {
+        return $this->belongsTo('App\ImagePosition');
+    }
+    public function orientation()
+    {
+        return $this->belongsTo('App\Orientation');
+    }
+    public function scheme()
+    {
+        return $this->belongsTo('App\Scheme');
+    }
+    public function thumbnail_size()
     {
         return $this->belongsTo('App\ThumbnailSize');
     }

@@ -25,12 +25,17 @@ class CreateAlbumsTable extends Migration
             $table->uuid('cover_image_id')->nullable();
 
             // Design
+            $table->uuid('cover_design_id')->nullable();
+            $table->uuid('scheme_id')->nullable();
+            $table->uuid('color_id')->nullable();
+            $table->uuid('orientation_id')->nullable();
+            $table->uuid('content_align_id')->nullable();
+            $table->uuid('image_position_id')->nullable();
+
             $table->uuid('typography_id')->nullable();
             $table->uuid('grid_style_id')->nullable();
-            $table->uuid('color_id')->nullable();
             $table->uuid('thumbnail_size_id')->nullable();
             $table->uuid('grid_spacing_id')->nullable();
-            $table->uuid('cover_design_id')->nullable();
 
             // Privacy
             $table->string('password')->nullable();
@@ -50,7 +55,6 @@ class CreateAlbumsTable extends Migration
             $table->boolean('is_single_photo_download_require_pin')->nullable();
             $table->boolean('is_email_download_restrict')->nullable();
             $table->integer('download_restriction_limit')->nullable();
-
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

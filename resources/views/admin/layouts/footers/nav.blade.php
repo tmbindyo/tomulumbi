@@ -1,6 +1,8 @@
-<footer>
+<div class="footer">
     <div class="pull-right">
-        Tomulumbi Photography by <a href="https://tomulumbi.com">Tomulumbi</a>
+        10GB of <strong>250GB</strong> Free.
     </div>
-    <div class="clearfix"></div>
-</footer>
+    <div>
+        <strong>Copyright</strong> Example Company &copy; 2014-2015
+    </div>
+</div>

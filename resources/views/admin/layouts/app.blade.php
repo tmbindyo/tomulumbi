@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
+
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Tomulumbi | @yield('title')</title>
 
@@ -14,30 +13,35 @@
 
 </head>
 
-<body class="nav-md">
-<div class="container body">
-    <div class="main_container">
+<body>
+<div id="wrapper">
 
-        <!-- logout -->
-        @include('admin.layouts.header.logout')
-        <!-- logout -->
+    <!-- nav -->
+    @include('admin.layouts.navbars.left_sidebar')
+    <!-- nav -->
 
-        <!-- sidebar navigation -->
-        @include('admin.layouts.navbars.sidebar')
-        <!-- sidebar navigation -->
-
-        <!-- top navigation -->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <!-- top navbar -->
         @include('admin.layouts.navbars.navbar')
-        <!-- /top navigation -->
+        <!-- top navbar -->
 
         <!-- page content -->
         @yield ('content')
         <!-- /page content -->
 
-        <!-- footer content -->
+        <!-- footer -->
         @include('admin.layouts.footers.nav')
-        <!-- /footer content -->
+        <!-- /footer -->
+
     </div>
+    <!-- chat content -->
+    @include('admin.layouts.navbars.chat')
+    <!-- /chat content -->
+
+    <!-- right sidebar content -->
+    @include('admin.layouts.navbars.right_sidebar')
+    <!-- /right sidebar content -->
+
 </div>
 
 @yield('js')
