@@ -58,7 +58,7 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-3"> <i class="fa fa-image"> Album Sets</i></a></li>
                             @foreach($albumSets as $albumSet)
-                                <li class=""><a data-toggle="tab" href="#{{$albumSet->id}}"><i class="fa fa-desktop">{{$albumSet->name}}</i></a></li>
+                                <li class=""><a data-toggle="tab" href="#{{$albumSet->id}}"><i class="fa fa-desktop"> {{$albumSet->name}}</i></a></li>
                             @endforeach
                             <li class=""><a  data-toggle="modal" data-target="#albumSetRegistration" aria-expanded="false"><i class="fa fa-plus"></i></a></li>
                         </ul>
@@ -220,14 +220,11 @@
                             <div id="design" class="tab-pane">
                                 <div class="panel-body">
                                     <div class="row m-t-lg">
-                                        <div class="col-md-10 col-md-offset-1">
-                                            <button class="btn btn-primary btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
-                                        </div>
-                                    </div>
-                                    <div class="row m-t-lg">
-                                        <form method="post" action="{{ route('admin.album.update.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
-                                            @csrf
-                                            <div class="col-md-6">
+                                        <div class="col-md-6">
+                                            <h2 class="text-center">Album Images Design</h2>
+                                            <hr>
+                                            <form method="post" action="{{ route('admin.album.update.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
+                                                @csrf
                                                 {{--  Album typography  --}}
                                                 <div class="col-md-10 col-md-offset-1">
                                                     <h3 class="text-center">Typography</h3>
@@ -276,18 +273,28 @@
                                                         <i>Choose the amount of space between photos in your gallery.</i>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <h3 class="text-center">Cover Image</h3>
-                                                    <div class="center">
-                                                        <img alt="image" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->large_thumbnail }}" @endisset>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <h2 class="text-center">Cover Image Design</h2>
+                                                <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Album Images Design Settings</button>
+                                            </form>
+                                            {{--  Cover Image  --}}
+                                            <div class="col-md-12">
+                                                <h2 class="text-center">Cover Image</h2>
+                                                <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
                                                 <hr>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-1">
+
+                                                <div class="center">
+                                                    <img alt="image" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->large_thumbnail }}" @endisset>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h2 class="text-center">Cover Image Design</h2>
+                                            <hr>
+                                            <form method="post" action="{{ route('admin.album.update.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
+                                                @csrf
                                                 {{--  Cover Image Designs  --}}
                                                 <div class="col-md-10 col-md-offset-1">
                                                     <h3 class="text-center">Design</h3>
@@ -361,9 +368,9 @@
                                                         <i>Choose between different content alignment styles to best compliment the proof.</i>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Design Settings</button>
-                                        </form>
+                                                <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Design Settings</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

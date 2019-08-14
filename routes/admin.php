@@ -57,6 +57,7 @@ Route::get('/album/create', 'Admin\ClientController@albumRegistration')->name('a
 Route::get('/album/{album_id}', 'Admin\ClientController@album')->name('admin.album');
 Route::post('/album/update/collection/settings/{album_id}', 'Admin\ClientController@albumUpdateCollectionSettings')->name('admin.album.update.collection.settings');
 Route::post('/album/update/design/{album_id}', 'Admin\ClientController@albumUpdateDesign')->name('admin.album.update.design');
+Route::post('/album/update/cover/image/design/{album_id}', 'Admin\ClientController@albumUpdateCoverImageDesign')->name('admin.album.update.cover.image.design');
 Route::post('/album/update/privacy/{album_id}', 'Admin\ClientController@albumUpdatePrivacy')->name('admin.album.update.privacy');
 Route::post('/album/set/cover/image/{album_id}', 'Admin\ClientController@albumCoverImageUpload')->name('admin.album.set.cover.image');
 Route::post('/album/update/download/{album_id}', 'Admin\ClientController@albumUpdateDownload')->name('admin.album.update.download');

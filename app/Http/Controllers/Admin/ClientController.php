@@ -255,6 +255,15 @@ class ClientController extends Controller
         $album->thumbnail_size_id = $request->thumbnail_size;
         $album->grid_spacing_id = $request->grid_spacing;
 
+        $album->save();
+
+        return back()->withSuccess('Client proof design updated!');
+    }
+    public function albumUpdateCoverImageDesign(Request $request, $album_id)
+    {
+
+        $album = Album::findOrFail($album_id);
+
         $album->cover_design_id = $request->cover_design;
         $album->scheme_id = $request->scheme;
         $album->color_id = $request->color;
@@ -264,8 +273,8 @@ class ClientController extends Controller
         $album->save();
 
         return back()->withSuccess('Client proof design updated!');
-
     }
+
         public function albumUpdatePrivacy(Request $request, $album_id)
     {
 

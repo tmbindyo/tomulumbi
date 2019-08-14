@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="{{ asset('client_proof/story') }}/assets/css/main.css" />
+		<link rel="stylesheet" href="{{ asset('client_proof/bootstrap') }}/css/bootstrap.min.css" />
 	</head>
 	<body>
 
@@ -31,16 +32,22 @@
 
 				<!-- Spotlight -->
 					<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
-						<div class="content">
-							<h2>Spotlight</h2>
-							<p>This is a <strong>Spotlight</strong> element, and it's generally used &ndash; as its name implies &ndash; to spotlight a particular feature, subject, or pretty much whatever. You can customize its <span class="demo-controls">appearance with a number of modifiers</span>, as well as assign it an optional <code>onload</code> or <code>onscroll</code> transition modifier (<a href="#reference-spotlight">details</a>).</p>
-							<ul class="actions vertical">
-								<li><a href="#" class="button">Learn More</a></li>
-							</ul>
-						</div>
-						<div class="image">
-							<img src="{{ asset('client_proof/story') }}/images/spotlight01.jpg" alt="" />
-						</div>
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+                        </div>
 					</section>
 
 				<!-- Spotlight -->
@@ -244,6 +251,10 @@
 					</footer>
 
 			</div>
+
+        {{--  Bootstrap  --}}
+        <script src="{{ asset('client_proof/bootstrap') }}/js/jquery.min.js"></script>
+        <script src="{{ asset('client_proof/bootstrap') }}/js/bootstrap.min.js"></script>
 
 		<!-- Scripts -->
 			<script src="{{ asset('client_proof/story') }}/assets/js/jquery.min.js"></script>
