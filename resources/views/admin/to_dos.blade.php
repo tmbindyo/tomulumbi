@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Types')
+@section('title', "To Do's")
 
 @section('css')
 
@@ -179,8 +179,27 @@
     <!-- TouchSpin -->
     <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
+    {{--  Get due date to populate   --}}
     <script>
-        document.getElementById("due_date").valueAsDate = new Date()
+        $(document).ready(function() {
+            // Set date
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yyyy = today.getFullYear();
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date_today = mm + '/' + dd + '/' + yyyy;
+            console.log(date_today);
+            document.getElementById("due_date").value = date_today;
+
+            // Set time
+        });
+
     </script>
     <script>
         $(document).ready(function(){

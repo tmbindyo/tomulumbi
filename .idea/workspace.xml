@@ -2,33 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb9ccff-c356-4b2b-a00b-ae851ff28f1f" name="Default Changelist" comment="Working on displaying client list, currently want to do client proof image">
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap-grid.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap-grid.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap-grid.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap-grid.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap-reboot.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap-reboot.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap-reboot.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap-reboot.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/bootstrap.bundle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/bootstrap.bundle.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/bootstrap.bundle.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/bootstrap.bundle.min.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/bootstrap.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/bootstrap.min.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/client_proof/bootstrap/js/jquery.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ClientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ClientController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/album.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/album.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/client_proof/album/album.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/client_proof/album/album.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/modals/to_do.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/modals/to_do.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/to_dos.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/to_dos.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -270,7 +246,11 @@
       <workItem from="1565461637806" duration="1607000" />
       <workItem from="1565488996707" duration="43697000" />
       <workItem from="1565741719370" duration="1461000" />
-      <workItem from="1565744927761" duration="4261000" />
+      <workItem from="1565744927761" duration="4457000" />
+      <workItem from="1565950278372" duration="10000" />
+      <workItem from="1565954121491" duration="1571000" />
+      <workItem from="1565961205789" duration="28000" />
+      <workItem from="1565961267162" duration="28000" />
     </task>
     <task id="LOCAL-00001" summary="remove auto incrementing id">
       <created>1559412316833</created>
