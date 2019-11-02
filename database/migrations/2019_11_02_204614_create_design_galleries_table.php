@@ -16,8 +16,11 @@ class CreateDesignGalleriesTable extends Migration
         Schema::create('design_galleries', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->text('upload_id')->nullable();
-            $table->text('design_id')->nullable();
+            $table->boolean('is_design_work');
+
+            $table->text('upload_id');
+            $table->text('design_id');
+            $table->text('design_work_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

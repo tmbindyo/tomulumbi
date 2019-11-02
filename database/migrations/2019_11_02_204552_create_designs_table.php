@@ -19,8 +19,8 @@ class CreateDesignsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
 
-            $table->text('upload_id')->nullable();
-            $table->text('client_id')->nullable();
+            $table->text('upload_id');
+            $table->text('client_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

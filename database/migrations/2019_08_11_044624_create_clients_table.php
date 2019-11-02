@@ -20,7 +20,6 @@ class CreateClientsTable extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
 
-            $table->uuid('album_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->timestamps();

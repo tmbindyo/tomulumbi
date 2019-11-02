@@ -17,10 +17,10 @@ class CreateDesignWorksTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->text('description');
 
-            $table->text('upload_id')->nullable();
-            $table->text('design_id')->nullable();
+            $table->text('upload_id');
+            $table->text('design_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

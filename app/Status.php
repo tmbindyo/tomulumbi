@@ -101,6 +101,10 @@ class Status extends Model
     {
         return $this->hasMany('App\Category');
     }
+    public function client()
+    {
+        return $this->hasMany('App\Client');
+    }
     public function colors()
     {
         return $this->hasMany('App\Color');
@@ -108,6 +112,18 @@ class Status extends Model
     public function cover_designs()
     {
         return $this->hasMany('App\CoverDesign');
+    }
+    public function designs()
+    {
+        return $this->hasMany('App\Design');
+    }
+    public function design_gallaries()
+    {
+        return $this->hasMany('App\DesignGallery');
+    }
+    public function design_works()
+    {
+        return $this->hasMany('App\DesignWork');
     }
     public function download_resolutions()
     {

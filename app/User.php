@@ -99,6 +99,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Category');
     }
+    public function clients()
+    {
+        return $this->hasMany('App\Client');
+    }
     public function colors()
     {
         return $this->hasMany('App\Color');
@@ -106,6 +110,18 @@ class User extends Authenticatable
     public function cover_designs()
     {
         return $this->hasMany('App\CoverDesign');
+    }
+    public function designs()
+    {
+        return $this->hasMany('App\Design');
+    }
+    public function design_gallaries()
+    {
+        return $this->hasMany('App\DesignGallery');
+    }
+    public function design_works()
+    {
+        return $this->hasMany('App\DesignWork');
     }
     public function download_resolutions()
     {
