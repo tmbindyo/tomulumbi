@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb9ccff-c356-4b2b-a00b-ae851ff28f1f" name="Default Changelist" comment="Working on displaying client list, currently want to do client proof image">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Client.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Client.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Design.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Design.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DesignGallery.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DesignGallery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DesignWork.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DesignWork.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Status.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Status.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Upload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_11_044624_create_clients_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_11_044624_create_clients_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_02_204552_create_designs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_02_204552_create_designs_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_02_204608_create_design_works_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_02_204608_create_design_works_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_02_204614_create_design_galleries_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_02_204614_create_design_galleries_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DesignView.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/DesignViewController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_02_212223_create_design_views_table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -304,7 +295,7 @@
       <workItem from="1572679629020" duration="5456000" />
       <workItem from="1572693516981" duration="2000" />
       <workItem from="1572693540262" duration="4819000" />
-      <workItem from="1572700948272" duration="27021000" />
+      <workItem from="1572700948272" duration="27303000" />
     </task>
     <task id="LOCAL-00001" summary="remove auto incrementing id">
       <created>1559412316833</created>

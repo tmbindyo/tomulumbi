@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlbumViewsTable extends Migration
+class CreateDesignViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAlbumViewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('album_views', function (Blueprint $table) {
+        Schema::create('design_views', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
             $table->uuid('album_id')->nullable();
@@ -32,6 +32,6 @@ class CreateAlbumViewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('album_views');
+        Schema::dropIfExists('design_views');
     }
 }
