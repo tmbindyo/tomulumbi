@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Album;
 use App\AlbumCategory;
+use App\AlbumSet;
 use App\AlbumTag;
 use App\Traits\UserTrait;
 use App\Typography;
@@ -24,6 +25,17 @@ class SettingsController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function testMasonry()
+    {
+        // User
+        $user = $this->getAdmin();
+
+        $albumSets = AlbumSet::where('album_id',"d1004fc1-e286-47a1-af01-ec485772619a")->with('status','user','album_images','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
+        return view('admin.test_masonry',compact('user'));
+    }
+
+
     public function albumTypes()
     {
         // User

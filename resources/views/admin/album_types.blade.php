@@ -18,110 +18,129 @@
 
 @section('content')
 
-
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Album Types</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a data-toggle="modal" data-target="#albumTypeRegistration">
-                                <i class="fa fa-plus-circle"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-
-                        <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($albumTypes as $albumType)
-                        <tr class="gradeX">
-                            <td>{{$albumType->name}}</td>
-                            <td>{{$albumType->description}}</td>
-                            <td>{{$albumType->user->name}}</td>
-                            @if($albumType->status->name === "Active")
-                                <td>
-                                <span class="label label-primary">{{$albumType->status->name}}</span>
-                                </td>
-                            @elseif($albumType->status->name === "Inactive")
-                                <td>
-                                <span class="label label-danger">{{$albumType->status->name}}</span>
-                                </td>
-                            @elseif($albumType->status->name === "Ongoing")
-                                <td>
-                                <span class="label label-danger">{{$albumType->status->name}}</span>
-                                </td>
-                            @elseif($albumType->status->name === "Preview")
-                                <td>
-                                <span class="label label-warning">{{$albumType->status->name}}</span>
-                                </td>
-                            @elseif($albumType->status->name === "Completed")
-                                <td>
-                                <span class="label label-primary">{{$albumType->status->name}}</span>
-                                </td>
-                            @elseif($albumType->status->name === "Hidden")
-                                <td>
-                                <span class="label label-danger">{{$albumType->status->name}}</span>
-                                </td>
-                            @elseif($albumType->status->name === "Published")
-                                <td>
-                                <span class="label label-warning">{{$albumType->status->name}}</span>
-                                </td>
-                            @else
-                                <td>
-                                <span class="label label-default">{{$albumType->status->name}}</span>
-                                </td>
-                            @endif
-
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <a href="{{ route('admin.album.type', $albumType->id) }}" class="btn-white btn btn-xs">View</a>
-                                    <a href="{{ route('admin.album.type.delete', $albumType->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </tfoot>
-                    </table>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Album Types</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('admin.dashboard')}}">Home</a>
+                </li>
+                <li>
+                    Settings
+                </li>
+                <li class="active">
+                    <strong>Album Types</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="#" data-toggle="modal" data-target="#albumTypeRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
+    </div>
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Album Types</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#">Config option 1</a>
+                            </li>
+                            <li><a href="#">Config option 2</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($albumTypes as $albumType)
+                    <tr class="gradeX">
+                        <td>{{$albumType->name}}</td>
+                        <td>{{$albumType->description}}</td>
+                        <td>{{$albumType->user->name}}</td>
+                        @if($albumType->status->name === "Active")
+                            <td>
+                            <span class="label label-primary">{{$albumType->status->name}}</span>
+                            </td>
+                        @elseif($albumType->status->name === "Inactive")
+                            <td>
+                            <span class="label label-danger">{{$albumType->status->name}}</span>
+                            </td>
+                        @elseif($albumType->status->name === "Ongoing")
+                            <td>
+                            <span class="label label-danger">{{$albumType->status->name}}</span>
+                            </td>
+                        @elseif($albumType->status->name === "Preview")
+                            <td>
+                            <span class="label label-warning">{{$albumType->status->name}}</span>
+                            </td>
+                        @elseif($albumType->status->name === "Completed")
+                            <td>
+                            <span class="label label-primary">{{$albumType->status->name}}</span>
+                            </td>
+                        @elseif($albumType->status->name === "Hidden")
+                            <td>
+                            <span class="label label-danger">{{$albumType->status->name}}</span>
+                            </td>
+                        @elseif($albumType->status->name === "Published")
+                            <td>
+                            <span class="label label-warning">{{$albumType->status->name}}</span>
+                            </td>
+                        @else
+                            <td>
+                            <span class="label label-default">{{$albumType->status->name}}</span>
+                            </td>
+                        @endif
+
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <a href="{{ route('admin.album.type', $albumType->id) }}" class="btn-white btn btn-xs">View</a>
+                                <a href="{{ route('admin.album.type.delete', $albumType->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </tfoot>
+                </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
 
 
 @endsection

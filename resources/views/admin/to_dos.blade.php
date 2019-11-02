@@ -42,12 +42,29 @@
 
 @endsection
 
-
-
 @section('content')
 
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>To Do's</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('admin.dashboard')}}">Home</a>
+                </li>
+                <li class="active">
+                    <strong>To Do's</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="#" data-toggle="modal" data-target="#toDoRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+            </div>
+        </div>
+    </div>
+
+
     <div class="wrapper wrapper-content animated fadeInUp">
-        <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-block btn-outline">Add To Do</a>
         <ul class="pending-to-do">
             @foreach($pendingToDos as $pendingToDo)
                 <li>
@@ -63,7 +80,6 @@
                 </li>
             @endforeach
         </ul>
-
         <ul class="in-progress-to-do">
             @foreach($inProgressToDos as $inProgressToDo)
                 <li>

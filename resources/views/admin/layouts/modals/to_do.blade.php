@@ -5,7 +5,6 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <i class="fa fa-laptop modal-icon"></i>
                 <h4 class="modal-title">To Do Registration</h4>
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
             </div>
             <div class="modal-body">
                 <form method="post" action="{{ route('admin.to.do.save') }}" autocomplete="off" class="form-horizontal form-label-left">
@@ -24,54 +23,47 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" id="name" name="name" required="required" placeholder="To Do Name" class="form-control input-lg">
+                            <div class="has-warning">
+                                <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
                                 <i>Give your to do a name</i>
                             </div>
                         </div>
 
                         <div class="col-md-6">
-                            <div class="form-group" id="data_1">
-                                <label>Due Date</label>
+                            <div class="has-warning" id="data_1">
                                 <div class="input-group date">
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
                                     <input type="text" name="due_date" id="due_date" class="form-control input-lg">
                                 </div>
-                                <i> due date.</i>
+                                <i>Due date.</i>
                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                             </div>
                         </div>
                     </div>
-
+                    <br>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label>
-                                    Notes
-                                </label>
+                            <div class="has-warning">
                                 <textarea id="notes" rows="6" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="Notes..."></textarea>
+                                <i>Due date.</i>
                             </div>
                         </div>
                     </div>
-
-
+                    <br>
                     <div class="row">
                         <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="">Is Album</label>
+                            <div class="has-warning">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <input name="is_album" type="checkbox" class="js-switch_3" checked />
+                                    <br>
                                     <i>Check if it belongs to Album.</i>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-8">
-                            <div class="form-group">
-                                <label>Album <span class="required">*</span>
-                                </label>
+                            <div class="has-warning">
                                 <select name="album" class="select2_demo_2 form-control input-lg">
                                     <option>Select Album</option>
                                     @foreach($albums as $album)
@@ -82,12 +74,7 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
+                    <br>
                     <div class="ln_solid"></div>
 
                     <div class="text-center">

@@ -1,179 +1,160 @@
-@extends('layouts.app', ['class' => 'bg-white'])
+{{--  bato template  --}}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>tomulumbi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
 
-@section('content')
-    <div class="header bg-gradient-secondary py-12 py-lg-12">
-        <div class="" style="height: 50%">
-            <div class="header-body mt-12 mb-12">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="bd-example">
-                            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="{{ asset('images') }}/5.jpg" class="d-block w-100" style="height: 70%">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>First slide label</h5>
-                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('images') }}/1.jpg"class="d-block w-100">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    <h5>Second slide label</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('images') }}/3.jpg"class="d-block w-100">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    <h5>Third slide label</h5>
-                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                                    </div>
-                                </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                                </a>
-                            </div>
-                        </div>
-                        {{-- <h1 class="text-white">{{ __('Welcome to Argon .') }}</h1> --}}
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/bootstrap.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/owl.theme.default.min.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/style.css">
+
+
+    <!-- Modernizr JS -->
+    <script src="{{ asset('design/bato') }}/js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('design/bato') }}/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+
+<div id="colorlib-page">
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="colorlib-navbar-brand">
+                        <a class="colorlib-logo" href="{{route('welcome')}}">tomulumbi</a>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- <div class="separator separator-bottom separator-skew zindex-100">
-            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-            </svg>
-        </div> --}}
-    </div>
-
-    {{-- <div class="container mt--10 pb-5"></div> --}}
-@endsection
-
-@section('banner')
-<section class="py-7 section-nucleo-icons bg-white overflow-hidden">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h2 class="display-3">Who are we?</h2>
-                <p class="lead">
-                        Be the first to hear about our investment opportunities when they launch
-                </p>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8 text-center">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Enter Email Address" aria-label="Enter Email Address" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                <button class="btn btn-md btn-primary">Add</button>
+    </header>
+    <div id="colorlib-hero" class="js-fullheight">
+        <div class="owl-carousel">
+            <div class="item">
+                <div class="hero-flex js-fullheight">
+                    <div class="col-three-forth">
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/DSC_4799_small.jpg);"></div>
+                    </div>
+                    <div class="col-one-forth js-fullheight">
+                        <div class="display-t js-fullheight">
+                            <div class="display-tc js-fullheight">
+                                <h2 class="number">01/03</h2>
+                                <div class="text-inner">
+                                    <div class="desc">
+                                        <span class="tag">Photography</span>
+                                        <h2>Photography is on it's way.</h2>
+                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <p><a href="{{route('personal.albums')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="/login" class="btn btn-primary">Raise Capital</a>
-                    <a href="/login" target="_blank" class="btn btn-default mt-3 mt-md-0">Start Investing</a>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-@endsection
-
-@section('projects')
-<section class="py-7 section-nucleo-icons bg-white overflow-hidden">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-12 text-center">
-                <h2 class="display-3">Current Offerings</h2>
-                <br>
-                <div class="row">
-                    @foreach ($projects as $project)
-                        <div class="col-lg-4">
-                            <div class="card" style="margin-bottom:10%"><a href="{{ route('offering', $project->id) }}">
-                                <img class="card-img-top" src="{{ asset('images') }}{{ $project->thumbnail }}" alt="Offering Image">                    
-                                        <!-- Card body -->
-                                <div class="card-body">
-                                    <h3 class="card-title mb-3">{{ $project->name }}</h3>
-                                    <p class="card-text mb-4">
-                                            {{ str_limit($project->description, $limit = 100, $end = '...') }}
-                                    </p>
-                                </div>
-                                <hr>
-                                <div class="progress-wrapper">
-                                    <div class="progress">
-                                        @if(count($project->project_investments) > 0)
-                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ $project->project_investments->sum('amount')/$project->total_budget * 100  }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $project->project_investments->sum('amount')/$project->total_budget * 100  }}%;"></div>
-                                        @else
-                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
-                                        @endif
+            <div class="item">
+                <div class="hero-flex js-fullheight">
+                    <div class="col-three-forth">
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_2.jpg);"></div>
+                    </div>
+                    <div class="col-one-forth js-fullheight">
+                        <div class="display-t js-fullheight">
+                            <div class="display-tc js-fullheight">
+                                <h2 class="number">02/03</h2>
+                                <div class="text-inner">
+                                    <div class="desc">
+                                        <span class="tag">Client Proofs</span>
+                                        <h2>Capture interesting things.</h2>
+                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <p><a href="{{route('client.proofs')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
-                                <hr>
-                                <ul class="list-group list-group-flush">
-                                    <div class="row">
-                                        <div class="col-md-3 stat">
-                                            @if(count($project->project_investments) > 0)
-                                                @if($project->project_investments->sum('amount') > 1000000)
-                                                    <div class="num">{{ $project->project_investments->sum('amount') }}
-                                                        <span class="abbrev-number">M</span>
-                                                    </div>
-                                                @else
-                                                    <div class="num">${{ $project->project_investments->sum('amount')/1000 }}
-                                                        <span class="abbrev-number">K</span>
-                                                    </div>
-                                                @endif
-                                            @else
-                                                <div class="num">$0
-                                                    <span class="abbrev-number">M</span>
-                                                </div>
-                                            @endif
-                                            <span>Raised</span>
-                                        </div>
-                                        <div class="col-md-4 stat">
-                                            @if(count($project->project_investments) > 0)
-                                                <div class="num">{{ $project->project_investments->count('amount') }}
-                                                    @if($project->project_investments->count('amount') > 1000)
-                                                        <span class="abbrev-number">K</span>
-                                                    @else
-                                                        <span class="abbrev-number"></span>
-                                                    @endif
-                                                </div>
-                                            @else
-                                                <div class="num">0
-                                                    <span class="abbrev-number"></span>
-                                                </div>
-                                            @endif
-                                            <span>Investors</span>
-                                        </div>
-                                        <div class="col-md-5" style="padding-right:5%">
-                                            <div class="num">${{ $project->minimum_investment }}</div>
-                                            <span>Min Investment</span>
-                                        </div>
-                                    </div>
-                                    <li class="list-group-item"><a href="{{ route('offering', $project->id) }}">View Offering</a></li>
-                                </ul>      
-                                </a>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="hero-flex js-fullheight">
+                    <div class="col-three-forth">
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_3.jpg);"></div>
+                    </div>
+                    <div class="col-one-forth js-fullheight">
+                        <h2 class="number">03/03</h2>
+                        <div class="display-t js-fullheight">
+                            <div class="display-tc js-fullheight">
+                                <div class="text-inner">
+                                    <div class="desc">
+                                        <span class="tag">Design Work</span>
+                                        <h2>Discover New Things</h2>
+                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <p><a href="{{route('designs')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-@endsection
+
+</div>
+
+<!-- jQuery -->
+<script src="{{ asset('design/bato') }}/js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="{{ asset('design/bato') }}/js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="{{ asset('design/bato') }}/js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="{{ asset('design/bato') }}/js/jquery.waypoints.min.js"></script>
+<!-- Owl Carousel -->
+<script src="{{ asset('design/bato') }}/js/owl.carousel.min.js"></script>
+<!-- Magnific Popup -->
+<script src="{{ asset('design/bato') }}/js/jquery.magnific-popup.min.js"></script>
+<script src="{{ asset('design/bato') }}/js/magnific-popup-options.js"></script>
+
+<!-- Main JS (Do not remove) -->
+<script src="{{ asset('design/bato') }}/js/main.js"></script>
+
+</body>
+</html>
+

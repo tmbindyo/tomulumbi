@@ -3,9 +3,8 @@
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-laptop modal-icon"></i>
+                <i class="fa fa-cog modal-icon"></i>
                 <h4 class="modal-title">Tag Registration</h4>
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
             </div>
             <div class="modal-body">
                 <form method="post" action="{{ route('admin.tag.save') }}" autocomplete="off" class="form-horizontal form-label-left">
@@ -23,18 +22,15 @@
 
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                            Name <span class="required">*</span>
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required">
+                        <div class="has-warning">
+                            <input type="text" id="name" name="name" required="required" class="form-control input-lg" required="required" placeholder="Name">
                         </div>
                     </div>
 
                     <div class="ln_solid"></div>
 
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                    <div class="row text-center">
+                        <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
                     </div>
 
                 </form>

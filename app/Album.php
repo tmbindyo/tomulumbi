@@ -20,6 +20,10 @@ class Album extends Model
     {
         return $this->hasMany('App\AlbumSet');
     }
+    public function album_views()
+    {
+        return $this->hasMany('App\AlbumViews');
+    }
     public function album_tags()
     {
         return $this->hasMany('App\AlbumTag');
@@ -74,14 +78,6 @@ class Album extends Model
     public function cover_design()
     {
         return $this->belongsTo('App\CoverDesign');
-    }
-    public function grid_spacing()
-    {
-        return $this->belongsTo('App\GridSpacing');
-    }
-    public function grid_style()
-    {
-        return $this->belongsTo('App\GridStyle');
     }
     public function image_position()
     {

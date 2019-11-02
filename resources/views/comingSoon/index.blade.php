@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <title>
-            Tomulumbi
+            Tomulumbi | Coming Soon
         </title><!-- Behavioral Meta Data -->
         <meta content="yes" name="apple-mobile-web-app-capable">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"><!-- Core Meta Data -->
@@ -165,8 +165,8 @@
                                 <a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a>
                             </li>
                         </ul>
-                        Theme by <a href="https://tomulumbi.com/" target="_blank">Tomulumbi</a>
-                        <a class="mail" href="mailto:info@tomulumbi.com?subject=Hi%20Tomulumbi!">info@tomulumbi.com</a>
+                        Site by <a href="https://www.tomulumbi.com/" target="_blank">Tomulumbi </a>
+                        <a class="mail" href="mailto:info@tomulumbi.com?subject=Hi%20Tomulumbi!">| info@tomulumbi.com</a>
                     </div>
                 </li>
             </ul>
@@ -175,7 +175,7 @@
         <!-- Javascript -->
         <script>
             // Set the date we're counting down to
-            var countDownDate = new Date("August 27, 2019 24:00:00").getTime();
+            var countDownDate = new Date("November 27, 2019 24:00:00").getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function() {

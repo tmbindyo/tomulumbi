@@ -28,9 +28,8 @@ class ToDoController extends Controller
         $completedToDos = ToDo::with('user','status','album')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
         // Overdue to dos
         $overdueToDos = ToDo::with('user','status','album')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
-
         // Albums
-        $albums = Album::with('user','status')->get();
+        $albums = Album::get();
 
         // User
         $user = $this->getAdmin();

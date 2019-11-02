@@ -86,8 +86,8 @@
                 <a href="{{ route('admin.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do's</span></a>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'admin.client.albums' ) ?  'active' : '' }}">
-                <a href="{{ route('admin.client.albums') }}"><i class="fa fa-users"></i> <span class="nav-label">Client Proof's</span><span class="label label-warning pull-right">24</span></a>
+            <li class="nav-item {{ Route::currentRouteNamed( 'admin.client.proofs' ) ?  'active' : '' }}">
+                <a href="{{ route('admin.client.proofs') }}"><i class="fa fa-users"></i> <span class="nav-label">Client Proof's</span><span class="label label-warning pull-right">24</span></a>
             </li>
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.personal.albums' ) ?  'active' : '' }}">
@@ -104,6 +104,10 @@
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.store' ) ?  'active' : '' }}">
                 <a href="{{ route('admin.store') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Store</span><span class="label label-warning pull-right">24</span></a>
+            </li>
+
+            <li class="nav-item {{ Route::currentRouteNamed( 'admin.test.masonry' ) ?  'active' : '' }}">
+                <a href="{{ route('admin.test.masonry') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Test Masonry</span><span class="label label-warning pull-right">24</span></a>
             </li>
 
         </ul>

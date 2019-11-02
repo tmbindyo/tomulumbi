@@ -46,40 +46,52 @@ Route::get('/to/do/delete/{todo_id}', 'Admin\ToDoController@toDoDelete')->name('
 
 
 // Client proof routes
-Route::get('/client/settings', 'Admin\ClientController@clientSettings')->name('admin.client.settings');
-Route::get('/client/albums', 'Admin\ClientController@albums')->name('admin.client.albums');
-Route::get('album/set/status/{album_set_id}', 'Admin\ClientController@albumSetStatus')->name('admin.album.set.status');
-Route::get('album/set/download/status/{album_set_id}', 'Admin\ClientController@albumSetDownloadStatus')->name('admin.album.set.download.status');
+Route::get('/client/settings', 'Admin\AlbumController@clientSettings')->name('admin.client.settings');
+
 
 // Album
-Route::get('/albums', 'Admin\ClientController@albums')->name('admin.albums');
-Route::get('/album/create', 'Admin\ClientController@albumRegistration')->name('admin.album.create');
-Route::get('/album/{album_id}', 'Admin\ClientController@album')->name('admin.album');
-Route::post('/album/update/collection/settings/{album_id}', 'Admin\ClientController@albumUpdateCollectionSettings')->name('admin.album.update.collection.settings');
-Route::post('/album/update/design/{album_id}', 'Admin\ClientController@albumUpdateDesign')->name('admin.album.update.design');
-Route::post('/album/update/cover/image/design/{album_id}', 'Admin\ClientController@albumUpdateCoverImageDesign')->name('admin.album.update.cover.image.design');
-Route::post('/album/update/privacy/{album_id}', 'Admin\ClientController@albumUpdatePrivacy')->name('admin.album.update.privacy');
-Route::post('/album/set/cover/image/{album_id}', 'Admin\ClientController@albumCoverImageUpload')->name('admin.album.set.cover.image');
-Route::post('/album/update/download/{album_id}', 'Admin\ClientController@albumUpdateDownload')->name('admin.album.update.download');
-Route::get('/album/generate/password/{album_id}', 'Admin\ClientController@generateAlbumPassword')->name('admin.album.generate.password');
-Route::get('/album/generate/pin/{album_id}', 'Admin\ClientController@generateAlbumPin')->name('admin.album.generate.pin');
-Route::post('/album/to/do/save/{album_id}', 'Admin\ToDoController@albumToDoSave')->name('admin.album.to.do.save');
-Route::get('/album/restrict/to/specific/{album_id}/email/{email}', 'Admin\ClientController@albumDownloadRestrictionEmail')->name('admin.album.restrict.to.specific.email');
-Route::get('/album/restrict/to/specific/email/delete/{restriction_email_id}', 'Admin\ClientController@albumDownloadRestrictionEmailDelete')->name('admin.album.restrict.to.specific.email.delete');
-Route::post('/album/save', 'Admin\ClientController@albumSave')->name('admin.album.save');
-Route::post('/album/update/{album_id}', 'Admin\ClientController@albumUpdate')->name('admin.album.update');
-Route::get('/album/delete/{album_id}', 'Admin\SettingsController@albumDelete')->name('admin.album.delete');
+Route::get('/personal/albums', 'Admin\AlbumController@personalAlbums')->name('admin.personal.albums');
+Route::get('/personal/album/create', 'Admin\AlbumController@personalAlbumCreate')->name('admin.personal.album.create');
+Route::post('/personal/album/store', 'Admin\AlbumController@personalAlbumStore')->name('admin.personal.album.store');
+Route::get('/personal/album/show/{album_id}', 'Admin\AlbumController@personalAlbumShow')->name('admin.personal.album.show');
+Route::post('/personal/album/update/{album_id}', 'Admin\AlbumController@personalAlbumUpdate')->name('admin.personal.album.update');
+Route::get('/personal/album/delete/{album_id}', 'Admin\AlbumController@personalAlbumDelete')->name('admin.personal.album.delete');
+Route::get('/personal/album/restore/{album_id}', 'Admin\AlbumController@personalAlbumRestore')->name('admin.personal.album.restore');
+Route::post('/personal/album/set/cover/image/{album_id}', 'Admin\AlbumController@personalAlbumCoverImageUpload')->name('admin.personal.album.set.cover.image');
+Route::post('/personal/album/update/design/{album_id}', 'Admin\AlbumController@personalAlbumUpdateDesign')->name('admin.personal.album.update.design');
 
+Route::get('/client/proofs', 'Admin\AlbumController@clientProofs')->name('admin.client.proofs');
+Route::get('/client/proof/create', 'Admin\AlbumController@clientProofCreate')->name('admin.client.proof.create');
+Route::post('/clint/proof/store', 'Admin\AlbumController@clientProofStore')->name('admin.client.proof.store');
+Route::get('/client/proof/show/{album_id}', 'Admin\AlbumController@clientProofShow')->name('admin.client.proof.show');
+Route::get('/client/proof/delete/{album_id}', 'Admin\AlbumController@clientProofDelete')->name('admin.client.proof.delete');
+Route::get('/client/proof/restore/{album_id}', 'Admin\AlbumController@clientProofRestore')->name('admin.client.proof.delete');
+Route::post('/client/proof/update/collection/settings/{album_id}', 'Admin\AlbumController@albumUpdateCollectionSettings')->name('admin.client.proof.update.collection.settings');
+Route::post('/client/proof/update/design/{album_id}', 'Admin\AlbumController@clientProofUpdateDesign')->name('admin.client.proof.update.design');
+Route::post('/client/proof/update/cover/image/design/{album_id}', 'Admin\AlbumController@clientProofUpdateCoverImageDesign')->name('admin.client.proof.update.cover.image.design');
+Route::post('/client/proof/update/privacy/{album_id}', 'Admin\AlbumController@clientProofUpdatePrivacy')->name('admin.client.proof.update.privacy');
+Route::post('/client/proof/set/cover/image/{album_id}', 'Admin\AlbumController@clientProofCoverImageUpload')->name('admin.client.proof.set.cover.image');
+Route::post('/client/proof/update/download/{album_id}', 'Admin\AlbumController@clientProofUpdateDownload')->name('admin.client.proof.update.download');
+Route::get('/client/proof/generate/password/{album_id}', 'Admin\AlbumController@generateClientProofPassword')->name('admin.client.proof.generate.password');
+Route::get('/client/proof/generate/pin/{album_id}', 'Admin\AlbumController@generateClientProofPin')->name('admin.client.proof.generate.pin');
+Route::get('/client/proof/restrict/to/specific/{album_id}/email/{email}', 'Admin\AlbumController@clientProofDownloadRestrictionEmail')->name('admin.client.proof.restrict.to.specific.email');
+Route::get('/client/proof/restrict/to/specific/email/delete/{restriction_email_id}', 'Admin\AlbumController@clientProofDownloadRestrictionEmailDelete')->name('admin.client.proof.restrict.to.specific.email.delete');
+
+Route::post('/client/proof/to/do/save/{album_id}', 'Admin\ToDoController@albumToDoSave')->name('admin.client.proof.to.do.save');
 // Album set
-Route::get('/album/set/{album_id}', 'Admin\ClientController@albumSet')->name('admin.album.set');
-Route::post('/album/set/{album_id}/save', 'Admin\ClientController@albumSetSave')->name('admin.album.set.save');
+Route::get('/client/proof/set/{album_id}', 'Admin\AlbumController@clientProofSet')->name('admin.client.proof.set');
+Route::post('/client/proof/set/{album_id}/save', 'Admin\AlbumController@clientProofSetSave')->name('admin.client.proof.set.save');
+Route::get('/client/proof/set/status/{album_set_id}', 'Admin\AlbumController@clientProofSetStatus')->name('admin.client.proof.set.status');
+Route::get('/client/proof/set/download/status/{album_set_id}', 'Admin\AlbumController@clientProofSetDownloadStatus')->name('admin.client.proof.set.download.status');
+Route::post('/client/proof/set/image/upload/{album_set_id}', 'Admin\AlbumController@clientProofSetImageUpload')->name('admin.client.proof.set.image.upload');
 
-Route::post('/album/set/image/upload/{album_set_id}', 'Admin\ClientController@albumSetImageUpload')->name('admin.album.set.image.upload');
 
 
-Route::get('/personal/albums', 'Admin\DashboardController@form')->name('admin.personal.albums');
-Route::get('/design/work', 'Admin\DashboardController@form')->name('admin.design.work');
-Route::get('/diy', 'Admin\DashboardController@form')->name('admin.diy');
-Route::get('/store', 'Admin\DashboardController@form')->name('admin.store');
+Route::get('/design/work', 'Admin\DashboardController@dashboard')->name('admin.design.work');
+Route::get('/diy', 'Admin\DashboardController@dashboard')->name('admin.diy');
+Route::get('/store', 'Admin\DashboardController@dashboard')->name('admin.store');
+
+
+Route::get('/test/masonry', 'Admin\SettingsController@testMasonry')->name('admin.test.masonry');
 
 

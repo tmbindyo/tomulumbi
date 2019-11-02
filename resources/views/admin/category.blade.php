@@ -155,6 +155,7 @@
 
                             <td class="text-right">
                                 <div class="btn-group">
+                                    {{-- todo check why route is album but id is album type--}}
                                     <a href="{{ route('admin.album', $categoryAlbum->id) }}" class="btn-white btn btn-xs">View</a>
                                 </div>
                             </td>

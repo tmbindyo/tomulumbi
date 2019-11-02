@@ -18,6 +18,8 @@ class CreateAlbumsTable extends Migration
 
             // General
             $table->string('name');
+            $table->string('location')->nullable();
+            $table->integer('views');
             $table->date('date');
             $table->boolean('is_auto_expiry');
             $table->date('expiry_date')->nullable();
@@ -33,9 +35,7 @@ class CreateAlbumsTable extends Migration
             $table->uuid('image_position_id')->nullable();
 
             $table->uuid('typography_id')->nullable();
-            $table->uuid('grid_style_id')->nullable();
             $table->uuid('thumbnail_size_id')->nullable();
-            $table->uuid('grid_spacing_id')->nullable();
 
             // Privacy
             $table->string('password')->nullable();

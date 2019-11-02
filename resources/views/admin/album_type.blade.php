@@ -158,6 +158,7 @@
                             @endif
 
                             <td class="text-right">
+{{--                                todo check why route is album but id is album type--}}
                                 <div class="btn-group">
                                     <a href="{{ route('admin.album', $albumTypeAlbum->id) }}" class="btn-white btn btn-xs">View</a>
                                 </div>

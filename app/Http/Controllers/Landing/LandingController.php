@@ -7,5 +7,9 @@ use App\Http\Controllers\Controller;
 
 class LandingController extends Controller
 {
+    public function welcome()
+    {
 
+        return view('welcome');
+    }
 }

@@ -17,8 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call([ContentAlignTableSeeder::class]);
         $this->call([CoverDesignTableSeeder::class]);
         $this->call([DownloadResolutionTableSeeder::class]);
-        $this->call([GridSpacingTableSeeder::class]);
-        $this->call([GridStyleTableSeeder::class]);
         $this->call([ImagePositionTableSeeder::class]);
         $this->call([OrientationTableSeeder::class]);
         $this->call([ProjectTypeTableSeeder::class]);
