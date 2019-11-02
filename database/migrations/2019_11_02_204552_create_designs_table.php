@@ -17,6 +17,7 @@ class CreateDesignsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name');
+            $table->integer('views');
             $table->text('description')->nullable();
 
             $table->text('upload_id');

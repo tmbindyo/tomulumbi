@@ -87,7 +87,7 @@ Route::post('/client/proof/set/image/upload/{album_set_id}', 'Admin\AlbumControl
 
 
 
-Route::get('/design/work', 'Admin\DashboardController@dashboard')->name('admin.design.work');
+Route::get('/designs', 'Admin\DashboardController@designs')->name('admin.designs');
 Route::get('/diy', 'Admin\DashboardController@dashboard')->name('admin.diy');
 Route::get('/store', 'Admin\DashboardController@dashboard')->name('admin.store');
 
