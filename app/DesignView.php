@@ -16,4 +16,12 @@ class DesignView extends Model
     {
         return $this->belongsTo('App\Design');
     }
+    public function design_work()
+    {
+        return $this->belongsTo('App\DesignWork');
+    }
+    public function design_gallery()
+    {
+        return $this->belongsTo('App\DesignGallery');
+    }
 }

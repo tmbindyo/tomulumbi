@@ -16,46 +16,11 @@ class CreateAlbumImagesTable extends Migration
         Schema::create('album_images', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('artist')->nullable();
-            $table->string('aperture_f_number')->nullable();
-            $table->string('copyright')->nullable();
-            $table->string('height')->nullable();
-            $table->string('width')->nullable();
-            $table->string('date_time')->nullable();
-            $table->string('file_name')->nullable();
-            $table->string('file_size')->nullable();
-            $table->string('iso')->nullable();
-            $table->string('focal_length')->nullable();
-            $table->string('light_source')->nullable();
-            $table->string('max_aperture_value')->nullable();
-            $table->string('mime_type')->nullable();
-            $table->string('make')->nullable();
-            $table->string('model')->nullable();
-            $table->string('software')->nullable();
-            $table->string('shutter_speed')->nullable();
-
-            $table->string('name');
-            $table->string('extension');
-            $table->string('size');
-            $table->text('image');
-
-            // Album set images
-            $table->text('small')->nullable();
-            $table->text('medium')->nullable();
-            $table->text('large')->nullable();
+            $table->uuid('upload_id')->nullable();
             $table->uuid('album_set_id')->nullable();
-            $table->boolean('is_client_exclusive_access')->nullable();
-            $table->boolean('is_album_set_image');
-
-            // Album cover image
-            $table->boolean('is_album_cover');
-            $table->uuid('album_id')->nullable();
-            $table->text('small_thumbnail')->nullable();
-            $table->text('large_thumbnail')->nullable();
-            $table->text('banner')->nullable();
-
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

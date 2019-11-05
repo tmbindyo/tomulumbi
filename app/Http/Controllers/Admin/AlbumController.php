@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Client;
 use App\Color;
 use App\ContentAlign;
 use App\CoverDesign;
+use App\Design;
 use App\GridSpacing;
 use App\GridStyle;
 use App\ImagePosition;
@@ -54,12 +56,9 @@ class AlbumController extends Controller
         // Tags
         $tags = Tag::all();
 
-        // Categories
-        $categories = Category::all();
-
         // User
         $user = $this->getAdmin();
-        return view('admin.personal_album_create',compact('user','tags','categories'));
+        return view('admin.personal_album_create',compact('user','tags'));
     }
 
     public function personalAlbumStore(Request $request)
@@ -97,15 +96,6 @@ class AlbumController extends Controller
             $albumTag->save();
         }
 
-        foreach ($request->categories as $albumAlbumCategory){
-            $albumCategory = new AlbumCategory();
-            $albumCategory->album_id = $album->id;
-            $albumCategory->category_id = $albumAlbumCategory;
-            $albumCategory->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-            $albumCategory->user_id = Auth::user()->id;
-            $albumCategory->save();
-        }
-
         // Save Album set
         $albumSet = new AlbumSet();
         $albumSet->album_id = $album->id;
@@ -136,9 +126,6 @@ class AlbumController extends Controller
         $typographies = Typography::all();
         $thumbnailSizes = ThumbnailSize::all();
 
-        // Categories
-        $categories = Category::all();
-
         // Album & Image status
         $albumStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
@@ -161,11 +148,10 @@ class AlbumController extends Controller
         // Album Dependencies
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
-        $albumCategories = AlbumCategory::where('album_id',$album_id)->with('album','category')->get();
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         $albumDownloadRestrictionEmails = AlbumDownloadRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.personal_album_show',compact('album','user','albumSets','tags','categories','albumCategories','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'thumbnailSizes'));
+        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'thumbnailSizes'));
     }
 
     public function personalAlbumDelete($album_id)
@@ -356,12 +342,9 @@ class AlbumController extends Controller
         // Tags
         $tags = Tag::all();
 
-        // Categories
-        $categories = Category::all();
-
         // User
         $user = $this->getAdmin();
-        return view('admin.client_proof_create',compact('user','tags','categories'));
+        return view('admin.client_proof_create',compact('user','tags'));
     }
 
     public function clientProofStore(Request $request)
@@ -413,15 +396,6 @@ class AlbumController extends Controller
             $albumTag->save();
         }
 
-        foreach ($request->categories as $albumAlbumCategory){
-            $albumCategory = new AlbumCategory();
-            $albumCategory->album_id = $album->id;
-            $albumCategory->category_id = $albumAlbumCategory;
-            $albumCategory->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-            $albumCategory->user_id = Auth::user()->id;
-            $albumCategory->save();
-        }
-
         // Save Album set
         $albumSet = new AlbumSet();
         $albumSet->album_id = $album->id;
@@ -460,9 +434,6 @@ class AlbumController extends Controller
         $imagePositions = ImagePosition::all();
 
 
-        // Categories
-        $categories = Category::all();
-
         // Album & Image status
         $albumStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
@@ -485,11 +456,10 @@ class AlbumController extends Controller
         // Album Dependencies
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
-        $albumCategories = AlbumCategory::where('album_id',$album_id)->with('album','category')->get();
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         $albumDownloadRestrictionEmails = AlbumDownloadRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.client_proof_show',compact('album','user','albumSets','tags','categories','albumCategories','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations'));
+        return view('admin.client_proof_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations'));
     }
 
     public function clientProofDelete($album_id)
@@ -546,29 +516,6 @@ class AlbumController extends Controller
 
         $albumTagsIds = AlbumTag::where('album_id',$album_id)->whereNotIn('tag_id',$albumRequestTags)->select('id')->get()->toArray();
         DB::table('album_tags')->whereIn('id', $albumTagsIds)->delete();
-
-        // Album categories update
-        $albumRequestCategories =array();
-        foreach ($request->categories as $albumAlbumCategory){
-            // Append to array
-            $albumRequestCategories[]['id'] = $albumAlbumCategory;
-
-            // Check if album category exists
-            $albumCategory = AlbumCategory::where('album_id',$album->id)->where('category_id',$albumAlbumCategory)->first();
-
-            if($albumCategory === null) {
-                $albumCategory = new AlbumCategory();
-                $albumCategory->album_id = $album->id;
-                $albumCategory->category_id = $albumAlbumCategory;
-                $albumCategory->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-                $albumCategory->user_id = Auth::user()->id;
-                $albumCategory->save();
-            }
-        }
-
-        $albumCategoriesIds = AlbumCategory::where('album_id',$album_id)->whereNotIn('category_id',$albumRequestCategories)->select('id')->get()->toArray();
-        DB::table('album_categories')->whereIn('id', $albumCategoriesIds)->delete();
-
 
         return back()->withStatus('Album collection settings updated!');
     }

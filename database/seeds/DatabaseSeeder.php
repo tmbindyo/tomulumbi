@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([StatusTypeTableSeeder::class]);
         $this->call([TagTableSeeder::class]);
         $this->call([ThumbnailSizeTableSeeder::class]);
+        $this->call([UploadTypeTableSeeder::class]);
         $this->call([UserTableSeeder::class]);
         $this->call([UserTypeTableSeeder::class]);
     }

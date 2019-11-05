@@ -6,7 +6,7 @@
                             <img alt="image" class="img-circle" src="img/profile_small.jpg" />
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$user->name}}</strong>
                              </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="profile.html">Profile</a></li>
@@ -94,8 +94,8 @@
                 <a href="{{ route('admin.personal.albums') }}"><i class="fa fa-image"></i> <span class="nav-label">Personal Album's</span><span class="label label-warning pull-right">24</span></a>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'admin.design.work' ) ?  'active' : '' }}">
-                <a href="{{ route('admin.design.work') }}"><i class="fa fa-pencil"></i> <span class="nav-label">Design Work</span><span class="label label-warning pull-right">24</span></a>
+            <li class="nav-item {{ Route::currentRouteNamed( 'admin.designs' ) ?  'active' : '' }}">
+                <a href="{{ route('admin.designs') }}"><i class="fa fa-pencil"></i> <span class="nav-label">Design Work</span><span class="label label-warning pull-right">24</span></a>
             </li>
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.diy' ) ?  'active' : '' }}">

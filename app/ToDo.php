@@ -20,6 +20,10 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Album');
     }
+    public function design()
+    {
+        return $this->belongsTo('App\Design');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');

@@ -48,7 +48,6 @@ class CreateUploadsTable extends Migration
             $table->boolean('is_album_set_image');
 
             // Album cover image
-            $table->boolean('is_album_cover');
             $table->uuid('album_id')->nullable();
             $table->text('small_thumbnail')->nullable();
             $table->text('large_thumbnail')->nullable();

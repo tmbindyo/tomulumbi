@@ -11,6 +11,12 @@ class DesignWork extends Model
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
+    // Children
+    public function design_views()
+    {
+        return $this->hasMany('App\DesignView');
+    }
+
     // Parents
     public function status()
     {

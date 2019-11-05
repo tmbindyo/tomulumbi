@@ -17,11 +17,16 @@ class CreateDesignsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name');
+            $table->date('date');
             $table->integer('views');
             $table->text('description')->nullable();
 
-            $table->text('upload_id');
-            $table->text('client_id');
+            $table->uuid('cover_image_id')->nullable();
+            // upload
+
+            $table->uuid('typography_id')->nullable();
+            $table->text('upload_id')->nullable();
+            $table->text('client_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

@@ -12,7 +12,7 @@ class Category extends Model
     public $incrementing = false;
 
     // Children
-    public function album_categories()
+    public function design_categories()
     {
         return $this->hasMany('App\AlbumCategory');
     }

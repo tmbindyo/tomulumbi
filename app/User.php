@@ -23,7 +23,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Album');
     }
-    public function album_categories()
+    public function design_categories()
     {
         return $this->hasMany('App\AlbumCategory');
     }

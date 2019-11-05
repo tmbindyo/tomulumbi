@@ -85,9 +85,20 @@ Route::get('/client/proof/set/status/{album_set_id}', 'Admin\AlbumController@cli
 Route::get('/client/proof/set/download/status/{album_set_id}', 'Admin\AlbumController@clientProofSetDownloadStatus')->name('admin.client.proof.set.download.status');
 Route::post('/client/proof/set/image/upload/{album_set_id}', 'Admin\AlbumController@clientProofSetImageUpload')->name('admin.client.proof.set.image.upload');
 
+// Designs
+Route::get('/designs', 'Admin\DesignController@designs')->name('admin.designs');
+Route::get('/design/create', 'Admin\DesignController@designCreate')->name('admin.design.create');
+Route::post('/design/store', 'Admin\DesignController@designStore')->name('admin.design.store');
+Route::get('/design/show/{album_id}', 'Admin\DesignController@designShow')->name('admin.design.show');
+Route::get('/design/update/{$design_id}', 'Admin\DesignController@designUpdate')->name('admin.design.update');
+Route::post('/design/cover/image/{album_id}', 'Admin\DesignController@designCoverImageUpload')->name('admin.design.cover.image');
+Route::post('/design/gallery/image/upload/{design_id}', 'Admin\DesignController@designGalleryImageUpload')->name('admin.design.gallery.image.upload');
+Route::post('/design/update/design/{design_id}', 'Admin\DesignController@designUpdateDesign')->name('admin.design.update.design');
+Route::get('/design/delete/{$design_id}', 'Admin\DesignController@designDelete')->name('admin.design.delete');
+Route::get('/design/restore/{$design_id}', 'Admin\DesignController@designRestore')->name('admin.design.restore');
 
+Route::post('/design/to/do/save/{design_id}', 'Admin\ToDoController@albumToDoSave')->name('admin.design.to.do.save');
 
-Route::get('/designs', 'Admin\DashboardController@designs')->name('admin.designs');
 Route::get('/diy', 'Admin\DashboardController@dashboard')->name('admin.diy');
 Route::get('/store', 'Admin\DashboardController@dashboard')->name('admin.store');
 

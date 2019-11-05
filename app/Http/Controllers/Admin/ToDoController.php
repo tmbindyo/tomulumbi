@@ -35,6 +35,7 @@ class ToDoController extends Controller
         $user = $this->getAdmin();
         return view('admin.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums'));
     }
+
     public function toDoSave(Request $request)
     {
 
@@ -54,6 +55,7 @@ class ToDoController extends Controller
         $todo->save();
         return back()->withStatus(__('To do '.$todo->name.' successfully created.'));
     }
+
     public function albumToDoSave(Request $request,$album_id)
     {
 
@@ -61,9 +63,23 @@ class ToDoController extends Controller
         $todo->name = $request->name;
         $todo->notes = $request->notes;
         $todo->due_date = date('Y-m-d', strtotime($request->due_date));
-        $todo->is_album = $request->is_album;
         $todo->is_album = True;
         $todo->album_id = $album_id;
+        $todo->status_id = "f3df38e3-c854-4a06-be26-43dff410a3bc";
+        $todo->user_id = Auth::user()->id;
+        $todo->save();
+        return back()->withStatus(__('To do '.$todo->name.' successfully created.'));
+    }
+
+    public function designToDoSave(Request $request,$design_id)
+    {
+
+        $todo = new ToDo();
+        $todo->name = $request->name;
+        $todo->notes = $request->notes;
+        $todo->due_date = date('Y-m-d', strtotime($request->due_date));
+        $todo->is_design = True;
+        $todo->design_id = $design_id;
         $todo->status_id = "f3df38e3-c854-4a06-be26-43dff410a3bc";
         $todo->user_id = Auth::user()->id;
         $todo->save();

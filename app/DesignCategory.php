@@ -6,20 +6,12 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AlbumCategory extends Model
+class DesignCategory extends Model
 {
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
     // Parents
-    public function album()
-    {
-        return $this->belongsTo('App\Album');
-    }
-    public function category()
-    {
-        return $this->belongsTo('App\Category');
-    }
     public function status()
     {
         return $this->belongsTo('App\Status');
@@ -28,4 +20,13 @@ class AlbumCategory extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function design()
+    {
+        return $this->belongsTo('App\Design');
+    }
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
+
 }

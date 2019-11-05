@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlbumCategoriesTable extends Migration
+class CreateDiyGalleriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateAlbumCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('album_categories', function (Blueprint $table) {
+        Schema::create('diy_galleries', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('album_id');
-            $table->uuid('category_id');
+
+            $table->text('upload_id');
+            $table->text('diy_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +33,6 @@ class CreateAlbumCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('album_categories');
+        Schema::dropIfExists('diy_galleries');
     }
 }

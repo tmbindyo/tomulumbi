@@ -16,6 +16,14 @@ class Design extends Model
     {
         return $this->hasMany('App\DesignView');
     }
+    public function design_categories()
+    {
+        return $this->hasMany('App\DesignCategory');
+    }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
+    }
 
     // Parents
     public function status()
@@ -33,5 +41,9 @@ class Design extends Model
     public function client()
     {
         return $this->belongsTo('App\Client');
+    }
+    public function typography()
+    {
+        return $this->belongsTo('App\Typography');
     }
 }

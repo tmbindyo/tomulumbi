@@ -14,7 +14,7 @@ class Album extends Model
     // Children
     public function cover_image()
     {
-        return $this->hasOne('App\AlbumImage','id', 'cover_image_id');
+        return $this->hasOne('App\Upload','id', 'cover_image_id');
     }
     public function album_sets()
     {
@@ -27,10 +27,6 @@ class Album extends Model
     public function album_tags()
     {
         return $this->hasMany('App\AlbumTag');
-    }
-    public function album_categories()
-    {
-        return $this->hasMany('App\AlbumCategory');
     }
     public function album_registrations()
     {
@@ -59,6 +55,10 @@ class Album extends Model
     public function album_favourite_lists()
     {
         return $this->hasMany('App\AlbumFavouriteList');
+    }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
     }
 
 

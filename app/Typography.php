@@ -16,6 +16,10 @@ class Typography extends Model
     {
         return $this->hasMany('App\Album');
     }
+    public function designs()
+    {
+        return $this->hasMany('App\Album');
+    }
 
     // Parents
     public function status()

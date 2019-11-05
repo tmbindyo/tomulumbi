@@ -130,15 +130,6 @@
                                         <i>Tags: What kind of collection is this? Separate your tags with a comma. e.g. wedding, outdoor, summer</i>
                                     </div>
                                     <br>
-                                    <div class="has-warning">
-                                        <select required="required" name="categories[]" class="select2_demo_category form-control input-lg" multiple="multiple">
-                                            @foreach($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>Categories: What kind of collection is this? Separate your categorys with a comma. e.g. wedding, outdoor, summer</i>
-                                    </div>
-                                    <br>
                                     <div class="has-warning" id="data_1">
                                         <div class="input-group date">
                                             <span class="input-group-addon">
