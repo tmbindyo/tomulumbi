@@ -125,6 +125,14 @@ class Status extends Model
     {
         return $this->hasMany('App\DesignWork');
     }
+    public function diys()
+    {
+        return $this->hasMany('App\Diy');
+    }
+    public function diy_galleries()
+    {
+        return $this->hasMany('App\DiyGallery');
+    }
     public function download_resolutions()
     {
         return $this->hasMany('App\DownloadResolution');

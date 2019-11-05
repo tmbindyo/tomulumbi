@@ -30,6 +30,10 @@ class AlbumImage extends Model
     {
         return $this->belongsTo('App\AlbumSet');
     }
+    public function upload()
+    {
+        return $this->belongsTo('App\Upload');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');

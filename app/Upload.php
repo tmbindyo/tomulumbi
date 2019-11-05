@@ -12,10 +12,6 @@ class Upload extends Model
     public $incrementing = false;
 
     // Children
-    public function designs()
-    {
-        return $this->hasOne('App\Design');
-    }
     public function design_work()
     {
         return $this->hasOne('App\DesignWork');
@@ -23,6 +19,22 @@ class Upload extends Model
     public function design_gallery()
     {
         return $this->hasOne('App\DesignGallery');
+    }
+    public function album_image()
+    {
+        return $this->hasOne('App\AlbumImage');
+    }
+    public function diy_cover_image()
+    {
+        return $this->hasOne('App\Diy','cover_image_id', 'id');
+    }
+    public function design_cover_image()
+    {
+        return $this->hasOne('App\Design','cover_image_id', 'id');
+    }
+    public function album_cover_image()
+    {
+        return $this->hasOne('App\Album','cover_image_id', 'id');
     }
 
     // Parents

@@ -2,63 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb9ccff-c356-4b2b-a00b-ae851ff28f1f" name="Default Changelist" comment="Working on displaying client list, currently want to do client proof image">
-      <change afterPath="$PROJECT_DIR$/app/DesignCategory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_02_215323_create_design_categories_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/UploadTypeTableSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9980.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9980_large.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9980_medium.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9980_small.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9982.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9982_large.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9982_medium.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9982_small.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9983.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9983_large.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9983_medium.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9983_small.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9984.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9984_large.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9984_medium.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9984_small.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9996.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9996_large.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9996_medium.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/design/LaniMullins/577A9996_small.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/design_create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/design_show.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/designs.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/layouts/modals/design_cover_image.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/layouts/modals/design_to_do.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Album.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Album.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AlbumCategory.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AlbumImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AlbumImage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Design.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Design.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/DesignGallery.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DesignGallery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DesignView.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DesignView.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DesignWork.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DesignWork.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlbumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlbumController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DesignController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DesignController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ToDoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ToDoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Diy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Diy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/DiyGallery.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DiyGallery.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Status.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Status.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ToDo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ToDo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Typography.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Typography.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Upload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_03_26_093855_create_uploads_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_03_26_093855_create_uploads_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_06_101130_create_album_categories_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_06_101148_create_album_images_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_06_101148_create_album_images_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_08_102401_create_album_registrations_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_08_102401_create_album_registrations_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_08_112806_create_album_image_downloads_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_08_112806_create_album_image_downloads_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_08_112849_create_album_image_favourites_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_08_112849_create_album_image_favourites_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_09_113948_create_to_dos_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_09_113948_create_to_dos_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_02_204552_create_designs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_02_204552_create_designs_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_02_212223_create_design_views_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_02_212223_create_design_views_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/client_proof_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/client_proof_create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/left_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/left_sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/personal_album_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/personal_album_create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_05_193303_create_diys_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_05_193303_create_diys_table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -352,7 +307,7 @@
       <workItem from="1572700948272" duration="31227000" />
       <workItem from="1572941901425" duration="563000" />
       <workItem from="1572942486766" duration="8017000" />
-      <workItem from="1572961387248" duration="2331000" />
+      <workItem from="1572961387248" duration="4636000" />
     </task>
     <task id="LOCAL-00001" summary="remove auto incrementing id">
       <created>1559412316833</created>

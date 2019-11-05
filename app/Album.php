@@ -12,10 +12,6 @@ class Album extends Model
     public $incrementing = false;
 
     // Children
-    public function cover_image()
-    {
-        return $this->hasOne('App\Upload','id', 'cover_image_id');
-    }
     public function album_sets()
     {
         return $this->hasMany('App\AlbumSet');
@@ -63,6 +59,10 @@ class Album extends Model
 
 
     // Parents
+    public function cover_image()
+    {
+        return $this->hasOne('App\Upload','id', 'cover_image_id');
+    }
     public function album_type()
     {
         return $this->belongsTo('App\AlbumType');

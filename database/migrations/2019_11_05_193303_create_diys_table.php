@@ -25,8 +25,6 @@ class CreateDiysTable extends Migration
             // upload
 
             $table->uuid('typography_id')->nullable();
-            $table->text('upload_id')->nullable();
-            $table->text('client_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

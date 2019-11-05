@@ -16,6 +16,14 @@ class Design extends Model
     {
         return $this->hasMany('App\DesignView');
     }
+    public function design_works()
+    {
+        return $this->hasMany('App\DesignWork');
+    }
+    public function design_galleries()
+    {
+        return $this->hasMany('App\DesignGallery');
+    }
     public function design_categories()
     {
         return $this->hasMany('App\DesignCategory');
@@ -45,5 +53,9 @@ class Design extends Model
     public function typography()
     {
         return $this->belongsTo('App\Typography');
+    }
+    public function cover_image()
+    {
+        return $this->belongsTo('App\Upload','id', 'cover_image_id');
     }
 }
