@@ -54,6 +54,7 @@ class CreateUploadsTable extends Migration
             $table->text('banner')->nullable();
             $table->text('original')->nullable();
 
+            $table->uuid('tag_id')->nullable();
             $table->uuid('upload_type_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

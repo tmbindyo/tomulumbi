@@ -60,7 +60,7 @@
                             @foreach($albumSets as $albumSet)
                                 <li class=""><a data-toggle="tab" href="#{{$albumSet->id}}"><i class="fa fa-desktop"> {{$albumSet->name}}</i></a></li>
                             @endforeach
-                            <li class=""><a  data-toggle="modal" data-target="#albumSetRegistration" aria-expanded="false"><i class="fa fa-plus"></i></a></li>
+{{--                            <li class=""><a  data-toggle="modal" data-target="#albumSetRegistration" aria-expanded="false"><i class="fa fa-plus"></i></a></li>--}}
                         </ul>
                         <div class="row">
                             <div class="tab-content">
@@ -84,7 +84,7 @@
 
                                                 @isset($albumSet->album_images)
                                                     @foreach($albumSet->album_images as $albumSetImage)
-                                                        <a href="{{ asset('') }}{{ $albumSetImage->large }}" title="{{ $albumSetImage->name }}" data-gallery=""><img src="{{ asset('') }}{{ $albumSetImage->small }}"></a>
+                                                        <a href="{{ asset('') }}{{ $albumSetImage->upload->large }}" title="{{ $albumSetImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $albumSetImage->upload->small }}"></a>
                                                     @endforeach
                                                 @endisset
                                                 <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
@@ -100,7 +100,7 @@
 
                                             </div>
 
-                                            <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.client.proof.set.image.upload',$albumSet->id)}}">
+                                            <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.personal.album.set.image.upload',$albumSet->id)}}">
                                                 @csrf
                                                 <div class="dropzone-previews"></div>
                                             </form>
@@ -135,7 +135,7 @@
                                 <div class="panel-body">
                                     <div class="col-md-10 col-md-offset-1">
 
-                                        <form method="post" action="{{ route('admin.client.proof.update.collection.settings',$album->id) }}" autocomplete="off">
+                                        <form method="post" action="{{ route('admin.personal.album.update.collection.settings',$album->id) }}" autocomplete="off">
                                             @csrf
 
                                             @if (session('status'))
@@ -183,17 +183,6 @@
                                                     <select name="tags[]" data-placeholder="Choose Tags:" class="chosen-select form-control-lg" multiple="multiple" style="width:450px;" tabindex="4">
                                                         @foreach($tags as $tag)
                                                             <option value="{{$tag->id}}" @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach >{{$tag->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Category</label>
-                                                <div class="input-group">
-                                                    <select name="categories[]" data-placeholder="Choose Categories:" class="chosen-select input-lg" multiple="multiple" style="width:450px;" tabindex="4">
-                                                        @foreach($categories as $category)
-                                                            <option value="{{$category->id}}" @foreach($albumCategories as $albumCategory) @if($category->id === $albumCategory->category->id) selected @endif @endforeach >{{$category->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

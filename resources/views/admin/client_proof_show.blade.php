@@ -84,7 +84,7 @@
 
                                                 @isset($albumSet->album_images)
                                                     @foreach($albumSet->album_images as $albumSetImage)
-                                                        <a href="{{ asset('') }}{{ $albumSetImage->large }}" title="{{ $albumSetImage->name }}" data-gallery=""><img src="{{ asset('') }}{{ $albumSetImage->small }}"></a>
+                                                        <a href="{{ asset('') }}{{ $albumSetImage->upload->large }}" title="{{ $albumSetImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $albumSetImage->upload->small }}"></a>
                                                     @endforeach
                                                 @endisset
                                                 <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
@@ -181,17 +181,6 @@
                                                     <select name="tags[]" data-placeholder="Choose Tags:" class="chosen-select form-control-lg" multiple="multiple" style="width:450px;" tabindex="4">
                                                         @foreach($tags as $tag)
                                                             <option value="{{$tag->id}}" @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach >{{$tag->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Category</label>
-                                                <div class="input-group">
-                                                    <select name="categories[]" data-placeholder="Choose Categories:" class="chosen-select input-lg" multiple="multiple" style="width:450px;" tabindex="4">
-                                                        @foreach($categories as $category)
-                                                            <option value="{{$category->id}}" @foreach($albumCategories as $albumCategory) @if($category->id === $albumCategory->category->id) selected @endif @endforeach >{{$category->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

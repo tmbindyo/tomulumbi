@@ -2,18 +2,178 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb9ccff-c356-4b2b-a00b-ae851ff28f1f" name="Default Changelist" comment="Working on displaying client list, currently want to do client proof image">
+      <change afterPath="$PROJECT_DIR$/public/design/JanaUnderwood/577A9993.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/design/JanaUnderwood/577A9993_large_thumbnail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/design/JanaUnderwood/577A9993_medium_thumbnail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/design/JanaUnderwood/577A9993_small_thumbnail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/design/JanaUnderwood/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/design/JanaUnderwood/DSC_4799_large.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/design/JanaUnderwood/DSC_4799_medium.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/design/JanaUnderwood/DSC_4799_small.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9980.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9980_large.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9980_medium.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9980_small.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9982.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9982_large.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9982_medium.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9982_small.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9983_large.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9983_medium.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9983_small.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9984_large.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9984_medium.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/AlecMcintyre/BeautyPhotography/577A9984_small.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/577A0003.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/577A0003_large_thumbnail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/577A0003_medium_thumbnail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/577A0003_small_thumbnail.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/Highlights/577A9988.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/Highlights/577A9988_large.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/Highlights/577A9988_medium.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/Highlights/577A9988_small.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/Highlights/577A9992.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/Highlights/577A9992_large.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/Highlights/577A9992_medium.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/RayConley/Highlights/577A9992_small.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/css/animate.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/css/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/css/icomoon.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/css/magnific-popup.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/fonts/bootstrap/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/fonts/bootstrap/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/fonts/bootstrap/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/fonts/bootstrap/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/fonts/bootstrap/glyphicons-halflings-regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/fonts/icomoon/icomoon.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/fonts/icomoon/icomoon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/fonts/icomoon/icomoon.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/fonts/icomoon/icomoon.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_11.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_12.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_13.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_14.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_15.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/images/img_9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/CSSPlugin.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/EasePack.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/TweenLite.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/imagesloaded.pkgd.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/isotope.pkgd.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/jquery.easing.1.3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/jquery.magnific-popup.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/jquery.waypoints.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/magnific-popup-options.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/modernizr-2.6.2.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/js/respond.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/_bootstrap-compass.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/_bootstrap-mincer.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/_bootstrap-sprockets.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_alerts.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_badges.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_breadcrumbs.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_button-groups.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_buttons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_carousel.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_close.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_code.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_component-animations.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_dropdowns.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_forms.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_glyphicons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_grid.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_input-groups.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_jumbotron.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_labels.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_list-group.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_media.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_mixins.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_modals.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_navbar.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_navs.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_normalize.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_pager.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_pagination.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_panels.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_popovers.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_print.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_progress-bars.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_responsive-embed.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_responsive-utilities.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_scaffolding.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_tables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_theme.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_thumbnails.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_tooltip.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_type.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_utilities.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_variables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/_wells.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_alerts.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_background-variant.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_border-radius.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_buttons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_center-block.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_clearfix.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_forms.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_gradients.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_grid-framework.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_grid.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_hide-text.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_image.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_labels.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_list-group.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_nav-divider.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_nav-vertical-align.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_opacity.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_pagination.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_panels.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_progress-bar.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_reset-filter.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_reset-text.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_resize.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_responsive-visibility.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_size.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_tab-focus.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_table-row.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_text-emphasis.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_text-overflow.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/bootstrap/mixins/_vendor-prefixes.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/sass/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal_albums/photo/single.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/layouts/modals/design_work.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Album.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Album.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AlbumImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AlbumImage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Design.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Design.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DesignGallery.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DesignGallery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Diy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Diy.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/DiyGallery.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/DiyGallery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Status.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Status.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlbumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlbumController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DesignController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DesignController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Tag.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Tag.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Upload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_02_204552_create_designs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_02_204552_create_designs_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_05_193303_create_diys_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_05_193303_create_diys_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_03_26_093855_create_uploads_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_03_26_093855_create_uploads_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_06_100706_create_tags_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_06_100706_create_tags_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_02_204608_create_design_works_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_02_204608_create_design_works_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UploadTypeTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UploadTypeTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/client_proof_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/client_proof_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/design_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/design_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/personal_album_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/personal_album_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -173,7 +333,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/database/seeds" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/layouts/modals" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -187,8 +347,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/database/seeds" />
       <recent name="$PROJECT_DIR$/resources/views/admin/layouts/modals" />
+      <recent name="$PROJECT_DIR$/database/seeds" />
       <recent name="$PROJECT_DIR$/resources/views/admin" />
       <recent name="$PROJECT_DIR$/resources/views/landing/personal_albums" />
       <recent name="$PROJECT_DIR$/routes" />
@@ -307,7 +467,7 @@
       <workItem from="1572700948272" duration="31227000" />
       <workItem from="1572941901425" duration="563000" />
       <workItem from="1572942486766" duration="8017000" />
-      <workItem from="1572961387248" duration="4636000" />
+      <workItem from="1572961387248" duration="13067000" />
     </task>
     <task id="LOCAL-00001" summary="remove auto incrementing id">
       <created>1559412316833</created>

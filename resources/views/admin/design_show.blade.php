@@ -59,7 +59,11 @@
                             <li class="active"><a data-toggle="tab" href="#tab-3"> <i class="fa fa-image"> Album Sets</i></a></li>
                             <li class=""><a data-toggle="tab" href="#{{$design->id}}"><i class="fa fa-desktop"> Design Gallery</i></a></li>
 
-                            <li class=""><a  data-toggle="modal" data-target="#albumSetRegistration" aria-expanded="false"><i class="fa fa-plus"></i></a></li>
+                            @foreach($designWork as $work)
+                                <li class=""><a data-toggle="tab" href="#{{$work->id}}"><i class="fa fa-desktop"> {{$work->name}}</i></a></li>
+                            @endforeach
+
+                            <li class=""><a  data-toggle="modal" data-target="#designWorkRegistration" aria-expanded="false"><i class="fa fa-plus"></i></a></li>
                         </ul>
                         <div class="row">
                             <div class="tab-content">
@@ -80,11 +84,11 @@
 
                                         <div class="lightBoxGallery">
 
-{{--                                            @isset($designGallery->album_images)--}}
-{{--                                                @foreach($designGallery->album_images as $designGalleryImage)--}}
-{{--                                                    <a href="{{ asset('') }}{{ $designGalleryImage->large }}" title="{{ $designGalleryImage->name }}" data-gallery=""><img src="{{ asset('') }}{{ $designGalleryImage->small }}"></a>--}}
-{{--                                                @endforeach--}}
-{{--                                            @endisset--}}
+                                            @isset($designGallery)
+                                                @foreach($designGallery as $designGalleryImage)
+                                                    <a href="{{ asset('') }}{{ $designGalleryImage->upload->large }}" title="{{ $designGalleryImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $designGalleryImage->upload->small }}"></a>
+                                                @endforeach
+                                            @endisset
                                             <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
                                             <div id="blueimp-gallery" class="blueimp-gallery">
                                                 <div class="slides"></div>
@@ -345,6 +349,7 @@
 
 @endsection
 
+@include('admin.layouts.modals.design_work')
 @include('admin.layouts.modals.design_to_do')
 @include('admin.layouts.modals.design_cover_image')
 

@@ -88,7 +88,9 @@ class DesignController extends Controller
         $typographies = Typography::all();
         // Get design
         $design = Design::findOrFail($design_id);
-        $design = Design::where('id',$design_id)->with('design_categories','client','user','status')->first();
+        $design = Design::where('id',$design_id)->with('design_categories','client','user','status','cover_image')->first();
+
+//        return $design;
         // Album & Image status
         $designStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
@@ -101,7 +103,7 @@ class DesignController extends Controller
         // Overdue to dos
         $overdueToDos = ToDo::with('user','status','design')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('design_id',$design->id)->get();
 
-        $designGallery = DesignGallery::where('design_id',$design_id)->get();
+        $designGallery = DesignGallery::where('design_id',$design_id)->with('upload')->get();
         $designWork = DesignWork::where('design_id',$design_id)->get();
 
         return view('admin.design_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','clients','categories','design','designGallery','designWork','designStatuses','typographies'));
@@ -238,49 +240,203 @@ class DesignController extends Controller
         }
 
 
-        $albumImage = new AlbumImage;
-        $albumImage->artist = $Artist;
-        $albumImage->aperture_f_number = $ApertureFNumber;
-        $albumImage->copyright = $Copyright;
-        $albumImage->height = $Height;
-        $albumImage->width = $Width;
-        $albumImage->date_time = $DateTime;
-        $albumImage->file_name = $FileName;
-        $albumImage->file_size = $FileSize;
-        $albumImage->iso = $ISOSpeedRatings;
-        $albumImage->focal_length = $FocalLength;
-        $albumImage->light_source = $LightSource;
-        $albumImage->max_aperture_value = $MaxApertureValue;
-        $albumImage->mime_type = $MimeType;
-        $albumImage->make = $Make;
-        $albumImage->model = $Model;
-        $albumImage->software = $Software;
-        $albumImage->shutter_speed = $ShutterSpeed;
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
 
-        $albumImage->name = $file_name;
-        $albumImage->extension = $extension;
-        $albumImage->image = "design/".$folderName.$file_name;
-        $albumImage->small_thumbnail = "design/".$folderName.$small_thumbnail;
-        $albumImage->large_thumbnail = "design/".$folderName.$large_thumbnail;
-        $albumImage->banner = "design/".$folderName.$banner;
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->image = "design/".$folderName.$file_name;
+        $upload->small_thumbnail = "design/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "design/".$folderName.$large_thumbnail;
+        $upload->banner = "design/".$folderName.$banner;
 
-        $albumImage->size = $size;
-        $albumImage->is_client_exclusive_access = False;
-        $albumImage->is_album_set_image = False;
-        $albumImage->is_album_cover = False;
-        $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $albumImage->user_id = Auth::user()->id;
-        $albumImage->save();
+        $upload->size = $size;
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = False;
+//        $upload->is_album_cover = False;
+        $upload->upload_type_id = "647b9ff2-9c56-4e2e-a4c8-e2438e1dc711";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
 
         // Update album cover image
-        $album = Album::findOrFail($album_id);
-        $album->cover_image_id = $albumImage->id;
-        $album->save();
+        $design = Design::findOrFail($design_id);
+        $design->cover_image_id = $upload->id;
+        $design->save();
 
-        //return $album;
+        //return $design;
 
         return back()->withStatus(__('Client proof cover image successfully uploaded.'));
     }
+
+    public function designWorkSave(Request $request,$design_id)
+    {
+        // Save design work
+        // Update album cover image
+        $designWork = new DesignWork();
+        $designWork->name = $request->name;
+        $designWork->description = $request->description;
+        $designWork->upload_id = $design_id;
+        $designWork->design_id = $design_id;
+        $designWork->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $designWork->user_id = Auth::user()->id;
+        $designWork->save();
+
+
+        // todo If already image delete
+        // todo hash the folder name
+        $folderName = str_replace(' ', '', $designWork->design->name."/" .$designWork->name.'/');
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/design/".$folderName, $file_name_extension);
+        $path = public_path()."/design/".$folderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+
+        $cover_image = $file_name.".".$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
+        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
+        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
+        $banner = $file_name."_banner.".$extension;
+
+        if ($width > $height) { //landscape
+
+            //Small image
+            Image::make( $path )->fit(150, 150)->save(public_path()."/design/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/design/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(550, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/design/".$folderName.$large_thumbnail);
+
+        } else {
+
+            //Small image
+            Image::make( $path )->fit(150, 150)->save(public_path()."/design/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/design/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(null, 550, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/design/".$folderName.$large_thumbnail);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->image = "design/".$folderName.$file_name;
+        $upload->small_thumbnail = "design/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "design/".$folderName.$large_thumbnail;
+        $upload->banner = "design/".$folderName.$banner;
+
+        $upload->size = $size;
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = False;
+//        $upload->is_album_cover = False;
+        $upload->upload_type_id = "b64c0d17-2e06-4b1e-83ed-55cd606ff4fe";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+
+        // Update design work upload
+        $designWork = DesignWork::findOrFail($designWork->id);
+        $designWork->upload_id = $upload->id;
+        $designWork->save();
+
+        return back()->withStatus(__('Client proof cover image successfully uploaded.'));
+    }
+
     public function designGalleryImageUpload(Request $request,$design_id)
     {
         // todo If already image delete
@@ -405,10 +561,10 @@ class DesignController extends Controller
 
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = False;
-        $upload->is_album_cover = False;
+//        $upload->is_album_cover = False;
         $upload->is_album_set_image = False;
         $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $upload->upload_type_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->upload_type_id = "720a967d-16b1-46c4-b22d-9e734e94c9e9";
         $upload->user_id = Auth::user()->id;
         $upload->save();
 
@@ -419,7 +575,7 @@ class DesignController extends Controller
         $designGallery->design_id = $design->id;
         $designGallery->user_id = Auth::user()->id;
         $designGallery->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $upload->save();
+        $designGallery->save();
 
         return back()->withStatus(__('Design gallery image successfully uploaded.'));
     }

@@ -58,7 +58,9 @@ Route::post('/personal/album/update/{album_id}', 'Admin\AlbumController@personal
 Route::get('/personal/album/delete/{album_id}', 'Admin\AlbumController@personalAlbumDelete')->name('admin.personal.album.delete');
 Route::get('/personal/album/restore/{album_id}', 'Admin\AlbumController@personalAlbumRestore')->name('admin.personal.album.restore');
 Route::post('/personal/album/set/cover/image/{album_id}', 'Admin\AlbumController@personalAlbumCoverImageUpload')->name('admin.personal.album.set.cover.image');
+Route::post('/personal/album/set/image/upload/{album_set_id}', 'Admin\AlbumController@personalAlbumSetImageUpload')->name('admin.personal.album.set.image.upload');
 Route::post('/personal/album/update/design/{album_id}', 'Admin\AlbumController@personalAlbumUpdateDesign')->name('admin.personal.album.update.design');
+Route::post('/personal/album/update/collection/settings/{album_id}', 'Admin\AlbumController@personalAlbumUpdateCollectionSettings')->name('admin.personal.album.update.collection.settings');
 
 Route::get('/client/proofs', 'Admin\AlbumController@clientProofs')->name('admin.client.proofs');
 Route::get('/client/proof/create', 'Admin\AlbumController@clientProofCreate')->name('admin.client.proof.create');
@@ -97,6 +99,7 @@ Route::post('/design/update/design/{design_id}', 'Admin\DesignController@designU
 Route::get('/design/delete/{$design_id}', 'Admin\DesignController@designDelete')->name('admin.design.delete');
 Route::get('/design/restore/{$design_id}', 'Admin\DesignController@designRestore')->name('admin.design.restore');
 
+Route::post('/design/work/save/{design_id}', 'Admin\DesignController@designWorkSave')->name('admin.design.work.save');
 Route::post('/design/to/do/save/{design_id}', 'Admin\ToDoController@albumToDoSave')->name('admin.design.to.do.save');
 
 Route::get('/diy', 'Admin\DashboardController@dashboard')->name('admin.diy');

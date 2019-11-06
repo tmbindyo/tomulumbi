@@ -50,4 +50,8 @@ class Upload extends Model
     {
         return $this->belongsTo('App\UploadType');
     }
+    public function tag()
+    {
+        return $this->belongsTo('App\Tag');
+    }
 }

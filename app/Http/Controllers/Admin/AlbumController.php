@@ -15,6 +15,7 @@ use App\Scheme;
 use App\ThumbnailSize;
 use App\Traits\PasswordTrait;
 use App\Typography;
+use App\Upload;
 use DB;
 use Auth;
 use App\Tag;
@@ -94,21 +95,31 @@ class AlbumController extends Controller
             $albumTag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $albumTag->user_id = Auth::user()->id;
             $albumTag->save();
+
+            // Get album tag name to name album set
+            $tag = Tag::findOrFail($albumAlbumTag);
+            $albumSet = new AlbumSet();
+            $albumSet->album_id = $album->id;
+            $albumSet->name = $tag->name;
+            $albumSet->is_client_exclusive_access = False;
+            $albumSet->is_email_download_restrict = False;
+            $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $albumSet->user_id = Auth::user()->id;
+            $albumSet->save();
         }
 
         // Save Album set
-        $albumSet = new AlbumSet();
-        $albumSet->album_id = $album->id;
-        $albumSet->name = "Highlights";
-        $albumSet->is_client_exclusive_access = False;
-        $albumSet->is_email_download_restrict = False;
-        $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $albumSet->user_id = Auth::user()->id;
-        $albumSet->save();
+//        $albumSet = new AlbumSet();
+//        $albumSet->album_id = $album->id;
+//        $albumSet->name = "Highlights";
+//        $albumSet->is_client_exclusive_access = False;
+//        $albumSet->is_email_download_restrict = False;
+//        $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+//        $albumSet->user_id = Auth::user()->id;
+//        $albumSet->save();
 
 
         return redirect()->route('admin.personal.albums')->withSuccess('Album '.$album->name.' successfully created!');
-
     }
 
     public function personalAlbumShow($album_id)
@@ -147,7 +158,7 @@ class AlbumController extends Controller
 
         // Album Dependencies
         // Album Sets
-        $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
+        $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         $albumDownloadRestrictionEmails = AlbumDownloadRestrictionEmail::where('album_id',$album_id)->get();
 
@@ -271,50 +282,105 @@ class AlbumController extends Controller
         }
 
 
-        $albumImage = new AlbumImage;
-        $albumImage->artist = $Artist;
-        $albumImage->aperture_f_number = $ApertureFNumber;
-        $albumImage->copyright = $Copyright;
-        $albumImage->height = $Height;
-        $albumImage->width = $Width;
-        $albumImage->date_time = $DateTime;
-        $albumImage->file_name = $FileName;
-        $albumImage->file_size = $FileSize;
-        $albumImage->iso = $ISOSpeedRatings;
-        $albumImage->focal_length = $FocalLength;
-        $albumImage->light_source = $LightSource;
-        $albumImage->max_aperture_value = $MaxApertureValue;
-        $albumImage->mime_type = $MimeType;
-        $albumImage->make = $Make;
-        $albumImage->model = $Model;
-        $albumImage->software = $Software;
-        $albumImage->shutter_speed = $ShutterSpeed;
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
 
-        $albumImage->name = $file_name;
-        $albumImage->extension = $extension;
-        $albumImage->image = "personal/album/".$folderName.$file_name;
-        $albumImage->small_thumbnail = "personal/album/".$folderName.$small_thumbnail;
-        $albumImage->large_thumbnail = "personal/album/".$folderName.$large_thumbnail;
-        $albumImage->banner = "personal/album/".$folderName.$banner;
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->image = "personal/album/".$folderName.$file_name;
+        $upload->small_thumbnail = "personal/album/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "personal/album/".$folderName.$large_thumbnail;
+        $upload->banner = "personal/album/".$folderName.$banner;
 
-        $albumImage->size = $size;
-        $albumImage->is_client_exclusive_access = False;
-        $albumImage->is_album_set_image = False;
-        $albumImage->is_album_cover = False;
-        $albumImage->album_id = $album_id;
-        $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $albumImage->user_id = Auth::user()->id;
-        $albumImage->save();
+        $upload->size = $size;
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = False;
+        $upload->album_id = $album_id;
+        $upload->upload_type_id = "ccdd1cb1-571d-46b9-b683-ac30b4319c2a";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
 
         // Update album cover image
         $album = Album::findOrFail($album_id);
-        $album->cover_image_id = $albumImage->id;
+        $album->cover_image_id = $upload->id;
         $album->save();
 
         //return $album;
 
         return back()->withStatus(__('Client proof cover image successfully uploaded.'));
     }
+
+    public function personalAlbumUpdateCollectionSettings(Request $request, $album_id)
+    {
+
+        $album = Album::findOrFail($album_id);
+        $album->name = $request->name;
+        $album->date = date('Y-m-d', strtotime($request->date));
+        $album->status_id = $request->status;
+        $album->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
+        $album->save();
+
+        // Album tags update
+        $albumRequestTags =array();
+        foreach ($request->tags as $albumAlbumTag){
+            // Append to array
+            $albumRequestTags[]['id'] = $albumAlbumTag;
+
+            // Check if album tag exists
+            $albumTag = AlbumTag::where('album_id',$album->id)->where('tag_id',$albumAlbumTag)->first();
+
+            if($albumTag === null) {
+                $albumTag = new AlbumTag();
+                $albumTag->album_id = $album->id;
+                $albumTag->tag_id = $albumAlbumTag;
+                $albumTag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $albumTag->user_id = Auth::user()->id;
+                $albumTag->save();
+
+                $tag = Tag::findOrFail($albumAlbumTag);
+                $albumSet = new AlbumSet();
+                $albumSet->album_id = $album->id;
+                $albumSet->name = $tag->name;
+                $albumSet->is_client_exclusive_access = False;
+                $albumSet->is_email_download_restrict = False;
+                $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $albumSet->user_id = Auth::user()->id;
+                $albumSet->save();
+            }
+        }
+
+        // Parse the deleted album tags into an array
+        $albumTagsIds = AlbumTag::where('album_id',$album_id)->whereNotIn('tag_id',$albumRequestTags)->select('id')->get()->toArray();
+        // Get the album tag, tag_id
+        $albumTagTagIds = AlbumTag::where('album_id',$album_id)->whereNotIn('tag_id',$albumRequestTags)->select('tag_id')->get()->toArray();
+        // Get names of deleted tags
+        $tagNames = Tag::whereIn('id',$albumTagTagIds)->select('name')->get()->toArray();
+
+        // Delete removed album tags
+        DB::table('album_tags')->whereIn('id', $albumTagsIds)->delete();
+        // Delete removed album tag album set
+        DB::table('album_sets')->whereIn('name', $tagNames)->where('album_id',$album->id)->delete();
+
+        return back()->withStatus('Album collection settings updated!');
+    }
+
     public function personalAlbumUpdateDesign(Request $request, $album_id)
     {
         $album = Album::findOrFail($album_id);
@@ -323,6 +389,151 @@ class AlbumController extends Controller
         $album->save();
 
         return back()->withSuccess('Personal album design updated!');
+    }
+
+    public function personalAlbumSetImageUpload(Request $request,$album_set_id)
+    {
+        // todo If already image delete
+        // todo hash the folder name
+        // Get the tag
+
+        $albumSet = AlbumSet::where('id',$album_set_id)->with('album')->first();
+        $folderName = str_replace(' ', '', $albumSet->album->name."/" .$albumSet->name.'/');
+
+        $tag = Tag::where('name',$albumSet->name)->first();
+
+        $file = Input::file("file");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/personal/album/".$folderName, $file_name_extension);
+        $path = public_path()."/personal/album/".$folderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+
+        $smallthumbnail = $file_name."_small.".$extension;
+        $mediumthumbnail = $file_name."_medium.".$extension;
+        $largethumbnail = $file_name."_large.".$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        if ($width > $height) { //landscape
+
+            //Small image
+            Image::make( $path )->fit(150, 150)->save(public_path()."/personal/album/".$folderName.$smallthumbnail);
+
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/personal/album/".$folderName.$mediumthumbnail);
+
+            Image::make( $path )->resize(550, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/personal/album/".$folderName.$largethumbnail);
+
+        } else {
+
+            //Small image
+            Image::make( $path )->fit(150, 150)->save(public_path()."/personal/album/".$folderName.$smallthumbnail);
+
+            Image::make( $path )->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/personal/album/".$folderName.$mediumthumbnail);
+
+            Image::make( $path )->resize(null, 550, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/personal/album/".$folderName.$largethumbnail);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->image = "personal/album/".$folderName.$file_name;
+        $upload->small = "personal/album/".$folderName.$smallthumbnail;
+        $upload->medium = "personal/album/".$folderName.$mediumthumbnail;
+        $upload->large = "personal/album/".$folderName.$largethumbnail;
+
+
+        $upload->size = $size;
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = True;
+        $upload->album_set_id = $album_set_id;
+        $upload->tag_id = $tag->id;
+        $upload->upload_type_id = "8e060242-130e-4382-906d-6d8da148fb28";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        $albumImage = new AlbumImage();
+        $albumImage->album_set_id = $album_set_id;
+        $albumImage->upload_id = $upload->id;
+        $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $albumImage->user_id = Auth::user()->id;
+        $albumImage->save();
+
+        return back()->withStatus(__('Album set image successfully uploaded.'));
     }
 
 
@@ -455,7 +666,7 @@ class AlbumController extends Controller
 
         // Album Dependencies
         // Album Sets
-        $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
+        $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         $albumDownloadRestrictionEmails = AlbumDownloadRestrictionEmail::where('album_id',$album_id)->get();
 
@@ -657,44 +868,44 @@ class AlbumController extends Controller
         }
 
 
-        $albumImage = new AlbumImage;
-        $albumImage->artist = $Artist;
-        $albumImage->aperture_f_number = $ApertureFNumber;
-        $albumImage->copyright = $Copyright;
-        $albumImage->height = $Height;
-        $albumImage->width = $Width;
-        $albumImage->date_time = $DateTime;
-        $albumImage->file_name = $FileName;
-        $albumImage->file_size = $FileSize;
-        $albumImage->iso = $ISOSpeedRatings;
-        $albumImage->focal_length = $FocalLength;
-        $albumImage->light_source = $LightSource;
-        $albumImage->max_aperture_value = $MaxApertureValue;
-        $albumImage->mime_type = $MimeType;
-        $albumImage->make = $Make;
-        $albumImage->model = $Model;
-        $albumImage->software = $Software;
-        $albumImage->shutter_speed = $ShutterSpeed;
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
 
-        $albumImage->name = $file_name;
-        $albumImage->extension = $extension;
-        $albumImage->image = "client/proof/".$folderName.$file_name;
-        $albumImage->small_thumbnail = "client/proof/".$folderName.$small_thumbnail;
-        $albumImage->large_thumbnail = "client/proof/".$folderName.$large_thumbnail;
-        $albumImage->banner = "client/proof/".$folderName.$banner;
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->image = "client/proof/".$folderName.$file_name;
+        $upload->small_thumbnail = "client/proof/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "client/proof/".$folderName.$large_thumbnail;
+        $upload->banner = "client/proof/".$folderName.$banner;
 
-        $albumImage->size = $size;
-        $albumImage->is_client_exclusive_access = False;
-        $albumImage->is_album_set_image = False;
-        $albumImage->is_album_cover = False;
-        $albumImage->album_id = $album_id;
-        $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $albumImage->user_id = Auth::user()->id;
-        $albumImage->save();
+        $upload->size = $size;
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = False;
+        $upload->album_id = $album_id;
+        $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
 
         // Update album cover image
         $album = Album::findOrFail($album_id);
-        $album->cover_image_id = $albumImage->id;
+        $album->cover_image_id = $upload->id;
         $album->save();
 
         //return $album;
@@ -826,6 +1037,7 @@ class AlbumController extends Controller
 
     public function clientProofSetImageUpload(Request $request,$album_set_id)
     {
+
         // todo If already image delete
         // todo hash the folder name
         $albumSet = AlbumSet::where('id',$album_set_id)->with('album')->first();
@@ -918,42 +1130,49 @@ class AlbumController extends Controller
         }
 
 
-        $albumImage = new AlbumImage;
-        $albumImage->artist = $Artist;
-        $albumImage->aperture_f_number = $ApertureFNumber;
-        $albumImage->copyright = $Copyright;
-        $albumImage->height = $Height;
-        $albumImage->width = $Width;
-        $albumImage->date_time = $DateTime;
-        $albumImage->file_name = $FileName;
-        $albumImage->file_size = $FileSize;
-        $albumImage->iso = $ISOSpeedRatings;
-        $albumImage->focal_length = $FocalLength;
-        $albumImage->light_source = $LightSource;
-        $albumImage->max_aperture_value = $MaxApertureValue;
-        $albumImage->mime_type = $MimeType;
-        $albumImage->make = $Make;
-        $albumImage->model = $Model;
-        $albumImage->software = $Software;
-        $albumImage->shutter_speed = $ShutterSpeed;
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
 
-        $albumImage->name = $file_name;
-        $albumImage->extension = $extension;
-        $albumImage->image = "client/proof/".$folderName.$file_name;
-        $albumImage->small = "client/proof/".$folderName.$smallthumbnail;
-        $albumImage->medium = "client/proof/".$folderName.$mediumthumbnail;
-        $albumImage->large = "client/proof/".$folderName.$largethumbnail;
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->image = "client/proof/".$folderName.$file_name;
+        $upload->small = "client/proof/".$folderName.$smallthumbnail;
+        $upload->medium = "client/proof/".$folderName.$mediumthumbnail;
+        $upload->large = "client/proof/".$folderName.$largethumbnail;
 
 
-        $albumImage->size = $size;
-        $albumImage->is_client_exclusive_access = False;
-        $albumImage->is_album_set_image = True;
-        $albumImage->is_album_cover = False;
-        $albumImage->is_album_set_image = True;
+        $upload->size = $size;
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = True;
+        $upload->album_set_id = $album_set_id;
+        $upload->upload_type_id = "b3399a38-b355-4235-8f93-36baf410eef2";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        $albumImage = new AlbumImage();
         $albumImage->album_set_id = $album_set_id;
+        $albumImage->upload_id = $upload->id;
         $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $albumImage->user_id = Auth::user()->id;
         $albumImage->save();
+
 
         return back()->withStatus(__('Album set image successfully uploaded.'));
     }

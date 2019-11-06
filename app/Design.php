@@ -56,6 +56,6 @@ class Design extends Model
     }
     public function cover_image()
     {
-        return $this->belongsTo('App\Upload','id', 'cover_image_id');
+        return $this->belongsTo('App\Upload','cover_image_id', 'id');
     }
 }

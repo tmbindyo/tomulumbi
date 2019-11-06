@@ -16,6 +16,10 @@ class Tag extends Model
     {
         return $this->hasMany('App\AlbumTag');
     }
+    public function uploads()
+    {
+        return $this->hasMany('App\Upload');
+    }
 
     // Parents
     public function status()
