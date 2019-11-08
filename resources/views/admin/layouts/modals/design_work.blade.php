@@ -3,11 +3,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-picture-o modal-icon"></i>
-                <h4 class="modal-title">Client Proof Set Registration</h4>
+                <i class="fa fa-paint-brush modal-icon"></i>
+                <h4 class="modal-title">Design Work Registration</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.design.work.save', $design->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.design.work.store', $design->id) }}" autocomplete="off" class="form-horizontal form-label-left" enctype = "multipart/form-data">
                     @csrf
 
                     @if ($errors->any())
@@ -21,27 +21,27 @@
                     @endif
 
                     <div class="row">
-                        <div class="form-group">
+                        <div class="">
                             <div class="has-success">
                                 <input type="text" placeholder="Set Name" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required">
-                                <i>Give your set a name</i>
+                                <i>Give your design work a name</i>
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="row">
-                        <div class="form-group">
+                        <div class="">
                             <div class="has-success">
-                                <input type="text" placeholder="Set Name" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required">
-                                <i>Give your set a name</i>
+                                <textarea class="form-control col-md-7 col-xs-12 input-lg" placeholder="Set Name" id="description" name="description" rows="5"></textarea>
+                                <i>Give your design work a description</i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-group">
-                            <input type="file" name="cover_image" class="form-control col-md-12 col-xs-12 input-lg">
+                            <input type="file" name="design_work" class="form-control col-md-12 col-xs-12 input-lg">
                         </div>
                     </div>
-
 
 
                     <br />

@@ -104,7 +104,8 @@ Route::post('/design/update/design/{design_id}', 'Admin\DesignController@designU
 Route::get('/design/delete/{$design_id}', 'Admin\DesignController@designDelete')->name('admin.design.delete');
 Route::get('/design/restore/{$design_id}', 'Admin\DesignController@designRestore')->name('admin.design.restore');
 
-Route::post('/design/work/save/{design_id}', 'Admin\DesignController@designWorkSave')->name('admin.design.work.save');
+Route::post('/design/work/store/{design_id}', 'Admin\DesignController@designWorkStore')->name('admin.design.work.store');
+Route::post('/design/work/update/{design_id}', 'Admin\DesignController@designWorkUpdate')->name('admin.design.work.update');
 Route::post('/design/to/do/save/{design_id}', 'Admin\ToDoController@albumToDoSave')->name('admin.design.to.do.save');
 
 Route::get('/diy', 'Admin\DashboardController@dashboard')->name('admin.diy');
