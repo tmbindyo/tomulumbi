@@ -15,9 +15,14 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name')->unique();
+
+            $table->uuid('thumbnail_size_id')->nullable();
+            $table->uuid('cover_image_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

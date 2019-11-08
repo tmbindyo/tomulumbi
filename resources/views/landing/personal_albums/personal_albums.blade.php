@@ -56,7 +56,7 @@
 
             <!-- logo -->
 
-            <h1> <a href="index1.html" title="Picxa"><img src="{{ asset('personal_albums/pixca') }}/images/logo.png" alt="Picxa" title="Picxa"/></a> </h1>
+            <h1> <a href="{{route('welcome')}}" title="tomulumbi"><img src="{{ asset('personal_albums/pixca') }}/images/logo.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
 
             <!-- logo -->
 
@@ -71,10 +71,9 @@
                     <div class="cross"> <span class="linee linea1"></span> <span class="linee linea2"></span> <span class="linee linea3"></span> </div>
                     <div class="main-menu">
                         <ul>
-                            <li class="active"><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="blog.html">blog</a></li>
-                            <li><a href="contact.html">contact</a></li>
+                            <li><a href="{{route('welcome')}}">Home</a></li>
+                            <li class="active"><a href="{{route('personal.albums')}}">Album View</a></li>
+                            <li><a href="{{route('tags')}}">Tag View</a></li>
                         </ul>
                     </div>
                 </div>
@@ -118,59 +117,59 @@
 
 <!-- footer -->
 
-<footer class="footer">
-    <h3>Stay connected with us</h3>
-    <div class="container footer-bot">
-        <div class="row">
+{{--<footer class="footer">--}}
+{{--    <h3>Stay connected with us</h3>--}}
+{{--    <div class="container footer-bot">--}}
+{{--        <div class="row">--}}
 
-            <!-- logo -->
+{{--            <!-- logo -->--}}
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('personal_albums/pixca') }}/images/footer-logo.png" alt="Picxa" title="Picxa"/>
-                <p class="copy-right">&copy; Reserved Picxa inc 2016.</p>
-            </div>
+{{--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('personal_albums/pixca') }}/images/footer-logo.png" alt="tomulumbi" title="tomulumbi"/>--}}
+{{--                <p class="copy-right">&copy; Reserved tomulumbi 2020.</p>--}}
+{{--            </div>--}}
 
-            <!-- logo -->
+{{--            <!-- logo -->--}}
 
-            <!-- address -->
+{{--            <!-- address -->--}}
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
-                <address>
-                    <p>200 Broadway Av</p>
-                    <p>West Beach SA 5024  Australia</p>
-                </address>
-            </div>
+{{--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">--}}
+{{--                <address>--}}
+{{--                    <p>General Accident House</p>--}}
+{{--                    <p>Ralph Bunche Road,  Kenya</p>--}}
+{{--                </address>--}}
+{{--            </div>--}}
 
-            <!-- address -->
+{{--            <!-- address -->--}}
 
-            <!-- email -->
+{{--            <!-- email -->--}}
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
-                <p><a href="mailto:contact@Picxa.com">contact@Picxa.com</a></p>
-                <p>01 (2) 34 56 78</p>
-            </div>
+{{--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">--}}
+{{--                <p><a href="mailto:contact@Picxa.com">contact@tomulumbi.com</a></p>--}}
+{{--                <p>+254 739 459 370</p>--}}
+{{--            </div>--}}
 
-            <!-- email -->
+{{--            <!-- email -->--}}
 
-            <!-- social -->
+{{--            <!-- social -->--}}
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
-                <ul class="social">
-                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-delicious" aria-hidden="true"></i></a></li>
-                </ul>
-                <p class="made-by">Made with by <i class="fa fa-heart" aria-hidden="true"></i> <a href="http://www.designstub.com/" target="_blank">Designstub</a>
-                <p>
-            </div>
+{{--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">--}}
+{{--                <ul class="social">--}}
+{{--                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>--}}
+{{--                    <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>--}}
+{{--                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>--}}
+{{--                    <li><a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></li>--}}
+{{--                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>--}}
+{{--                    <li><a href="#"><i class="fa fa-delicious" aria-hidden="true"></i></a></li>--}}
+{{--                </ul>--}}
+{{--                <p class="made-by">Made with by <i class="fa fa-heart" aria-hidden="true"></i> <a href="http://www.tomulumbi.com/" target="_blank">tomulumbi</a>--}}
+{{--                <p>--}}
+{{--            </div>--}}
 
-            <!-- social -->
+{{--            <!-- social -->--}}
 
-        </div>
-    </div>
-</footer>
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</footer>--}}
 
 <!-- footer -->
 

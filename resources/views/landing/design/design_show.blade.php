@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="{{ asset('design/bato') }}/css/magnific-popup.css">
 
     <link rel="stylesheet" href="{{ asset('design/bato') }}/css/style.css">
-
+    
 
     <!-- Modernizr JS -->
     <script src="{{ asset('design/bato') }}/js/modernizr-2.6.2.min.js"></script>

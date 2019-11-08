@@ -181,7 +181,7 @@
                                             <div class="form-group">
                                                 <label>Clients</label>
                                                 <div class="input-group">
-                                                    <select name="clients[]" data-placeholder="Choose Clients:" class="chosen-select form-control-lg" multiple="multiple" style="width:450px;" tabindex="4">
+                                                    <select name="client" data-placeholder="Choose Clients:" class="chosen-select form-control-lg" multiple="multiple" style="width:450px;" tabindex="4">
                                                         @foreach($clients as $client)
                                                             <option value="{{$client->id}}" @foreach($designClients as $designClient) @if($client->id === $designClient->client->id) selected @endif @endforeach >{{$client->name}}</option>
                                                         @endforeach
@@ -201,8 +201,11 @@
                                             </div>
 
                                             <div class="has-warning">
-                                                <input type="text" id="location" name="location" required="required" value="{{$design->location}}" class="form-control input-lg">
-                                                <i>Give the location that the collection took place</i>
+                                                <div class="form-group">
+                                                    <label>Description</label>
+                                                    <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$design->description}}</textarea>
+                                                    <i>Give a brief description on what the project is about</i>
+                                                </div>
                                             </div>
 
                                             <hr>

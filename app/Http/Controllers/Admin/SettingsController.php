@@ -6,8 +6,10 @@ use App\Album;
 use App\AlbumCategory;
 use App\AlbumSet;
 use App\AlbumTag;
+use App\Contact;
 use App\Traits\UserTrait;
 use App\Typography;
+use App\Upload;
 use Auth;
 use App\AlbumType;
 use App\Category;
@@ -17,6 +19,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class SettingsController extends Controller
 {
@@ -122,12 +125,13 @@ class SettingsController extends Controller
         // Get albums
         $tagAlbums = Album::whereIn('id', $albums)->with('user','status')->get();
 
-        return view('admin.tag',compact('tag','user','tagAlbums'));
+        return view('admin.tag_show',compact('tag','user','tagAlbums'));
     }
     public function tagSave(Request $request)
     {
         $tag = new Tag();
         $tag->name = strtolower($request->name);
+        $tag->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
         $tag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $tag->user_id = Auth::user()->id;
         $tag->save();
@@ -144,6 +148,157 @@ class SettingsController extends Controller
 
         return redirect()->route('admin.tags')->withSuccess('Tag updated!');
     }
+
+    public function tagCoverImageUpload(Request $request,$tag_id)
+    {
+        // todo If already image delete
+        // todo hash the folder name
+        $tag = Tag::where('id',$tag_id)->first();
+        $folderName = str_replace(' ', '', $tag->name."/");
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/tag/".$folderName, $file_name_extension);
+        $path = public_path()."/tag/".$folderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+
+        $cover_image = $file_name.".".$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
+        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
+        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
+        $banner = $file_name."_banner.".$extension;
+
+//        Image::make( $path )->fit(300, 291)->save(public_path()."/tag/".$folderName.$small_thumbnail);
+//        Image::make( $path )->fit(900, 874)->save(public_path()."/tag/".$folderName.$medium_thumbnail);
+//        Image::make( $path )->fit(1200, 1165)->save(public_path()."/tag/".$folderName.$large_thumbnail);
+
+        if ($width > $height) { //landscape
+
+            //Small image
+            Image::make( $path )->fit(300, 150)->save(public_path()."/tag/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/tag/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(900, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/tag/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/tag/".$folderName.$large_thumbnail);
+
+        } else {
+
+
+            Image::make( $path )->resize(null, 291, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/tag/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(null, 874, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/tag/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(null, 1165, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/tag/".$folderName.$large_thumbnail);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->image = "tag/".$folderName.$file_name;
+        $upload->small_thumbnail = "tag/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "tag/".$folderName.$large_thumbnail;
+        $upload->banner = "tag/".$folderName.$banner;
+
+        $upload->size = $size;
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = False;
+        $upload->upload_type_id = "b2877336-2866-47f6-9b44-094b4d414d1b";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update tag cover image
+        $tag = Tag::findOrFail($tag_id);
+        $tag->cover_image_id = $upload->id;
+        $tag->save();
+
+
+        return back()->withStatus(__('Tag cover image successfully uploaded.'));
+    }
+
     public function tagDelete($album_type_id)
     {
 
@@ -152,6 +307,7 @@ class SettingsController extends Controller
 
         return back()->withStatus(__('Tag successfully deleted.'));
     }
+
     public function tagRestore($album_type_id)
     {
 
@@ -344,6 +500,24 @@ class SettingsController extends Controller
 
 
 
+    public function contacts()
+    {
+        // User
+        $user = $this->getAdmin();
+        $contacts = Contact::with('status')->get();
+
+        return view('admin.contacts',compact('contacts','user'));
+    }
+    public function contactShow($contact_id)
+    {
+        // User
+        $user = $this->getAdmin();
+
+        $contact = Contact::findOrFail($contact_id);
+        $contact = Contact::where('id',$contact_id)->with('status')->get();
+
+        return view('admin.contacts',compact('contacts','user'));
+    }
 
 
 }

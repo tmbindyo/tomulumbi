@@ -18,10 +18,15 @@ Route::post('/album/type/save', 'Admin\SettingsController@albumTypeSave')->name(
 Route::post('/album/type/update/{album_type_id}', 'Admin\SettingsController@albumTypeUpdate')->name('admin.album.type.update');
 Route::get('/album/type/delete/{album_type_id}', 'Admin\SettingsController@albumTypeDelete')->name('admin.album.type.delete');
 
+Route::get('/contacts', 'Admin\SettingsController@contacts')->name('admin.contacts');
+Route::get('/contact/show/{contact_id}', 'Admin\SettingsController@contactShow')->name('admin.contact.show');
+Route::get('/contact/update/{contact_id}', 'Admin\SettingsController@contactUpdate')->name('admin.contact.update');
+
 Route::get('/tags', 'Admin\SettingsController@tags')->name('admin.tags');
 Route::get('/tag/{tag_id}', 'Admin\SettingsController@tag')->name('admin.tag');
 Route::post('/tag/save', 'Admin\SettingsController@tagSave')->name('admin.tag.save');
 Route::post('/tag/update/{tag_id}', 'Admin\SettingsController@tagUpdate')->name('admin.tag.update');
+Route::post('/tag/cover/image/{album_id}', 'Admin\SettingsController@tagCoverImageUpload')->name('admin.tag.cover.image');
 Route::get('/tag/delete/{tag_id}', 'Admin\SettingsController@tagDelete')->name('admin.tag.delete');
 
 Route::get('/categories', 'Admin\SettingsController@categories')->name('admin.categories');
@@ -92,7 +97,7 @@ Route::get('/designs', 'Admin\DesignController@designs')->name('admin.designs');
 Route::get('/design/create', 'Admin\DesignController@designCreate')->name('admin.design.create');
 Route::post('/design/store', 'Admin\DesignController@designStore')->name('admin.design.store');
 Route::get('/design/show/{album_id}', 'Admin\DesignController@designShow')->name('admin.design.show');
-Route::get('/design/update/{$design_id}', 'Admin\DesignController@designUpdate')->name('admin.design.update');
+Route::post('/design/update/{design_id}', 'Admin\DesignController@designUpdate')->name('admin.design.update');
 Route::post('/design/cover/image/{album_id}', 'Admin\DesignController@designCoverImageUpload')->name('admin.design.cover.image');
 Route::post('/design/gallery/image/upload/{design_id}', 'Admin\DesignController@designGalleryImageUpload')->name('admin.design.gallery.image.upload');
 Route::post('/design/update/design/{design_id}', 'Admin\DesignController@designUpdateDesign')->name('admin.design.update.design');
@@ -106,6 +111,5 @@ Route::get('/diy', 'Admin\DashboardController@dashboard')->name('admin.diy');
 Route::get('/store', 'Admin\DashboardController@dashboard')->name('admin.store');
 
 
-Route::get('/test/masonry', 'Admin\SettingsController@testMasonry')->name('admin.test.masonry');
 
 

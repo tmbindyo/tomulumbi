@@ -20,8 +20,16 @@ class Tag extends Model
     {
         return $this->hasMany('App\Upload');
     }
+    public function cover_image()
+    {
+        return $this->hasOne('App\Upload','id', 'cover_image_id');
+    }
 
     // Parents
+    public function thumbnail_size()
+    {
+        return $this->belongsTo('App\ThumbnailSize');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');

@@ -125,5 +125,40 @@ class StatusTableSeeder extends Seeder
 
 
 
+        DB::table('statuses')->insert([
+            'id' => '9c267c79-162e-4ae1-9340-57a4c5ca5e81',
+            'name' => 'Unread',
+            'label' => 'label-warning',
+            'description' => 'Unread',
+            'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => 'f7c44dec-2fca-4807-a500-364430240167',
+            'name' => 'Viewed',
+            'label' => 'label-info',
+            'description' => 'Viewed',
+            'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '25743169-a5f2-4e71-878d-6c6ef02dfb08',
+            'name' => 'Replied',
+            'label' => 'label-primary',
+            'description' => 'Viewed',
+            'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => 'b911d833-c581-4e59-bfd0-72ea1becf544',
+            'name' => 'Flagged',
+            'label' => 'label-danger',
+            'description' => 'Viewed',
+            'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
+            'user_id' => 1,
+        ]);
+
+
+
     }
 }

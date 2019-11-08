@@ -68,6 +68,13 @@ class UploadTypeTableSeeder extends Seeder
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
+            DB::table('album_types')->insert([
+                'id' => 'b2877336-2866-47f6-9b44-094b4d414d1b',
+                'name' => 'Tag Cover Image',
+                'description' => 'Tag Cover Image',
+                'user_id' => 1,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            ]);
 
     }
 }

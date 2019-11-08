@@ -40,20 +40,27 @@ class CreateUploadsTable extends Migration
             $table->text('image');
 
             // Album set images
-            $table->text('small')->nullable();
-            $table->text('medium')->nullable();
-            $table->text('large')->nullable();
+            $table->text('pixels100')->nullable();
+            $table->text('pixels300')->nullable();
+            $table->text('pixels500')->nullable();
+            $table->text('pixels750')->nullable();
+            $table->text('pixels1000')->nullable();
+            $table->text('pixels1500')->nullable();
+            $table->text('pixels2500')->nullable();
+            $table->text('pixels3600')->nullable();
+
             $table->uuid('album_set_id')->nullable();
             $table->boolean('is_client_exclusive_access')->nullable();
             $table->boolean('is_album_set_image');
 
             // Album cover image
-            $table->uuid('album_id')->nullable();
             $table->text('small_thumbnail')->nullable();
             $table->text('large_thumbnail')->nullable();
             $table->text('banner')->nullable();
             $table->text('original')->nullable();
 
+            $table->uuid('album_id')->nullable();
+            $table->uuid('design_id')->nullable();
             $table->uuid('tag_id')->nullable();
             $table->uuid('upload_type_id');
             $table->integer('user_id')->unsigned();

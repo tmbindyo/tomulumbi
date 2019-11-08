@@ -1,153 +1,232 @@
+<!DOCTYPE html>
 
-<!DOCTYPE HTML>
-<!--
-    Aesthetic by gettemplates.co
-    Twitter: http://twitter.com/gettemplateco
-    URL: http://gettemplates.co
--->
-<html>
+<html class="no-js"  lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tomulumbi | {{$album->name}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
-    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-    <meta name="author" content="gettemplates.co" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title>Tomulumbi :: {{$album->name}}</title>
 
-    <!-- Facebook and Twitter integration -->
-    <meta property="og:title" content=""/>
-    <meta property="og:image" content=""/>
-    <meta property="og:url" content=""/>
-    <meta property="og:site_name" content=""/>
-    <meta property="og:description" content=""/>
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:image" content="" />
-    <meta name="twitter:url" content="" />
-    <meta name="twitter:card" content="" />
+    <!-- Gallery Popup Plugin With jQuery - LC Lightbox -->
+    <link rel="stylesheet" href="{{ asset('inspinia') }}/css/plugins/lc-lightbox/css/lc_lightbox.css">
+    <!-- dark -->
+    <link rel="stylesheet" href="{{ asset('inspinia') }}/css/plugins/lc-lightbox/skins/dark.css">
+    <!-- light -->
+    <link rel="stylesheet" href="{{ asset('inspinia') }}/css/plugins/lc-lightbox/skins/light.css">
+    <!-- minimal -->
+    <link rel="stylesheet" href="{{ asset('inspinia') }}/css/plugins/lc-lightbox/skins/minimal.css">
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="favicon.ico">
-    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet"> -->
 
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="{{ asset('client_proof/photo') }}/css/animate.css">
-    <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="{{ asset('client_proof/photo') }}/css/icomoon.css">
-    <!-- Bootstrap  -->
-    <link rel="stylesheet" href="{{ asset('client_proof/photo') }}/css/bootstrap.css">
-    <!-- Theme style  -->
-    <link rel="stylesheet" href="{{ asset('client_proof/photo') }}/css/style.css">
+    <!-- Normalize -->
+    <link rel="stylesheet" href="{{ asset('personal_albums/pixca') }}/css/assets/normalize.css" type="text/css">
 
-    <!-- Magnific Popup -->
-    <link rel="stylesheet" href="{{ asset('client_proof/photo') }}/css/magnific-popup.css">
+    <!-- Bootstrap -->
+    <link href="{{ asset('personal_albums/pixca') }}/css/assets/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Modernizr JS -->
-    <script src="{{ asset('client_proof/photo') }}/js/modernizr-2.6.2.min.js"></script>
-    <!-- FOR IE9 below -->
+    <!-- Font-awesome.min -->
+    <link href="{{ asset('personal_albums/pixca') }}/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Effet -->
+    <link rel="stylesheet" href="{{ asset('personal_albums/pixca') }}/css/gallery/foundation.min.css"  type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('personal_albums/pixca') }}/css/gallery/set1.css" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{{ asset('personal_albums/pixca') }}/css/main.css" type="text/css">
+
+    <!-- Responsive Style -->
+    <link href="{{ asset('personal_albums/pixca') }}/css/responsive.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
     <!--[if lt IE 9]>
-    <script src="{{ asset('client_proof/photo') }}/js/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script src="{{ asset('personal_albums/pixca') }}/js/assets/modernizr-2.8.3.min.js" type="text/javascript"></script>
 </head>
+
 <body>
 
+<!-- header -->
 
-    <div id="fh5co-page">
+<header id="header" class="header">
+    <div class="container-fluid">
+        <hgroup>
 
-        <div class="aside-toggle btn-circle">
-            <a href="#"><span></span><em>Tomulumbi</em></a>
-        </div>
-        <div class="back-to-home btn-circle">
-            <a href="{{route('client.proofs')}}"><span></span><em>Back</em></a>
-        </div>
+            <!-- logo -->
 
-        <div id="fh5co-aside">
-            <div class="image-bg"></div>
-            <div class="overlay"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="fh5co-aside-inner">
-                        <div class="row" id="fh5co-bio">
-                            <div class="col-md-12">
-                                <h2>Home</h2>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Sint, <a href="#">consectetur</a>, fugit. Sed, blanditiis. Autem quae perferendis totam provident, consequuntur inventore reiciendis vitae suscipit rerum repellendus facere voluptatem tenetur iure praesentium corrupti asperiores eos laborum debitis eaque maiores magnam nisi exercitationem sunt maxime! At eligendi deserunt, iusto natus molestias!</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Quas praesentium dolore unde delectus, nemo accusantium, qui ab illum debitis assumenda tempore molestias ipsam, eveniet repellendus officiis in vel, explicabo quos necessitatibus atque doloremque. Quae maiores delectus, magnam nam.</p>
-                            </div>
-                            <div class="col-md-12 fh5co-social">
-                                <a href="#"><i class="icon-envelope"></i></a>
-                                <a href="#"><i class="icon-twitter"></i></a>
-                                <a href="#"><i class="icon-linkedin"></i></a>
-                                <a href="#"><i class="icon-instagram"></i></a>
-                                <a href="#"><i class="icon-google-plus"></i></a>
-                            </div>
-                            <div class="col-md-12" style="margin-top: 40px;">
-                                <p>&copy; 2019 All Rights Reserved. Designed by <a href="https://www.tomulumbi.com/">Tomulumbi</a> Images: <a href="https://www.tomulumbi.com/" target="_blank">Tomulumbi</a></p>
-                            </div>
-                        </div>
+            <h1> <a href="{{route('welcome')}}" title="Picxa"><img src="{{ asset('personal_albums/pixca') }}/images/logo.png" alt="Picxa" title="Picxa"/></a> </h1>
+
+            <!-- logo -->
+
+            <!-- nav -->
+
+            <nav>
+                <div class="menu-expanded">
+                    <div class="nav-icon">
+                        <div id="menu" class="menu"></div>
+                        <p>menu</p>
+                        <p>menu</p>
+                        <p>menu</p>
+                        <p>menu</p>
+                    </div>
+                    <div class="cross"> <span class="linee linea1"></span> <span class="linee linea2"></span> <span class="linee linea3"></span> </div>
+                    <div class="main-menu">
+                        <ul>
+                            <li><a href="{{route('welcome')}}">Home</a></li>
+                            <li><a href="{{route('client.proofs')}}">Client Proof's</a></li>
+                            <li><a href="{{route('client.proof.download',$album->id)}}"><span class="fa fa-download"></span> Download Album</a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="container-fluid" id="fh5co-image-grid">
+            </nav>
 
+            <!-- nav -->
 
-            <div class="grid">
-                <div class="grid-sizer"></div>
+        </hgroup>
+    </div>
+</header>
 
+<!-- header -->
+
+<main class="main-wrapper" id="container">
+
+    <!-- image Gallery -->
+
+    <div class="wrapper">
+        <div class="">
+            <ul class="{{$album->thumbnail_size->reference}} masonry">
                 @foreach($albumSets as $albumSet)
                     @foreach($albumSet->album_images as $albumSetImage)
-                        <div class="grid-item item animate-box" data-animate-effect="fadeIn">
-                            <a href="{{ asset('') }}{{ $albumSetImage->large }}" class="image-popup" title="{{$albumSetImage->file_name}}">
-                                <div class="img-wrap">
-                                    <img src="{{ asset('') }}{{ $albumSetImage->large }}" alt="" class="img-responsive">
-                                </div>
-                                <div class="text-wrap">
-                                    <div class="text-inner popup">
-                                        <div>
-                                            <h2>{{$albumSetImage->file_name}}</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        <li class="masonry-item grid">
+                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" alt="" />
+                                <figcaption>
+                                    <h2>{{$album->name}}</h2>
+{{--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
+                                    <a class="elem"
+                                       href="{{ asset('') }}{{ $albumSetImage->upload->pixels1500 }}"
+                                       title="View"
+                                       data-lcl-txt="Description 1"
+                                       data-lcl-author="tomulumbi"
+                                       data-lcl-thumb="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}">
+                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->upload->pixels1500 }});"></span>
+                                    </a>
+                                </figcaption>
+                            </figure>
+                        </li>
                     @endforeach
                 @endforeach
-            </div>
-
-
+            </ul>
         </div>
-
     </div>
 
-    <!-- jQuery -->
-    <script src="{{ asset('client_proof/photo') }}/js/jquery.min.js"></script>
-    <!-- jQuery Easing -->
-    <script src="{{ asset('client_proof/photo') }}/js/jquery.easing.1.3.js"></script>
-    <!-- Bootstrap -->
-    <script src="{{ asset('client_proof/photo') }}/js/bootstrap.min.js"></script>
-    <!-- Waypoints -->
-    <script src="{{ asset('client_proof/photo') }}/js/jquery.waypoints.min.js"></script>
+</main>
 
-    <!-- Magnific -->
-    <script src="{{ asset('client_proof/photo') }}/js/jquery.magnific-popup.min.js"></script>
-    <script src="{{ asset('client_proof/photo') }}/js/magnific-popup-options.js"></script>
-    <!-- Isotope & imagesLoaded -->
-    <script src="{{ asset('client_proof/photo') }}/js/isotope.pkgd.min.js"></script>
-    <script src="{{ asset('client_proof/photo') }}/js/imagesloaded.pkgd.min.js"></script>
-    <!-- GSAP  -->
-    <script src="{{ asset('client_proof/photo') }}/js/TweenLite.min.js"></script>
-    <script src="{{ asset('client_proof/photo') }}/js/CSSPlugin.min.js"></script>
-    <script src="{{ asset('client_proof/photo') }}/js/EasePack.min.js"></script>
+<!-- Image Gallery -->
 
-    <!-- MAIN JS -->
-    <script src="{{ asset('client_proof/photo') }}/js/main.js"></script>
+<!-- footer -->
 
-    </body>
+<footer class="footer">
+    <h3>Stay connected with us</h3>
+    <div class="container footer-bot">
+        <div class="row">
+
+            <!-- logo -->
+
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('personal_albums/pixca') }}/images/footer-logo.png" alt="Picxa" title="Picxa"/>
+                <p class="copy-right">&copy; Reserved tomulumbi 2020.</p>
+            </div>
+
+            <!-- logo -->
+
+            <!-- address -->
+
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
+                <address>
+                    <p>General Accident House</p>
+                    <p>Ralph Bunche Rd,  Nairobi</p>
+                </address>
+            </div>
+
+            <!-- address -->
+
+            <!-- email -->
+
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
+                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
+                <p>+254 739 459 370</p>
+            </div>
+
+            <!-- email -->
+
+            <!-- social -->
+
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
+                <ul class="social">
+                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-delicious" aria-hidden="true"></i></a></li>
+                </ul>
+                <p class="made-by">Made with by <i class="fa fa-heart" aria-hidden="true"></i> <a href="http://www.fluidtechglobal.com/" target="_blank">Fluidtech Global</a>
+                <p>
+            </div>
+
+            <!-- social -->
+
+        </div>
+    </div>
+</footer>
+
+<!-- footer -->
+
+<!-- jQuery -->
+
+{{--<script src="https://code.jquery.com/jquery-3.2.1.min.js"--}}
+{{--        integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f"--}}
+{{--        crossorigin="anonymous">--}}
+{{--</script>--}}
+<script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>--}}
+{{--<script>window.jQuery || document.write('<script src="{{ asset('personal_albums/pixca') }}/js/assets/jquery.min.js"><\/script>')</script>--}}
+<script src="{{ asset('inspinia') }}/js/plugins/lc-lightbox/js/lc_lightbox.lite.js"></script>
+<script src="{{ asset('inspinia') }}/js/plugins/lc-lightbox/lib/AlloyFinger/alloy_finger.min.js"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/assets/plugins.js" type="text/javascript"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/assets/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/maps.js" type="text/javascript"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/custom.js" type="text/javascript"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/jquery.contact.js" type="text/javascript"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/main.js" type="text/javascript"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/gallery/masonry.pkgd.min.js" type="text/javascript"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/gallery/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/gallery/jquery.infinitescroll.min.js" type="text/javascript"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/gallery/main.js" type="text/javascript"></script>
+<script src="{{ asset('personal_albums/pixca') }}/js/jquery.nicescroll.min.js" type="text/javascript"></script>
+<script>
+    lc_lightbox('.elem', {
+        wrap_class: 'lcl_fade_oc',
+        gallery : true,
+        thumb_attr: 'data-lcl-thumb',
+        skin: 'dark',
+        preload_all   :false,
+        ol_time_diff  : 100,
+        fading_time   : 50,
+        animation_time  : 300,
+        fullscreen    :true,
+        show_author   :false,
+        show_descr    :false,
+        show_title    :false,
+        touchswipe    :true,
+        mousewheel    :true,
+        rclick_prevent  :true,
+        download    :true,
+        // more options here
+    });
+</script>
+</body>
 </html>
-

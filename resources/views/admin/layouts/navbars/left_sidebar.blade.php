@@ -2,22 +2,20 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
-                             </span>
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$user->name}}</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
-                        <li><a href="mailbox.html">Mailbox</a></li>
-                        <li class="divider"></li>
-                        <li><a href="login.html">Logout</a></li>
-                    </ul>
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">{{$user->name}}</strong>
+                            </span>
+                        </span>
+                    </a>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    tomulumbi
                 </div>
             </li>
             <li class="">
@@ -86,6 +84,10 @@
                 <a href="{{ route('admin.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do's</span></a>
             </li>
 
+            <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
+                <a href="{{ route('admin.contacts') }}"><i class="fa fa-email"></i> <span class="nav-label">Contact's</span></a>
+            </li>
+
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.client.proofs' ) ?  'active' : '' }}">
                 <a href="{{ route('admin.client.proofs') }}"><i class="fa fa-users"></i> <span class="nav-label">Client Proof's</span><span class="label label-warning pull-right">24</span></a>
             </li>
@@ -104,10 +106,6 @@
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.store' ) ?  'active' : '' }}">
                 <a href="{{ route('admin.store') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Store</span><span class="label label-warning pull-right">24</span></a>
-            </li>
-
-            <li class="nav-item {{ Route::currentRouteNamed( 'admin.test.masonry' ) ?  'active' : '' }}">
-                <a href="{{ route('admin.test.masonry') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Test Masonry</span><span class="label label-warning pull-right">24</span></a>
             </li>
 
         </ul>

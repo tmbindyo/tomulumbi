@@ -133,6 +133,11 @@
                                         </select>
                                         <i>Categories: What kind of collection is this? Separate your categories with a comma. e.g. wedding, outdoor, summer</i>
                                     </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        <i>Give a brief description on what the project is about</i>
+                                    </div>
 
                                     <br>
                                     <hr>

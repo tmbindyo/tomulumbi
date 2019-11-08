@@ -226,6 +226,18 @@
                                                         <i>Choose between different typography styles to best compliment the proof.</i>
                                                     </div>
                                                 </div>
+                                                {{--  Album thumbnail size  --}}
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    <h4 class="text-center">Thumbnail Size</h4>
+                                                    <div class="form-group">
+                                                        <select class="form-control m-b input-lg" name="thumbnail_size" required>
+                                                            @foreach($thumbnailSizes as $thumbnailSize)
+                                                                <option value="{{$thumbnailSize->id}}" @if($thumbnailSize->id === $album->thumbnail_size_id) selected @endif>{{$thumbnailSize->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <i>Adjust the display size of photos in the gallery.</i>
+                                                    </div>
+                                                </div>
                                                 <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Album Images Design Settings</button>
                                             </form>
                                             <hr>

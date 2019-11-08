@@ -36,6 +36,10 @@ class Upload extends Model
     {
         return $this->hasOne('App\Album','cover_image_id', 'id');
     }
+    public function tag_cover_image()
+    {
+        return $this->hasOne('App\Album','cover_image_id', 'id');
+    }
 
     // Parents
     public function status()

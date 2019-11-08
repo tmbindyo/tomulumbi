@@ -84,7 +84,7 @@
 
                                                 @isset($albumSet->album_images)
                                                     @foreach($albumSet->album_images as $albumSetImage)
-                                                        <a href="{{ asset('') }}{{ $albumSetImage->upload->large }}" title="{{ $albumSetImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $albumSetImage->upload->small }}"></a>
+                                                        <a href="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" title="{{ $albumSetImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $albumSetImage->upload->pixels300 }}"></a>
                                                     @endforeach
                                                 @endisset
                                                 <!-- The Gallery as lightbox dialog, should be a child element of the document body -->

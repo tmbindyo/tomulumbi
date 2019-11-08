@@ -52,6 +52,44 @@
 </head>
 <body>
 
+<nav id="colorlib-main-nav" role="navigation">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
+    <div class="js-fullheight colorlib-table">
+        <div class="colorlib-table-cell js-fullheight">
+
+            <div class="row text-center">
+                <h2>Social</h2>
+                <p class="colorlib-social-icons">
+                    <a href="#"><i class="icon-twitter3"></i></a>
+                    <a href="#"><i class="icon-instagram"></i></a>
+                    <a href="#"><i class="icon-behance"></i></a>
+                </p>
+            </div>
+
+            <div class="row text-center">
+                <h2>Get in Touch</h2>
+                <p><a href="#">contact@tomulumbi.com</a></p>
+            </div>
+
+            <div class="row text-center">
+                <h2>Office</h2>
+                <p>General Accident House, <br> Ralph bunche Rd, Nairobi.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <span class="block">
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://www.fluidtechglobal.com" target="_blank">Fluidtech Global</a>
+                            <br>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</nav>
 
 <div id="colorlib-page">
     <header>
@@ -61,6 +99,7 @@
                     <div class="colorlib-navbar-brand">
                         <a class="colorlib-logo" href="{{route('welcome')}}">tomulumbi</a>
                     </div>
+                    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
                 </div>
             </div>
         </div>

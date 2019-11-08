@@ -35,5 +35,11 @@ class StatusTypeTableSeeder extends Seeder
             'description' => 'To do status type',
             'user_id' => 1,
         ]);
+        DB::table('status_types')->insert([
+            'id' => '2f473eb6-8c42-41bf-8b51-bcc6e83d6cf1',
+            'name' => 'Contact status type',
+            'description' => 'Contact status type',
+            'user_id' => 1,
+        ]);
     }
 }

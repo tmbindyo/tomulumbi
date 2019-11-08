@@ -109,6 +109,10 @@ class Status extends Model
     {
         return $this->hasMany('App\Color');
     }
+    public function contact()
+    {
+        return $this->hasMany('App\Contact');
+    }
     public function cover_designs()
     {
         return $this->hasMany('App\CoverDesign');

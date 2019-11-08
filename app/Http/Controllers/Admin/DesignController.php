@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Album;
-use App\AlbumImage;
 use App\Category;
 use App\Client;
 use App\Design;
@@ -19,6 +17,8 @@ use Auth;
 use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -56,18 +56,18 @@ class DesignController extends Controller
 
         $design = new Design();
         $design->name = $request->name;
+        $design->description = $request->description;
         $design->date = date('Y-m-d', strtotime($request->date));
-
 
         $design->views = 0;
         $design->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $design->user_id = Auth::user()->id;
         $design->save();
 
-        foreach ($request->categories as $designAlbumCategory){
+        foreach ($request->categories as $designCategoryId){
             $designCategory = new DesignCategory();
             $designCategory->design_id = $design->id;
-            $designCategory->category_id = $designAlbumCategory;
+            $designCategory->category_id = $designCategoryId;
             $designCategory->user_id = Auth::user()->id;
             $designCategory->save();
         }
@@ -91,7 +91,7 @@ class DesignController extends Controller
         $design = Design::where('id',$design_id)->with('design_categories','client','user','status','cover_image')->first();
 
 //        return $design;
-        // Album & Image status
+        // Design status
         $designStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
         // Pending to dos
@@ -112,50 +112,57 @@ class DesignController extends Controller
     public function designUpdate(Request $request, $design_id)
     {
 
+        // User
+        $user = $this->getAdmin();
+
+
         // Check if design exists and get
         $design = Design::findOrFail($design_id);
         $design->name = $request->name;
+        $design->description = $request->description;
+        $design->client_id = $request->client;
+        $design->status_id = $request->status;
         $design->date = date('Y-m-d', strtotime($request->date));
         $design->save();
 
         // Design categories update
         $designRequestCategories =array();
-        foreach ($request->categories as $designAlbumCategory){
+        foreach ($request->categories as $designCategory){
             // Append to array
-            $designRequestCategories[]['id'] = $designAlbumCategory;
+            $designRequestCategories[]['id'] = $designCategory;
 
             // Check if design category exists
-            $designCategory = DesignCategory::where('design_id',$design->id)->where('category_id',$designAlbumCategory)->first();
+            $designCategory = DesignCategory::where('design_id',$design->id)->where('category_id',$designCategory)->first();
 
             if($designCategory === null) {
                 $designCategory = new DesignCategory();
                 $designCategory->design_id = $design->id;
-                $designCategory->category_id = $designAlbumCategory;
+                $designCategory->category_id = $designCategory;
                 $designCategory->user_id = Auth::user()->id;
                 $designCategory->save();
             }
         }
 
-        $designCategoriesIds = AlbumCategory::where('design_id',$design_id)->whereNotIn('category_id',$designRequestCategories)->select('id')->get()->toArray();
+        $designCategoriesIds = DesignCategory::where('design_id',$design_id)->whereNotIn('category_id',$designRequestCategories)->select('id')->get()->toArray();
         DB::table('design_categories')->whereIn('id', $designCategoriesIds)->delete();
 
 
-        return view('admin.design_create',compact('user','tags','categories'));
+        return back()->withStatus(__('Design successfully uploaded.'));
     }
 
     public function designCoverImageUpload(Request $request,$design_id)
     {
-        // todo If already image delete
-        // todo hash the folder name
         $design = Design::where('id',$design_id)->first();
-        $folderName = str_replace(' ', '', $design->name."/");
+        $folderName = str_replace(' ', '', $design->name."/Banner/");
+
+//        return $folderName;
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/design/".$folderName, $file_name_extension);
-        $path = public_path()."/design/".$folderName.$file_name_extension;
+        $file->move(public_path()."/work/design/".$folderName, $file_name_extension);
+        $path = public_path()."/work/design/".$folderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
 
@@ -164,36 +171,46 @@ class DesignController extends Controller
         $width = Image::make( $path )->width();
         $height = Image::make( $path )->height();
 
-        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
-        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
-        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
-        $banner = $file_name."_banner.".$extension;
+
+        $small_thumbnail = "Thumbnail/Small/".$file_name.".".$extension;
+        $large_thumbnail = "Thumbnail/Large/".$file_name.".".$extension;
+        $banner = "banner".".".$extension;
+
+        // Make directories
+        File::makeDirectory(public_path()."/work/design/".$folderName."Thumbnail/Small/", $mode = 0750, true, true);
+        File::makeDirectory(public_path()."/work/design/".$folderName."Thumbnail/Large/", $mode = 0750, true, true);
+
+        // Resize image
+        // image
 
         if ($width > $height) { //landscape
 
-            //Small image
-            Image::make( $path )->fit(150, 150)->save(public_path()."/design/".$folderName.$small_thumbnail);
-
             Image::make( $path )->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/design/".$folderName.$medium_thumbnail);
+            })->save(public_path()."/work/design/".$folderName.$small_thumbnail);
 
-            Image::make( $path )->resize(550, null, function ($constraint) {
+            Image::make( $path )->resize(571, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/design/".$folderName.$large_thumbnail);
+            })->save(public_path()."/work/design/".$folderName.$large_thumbnail);
+
+            Image::make( $path )->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/work/design/".$folderName.$banner);
+
 
         } else {
 
-            //Small image
-            Image::make( $path )->fit(150, 150)->save(public_path()."/design/".$folderName.$small_thumbnail);
-
             Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/design/".$folderName.$medium_thumbnail);
+            })->save(public_path()."/work/design/".$folderName.$small_thumbnail);
 
-            Image::make( $path )->resize(null, 550, function ($constraint) {
+            Image::make( $path )->resize(null, 499, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/design/".$folderName.$large_thumbnail);
+            })->save(public_path()."/work/design/".$folderName.$large_thumbnail);
+
+            Image::make( $path )->resize(null, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/work/design/".$folderName.$banner);
 
         }
 
@@ -261,28 +278,28 @@ class DesignController extends Controller
 
         $upload->name = $file_name;
         $upload->extension = $extension;
-        $upload->image = "design/".$folderName.$file_name;
-        $upload->small_thumbnail = "design/".$folderName.$small_thumbnail;
-        $upload->large_thumbnail = "design/".$folderName.$large_thumbnail;
-        $upload->banner = "design/".$folderName.$banner;
+        $upload->image = "work/design/".$folderName.$file_name;
+        $upload->small_thumbnail = "work/design/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "work/design/".$folderName.$large_thumbnail;
+        $upload->banner = "work/design/".$folderName.$banner;
 
         $upload->size = $size;
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = False;
-//        $upload->is_album_cover = False;
-        $upload->upload_type_id = "647b9ff2-9c56-4e2e-a4c8-e2438e1dc711";
+        $upload->design_id = $design_id;
+        $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
         $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $upload->user_id = Auth::user()->id;
         $upload->save();
 
-        // Update album cover image
+        // Update design cover image
         $design = Design::findOrFail($design_id);
         $design->cover_image_id = $upload->id;
         $design->save();
 
         //return $design;
 
-        return back()->withStatus(__('Client proof cover image successfully uploaded.'));
+        return back()->withStatus(__('Design cover image successfully uploaded.'));
     }
 
     public function designWorkSave(Request $request,$design_id)
