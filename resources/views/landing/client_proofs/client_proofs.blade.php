@@ -49,13 +49,13 @@
                 <form method="post" action="{{ route('contact.save') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
                     <div class="field half first">
-                        <input type="text" name="name" id="name" placeholder="Name" />
+                        <input type="text" name="name" id="name" placeholder="Name" required />
                     </div>
                     <div class="field half">
-                        <input type="email" name="email" id="email" placeholder="Email" />
+                        <input type="email" name="email" id="email" placeholder="Email" required />
                     </div>
                     <div class="field">
-                        <textarea name="message" id="message" placeholder="Message"></textarea>
+                        <textarea name="message" id="message" placeholder="Message" required></textarea>
                     </div>
                     <ul class="actions">
                         <li><input type="submit" value="Send" class="special" /></li>
@@ -86,10 +86,10 @@
                 @foreach($albums as $album)
                     <article class="style1">
                 <span class="image">
-                    @if(empty($album->cover_image->large_thumbnail))
-                        <img src="{{ asset('client_proof/phantom') }}/images/pic01.jpg" alt="" />
-                    @elseif(isset($album->cover_image->large_thumbnail))
-                        <img src="{{ asset('') }}{{ $album->cover_image->large_thumbnail }}" alt="" />
+                    @if(empty($album->cover_image->original))
+                        <img src="{{ asset('client_proof/phantom') }}/images/background.jpg" alt="" />
+                    @elseif(isset($album->cover_image->original))
+                        <img src="{{ asset('') }}{{ $album->cover_image->pixels500 }}" alt="" />
                     @endif
                 </span>
                         <a href="{{route('client.proof', $album->id)}}">

@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Studio - Creative Photography Template | Home</title>
+    <title>{{$design->name}} | Gallery</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="{{ asset('design/studio') }}/img/core-img/favicon.ico">
@@ -34,14 +34,7 @@
         </div>
     </div>
     <div class="questions-area text-center">
-        <p>Did you know?</p>
-        <ul>
-            <li>The largest photography competition is 353,768 entries.</li>
-            <li>Photography is the toughest profession in the world.</li>
-            <li>The world’s largest photo album by dimensions was 13 ft 11.5 in x 17 ft.</li>
-            <li>The world’s largest photo mosaic featured 176,175 pictures.</li>
-            <li>The world’s largest camera lens was a 5200mm lens attached to a canon.</li>
-        </ul>
+        <p>{{$design->name}} Gallery</p>
     </div>
 </div>
 
@@ -64,7 +57,7 @@
                             <!-- Menu Area Start  -->
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('design.show',1)}}"><span class="fa-comments-o">Back</span></a>
+                                    <a class="nav-link" href="{{route('design.show',$design->id)}}"><span class="fa fa-2x fa-arrow-left"> Back to {{$design->name}}</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -82,184 +75,30 @@
         <!-- Carousel Inner -->
         <div class="carousel-inner h-100">
 
-            <div class="carousel-item h-100 bg-img active" style="background-image: url({{ asset('design/studio') }}/img/bg-img/1.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>01.</span>
-                        <h2> Believe you can fly</h2>
+            @foreach($designGallery as $image)
+                <div class="carousel-item h-100 bg-img @if($loop->index == 0) active @endif" style="background-image: url({{ asset('') }}{{ $image->upload->pixels1500 }});">
+                    <div class="carousel-content h-100">
+                        <div class="slide-text">
+                            <span>{{$loop->iteration}}.</span>
+                            @if($image->design_work)
+                                <h2> {{$image->design_work->name}}</h2>
+                            @endif
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
 
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/2.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>02.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/3.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>03.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/4.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>04.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/5.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>05.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/6.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>06.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/7.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>07.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/8.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>08.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/9.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>09.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/10.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>10.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/11.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>11.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/12.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>12.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item h-100 bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/13.jpg);">
-                <div class="carousel-content h-100">
-                    <div class="slide-text">
-                        <span>13.</span>
-                        <h2> Believe you can fly</h2>
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- Carousel Indicators -->
         <ol class="carousel-indicators">
-            <li data-target="#welcomeSlider" data-slide-to="0" class="active bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/1.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="1" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/2.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="2" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/3.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="3" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/4.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="4" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/5.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="5" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/6.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="6" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/7.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="7" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/8.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="8" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/9.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="9" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/10.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="10" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/11.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="11" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/12.jpg);"></li>
-            <li data-target="#welcomeSlider" data-slide-to="12" class="bg-img" style="background-image: url({{ asset('design/studio') }}/img/bg-img/13.jpg);"></li>
+            @foreach($designGallery as $image)
+                <li data-target="#welcomeSlider" data-slide-to="{{$loop->index}}" class="@if($loop->index == 0) active @endif bg-img" style="background-image: url({{ asset('') }}{{ $image->upload->pixels300 }});"></li>
+            @endforeach
         </ol>
     </div>
 </section>
 <!-- ***** Welcome Area End ***** -->
 
-<!-- ***** Contact Area Start ***** -->
-<div class="contact-popup-form" id="contact-modal-lg">
-    <div class="modal fade contact-modal-lg" tabindex="-1" role="dialog" aria-labelledby="contact-modal-lg" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="contact-heading-text text-center mb-30">
-                                <span></span>
-                                <h2>Please get in touch</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Contact Form Area -->
-                <div class="contact-form-area">
-                    <div class="container-fluid">
-                        <form action="#" method="post">
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Your Name">
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
-                                </div>
-                                <div class="col-12">
-                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
-                                </div>
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn studio-btn mt-3"><img src="{{ asset('design/studio') }}/img/core-img/logo-icon.png" alt=""> Send</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ***** Contact Area End ***** -->
-
-
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-<p>Copyright &copy;
-    <script>
-        document.write(new Date().getFullYear());
-    </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 <!-- jQuery (Necessary for All JavaScript Plugins) -->
 <script src="{{ asset('design/studio') }}/js/jquery/jquery-2.2.4.min.js"></script>

@@ -56,7 +56,6 @@
 
                         <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
                             <li class="active"><a href="{{route('welcome')}}">Home</a></li>
-{{--                            <li><a href="contact.html">Contact</a></li>--}}
                         </ul>
                     </nav>
                 </div>

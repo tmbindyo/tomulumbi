@@ -174,7 +174,7 @@ class AlbumController extends Controller
         $album->status_id = 'b810f2f1-91c2-4fc9-b8e1-acc068caa03a';
         $album->save();
 
-        return back()->withStatus(__('Personal Album successfully deleted.'));
+        return back()->withSuccess(__('Personal Album successfully deleted.'));
     }
 
     public function personalAlbumRestore($album_id)
@@ -184,7 +184,7 @@ class AlbumController extends Controller
         $album->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $album->save();
 
-        return back()->withStatus(__('Personal album successfully restored.'));
+        return back()->withSuccess(__('Personal album successfully restored.'));
     }
 
     public function personalAlbumCoverImageUpload(Request $request,$album_id)
@@ -193,62 +193,96 @@ class AlbumController extends Controller
         // todo hash the folder name
         $album = Album::where('id',$album_id)->first();
         $folderName = str_replace(' ', '', $album->name."/Banner/");
+        $originalFolderName = str_replace(' ', '', $album->name."/Cover Image/Original/");
 
-//        return $folderName;
+        $pixel100FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/100/");
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/300/");
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/500/");
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/750/");
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/1000/");
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/1500/");
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/2500/");
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/3600/");
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/personal/album/".$folderName, $file_name_extension);
-        $path = public_path()."/personal/album/".$folderName.$file_name_extension;
+        $file->move(public_path()."/personal/album/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/personal/album/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
-
-        $cover_image = $file_name.".".$extension;
+        $image_name = $file_name.'.'.$extension;
 
         $width = Image::make( $path )->width();
         $height = Image::make( $path )->height();
 
-
-        $small_thumbnail = "Thumbnail/Small/".$file_name.".".$extension;
-        $large_thumbnail = "Thumbnail/Large/".$file_name.".".$extension;
-        $banner = "banner".".".$extension;
-
-        // Make directories
-        File::makeDirectory(public_path()."/personal/album/".$folderName."Thumbnail/Small/", $mode = 0750, true, true);
-        File::makeDirectory(public_path()."/personal/album/".$folderName."Thumbnail/Large/", $mode = 0750, true, true);
-
-        // Resize image
-        // image
-
         if ($width > $height) { //landscape
 
+            $orientation = "landscape";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
             Image::make( $path )->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/personal/album/".$folderName.$small_thumbnail);
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+
+            // Image thumbnail, theme dependent
+            Image::make( $path )->fit(500, 500)->save(public_path()."/".$pixel500FolderName.$image_name);
 
             Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/personal/album/".$folderName.$large_thumbnail);
-
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
             Image::make( $path )->resize(1000, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/personal/album/".$folderName.$banner);
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
 
+            $orientation = "portrait";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
             Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/personal/album/".$folderName.$small_thumbnail);
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+
+            Image::make( $path )->fit(500, 500)->save(public_path()."/".$pixel500FolderName.$image_name);
 
             Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/personal/album/".$folderName.$large_thumbnail);
-
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
             Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/personal/album/".$folderName.$banner);
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
 
@@ -294,7 +328,6 @@ class AlbumController extends Controller
             $Software = "Pending";
         }
 
-
         $upload = new Upload();
         $upload->artist = $Artist;
         $upload->aperture_f_number = $ApertureFNumber;
@@ -316,12 +349,19 @@ class AlbumController extends Controller
 
         $upload->name = $file_name;
         $upload->extension = $extension;
-        $upload->image = "personal/album/".$folderName.$file_name;
-        $upload->small_thumbnail = "personal/album/".$folderName.$small_thumbnail;
-        $upload->large_thumbnail = "personal/album/".$folderName.$large_thumbnail;
-        $upload->banner = "personal/album/".$folderName.$banner;
-
+        $upload->orientation = $orientation;
         $upload->size = $size;
+
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
+
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = False;
         $upload->album_id = $album_id;
@@ -335,7 +375,7 @@ class AlbumController extends Controller
         $album->cover_image_id = $upload->id;
         $album->save();
 
-        return back()->withStatus(__('Client proof cover image successfully uploaded.'));
+        return back()->withSuccess(__('Client proof cover image successfully uploaded.'));
     }
 
     public function personalAlbumUpdateCollectionSettings(Request $request, $album_id)
@@ -389,7 +429,7 @@ class AlbumController extends Controller
         // Delete removed album tag album set
         DB::table('album_sets')->whereIn('name', $tagNames)->where('album_id',$album->id)->delete();
 
-        return back()->withStatus('Album collection settings updated!');
+        return back()->withSuccess('Album collection settings updated!');
     }
 
     public function personalAlbumUpdateDesign(Request $request, $album_id)
@@ -400,6 +440,23 @@ class AlbumController extends Controller
         $album->save();
 
         return back()->withSuccess('Personal album design updated!');
+    }
+
+    public function personalAlbumImageUpdatePrintStatus(Request $request, $album_image_id)
+    {
+        $albumImage = AlbumImage::findOrFail($album_image_id);
+
+        if ($request->is_print){
+            $albumImage->is_print = True;
+        }
+        else{
+            $albumImage->is_print = False;
+        }
+
+        $albumImage->limit = $request->limit;
+        $albumImage->save();
+
+        return back()->withSuccess('Personal album image print status updated!');
     }
 
     public function personalAlbumSetImageUpload(Request $request,$album_set_id)
@@ -413,7 +470,8 @@ class AlbumController extends Controller
         $tag = Tag::where('name',$albumSet->name)->first();
         $folderName = str_replace(' ', '', $albumSet->album->name."/" .$albumSet->name.'/');
         $originalFolderName = str_replace(' ', '', $albumSet->album->name."/Original/" .$albumSet->name.'/');
-        $smallFolderName = str_replace(' ', '', $albumSet->album->name."/Small/" .$albumSet->name.'/');
+
+        // todo Check if image exists
 
         $pixel100FolderName = str_replace(' ', '', "personal/album/".$albumSet->album->name."/100/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
@@ -447,7 +505,9 @@ class AlbumController extends Controller
 
         if ($width > $height) { //landscape
 
-            Image::make( $path )->resize(100, null, function ($constraint) {
+            $orientation = "landscape";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
             Image::make( $path )->resize(300, null, function ($constraint) {
@@ -473,6 +533,8 @@ class AlbumController extends Controller
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
+
+            $orientation = "portrait";
 
             Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
@@ -564,7 +626,8 @@ class AlbumController extends Controller
 
         $upload->name = $file_name;
         $upload->extension = $extension;
-        $upload->image = $smallFolderName.$image_name;
+        $upload->orientation = $orientation;
+        $upload->size = $size;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
@@ -576,7 +639,6 @@ class AlbumController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->size = $size;
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = True;
         $upload->album_set_id = $album_set_id;
@@ -587,6 +649,8 @@ class AlbumController extends Controller
         $upload->save();
 
         $albumImage = new AlbumImage();
+        $albumImage->is_print = False;
+        $albumImage->limit = 0;
         $albumImage->album_set_id = $album_set_id;
         $albumImage->upload_id = $upload->id;
         $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -594,7 +658,7 @@ class AlbumController extends Controller
         $albumImage->save();
 
 
-        return back()->withStatus(__('Album set image successfully uploaded.'));
+        return back()->withSuccess(__('Album set image successfully uploaded.'));
     }
 
 
@@ -653,6 +717,7 @@ class AlbumController extends Controller
         $album->image_position_id = "54aa3f5c-a52e-4f68-902a-f8c45a51c948";
 
         $album->views = 0;
+        $album->is_download = False;
         $album->is_client_exclusive_access = False;
         $album->password = $this->generatePassword();
         $album->client_access_password = $this->generatePassword();
@@ -745,7 +810,7 @@ class AlbumController extends Controller
         $album->status_id = 'b810f2f1-91c2-4fc9-b8e1-acc068caa03a';
         $album->save();
 
-        return back()->withStatus(__('Client proof successfully deleted.'));
+        return back()->withSuccess(__('Client proof successfully deleted.'));
     }
 
     public function clientProofRestore($album_id)
@@ -755,7 +820,7 @@ class AlbumController extends Controller
         $album->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $album->save();
 
-        return back()->withStatus(__('Client proof successfully restored.'));
+        return back()->withSuccess(__('Client proof successfully restored.'));
     }
 
 
@@ -793,7 +858,7 @@ class AlbumController extends Controller
         $albumTagsIds = AlbumTag::where('album_id',$album_id)->whereNotIn('tag_id',$albumRequestTags)->select('id')->get()->toArray();
         DB::table('album_tags')->whereIn('id', $albumTagsIds)->delete();
 
-        return back()->withStatus('Album collection settings updated!');
+        return back()->withSuccess('Album collection settings updated!');
     }
 
     public function clientProofUpdateDesign(Request $request, $album_id)
@@ -856,7 +921,7 @@ class AlbumController extends Controller
 
         $album->save();
 
-        return back()->withStatus('Album privacy updated!');
+        return back()->withSuccess('Album privacy updated!');
     }
 
     public function clientProofCoverImageUpload(Request $request,$album_id)
@@ -866,274 +931,26 @@ class AlbumController extends Controller
         // todo hash the folder name
         $album = Album::where('id',$album_id)->first();
         $folderName = str_replace(' ', '', $album->name."/Banner/");
+        $originalFolderName = str_replace(' ', '', $album->name."/Cover Image/Original/");
 
-//        return $folderName;
-
-        $file = Input::file("cover_image");
-        $file_name_extension = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-
-        $file->move(public_path()."/client/proof/".$folderName, $file_name_extension);
-        $path = public_path()."/client/proof/".$folderName.$file_name_extension;
-
-        $file_name = pathinfo($path, PATHINFO_FILENAME);
-
-        $cover_image = $file_name.".".$extension;
-
-        $width = Image::make( $path )->width();
-        $height = Image::make( $path )->height();
-
-
-        $small_thumbnail = "Thumbnail/Small/".$file_name.".".$extension;
-        $large_thumbnail = "Thumbnail/Large/".$file_name.".".$extension;
-        $banner = "banner".".".$extension;
-
-        // Make directories
-        File::makeDirectory(public_path()."/client/proof/".$folderName."Thumbnail/Small/", $mode = 0750, true, true);
-        File::makeDirectory(public_path()."/client/proof/".$folderName."Thumbnail/Large/", $mode = 0750, true, true);
-
-        // Resize image
-        // image upload
-        Image::make( $path )->fit(353, 326)->save(public_path()."/client/proof/".$folderName.$small_thumbnail);
-        Image::make( $path )->fit(823, 760)->save(public_path()."/client/proof/".$folderName.$large_thumbnail);
-        Image::make( $path )->fit(1294, 1195)->save(public_path()."/client/proof/".$folderName.$banner);
-
-        $img = Image::make($path);
-        $size = $img->filesize();
-
-        if ($img->exif()) {
-            $Artist = $img->exif('Artist');
-            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
-            $Copyright = $img->exif('COMPUTED->Copyright');
-            $Height = $img->exif('COMPUTED->Height');
-            $Width = $img->exif('COMPUTED->Width');
-            $DateTime = $img->exif('DateTime');
-            $ShutterSpeed = $img->exif('ExposureTime');
-            $FileName = $img->exif('FileName');
-            $FileSize = $img->exif('FileSize');
-            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
-            $FocalLength = $img->exif('FocalLength');
-            $LightSource = $img->exif('LightSource');
-            $MaxApertureValue = $img->exif('MaxApertureValue');
-            $MimeType = $img->exif('MimeType');
-            $Make = $img->exif('Make');
-            $Model = $img->exif('Model');
-            $Software = $img->exif('Software');
-
-        }else{
-            $Artist = "Pending";
-            $ApertureFNumber = "Pending";
-            $Copyright = "Pending";
-            $Height = "Pending";
-            $Width = "Pending";
-            $DateTime = "Pending";
-            $ShutterSpeed = "Pending";
-            $FileName = "Pending";
-            $FileSize = "Pending";
-            $ISOSpeedRatings = "Pending";
-            $FocalLength = "Pending";
-            $LightSource = "Pending";
-            $MaxApertureValue = "Pending";
-            $MimeType = "Pending";
-            $Make = "Pending";
-            $Model = "Pending";
-            $Software = "Pending";
-        }
-
-
-        $upload = new Upload();
-        $upload->artist = $Artist;
-        $upload->aperture_f_number = $ApertureFNumber;
-        $upload->copyright = $Copyright;
-        $upload->height = $Height;
-        $upload->width = $Width;
-        $upload->date_time = $DateTime;
-        $upload->file_name = $FileName;
-        $upload->file_size = $FileSize;
-        $upload->iso = $ISOSpeedRatings;
-        $upload->focal_length = $FocalLength;
-        $upload->light_source = $LightSource;
-        $upload->max_aperture_value = $MaxApertureValue;
-        $upload->mime_type = $MimeType;
-        $upload->make = $Make;
-        $upload->model = $Model;
-        $upload->software = $Software;
-        $upload->shutter_speed = $ShutterSpeed;
-
-        $upload->name = $file_name;
-        $upload->extension = $extension;
-        $upload->image = "client/proof/".$folderName.$file_name;
-        $upload->small_thumbnail = "client/proof/".$folderName.$small_thumbnail;
-        $upload->large_thumbnail = "client/proof/".$folderName.$large_thumbnail;
-        $upload->banner = "client/proof/".$folderName.$banner;
-
-        $upload->size = $size;
-        $upload->is_client_exclusive_access = False;
-        $upload->is_album_set_image = False;
-        $upload->album_id = $album_id;
-        $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
-        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $upload->user_id = Auth::user()->id;
-        $upload->save();
-
-        // Update album cover image
-        $album = Album::findOrFail($album_id);
-        $album->cover_image_id = $upload->id;
-        $album->save();
-
-        return back()->withStatus(__('Client proof cover image successfully uploaded.'));
-    }
-
-    public function clientProofUpdateDownload(Request $request, $album_id)
-    {
-
-        $album = Album::findOrFail($album_id);
-
-        if ($request->is_download){
-            $album->is_download = True;
-        }
-        else{
-            $album->is_download = False;
-        }
-        $album->download_pin = $request->download_pin;
-        $album->download_restriction_limit = $request->download_restriction_limit;
-
-        $album->save();
-
-        return back()->withStatus('Album download updated!');
-    }
-
-    public function clientProofSetStatus ($album_set_id) {
-        // Remove appended %7D
-        $remove = '%7D' ;
-        $trimmed = str_replace($remove, '', $album_set_id) ;
-
-        // Get album set
-        $albumSet = AlbumSet::where('id', $trimmed)->first();
-
-        // Update status
-        if($albumSet->is_client_exclusive_access == 0){
-            // Album set not client only
-            $albumSet->is_client_exclusive_access = True;
-        } elseif($albumSet->is_client_exclusive_access == 1){
-            // Album set client only
-            $albumSet->is_client_exclusive_access = False;
-        }
-        else{
-
-        }
-        $albumSet->save();
-
-        echo 'Album set visibility successfully changed!';
-
-    }
-
-    public function clientProofSetDownloadStatus ($album_set_id) {
-        // Remove appended %7D
-        $remove = '%7D' ;
-        $trimmed = str_replace($remove, '', $album_set_id) ;
-
-        // Get album set
-        $albumSet = AlbumSet::where('id', $trimmed)->first();
-
-        // Update status
-        if($albumSet->is_email_download_restrict == 0){
-            // Album set not client only
-            $albumSet->is_email_download_restrict = True;
-        } elseif($albumSet->is_email_download_restrict == 1){
-            // Album set client only
-            $albumSet->is_email_download_restrict = False;
-        }
-        else{
-
-        }
-        $albumSet->save();
-
-        echo 'Album set client download successfully changed!';
-
-    }
-
-    public function generateClientProofPassword ($album_id) {
-        $password = $this->generatePassword();
-        return $password;
-    }
-
-    public function generateClientProofPin ($album_id) {
-        $pin = $this->generatePin();
-        return $pin;
-    }
-
-    public function clientProofDownloadRestrictionEmail ($album_id,$email) {
-        // Remove appended %7D
-        $remove = '%7D' ;
-        $trimmed = str_replace($remove, '', $album_id) ;
-
-        // Update album set is_email_download_restrict to true
-        $album = Album::where('id', $trimmed)->first();
-        $album->is_email_download_restrict = True;
-        $album->save();
-
-        $albumDownloadRestrictionEmail = new AlbumDownloadRestrictionEmail();
-        $albumDownloadRestrictionEmail->album_id = $trimmed;
-        $albumDownloadRestrictionEmail->email = $email;
-        $albumDownloadRestrictionEmail->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $albumDownloadRestrictionEmail->user_id = Auth::user()->id;
-        $albumDownloadRestrictionEmail->save();
-        echo 'Client proof restricted to '.$email;
-    }
-
-    public function clientProofDownloadRestrictionEmailDelete($album_download_restriction_id)
-    {
-
-        $albumDownloadRestrictionEmail = AlbumDownloadRestrictionEmail::findOrFail($album_download_restriction_id);
-        $albumDownloadRestrictionEmail->delete();
-
-        return back()->withStatus(__('Client proof download restriction email successfully deleted.'));
-    }
-
-    public function clientProofSetSave(Request $request, $album_id)
-    {
-
-        $albumSet = new AlbumSet();
-        $albumSet->album_id = $album_id;
-        $albumSet->name = $request->name;
-        $albumSet->is_client_exclusive_access = False;
-        $albumSet->is_email_download_restrict = False;
-        $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $albumSet->user_id = Auth::user()->id;
-        $albumSet->save();
-
-        return back()->withStatus(__('Album set successfully saved.'));
-    }
-
-    public function clientProofSetImageUpload(Request $request,$album_set_id)
-    {
-
-        // todo If already image delete
-        // todo hash the folder name
-        $albumSet = AlbumSet::where('id',$album_set_id)->with('album')->first();
-        $folderName = str_replace(' ', '', $albumSet->album->name."/" .$albumSet->name.'/');
-        $originalFolderName = str_replace(' ', '', $albumSet->album->name."/Original/" .$albumSet->name.'/');
-        $smallFolderName = str_replace(' ', '', $albumSet->album->name."/Small/" .$albumSet->name.'/');
-
-        $pixel100FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/100/" .$albumSet->name.'/');
+        $pixel100FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/300/" .$albumSet->name.'/');
+        $pixel300FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/300/");
         File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/500/" .$albumSet->name.'/');
+        $pixel500FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/500/");
         File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/750/" .$albumSet->name.'/');
+        $pixel750FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/1000/" .$albumSet->name.'/');
+        $pixel1000FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/1000/");
         File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/1500/" .$albumSet->name.'/');
+        $pixel1500FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/2500/" .$albumSet->name.'/');
+        $pixel2500FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/2500/");
         File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/3600/" .$albumSet->name.'/');
+        $pixel3600FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/3600/");
         File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
-        $file = Input::file("file");
+        $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
@@ -1148,15 +965,19 @@ class AlbumController extends Controller
 
         if ($width > $height) { //landscape
 
-            Image::make( $path )->resize(100, null, function ($constraint) {
+            $orientation = "landscape";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
             Image::make( $path )->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
+
             Image::make( $path )->resize(500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
+
             Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name);
@@ -1174,6 +995,8 @@ class AlbumController extends Controller
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
+
+            $orientation = "portrait";
 
             Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
@@ -1265,7 +1088,8 @@ class AlbumController extends Controller
 
         $upload->name = $file_name;
         $upload->extension = $extension;
-        $upload->image = $smallFolderName.$image_name;
+        $upload->orientation = $orientation;
+        $upload->size = $size;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
@@ -1277,7 +1101,323 @@ class AlbumController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = False;
+        $upload->album_id = $album_id;
+        $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update album cover image
+        $album = Album::findOrFail($album_id);
+        $album->cover_image_id = $upload->id;
+        $album->save();
+
+        return back()->withSuccess(__('Client proof cover image successfully uploaded.'));
+    }
+
+    public function clientProofUpdateDownload(Request $request, $album_id)
+    {
+
+        $album = Album::findOrFail($album_id);
+
+        if ($request->is_download){
+            $album->is_download = True;
+        }
+        else{
+            $album->is_download = False;
+        }
+        $album->download_pin = $request->download_pin;
+        if ($request->download_pin){
+            $album->is_download_pin = True;
+        }
+        $album->download_restriction_limit = $request->download_restriction_limit;
+
+        $album->save();
+
+        return back()->withSuccess('Album download updated!');
+    }
+
+    public function clientProofSetStatus ($album_set_id) {
+        // Remove appended %7D
+        $remove = '%7D' ;
+        $trimmed = str_replace($remove, '', $album_set_id) ;
+
+        // Get album set
+        $albumSet = AlbumSet::where('id', $trimmed)->first();
+
+        // Update status
+        if($albumSet->is_client_exclusive_access == 0){
+            // Album set not client only
+            $albumSet->is_client_exclusive_access = True;
+        } elseif($albumSet->is_client_exclusive_access == 1){
+            // Album set client only
+            $albumSet->is_client_exclusive_access = False;
+        }
+        else{
+
+        }
+        $albumSet->save();
+
+        echo 'Album set visibility successfully changed!';
+
+    }
+
+    public function clientProofSetDownloadStatus ($album_set_id) {
+        // Remove appended %7D
+        $remove = '%7D' ;
+        $trimmed = str_replace($remove, '', $album_set_id) ;
+
+        // Get album set
+        $albumSet = AlbumSet::where('id', $trimmed)->first();
+
+        // Update status
+        if($albumSet->is_email_download_restrict == 0){
+            // Album set not client only
+            $albumSet->is_email_download_restrict = True;
+        } elseif($albumSet->is_email_download_restrict == 1){
+            // Album set client only
+            $albumSet->is_email_download_restrict = False;
+        }
+        else{
+
+        }
+        $albumSet->save();
+
+        echo 'Album set client download successfully changed!';
+
+    }
+
+    public function generateClientProofPassword ($album_id) {
+        $password = $this->generatePassword();
+        return $password;
+    }
+
+    public function generateClientProofPin ($album_id) {
+        $pin = $this->generatePin();
+        return $pin;
+    }
+
+    public function clientProofDownloadRestrictionEmail ($album_id,$email) {
+        // Remove appended %7D
+        $remove = '%7D' ;
+        $trimmed = str_replace($remove, '', $album_id) ;
+
+        // Update album set is_email_download_restrict to true
+        $album = Album::where('id', $trimmed)->first();
+        $album->is_email_download_restrict = True;
+        $album->save();
+
+        $albumDownloadRestrictionEmail = new AlbumDownloadRestrictionEmail();
+        $albumDownloadRestrictionEmail->album_id = $trimmed;
+        $albumDownloadRestrictionEmail->email = $email;
+        $albumDownloadRestrictionEmail->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $albumDownloadRestrictionEmail->user_id = Auth::user()->id;
+        $albumDownloadRestrictionEmail->save();
+        echo 'Client proof restricted to '.$email;
+    }
+
+    public function clientProofDownloadRestrictionEmailDelete($album_download_restriction_id)
+    {
+
+        $albumDownloadRestrictionEmail = AlbumDownloadRestrictionEmail::findOrFail($album_download_restriction_id);
+        $albumDownloadRestrictionEmail->delete();
+
+        return back()->withSuccess(__('Client proof download restriction email successfully deleted.'));
+    }
+
+    public function clientProofSetSave(Request $request, $album_id)
+    {
+
+        $albumSet = new AlbumSet();
+        $albumSet->album_id = $album_id;
+        $albumSet->name = $request->name;
+        $albumSet->is_client_exclusive_access = False;
+        $albumSet->is_email_download_restrict = False;
+        $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $albumSet->user_id = Auth::user()->id;
+        $albumSet->save();
+
+        return back()->withSuccess(__('Album set successfully saved.'));
+    }
+
+    public function clientProofSetImageUpload(Request $request,$album_set_id)
+    {
+
+        // todo If already image delete
+        // todo hash the folder name
+        $albumSet = AlbumSet::where('id',$album_set_id)->with('album')->first();
+        $folderName = str_replace(' ', '', $albumSet->album->name."/" .$albumSet->name.'/');
+        $originalFolderName = str_replace(' ', '', $albumSet->album->name."/Original/" .$albumSet->name.'/');
+        $smallFolderName = str_replace(' ', '', $albumSet->album->name."/Small/" .$albumSet->name.'/');
+
+        $pixel100FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/100/" .$albumSet->name.'/');
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/300/" .$albumSet->name.'/');
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/500/" .$albumSet->name.'/');
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/750/" .$albumSet->name.'/');
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/1000/" .$albumSet->name.'/');
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/1500/" .$albumSet->name.'/');
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/2500/" .$albumSet->name.'/');
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/3600/" .$albumSet->name.'/');
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
+
+        $file = Input::file("file");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/client/proof/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/client/proof/".$originalFolderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+        $image_name = $file_name.'.'.$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        if ($width > $height) { //landscape
+
+            $orientation = "landscape";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        } else {
+
+            $orientation = "portrait";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(null, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(null, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->orientation = $orientation;
         $upload->size = $size;
+
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
+
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = True;
         $upload->album_set_id = $album_set_id;
@@ -1287,6 +1427,8 @@ class AlbumController extends Controller
         $upload->save();
 
         $albumImage = new AlbumImage();
+        $albumImage->is_print = False;
+        $albumImage->limit = 0;
         $albumImage->album_set_id = $album_set_id;
         $albumImage->upload_id = $upload->id;
         $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -1294,7 +1436,7 @@ class AlbumController extends Controller
         $albumImage->save();
 
 
-        return back()->withStatus(__('Album set image successfully uploaded.'));
+        return back()->withSuccess(__('Album set image successfully uploaded.'));
     }
 
 }

@@ -90,6 +90,7 @@ class DesignController extends Controller
         $design = Design::findOrFail($design_id);
         $design = Design::where('id',$design_id)->with('design_categories','client','user','status','cover_image')->first();
 
+
 //        return $design;
         // Design status
         $designStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
@@ -116,9 +117,14 @@ class DesignController extends Controller
         // User
         $user = $this->getAdmin();
 
-
         // Check if design exists and get
         $design = Design::findOrFail($design_id);
+
+        // Check if the cover image has been uploaded if the status is being updated to published
+        if ($request->status == "be8843ac-07ab-4373-83d9-0a3e02cd4ff5" && $design->cover_image_id == ""){
+            return back()->withWarning(__('Please set a cover image before making the design to published.'));
+        }
+
         $design->name = $request->name;
         $design->description = $request->description;
         $design->client_id = $request->client;
@@ -148,7 +154,7 @@ class DesignController extends Controller
         DB::table('design_categories')->whereIn('id', $designCategoriesIds)->delete();
 
 
-        return back()->withStatus(__('Design successfully uploaded.'));
+        return back()->withSuccess(__('Design successfully uploaded.'));
     }
 
     public function designCoverImageUpload(Request $request,$design_id)
@@ -157,63 +163,97 @@ class DesignController extends Controller
 //        return $request;
         $design = Design::where('id',$design_id)->first();
         $folderName = str_replace(' ', '', $design->name."/Banner/");
+        $originalFolderName = str_replace(' ', '', $design->name."/Cover Image/Original/");
 
-//        return $folderName;
+        $pixel100FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/100/");
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/300/");
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/500/");
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/750/");
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/1000/");
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/1500/");
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/2500/");
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/3600/");
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/design/".$folderName, $file_name_extension);
-        $path = public_path()."/work/design/".$folderName.$file_name_extension;
+        $file->move(public_path()."/work/design/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/design/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
-
-        $cover_image = $file_name.".".$extension;
+        $image_name = $file_name.'.'.$extension;
 
         $width = Image::make( $path )->width();
         $height = Image::make( $path )->height();
 
-
-        $small_thumbnail = "Thumbnail/Small/".$file_name.".".$extension;
-        $large_thumbnail = "Thumbnail/Large/".$file_name.".".$extension;
-        $banner = "banner".".".$extension;
-
-        // Make directories
-        File::makeDirectory(public_path()."/work/design/".$folderName."Thumbnail/Small/", $mode = 0750, true, true);
-        File::makeDirectory(public_path()."/work/design/".$folderName."Thumbnail/Large/", $mode = 0750, true, true);
-
-        // Resize image
-        // image
-
         if ($width > $height) { //landscape
 
-            Image::make( $path )->resize(400, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$small_thumbnail);
+            $orientation = "landscape";
 
-            Image::make( $path )->resize(571, null, function ($constraint) {
+            Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$large_thumbnail);
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
 
+            Image::make( $path )->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
             Image::make( $path )->resize(1000, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$banner);
-
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
 
-            Image::make( $path )->resize(null, 400, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$small_thumbnail);
+            $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 499, function ($constraint) {
+            Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$large_thumbnail);
-
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(null, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
             Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$banner);
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
 
@@ -259,7 +299,6 @@ class DesignController extends Controller
             $Software = "Pending";
         }
 
-
         $upload = new Upload();
         $upload->artist = $Artist;
         $upload->aperture_f_number = $ApertureFNumber;
@@ -281,12 +320,19 @@ class DesignController extends Controller
 
         $upload->name = $file_name;
         $upload->extension = $extension;
-        $upload->image = "work/design/".$folderName.$file_name;
-        $upload->small_thumbnail = "work/design/".$folderName.$small_thumbnail;
-        $upload->large_thumbnail = "work/design/".$folderName.$large_thumbnail;
-        $upload->banner = "work/design/".$folderName.$banner;
-
+        $upload->orientation = $orientation;
         $upload->size = $size;
+
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
+
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = False;
         $upload->design_id = $design_id;
@@ -300,9 +346,7 @@ class DesignController extends Controller
         $design->cover_image_id = $upload->id;
         $design->save();
 
-        //return $design;
-
-        return back()->withStatus(__('Design cover image successfully uploaded.'));
+        return back()->withSuccess(__('Design cover image successfully uploaded.'));
     }
 
     public function designWorkStore(Request $request,$design_id)
@@ -319,55 +363,98 @@ class DesignController extends Controller
         $designWork->user_id = Auth::user()->id;
         $designWork->save();
 
-
         // todo If already image delete
         // todo hash the folder name
         $folderName = str_replace(' ', '', $designWork->design->name."/" .$designWork->name.'/');
+        $originalFolderName = str_replace(' ', '', $designWork->design->name."/Original/" .$designWork->name.'/');
+
+        $pixel100FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/100/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/300/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/500/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/750/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/1000/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/1500/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/2500/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/3600/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("design_work");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/design/".$folderName, $file_name_extension);
-        $path = public_path()."/work/design/".$folderName.$file_name_extension;
+        $file->move(public_path()."/work/design/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/design/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
-
-        $cover_image = $file_name.".".$extension;
+        $image_name = $file_name.'.'.$extension;
 
         $width = Image::make( $path )->width();
         $height = Image::make( $path )->height();
 
-        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
-        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
-        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
-        $banner = $file_name."_banner.".$extension;
-
         if ($width > $height) { //landscape
 
-            //Small image
-            Image::make( $path )->fit(150, 150)->save(public_path()."/work/design/".$folderName.$small_thumbnail);
+            $orientation = "landscape";
 
-            Image::make( $path )->resize(550, null, function ($constraint) {
+            Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$medium_thumbnail);
-
-            Image::make( $path )->resize(700, null, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$large_thumbnail);
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
 
-            //Small image
-            Image::make( $path )->fit(150, 150)->save(public_path()."/work/design/".$folderName.$small_thumbnail);
+            $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 550, function ($constraint) {
+            Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$medium_thumbnail);
-
-            Image::make( $path )->resize(null, 700, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$large_thumbnail);
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(null, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(null, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
 
@@ -413,7 +500,6 @@ class DesignController extends Controller
             $Software = "Pending";
         }
 
-
         $upload = new Upload();
         $upload->artist = $Artist;
         $upload->aperture_f_number = $ApertureFNumber;
@@ -435,16 +521,24 @@ class DesignController extends Controller
 
         $upload->name = $file_name;
         $upload->extension = $extension;
-        $upload->image = "work/design/".$folderName.$file_name;
-        $upload->small_thumbnail = "work/design/".$folderName.$small_thumbnail;
-        $upload->large_thumbnail = "work/design/".$folderName.$large_thumbnail;
-        $upload->banner = "work/design/".$folderName.$banner;
-
+        $upload->orientation = $orientation;
         $upload->size = $size;
+
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
+
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = False;
 //        $upload->is_album_cover = False;
-        $upload->upload_type_id = $designWork->id;
+        $upload->design_id = $designWork->design_id;
+        $upload->design_work_id = $designWork->id;
         $upload->upload_type_id = "b64c0d17-2e06-4b1e-83ed-55cd606ff4fe";
         $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $upload->user_id = Auth::user()->id;
@@ -458,13 +552,14 @@ class DesignController extends Controller
         // Save new design work gallery
         $designGallery = new DesignGallery();
         $designGallery->is_design_work = True;
+        $designGallery->upload_id = $upload->id;
         $designGallery->design_id = $designWork->design_id;
         $designGallery->design_work_id = $designWork->id;
         $designGallery->user_id = Auth::user()->id;
         $designGallery->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $designGallery->save();
 
-        return back()->withStatus(__('Design work successfully uploaded.'));
+        return back()->withSuccess(__('Design work successfully uploaded.'));
     }
 
     public function designWorkUpdate(Request $request,$design_work_id)
@@ -476,50 +571,100 @@ class DesignController extends Controller
 
         // todo If already image delete
         // todo hash the folder name
+        // todo if name changed delete old folder
+        // todo change description and name without having to upload image
         $folderName = str_replace(' ', '', $designWork->design->name."/" .$designWork->name.'/');
+        $originalFolderName = str_replace(' ', '', $designWork->design->name."/Original/" .$designWork->name.'/');
+
+        $pixel100FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/100/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/300/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/500/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/750/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/1000/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/1500/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/2500/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/3600/" .$designWork->name.'/');
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("design_work");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/design/".$folderName, $file_name_extension);
-        $path = public_path()."/work/design/".$folderName.$file_name_extension;
+        $file->move(public_path()."/work/design/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/design/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
 
-        $cover_image = $file_name.".".$extension;
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+        $image_name = $file_name.'.'.$extension;
 
         $width = Image::make( $path )->width();
         $height = Image::make( $path )->height();
 
-        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
-        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
-        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
-        $banner = $file_name."_banner.".$extension;
-
         if ($width > $height) { //landscape
 
-            Image::make( $path )->fit(150, 150)->save(public_path()."/work/design/".$folderName.$small_thumbnail);
-            //Small image
-            Image::make( $path )->resize(550, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$medium_thumbnail);
+            $orientation = "landscape";
 
-            Image::make( $path )->resize(700, null, function ($constraint) {
+            Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$large_thumbnail);
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
 
-            Image::make( $path )->fit(150, 150)->save(public_path()."/work/design/".$folderName.$small_thumbnail);
+            $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 550, function ($constraint) {
+            Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$medium_thumbnail);
-
-            Image::make( $path )->resize(null, 700, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$large_thumbnail);
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(null, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(null, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
 
@@ -587,16 +732,24 @@ class DesignController extends Controller
 
         $upload->name = $file_name;
         $upload->extension = $extension;
-        $upload->image = "work/design/".$folderName.$file_name;
-        $upload->small_thumbnail = "work/design/".$folderName.$small_thumbnail;
-        $upload->large_thumbnail = "work/design/".$folderName.$large_thumbnail;
-        $upload->banner = "work/design/".$folderName.$banner;
-
+        $upload->orientation = $orientation;
         $upload->size = $size;
+
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
+
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = False;
 //        $upload->is_album_cover = False;
-        $upload->upload_type_id = $designWork->id;
+        $upload->design_id = $designWork->design_id;
+        $upload->design_work_id = $designWork->id;
         $upload->upload_type_id = "b64c0d17-2e06-4b1e-83ed-55cd606ff4fe";
         $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $upload->user_id = Auth::user()->id;
@@ -625,7 +778,7 @@ class DesignController extends Controller
         $designGallery->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $designGallery->save();
 
-        return back()->withStatus(__('Design work successfully uploaded.'));
+        return back()->withSuccess(__('Design work successfully updated.'));
     }
 
     public function designGalleryImageUpload(Request $request,$design_id)
@@ -634,48 +787,95 @@ class DesignController extends Controller
         // todo hash the folder name
         $design = Design::where('id',$design_id)->first();
         $folderName = str_replace(' ', '', $design->name.'/');
+        $originalFolderName = str_replace(' ', '', $design->name."/Original/");
+
+        $pixel100FolderName = str_replace(' ', '', "work/design/".$design->name."/100/");
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "work/design/".$design->name."/300/");
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "work/design/".$design->name."/500/");
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "work/design/".$design->name."/750/");
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "work/design/".$design->name."/1000/");
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "work/design/".$design->name."/1500/");
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "work/design/".$design->name."/2500/");
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "work/design/".$design->name."/3600/");
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("file");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/design/".$folderName, $file_name_extension);
-        $path = public_path()."/work/design/".$folderName.$file_name_extension;
+        $file->move(public_path()."/work/design/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/design/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
-
-        $smallthumbnail = $file_name."_small.".$extension;
-        $mediumthumbnail = $file_name."_medium.".$extension;
-        $largethumbnail = $file_name."_large.".$extension;
+        $image_name = $file_name.'.'.$extension;
 
         $width = Image::make( $path )->width();
         $height = Image::make( $path )->height();
 
         if ($width > $height) { //landscape
 
-            //Small image
-            Image::make( $path )->fit(150, 150)->save(public_path()."/work/design/".$folderName.$smallthumbnail);
+            $orientation = "landscape";
 
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
             Image::make( $path )->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$mediumthumbnail);
-
-            Image::make( $path )->resize(550, null, function ($constraint) {
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(500, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$largethumbnail);
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
 
-            //Small image
-            Image::make( $path )->fit(150, 150)->save(public_path()."/work/design/".$folderName.$smallthumbnail);
+            $orientation = "portrait";
 
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
             Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$mediumthumbnail);
-
-            Image::make( $path )->resize(null, 550, function ($constraint) {
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(null, 500, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/work/design/".$folderName.$largethumbnail);
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(null, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
 
@@ -721,7 +921,6 @@ class DesignController extends Controller
             $Software = "Pending";
         }
 
-
         $upload = new Upload();
         $upload->artist = $Artist;
         $upload->aperture_f_number = $ApertureFNumber;
@@ -740,14 +939,21 @@ class DesignController extends Controller
         $upload->model = $Model;
         $upload->software = $Software;
         $upload->shutter_speed = $ShutterSpeed;
+        $upload->size = $size;
 
         $upload->name = $file_name;
         $upload->extension = $extension;
-        $upload->image = "work/design/".$folderName.$file_name;
-        $upload->small_thumbnail = "work/design/".$folderName.$smallthumbnail;
-        $upload->large_thumbnail = "work/design/".$folderName.$largethumbnail;
+        $upload->orientation = $orientation;
 
-        $upload->size = $size;
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
 
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = False;
@@ -767,7 +973,12 @@ class DesignController extends Controller
         $designGallery->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $designGallery->save();
 
-        return back()->withStatus(__('Design gallery image successfully uploaded.'));
+//        return $originalFolderName;
+
+
+
+
+        return back()->withSuccess(__('Design gallery image successfully uploaded.'));
     }
 
     public function designUpdateDesign(Request $request, $design_id)

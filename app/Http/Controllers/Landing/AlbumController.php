@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Album;
+use App\AlbumDownload;
 use App\AlbumSet;
 use App\AlbumView;
 use App\Design;
+use App\DesignGallery;
+use App\DesignWork;
 use App\Tag;
 use App\Upload;
 use Illuminate\Http\Request;
@@ -29,7 +32,63 @@ class AlbumController extends Controller
         return view('landing.client_proofs.client_proof',compact('album'));
     }
 
-    function clientProofShow($album_id){
+    function clientProofAccess($album_id){
+
+        // Check if the album is client exclusive
+
+        $albumExists = Album::findOrFail($album_id);
+        $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
+
+        // Require everyone to put an email
+//        if ($album->is_client_exclusive_access == 1){
+//
+//        } else {
+//            return redirect(route('client.proof.show',$album->id));
+//        }
+
+//        return $album->cover_image;
+//        return $album;
+        return view('landing.client_proofs.access',compact('album'));
+    }
+
+    function clientProofAccessCheck(Request $request,$album_id){
+
+
+        // https://medium.com/@panjeh/laravel-detector-mobile-browser-name-version-platform-device-robot-crawler-user-language-8499bee7607c
+
+        $albumExists = Album::findOrFail($album_id);
+        $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
+
+        // Check if the passwords are the same
+        if ($album->is_client_exclusive_access == 1) {
+            if ($album->password == $request->password) {
+
+                // Get token expiry
+                $expiry = now();
+                $expiry->modify('+ 1 hour');
+
+                $albumExists = Album::findOrFail($album_id);
+                $albumExists->views++;
+                $albumExists->save();
+
+                // Register album view
+                $albumView = new AlbumView();
+                $albumView->expiry = $expiry;
+                $albumView->email = $request->email;
+                $albumView->album_id = $albumExists->id;
+                $albumView->number = $albumExists->views;
+                $albumView->save();
+
+                return redirect(route('client.proof.show', $albumView->id));
+
+                // Generate album view record
+            } else {
+                return back()->withWarning('The password entered is incorrect');
+            }
+        }
+        // Get token expiry
+        $expiry = now();
+        $expiry->modify('+ 1 hour');
 
         $albumExists = Album::findOrFail($album_id);
         $albumExists->views++;
@@ -37,25 +96,120 @@ class AlbumController extends Controller
 
         // Register album view
         $albumView = new AlbumView();
+        $albumView->expiry = $expiry;
+        $albumView->email = $request->email;
         $albumView->album_id = $albumExists->id;
         $albumView->number = $albumExists->views;
         $albumView->save();
 
-        // Get the album
-        $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets','thumbnail_size')->first();
-
-        // Album Sets
-        $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
-
-//        return $albumSets;
-
-        return view('landing.client_proofs.client_proof_show',compact('album','albumSets'));
+        return redirect(route('client.proof.show', $albumView->id));
     }
 
-    function clientProofDownload($album_id){
+    function clientProofShow($album_view_id){
 
-        $albumExists = Album::findOrFail($album_id);
-        $album = Album::where('id',$album_id)->first();
+        // Check if the ablum exists
+        $album = Album::where('id',$album_view_id)->first();
+        if ($album === null) {
+
+            // get album view id (access token)
+            $albumView = AlbumView::findOrFail($album_view_id);
+
+            // check if the token has expired
+            if (now() > $albumView->expiry){
+                return redirect()->route('client.proof.access',$albumView->album_id)->with('warning', 'The token has expired, please log in again. Thank you.');
+            }
+            // Get the album
+            $album = Album::where('id',$albumView->album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets','thumbnail_size')->first();
+
+        }else{
+            // Get the album
+            $album = Album::where('id',$album->id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets','thumbnail_size')->first();
+
+            $albumExists = Album::findOrFail($album->id);
+            $albumExists->views++;
+            $albumExists->save();
+
+            // Register album view
+            $albumView = new AlbumView();
+            $albumView->album_id = $album->id;
+            $albumView->number = $albumExists->views;
+            $albumView->save();
+
+        }
+
+//        return $album;
+        // Album Sets
+        $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
+        return view('landing.client_proofs.client_proof_show',compact('album','albumSets','albumView'));
+    }
+
+    function clientProofDownload($album_view_id){
+
+
+        // todo Limit Total Number of Gallery Downloads
+        $albumView = AlbumView::findOrFail($album_view_id);
+
+        $albumExists = Album::findOrFail($albumView->album_id);
+        $album = Album::where('id',$albumView->album_id)->first();
+
+        // track download
+        $albumDownload = new AlbumDownload();
+        $albumDownload->album_view_id = $albumView->id;
+        $albumDownload->album_id = $album->id;
+        $albumDownload->save();
+
+        // Begin download process
+        $folderName = str_replace(' ', '',  $album->name.'/');
+
+        // Get folder path
+        $path = public_path()."/client/proof/".$folderName.'1500/';
+//        return $path;
+
+        // Zip folder
+        $zip_file = $album->name.'.zip';
+//        $zip_file = str_replace(' ', '',  $album->name.'.zip');
+//        return $zip_file;
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+        foreach ($files as $name => $file)
+        {
+            // We're skipping all subfolders
+            if (!$file->isDir()) {
+                $filePath     = $file->getRealPath();
+
+                // extracting filename with substr/strlen
+                $relativePath = substr($filePath, strlen($path));
+
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $zip->close();
+        return response()->download($zip_file);
+    }
+
+    function clientProofDownloadPin(Request $request, $album_view_id){
+
+        // check if the download pin is correct
+        // todo Limit Total Number of Gallery Downloads
+
+        $albumView = AlbumView::findOrFail($album_view_id);
+
+
+        $albumExists = Album::findOrFail($albumView->album_id);
+        $album = Album::where('id',$albumView->album_id)->first();
+
+        if ($album->download_pin != $request->download_pin){
+            return back()->withWarning('The pin entered is incorrect');
+        }
+        // track download
+        $albumDownload = new AlbumDownload();
+        $albumDownload->album_view_id = $albumView->id;
+        $albumDownload->album_id = $album->id;
+        $albumDownload->save();
+
+        // Begin download process
         $folderName = str_replace(' ', '',  $album->name.'/');
 
         // Get folder path
@@ -131,96 +285,5 @@ class AlbumController extends Controller
 
     }
 
-    public function designs()
-    {
-        // Get designs
-        $designs = Design::where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('cover_image')->get();
-        $designsCount = Design::where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->count();
 
-//        return $designsCount;
-        // First column
-        if($designsCount > 1){
-            // first column
-            if($designsCount % 2 == 0){
-                // Even
-                $firstColumnCount = $designsCount/2;
-                $secondColumnCount = $designsCount/2;
-                // Select
-                $firstColumn = DB::table('designs')
-                    ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                    ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                    ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
-                    ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
-                    ->orderBy('designs.created_at', 'desc')
-                    ->limit($firstColumnCount)
-                    ->get();
-
-//                return $firstColumn;
-                $secondColumn = DB::table('designs')
-                    ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                    ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                    ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
-                    ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
-                    ->orderBy('designs.created_at', 'asc')
-                    ->limit($secondColumnCount)
-                    ->get();
-            }
-            else{
-                // Odd
-                $evenDesigns = $designsCount-1;
-                $evenValue = $evenDesigns/2;
-
-                $firstColumnCount = $evenValue+1;
-                $secondColumnCount = $evenDesigns/2;
-                // Select
-                $firstColumn = DB::table('designs')
-                    ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                    ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                    ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
-                    ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
-                    ->orderBy('designs.created_at', 'desc')
-                    ->limit($firstColumnCount)
-                    ->get();
-
-//                return $firstColumn;
-                $secondColumn = DB::table('designs')
-                    ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                    ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                    ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
-                    ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
-                    ->orderBy('designs.created_at', 'asc')
-                    ->limit($secondColumnCount)
-                    ->get();
-
-            }
-        } else{
-            $firstColumn = DB::table('designs')
-                ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
-                ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
-                ->orderBy('designs.created_at', 'desc')
-                ->get();
-            $secondColumn = [];
-        }
-
-//        return $firstColumn;
-        return view('landing.design.designs',compact('firstColumn','secondColumn'));
-    }
-    public function designShow($design_id)
-    {
-        // Get designs
-
-        return view('landing.design.design_show');
-    }
-    public function designWork($design_work_id)
-    {
-        // Get designs
-        return view('landing.design.design_work');
-    }
-    public function designGallery($design_id)
-    {
-        // Get designs
-        return view('landing.design.design_gallery');
-    }
 }

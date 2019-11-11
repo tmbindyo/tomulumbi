@@ -58,6 +58,11 @@
         <div class="colorlib-table-cell js-fullheight">
 
             <div class="row text-center">
+                <h2>Get in Touch</h2>
+                <p><a href="#">contact@tomulumbi.com</a></p>
+            </div>
+
+            <div class="row text-center">
                 <h2>Social</h2>
                 <p class="colorlib-social-icons">
                     <a href="#"><i class="icon-twitter3"></i></a>
@@ -66,10 +71,6 @@
                 </p>
             </div>
 
-            <div class="row text-center">
-                <h2>Get in Touch</h2>
-                <p><a href="#">contact@tomulumbi.com</a></p>
-            </div>
 
             <div class="row text-center">
                 <h2>Office</h2>
@@ -80,7 +81,7 @@
                 <div class="col-md-12 text-center">
                     <p>
                         <span class="block">
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://www.fluidtechglobal.com" target="_blank">Fluidtech Global</a>
+                            Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://www.fluidtechglobal.com" target="_blank">Fluidtech Global</a>
                             <br>
                         </span>
                     </p>

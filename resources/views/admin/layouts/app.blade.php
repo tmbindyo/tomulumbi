@@ -23,6 +23,7 @@
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <!-- top navbar -->
         @include('admin.layouts.navbars.navbar')
+        @include('admin.layouts.popover.popover')
         <!-- top navbar -->
 
         <!-- page content -->

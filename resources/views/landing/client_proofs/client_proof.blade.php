@@ -17,19 +17,21 @@
 						<div class="content">
 							<h1>{{$album->name}}</h1>
 							<p class="major">{{$album->date}}</p>
-							<ul class="actions vertical">
-								<li><a href="{{route('client.proof.show',$album->id)}}" class="button big wide smooth-scroll-middle">CLICK HERE TO OPEN</a></li>
+							<ul class="actions horizontal">
+								<li><a href="{{route('client.proofs')}}" class="button big wide smooth-scroll-middle"><span class="fa fa-arrow-left"></span> BACK</a></li>
+								<li><a href="{{route('client.proof.access',$album->id)}}" class="button big wide smooth-scroll-middle"><span class="fa fa-arrow-right"></span> VIEW</a></li>
 							</ul>
+
 						</div>
                         <div class="p-grid-isotope">
 
 
                         </div><!-- p-grid -->
 						<div class="image">
-                            @if(empty($album->cover_image->banner))
+                            @if(empty($album->cover_image->original))
                                 <img src="{{ asset('client_proof/story') }}/images/banner.jpg" alt="" />
-                            @elseif(isset($album->cover_image->banner))
-							    <img src="{{ asset('') }}{{ $album->cover_image->banner }}" alt="" />
+                            @elseif(isset($album->cover_image->original))
+							    <img src="{{ asset('') }}{{ $album->cover_image->pixels1500 }}" alt="" />
                             @endif
 						</div>
 					</section>

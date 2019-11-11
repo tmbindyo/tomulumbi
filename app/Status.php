@@ -29,10 +29,6 @@ class Status extends Model
     {
         return $this->hasMany('App\AlbumCategory');
     }
-    public function album_downloads()
-    {
-        return $this->hasMany('App\AlbumDownload');
-    }
     public function album_download_restrict_emails()
     {
         return $this->hasMany('App\AlbumDownloadRestrictEmail');

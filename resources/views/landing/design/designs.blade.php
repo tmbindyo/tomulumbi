@@ -8,7 +8,7 @@
     <!-- Description, Keywords and Author -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>designs | </title>
+    <title>tomulumbi | designs</title>
     <link rel="shortcut icon" href="{{ asset('design/avana') }}/images/favicon.ico" type="image/x-icon">
 
     <!-- style -->
@@ -60,7 +60,7 @@
                 @foreach($firstColumn as $design)
                     <li>
                         <figure class="effect-oscar">
-                            <img src="{{ asset('') }}{{ $design->banner }}" alt="" class="img-responsive"/>
+                            <img src="{{ asset('') }}{{ $design->pixels1000 }}" alt="" class="img-responsive"/>
                             <figcaption>
                                 <h2>{{ $design->design_name }} <span>@isset($design->client_name)[{{$design->client_name}}]@endisset</span></h2>
                                 <p>{{ $design->description }}</p>
@@ -77,9 +77,9 @@
                 @foreach($secondColumn as $design)
                     <li>
                         <figure class="effect-oscar">
-                            <img src="{{ asset('') }}{{ $design->banner }}" alt="" class="img-responsive"/>
+                            <img src="{{ asset('') }}{{ $design->pixels1000 }}" alt="" class="img-responsive"/>
                             <figcaption>
-                                <h2>{{ $design->design_name }} @isset($design->client_name)[{{$design->client_name}}]@endisset</span></h2>
+                                <h2>{{ $design->design_name }} <span>@isset($design->client_name)[{{$design->client_name}}] @endisset</span></h2>
                                 <p>{{ $design->description }}</p>
                                 <a href="{{route('design.show',$design->design_id)}}">View</a>
                             </figcaption>
@@ -93,35 +93,6 @@
 </main>
 <!-- main -->
 
-<!-- footer -->
-{{--<footer role="footer">--}}
-
-{{--    <!-- logo -->--}}
-{{--    <h1>--}}
-{{--        <a href="index.html" title="tomulumbi"><img src="{{ asset('design/avana') }}/images/logo.png" title="tomulumbi" alt="tomulumbi"/></a>--}}
-{{--    </h1>--}}
-{{--    <!-- logo -->--}}
-
-{{--    <!-- nav -->--}}
-{{--    <nav role="footer-nav">--}}
-{{--        <ul>--}}
-{{--            <li><a href="index.html" title="Work">Work</a></li>--}}
-{{--            <li><a href="about.html" title="About">About</a></li>--}}
-{{--            <li><a href="blog.html" title="Blog">Blog</a></li>--}}
-{{--            <li><a href="contact.html" title="Contact">Contact</a></li>--}}
-{{--        </ul>--}}
-{{--    </nav>--}}
-{{--    <!-- nav -->--}}
-
-{{--    <ul role="social-icons">--}}
-{{--        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>--}}
-{{--        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>--}}
-{{--        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>--}}
-{{--        <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>--}}
-{{--    </ul>--}}
-{{--    <p class="copy-right">&copy; 2020  tomulumbi.. All rights Resved</p>--}}
-{{--</footer>--}}
-<!-- footer -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{{ asset('design/avana') }}/js/jquery.min.js" type="text/javascript"></script>

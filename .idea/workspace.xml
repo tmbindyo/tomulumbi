@@ -2,13 +2,549 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb9ccff-c356-4b2b-a00b-ae851ff28f1f" name="Default Changelist" comment="Working on displaying client list, currently want to do client proof image">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/DesignController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/JournalController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/ProjectController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Rosalyn Mccarty.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/client_proof/phantom/images/background.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/about.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/blog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/config.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/contact-map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/contact.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/css/carouFredSel.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/css/clear.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/css/common.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/css/font-awesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/css/prettyPhoto.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/css/sm-clean.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/home_img_01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/home_img_02.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/home_img_03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_about_image01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_item_image01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_item_image02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_item_image03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_portfolio_image01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_portfolio_image02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_portfolio_image03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_portfolio_image04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_portfolio_image05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_portfolio_image06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_portfolio_image07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_portfolio_image08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/demo-images/sun_portfolio_image09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/fonts/fontawesome-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/ajax-document-loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/close.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/favicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/nav_left.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/nav_right.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/no-photo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_rounded/btnNext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_rounded/btnPrevious.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_rounded/contentPattern.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_rounded/default_thumbnail.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_rounded/loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_rounded/sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_square/btnNext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_square/btnPrevious.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_square/contentPattern.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_square/default_thumbnail.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_square/loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/dark_square/sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/default/default_thumb.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/default/loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/default/sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/default/sprite_next.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/default/sprite_prev.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/default/sprite_x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/default/sprite_y.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/facebook/btnNext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/facebook/btnPrevious.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/facebook/contentPatternBottom.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/facebook/contentPatternLeft.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/facebook/contentPatternRight.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/facebook/contentPatternTop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/facebook/default_thumbnail.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/facebook/loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/facebook/sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_rounded/btnNext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_rounded/btnPrevious.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_rounded/default_thumbnail.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_rounded/loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_rounded/sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_square/btnNext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_square/btnPrevious.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_square/default_thumbnail.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_square/loader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/prettyPhoto/light_square/sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/sunDefaultLogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/images/sunDefaultLogoFooter.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/index-blog.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/index-image.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/index-slider.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/index-video.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/html5shiv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/imagesloaded.pkgd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/isotope.pkgd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.ba-throttle-debounce.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.carouFredSel-6.0.0-packed.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.easing.1.3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.fitvids.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.mousewheel.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.nicescroll.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.prettyPhoto.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.smartmenus.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/jquery.touchSwipe.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/js/respond.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/php/sendMail.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/portfolio.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/single-portfolio.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/single.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/journal/sun/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/CoverImage/100/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/CoverImage/1000/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/CoverImage/1500/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/CoverImage/2500/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/CoverImage/300/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/CoverImage/3600/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/CoverImage/500/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/CoverImage/750/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/CoverImage/Original/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/base.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/font-awesome/css/font-awesome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/font-awesome/css/font-awesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/font-awesome/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/font-awesome/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/font-awesome/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/font-awesome/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/font-awesome/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/font-awesome/fonts/fontawesome-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/fonts.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/micons/fonts/icomoon.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/micons/fonts/icomoon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/micons/fonts/icomoon.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/micons/fonts/icomoon.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/micons/micons.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/css/vendor.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-bold-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-bold-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-bold-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-bolditalic-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-bolditalic-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-italic-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-italic-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-italic-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-regular-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/lora/lora-regular-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-black-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-black-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-bold-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-bold-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-extrabold-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-extrabold-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-extralight-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-extralight-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-light-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-light-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-medium-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-medium-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-regular-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-regular-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-semibold-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-semibold-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-thin-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/fonts/montserrat/montserrat-thin-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/avatars/user-01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/avatars/user-02.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/avatars/user-03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/avatars/user-04.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/avatars/user-05.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/apple.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/atom.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/blackberry.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/dropbox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/envato.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/firefox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/joomla.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/magento.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/mozilla.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/redhat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/ubuntu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/clients/wordpress.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/contact-bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/email-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/hero-bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/left-arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/logo-footer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/photoswipe/default-skin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/photoswipe/default-skin.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/photoswipe/preloader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/gallery/g-beetle.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/gallery/g-grow-green.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/gallery/g-guitarist.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/gallery/g-palmeira.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/gallery/g-shutterbug.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/gallery/g-woodcraft.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/grow-green.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/grow-green@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/guitarist.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/guitarist@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/lady-shutterbug.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/lady-shutterbug@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/palmeira.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/palmeira@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/the-beetle.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/the-beetle@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/woodcraft.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/portfolio/woodcraft@2x.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/right-arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/sample-image.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/wheel-1000.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/wheel-2000.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/images/wheel-500.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/inc/sendEmail.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/js/jquery-3.2.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/js/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/js/modernizr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/js/pace.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/js/plugins.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/readme.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/journal/glint/styles.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/about.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/contact.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/custom.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/default-skin/default-skin.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/default-skin/default-skin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/default-skin/default-skin.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/default-skin/preloader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/style.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/styles-merged.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/styles-merged.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/vendor/animate.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/vendor/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/vendor/default-skin.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/vendor/flexslider.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/vendor/icomoon.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/vendor/magnific-popup.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/vendor/owl.carousel.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/vendor/owl.theme.default.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/css/vendor/photoswipe.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/Read Me.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/demo-files/demo.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/demo-files/demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/fonts/icomoon.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/fonts/icomoon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/fonts/icomoon.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/fonts/icomoon.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/selection.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon demo/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon/icomoon.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon/icomoon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon/icomoon.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/fonts/icomoon/icomoon.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/gulpfile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/image_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/image_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/image_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/image_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/loc.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/person_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/person_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/person_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/person_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/img/preloader.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/custom.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/google-map.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/main.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/scripts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/scripts.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/circle-progress.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/html5shiv.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/jquery.appear.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/jquery.appear.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/jquery.countTo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/jquery.easing.1.3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/jquery.flexslider-min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/jquery.magnific-popup.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/jquery.stellar.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/jquery.waypoints.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/owl.carousel.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/js/vendor/respond.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/portfolio.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/scss/_custom-settings.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/scss/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/services.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/project/connect/single-page.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/CoverImage/100/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/CoverImage/1000/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/CoverImage/1500/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/CoverImage/2500/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/CoverImage/300/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/CoverImage/3600/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/CoverImage/500/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/CoverImage/750/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/CoverImage/Original/577A9983.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/JordenSampson/CoverImage/100/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/JordenSampson/CoverImage/1000/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/JordenSampson/CoverImage/1500/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/JordenSampson/CoverImage/2500/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/JordenSampson/CoverImage/300/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/JordenSampson/CoverImage/3600/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/JordenSampson/CoverImage/500/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/JordenSampson/CoverImage/750/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/JordenSampson/CoverImage/Original/DSC_4799.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/UrielleRodriquez/CoverImage/100/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/UrielleRodriquez/CoverImage/1000/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/UrielleRodriquez/CoverImage/1500/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/UrielleRodriquez/CoverImage/2500/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/UrielleRodriquez/CoverImage/300/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/UrielleRodriquez/CoverImage/3600/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/UrielleRodriquez/CoverImage/500/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/UrielleRodriquez/CoverImage/750/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/work/design/UrielleRodriquez/CoverImage/Original/577A9984.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/access.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/journals/journal_show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/projects/project_show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/projects/projects.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AlbumDownload.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AlbumDownload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AlbumView.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AlbumView.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlbumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlbumController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DesignController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DesignController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Landing/AlbumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/AlbumController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Landing/LandingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/LandingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Status.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Status.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_03_26_093855_create_uploads_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_03_26_093855_create_uploads_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_06_101030_create_album_views_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_06_101030_create_album_views_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_06_101148_create_album_images_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_06_101148_create_album_images_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_08_112753_create_album_downloads_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_08_112753_create_album_downloads_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A0002.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A0002_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A0002_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A0002_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9980_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9980_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9980_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9982_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9982_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9982_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9983.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9983_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9983_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9983_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9984_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9984_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9984_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9987.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9987_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9987_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9987_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9988.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9988_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9988_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9988_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9990.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9990_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9990_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9990_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9992.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9992_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9992_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9992_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9993.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9993_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9993_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9993_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9994.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9994_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9994_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9994_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9995.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9995_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9995_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9995_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9996_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9996_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9996_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9998.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9998_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9998_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9998_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9999.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9999_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9999_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/577A9999_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/DaphnePerez/577A9983.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/DaphnePerez/577A9983_large_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/DaphnePerez/577A9983_medium_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/JaymeBurgess/DaphnePerez/577A9983_small_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/bato/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/design/bato/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/design/bato/work.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/design/bato/work.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/100/Food/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/100/Food/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/100/Food/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/100/Food/DSC_5792.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/100/Micro/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1000/Food/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1000/Food/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1000/Food/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1000/Food/DSC_5792.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1000/Micro/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1500/Food/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1500/Food/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1500/Food/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1500/Food/DSC_5792.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/1500/Micro/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/2500/Food/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/2500/Food/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/2500/Food/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/2500/Food/DSC_5792.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/2500/Micro/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/300/Food/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/300/Food/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/300/Food/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/300/Food/DSC_5792.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/300/Micro/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/3600/Food/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/3600/Food/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/3600/Food/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/3600/Food/DSC_5792.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/3600/Micro/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/500/Food/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/500/Food/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/500/Food/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/500/Food/DSC_5792.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/500/Micro/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/750/Food/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/750/Food/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/750/Food/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/750/Food/DSC_5792.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/750/Micro/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/Banner/DSC_4799.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/Banner/Thumbnail/Large/DSC_4799.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/Banner/Thumbnail/Small/DSC_4799.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/Banner/banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/Original/Food/577A9980.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/Original/Food/577A9982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/Original/Food/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/Original/Food/DSC_5792.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/EaganBoyer/Original/Micro/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/100/Conceptual/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/100/Landscape/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/100/Portrait/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/1000/Conceptual/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/1000/Landscape/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/1000/Portrait/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/1500/Conceptual/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/1500/Landscape/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/1500/Portrait/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/2500/Conceptual/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/2500/Landscape/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/2500/Portrait/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/300/Conceptual/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/300/Landscape/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/300/Portrait/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/3600/Conceptual/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/3600/Landscape/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/3600/Portrait/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/500/Conceptual/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/500/Landscape/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/500/Portrait/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/750/Conceptual/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/750/Landscape/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/750/Portrait/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/Original/Conceptual/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/Original/Landscape/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/personal/album/ShaeleighBolton/Original/Portrait/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/Banner/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/Banner/Thumbnail/Large/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/Banner/Thumbnail/Small/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/Banner/banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9984_large_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9984_medium_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9984_small_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9988.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9988_large_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9988_medium_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9988_small_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9996_large_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9996_medium_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/ImeldaBurris/MaceyAlford/577A9996_small_thumbnail.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/577A9984_large.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/577A9984_medium.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/577A9984_small.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/Banner/577A9998.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/Banner/DSC_1203.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/Banner/Thumbnail/Large/577A9998.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/Banner/Thumbnail/Large/DSC_1203.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/Banner/Thumbnail/Small/577A9998.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/Banner/Thumbnail/Small/DSC_1203.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/Banner/banner.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/JaymeBurgess/Banner/banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/MarnyMullins/Banner/577A0002.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/MarnyMullins/Banner/Thumbnail/Large/577A0002.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/MarnyMullins/Banner/Thumbnail/Small/577A0002.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/MarnyMullins/Banner/banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/YettaCummings/Banner/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/YettaCummings/Banner/577A9987.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/YettaCummings/Banner/Thumbnail/Large/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/YettaCummings/Banner/Thumbnail/Large/577A9987.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/YettaCummings/Banner/Thumbnail/Small/577A9984.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/YettaCummings/Banner/Thumbnail/Small/577A9987.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/work/design/YettaCummings/Banner/banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/client_proof_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/client_proof_show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/design_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/design_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/modals/design_work.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/modals/design_work.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/chat.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/chat.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/left_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/left_sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/navbar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/right_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/right_sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/personal_album_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/personal_album_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proofs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proofs.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/design/design_gallery.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/design_gallery.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/landing/design/design_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/design_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/design/design_work.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/design_work.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/design/designs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/designs.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/journals/journals.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/journals/journals.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_album_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_album_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_albums.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_albums.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/tag_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/tag_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/tags.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/tags.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -304,7 +840,12 @@
       <workItem from="1572942486766" duration="8017000" />
       <workItem from="1572961387248" duration="25321000" />
       <workItem from="1573111263717" duration="8055000" />
-      <workItem from="1573120185197" duration="38710000" />
+      <workItem from="1573120185197" duration="38782000" />
+      <workItem from="1573212149771" duration="1980000" />
+      <workItem from="1573236391119" duration="42793000" />
+      <workItem from="1573466865776" duration="13000" />
+      <workItem from="1573467754139" duration="1740000" />
+      <workItem from="1573469591667" duration="284000" />
     </task>
     <task id="LOCAL-00001" summary="remove auto incrementing id">
       <created>1559412316833</created>

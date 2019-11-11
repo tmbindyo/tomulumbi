@@ -7,7 +7,7 @@
 
 /* =======================================================
 *
-* 	Template Style 
+* 	Template Style
 *	Edit this section
 *
 * ======================================================= */
@@ -308,6 +308,7 @@ header {
   @media screen and (max-width: 768px) {
     header {
       padding: 2em 0; } }
+  /*todo change font to lowercase and choose a font*/
   header .colorlib-navbar-brand {
     float: left; }
     header .colorlib-navbar-brand .colorlib-logo {

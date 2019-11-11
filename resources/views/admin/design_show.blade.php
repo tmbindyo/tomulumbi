@@ -86,7 +86,7 @@
 
                                             @isset($designGallery)
                                                 @foreach($designGallery as $designGalleryImage)
-                                                    <a href="{{ asset('') }}{{ $designGalleryImage->upload->large_thumbnail }}" title="{{ $designGalleryImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $designGalleryImage->upload->small_thumbnail }}"></a>
+                                                    <a href="{{ asset('') }}{{ $designGalleryImage->upload->pixels500 }}" title="{{ $designGalleryImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $designGalleryImage->upload->pixels100 }}"></a>
                                                 @endforeach
                                             @endisset
                                             <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
@@ -102,6 +102,7 @@
 
                                         </div>
 
+                                        <br>
                                         <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.design.gallery.image.upload',$design->id)}}">
                                             @csrf
                                             <div class="dropzone-previews"></div>
@@ -157,12 +158,12 @@
                                                         <div class="ln_solid"></div>
 
                                                         <div class="text-center">
-                                                            <button type="submit" class="btn btn-block btn-outline btn-lg btn-success mt-4">{{ __('Save') }}</button>
+                                                            <button type="submit" class="btn btn-block btn-outline btn-lg btn-warning mt-4">{{ __('Update') }}</button>
                                                         </div>
                                                     </div>
                                                 </form>
                                                 <div class="col-md-4">
-                                                    <img src="{{ asset('') }}{{ $work->upload->small_thumbnail }}" height="200">
+                                                    <img src="{{ asset('') }}{{ $work->upload->pixels500 }}">
                                                 </div>
                                             </div>
 
@@ -314,7 +315,7 @@
                                             <div class="col-md-10 col-md-offset-1">
 
                                                 <div class="center">
-                                                    <img alt="image" class="img-responsive" @isset($design->cover_image) src="{{ asset('') }}{{ $design->cover_image->large_thumbnail }}" @endisset>
+                                                    <img alt="image" class="img-responsive" @isset($design->cover_image) src="{{ asset('') }}{{ $design->cover_image->pixels750 }}" @endisset>
                                                 </div>
                                             </div>
                                         </div>

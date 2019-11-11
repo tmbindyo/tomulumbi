@@ -77,7 +77,13 @@
                         <ul>
                             <li><a href="{{route('welcome')}}">Home</a></li>
                             <li><a href="{{route('client.proofs')}}">Client Proof's</a></li>
-                            <li><a href="{{route('client.proof.download',$album->id)}}"><span class="fa fa-download"></span> Download Album</a></li>
+                            @if($album->is_download == 1)
+                                @if($album->is_download_pin == 1)
+                                    <li><a href="#" data-toggle="modal" data-target=".contact-modal-md"><span class="fa fa-download"></span> Download Album</a></li>
+                                @else
+                                    <li><a href="{{route('client.proof.download',$albumView->id)}}"><span class="fa fa-download"></span> Download Album</a></li>
+                                @endif
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -93,15 +99,24 @@
 
 <main class="main-wrapper" id="container">
 
+
+
     <!-- image Gallery -->
 
     <div class="wrapper">
+        @if (session('warning'))
+            <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <strong>Warning!</strong> {{ session('warning') }}
+            </div>
+        @endif
         <div class="">
             <ul class="{{$album->thumbnail_size->reference}} masonry">
                 @foreach($albumSets as $albumSet)
                     @foreach($albumSet->album_images as $albumSetImage)
                         <li class="masonry-item grid">
-                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" alt="" />
+                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels1000 }}" alt="" />
                                 <figcaption>
                                     <h2>{{$album->name}}</h2>
 {{--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
@@ -136,7 +151,7 @@
             <!-- logo -->
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('personal_albums/pixca') }}/images/footer-logo.png" alt="Picxa" title="Picxa"/>
-                <p class="copy-right">&copy; Reserved tomulumbi 2020.</p>
+                <p class="copy-right">Copyright &copy; <script>document.write(new Date().getFullYear());</script></p>
             </div>
 
             <!-- logo -->
@@ -184,6 +199,40 @@
 
 <!-- footer -->
 
+
+<!-- ***** donwload pin modal ***** -->
+<div class="contact-popup-form" id="contact-modal-md">
+    <div class="modal fade contact-modal-md" tabindex="-1" role="dialog" aria-labelledby="contact-modal-md" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="center fa fa-4x fa-download"></i>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route('client.proof.download.pin',$albumView->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                        @csrf
+
+                        <div class="has-warning">
+                            <input type="number" name="download_pin" required="required" class="form-control input-lg" required="required" placeholder="Proof Download Pin">
+                        </div>
+
+                        <br>
+
+                        <div class="row text-center">
+                            <button type="submit button" class="btn btn-success btn-block btn-lg ">{{ __('DOWNLOAD') }}</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** download pin modal ***** -->
+
+
 <!-- jQuery -->
 
 {{--<script src="https://code.jquery.com/jquery-3.2.1.min.js"--}}
@@ -224,7 +273,9 @@
         touchswipe    :true,
         mousewheel    :true,
         rclick_prevent  :true,
+        @if($album->is_download == 1)
         download    :true,
+        @endif
         // more options here
     });
 </script>

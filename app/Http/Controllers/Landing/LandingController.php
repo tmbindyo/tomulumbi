@@ -24,6 +24,8 @@ class LandingController extends Controller
         $todo->status_id = "9c267c79-162e-4ae1-9340-57a4c5ca5e81";
         $todo->save();
 
+        // Send email to client saying they shall be contacted
+
         return back()->withStatus(__('Thank you for reaching out, please wait for us to get back to you.'));
     }
 }

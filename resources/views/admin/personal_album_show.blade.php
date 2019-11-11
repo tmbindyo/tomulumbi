@@ -71,8 +71,6 @@
                                         <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
                                             existence in this spot, which was created for the bliss of souls like mine.</p>
 
-                                        <p>I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-                                            the present moment; and yet I feel that I never was a greater artist than now. When.</p>
                                     </div>
                                 </div>
 
@@ -84,21 +82,72 @@
 
                                                 @isset($albumSet->album_images)
                                                     @foreach($albumSet->album_images as $albumSetImage)
-                                                        <a href="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" title="{{ $albumSetImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $albumSetImage->upload->pixels300 }}"></a>
+                                                        <a data-toggle="modal" data-target="#{{$albumSetImage->upload->id}}"><img src="{{ asset('') }}{{ $albumSetImage->upload->pixels100 }}"></a>
+                                                        <div class="modal inmodal" id="{{$albumSetImage->upload->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content animated bounceInRight">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                        <h4 class="modal-title">{{$albumSetImage->upload->file_name}} Print <i class="fa fa-cogs"></i></h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form method="post" action="{{ route('admin.personal.album.image.update.print.status',$albumSetImage->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                                                            @csrf
+
+                                                                            @if ($errors->any())
+                                                                                <div class="alert alert-danger">
+                                                                                    <ul>
+                                                                                        @foreach ($errors->all() as $error)
+                                                                                            <li>{{ $error }}</li>
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </div>
+                                                                            @endif
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="has-warning">
+                                                                                        <label>Homepage Visibility</label>
+                                                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                            <input name="is_print" type="checkbox" class="js-switch_6" @if($albumSetImage->is_print==1) checked @endif />
+                                                                                            <br>
+                                                                                            <i>Whether or not the image can be got as a print, default not enabled.</i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                    <br>
+                                                                                    <div class="has-warning">
+                                                                                        <div class="form-group">
+                                                                                            <label>Print Limit</label>
+                                                                                            <input name="limit" type="text" value="{{$albumSetImage->limit}}" class="form-control input-lg">
+                                                                                            <i>This value determines the limit of times it can be printed.</i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels500 }}">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <hr>
+
+                                                                            <div>
+                                                                                <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Collection Settings</strong></button>
+                                                                            </div>
+
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     @endforeach
                                                 @endisset
-                                                <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-                                                <div id="blueimp-gallery" class="blueimp-gallery">
-                                                    <div class="slides"></div>
-                                                    <h3 class="title"></h3>
-                                                    <a class="prev">‹</a>
-                                                    <a class="next">›</a>
-                                                    <a class="close">×</a>
-                                                    <a class="play-pause"></a>
-                                                    <ol class="indicator"></ol>
-                                                </div>
-
                                             </div>
+
+                                            <br>
 
                                             <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.personal.album.set.image.upload',$albumSet->id)}}">
                                                 @csrf
@@ -251,7 +300,7 @@
                                             <div class="col-md-10 col-md-offset-1">
 
                                                 <div class="center">
-                                                    <img alt="image" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->large_thumbnail }}" @endisset>
+                                                    <img alt="image" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
                                                 </div>
                                             </div>
                                         </div>
@@ -696,6 +745,9 @@
 
             var elem_5 = document.querySelector('.js-switch_5');
             var switchery_5 = new Switchery(elem_5, { color: '#1AB394' });
+
+            var elem_6 = document.querySelector('.js-switch_6');
+            var switchery_6 = new Switchery(elem_6, { color: '#1AB394' });
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',

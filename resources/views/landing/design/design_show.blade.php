@@ -54,40 +54,45 @@
     <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
     <div class="js-fullheight colorlib-table">
         <div class="colorlib-table-cell js-fullheight">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="search" placeholder="Enter any key to search...">
-                        <button type="submit" class="btn btn-primary"><i class="icon-search3"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+
+            <div class="row  text-center">
+                <h3><a href="{{route('welcome')}}">Home</a></h3>
+                <h3><a class="active" href="{{route('designs')}}">Designs</a></h3>
                 <div class="col-md-12">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active"><a href="work.html">Work</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li></li>
+                        <li class="active"></li>
                     </ul>
                 </div>
             </div>
+
+            <div class="row text-center">
+                <h2>Get in Touch</h2>
+                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
+            </div>
+
+            <div class="row text-center">
+                <h2>Social</h2>
+                <p class="colorlib-social-icons">
+                    <a href="#"><i class="icon-twitter3"></i></a>
+                    <a href="#"><i class="icon-instagram"></i></a>
+                    <a href="#"><i class="icon-behance"></i></a>
+                </p>
+            </div>
+
+            <div class="row text-center">
+                <h2>Office</h2>
+                <p>General Accident House, <br> Ralph bunche Rd, Nairobi.</p>
+            </div>
+
             <div class="row">
-                <div class="col-md-12">
-                    <h2 class="head-title">Gallery</h2>
-                    <a href="{{ asset('design/bato') }}/images/work-1.jpg" class="gallery image-popup-link text-center" style="background-image: url(images/work-1.jpg);">
-                        <span><i class="icon-search3"></i></span>
-                    </a>
-                    <a href="{{ asset('design/bato') }}/images/work-2.jpg" class="gallery image-popup-link text-center" style="background-image: url(images/work-2.jpg);">
-                        <span><i class="icon-search3"></i></span>
-                    </a>
-                    <a href="{{ asset('design/bato') }}/images/work-3.jpg" class="gallery image-popup-link text-center" style="background-image: url(images/work-3.jpg);">
-                        <span><i class="icon-search3"></i></span>
-                    </a>
-                    <a href="{{ asset('design/bato') }}/images/work-4.jpg" class="gallery image-popup-link text-center" style="background-image: url(images/work-4.jpg);">
-                        <span><i class="icon-search3"></i></span>
-                    </a>
+                <div class="col-md-12 text-center">
+                    <p>
+                        <span class="block">
+                            Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://www.fluidtechglobal.com" target="_blank">Fluidtech Global</a>
+                            <br>
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -100,7 +105,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="colorlib-navbar-brand">
-                        <a class="colorlib-logo" href="index.html">Bato</a>
+                        <a class="colorlib-logo" href="{{route('welcome')}}">tomulumbi</a>
                     </div>
                     <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
                 </div>
@@ -111,251 +116,119 @@
     <div id="colorlib-work">
         <div class="container">
             <div class="row text-center">
-                <h2 class="bold">Works</h2>
+                <h2 class="bold">{{$design->name}}</h2>
             </div>
+
             <div class="row">
-                <div class="col-md-12">
-                    <div class="work-entry-flex animate-box js-fullheight">
-                        <div class="col-three-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 col-md-push-10 no-gutters">
-                                    <div class="work-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/work-1.jpg);">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-one-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 col-md-pull-12 no-gutters">
-                                    <div class="display-t js-fullheight">
-                                        <div class="display-tc js-fullheight">
-                                            <div class="text-inner text-inner-right">
-                                                <h2><a href="{{route('design.work',1)}}">Application and practice of creating durable images</a></h2>
-                                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                                <p><a href="{{route('design.work',1)}}" class="btn-view">View Photo</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @foreach($design->design_works as $designWork)
+{{--                    {{$loop->index}}--}}
 
-                <div class="col-md-12">
-                    <div class="work-entry-flex animate-box js-fullheight">
-                        <div class="col-three-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 no-gutters">
-                                    <div class="work-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/work-2.jpg);">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-one-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 no-gutters">
-                                    <div class="display-t js-fullheight">
-                                        <div class="display-tc js-fullheight">
-                                            <div class="text-inner text-inner-left">
-                                                <h2><a href="{{route('design.work',1)}}">Application and practice of creating durable images</a></h2>
-                                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                                <p><a href="{{route('design.work',1)}}" class="btn-view">View Photo</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    @if($loop->iteration % 2 == 0)
 
-                <div class="col-md-12">
-                    <div class="work-entry-flex animate-box js-fullheight">
-                        <div class="col-three-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 col-md-push-10 no-gutters">
-                                    <div class="work-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/work-3.jpg);">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-one-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 col-md-pull-12 no-gutters">
-                                    <div class="display-t js-fullheight">
-                                        <div class="display-tc js-fullheight">
-                                            <div class="text-inner text-inner-right">
-                                                <h2><a href="{{route('design.work',1)}}">Application and practice of creating durable images</a></h2>
-                                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                                <p><a href="{{route('design.work',1)}}" class="btn-view">View Photo</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="work-entry-flex animate-box js-fullheight">
-                        <div class="col-three-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 no-gutters">
-                                    <div class="work-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/work-4.jpg);">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-one-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 no-gutters">
-                                    <div class="display-t js-fullheight">
-                                        <div class="display-tc js-fullheight">
-                                            <div class="text-inner text-inner-left">
-                                                <h2><a href="{{route('design.work',1)}}">Application and practice of creating durable images</a></h2>
-                                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                                <p><a href="{{route('design.work',1)}}" class="btn-view">View Photo</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="work-entry-flex animate-box js-fullheight">
-                        <div class="col-three-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 col-md-push-10 no-gutters">
-                                    <div class="work-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/work-5.jpg);">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-one-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 col-md-pull-12 no-gutters">
-                                    <div class="display-t js-fullheight">
-                                        <div class="display-tc js-fullheight">
-                                            <div class="text-inner text-inner-right">
-                                                <h2><a href="{{route('design.work',1)}}">Application and practice of creating durable images</a></h2>
-                                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                                <p><a href="{{route('design.work',1)}}" class="btn-view">View Photo</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="work-entry-flex animate-box js-fullheight">
-                        <div class="col-three-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 no-gutters">
-                                    <div class="work-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/work-6.jpg);">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-one-forth js-fullheight">
-                            <div class="row no-gutters">
-                                <div class="col-md-12 no-gutters">
-                                    <div class="display-t js-fullheight">
-                                        <div class="display-tc js-fullheight">
-                                            <div class="text-inner text-inner-left">
-                                                <h2><a href="{{route('design.work',1)}}">Application and practice of creating durable images</a></h2>
-                                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                                <p><a href="{{route('design.work',1)}}" class="btn-view">View Photo</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="colorlib-subscribe">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center colorlib-heading animate-box">
-                    <h2>Subscribe Newsletter</h2>
-                    <p>Subscribe our newsletter and get latest update</p>
-                </div>
-            </div>
-            <div class="row animate-box">
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="row">
                         <div class="col-md-12">
-                            <form class="form-inline qbstp-header-subscribe">
-                                <div class="col-three-forth">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="email" placeholder="Enter your email">
+                            <div class="work-entry-flex animate-box js-fullheight">
+                                <div class="col-three-forth js-fullheight">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-12 no-gutters">
+                                            <div class="work-img js-fullheight" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1000 }});">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-one-third">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">Subscribe Now</button>
+                                <div class="col-one-forth js-fullheight">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-12 no-gutters">
+                                            <div class="display-t js-fullheight">
+                                                <div class="display-tc js-fullheight">
+                                                    <div class="text-inner text-inner-left">
+                                                        <h2><a href="{{route('design.work',$designWork->id)}}">{{$designWork->name}} {{$loop->iteration}}</a></h2>
+                                                        <p>{{$designWork->description}}</p>
+                                                        <p><a href="{{route('design.work',$designWork->id)}}" class="btn-view">View Photo</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    @else
+                        <div class="col-md-12">
+                            <div class="work-entry-flex animate-box js-fullheight">
+                                <div class="col-three-forth js-fullheight">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-12 col-md-push-10 no-gutters">
+                                            <div class="work-img js-fullheight" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1000 }});">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-one-forth js-fullheight">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-12 col-md-pull-12 no-gutters">
+                                            <div class="display-t js-fullheight">
+                                                <div class="display-tc js-fullheight">
+                                                    <div class="text-inner text-inner-right">
+                                                        <h2><a href="{{route('design.work',$designWork->id)}}">{{$designWork->name}}</a></h2>
+                                                        <p>{{$designWork->description}}</p>
+                                                        <p><a href="{{route('design.work',$designWork->id)}}" class="btn-view">View Work</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                @endforeach
+
+
+
             </div>
         </div>
     </div>
 
-    <footer>
-        <div id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-pb-sm text-center">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h2>Office</h2>
-                                <p>291 South 21th Street, <br> Suite 721 New York NY 10016</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-pb-sm text-center">
-                        <h2>Get in Touch</h2>
-                        <p><a href="#">noah@info.com</a></p>
-                    </div>
-                    <div class="col-md-4 col-pb-sm text-center">
-                        <h2>Social</h2>
-                        <p class="colorlib-social-icons">
-                            <a href="#"><i class="icon-facebook4"></i></a>
-                            <a href="#"><i class="icon-twitter3"></i></a>
-                            <a href="#"><i class="icon-googleplus"></i></a>
-                            <a href="#"><i class="icon-dribbble2"></i></a>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <p>
-								<span class="block"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br></span>
-                            <span class="block">Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+{{--    <footer>--}}
+{{--        <div id="footer">--}}
+{{--            <div class="container">--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col-md-4 col-pb-sm text-center">--}}
+{{--                        <div class="row">--}}
+{{--                            <div class="col-md-10">--}}
+{{--                                <h2>Office</h2>--}}
+{{--                                <p>291 South 21th Street, <br> Suite 721 New York NY 10016</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-4 col-pb-sm text-center">--}}
+{{--                        <h2>Get in Touch</h2>--}}
+{{--                        <p><a href="#">contact@tomulumbi.com</a></p>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-4 col-pb-sm text-center">--}}
+{{--                        <h2>Social</h2>--}}
+{{--                        <p class="colorlib-social-icons">--}}
+{{--                            <a href="#"><i class="icon-instagram2"></i></a>--}}
+{{--                            <a href="#"><i class="icon-twitter2"></i></a>--}}
+{{--                            <a href="#"><i class="icon-behance"></i></a>--}}
+{{--                        </p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col-md-12 text-center">--}}
+{{--                        <p>--}}
+{{--								<span class="block"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->--}}
+{{--Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://fluidtechglobal.com" target="_blank">Fluidtech Global</a>--}}
+{{--                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br></span>--}}
+{{--                            <span class="block">Images: <a href="https://www.tomulumbi.com/" target="_blank">tomulumbi</a></span>--}}
+{{--                        </p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </footer>--}}
 
 </div>
 

@@ -16,8 +16,12 @@ class CreateAlbumImagesTable extends Migration
         Schema::create('album_images', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->uuid('upload_id')->nullable();
-            $table->uuid('album_set_id')->nullable();
+            $table->boolean('is_print');
+            $table->boolean('is_text');
+            $table->integer('limit');
+
+            $table->uuid('upload_id');
+            $table->uuid('album_set_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

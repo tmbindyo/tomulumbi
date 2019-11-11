@@ -16,4 +16,8 @@ class AlbumView extends Model
     {
         return $this->belongsTo('App\Album');
     }
+    public function album_downloads()
+    {
+        return $this->hasMany('App\AlbumDownload');
+    }
 }

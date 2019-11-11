@@ -135,7 +135,7 @@
             <!-- logo -->
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('personal_albums/pixca') }}/images/footer-logo.png" alt="Picxa" title="Picxa"/>
-                <p class="copy-right">&copy; Reserved tomulumbi 2020.</p>
+                <p class="copy-right">Copyright &copy; <script>document.write(new Date().getFullYear());</script></p>
             </div>
 
             <!-- logo -->

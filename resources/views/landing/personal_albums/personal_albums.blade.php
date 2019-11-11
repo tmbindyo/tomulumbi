@@ -96,14 +96,14 @@
             <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-3 masonry">
                 @foreach($albums as $album)
                     <li class="masonry-item grid">
-                        @if(empty($album->cover_image->large_thumbnail))
+                        @if(empty($album->cover_image->original))
                             <figure class="effect-sarah"> <img src="{{ asset('client_proof/phantom') }}/images/pic01.jpg" alt="" />
-                        @elseif(isset($album->cover_image->large_thumbnail))
-                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $album->cover_image->large_thumbnail }}" alt="" />
+                        @elseif(isset($album->cover_image->original))
+                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" alt="" />
                         @endif
                             <figcaption>
                                 <h2>{{$album->name}}</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+{{--                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
                                 <a href="{{route('personal.album.show',$album->id)}}">View more</a> </figcaption>
                         </figure>
                     </li>
@@ -115,63 +115,6 @@
 
 <!-- Image Gallery -->
 
-<!-- footer -->
-
-{{--<footer class="footer">--}}
-{{--    <h3>Stay connected with us</h3>--}}
-{{--    <div class="container footer-bot">--}}
-{{--        <div class="row">--}}
-
-{{--            <!-- logo -->--}}
-
-{{--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('personal_albums/pixca') }}/images/footer-logo.png" alt="tomulumbi" title="tomulumbi"/>--}}
-{{--                <p class="copy-right">&copy; Reserved tomulumbi 2020.</p>--}}
-{{--            </div>--}}
-
-{{--            <!-- logo -->--}}
-
-{{--            <!-- address -->--}}
-
-{{--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">--}}
-{{--                <address>--}}
-{{--                    <p>General Accident House</p>--}}
-{{--                    <p>Ralph Bunche Road,  Kenya</p>--}}
-{{--                </address>--}}
-{{--            </div>--}}
-
-{{--            <!-- address -->--}}
-
-{{--            <!-- email -->--}}
-
-{{--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">--}}
-{{--                <p><a href="mailto:contact@Picxa.com">contact@tomulumbi.com</a></p>--}}
-{{--                <p>+254 739 459 370</p>--}}
-{{--            </div>--}}
-
-{{--            <!-- email -->--}}
-
-{{--            <!-- social -->--}}
-
-{{--            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">--}}
-{{--                <ul class="social">--}}
-{{--                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>--}}
-{{--                    <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>--}}
-{{--                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>--}}
-{{--                    <li><a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></li>--}}
-{{--                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>--}}
-{{--                    <li><a href="#"><i class="fa fa-delicious" aria-hidden="true"></i></a></li>--}}
-{{--                </ul>--}}
-{{--                <p class="made-by">Made with by <i class="fa fa-heart" aria-hidden="true"></i> <a href="http://www.tomulumbi.com/" target="_blank">tomulumbi</a>--}}
-{{--                <p>--}}
-{{--            </div>--}}
-
-{{--            <!-- social -->--}}
-
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</footer>--}}
-
-<!-- footer -->
 
 <!-- jQuery -->
 

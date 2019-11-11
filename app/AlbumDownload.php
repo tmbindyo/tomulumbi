@@ -16,12 +16,8 @@ class AlbumDownload extends Model
     {
         return $this->belongsTo('App\Album');
     }
-    public function status()
+    public function album_view()
     {
-        return $this->belongsTo('App\Status');
-    }
-    public function user()
-    {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\AlbumView');
     }
 }

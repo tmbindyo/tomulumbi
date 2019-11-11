@@ -56,15 +56,45 @@
     <div class="js-fullheight colorlib-table">
         <div class="colorlib-table-cell js-fullheight">
 
-            <div class="row">
+            <div class="row  text-center">
+                <h3><a href="{{route('welcome')}}">Home</a></h3>
+                <h3><a class="active" href="{{route('designs')}}">Designs</a></h3>
+                <h3><a class="active" href="{{route('design.show',$designWork->design_id)}}">Back To {{$designWork->design->name}}</a></h3>
                 <div class="col-md-12">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active"><a href="work.html">Work</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li></li>
+                        <li class="active"></li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <h2>Get in Touch</h2>
+                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
+            </div>
+
+            <div class="row text-center">
+                <h2>Social</h2>
+                <p class="colorlib-social-icons">
+                    <a href="#"><i class="icon-twitter3"></i></a>
+                    <a href="#"><i class="icon-instagram"></i></a>
+                    <a href="#"><i class="icon-behance"></i></a>
+                </p>
+            </div>
+
+            <div class="row text-center">
+                <h2>Office</h2>
+                <p>General Accident House, <br> Ralph bunche Rd, Nairobi.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <span class="block">
+                            Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://www.fluidtechglobal.com" target="_blank">Fluidtech Global</a>
+                            <br>
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -79,21 +109,21 @@
                     <div class="colorlib-navbar-brand">
                         <a class="colorlib-logo" href="{{route('welcome')}}">tomulumbi</a>
                     </div>
-                    <a href="{{route('design.show',1)}}" class="colorlib-nav-toggle"><i>Back</i></a>
+                    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
                 </div>
             </div>
         </div>
     </header>
 
     <div class="work-single-flex js-fullheight">
-        <div class="col-half js-full-height work-img" style="background-image: url({{ asset('design/bato') }}/images/work-3.jpg);"></div>
+        <div class="col-half js-full-height work-img" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1000 }});"></div>
         <div class="col-half js-fullheight">
             <div class="display-t js-fullheight">
                 <div class="display-tc js-fullheight">
                     <div class="work-desc">
-                        <h2>Work Dummy Name</h2>
-                        <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
-                        <p><a href="{{route('design.gallery',1)}}" class="btn-preview">Gallery</a></p>
+                        <h2>{{$designWork->name}}</h2>
+                        <p>{{$designWork->description}}</p>
+                        <p><a href="{{route('design.gallery',$designWork->design_id)}}" class="btn-preview">View Gallery</a></p>
                     </div>
                 </div>
             </div>

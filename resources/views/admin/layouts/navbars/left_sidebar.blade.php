@@ -84,8 +84,8 @@
                 <a href="{{ route('admin.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do's</span></a>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
-                <a href="{{ route('admin.contacts') }}"><i class="fa fa-email"></i> <span class="nav-label">Contact's</span></a>
+            <li class="nav-item {{ Route::currentRouteNamed( 'admin.clients' ) ?  'active' : '' }}">
+                <a href="{{ route('admin.clients') }}"><i class="fa fa-user-secret"></i> <span class="nav-label">Client's</span></a>
             </li>
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.client.proofs' ) ?  'active' : '' }}">
