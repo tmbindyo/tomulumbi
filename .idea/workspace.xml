@@ -2,192 +2,106 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4fb9ccff-c356-4b2b-a00b-ae851ff28f1f" name="Default Changelist" comment="Working on displaying client list, currently want to do client proof image">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/JournalController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/JournalGalleryController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/JournalViewController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Journal.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/JournalGallery.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/JournalView.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Partner.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ProjectGallery.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ProjectView.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_12_142947_create_projects_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_12_143000_create_project_galleries_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_12_143008_create_project_views_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_12_161844_create_partners_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_12_165520_create_journals_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_12_165525_create_journal_galleries_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_11_12_165721_create_journal_views_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/100/Wedding/DSC_1359.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/100/Wedding/DSC_1361.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/100/Wedding/DSC_1363.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/100/Wedding/DSC_1364.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/100/Wedding/DSC_1380.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1000/Wedding/DSC_1359.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1000/Wedding/DSC_1361.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1000/Wedding/DSC_1363.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1000/Wedding/DSC_1364.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1000/Wedding/DSC_1380.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1500/Wedding/DSC_1359.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1500/Wedding/DSC_1361.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1500/Wedding/DSC_1363.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1500/Wedding/DSC_1364.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/1500/Wedding/DSC_1380.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/2500/Wedding/DSC_1359.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/2500/Wedding/DSC_1361.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/2500/Wedding/DSC_1363.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/2500/Wedding/DSC_1364.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/2500/Wedding/DSC_1380.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/300/Wedding/DSC_1359.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/300/Wedding/DSC_1361.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/300/Wedding/DSC_1363.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/300/Wedding/DSC_1364.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/300/Wedding/DSC_1380.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/3600/Wedding/DSC_1359.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/3600/Wedding/DSC_1361.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/3600/Wedding/DSC_1363.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/3600/Wedding/DSC_1364.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/3600/Wedding/DSC_1380.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/500/Wedding/DSC_1359.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/500/Wedding/DSC_1361.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/500/Wedding/DSC_1363.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/500/Wedding/DSC_1364.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/500/Wedding/DSC_1380.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/750/Wedding/DSC_1359.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/750/Wedding/DSC_1361.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/750/Wedding/DSC_1363.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/750/Wedding/DSC_1364.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/750/Wedding/DSC_1380.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/Original/Wedding/DSC_1359.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/Original/Wedding/DSC_1361.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/Original/Wedding/DSC_1363.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/Original/Wedding/DSC_1364.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/personal/album/DaquanJenkins/Original/Wedding/DSC_1380.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/base.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/font-awesome/css/font-awesome.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/font-awesome/css/font-awesome.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/font-awesome/fonts/FontAwesome.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/font-awesome/fonts/fontawesome-webfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/font-awesome/fonts/fontawesome-webfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/font-awesome/fonts/fontawesome-webfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/font-awesome/fonts/fontawesome-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/font-awesome/fonts/fontawesome-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/fonts.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/micons/fonts/icomoon.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/micons/fonts/icomoon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/micons/fonts/icomoon.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/micons/fonts/icomoon.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/micons/micons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/vendor.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/librebaskerville/librebaskerville-bold-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/librebaskerville/librebaskerville-bold-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/librebaskerville/librebaskerville-italic-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/librebaskerville/librebaskerville-italic-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/librebaskerville/librebaskerville-regular-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/librebaskerville/librebaskerville-regular-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/lightgallery/lg.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/lightgallery/lg.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/lightgallery/lg.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/lightgallery/lg.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/montserrat/montserrat-bold-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/montserrat/montserrat-bold-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/montserrat/montserrat-regular-webfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/fonts/montserrat/montserrat-regular-webfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/arrow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/avatars/user-01.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/avatars/user-02.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/avatars/user-03.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/avatars/user-04.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/avatars/user-05.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/angular.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/bower.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/buffer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/codepen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/dribbble.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/dropbox.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/envato.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/evernote.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/firefox.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/github.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/grunt.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/jQuery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/joomla.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/magento.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/messenger.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/mozilla.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/opera.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/pocket.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/spotify.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/clients/wordpress.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/contact-bg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/hero-bg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/lightgallery/loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/lightgallery/video-play.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/lightgallery/vimeo-play.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/lightgallery/youtube-play.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/architecture.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/gallery/g-architecture.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/gallery/g-minimalismo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/gallery/g-salad.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/gallery/g-shutterbug.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/gallery/g-skaterboy.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/gallery/g-yellowwall.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/minimalismo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/salad.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/shutterbug.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/skaterboy.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/portfolio/yellowwall.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/sample-image.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/services-bg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/images/shutterbug.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/inc/sendEmail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/js/jquery-2.1.3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/js/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/js/modernizr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/js/pace.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/js/plugins.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/readme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/styles.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/100/Test/DSC_4799.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/1000/Test/DSC_4799.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/1500/Test/DSC_4799.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/2500/Test/DSC_4799.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/300/Test/DSC_4799.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/3600/Test/DSC_4799.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/500/Test/DSC_4799.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/750/Test/DSC_4799.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/work/design/IdolaAshley/Original/Test/DSC_4799.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/landing/projects/project_gallery.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StoreController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/StoreController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84/_mixin.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84/_responsive.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84/_theme_color.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84/_variables.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/23fb10bb6531a16595cc9a8cbcaeb8f40f41ec84/style.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/997c61c8c2a2a831333fab68bc2254612bdf8817/_mixin.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/997c61c8c2a2a831333fab68bc2254612bdf8817/_responsive.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/997c61c8c2a2a831333fab68bc2254612bdf8817/_theme_color.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/997c61c8c2a2a831333fab68bc2254612bdf8817/_variables.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/.sass-cache/997c61c8c2a2a831333fab68bc2254612bdf8817/style.scssc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/cart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/checkout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/animate.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/classy-nav.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/core-style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/core-style.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/font-awesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/jquery-ui.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/magnific-popup.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/nice-select.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/css/owl.carousel.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/fontawesome-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/helvetica_neu_bold-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/helvetica_neu_bold-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/helvetica_neu_bold-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/helveticaneue_medium-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/helveticaneue_medium-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/fonts/helveticaneue_medium-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/cart1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/cart2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/bg-img/cart3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/core-img/cart.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/core-img/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/core-img/favorites.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/core-img/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/core-img/logo2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/core-img/paypal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/core-img/search.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/pro-big-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/pro-big-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/pro-big-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/pro-big-4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/product1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/product2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/product3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/product4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/product5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/img/product-img/product6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/js/active.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/js/classy-nav.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/js/jquery/jquery-2.2.4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/js/map-active.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/js/plugins.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/js/popper.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/product-details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/scss/_mixin.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/scss/_responsive.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/scss/_theme_color.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/scss/_variables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/scss/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/shop.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/themes/store/amado/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/cart.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/checkout.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/layouts/app.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/layouts/footer/footer.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/layouts/footer/newsletter.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/layouts/header/header.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/layouts/header/search.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/product_show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/products.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/landing/store/store.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Landing/JournalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/JournalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Project.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Project.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Status.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Status.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ThumbnailSize.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ThumbnailSize.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Typography.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Typography.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UploadTypeTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UploadTypeTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/album_type.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/album_type.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/left_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/navbars/left_sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/access.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/access.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proofs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proofs.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/design/design_gallery.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/design_gallery.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/design/design_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/design_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/design/design_work.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/design_work.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/journals/journal_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/journals/journal_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_album_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_album_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_albums.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_albums.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/tag_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/tag_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/tags.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/tags.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/landing/projects/projects.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/projects/projects.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/album_dashboard.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/client_dashboard.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/design_dashboard.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/project_dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/project_dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/test_masonry.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -362,11 +276,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/landing/store/layout" />
       <recent name="$PROJECT_DIR$/resources/views/landing/client_proofs" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Landing" />
       <recent name="$PROJECT_DIR$/resources/views/visitor" />
       <recent name="$PROJECT_DIR$/resources/views/client_proof/album" />
-      <recent name="$PROJECT_DIR$/resources/views/client_proof/layouts" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/landing/projects" />
@@ -490,7 +404,7 @@
       <workItem from="1573466865776" duration="13000" />
       <workItem from="1573467754139" duration="1740000" />
       <workItem from="1573469591667" duration="284000" />
-      <workItem from="1573567754375" duration="6235000" />
+      <workItem from="1573567754375" duration="11794000" />
     </task>
     <task id="LOCAL-00001" summary="remove auto incrementing id">
       <created>1559412316833</created>

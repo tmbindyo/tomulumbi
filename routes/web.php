@@ -42,6 +42,13 @@ Route::get('/design/{design_id}/gallery', 'Landing\DesignController@designGaller
 // Contact
 Route::post('/contact', 'Landing\LandingController@contactSave')->name('contact.save');
 
+// Store
+Route::get('/store', 'Landing\StoreController@store')->name('store');
+Route::get('/store/cart', 'Landing\StoreController@storeCart')->name('store.cart');
+Route::get('/store/checkout', 'Landing\StoreController@storeCheckout')->name('store.checkout');
+Route::get('/store/product/show/{product_id}', 'Landing\StoreController@storeProductShow')->name('store.product.show');
+Route::get('/store/products', 'Landing\StoreController@storeProducts')->name('store.products');
+
 // Journal
 Route::get('/journals', 'Landing\JournalController@journals')->name('journals');
 Route::get('/journal/show/{journal_id}', 'Landing\JournalController@journalShow')->name('journal.show');

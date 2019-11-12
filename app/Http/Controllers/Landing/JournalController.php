@@ -10,7 +10,6 @@ class JournalController extends Controller
     public function journals()
     {
         //
-
         return view('landing.journals.journals');
     }
     public function journalShow($journal_id)

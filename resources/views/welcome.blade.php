@@ -115,7 +115,7 @@
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
-                                <h2 class="number">01/03</h2>
+                                <h2 class="number">01/06</h2>
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Photography</span>
@@ -137,7 +137,7 @@
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
-                                <h2 class="number">02/03</h2>
+                                <h2 class="number">02/06</h2>
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Client Proofs</span>
@@ -154,18 +154,84 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_2.jpg);"></div>
+                    </div>
+                    <div class="col-one-forth js-fullheight">
+                        <div class="display-t js-fullheight">
+                            <div class="display-tc js-fullheight">
+                                <h2 class="number">03/06</h2>
+                                <div class="text-inner">
+                                    <div class="desc">
+                                        <span class="tag">Design Work</span>
+                                        <h2>Capture interesting things.</h2>
+                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <p><a href="{{route('designs')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="hero-flex js-fullheight">
+                    <div class="col-three-forth">
                         <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_3.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
-                        <h2 class="number">03/03</h2>
+                        <h2 class="number">04/06</h2>
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
                                 <div class="text-inner">
                                     <div class="desc">
-                                        <span class="tag">Design Work</span>
+                                        <span class="tag">Journals</span>
                                         <h2>Discover New Things</h2>
                                         <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                        <p><a href="{{route('designs')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="{{route('journals')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="hero-flex js-fullheight">
+                    <div class="col-three-forth">
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_3.jpg);"></div>
+                    </div>
+                    <div class="col-one-forth js-fullheight">
+                        <h2 class="number">05/06</h2>
+                        <div class="display-t js-fullheight">
+                            <div class="display-tc js-fullheight">
+                                <div class="text-inner">
+                                    <div class="desc">
+                                        <span class="tag">Projects</span>
+                                        <h2>Discover New Things</h2>
+                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <p><a href="{{route('projects')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="hero-flex js-fullheight">
+                    <div class="col-three-forth">
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_3.jpg);"></div>
+                    </div>
+                    <div class="col-one-forth js-fullheight">
+                        <h2 class="number">06/06</h2>
+                        <div class="display-t js-fullheight">
+                            <div class="display-tc js-fullheight">
+                                <div class="text-inner">
+                                    <div class="desc">
+                                        <span class="tag">Store</span>
+                                        <h2>Discover New Things</h2>
+                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <p><a href="{{route('store')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>

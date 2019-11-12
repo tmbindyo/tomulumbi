@@ -1916,7 +1916,7 @@
                     showMethod: 'slideDown',
                     timeOut: 4000
                 };
-                toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
+                toastr.success('I have been expecting you.', 'Welcome Thomas,');
 
             }, 1300);
 
