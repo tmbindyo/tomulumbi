@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>{{$design->name}} | Gallery</title>
+    <title>tomulumbi | {{$design->name}}</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="{{ asset('design/studio') }}/img/core-img/favicon.ico">

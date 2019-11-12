@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ProBootstrap:Connect &mdash; Free Bootstrap Theme, Free Responsive Bootstrap Website Template</title>
+    <title>tomulumbi | Projects</title>
     <meta name="description" content="Free Bootstrap Theme by uicookies.com">
     <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
 
@@ -25,18 +25,14 @@
 
 <header role="banner" class="probootstrap-header">
     <div class="container">
-        <a href="index.html" class="probootstrap-logo">tomulumbi</a>
+        <a href="{{route('welcome')}}" class="probootstrap-logo">tomulumbi</a>
 
         <a href="#" class="probootstrap-burger-menu visible-xs" ><i>Menu</i></a>
         <div class="mobile-menu-overlay"></div>
 
         <nav role="navigation" class="probootstrap-nav hidden-xs">
             <ul class="probootstrap-main-nav">
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="portfolio.html">Portfolio</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li class="active"><a href="{{route('welcome')}}">Home</a></li>
             </ul>
             <div class="extra-text visible-xs">
                 <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
@@ -105,7 +101,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p>&copy; 2017 <a href="https://probootstrap.com/">ProBootstrap:Connect</a>. All Rights Reserved. <br> Designed &amp; Developed by <a href="https://probootstrap.com">ProBootstrap</a> Demo Images <a href="https://unsplash.com/">Unsplash</a></p>
+                <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> <a href="https://www.tomulumbi.com">tomulumbi</a>. All Rights Reserved. <br> Designed &amp; Developed by <a href="https://fluidtechglobal.com">Fluidtech Global</a></p>
             </div>
         </div>
     </div>

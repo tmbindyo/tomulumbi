@@ -19,9 +19,7 @@ class UserController extends Controller
     {
         return view('users.index', ['users' => $model->paginate(15)]);
 
-        // TODO Check user if admin or belongs to an institution, if institution (project manager, show institution users)
 
-        
         // if (Auth::user()->user_type_id == 1)
         //     return view('users.index', ['users' => $model->paginate(15)]);
         // elseif (Auth::user()->user_type_id == 3) {

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <title>Tomulumbi :: {{$album->name}}</title>
+    <title>Tomulumbi | {{$album->name}}</title>
 
     <!-- Gallery Popup Plugin With jQuery - LC Lightbox -->
     <link rel="stylesheet" href="{{ asset('inspinia') }}/css/plugins/lc-lightbox/css/lc_lightbox.css">

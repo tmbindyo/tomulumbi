@@ -185,5 +185,13 @@ class Status extends Model
     {
         return $this->hasMany('App\UserType');
     }
+    public function project_galleries()
+    {
+        return $this->belongsTo('App\ProjectGallery');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
 
 }

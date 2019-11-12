@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Tomulumbi | {{$album->name}}</title>
+		<title>tomulumbi | {{$album->name}}</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="{{ asset('client_proof/story') }}/assets/css/main.css" />

@@ -1,12 +1,8 @@
 <?php
 
 
-// Home
+// Dashboard
 Route::get('/dashboard', 'Admin\DashboardController@dashboard')->name('admin.dashboard');
-Route::get('/album/dashboard', 'Admin\DashboardController@albumDashboard')->name('admin.album.dashboard');
-Route::get('/client/dashboard', 'Admin\DashboardController@clientDashboard')->name('admin.client.dashboard');
-Route::get('/design/dashboard', 'Admin\DashboardController@designDashboard')->name('admin.design.dashboard');
-Route::get('/project/dashboard', 'Admin\DashboardController@projectDashboard')->name('admin.project.dashboard');
 
 // Calendar
 Route::get('/calendar', 'Admin\CalendarController@viewCalender')->name('admin.calendar');
@@ -111,7 +107,6 @@ Route::post('/design/to/do/save/{design_id}', 'Admin\ToDoController@albumToDoSav
 
 Route::get('/clients', 'Admin\SettingController@clients')->name('admin.clients');
 
-Route::get('/diy', 'Admin\DashboardController@dashboard')->name('admin.diy');
 Route::get('/store', 'Admin\DashboardController@dashboard')->name('admin.store');
 
 

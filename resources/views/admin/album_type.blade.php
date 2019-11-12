@@ -123,40 +123,9 @@
                             <td>{{$albumTypeAlbum->name}}</td>
                             <td>{{$albumTypeAlbum->description}}</td>
                             <td>{{$albumTypeAlbum->user->name}}</td>
-                            @if($albumTypeAlbum->status->name === "Active")
-                                <td>
-                                <span class="label label-primary">{{$albumTypeAlbum->status->name}}</span>
-                                </td>
-                            @elseif($albumTypeAlbum->status->name === "Inactive")
-                                <td>
-                                <span class="label label-danger">{{$albumTypeAlbum->status->name}}</span>
-                                </td>
-                            @elseif($albumTypeAlbum->status->name === "Ongoing")
-                                <td>
-                                <span class="label label-danger">{{$albumTypeAlbum->status->name}}</span>
-                                </td>
-                            @elseif($albumTypeAlbum->status->name === "Preview")
-                                <td>
-                                <span class="label label-warning">{{$albumTypeAlbum->status->name}}</span>
-                                </td>
-                            @elseif($albumTypeAlbum->status->name === "Completed")
-                                <td>
-                                <span class="label label-primary">{{$albumTypeAlbum->status->name}}</span>
-                                </td>
-                            @elseif($albumTypeAlbum->status->name === "Hidden")
-                                <td>
-                                <span class="label label-danger">{{$albumTypeAlbum->status->name}}</span>
-                                </td>
-                            @elseif($albumTypeAlbum->status->name === "Published")
-                                <td>
-                                <span class="label label-warning">{{$albumTypeAlbum->status->name}}</span>
-                                </td>
-                            @else
-                                <td>
-                                <span class="label label-default">{{$albumTypeAlbum->status->name}}</span>
-                                </td>
-                            @endif
-
+                            <td>
+                                <span class="label {{$albumTypeAlbum->status->label}}">{{$albumTypeAlbum->status->name}}</span>
+                            </td>
                             <td class="text-right">
 {{--                                todo check why route is album but id is album type--}}
                                 <div class="btn-group">

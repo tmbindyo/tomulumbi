@@ -18,36 +18,13 @@
                     tomulumbi
                 </div>
             </li>
-            <li class="">
-                <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.dashboard' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.dashboard')}}">
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.client.dashboard' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.client.dashboard')}}">
-                            Client Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.design.dashboard' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.design.dashboard')}}">
-                            Design Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.project.dashboard' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.project.dashboard')}}">
-                            Project Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.album.dashboard' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.album.dashboard')}}">
-                            Album Dashboard
-                        </a>
-                    </li>
 
-                </ul>
+            <li class="nav-item {{ Route::currentRouteNamed( 'admin.dashboard' ) ?  'active' : '' }}">
+                <a href="{{ route('admin.dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+            </li>
+
+            <li class="nav-item {{ Route::currentRouteNamed( 'admin.calendar' ) ?  'active' : '' }}">
+                <a href="{{ route('admin.calendar') }}"><i class="fa fa-calendar"></i> <span class="nav-label">Calendar</span></a>
             </li>
 
             <li>
@@ -98,10 +75,6 @@
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.designs' ) ?  'active' : '' }}">
                 <a href="{{ route('admin.designs') }}"><i class="fa fa-pencil"></i> <span class="nav-label">Design Work</span><span class="label label-warning pull-right">24</span></a>
-            </li>
-
-            <li class="nav-item {{ Route::currentRouteNamed( 'admin.diy' ) ?  'active' : '' }}">
-                <a href="{{ route('admin.diy') }}"><i class="fa fa-folder-o"></i> <span class="nav-label">DIY</span><span class="label label-warning pull-right">24</span></a>
             </li>
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.store' ) ?  'active' : '' }}">

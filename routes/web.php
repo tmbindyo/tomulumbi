@@ -45,6 +45,7 @@ Route::post('/contact', 'Landing\LandingController@contactSave')->name('contact.
 // Journal
 Route::get('/journals', 'Landing\JournalController@journals')->name('journals');
 Route::get('/journal/show/{journal_id}', 'Landing\JournalController@journalShow')->name('journal.show');
+Route::get('/journal/gallery/{journal_id}', 'Landing\JournalController@journalGalleryShow')->name('journal.gallery.show');
 
 Route::get('/projects', 'Landing\ProjectController@projects')->name('projects');
 Route::get('/project/show/{project_id}', 'Landing\ProjectController@projectShow')->name('project.show');

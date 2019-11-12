@@ -44,6 +44,7 @@ class SettingsController extends Controller
         // User
         $user = $this->getAdmin();
         $albumTypes = AlbumType::with('user','status')->get();
+
         return view('admin.album_types',compact('albumTypes','user'));
     }
     public function albumType($album_type_id)

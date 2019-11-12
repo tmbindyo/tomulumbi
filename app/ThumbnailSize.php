@@ -20,6 +20,10 @@ class ThumbnailSize extends Model
     {
         return $this->hasMany('App\Tag');
     }
+    public function projects()
+    {
+        return $this->hasMany('App\Project');
+    }
 
     // Parents
     public function status()

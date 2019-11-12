@@ -175,6 +175,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\UserDetail');
     }
+    public function project_galleries()
+    {
+        return $this->belongsTo('App\ProjectGallery');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
 
     public function find_user_type($userKey)
     {
