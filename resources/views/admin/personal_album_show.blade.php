@@ -178,6 +178,7 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
                             <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Design</a></li>
+                            <li class=""><a data-toggle="tab" href="#privacy"><i class="fa fa-lock"></i> Privacy</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="collection_settings" class="tab-pane active">
@@ -307,6 +308,86 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="privacy" class="tab-pane">
+                                <div class="panel-body">
+                                    <form method="post" action="{{ route('admin.personal.album.update.privacy',$album->id) }}" autocomplete="off">
+                                        @csrf
+
+                                        <div class="col-md-10 col-md-offset-1">
+
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <div class="input-group m-b">
+                                                    <input name="album_password" id="album_password" type="text" value="{{$album->password}}" class="form-control input-lg">
+                                                    <div class="input-group-btn">
+                                                        <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateAlbumPassword" data-fid="{{$album->id}}" type="button">Generate Password</button>
+                                                    </div>
+                                                </div>
+                                                <i>Leave blank to make this collection public. Setting a password will require all guests to use this password in order to see the collection.</i>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p>
+                                                    Homepage visibility
+                                                </p>
+                                                <input type="checkbox" name="is_homepage_visible" class="js-switch_2" @if($album->is_homepage_visible === 1) checked @endif />
+                                                <i>Show or hide your collection in the Homepage area.</i>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p>
+                                                    Client Exclusive Access
+                                                </p>
+                                                <input type="checkbox" name="is_client_exclusive_access" class="js-switch_3" @if($album->is_client_exclusive_access === 1) checked @endif />
+                                                <i>Turn on to have the abilty to make selected photo sets client-only and to give your clients the ability to mark photos private. </i>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Client Exclusive Access Password</label>
+                                                <div class="input-group m-b">
+                                                    <input name="client_exclusive_access_password" id="client_exclusive_access_password" type="text" value="{{$album->client_access_password}}" class="form-control input-lg">
+                                                    <div class="input-group-btn">
+                                                        <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateClientExclusiveAccessPassword" data-fid="{{$album->id}}" type="button">Generate Client Exclusive Access Password</button>
+                                                    </div>
+                                                </div>
+                                                <i>Turn on to have the abilty to make selected photo sets client-only and to give your clients the ability to mark photos private. </i>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Photo Sets Visibility</label>
+                                            </div>
+
+                                            @foreach($albumSets as $albumSet)
+
+                                                <div class="form-group">
+                                                    <div class="checkbox">
+                                                        <input class="updateAlbumSetVisibility" data-fid="{{$albumSet->id}}" id="checkbox1" @if($albumSet->is_client_exclusive_access === 1) checked @endif type="checkbox">
+                                                        <label for="checkbox1">
+                                                            {{$albumSet->name}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                            <i>Make selected photo sets private so only your clients have access. Regular guests can only see public sets.</i>
+
+                                            <div class="form-group">
+                                                <p>
+                                                    Allow Clients to Mark Photos Private
+                                                </p>
+                                                <input type="checkbox" name="is_client_make_private" class="js-switch_4" @if($album->is_client_make_private === 1) checked @endif />
+                                                <i>Give clients the ability to mark photos private. Private photos are not visible to public guests and only clients can see them. </i>
+                                            </div>
+
+                                            <hr>
+
+                                            <div>
+                                                <button class="btn btn-block btn-outline btn-primary btn-lg m-t-n-xs" type="submit"><strong>Update Privacy Settings</strong></button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -399,7 +480,7 @@
 @endsection
 
 @include('admin.layouts.modals.client_proof_set')
-@include('admin.layouts.modals.client_proof_to_do')
+@include('admin.layouts.modals.album_to_do')
 @include('admin.layouts.modals.personal_album_cover_image')
 
 @section('js')
@@ -748,6 +829,9 @@
 
             var elem_6 = document.querySelector('.js-switch_6');
             var switchery_6 = new Switchery(elem_6, { color: '#1AB394' });
+
+            var elem_10 = document.querySelector('.js-switch_10');
+            var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',

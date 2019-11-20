@@ -13,7 +13,6 @@
         <ul>
             <li class="{{ Route::currentRouteNamed( 'store' ) ?  'active' : '' }}"><a href="{{route('store')}}">Home</a></li>
             <li class="{{ Route::currentRouteNamed( 'store.products' ) ?  'active' : '' }}"><a href="{{route('store.products')}}">Products</a></li>
-            <li class="{{ Route::currentRouteNamed( 'store.product.show',1 ) ?  'active' : '' }}"><a href="{{route('store.product.show',1)}}">Product</a></li>
             <li class="{{ Route::currentRouteNamed( 'store.cart' ) ?  'active' : '' }}"><a href="{{route('store.cart')}}">Cart</a></li>
             <li class="{{ Route::currentRouteNamed( 'store.checkout' ) ?  'active' : '' }}"><a href="{{route('store.checkout')}}">Checkout</a></li>
         </ul>

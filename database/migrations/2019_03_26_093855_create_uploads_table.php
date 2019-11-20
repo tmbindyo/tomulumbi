@@ -58,13 +58,17 @@ class CreateUploadsTable extends Migration
             $table->text('banner')->nullable();
 
             $table->boolean('is_client_exclusive_access')->nullable();
+            $table->boolean('is_password')->nullable();
             $table->boolean('is_album_set_image');
 
-            $table->uuid('album_set_id')->nullable();
+            $table->uuid('tag_id')->nullable();
             $table->uuid('album_id')->nullable();
+            $table->uuid('album_set_id')->nullable();
             $table->uuid('design_id')->nullable();
             $table->uuid('design_work_id')->nullable();
-            $table->uuid('tag_id')->nullable();
+            $table->uuid('project_id')->nullable();
+            $table->uuid('journal_id')->nullable();
+            $table->uuid('product_id')->nullable();
             $table->uuid('upload_type_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

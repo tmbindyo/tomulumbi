@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Client Proof Set Registration</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.client.proof.set.save', $album->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.client.proof.set.store', $album->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())

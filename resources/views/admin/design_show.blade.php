@@ -184,6 +184,7 @@
             </div>
 
 
+        <br>
             {{--    Client proof settings    --}}
             <div class="row m-t-lg">
                 <div class="col-lg-12 col-md-12">
@@ -242,9 +243,9 @@
                                             <div class="form-group">
                                                 <label>Clients</label>
                                                 <div class="input-group">
-                                                    <select name="client" data-placeholder="Choose Clients:" class="chosen-select form-control-lg" multiple="multiple" style="width:450px;" tabindex="4">
-                                                        @foreach($clients as $client)
-                                                            <option value="{{$client->id}}" @foreach($designClients as $designClient) @if($client->id === $designClient->client->id) selected @endif @endforeach >{{$client->name}}</option>
+                                                    <select name="contact" data-placeholder="Choose Contacts:" class="chosen-select form-control-lg" style="width:450px;" tabindex="4">
+                                                        @foreach($contacts as $contact)
+                                                            <option value="{{$contact->id}}" @if($design->contact_id === $contact->id) selected @endif  >{{$contact->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

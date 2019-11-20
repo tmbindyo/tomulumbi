@@ -45,7 +45,7 @@
         <br>
         <br>
         <h2>{{$album->name}}</h2>
-        @if($album->is_client_exclusive_access == 1)
+        @if($album->password)
             <p class="text-background">
                 This proof is client exclusive and thus access is restricted.
                 Please input your email, and the password that was provided to view.
@@ -80,7 +80,7 @@
             <div class="form-group">
                 <input type="email" name="email" class="form-control input-lg" placeholder="Email" required="">
             </div>
-            @if($album->is_client_exclusive_access == 1)
+            @if($album->password)
                 <div class="form-group">
                     <input type="password" name="password" class="form-control input-lg" placeholder="Proof Password" required="">
                 </div>

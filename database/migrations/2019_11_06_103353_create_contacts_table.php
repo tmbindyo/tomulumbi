@@ -18,8 +18,11 @@ class CreateContactsTable extends Migration
 
             $table->string('name');
             $table->string('email');
-            $table->longText('message');
+            $table->string('phone_number');
+            $table->longText('about');
 
+            $table->integer('user_id')->unsigned();
+            $table->uuid('contact_type_id');
             $table->uuid('status_id');
 
             $table->timestamps();

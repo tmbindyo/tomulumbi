@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Client;
 use App\Color;
+use App\Contact;
 use App\ContentAlign;
 use App\CoverDesign;
 use App\Design;
@@ -35,6 +36,7 @@ use Illuminate\Support\Facades\Input;
 use App\AlbumDownloadRestrictionEmail;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
+use function GuzzleHttp\Psr7\str;
 
 class AlbumController extends Controller
 {
@@ -195,29 +197,29 @@ class AlbumController extends Controller
         $folderName = str_replace(' ', '', $album->name."/Banner/");
         $originalFolderName = str_replace(' ', '', $album->name."/Cover Image/Original/");
 
-        $pixel100FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/100/");
+        $pixel100FolderName = str_replace(' ', '', "work/personal/album/".$album->name."/Cover Image"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/300/");
+        $pixel300FolderName = str_replace(' ', '', "work/personal/album/".$album->name."/Cover Image"."/300/");
         File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/500/");
+        $pixel500FolderName = str_replace(' ', '', "work/personal/album/".$album->name."/Cover Image"."/500/");
         File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/750/");
+        $pixel750FolderName = str_replace(' ', '', "work/personal/album/".$album->name."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/1000/");
+        $pixel1000FolderName = str_replace(' ', '', "work/personal/album/".$album->name."/Cover Image"."/1000/");
         File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', "work/personal/album/".$album->name."/Cover Image"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/2500/");
+        $pixel2500FolderName = str_replace(' ', '', "work/personal/album/".$album->name."/Cover Image"."/2500/");
         File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "personal/album/".$album->name."/Cover Image"."/3600/");
+        $pixel3600FolderName = str_replace(' ', '', "work/personal/album/".$album->name."/Cover Image"."/3600/");
         File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/personal/album/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/personal/album/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/work/personal/album/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/personal/album/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -382,6 +384,21 @@ class AlbumController extends Controller
     {
 
         $album = Album::findOrFail($album_id);
+        // Check if the cover image has been uploaded if the status is being updated to published
+        if ($request->status == "be8843ac-07ab-4373-83d9-0a3e02cd4ff5" && $album->cover_image_id == ""){
+            return back()->withWarning(__('Please set a cover image before making the design to published.'));
+        }
+
+//        return $album->status_id .':'. $request->status;
+        // check if the album status has changed
+        if ($album->status_id != $request->status){
+            // get ids of uploads for the images
+            $uploadsIds = Upload::where('album_id',$album_id)->select('id')->get()->toArray();
+            DB::table('uploads')
+                ->whereIn('id', $uploadsIds)
+                ->update(array('status_id' => $request->status));
+        }
+
         $album->name = $request->name;
         $album->date = date('Y-m-d', strtotime($request->date));
         $album->status_id = $request->status;
@@ -442,6 +459,64 @@ class AlbumController extends Controller
         return back()->withSuccess('Personal album design updated!');
     }
 
+    public function personalAlbumUpdatePrivacy(Request $request, $album_id)
+    {
+
+        $album = Album::findOrFail($album_id);
+
+        // TODO Update column password to album_password
+        $album->password = $request->album_password;
+
+        if ($request->album_password){
+            // get ids of uploads for the images
+            $checkUpload = Upload::where('album_id',$album_id)->where('is_password', False)->first();
+            if ($checkUpload){
+                $uploadsIds = Upload::where('album_id',$album_id)->select('id')->get()->toArray();
+                DB::table('uploads')
+                    ->whereIn('id', $uploadsIds)
+                    ->update(array('is_password' => True));
+            }
+
+        }else{
+            $checkUpload = Upload::where('album_id',$album_id)->where('is_password', True)->first();
+            if ($checkUpload){
+                $uploadsIds = Upload::where('album_id',$album_id)->select('id')->get()->toArray();
+                DB::table('uploads')
+                    ->whereIn('id', $uploadsIds)
+                    ->update(array('is_password' => False));
+            }
+        }
+
+
+        if ($request->is_homepage_visible){
+            $album->is_homepage_visible = True;
+        }
+        else{
+            $album->is_homepage_visible = False;
+        }
+
+        if ($request->is_client_exclusive_access){
+            $album->is_client_exclusive_access = True;
+        }
+        else{
+            $album->is_client_exclusive_access = False;
+        }
+
+        // TODO Update db column from client_access_password to client_exclusive_access_password
+        $album->client_access_password = $request->client_exclusive_access_password;
+
+        if ($request->is_client_make_private){
+            $album->is_client_make_private = True;
+        }
+        else{
+            $album->is_client_make_private = False;
+        }
+
+        $album->save();
+
+        return back()->withSuccess('Album privacy updated!');
+    }
+
     public function personalAlbumImageUpdatePrintStatus(Request $request, $album_image_id)
     {
         $albumImage = AlbumImage::findOrFail($album_image_id);
@@ -471,31 +546,32 @@ class AlbumController extends Controller
         $folderName = str_replace(' ', '', $albumSet->album->name."/" .$albumSet->name.'/');
         $originalFolderName = str_replace(' ', '', $albumSet->album->name."/Original/" .$albumSet->name.'/');
 
-        // todo Check if image exists
+        $album = Album::where('id',$albumSet->album_id)->first();
 
-        $pixel100FolderName = str_replace(' ', '', "personal/album/".$albumSet->album->name."/100/" .$albumSet->name.'/');
+        // todo Check if image exists
+        $pixel100FolderName = str_replace(' ', '', "work/personal/album/".$albumSet->album->name."/100/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "personal/album/".$albumSet->album->name."/300/" .$albumSet->name.'/');
+        $pixel300FolderName = str_replace(' ', '', "work/personal/album/".$albumSet->album->name."/300/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "personal/album/".$albumSet->album->name."/500/" .$albumSet->name.'/');
+        $pixel500FolderName = str_replace(' ', '', "work/personal/album/".$albumSet->album->name."/500/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "personal/album/".$albumSet->album->name."/750/" .$albumSet->name.'/');
+        $pixel750FolderName = str_replace(' ', '', "work/personal/album/".$albumSet->album->name."/750/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "personal/album/".$albumSet->album->name."/1000/" .$albumSet->name.'/');
+        $pixel1000FolderName = str_replace(' ', '', "work/personal/album/".$albumSet->album->name."/1000/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "personal/album/".$albumSet->album->name."/1500/" .$albumSet->name.'/');
+        $pixel1500FolderName = str_replace(' ', '', "work/personal/album/".$albumSet->album->name."/1500/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "personal/album/".$albumSet->album->name."/2500/" .$albumSet->name.'/');
+        $pixel2500FolderName = str_replace(' ', '', "work/personal/album/".$albumSet->album->name."/2500/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "personal/album/".$albumSet->album->name."/3600/" .$albumSet->name.'/');
+        $pixel3600FolderName = str_replace(' ', '', "work/personal/album/".$albumSet->album->name."/3600/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("file");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/personal/album/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/personal/album/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/work/personal/album/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/personal/album/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -641,15 +717,24 @@ class AlbumController extends Controller
 
         $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = True;
+
+        if ($album->password){
+            $upload->is_password = True;
+        }else{
+            $upload->is_password = False;
+        }
+
+        $upload->album_id = $albumSet->album_id;
         $upload->album_set_id = $album_set_id;
         $upload->tag_id = $tag->id;
         $upload->upload_type_id = "b3399a38-b355-4235-8f93-36baf410eef2";
-        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->status_id = $album->status_id;
         $upload->user_id = Auth::user()->id;
         $upload->save();
 
         $albumImage = new AlbumImage();
         $albumImage->is_print = False;
+        $albumImage->is_text = False;
         $albumImage->limit = 0;
         $albumImage->album_set_id = $album_set_id;
         $albumImage->upload_id = $upload->id;
@@ -677,10 +762,12 @@ class AlbumController extends Controller
     {
         // Tags
         $tags = Tag::all();
+        // Contacts
+        $contacts = Contact::all();
 
         // User
         $user = $this->getAdmin();
-        return view('admin.client_proof_create',compact('user','tags'));
+        return view('admin.client_proof_create',compact('user','tags','contacts'));
     }
 
     public function clientProofStore(Request $request)
@@ -719,9 +806,10 @@ class AlbumController extends Controller
         $album->views = 0;
         $album->is_download = False;
         $album->is_client_exclusive_access = False;
-        $album->password = $this->generatePassword();
-        $album->client_access_password = $this->generatePassword();
+//        $album->password = $this->generatePassword();
+//        $album->client_access_password = $this->generatePassword();
         $album->album_type_id = "ca64a5e0-d39b-4f2c-a136-9c523d935ea4";
+        $album->contact_id = $request->contact;
         $album->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $album->user_id = Auth::user()->id;
         $album->save();
@@ -933,29 +1021,29 @@ class AlbumController extends Controller
         $folderName = str_replace(' ', '', $album->name."/Banner/");
         $originalFolderName = str_replace(' ', '', $album->name."/Cover Image/Original/");
 
-        $pixel100FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/100/");
+        $pixel100FolderName = str_replace(' ', '', "work/client/proof/".$album->name."/Cover Image"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/300/");
+        $pixel300FolderName = str_replace(' ', '', "work/client/proof/".$album->name."/Cover Image"."/300/");
         File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/500/");
+        $pixel500FolderName = str_replace(' ', '', "work/client/proof/".$album->name."/Cover Image"."/500/");
         File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/750/");
+        $pixel750FolderName = str_replace(' ', '', "work/client/proof/".$album->name."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/1000/");
+        $pixel1000FolderName = str_replace(' ', '', "work/client/proof/".$album->name."/Cover Image"."/1000/");
         File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', "work/client/proof/".$album->name."/Cover Image"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/2500/");
+        $pixel2500FolderName = str_replace(' ', '', "work/client/proof/".$album->name."/Cover Image"."/2500/");
         File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "client/proof/".$album->name."/Cover Image"."/3600/");
+        $pixel3600FolderName = str_replace(' ', '', "work/client/proof/".$album->name."/Cover Image"."/3600/");
         File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/client/proof/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/client/proof/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/work/client/proof/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/client/proof/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -1227,7 +1315,7 @@ class AlbumController extends Controller
         return back()->withSuccess(__('Client proof download restriction email successfully deleted.'));
     }
 
-    public function clientProofSetSave(Request $request, $album_id)
+    public function clientProofSetStore(Request $request, $album_id)
     {
 
         $albumSet = new AlbumSet();
@@ -1252,29 +1340,29 @@ class AlbumController extends Controller
         $originalFolderName = str_replace(' ', '', $albumSet->album->name."/Original/" .$albumSet->name.'/');
         $smallFolderName = str_replace(' ', '', $albumSet->album->name."/Small/" .$albumSet->name.'/');
 
-        $pixel100FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/100/" .$albumSet->name.'/');
+        $pixel100FolderName = str_replace(' ', '', "work/client/proof/".$albumSet->album->name."/100/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/300/" .$albumSet->name.'/');
+        $pixel300FolderName = str_replace(' ', '', "work/client/proof/".$albumSet->album->name."/300/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/500/" .$albumSet->name.'/');
+        $pixel500FolderName = str_replace(' ', '', "work/client/proof/".$albumSet->album->name."/500/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/750/" .$albumSet->name.'/');
+        $pixel750FolderName = str_replace(' ', '', "work/client/proof/".$albumSet->album->name."/750/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/1000/" .$albumSet->name.'/');
+        $pixel1000FolderName = str_replace(' ', '', "work/client/proof/".$albumSet->album->name."/1000/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/1500/" .$albumSet->name.'/');
+        $pixel1500FolderName = str_replace(' ', '', "work/client/proof/".$albumSet->album->name."/1500/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/2500/" .$albumSet->name.'/');
+        $pixel2500FolderName = str_replace(' ', '', "work/client/proof/".$albumSet->album->name."/2500/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "client/proof/".$albumSet->album->name."/3600/" .$albumSet->name.'/');
+        $pixel3600FolderName = str_replace(' ', '', "work/client/proof/".$albumSet->album->name."/3600/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("file");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/client/proof/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/client/proof/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/work/client/proof/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/client/proof/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -1428,6 +1516,7 @@ class AlbumController extends Controller
 
         $albumImage = new AlbumImage();
         $albumImage->is_print = False;
+        $albumImage->is_text = False;
         $albumImage->limit = 0;
         $albumImage->album_set_id = $album_set_id;
         $albumImage->upload_id = $upload->id;

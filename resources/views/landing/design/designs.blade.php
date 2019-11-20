@@ -9,25 +9,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>tomulumbi | designs</title>
-    <link rel="shortcut icon" href="{{ asset('design/avana') }}/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('themes/design/avana') }}/images/favicon.ico" type="image/x-icon">
 
     <!-- style -->
-    <link href="{{ asset('design/avana') }}/css/style.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/design/avana') }}/css/style.css" rel="stylesheet" type="text/css">
     <!-- style -->
 
     <!-- bootstrap -->
-    <link href="{{ asset('design/avana') }}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/design/avana') }}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <!-- responsive -->
-    <link href="{{ asset('design/avana') }}/css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/design/avana') }}/css/responsive.css" rel="stylesheet" type="text/css">
 
     <!-- font-awesome -->
-    <link href="{{ asset('design/avana') }}/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/design/avana') }}/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- font-awesome -->
-    <link href="{{ asset('design/avana') }}/css/effects/set2.css" rel="stylesheet" type="text/css">
-    <link href="{{ asset('design/avana') }}/css/effects/normalize.css" rel="stylesheet" type="text/css">
-    <link href="{{ asset('design/avana') }}/css/effects/component.css"  rel="stylesheet" type="text/css" >
+    <link href="{{ asset('themes/design/avana') }}/css/effects/set2.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/design/avana') }}/css/effects/normalize.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/design/avana') }}/css/effects/component.css"  rel="stylesheet" type="text/css" >
 
 </head>
 <body>
@@ -37,7 +37,7 @@
     <div class="container">
         <!-- logo -->
         <h1>
-            <a href="{{route('welcome')}}" title="tomulumbi"><img src="{{ asset('design/avana') }}/images/logo.png" title="tomulumbi" alt="tomulumbi"/></a>
+            <a href="{{route('welcome')}}" title="tomulumbi"><img src="{{ asset('themes/design/avana') }}/images/logo.png" title="tomulumbi" alt="tomulumbi"/></a>
         </h1>
         <!-- logo -->
 
@@ -95,22 +95,22 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="{{ asset('design/avana') }}/js/jquery.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/design/avana') }}/js/jquery.min.js" type="text/javascript"></script>
 
 <!-- custom -->
-<script src="{{ asset('design/avana') }}/js/nav.js" type="text/javascript"></script>
-<script src="{{ asset('design/avana') }}/js/custom.js" type="text/javascript"></script>
+<script src="{{ asset('themes/design/avana') }}/js/nav.js" type="text/javascript"></script>
+<script src="{{ asset('themes/design/avana') }}/js/custom.js" type="text/javascript"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{{ asset('design/avana') }}/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="{{ asset('design/avana') }}/js/effects/masonry.pkgd.min.js"  type="text/javascript"></script>
-<script src="{{ asset('design/avana') }}/js/effects/imagesloaded.js"  type="text/javascript"></script>
-<script src="{{ asset('design/avana') }}/js/effects/classie.js"  type="text/javascript"></script>
-<script src="{{ asset('design/avana') }}/js/effects/AnimOnScroll.js"  type="text/javascript"></script>
-<script src="{{ asset('design/avana') }}/js/effects/modernizr.custom.js"></script>
+<script src="{{ asset('themes/design/avana') }}/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/design/avana') }}/js/effects/masonry.pkgd.min.js"  type="text/javascript"></script>
+<script src="{{ asset('themes/design/avana') }}/js/effects/imagesloaded.js"  type="text/javascript"></script>
+<script src="{{ asset('themes/design/avana') }}/js/effects/classie.js"  type="text/javascript"></script>
+<script src="{{ asset('themes/design/avana') }}/js/effects/AnimOnScroll.js"  type="text/javascript"></script>
+<script src="{{ asset('themes/design/avana') }}/js/effects/modernizr.custom.js"></script>
 
 <!-- jquery.countdown -->
-<script src="{{ asset('design/avana') }}/js/html5shiv.js" type="text/javascript"></script>
+<script src="{{ asset('themes/design/avana') }}/js/html5shiv.js" type="text/javascript"></script>
 
 </body>
 

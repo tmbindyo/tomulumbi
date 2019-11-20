@@ -439,7 +439,154 @@ img {
             }
         }
     }
+    .popover-content {
+        form {
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.075);
+            input {
+                width: 100%;
+                height: 60px;
+                border: none;
+                padding-left: 50px;
+                font-size: 14px;
+                color: #6b6b6b;
+            }
+            button {
+                position: absolute;
+                top: 0;
+                left: 0;
+                border: none;
+                width: 50px;
+                height: 60px;
+                z-index: 10;
+                cursor: pointer;
+                background-color: transparent;
+                text-align: center;
+            }
+        }
+    }
     .search-close {
+        @include trans-duration(500ms);
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: red;
+        text-align: center;
+        color: #fff;
+        line-height: 40px;
+        font-size: 12px;
+        cursor: pointer;
+        background-color: $bg-default;
+        &:hover {
+            background-color: $dark-color;
+        }
+    }
+    .popup-close {
+        @include trans-duration(500ms);
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: red;
+        text-align: center;
+        color: #fff;
+        line-height: 40px;
+        font-size: 12px;
+        cursor: pointer;
+        background-color: $bg-default;
+        &:hover {
+            background-color: $dark-color;
+        }
+    }
+}
+
+.popover-wrapper {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 260px;
+    z-index: 5000;
+    top: -350px;
+    left: 0;
+    background-color: #f5f7fa;
+    @include trans-duration(500ms);
+    .search-content {
+        form {
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.075);
+            input {
+                width: 100%;
+                height: 60px;
+                border: none;
+                padding-left: 50px;
+                font-size: 14px;
+                color: #6b6b6b;
+            }
+            button {
+                position: absolute;
+                top: 0;
+                left: 0;
+                border: none;
+                width: 50px;
+                height: 60px;
+                z-index: 10;
+                cursor: pointer;
+                background-color: transparent;
+                text-align: center;
+            }
+        }
+    }
+    .popover-content {
+        form {
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.075);
+            input {
+                width: 100%;
+                height: 60px;
+                border: none;
+                padding-left: 50px;
+                font-size: 14px;
+                color: #6b6b6b;
+            }
+            button {
+                position: absolute;
+                top: 0;
+                left: 0;
+                border: none;
+                width: 50px;
+                height: 60px;
+                z-index: 10;
+                cursor: pointer;
+                background-color: transparent;
+                text-align: center;
+            }
+        }
+    }
+    .search-close {
+        @include trans-duration(500ms);
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: red;
+        text-align: center;
+        color: #fff;
+        line-height: 40px;
+        font-size: 12px;
+        cursor: pointer;
+        background-color: $bg-default;
+        &:hover {
+            background-color: $dark-color;
+        }
+    }
+    .popup-close {
         @include trans-duration(500ms);
         width: 40px;
         height: 40px;
@@ -1069,6 +1216,15 @@ img {
 
 .search-wrapper-on {
     .search-wrapper {
+        top: 0;
+    }
+    .main-content-wrapper {
+        margin-top: 260px;
+    }
+}
+
+.popup-wrapper-on {
+    .popup-wrapper {
         top: 0;
     }
     .main-content-wrapper {

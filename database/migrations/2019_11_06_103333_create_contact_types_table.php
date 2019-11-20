@@ -14,8 +14,16 @@ class CreateContactTypesTable extends Migration
     public function up()
     {
         Schema::create('contact_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->string('name');
+            $table->longText('description');
+
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

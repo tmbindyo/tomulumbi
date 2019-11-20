@@ -7,7 +7,7 @@
                 <h4 class="modal-title">To Do Registration</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.to.do.save') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.to.do.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())
@@ -56,9 +56,9 @@
                         <div class="col-lg-4">
                             <div class="has-warning">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <input name="is_album" type="checkbox" class="js-switch_3" checked />
+                                    <input name="is_album" type="checkbox" class="js-switch_3" />
                                     <br>
-                                    <i>Check if it belongs to Album.</i>
+                                    <i>Check if it belongs to an Album.</i>
                                 </div>
                             </div>
                         </div>
@@ -74,6 +74,73 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_design" type="checkbox" class="js-switch_4" />
+                                    <br>
+                                    <i>Check if it belongs to a design.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="has-warning">
+                                <select name="design" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Design</option>
+                                    @foreach($designs as $design)
+                                        <option value="{{$design->id}}">{{$design->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What design does the to do belong to</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_journal" type="checkbox" class="js-switch_5" />
+                                    <br>
+                                    <i>Check if it belongs to a Journal.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="has-warning">
+                                <select name="journal" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Journal</option>
+                                    @foreach($journals as $journal)
+                                        <option value="{{$journal->id}}">{{$journal->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What journal does the to do belong to</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_project" type="checkbox" class="js-switch_6" />
+                                    <br>
+                                    <i>Check if it belongs to a Project.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="has-warning">
+                                <select name="project" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Project</option>
+                                    @foreach($projects as $project)
+                                        <option value="{{$project->id}}">{{$project->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What project does the to do belong to</i>
+                            </div>
+                        </div>
+                    </div>
+
                     <br>
                     <div class="ln_solid"></div>
 

@@ -7,7 +7,7 @@
                 <h4 class="modal-title">To Do Registration</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.design.to.do.save',$design->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.to.do.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())
@@ -57,13 +57,13 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <input name="is_design" type="checkbox" class="js-switch_3" checked />
                                     <br>
-                                    <i>Check if it belongs to Album.</i>
+                                    <i>Check if it belongs to Design.</i>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="has-warning">
-                                <select name="design" class="select2_demo_2 form-control input-lg" disabled="">
+                                <select name="design" class="select2_demo_2 form-control input-lg">
                                     <option value="{{$design->id}}">{{$design->name}}</option>
                                 </select>
                                 <i>What design does the to do belong to</i>

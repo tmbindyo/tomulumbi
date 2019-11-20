@@ -33,7 +33,6 @@ class CreateAlbumsTable extends Migration
             $table->uuid('orientation_id')->nullable();
             $table->uuid('content_align_id')->nullable();
             $table->uuid('image_position_id')->nullable();
-
             $table->uuid('typography_id')->nullable();
             $table->uuid('thumbnail_size_id')->nullable();
 
@@ -58,6 +57,8 @@ class CreateAlbumsTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('contact_id')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -46,10 +46,6 @@ class Design extends Model
     {
         return $this->belongsTo('App\User');
     }
-    public function client()
-    {
-        return $this->belongsTo('App\Client');
-    }
     public function typography()
     {
         return $this->belongsTo('App\Typography');
@@ -57,5 +53,9 @@ class Design extends Model
     public function cover_image()
     {
         return $this->belongsTo('App\Upload','cover_image_id', 'id');
+    }
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
     }
 }

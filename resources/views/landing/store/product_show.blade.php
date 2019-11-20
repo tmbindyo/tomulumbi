@@ -1,8 +1,9 @@
 @extends('landing.store.layouts.app')
 
-@section('title', 'Product Name')
+@section('title', $product->name)
 
 @section('content')
+
     <!-- Product Details Area Start -->
     <div class="single-product-area section-padding-100 clearfix">
         <div class="container-fluid">
@@ -12,9 +13,8 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mt-50">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Furniture</a></li>
-                            <li class="breadcrumb-item"><a href="#">Chairs</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">white modern chair</li>
+                            <li class="breadcrumb-item"><a href="#">{{$product->type->name}}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{$product->name}}</li>
                         </ol>
                     </nav>
                 </div>
@@ -25,36 +25,37 @@
                     <div class="single_product_thumb">
                         <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
-                                <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url({{ asset('themes/store/amado/') }}/img/product-img/pro-big-1.jpg);">
+                                <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url({{ asset('') }}{{ $product->cover_image->pixels500 }});">
                                 </li>
-                                <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url({{ asset('themes/store/amado/') }}/img/product-img/pro-big-2.jpg);">
+                                <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url({{ asset('') }}{{ $product->second_cover_image->pixels500 }});">
                                 </li>
-                                <li data-target="#product_details_slider" data-slide-to="2" style="background-image: url({{ asset('themes/store/amado/') }}/img/product-img/pro-big-3.jpg);">
-                                </li>
-                                <li data-target="#product_details_slider" data-slide-to="3" style="background-image: url({{ asset('themes/store/amado/') }}/img/product-img/pro-big-4.jpg);">
-                                </li>
+                                @foreach($product->product_galleries->take(2) as $image)
+                                    <li data-target="#product_details_slider" data-slide-to="{{$loop->iteration+1}}" style="background-image: url({{ asset('') }}{{ $image->upload->pixels500 }});">
+                                    </li>
+                                @endforeach
+
+
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <a class="gallery_img" href="img/product-img/pro-big-1.jpg">
-                                        <img class="d-block w-100" src="{{ asset('themes/store/amado/') }}/img/product-img/pro-big-1.jpg" alt="First slide">
+                                    <a class="gallery_img" href="{{ asset('') }}{{ $product->cover_image->pixels750 }}">
+                                        <img class="d-block w-100" src="{{ asset('') }}{{ $product->cover_image->pixels750 }}" alt="First slide">
                                     </a>
                                 </div>
                                 <div class="carousel-item">
-                                    <a class="gallery_img" href="img/product-img/pro-big-2.jpg">
-                                        <img class="d-block w-100" src="{{ asset('themes/store/amado/') }}/img/product-img/pro-big-2.jpg" alt="Second slide">
+                                    <a class="gallery_img" href="{{ asset('') }}{{ $product->second_cover_image->pixels750 }}">
+                                        <img class="d-block w-100" src="{{ asset('') }}{{ $product->second_cover_image->pixels750 }}" alt="Second slide">
                                     </a>
                                 </div>
-                                <div class="carousel-item">
-                                    <a class="gallery_img" href="img/product-img/pro-big-3.jpg">
-                                        <img class="d-block w-100" src="{{ asset('themes/store/amado/') }}/img/product-img/pro-big-3.jpg" alt="Third slide">
-                                    </a>
-                                </div>
-                                <div class="carousel-item">
-                                    <a class="gallery_img" href="img/product-img/pro-big-4.jpg">
-                                        <img class="d-block w-100" src="{{ asset('themes/store/amado/') }}/img/product-img/pro-big-4.jpg" alt="Fourth slide">
-                                    </a>
-                                </div>
+
+                                @foreach($product->product_galleries->take(2) as $image)
+                                    <div class="carousel-item">
+                                        <a class="gallery_img" href="{{ asset('') }}{{ $image->upload->pixels750 }}">
+                                            <img class="d-block w-100" src="{{ asset('') }}{{ $image->upload->pixels750 }}" alt="Third slide">
+                                        </a>
+                                    </div>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -86,11 +87,22 @@
                         </div>
 
                         <div class="short_overview my-5">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae eveniet culpa officia quidem mollitia impedit iste asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?</p>
+                            <p>{{$product->description}}</p>
                         </div>
 
                         <!-- Add to Cart Form -->
-                        <form class="cart clearfix" method="post">
+                        <form class="cart clearfix" method="post" action="{{ route('add.cart') }}">
+                            @csrf
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <select name="price_list" class="w-100" id="country">
+                                        @foreach($product->price_lists as $priceList)
+                                            <option value="{{$priceList->id}}">{{$priceList->size->size}} {{$priceList->sub_type->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="cart-btn d-flex mb-50">
                                 <p>Qty</p>
                                 <div class="quantity">
@@ -99,7 +111,9 @@
                                     <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                                 </div>
                             </div>
+
                             <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
+
                         </form>
 
                     </div>

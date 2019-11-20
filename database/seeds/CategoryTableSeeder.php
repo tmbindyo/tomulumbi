@@ -13,265 +13,127 @@ class CategoryTableSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Landscape Photography',
+                'name' => 'Logo',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Cityscape Photography',
+                'name' => 'Flyer',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Wildlife Photography',
+                'name' => 'Poster',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Aerial Photography',
+                'name' => 'Card',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Abstract Photography',
+                'name' => 'Business Card',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Sports Photography',
+                'name' => 'Brochure',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Action Photography',
+                'name' => 'CD / Album Cover',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Adventure Photography',
+                'name' => 'Recipe Card',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Portrait Photography',
+                'name' => 'Book Cover',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Architectural Photography',
+                'name' => 'Typography',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Drone Photography',
+                'name' => 'Color palette',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Editorial Photography',
+                'name' => 'Vehicle Wrap',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Wedding Photography',
+                'name' => 'Email Template',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Event Photography',
+                'name' => 'Banner',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Family Photography',
+                'name' => 'Social Media Ad',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Fashion Photography',
+                'name' => 'UX',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Beauty Photography',
+                'name' => 'Web Page Design',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Black And White Photography',
+                'name' => 'Newsletter',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Bodyscape Photography',
+                'name' => 'Catalog',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Candid Photography',
+                'name' => 'Annual Report',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Conceptual Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Commercial Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Firework Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Fine Art Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Documentary Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Food Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Long Exposure Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Micro Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Minimalist Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Mobile Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Modeling Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Night Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Photojournalism Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Newborn Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Product Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Boudoir Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Real Estate Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Still Life Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Street Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Lifestyle Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Time Lapse Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Travel Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Vehicle Photography',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Vintage Photography',
+                'name' => 'Item Branding',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ]

@@ -34,6 +34,11 @@
                 </li>
             </ol>
         </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="{{route('admin.contact.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+            </div>
+        </div>
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -63,10 +68,10 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
                                 <tr>
-                                    <th>Date/Time</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Message</th>
+                                    <th>Phone Number</th>
+                                    <th>Contact Type</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -74,16 +79,21 @@
                                 <tbody>
                                 @foreach($contacts as $contact)
                                     <tr class="gradeX">
-                                        <td>{{$contact->created_at}}</td>
                                         <td>{{$contact->name}}</td>
                                         <td>{{$contact->email}}</td>
-                                        <td>{{$contact->message}}</td>
+                                        <td>{{$contact->phone_number}}</td>
+                                        <td>{{$contact->contact_type->name}}</td>
                                         <td>
                                             <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
                                                 <a href="{{ route('admin.contact.show', $contact->id) }}" class="btn-white btn btn-xs">View</a>
+                                                @if($contact->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                    <a href="{{ route('admin.contact.restore', $contact->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                @else
+                                                    <a href="{{ route('admin.contact.delete', $contact->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -91,10 +101,10 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>Date/Time</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Message</th>
+                                    <th>Phone Number</th>
+                                    <th>Contact Type</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -110,6 +120,8 @@
 
 
 @endsection
+
+{{--@include('admin.layouts.modals.contact')--}}
 
 @section('js')
 
@@ -133,11 +145,6 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function(){
-
-
-
-
-
             $('.dataTables-example').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [

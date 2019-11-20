@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="#" data-toggle="modal" data-target="#albumTypeRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.album.type.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -81,44 +81,18 @@
                         <td>{{$albumType->name}}</td>
                         <td>{{$albumType->description}}</td>
                         <td>{{$albumType->user->name}}</td>
-                        @if($albumType->status->name === "Active")
-                            <td>
-                            <span class="label label-primary">{{$albumType->status->name}}</span>
-                            </td>
-                        @elseif($albumType->status->name === "Inactive")
-                            <td>
-                            <span class="label label-danger">{{$albumType->status->name}}</span>
-                            </td>
-                        @elseif($albumType->status->name === "Ongoing")
-                            <td>
-                            <span class="label label-danger">{{$albumType->status->name}}</span>
-                            </td>
-                        @elseif($albumType->status->name === "Preview")
-                            <td>
-                            <span class="label label-warning">{{$albumType->status->name}}</span>
-                            </td>
-                        @elseif($albumType->status->name === "Completed")
-                            <td>
-                            <span class="label label-primary">{{$albumType->status->name}}</span>
-                            </td>
-                        @elseif($albumType->status->name === "Hidden")
-                            <td>
-                            <span class="label label-danger">{{$albumType->status->name}}</span>
-                            </td>
-                        @elseif($albumType->status->name === "Published")
-                            <td>
-                            <span class="label label-warning">{{$albumType->status->name}}</span>
-                            </td>
-                        @else
-                            <td>
-                            <span class="label label-default">{{$albumType->status->name}}</span>
-                            </td>
-                        @endif
+                        <td>
+                            <span class="label {{$albumType->status->label}}">{{$albumType->status->name}}</span>
+                        </td>
 
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('admin.album.type', $albumType->id) }}" class="btn-white btn btn-xs">View</a>
-                                <a href="{{ route('admin.album.type.delete', $albumType->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                <a href="{{ route('admin.album.type.show', $albumType->id) }}" class="btn-white btn btn-xs">View</a>
+                                @if($albumType->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                    <a href="{{ route('admin.album.type.show.restore', $albumType->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                @else
+                                    <a href="{{ route('admin.album.type.show.delete', $albumType->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -145,7 +119,7 @@
 
 @endsection
 
-@include('admin.layouts.modals.album_type')
+{{--@include('admin.layouts.modals.album_type')--}}
 
 @section('js')
 

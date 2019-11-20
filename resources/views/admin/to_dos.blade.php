@@ -75,6 +75,21 @@
                         @if($pendingToDo->is_album === 1)
                             <p><span class="badge badge-primary">{{$pendingToDo->album->name}}</span></p>
                         @endif
+                        @if($pendingToDo->is_design === 1)
+                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_journal === 1)
+                            <p><span class="badge badge-primary">{{$pendingToDo->journal->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_project === 1)
+                            <p><span class="badge badge-primary">{{$pendingToDo->project->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_product === 1)
+                            <p><span class="badge badge-primary">{{$pendingToDo->product->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_email === 1)
+                            <p><span class="badge badge-primary">Email:{{$pendingToDo->email->name}}</span></p>
+                        @endif
                         <a href="{{route('admin.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                     </div>
                 </li>
@@ -90,6 +105,21 @@
                         @if($inProgressToDo->is_album === 1)
                             <p><span class="badge badge-primary">{{$inProgressToDo->album->name}}</span></p>
                         @endif
+                        @if($inProgressToDo->is_design === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_journal === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->journal->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_project === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->project->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_product === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->product->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_email === 1)
+                            <p><span class="badge badge-primary">Email:{{$inProgressToDo->email->name}}</span></p>
+                        @endif
                         <a href="{{route('admin.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
                     </div>
                 </li>
@@ -104,6 +134,21 @@
                         <p>{{$overdueToDo->notes}}.</p>
                         @if($overdueToDo->is_album === 1)
                             <p><span class="badge badge-primary">{{$overdueToDo->album->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_design === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_journal === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->journal->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_project === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->project->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_product === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->product->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_email === 1)
+                            <p><span class="badge badge-primary">Email:{{$inProgressToDo->email->subject}}</span></p>
                         @endif
                         @if($overdueToDo->status->name === "Pending")
                             <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
@@ -123,6 +168,21 @@
                         <p>{{$completedToDo->notes}}.</p>
                         @if($completedToDo->is_album === 1)
                             <p><span class="badge badge-primary">{{$completedToDo->album->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_design === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_journal === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->journal->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_project === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->project->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_product === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->product->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_email === 1)
+                            <p><span class="badge badge-primary">{{$inProgressToDo->email->name}}</span></p>
                         @endif
                         <a href="{{route('admin.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
                     </div>
@@ -327,6 +387,15 @@
 
             var elem_3 = document.querySelector('.js-switch_3');
             var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+            var elem_4 = document.querySelector('.js-switch_4');
+            var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
+
+            var elem_5 = document.querySelector('.js-switch_5');
+            var switchery_5 = new Switchery(elem_5, { color: '#1AB394' });
+
+            var elem_6 = document.querySelector('.js-switch_6');
+            var switchery_6 = new Switchery(elem_6, { color: '#1AB394' });
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',

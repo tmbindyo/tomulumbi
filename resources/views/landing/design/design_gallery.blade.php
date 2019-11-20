@@ -12,14 +12,14 @@
     <title>tomulumbi | {{$design->name}}</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="{{ asset('design/studio') }}/img/core-img/favicon.ico">
+    <link rel="icon" href="{{ asset('themes/design/studio') }}/img/core-img/favicon.ico">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="{{ asset('design/studio') }}/css/core-style.css">
-    <link rel="stylesheet" href="{{ asset('design/studio') }}/style.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/studio') }}/css/core-style.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/studio') }}/style.css">
 
     <!-- Responsive CSS -->
-    <link href="{{ asset('design/studio') }}/css/responsive.css" rel="stylesheet">
+    <link href="{{ asset('themes/design/studio') }}/css/responsive.css" rel="stylesheet">
 
 </head>
 
@@ -49,7 +49,7 @@
                 <div class="main-menu h-100">
                     <nav class="navbar h-100 navbar-expand-lg">
                         <!-- Logo Area  -->
-                        <a class="navbar-brand" href="{{route('welcome')}}"><img src="{{ asset('design/studio') }}/img/core-img/logo.png" alt="Logo"></a>
+                        <a class="navbar-brand" href="{{route('designs')}}"><img src="{{ asset('themes/design/studio') }}/img/core-img/logo.png" alt="Logo"></a>
 
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studioMenu" aria-controls="studioMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
 
@@ -101,15 +101,15 @@
 
 
 <!-- jQuery (Necessary for All JavaScript Plugins) -->
-<script src="{{ asset('design/studio') }}/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="{{ asset('themes/design/studio') }}/js/jquery/jquery-2.2.4.min.js"></script>
 <!-- Popper js -->
-<script src="{{ asset('design/studio') }}/js/popper.min.js"></script>
+<script src="{{ asset('themes/design/studio') }}/js/popper.min.js"></script>
 <!-- Bootstrap js -->
-<script src="{{ asset('design/studio') }}/js/bootstrap.min.js"></script>
+<script src="{{ asset('themes/design/studio') }}/js/bootstrap.min.js"></script>
 <!-- Plugins js -->
-<script src="{{ asset('design/studio') }}/js/plugins.js"></script>
+<script src="{{ asset('themes/design/studio') }}/js/plugins.js"></script>
 <!-- Active js -->
-<script src="{{ asset('design/studio') }}/js/active.js"></script>
+<script src="{{ asset('themes/design/studio') }}/js/active.js"></script>
 
 </body>
 

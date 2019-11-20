@@ -24,58 +24,6 @@
             </div>
         </div>
 
-        <!-- ##### Single Widget ##### -->
-        <div class="widget brands mb-50">
-            <!-- Widget Title -->
-            <h6 class="widget-title mb-30">Brands</h6>
-
-            <div class="widget-desc">
-                <!-- Single Form Check -->
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="amado">
-                    <label class="form-check-label" for="amado">Amado</label>
-                </div>
-                <!-- Single Form Check -->
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="ikea">
-                    <label class="form-check-label" for="ikea">Ikea</label>
-                </div>
-                <!-- Single Form Check -->
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="furniture">
-                    <label class="form-check-label" for="furniture">Furniture Inc</label>
-                </div>
-                <!-- Single Form Check -->
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="factory">
-                    <label class="form-check-label" for="factory">The factory</label>
-                </div>
-                <!-- Single Form Check -->
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="artdeco">
-                    <label class="form-check-label" for="artdeco">Artdeco</label>
-                </div>
-            </div>
-        </div>
-
-        <!-- ##### Single Widget ##### -->
-        <div class="widget color mb-50">
-            <!-- Widget Title -->
-            <h6 class="widget-title mb-30">Color</h6>
-
-            <div class="widget-desc">
-                <ul class="d-flex">
-                    <li><a href="#" class="color1"></a></li>
-                    <li><a href="#" class="color2"></a></li>
-                    <li><a href="#" class="color3"></a></li>
-                    <li><a href="#" class="color4"></a></li>
-                    <li><a href="#" class="color5"></a></li>
-                    <li><a href="#" class="color6"></a></li>
-                    <li><a href="#" class="color7"></a></li>
-                    <li><a href="#" class="color8"></a></li>
-                </ul>
-            </div>
-        </div>
 
         <!-- ##### Single Widget ##### -->
         <div class="widget price mb-50">
@@ -140,226 +88,44 @@
             <div class="row">
 
                 <!-- Single Product Area -->
-                <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                    <div class="single-product-wrapper">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="{{ asset('themes/store/amado/') }}/img/product-img/product1.jpg" alt="">
-                            <!-- Hover Thumb -->
-                            <img class="hover-img" src="{{ asset('themes/store/amado/') }}/img/product-img/product2.jpg" alt="">
-                        </div>
-
-                        <!-- Product Description -->
-                        <div class="product-description d-flex align-items-center justify-content-between">
-                            <!-- Product Meta Data -->
-                            <div class="product-meta-data">
-                                <div class="line"></div>
-                                <p class="product-price">$180</p>
-                                <a href="{{route('store.product.show',1)}}">
-                                    <h6>Modern Chair</h6>
-                                </a>
+                @foreach($products as $product)
+                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+                        <div class="single-product-wrapper">
+                            <!-- Product Image -->
+                            <div class="product-img">
+                                <img src="{{ asset('') }}{{ $product->cover_image->pixels1000 }}" alt="">
+                                <!-- Hover Thumb -->
+                                <img class="hover-img" src="{{ asset('') }}{{ $product->second_cover_image->pixels1000 }}" alt="">
                             </div>
-                            <!-- Ratings & Cart -->
-                            <div class="ratings-cart text-right">
-                                <div class="ratings">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
+
+                            <!-- Product Description -->
+                            <div class="product-description d-flex align-items-center justify-content-between">
+                                <!-- Product Meta Data -->
+                                <div class="product-meta-data">
+                                    <div class="line"></div>
+                                    <p class="product-price">$180</p>
+                                    <a href="{{route('store.product.show',$product->id)}}">
+                                        <h6>{{ $product->name }}</h6>
+                                    </a>
                                 </div>
-                                <div class="cart">
-                                    <a href="{{route('store.cart')}}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('themes/store/amado/') }}/img/core-img/cart.png" alt=""></a>
+                                <!-- Ratings & Cart -->
+                                <div class="ratings-cart text-right">
+                                    <div class="ratings">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="cart">
+                                        <a href="{{route('store.cart')}}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('themes/store/amado/') }}/img/core-img/cart.png" alt=""></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
 
-                <!-- Single Product Area -->
-                <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                    <div class="single-product-wrapper">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="{{ asset('themes/store/amado/') }}/img/product-img/product2.jpg" alt="">
-                            <!-- Hover Thumb -->
-                            <img class="hover-img" src="{{ asset('themes/store/amado/') }}/img/product-img/product3.jpg" alt="">
-                        </div>
-
-                        <!-- Product Description -->
-                        <div class="product-description d-flex align-items-center justify-content-between">
-                            <!-- Product Meta Data -->
-                            <div class="product-meta-data">
-                                <div class="line"></div>
-                                <p class="product-price">$180</p>
-                                <a href="{{route('store.product.show',1)}}">
-                                    <h6>Modern Chair</h6>
-                                </a>
-                            </div>
-                            <!-- Ratings & Cart -->
-                            <div class="ratings-cart text-right">
-                                <div class="ratings">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="cart">
-                                    <a href="{{route('store.cart')}}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('themes/store/amado/') }}/img/core-img/cart.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Product Area -->
-                <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                    <div class="single-product-wrapper">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="{{ asset('themes/store/amado/') }}/img/product-img/product3.jpg" alt="">
-                            <!-- Hover Thumb -->
-                            <img class="hover-img" src="{{ asset('themes/store/amado/') }}/img/product-img/product4.jpg" alt="">
-                        </div>
-
-                        <!-- Product Description -->
-                        <div class="product-description d-flex align-items-center justify-content-between">
-                            <!-- Product Meta Data -->
-                            <div class="product-meta-data">
-                                <div class="line"></div>
-                                <p class="product-price">$180</p>
-                                <a href="{{route('store.product.show',1)}}">
-                                    <h6>Modern Chair</h6>
-                                </a>
-                            </div>
-                            <!-- Ratings & Cart -->
-                            <div class="ratings-cart text-right">
-                                <div class="ratings">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="cart">
-                                    <a href="{{route('store.cart')}}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('themes/store/amado/') }}/img/core-img/cart.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Product Area -->
-                <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                    <div class="single-product-wrapper">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="{{ asset('themes/store/amado/') }}/img/product-img/product4.jpg" alt="">
-                            <!-- Hover Thumb -->
-                            <img class="hover-img" src="{{ asset('themes/store/amado/') }}/img/product-img/product5.jpg" alt="">
-                        </div>
-
-                        <!-- Product Description -->
-                        <div class="product-description d-flex align-items-center justify-content-between">
-                            <!-- Product Meta Data -->
-                            <div class="product-meta-data">
-                                <div class="line"></div>
-                                <p class="product-price">$180</p>
-                                <a href="{{route('store.product.show',1)}}">
-                                    <h6>Modern Chair</h6>
-                                </a>
-                            </div>
-                            <!-- Ratings & Cart -->
-                            <div class="ratings-cart text-right">
-                                <div class="ratings">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="cart">
-                                    <a href="{{route('store.cart')}}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('themes/store/amado/') }}/img/core-img/cart.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Product Area -->
-                <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                    <div class="single-product-wrapper">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="{{ asset('themes/store/amado/') }}/img/product-img/product5.jpg" alt="">
-                            <!-- Hover Thumb -->
-                            <img class="hover-img" src="{{ asset('themes/store/amado/') }}/img/product-img/product6.jpg" alt="">
-                        </div>
-
-                        <!-- Product Description -->
-                        <div class="product-description d-flex align-items-center justify-content-between">
-                            <!-- Product Meta Data -->
-                            <div class="product-meta-data">
-                                <div class="line"></div>
-                                <p class="product-price">$180</p>
-                                <a href="{{route('store.product.show',1)}}">
-                                    <h6>Modern Chair</h6>
-                                </a>
-                            </div>
-                            <!-- Ratings & Cart -->
-                            <div class="ratings-cart text-right">
-                                <div class="ratings">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="cart">
-                                    <a href="{{route('store.cart')}}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('themes/store/amado/') }}/img/core-img/cart.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Product Area -->
-                <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                    <div class="single-product-wrapper">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="{{ asset('themes/store/amado/') }}/img/product-img/product6.jpg" alt="">
-                            <!-- Hover Thumb -->
-                            <img class="hover-img" src="{{ asset('themes/store/amado/') }}/img/product-img/product1.jpg" alt="">
-                        </div>
-
-                        <!-- Product Description -->
-                        <div class="product-description d-flex align-items-center justify-content-between">
-                            <!-- Product Meta Data -->
-                            <div class="product-meta-data">
-                                <div class="line"></div>
-                                <p class="product-price">$180</p>
-                                <a href="{{route('store.product.show',1)}}">
-                                    <h6>Modern Chair</h6>
-                                </a>
-                            </div>
-                            <!-- Ratings & Cart -->
-                            <div class="ratings-cart text-right">
-                                <div class="ratings">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </div>
-                                <div class="cart">
-                                    <a href="{{route('store.cart')}}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('themes/store/amado/') }}/img/core-img/cart.png" alt=""></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="row">

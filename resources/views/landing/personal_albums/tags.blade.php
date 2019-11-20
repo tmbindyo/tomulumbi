@@ -6,25 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300i,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/magnific-popup.css">
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/jquery-ui.css">
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/magnific-popup.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/owl.theme.default.min.css">
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/lightgallery.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/lightgallery.min.css">
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/bootstrap-datepicker.css">
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/fonts/flaticon/font/flaticon.css">
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/swiper.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/swiper.css">
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/aos.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/aos.css">
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/photon') }}/css/style.css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/css/style.css">
 
 </head>
 <body>
@@ -102,7 +102,7 @@
                                 <h2 class="mb-3">{{$tag->name}}</h2>
                                 <a href="{{route('tag.show',$tag->id)}}" class="btn btn-outline-white py-2 px-4">View</a>
                             </div>
-                            <img alt="image" class="img-responsive" @if($tag->cover_image) src="{{ asset('') }}{{ $tag->cover_image->large_thumbnail }}" @else src="{{ asset('personal_albums/photon') }}/images/img_1.jpg" @endif>
+                            <img alt="image" class="img-responsive" @if($tag->cover_image) src="{{ asset('') }}{{ $tag->cover_image->large_thumbnail }}" @else src="{{ asset('themes/personal_albums/photon') }}/images/img_1.jpg" @endif>
 {{--                                <img  alt="Image">--}}
                         </div>
                     </div>
@@ -129,24 +129,24 @@
 
 </div>
 
-<script src="{{ asset('personal_albums/photon') }}/js/jquery-3.3.1.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/jquery-migrate-3.0.1.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/jquery-ui.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/popper.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/bootstrap.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/owl.carousel.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/jquery.stellar.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/jquery.countdown.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/jquery.magnific-popup.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/bootstrap-datepicker.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/swiper.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/aos.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/jquery-3.3.1.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/jquery-ui.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/popper.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/bootstrap.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/owl.carousel.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/jquery.stellar.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/jquery.countdown.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/jquery.magnific-popup.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/swiper.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/aos.js"></script>
 
-<script src="{{ asset('personal_albums/photon') }}/js/picturefill.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/lightgallery-all.min.js"></script>
-<script src="{{ asset('personal_albums/photon') }}/js/jquery.mousewheel.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/picturefill.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/lightgallery-all.min.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/jquery.mousewheel.min.js"></script>
 
-<script src="{{ asset('personal_albums/photon') }}/js/main.js"></script>
+<script src="{{ asset('themes/personal_albums/photon') }}/js/main.js"></script>
 
 <script>
     $(document).ready(function(){

@@ -51,51 +51,33 @@
 <!-- END: header -->
 
 <div class="probootstrap-main">
+    @foreach($projects as $project)
+        @if($loop->iteration % 2 == 0)
+            <section class="probootstrap-section-half">
+                <div class="probootstrap-image probootstrap-animate" data-animate-effect="fadeIn" style="background-image: url({{ asset('') }}{{ $project->cover_image->pixels1000 }})"></div>
+                <div class="probootstrap-text">
+                    <div class="probootstrap-inner probootstrap-animate">
+                        <h1 class="heading">{{$project->name}}</h1>
+                        <p>{{$project->description}}</p>
+                        <p><a href="{{route('project.show',$project->id)}}" class="btn btn-primary">View</a></p>
+                    </div>
+                </div>
+            </section>
+        @else
+            <section class="probootstrap-section-half probootstrap-reverse">
+                <div class="probootstrap-image probootstrap-animate"  data-animate-effect="fadeIn" style="background-image: url({{ asset('') }}{{ $project->cover_image->pixels1000 }})"></div>
+                <div class="probootstrap-text">
+                    <div class="probootstrap-inner probootstrap-animate">
+                        <h1 class="heading">{{$project->name}}</h1>
+                        <p>{{$project->description}}</p>
+                        <p><a href="{{route('project.show',$project->id)}}" class="btn btn-primary">View</a></p>
+                    </div>
+                </div>
+            </section>
+            @endif
+        @endforeach
 
-    <section class="probootstrap-section-half">
-        <div class="probootstrap-image probootstrap-animate" data-animate-effect="fadeIn" style="background-image: url({{ asset('themes/project/connect/') }}/img/image_1.jpg)"></div>
-        <div class="probootstrap-text">
-            <div class="probootstrap-inner probootstrap-animate">
-                <h1 class="heading">Pouring Milk In Hand</h1>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                <p><a href="{{route('project.show',1)}}" class="btn btn-primary">View Case Study</a></p>
-            </div>
-        </div>
-    </section>
-    <!-- END section -->
-    <section class="probootstrap-section-half probootstrap-reverse">
-        <div class="probootstrap-image probootstrap-animate"  data-animate-effect="fadeIn" style="background-image: url({{ asset('themes/project/connect/') }}/img/image_2.jpg)"></div>
-        <div class="probootstrap-text">
-            <div class="probootstrap-inner probootstrap-animate">
-                <h1 class="heading">Ice Cream Sweetness</h1>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                <p><a href="{{route('project.show',1)}}" class="btn btn-primary">View Case Study</a></p>
-            </div>
-        </div>
-    </section>
-    <!-- END section -->
-    <section class="probootstrap-section-half">
-        <div class="probootstrap-image probootstrap-animate" data-animate-effect="fadeIn" style="background-image: url({{ asset('themes/project/connect/') }}/img/image_3.jpg)"></div>
-        <div class="probootstrap-text">
-            <div class="probootstrap-inner probootstrap-animate">
-                <h1 class="heading">Baloon on the Chair</h1>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                <p><a href="{{route('project.show',1)}}" class="btn btn-primary">View Case Study</a></p>
-            </div>
-        </div>
-    </section>
-    <!-- END section -->
-    <section class="probootstrap-section-half probootstrap-reverse">
-        <div class="probootstrap-image probootstrap-animate" data-animate-effect="fadeIn" style="background-image: url({{ asset('themes/project/connect/') }}/img/image_4.jpg)"></div>
-        <div class="probootstrap-text">
-            <div class="probootstrap-inner probootstrap-animate">
-                <h1 class="heading">Pink Lips in the Hole</h1>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                <p><a href="{{route('project.show',1)}}" class="btn btn-primary">View Case Study</a></p>
-            </div>
-        </div>
-    </section>
-    <!-- END section -->
+
 </div>
 <footer class="probootstrap-footer">
     <div class="container">

@@ -20,11 +20,13 @@ class CreateProjectsTable extends Migration
             $table->date('date');
             $table->integer('views');
             $table->text('description')->nullable();
+            $table->longText('body')->nullable();
 
+            $table->uuid('project_type_id');
             $table->uuid('thumbnail_size_id')->nullable();
             $table->uuid('cover_image_id')->nullable();
             $table->uuid('typography_id')->nullable();
-            $table->text('client_id')->nullable();
+            $table->text('contact_id')->nullable();
             // todo yet to figure out
 //            $table->text('partner_id')->nullable();
             $table->integer('user_id')->unsigned();

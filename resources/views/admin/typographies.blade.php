@@ -40,7 +40,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="#" data-toggle="modal" data-target="#typographyRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.typography.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -83,44 +83,18 @@
                     <tr class="gradeX">
                         <td>{{$typography->name}}</td>
                         <td>{{$typography->user->name}}</td>
-                        @if($typography->status->name === "Active")
-                            <td>
-                            <span class="label label-primary">{{$typography->status->name}}</span>
-                            </td>
-                        @elseif($typography->status->name === "Inactive")
-                            <td>
-                            <span class="label label-danger">{{$typography->status->name}}</span>
-                            </td>
-                        @elseif($typography->status->name === "Ongoing")
-                            <td>
-                            <span class="label label-danger">{{$typography->status->name}}</span>
-                            </td>
-                        @elseif($typography->status->name === "Preview")
-                            <td>
-                            <span class="label label-warning">{{$typography->status->name}}</span>
-                            </td>
-                        @elseif($typography->status->name === "Completed")
-                            <td>
-                            <span class="label label-primary">{{$typography->status->name}}</span>
-                            </td>
-                        @elseif($typography->status->name === "Hidden")
-                            <td>
-                            <span class="label label-danger">{{$typography->status->name}}</span>
-                            </td>
-                        @elseif($typography->status->name === "Published")
-                            <td>
-                            <span class="label label-warning">{{$typography->status->name}}</span>
-                            </td>
-                        @else
-                            <td>
-                            <span class="label label-default">{{$typography->status->name}}</span>
-                            </td>
-                        @endif
+                        <td>
+                            <span class="label {{$typography->status->label}}">{{$typography->status->name}}</span>
+                        </td>
 
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('admin.typography', $typography->id) }}" class="btn-white btn btn-xs">View</a>
-                                <a href="{{ route('admin.typography.delete', $typography->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                <a href="{{ route('admin.typography.show', $typography->id) }}" class="btn-white btn btn-xs">View</a>
+                                @if($typography->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                    <a href="{{ route('admin.typography.restore', $typography->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                @else
+                                    <a href="{{ route('admin.typography.delete', $typography->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -146,7 +120,7 @@
 
 @endsection
 
-@include('admin.layouts.modals.typography')
+{{--@include('admin.layouts.modals.typography')--}}
 
 @section('js')
 

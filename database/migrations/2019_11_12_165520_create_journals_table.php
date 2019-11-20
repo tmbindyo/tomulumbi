@@ -19,12 +19,13 @@ class CreateJournalsTable extends Migration
             $table->string('name');
             $table->date('date');
             $table->integer('views');
-            $table->integer('color');
+            $table->string('color');
             $table->text('description')->nullable();
+            $table->longText('body')->nullable();
 
             $table->uuid('cover_image_id')->nullable();
+            $table->uuid('thumbnail_size_id')->nullable();
             $table->uuid('typography_id')->nullable();
-            $table->text('client_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

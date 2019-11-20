@@ -28,8 +28,8 @@ class DesignController extends Controller
                 // Select
                 $firstColumn = DB::table('designs')
                     ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                    ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                    ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
+                    ->leftJoin('contacts', 'designs.contact_id', '=', 'contacts.id')
+                    ->select('designs.*','designs.name as design_name', 'contacts.name as contact_name','uploads.*', 'contacts.*')
                     ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
                     ->orderBy('designs.created_at', 'desc')
                     ->limit($firstColumnCount)
@@ -38,8 +38,8 @@ class DesignController extends Controller
 //                return $firstColumn;
                 $secondColumn = DB::table('designs')
                     ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                    ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                    ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
+                    ->leftJoin('contacts', 'designs.contact_id', '=', 'contacts.id')
+                    ->select('designs.*','designs.name as design_name', 'contacts.name as contact_name','uploads.*', 'contacts.*')
                     ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
                     ->orderBy('designs.created_at', 'asc')
                     ->limit($secondColumnCount)
@@ -55,8 +55,8 @@ class DesignController extends Controller
                 // Select
                 $firstColumn = DB::table('designs')
                     ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                    ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                    ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
+                    ->leftJoin('contacts', 'designs.contact_id', '=', 'contacts.id')
+                    ->select('designs.*','designs.name as design_name', 'contacts.name as contact_name','uploads.*', 'contacts.*')
                     ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
                     ->orderBy('designs.created_at', 'desc')
                     ->limit($firstColumnCount)
@@ -65,8 +65,8 @@ class DesignController extends Controller
 //                return $firstColumn;
                 $secondColumn = DB::table('designs')
                     ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                    ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                    ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
+                    ->leftJoin('contacts', 'designs.contact_id', '=', 'contacts.id')
+                    ->select('designs.*','designs.name as design_name', 'contacts.name as contact_name','uploads.*', 'contacts.*')
                     ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
                     ->orderBy('designs.created_at', 'asc')
                     ->limit($secondColumnCount)
@@ -76,8 +76,8 @@ class DesignController extends Controller
         } else{
             $firstColumn = DB::table('designs')
                 ->leftJoin('uploads', 'designs.cover_image_id', '=', 'uploads.id')
-                ->leftJoin('clients', 'designs.client_id', '=', 'clients.id')
-                ->select('designs.*','designs.name as design_name', 'clients.name as client_name','uploads.*', 'clients.*')
+                ->leftJoin('contacts', 'designs.contact_id', '=', 'contacts.id')
+                ->select('designs.*','designs.name as design_name', 'contacts.name as contact_name','uploads.*', 'contacts.*')
                 ->where('designs.status_id', 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
                 ->orderBy('designs.created_at', 'desc')
                 ->get();
@@ -91,7 +91,7 @@ class DesignController extends Controller
     {
         // Get designs
         $design = Design::findOrFail($design_id);
-        $design = Design::where('id',$design_id)->with('design_works.upload','client')->first();
+        $design = Design::where('id',$design_id)->with('design_works.upload','contact')->first();
 
 //        return $design;
 
@@ -108,7 +108,7 @@ class DesignController extends Controller
     public function designGallery($design_id)
     {
         $design = Design::findOrFail($design_id);
-        $design = Design::where('id',$design_id)->with('client')->first();
+        $design = Design::where('id',$design_id)->with('contact')->first();
 
         $designGallery = DesignGallery::where('design_id',$design_id)->with('upload','design_work')->get();
 //        return $designGallery;

@@ -25,13 +25,17 @@ class Project extends Model
     {
         return $this->belongsTo('App\ThumbnailSize');
     }
+    public function project_type()
+    {
+        return $this->belongsTo('App\ProjectType');
+    }
     public function typography()
     {
         return $this->belongsTo('App\Typography');
     }
-    public function client()
+    public function contact()
     {
-        return $this->belongsTo('App\Client');
+        return $this->belongsTo('App\Contact');
     }
 
     // Children
@@ -41,10 +45,14 @@ class Project extends Model
     }
     public function project_galleries()
     {
-        return $this->belongsTo('App\ProjectGallery');
+        return $this->hasMany('App\ProjectGallery');
     }
     public function project_views()
     {
-        return $this->belongsTo('App\ProjectView');
+        return $this->hasMany('App\ProjectView');
+    }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
     }
 }

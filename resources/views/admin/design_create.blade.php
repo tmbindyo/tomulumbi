@@ -117,9 +117,9 @@
                                     <br>
                                     {{--  Album client  --}}
                                     <div class="has-warning">
-                                        <select name="client" class="select2_demo_client form-control input-lg">
-                                            @foreach($clients as $client)
-                                                <option value="{{$client->id}}">{{$client->name}}</option>
+                                        <select name="contact" class="select2_demo_client form-control input-lg">
+                                            @foreach($contacts as $contact)
+                                                <option value="{{$contact->id}}">{{$contact->name}}</option>
                                             @endforeach
                                         </select>
                                         <i>Select Client.</i>

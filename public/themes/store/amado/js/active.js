@@ -23,6 +23,8 @@
     // :: 2.1 Search Active Code
     var amadoSearch = $('.search-nav');
     var searchClose = $('.search-close');
+    var amadoPopup = $('.popup-nav');
+    var popupClose = $('.popup-close');
 
     amadoSearch.on('click', function () {
         $('body').toggleClass('search-wrapper-on');
@@ -30,6 +32,14 @@
 
     searchClose.on('click', function () {
         $('body').removeClass('search-wrapper-on');
+    });
+
+    amadoPopup.on('click', function () {
+        $('body').toggleClass('popup-wrapper-on');
+    });
+
+    popupClose.on('click', function () {
+        $('body').removeClass('popup-wrapper-on');
     });
 
     // :: 2.2 Mobile Nav Active Code

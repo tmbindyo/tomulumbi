@@ -14,70 +14,70 @@ class TagTableSeeder extends Seeder
         $data = [
 
             [
-                'name' => 'Automobile',
+                'name' => 'automobile',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Landscape',
+                'name' => 'landscape',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Wildlife',
+                'name' => 'wildlife',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Portrait',
+                'name' => 'portrait',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Architectural',
+                'name' => 'architectural',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Wedding',
+                'name' => 'wedding',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Event',
+                'name' => 'event',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Family',
+                'name' => 'family',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Fashion',
+                'name' => 'fashion',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Black And White Photography',
+                'name' => 'black and white photography',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
@@ -85,206 +85,206 @@ class TagTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Candid',
+                'name' => 'candid',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Conceptual',
+                'name' => 'conceptual',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Fine Art Photography',
+                'name' => 'fine art photography',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Food',
+                'name' => 'food',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Micro',
+                'name' => 'micro',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Minimalist',
+                'name' => 'minimalist',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Mobile',
+                'name' => 'mobile',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Night',
+                'name' => 'night',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Product',
+                'name' => 'product',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Boudoir Photography',
+                'name' => 'boudoir photography',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Still Life Photography',
+                'name' => 'still life photography',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Street Photography',
+                'name' => 'street photography',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Time Lapse Photography',
+                'name' => 'time lapse photography',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Travel Photography',
+                'name' => 'travel photography',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
             ],
 
 //            [
-//                'name' => 'Cityscape Photography',
+//                'name' => 'cityscape photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 //
 //            [
-//                'name' => 'Aerial',
+//                'name' => 'aerial',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Abstract',
+//                'name' => 'abstract',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Sports',
+//                'name' => 'sports',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Action Photography',
+//                'name' => 'action photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Adventure Photography',
+//                'name' => 'adventure photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 //            [
-//                'name' => 'Drone Photography',
+//                'name' => 'drone photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Editorial Photography',
+//                'name' => 'editorial photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 //
 //            [
-//                'name' => 'Beauty Photography',
+//                'name' => 'beauty photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Bodyscape Photography',
+//                'name' => 'bodyscape photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Commercial Photography',
+//                'name' => 'commercial photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Firework Photography',
+//                'name' => 'firework photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Documentary Photography',
+//                'name' => 'documentary photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Long Exposure',
+//                'name' => 'long exposure',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Lifestyle Photography',
+//                'name' => 'lifestyle photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Real Estate Photography',
+//                'name' => 'real estate photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],
 
 //            [
-//                'name' => 'Vintage Photography',
+//                'name' => 'vintage photography',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ]
 
 //            [
-//                'name' => 'Newborn',
+//                'name' => 'newborn',
 //                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
 //                'user_id' => 1,
 //            ],

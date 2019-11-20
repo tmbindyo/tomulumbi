@@ -14,7 +14,7 @@ class Category extends Model
     // Children
     public function design_categories()
     {
-        return $this->hasMany('App\AlbumCategory');
+        return $this->hasMany('App\DesignCategory');
     }
 
     // Parents

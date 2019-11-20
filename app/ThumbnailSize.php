@@ -16,6 +16,10 @@ class ThumbnailSize extends Model
     {
         return $this->hasMany('App\Album');
     }
+    public function journals()
+    {
+        return $this->hasMany('App\Journal');
+    }
     public function tags()
     {
         return $this->hasMany('App\Tag');

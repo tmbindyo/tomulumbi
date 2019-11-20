@@ -25,6 +25,10 @@ class Journal extends Model
     {
         return $this->belongsTo('App\Typography');
     }
+    public function thumbnail_size()
+    {
+        return $this->belongsTo('App\ThumbnailSize');
+    }
 
     // Children
     public function cover_image()
@@ -33,10 +37,18 @@ class Journal extends Model
     }
     public function journal_galleries()
     {
-        return $this->belongsTo('App\JournalGallery');
+        return $this->hasMany('App\JournalGallery');
     }
     public function Journal_views()
     {
-        return $this->belongsTo('App\JournalView');
+        return $this->hasMany('App\JournalView');
+    }
+    public function journal_labels()
+    {
+        return $this->hasMany('App\JournalLabel');
+    }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
     }
 }

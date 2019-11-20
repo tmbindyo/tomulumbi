@@ -350,7 +350,7 @@
                                             <div class="form-group">
                                                 <label>Password</label>
                                                 <div class="input-group m-b">
-                                                    <input name="album_password" id="album_password" type="text" value="{{$album->password}}" class="form-control input-lg" required>
+                                                    <input name="album_password" id="album_password" type="text" value="{{$album->password}}" class="form-control input-lg">
                                                     <div class="input-group-btn">
                                                         <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateAlbumPassword" data-fid="{{$album->id}}" type="button">Generate Password</button>
                                                     </div>
@@ -377,7 +377,7 @@
                                             <div class="form-group">
                                                 <label>Client Exclusive Access Password</label>
                                                 <div class="input-group m-b">
-                                                    <input name="client_exclusive_access_password" id="client_exclusive_access_password" type="text" value="{{$album->client_access_password}}" class="form-control input-lg" required>
+                                                    <input name="client_exclusive_access_password" id="client_exclusive_access_password" type="text" value="{{$album->client_access_password}}" class="form-control input-lg">
                                                     <div class="input-group-btn">
                                                         <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateClientExclusiveAccessPassword" data-fid="{{$album->id}}" type="button">Generate Client Exclusive Access Password</button>
                                                     </div>
@@ -632,7 +632,7 @@
 @endsection
 
 @include('admin.layouts.modals.client_proof_set')
-@include('admin.layouts.modals.client_proof_to_do')
+@include('admin.layouts.modals.album_to_do')
 @include('admin.layouts.modals.client_proof_cover_image')
 
 @section('js')
@@ -978,6 +978,9 @@
 
             var elem_5 = document.querySelector('.js-switch_5');
             var switchery_5 = new Switchery(elem_5, { color: '#1AB394' });
+
+            var elem_10 = document.querySelector('.js-switch_10');
+            var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',

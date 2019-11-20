@@ -27,25 +27,25 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
 
     <!-- Animate.css -->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/animate.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/animate.css">
     <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/icomoon.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/icomoon.css">
     <!-- Bootstrap  -->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/bootstrap.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/bootstrap.css">
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/owl.theme.default.min.css">
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/magnific-popup.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/style.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/style.css">
 
 
     <!-- Modernizr JS -->
-    <script src="{{ asset('design/bato') }}/js/modernizr-2.6.2.min.js"></script>
+    <script src="{{ asset('themes/design/bato') }}/js/modernizr-2.6.2.min.js"></script>
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
-    <script src="{{ asset('design/bato') }}/js/respond.min.js"></script>
+    <script src="{{ asset('themes/design/bato') }}/js/respond.min.js"></script>
     <![endif]-->
 
 </head>
@@ -99,160 +99,31 @@
     <div id="colorlib-blog">
         <div class="container">
             <div class="row text-center">
-                <h2 class="bold">Journal</h2>
+                <h2 class="bold">Journals</h2>
             </div>
             <div class="row row-pb-md">
-                <div class="col-md-4">
-                    <div class="article animate-box">
-                        <a href="{{route('journal.show',1)}}" class="blog-img">
-                            <img class="img-responsive" src="{{ asset('design/bato') }}/images/img-1.jpg" alt="html5 bootstrap by colorlib.com">
-                            <div class="overlay"></div>
-                            <div class="link">
-									<span class="read"><h2>Read more</h2></span>
+                @foreach($journals as $journal)
+                    <div class="col-md-4">
+                        <div class="article animate-box">
+                            <a href="{{route('journal.show',$journal->id)}}" class="blog-img">
+                                <img class="img-responsive" src="{{ asset('') }}{{$journal->cover_image->pixels750}}" alt="html5 bootstrap by colorlib.com">
+                                <div class="overlay"></div>
+                                <div class="link">
+                                        <span class="read"><h2>Read more</h2></span>
+                                </div>
+                            </a>
+                            <div class="desc">
+                                <span class="meta">{{$journal->date}}</span>
+                                <h2><a href="{{route('journal.show',$journal->id)}}">{{$journal->name}}</a></h2>
+                                <p>{{$journal->description}}</p>
                             </div>
-                        </a>
-                        <div class="desc">
-                            <span class="meta">04, Mar 2018</span>
-                            <h2><a href="{{route('journal.show',1)}}">Collect some interesting images</a></h2>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="article animate-box">
-                        <a href="{{route('journal.show',1)}}" class="blog-img">
-                            <img class="img-responsive" src="{{ asset('design/bato') }}/images/img-4.jpg" alt="html5 bootstrap by colorlib.com">
-                            <div class="overlay"></div>
-                            <div class="link">
-									<span class="read"><h2>Read more</h2></span>
-                            </div>
-                        </a>
-                        <div class="desc">
-                            <span class="meta">04, Mar 2018</span>
-                            <h2><a href="{{route('journal.show',1)}}">Collect some interesting images</a></h2>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="article animate-box">
-                        <a href="{{route('journal.show',1)}}" class="blog-img">
-                            <img class="img-responsive" src="{{ asset('design/bato') }}/images/img-7.jpg" alt="html5 bootstrap by colorlib.com">
-                            <div class="overlay"></div>
-                            <div class="link">
-									<span class="read"><h2>Read more</h2></span>
-                            </div>
-                        </a>
-                        <div class="desc">
-                            <span class="meta">04, Mar 2018</span>
-                            <h2><a href="{{route('journal.show',1)}}">Collect some interesting images</a></h2>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
+
             </div>
 
-            <div class="row row-pb-md">
-                <div class="col-md-4">
-                    <div class="article animate-box">
-                        <a href="{{route('journal.show',1)}}" class="blog-img">
-                            <img class="img-responsive" src="{{ asset('design/bato') }}/images/img-2.jpg" alt="html5 bootstrap by colorlib.com">
-                            <div class="overlay"></div>
-                            <div class="link">
-									<span class="read"><h2>Read more</h2></span>
-                            </div>
-                        </a>
-                        <div class="desc">
-                            <span class="meta">04, Mar 2018</span>
-                            <h2><a href="{{route('journal.show',1)}}">Collect some interesting images</a></h2>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="article animate-box">
-                        <a href="{{route('journal.show',1)}}" class="blog-img">
-                            <img class="img-responsive" src="{{ asset('design/bato') }}/images/img-5.jpg" alt="html5 bootstrap by colorlib.com">
-                            <div class="overlay"></div>
-                            <div class="link">
-									<span class="read"><h2>Read more</h2></span>
-                            </div>
-                        </a>
-                        <div class="desc">
-                            <span class="meta">04, Mar 2018</span>
-                            <h2><a href="{{route('journal.show',1)}}">Collect some interesting images</a></h2>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="article animate-box">
-                        <a href="{{route('journal.show',1)}}" class="blog-img">
-                            <img class="img-responsive" src="{{ asset('design/bato') }}/images/img-8.jpg" alt="html5 bootstrap by colorlib.com">
-                            <div class="overlay"></div>
-                            <div class="link">
-									<span class="read"><h2>Read more</h2></span>
-                            </div>
-                        </a>
-                        <div class="desc">
-                            <span class="meta">04, Mar 2018</span>
-                            <h2><a href="{{route('journal.show',1)}}">Collect some interesting images</a></h2>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="article animate-box">
-                        <a href="{{route('journal.show',1)}}" class="blog-img">
-                            <img class="img-responsive" src="{{ asset('design/bato') }}/images/img-3.jpg" alt="html5 bootstrap by colorlib.com">
-                            <div class="overlay"></div>
-                            <div class="link">
-									<span class="read"><h2>Read more</h2></span>
-                            </div>
-                        </a>
-                        <div class="desc">
-                            <span class="meta">04, Mar 2018</span>
-                            <h2><a href="{{route('journal.show',1)}}">Collect some interesting images</a></h2>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="article animate-box">
-                        <a href="{{route('journal.show',1)}}" class="blog-img">
-                            <img class="img-responsive" src="{{ asset('design/bato') }}/images/img-6.jpg" alt="html5 bootstrap by colorlib.com">
-                            <div class="overlay"></div>
-                            <div class="link">
-									<span class="read"><h2>Read more</h2></span>
-                            </div>
-                        </a>
-                        <div class="desc">
-                            <span class="meta">04, Mar 2018</span>
-                            <h2><a href="{{route('journal.show',1)}}">Collect some interesting images</a></h2>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="article animate-box">
-                        <a href="{{route('journal.show',1)}}" class="blog-img">
-                            <img class="img-responsive" src="{{ asset('design/bato') }}/images/img-9.jpg" alt="html5 bootstrap by colorlib.com">
-                            <div class="overlay"></div>
-                            <div class="link">
-									<span class="read"><h2>Read more</h2></span>
-                            </div>
-                        </a>
-                        <div class="desc">
-                            <span class="meta">04, Mar 2018</span>
-                            <h2><a href="{{route('journal.show',1)}}">Collect some interesting images</a></h2>
-                            <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -291,21 +162,21 @@
 </div>
 
 <!-- jQuery -->
-<script src="{{ asset('design/bato') }}/js/jquery.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
-<script src="{{ asset('design/bato') }}/js/jquery.easing.1.3.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->
-<script src="{{ asset('design/bato') }}/js/bootstrap.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/bootstrap.min.js"></script>
 <!-- Waypoints -->
-<script src="{{ asset('design/bato') }}/js/jquery.waypoints.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.waypoints.min.js"></script>
 <!-- Owl Carousel -->
-<script src="{{ asset('design/bato') }}/js/owl.carousel.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/owl.carousel.min.js"></script>
 <!-- Magnific Popup -->
-<script src="{{ asset('design/bato') }}/js/jquery.magnific-popup.min.js"></script>
-<script src="{{ asset('design/bato') }}/js/magnific-popup-options.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.magnific-popup.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/magnific-popup-options.js"></script>
 
 <!-- Main JS (Do not remove) -->
-<script src="{{ asset('design/bato') }}/js/main.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/main.js"></script>
 
 </body>
 </html>

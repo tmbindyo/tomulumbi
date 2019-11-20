@@ -19,23 +19,23 @@
 
 
     <!-- Normalize -->
-    <link rel="stylesheet" href="{{ asset('personal_albums/pixca') }}/css/assets/normalize.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/pixca') }}/css/assets/normalize.css" type="text/css">
 
     <!-- Bootstrap -->
-    <link href="{{ asset('personal_albums/pixca') }}/css/assets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/personal_albums/pixca') }}/css/assets/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <!-- Font-awesome.min -->
-    <link href="{{ asset('personal_albums/pixca') }}/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/personal_albums/pixca') }}/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- Effet -->
-    <link rel="stylesheet" href="{{ asset('personal_albums/pixca') }}/css/gallery/foundation.min.css"  type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('personal_albums/pixca') }}/css/gallery/set1.css" />
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/pixca') }}/css/gallery/foundation.min.css"  type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('themes/personal_albums/pixca') }}/css/gallery/set1.css" />
 
     <!-- Main Style -->
-    <link rel="stylesheet" href="{{ asset('personal_albums/pixca') }}/css/main.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/pixca') }}/css/main.css" type="text/css">
 
     <!-- Responsive Style -->
-    <link href="{{ asset('personal_albums/pixca') }}/css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/personal_albums/pixca') }}/css/responsive.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 
@@ -44,7 +44,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="{{ asset('personal_albums/pixca') }}/js/assets/modernizr-2.8.3.min.js" type="text/javascript"></script>
+    <script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/modernizr-2.8.3.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -57,7 +57,7 @@
 
             <!-- logo -->
 
-            <h1> <a href="{{route('welcome')}}" title="Picxa"><img src="{{ asset('personal_albums/pixca') }}/images/logo.png" alt="Picxa" title="Picxa"/></a> </h1>
+            <h1> <a href="{{route('welcome')}}" title="Picxa"><img src="{{ asset('themes/personal_albums/pixca') }}/images/logo.png" alt="Picxa" title="Picxa"/></a> </h1>
 
             <!-- logo -->
 
@@ -99,12 +99,12 @@
         <div class="">
             <ul class="{{$tag->thumbnail_size->reference}} masonry">
 
-                @foreach($tag->uploads as $image)
+                @foreach($uploads as $image)
 
                     <li class="masonry-item grid">
                         <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $image->pixels750 }}" alt="" />
                             <figcaption>
-                                <h2>{{$image->album_image->album_set->album->name}}</h2>
+                                <h2>{{$image->album->name}}</h2>
                                 {{--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
                                 <a class="elem"
                                    href="{{ asset('') }}{{ $image->pixels1500 }}"
@@ -135,7 +135,7 @@
 
             <!-- logo -->
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('personal_albums/pixca') }}/images/footer-logo.png" alt="Picxa" title="Picxa"/>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('themes/personal_albums/pixca') }}/images/footer-logo.png" alt="Picxa" title="Picxa"/>
                 <p class="copy-right">Copyright &copy; <script>document.write(new Date().getFullYear());</script></p>
             </div>
 
@@ -145,8 +145,8 @@
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
                 <address>
-                    <p>200 Broadway Av</p>
-                    <p>West Beach SA 5024  Australia</p>
+                    <p>General Accident House</p>
+                    <p>Ralph Bunche Rd,  Nairobi</p>
                 </address>
             </div>
 
@@ -155,8 +155,8 @@
             <!-- email -->
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
-                <p><a href="mailto:contact@Picxa.com">contact@Picxa.com</a></p>
-                <p>01 (2) 34 56 78</p>
+                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
+                <p>+(254) 739 459 370</p>
             </div>
 
             <!-- email -->
@@ -166,13 +166,10 @@
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
                 <ul class="social">
                     <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-delicious" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
                 </ul>
-                <p class="made-by">Made with by <i class="fa fa-heart" aria-hidden="true"></i> <a href="http://www.designstub.com/" target="_blank">Designstub</a>
+                <p class="made-by">Made with by <i class="fa fa-heart" aria-hidden="true"></i> <a href="http://www.fluidtechglobal.com/" target="_blank">Fluidtech Global</a>
                 <p>
             </div>
 
@@ -192,21 +189,21 @@
 {{--</script>--}}
 <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
 {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>--}}
-{{--<script>window.jQuery || document.write('<script src="{{ asset('personal_albums/pixca') }}/js/assets/jquery.min.js"><\/script>')</script>--}}
+{{--<script>window.jQuery || document.write('<script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/jquery.min.js"><\/script>')</script>--}}
 <script src="{{ asset('inspinia') }}/js/plugins/lc-lightbox/js/lc_lightbox.lite.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/lc-lightbox/lib/AlloyFinger/alloy_finger.min.js"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/assets/plugins.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/assets/bootstrap.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/plugins.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/bootstrap.min.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/maps.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/custom.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/jquery.contact.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/main.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/gallery/masonry.pkgd.min.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/gallery/imagesloaded.pkgd.min.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/gallery/jquery.infinitescroll.min.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/gallery/main.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/jquery.nicescroll.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/maps.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/custom.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/jquery.contact.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/main.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/gallery/masonry.pkgd.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/gallery/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/gallery/jquery.infinitescroll.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/gallery/main.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/jquery.nicescroll.min.js" type="text/javascript"></script>
 <script>
     lc_lightbox('.elem', {
         wrap_class: 'lcl_fade_oc',

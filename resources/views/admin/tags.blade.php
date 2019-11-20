@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Types')
+@section('title', 'Tags')
 
 @section('css')
 
@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="#" data-toggle="modal" data-target="#tagRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.tag.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -68,6 +68,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Thumbnail Size</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -77,45 +78,19 @@
                 @foreach($tags as $tag)
                     <tr class="gradeX">
                         <td>{{$tag->name}}</td>
+                        <td>{{$tag->thumbnail_size->name}}</td>
                         <td>{{$tag->user->name}}</td>
-                        @if($tag->status->name === "Active")
-                            <td>
-                            <span class="label label-primary">{{$tag->status->name}}</span>
-                            </td>
-                        @elseif($tag->status->name === "Inactive")
-                            <td>
-                            <span class="label label-danger">{{$tag->status->name}}</span>
-                            </td>
-                        @elseif($tag->status->name === "Ongoing")
-                            <td>
-                            <span class="label label-danger">{{$tag->status->name}}</span>
-                            </td>
-                        @elseif($tag->status->name === "Preview")
-                            <td>
-                            <span class="label label-warning">{{$tag->status->name}}</span>
-                            </td>
-                        @elseif($tag->status->name === "Completed")
-                            <td>
-                            <span class="label label-primary">{{$tag->status->name}}</span>
-                            </td>
-                        @elseif($tag->status->name === "Hidden")
-                            <td>
-                            <span class="label label-danger">{{$tag->status->name}}</span>
-                            </td>
-                        @elseif($tag->status->name === "Published")
-                            <td>
-                            <span class="label label-warning">{{$tag->status->name}}</span>
-                            </td>
-                        @else
-                            <td>
-                            <span class="label label-default">{{$tag->status->name}}</span>
-                            </td>
-                        @endif
-
+                        <td>
+                            <span class="label {{$tag->status->label}}">{{$tag->status->name}}</span>
+                        </td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('admin.tag', $tag->id) }}" class="btn-white btn btn-xs">View</a>
-                                <a href="{{ route('admin.tag.delete', $tag->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                <a href="{{ route('admin.tag.show', $tag->id) }}" class="btn-white btn btn-xs">View</a>
+                                @if($tag->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                    <a href="{{ route('admin.tag.restore', $tag->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                @else
+                                    <a href="{{ route('admin.tag.delete', $tag->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -124,6 +99,7 @@
                 <tfoot>
                 <tr>
                     <th>Name</th>
+                    <th>Thumbnail Size</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -140,8 +116,6 @@
 
 
 @endsection
-
-@include('admin.layouts.modals.tag')
 
 @section('js')
 

@@ -28,25 +28,25 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
 
     <!-- Animate.css -->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/animate.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/animate.css">
     <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/icomoon.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/icomoon.css">
     <!-- Bootstrap  -->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/bootstrap.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/bootstrap.css">
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/owl.theme.default.min.css">
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/magnific-popup.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="{{ asset('design/bato') }}/css/style.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/style.css">
 
 
     <!-- Modernizr JS -->
-    <script src="{{ asset('design/bato') }}/js/modernizr-2.6.2.min.js"></script>
+    <script src="{{ asset('themes/design/bato') }}/js/modernizr-2.6.2.min.js"></script>
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
-    <script src="{{ asset('design/bato') }}/js/respond.min.js"></script>
+    <script src="{{ asset('themes/design/bato') }}/js/respond.min.js"></script>
     <![endif]-->
 
 </head>
@@ -59,7 +59,7 @@
 
             <div class="row text-center">
                 <h2>Get in Touch</h2>
-                <p><a href="#">contact@tomulumbi.com</a></p>
+                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
             </div>
 
             <div class="row text-center">
@@ -110,7 +110,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/DSC_4799_small.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/DSC_4799_small.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
@@ -132,7 +132,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_2.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_2.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
@@ -143,7 +143,7 @@
                                         <span class="tag">Client Proofs</span>
                                         <h2>Capture interesting things.</h2>
                                         <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                        <p><a href="{{route('client.proofs')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="{{route('client.proofs')}}" class="btn-view">View Client Proof's <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_2.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_2.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
@@ -165,7 +165,7 @@
                                         <span class="tag">Design Work</span>
                                         <h2>Capture interesting things.</h2>
                                         <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                        <p><a href="{{route('designs')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="{{route('designs')}}" class="btn-view">View Designs <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_3.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <h2 class="number">04/06</h2>
@@ -187,7 +187,7 @@
                                         <span class="tag">Journals</span>
                                         <h2>Discover New Things</h2>
                                         <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                        <p><a href="{{route('journals')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="{{route('journals')}}" class="btn-view">View Journals <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_3.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <h2 class="number">05/06</h2>
@@ -209,7 +209,7 @@
                                         <span class="tag">Projects</span>
                                         <h2>Discover New Things</h2>
                                         <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                        <p><a href="{{route('projects')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="{{route('projects')}}" class="btn-view">View Projects <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -220,7 +220,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('design/bato') }}/images/img_bg_3.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <h2 class="number">06/06</h2>
@@ -231,7 +231,7 @@
                                         <span class="tag">Store</span>
                                         <h2>Discover New Things</h2>
                                         <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                                        <p><a href="{{route('store')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="{{route('store')}}" class="btn-view">View Store <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -245,21 +245,21 @@
 </div>
 
 <!-- jQuery -->
-<script src="{{ asset('design/bato') }}/js/jquery.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
-<script src="{{ asset('design/bato') }}/js/jquery.easing.1.3.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->
-<script src="{{ asset('design/bato') }}/js/bootstrap.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/bootstrap.min.js"></script>
 <!-- Waypoints -->
-<script src="{{ asset('design/bato') }}/js/jquery.waypoints.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.waypoints.min.js"></script>
 <!-- Owl Carousel -->
-<script src="{{ asset('design/bato') }}/js/owl.carousel.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/owl.carousel.min.js"></script>
 <!-- Magnific Popup -->
-<script src="{{ asset('design/bato') }}/js/jquery.magnific-popup.min.js"></script>
-<script src="{{ asset('design/bato') }}/js/magnific-popup-options.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.magnific-popup.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/magnific-popup-options.js"></script>
 
 <!-- Main JS (Do not remove) -->
-<script src="{{ asset('design/bato') }}/js/main.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/main.js"></script>
 
 </body>
 </html>

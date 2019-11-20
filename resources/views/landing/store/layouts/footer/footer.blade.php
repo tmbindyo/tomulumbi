@@ -11,7 +11,7 @@
                     </div>
                     <!-- Copywrite Text -->
                     <p class="copywrite">
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://fluidtechglobal.com" target="_blank">Fluidtech Global</a>
+                        Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://fluidtechglobal.com" target="_blank">Fluidtech Global</a>
                 </div>
             </div>
             <!-- Single Widget Area -->
@@ -28,9 +28,6 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{route('store.products')}}">Shop</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{route('store.product.show',1)}}">Product</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{route('store.cart')}}">Cart</a>

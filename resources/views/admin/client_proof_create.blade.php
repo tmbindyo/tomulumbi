@@ -125,6 +125,16 @@
                                         <i>Tags: What kind of collection is this? Separate your tags with a comma. e.g. wedding, outdoor, summer</i>
                                     </div>
                                     <br>
+                                    <div class="has-warning">
+                                        <select name="contact" class="select2_demo_contact form-control input-lg" multiple="multiple">
+                                            <option>Select Contact</option>
+                                            @foreach($contacts as $contact)
+                                                <option value="{{$contact->id}}">{{$contact->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>Client: This is based on your contacts, whoever is selected here is tied to the project as the client.</i>
+                                    </div>
+                                    <br>
                                     <div class="has-warning" id="data_1">
                                         <div class="input-group date">
                                             <span class="input-group-addon">
@@ -402,6 +412,10 @@
         $(".select2_demo_2").select2();
         $(".select2_demo_tag").select2({
             placeholder: "Select Tags",
+            allowClear: true
+        });
+        $(".select2_demo_contact").select2({
+            placeholder: "Select Contacts",
             allowClear: true
         });
         $(".select2_demo_category").select2({

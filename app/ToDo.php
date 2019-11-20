@@ -24,6 +24,22 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Design');
     }
+    public function journal()
+    {
+        return $this->belongsTo('App\Journal');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function email()
+    {
+        return $this->belongsTo('App\Email');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');

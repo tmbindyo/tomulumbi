@@ -4,7 +4,7 @@
 		<title>tomulumbi | {{$album->name}}</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="{{ asset('client_proof/story') }}/assets/css/main.css" />
+		<link rel="stylesheet" href="{{ asset('themes/client_proof/story') }}/assets/css/main.css" />
 
 	</head>
 	<body>
@@ -29,7 +29,7 @@
                         </div><!-- p-grid -->
 						<div class="image">
                             @if(empty($album->cover_image->original))
-                                <img src="{{ asset('client_proof/story') }}/images/banner.jpg" alt="" />
+                                <img src="{{ asset('themes/client_proof/story') }}/images/banner.jpg" alt="" />
                             @elseif(isset($album->cover_image->original))
 							    <img src="{{ asset('') }}{{ $album->cover_image->pixels1500 }}" alt="" />
                             @endif
@@ -43,15 +43,15 @@
 
 
 		<!-- Scripts -->
-        <script src="{{ asset('client_proof/story') }}/assets/js/jquery.min.js"></script>
-        <script src="{{ asset('client_proof/story') }}/assets/js/jquery.scrollex.min.js"></script>
-        <script src="{{ asset('client_proof/story') }}/assets/js/jquery.scrolly.min.js"></script>
-        <script src="{{ asset('client_proof/story') }}/assets/js/skel.min.js"></script>
-        <script src="{{ asset('client_proof/story') }}/assets/js/util.js"></script>
-        <script src="{{ asset('client_proof/story') }}/assets/js/main.js"></script>
+        <script src="{{ asset('themes/client_proof/story') }}/assets/js/jquery.min.js"></script>
+        <script src="{{ asset('themes/client_proof/story') }}/assets/js/jquery.scrollex.min.js"></script>
+        <script src="{{ asset('themes/client_proof/story') }}/assets/js/jquery.scrolly.min.js"></script>
+        <script src="{{ asset('themes/client_proof/story') }}/assets/js/skel.min.js"></script>
+        <script src="{{ asset('themes/client_proof/story') }}/assets/js/util.js"></script>
+        <script src="{{ asset('themes/client_proof/story') }}/assets/js/main.js"></script>
 
 		<!-- Note: Only needed for demo purposes. Delete for production sites. -->
-        <script src="{{ asset('client_proof/story') }}/assets/js/demo.js"></script>
+        <script src="{{ asset('themes/client_proof/story') }}/assets/js/demo.js"></script>
 
 
 	</body>

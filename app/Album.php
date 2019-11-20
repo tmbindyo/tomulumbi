@@ -18,7 +18,7 @@ class Album extends Model
     }
     public function album_views()
     {
-        return $this->hasMany('App\AlbumViews');
+        return $this->hasMany('App\AlbumView');
     }
     public function album_tags()
     {
@@ -58,6 +58,7 @@ class Album extends Model
     }
 
 
+
     // Parents
     public function cover_image()
     {
@@ -70,6 +71,10 @@ class Album extends Model
     public function color()
     {
         return $this->belongsTo('App\Color');
+    }
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
     }
     public function content_align()
     {

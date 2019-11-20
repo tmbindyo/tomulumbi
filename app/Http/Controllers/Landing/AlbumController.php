@@ -59,8 +59,9 @@ class AlbumController extends Controller
         $albumExists = Album::findOrFail($album_id);
         $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
 
+
         // Check if the passwords are the same
-        if ($album->is_client_exclusive_access == 1) {
+        if ($album->password) {
             if ($album->password == $request->password) {
 
                 // Get token expiry
@@ -152,6 +153,12 @@ class AlbumController extends Controller
         $albumExists = Album::findOrFail($albumView->album_id);
         $album = Album::where('id',$albumView->album_id)->first();
 
+        // Check if the expiry date has expired
+
+        if (now()>$album->expiry_date){
+            return back()->withWarning('The download period for the selected proof has expired.');
+        }
+
         // track download
         $albumDownload = new AlbumDownload();
         $albumDownload->album_view_id = $albumView->id;
@@ -200,6 +207,14 @@ class AlbumController extends Controller
         $albumExists = Album::findOrFail($albumView->album_id);
         $album = Album::where('id',$albumView->album_id)->first();
 
+        if (now()>$album->expiry_date){
+            return back()->withWarning('The download period for the selected proof has expired.');
+        }
+
+        if ($album->client_access_password != $request->client_exclusive_password){
+            return back()->withWarning('The client exclusive password entered is incorrect');
+        }
+
         if ($album->download_pin != $request->download_pin){
             return back()->withWarning('The pin entered is incorrect');
         }
@@ -240,6 +255,9 @@ class AlbumController extends Controller
         return response()->download($zip_file);
     }
 
+
+
+
     public function personalAlbums()
     {
         // Get albums
@@ -249,7 +267,58 @@ class AlbumController extends Controller
         return view('landing.personal_albums.personal_albums',compact('albums'));
     }
 
-    function personalAlbumShow($album_id){
+    function personalAlbumAccess($album_id){
+
+        // Check if the album is client exclusive
+
+        $albumExists = Album::findOrFail($album_id);
+        $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
+
+        // check the password
+        if ($album->password){
+            return view('landing.personal_albums.access',compact('album'));
+//            return redirect()->route('personal.album.access.check',$album->id);
+        }else{
+            return redirect()->route('personal.album.show',$album->id);
+        }
+    }
+
+    function personalAlbumAccessCheck(Request $request,$album_id){
+
+        // https://medium.com/@panjeh/laravel-detector-mobile-browser-name-version-platform-device-robot-crawler-user-language-8499bee7607c
+        $albumExists = Album::findOrFail($album_id);
+        $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
+
+        // Check if the passwords are the same
+        if ($album->password) {
+            if ($album->password == $request->password) {
+
+                // Get token expiry
+                $expiry = now();
+                $expiry->modify('+ 1 hour');
+
+                $albumExists = Album::findOrFail($album_id);
+                $albumExists->views++;
+                $albumExists->save();
+
+                // Register album view
+                $albumView = new AlbumView();
+                $albumView->expiry = $expiry;
+                $albumView->email = $request->email;
+                $albumView->album_id = $albumExists->id;
+                $albumView->number = $albumExists->views;
+                $albumView->save();
+
+                return redirect(route('personal.album.show', $albumView->id));
+
+                // Generate album view record
+            } else {
+                return back()->withWarning('The password entered is incorrect');
+            }
+        }
+        // Get token expiry
+        $expiry = now();
+        $expiry->modify('+ 1 hour');
 
         $albumExists = Album::findOrFail($album_id);
         $albumExists->views++;
@@ -257,12 +326,45 @@ class AlbumController extends Controller
 
         // Register album view
         $albumView = new AlbumView();
+        $albumView->expiry = $expiry;
+        $albumView->email = $request->email;
         $albumView->album_id = $albumExists->id;
         $albumView->number = $albumExists->views;
         $albumView->save();
 
-        // Get the album
-        $album = Album::where('id',$album_id)->with('thumbnail_size')->first();
+        return redirect(route('personal.album.show', $albumView->id));
+    }
+
+    function personalAlbumShow($album_view_id){
+
+        // Check if the ablum exists
+        $album = Album::where('id',$album_view_id)->first();
+        if ($album === null) {
+
+            // get album view id (access token)
+            $albumView = AlbumView::findOrFail($album_view_id);
+
+            // check if the token has expired
+            if (now() > $albumView->expiry){
+                return redirect()->route('client.proof.access',$albumView->album_id)->with('warning', 'The token has expired, please log in again. Thank you.');
+            }
+            // Get the album
+            $album = Album::where('id',$albumView->album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets','thumbnail_size')->first();
+
+        }else{
+            // Get the album
+            $album = Album::where('id',$album->id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets','thumbnail_size')->first();
+
+            $albumExists = Album::findOrFail($album->id);
+            $albumExists->views++;
+            $albumExists->save();
+
+            // Register album view
+            $albumView = new AlbumView();
+            $albumView->album_id = $album->id;
+            $albumView->number = $albumExists->views;
+            $albumView->save();
+        }
 
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
@@ -274,14 +376,14 @@ class AlbumController extends Controller
     public function tags()
     {
         $tags = Tag::with('cover_image')->get();
-
         return view('landing.personal_albums.tags',compact('tags'));
     }
     public function tagShow($tag_id)
     {
 
-        $tag = Tag::where('id',$tag_id)->with('uploads.album_image.album_set.album','thumbnail_size')->first();
-        return view('landing.personal_albums.tag_show',compact('tag'));
+        $tag = Tag::where('id',$tag_id)->with('thumbnail_size')->first();
+        $uploads = Upload::where('tag_id',$tag_id)->with('album','tag.thumbnail_size')->where('is_password',False)->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->get();
+        return view('landing.personal_albums.tag_show',compact('tag','uploads'));
 
     }
 

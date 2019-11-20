@@ -25,6 +25,10 @@
 @include('landing.store.layouts.header.search')
 <!-- Search Wrapper Area End -->
 
+<!-- Popover Area Start -->
+@include('landing.store.layouts.popover.popover')
+<!-- Popover Area End -->
+
 <!-- ##### Main Content Wrapper Start ##### -->
 <div class="main-content-wrapper d-flex clearfix">
 
@@ -52,7 +56,7 @@
 <!-- ##### Main Content Wrapper End ##### -->
 
 <!-- ##### Newsletter Area Start ##### -->
-@include('landing.store.layouts.footer.newsletter')
+{{--@include('landing.store.layouts.footer.newsletter')--}}
 <!-- ##### Newsletter Area End ##### -->
 
 <!-- ##### Footer Area Start ##### -->

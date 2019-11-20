@@ -18,79 +18,36 @@
 
 @section('content')
 
-
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Tag <small>edit</small></h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    <li><a href="#">Config option 1</a>
-                                    </li>
-                                    <li><a href="#">Config option 2</a>
-                                    </li>
-                                </ul>
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-sm-6 b-r">
-                                    <form method="post" action="{{ route('admin.tag.update',$tag->id) }}" autocomplete="off" class="form-horizontal form-label-left">
-                                        @csrf
-
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif
-
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="name" name="name" value="{{$tag->name}}" class="form-control input-lg">
-                                        </div>
-                                        <div>
-                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-sm-6"><h4>Not a member?</h4>
-                                    <div class="col-md-12">
-                                        <h2 class="text-center">Cover Image</h2>
-                                        <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#tagCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
-                                        <hr>
-                                    </div>
-                                    <div class="col-md-10 col-md-offset-1">
-
-                                        <div class="center">
-                                            <img alt="image" class="img-responsive" @isset($tag->cover_image) src="{{ asset('') }}{{ $tag->cover_image->large_thumbnail }}" @endisset>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Tags</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('admin.dashboard')}}">Home</a>
+                </li>
+                <li>
+                    Settings
+                </li>
+                <li class="active">
+                    <a href="{{route('admin.tags')}}">
+                    <strong>Tags</strong>
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="{{route('admin.tag.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Tag Albums</h5>
+                        <h5>Tag <small>edit</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -104,87 +61,143 @@
                                 <li><a href="#">Config option 2</a>
                                 </li>
                             </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
                         </div>
                     </div>
                     <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-6 b-r">
+                                <form method="post" action="{{ route('admin.tag.update',$tag->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                    @csrf
 
-                        <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($tagAlbums as $tagAlbum)
-                        <tr class="gradeX">
-                            <td>{{$tagAlbum->name}}</td>
-                            <td>{{$tagAlbum->description}}</td>
-                            <td>{{$tagAlbum->user->name}}</td>
-                            @if($tagAlbum->status->name === "Active")
-                                <td>
-                                <span class="label label-primary">{{$tagAlbum->status->name}}</span>
-                                </td>
-                            @elseif($tagAlbum->status->name === "Inactive")
-                                <td>
-                                <span class="label label-danger">{{$tagAlbum->status->name}}</span>
-                                </td>
-                            @elseif($tagAlbum->status->name === "Ongoing")
-                                <td>
-                                <span class="label label-danger">{{$tagAlbum->status->name}}</span>
-                                </td>
-                            @elseif($tagAlbum->status->name === "Preview")
-                                <td>
-                                <span class="label label-warning">{{$tagAlbum->status->name}}</span>
-                                </td>
-                            @elseif($tagAlbum->status->name === "Completed")
-                                <td>
-                                <span class="label label-primary">{{$tagAlbum->status->name}}</span>
-                                </td>
-                            @elseif($tagAlbum->status->name === "Hidden")
-                                <td>
-                                <span class="label label-danger">{{$tagAlbum->status->name}}</span>
-                                </td>
-                            @elseif($tagAlbum->status->name === "Published")
-                                <td>
-                                <span class="label label-warning">{{$tagAlbum->status->name}}</span>
-                                </td>
-                            @else
-                                <td>
-                                <span class="label label-default">{{$tagAlbum->status->name}}</span>
-                                </td>
-                            @endif
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
 
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    {{-- todo check why route is album but id is album type--}}
-                                    <a href="{{ route('admin.album', $tagAlbum->id) }}" class="btn-white btn btn-xs">View</a>
+                                    <div class="has-warning">
+                                        <label>Name</label>
+                                        <input type="name" name="name" value="{{$tag->name}}" class="form-control input-lg">
+                                    </div>
+                                    <br>
+                                    <div class="">
+                                        <div class="has-warning">
+                                            <select required="required" name="thumbnail_size" class="select2_demo_tag form-control input-lg">
+                                                <option>Select Thumbnail Size</option>
+                                                @foreach($thumbnailSizes as $thumbnailSize)
+                                                    <option @if($tag->thumbnail_size_id ==$thumbnailSize->id) selected @endif value="{{$thumbnailSize->id}}">{{$thumbnailSize->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>Size of the thumbnails on the tag page</i>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <button class="btn btn-lg btn-block btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-md-12">
+                                    <h2 class="text-center">Cover Image</h2>
+                                    <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#tagCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
+                                    <hr>
                                 </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>User</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </tfoot>
-                    </table>
-                        </div>
+                                <div class="col-md-10 col-md-offset-1">
 
+                                    <div class="center">
+                                        <img alt="image" class="img-responsive" @isset($tag->cover_image) src="{{ asset('') }}{{ $tag->cover_image->large_thumbnail }}" @endisset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Tag Albums</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#">Config option 1</a>
+                            </li>
+                            <li><a href="#">Config option 2</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Views</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($tagAlbums as $tagAlbum)
+                    <tr class="gradeX">
+                        <td>{{$tagAlbum->date}}</td>
+                        <td>{{$tagAlbum->name}}</td>
+                        <td>{{$tagAlbum->views}}</td>
+                        <td>{{$tagAlbum->user->name}}</td>
+                        <td>
+                            <span class="label {{$tagAlbum->status->label}}">{{$tagAlbum->status->name}}</span>
+                        </td>
+
+                        <td class="text-right">
+                            <div class="btn-group">
+                                {{-- todo check why route is album but id is album type--}}
+                                @if($tagAlbum->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
+                                    <a href="{{ route('admin.personal.album.show', $tagAlbum->id) }}" class="btn-white btn btn-xs">View</a>
+                                @elseif($tagAlbum->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
+                                    <a href="{{ route('admin.client.proof.show', $tagAlbum->id) }}" class="btn-white btn btn-xs">View</a>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Views</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </tfoot>
+                </table>
+                    </div>
+
+                </div>
             </div>
         </div>
+        </div>
+    </div>
 
 
 @endsection

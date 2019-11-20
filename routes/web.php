@@ -28,6 +28,8 @@ Route::post('/client/proof/download/pin/{album_view_id}', 'Landing\AlbumControll
 
 // Personal albums
 Route::get('/personal/albums', 'Landing\AlbumController@personalAlbums')->name('personal.albums');
+Route::get('/personal/album/access/{album_id}', 'Landing\AlbumController@personalAlbumAccess')->name('personal.album.access');
+Route::post('/personal/album/access/{album_id}', 'Landing\AlbumController@personalAlbumAccessCheck')->name('personal.album.access.check');
 Route::get('/personal/album/show/{album_id}', 'Landing\AlbumController@personalAlbumShow')->name('personal.album.show');
 
 Route::get('/tags', 'Landing\AlbumController@tags')->name('tags');
@@ -40,7 +42,7 @@ Route::get('/design/work/{design_work_id}', 'Landing\DesignController@designWork
 Route::get('/design/{design_id}/gallery', 'Landing\DesignController@designGallery')->name('design.gallery');
 
 // Contact
-Route::post('/contact', 'Landing\LandingController@contactSave')->name('contact.save');
+Route::post('/email/store', 'Landing\LandingController@emailStore')->name('email.store');
 
 // Store
 Route::get('/store', 'Landing\StoreController@store')->name('store');
@@ -56,3 +58,7 @@ Route::get('/journal/gallery/{journal_id}', 'Landing\JournalController@journalGa
 
 Route::get('/projects', 'Landing\ProjectController@projects')->name('projects');
 Route::get('/project/show/{project_id}', 'Landing\ProjectController@projectShow')->name('project.show');
+
+
+
+Route::post('/add/cart', 'Landing\StoreController@addToCart')->name('add.cart');

@@ -58,4 +58,24 @@ class Upload extends Model
     {
         return $this->belongsTo('App\Tag');
     }
+    public function album_set()
+    {
+        return $this->belongsTo('App\AlbumSet');
+    }
+    public function album()
+    {
+        return $this->belongsTo('App\Album');
+    }
+    public function design()
+    {
+        return $this->belongsTo('App\Design');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function journal()
+    {
+        return $this->belongsTo('App\Journal');
+    }
 }

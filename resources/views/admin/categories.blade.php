@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Types')
+@section('title', 'Categories')
 
 @section('css')
 
@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="#" data-toggle="modal" data-target="#categoryRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.category.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -78,44 +78,17 @@
                     <tr class="gradeX">
                         <td>{{$category->name}}</td>
                         <td>{{$category->user->name}}</td>
-                        @if($category->status->name === "Active")
-                            <td>
-                            <span class="label label-primary">{{$category->status->name}}</span>
-                            </td>
-                        @elseif($category->status->name === "Inactive")
-                            <td>
-                            <span class="label label-danger">{{$category->status->name}}</span>
-                            </td>
-                        @elseif($category->status->name === "Ongoing")
-                            <td>
-                            <span class="label label-danger">{{$category->status->name}}</span>
-                            </td>
-                        @elseif($category->status->name === "Preview")
-                            <td>
-                            <span class="label label-warning">{{$category->status->name}}</span>
-                            </td>
-                        @elseif($category->status->name === "Completed")
-                            <td>
-                            <span class="label label-primary">{{$category->status->name}}</span>
-                            </td>
-                        @elseif($category->status->name === "Hidden")
-                            <td>
-                            <span class="label label-danger">{{$category->status->name}}</span>
-                            </td>
-                        @elseif($category->status->name === "Published")
-                            <td>
-                            <span class="label label-warning">{{$category->status->name}}</span>
-                            </td>
-                        @else
-                            <td>
-                            <span class="label label-default">{{$category->status->name}}</span>
-                            </td>
-                        @endif
-
+                        <td>
+                            <span class="label {{$category->status->label}}">{{$category->status->name}}</span>
+                        </td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('admin.category', $category->id) }}" class="btn-white btn btn-xs">View</a>
-                                <a href="{{ route('admin.category.delete', $category->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                <a href="{{ route('admin.category.show', $category->id) }}" class="btn-white btn btn-xs">View</a>
+                                @if($category->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                    <a href="{{ route('admin.category.restore', $category->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                @else
+                                    <a href="{{ route('admin.category.delete', $category->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -140,8 +113,6 @@
 
 
 @endsection
-
-@include('admin.layouts.modals.category')
 
 @section('js')
 

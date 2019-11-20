@@ -10,28 +10,28 @@
 
     <!-- Normalize -->
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/pixca') }}/css/assets/normalize.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/pixca') }}/css/assets/normalize.css" type="text/css">
 
     <!-- Bootstrap -->
 
-    <link href="{{ asset('personal_albums/pixca') }}/css/assets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/personal_albums/pixca') }}/css/assets/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <!-- Font-awesome.min -->
 
-    <link href="{{ asset('personal_albums/pixca') }}/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/personal_albums/pixca') }}/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- Effet -->
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/pixca') }}/css/gallery/foundation.min.css"  type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('personal_albums/pixca') }}/css/gallery/set1.css" />
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/pixca') }}/css/gallery/foundation.min.css"  type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('themes/personal_albums/pixca') }}/css/gallery/set1.css" />
 
     <!-- Main Style -->
 
-    <link rel="stylesheet" href="{{ asset('personal_albums/pixca') }}/css/main.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('themes/personal_albums/pixca') }}/css/main.css" type="text/css">
 
     <!-- Responsive Style -->
 
-    <link href="{{ asset('personal_albums/pixca') }}/css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('themes/personal_albums/pixca') }}/css/responsive.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 
@@ -43,7 +43,7 @@
 
     <![endif]-->
 
-    <script src="{{ asset('personal_albums/pixca') }}/js/assets/modernizr-2.8.3.min.js" type="text/javascript"></script>
+    <script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/modernizr-2.8.3.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -56,7 +56,7 @@
 
             <!-- logo -->
 
-            <h1> <a href="{{route('welcome')}}" title="tomulumbi"><img src="{{ asset('personal_albums/pixca') }}/images/logo.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
+            <h1> <a href="{{route('welcome')}}" title="tomulumbi"><img src="{{ asset('themes/personal_albums/pixca') }}/images/logo.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
 
             <!-- logo -->
 
@@ -104,7 +104,7 @@
                             <figcaption>
                                 <h2>{{$album->name}}</h2>
 {{--                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
-                                <a href="{{route('personal.album.show',$album->id)}}">View more</a> </figcaption>
+                                <a href="{{route('personal.album.access',$album->id)}}">View more</a> </figcaption>
                         </figure>
                     </li>
                 @endforeach
@@ -119,18 +119,18 @@
 <!-- jQuery -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="{{ asset('personal_albums/pixca') }}/js/assets/jquery.min.js"><\/script>')</script>
-<script src="{{ asset('personal_albums/pixca') }}/js/assets/plugins.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/assets/bootstrap.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/jquery.min.js"><\/script>')</script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/plugins.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/bootstrap.min.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/maps.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/custom.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/jquery.contact.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/main.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/gallery/masonry.pkgd.min.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/gallery/imagesloaded.pkgd.min.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/gallery/jquery.infinitescroll.min.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/gallery/main.js" type="text/javascript"></script>
-<script src="{{ asset('personal_albums/pixca') }}/js/jquery.nicescroll.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/maps.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/custom.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/jquery.contact.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/main.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/gallery/masonry.pkgd.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/gallery/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/gallery/jquery.infinitescroll.min.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/gallery/main.js" type="text/javascript"></script>
+<script src="{{ asset('themes/personal_albums/pixca') }}/js/jquery.nicescroll.min.js" type="text/javascript"></script>
 </body>
 </html>

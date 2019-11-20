@@ -2,10 +2,554 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
+use App\Contact;
+use App\Design;
+use App\DesignCategory;
+use App\DesignGallery;
+use App\DesignWork;
+use App\Project;
+use App\ProjectGallery;
+use App\ProjectType;
+use App\Status;
+use App\ThumbnailSize;
+use App\ToDo;
+use App\Traits\UserTrait;
+use App\Typography;
+use App\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProjectController extends Controller
 {
-    //
+    use UserTrait;
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function projects()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get albums
+        $projects = Project::with('user','status','contact','project_type')->get();
+
+        return view('admin.projects',compact('projects','user'));
+    }
+
+    public function projectCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Tags
+        $contacts = Contact::all();
+        // project types
+        $projectTypes = ProjectType::all();
+        return view('admin.project_create',compact('user','contacts','projectTypes'));
+    }
+
+    public function projectStore(Request $request)
+    {
+
+        $project = new Project();
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->date = date('Y-m-d', strtotime($request->date));
+
+        $project->views = 0;
+        $project->contact_id = $request->contact;
+        $project->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
+        $project->project_type_id = $request->project_type;
+        $project->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
+        $project->user_id = Auth::user()->id;
+        $project->save();
+
+        return redirect()->route('admin.projects')->withSuccess('Project '.$project->name.' succesfully created');
+    }
+
+    public function projectShow($project_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Clients
+        $contacts = Contact::all();
+        // Get typography
+        $typographies = Typography::all();
+        // Get thumbnail sizes
+        $thumbnailSizes = ThumbnailSize::all();
+        // project types
+        $projectTypes = ProjectType::all();
+        // Get project
+        $project = Project::findOrFail($project_id);
+        $project = Project::where('id',$project_id)->with('contact','user','status','cover_image')->first();
+
+        // Project status
+        $projectStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
+
+        // Pending to dos
+        $pendingToDos = ToDo::with('user','status','project')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('project_id',$project->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::with('user','status','project')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('project_id',$project->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::with('user','status','project')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('project_id',$project->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::with('user','status','project')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('project_id',$project->id)->get();
+
+        // project gallery
+        $projectGallery = ProjectGallery::where('project_id',$project_id)->with('upload')->get();
+
+        return view('admin.project_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','project','projectGallery','projectStatuses','typographies','thumbnailSizes','projectTypes'));
+    }
+
+    public function projectUpdate(Request $request, $project_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+
+        // Check if project exists and get
+        $project = Project::findOrFail($project_id);
+
+        // Check if the cover image has been uploaded if the status is being updated to published
+        if ($request->status == "be8843ac-07ab-4373-83d9-0a3e02cd4ff5" && $project->cover_image_id == ""){
+            return back()->withWarning(__('Please set a cover image before making the project to published.'));
+        }
+
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->body = $request->body;
+        $project->project_type_id = $request->project_type;
+        $project->thumbnail_size_id = $request->thumbnail_size;
+        $project->typography_id = $request->typography;
+        $project->contact_id = $request->contact;
+        $project->status_id = $request->status;
+        $project->date = date('Y-m-d', strtotime($request->date));
+        $project->save();
+
+
+        return back()->withSuccess(__('Project successfully uploaded.'));
+    }
+
+    public function projectCoverImageUpload(Request $request,$project_id)
+    {
+
+//        return $request;
+        $project = Project::where('id',$project_id)->first();
+        $folderName = str_replace(' ', '', $project->name."/Banner/");
+        $originalFolderName = str_replace(' ', '', $project->name."/Cover Image/Original/");
+
+        $pixel100FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/100/");
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/300/");
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/500/");
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/750/");
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/1000/");
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/1500/");
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/2500/");
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/3600/");
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/work/project/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/project/".$originalFolderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+        $image_name = $file_name.'.'.$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        if ($width > $height) { //landscape
+
+            $orientation = "landscape";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+
+            Image::make( $path )->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        } else {
+
+            $orientation = "portrait";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(null, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(null, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->orientation = $orientation;
+        $upload->size = $size;
+
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
+
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = False;
+        $upload->project_id = $project_id;
+        $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update project cover image
+        $project = Project::findOrFail($project_id);
+        $project->cover_image_id = $upload->id;
+        $project->save();
+
+        return back()->withSuccess(__('Project cover image successfully uploaded.'));
+    }
+
+    public function projectGalleryImageUpload(Request $request,$project_id)
+    {
+        // todo If already image delete
+        // todo hash the folder name
+        $project = Project::where('id',$project_id)->first();
+        $folderName = str_replace(' ', '', $project->name.'/');
+        $originalFolderName = str_replace(' ', '', $project->name."/Original/");
+
+        $pixel100FolderName = str_replace(' ', '', "work/project/".$project->name."/100/");
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "work/project/".$project->name."/300/");
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "work/project/".$project->name."/500/");
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "work/project/".$project->name."/750/");
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "work/project/".$project->name."/1000/");
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "work/project/".$project->name."/1500/");
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "work/project/".$project->name."/2500/");
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "work/project/".$project->name."/3600/");
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
+
+        $file = Input::file("file");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/work/project/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/project/".$originalFolderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+        $image_name = $file_name.'.'.$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        if ($width > $height) { //landscape
+
+            $orientation = "landscape";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        } else {
+
+            $orientation = "portrait";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(null, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(null, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+        $upload->size = $size;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->orientation = $orientation;
+
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
+
+        $upload->is_client_exclusive_access = False;
+        $upload->is_album_set_image = False;
+//        $upload->is_album_cover = False;
+        $upload->is_album_set_image = False;
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->upload_type_id = "720a967d-16b1-46c4-b22d-9e734e94c9e9";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Project gallery record
+        $projectGallery = new ProjectGallery();
+        $projectGallery->upload_id = $upload->id;
+        $projectGallery->project_id = $project->id;
+        $projectGallery->user_id = Auth::user()->id;
+        $projectGallery->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $projectGallery->save();
+
+        return back()->withSuccess(__('Project gallery image successfully uploaded.'));
+    }
+
+    public function projectUpdateDesign(Request $request, $project_id)
+    {
+        $project = Project::findOrFail($project_id);
+        $project->typography_id = $request->typography;
+        $project->thumbnail_size_id = $request->thumbnail_size;
+        $project->save();
+
+        return back()->withSuccess('Project design updated!');
+    }
+
+    public function projectDelete($album_type_id)
+    {
+
+        $project = Project::findOrFail($album_type_id);
+        $project->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $project->save();
+
+        return back()->withSuccess(__('Project '.$project->name.' successfully deleted.'));
+    }
+
+    public function projectRestore($album_type_id)
+    {
+
+        $project = Project::findOrFail($album_type_id);
+        $project->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $project->save();
+
+        return back()->withSuccess(__('Project '.$project->name.' successfully restored.'));
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Client;
+use App\Contact;
 use App\Design;
 use App\DesignCategory;
 use App\DesignGallery;
@@ -34,7 +35,8 @@ class DesignController extends Controller
         // User
         $user = $this->getAdmin();
         // Get albums
-        $designs = Design::with('user','status')->get();
+        $designs = Design::with('user','status','contact')->get();
+
         return view('admin.designs',compact('designs','user'));
     }
 
@@ -44,11 +46,11 @@ class DesignController extends Controller
         $user = $this->getAdmin();
 
         // Tags
-        $clients = Client::all();
+        $contacts = Contact::all();
         // Categories
         $categories = Category::all();
 
-        return view('admin.design_create',compact('user','clients','categories'));
+        return view('admin.design_create',compact('user','contacts','categories'));
     }
 
     public function designStore(Request $request)
@@ -60,6 +62,7 @@ class DesignController extends Controller
         $design->date = date('Y-m-d', strtotime($request->date));
 
         $design->views = 0;
+        $design->contact_id = $request->contact;
         $design->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $design->user_id = Auth::user()->id;
         $design->save();
@@ -72,7 +75,7 @@ class DesignController extends Controller
             $designCategory->save();
         }
 
-        return redirect(route('admin.designs'));
+        return redirect()->route('admin.designs')->withSuccess('Design '.$design->name.' succesfully created');
     }
 
     public function designShow($design_id)
@@ -81,14 +84,14 @@ class DesignController extends Controller
         // User
         $user = $this->getAdmin();
         // Clients
-        $clients = Client::all();
+        $contacts = Contact::all();
         // Categories
         $categories = Category::all();
         // Get typography
         $typographies = Typography::all();
         // Get design
         $design = Design::findOrFail($design_id);
-        $design = Design::where('id',$design_id)->with('design_categories','client','user','status','cover_image')->first();
+        $design = Design::where('id',$design_id)->with('design_categories','contact','user','status','cover_image')->first();
 
 
 //        return $design;
@@ -108,7 +111,7 @@ class DesignController extends Controller
         $designWork = DesignWork::where('design_id',$design_id)->with('upload')->get();
 
 //        return $designWork;
-        return view('admin.design_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','clients','categories','design','designGallery','designWork','designStatuses','typographies'));
+        return view('admin.design_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies'));
     }
 
     public function designUpdate(Request $request, $design_id)
@@ -127,7 +130,7 @@ class DesignController extends Controller
 
         $design->name = $request->name;
         $design->description = $request->description;
-        $design->client_id = $request->client;
+        $design->contact_id = $request->contact;
         $design->status_id = $request->status;
         $design->date = date('Y-m-d', strtotime($request->date));
         $design->save();
@@ -983,11 +986,30 @@ class DesignController extends Controller
 
     public function designUpdateDesign(Request $request, $design_id)
     {
-        return $request;
-        $design = Design::findOrFail($album_id);
+        $design = Design::findOrFail($design_id);
         $design->typography_id = $request->typography;
         $design->save();
 
         return back()->withSuccess('Design design updated!');
+    }
+
+    public function designDelete($album_type_id)
+    {
+
+        $design = Tag::findOrFail($album_type_id);
+        $design->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $design->save();
+
+        return back()->withSuccess(__('Tag '.$design->name.' successfully deleted.'));
+    }
+
+    public function designRestore($album_type_id)
+    {
+
+        $design = Tag::findOrFail($album_type_id);
+        $design->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $design->save();
+
+        return back()->withSuccess(__('Tag '.$design->name.' successfully restored.'));
     }
 }
