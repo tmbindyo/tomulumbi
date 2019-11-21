@@ -25,17 +25,17 @@ class Product extends Model
     {
         return $this->belongsTo('App\Type');
     }
-
-
-    // Children
     public function cover_image()
     {
-        return $this->hasOne('App\Upload','id', 'cover_image_id');
+        return $this->belongsTo('App\Upload','cover_image_id', 'id');
     }
     public function second_cover_image()
     {
-        return $this->hasOne('App\Upload','id', 'second_cover_image_id');
+        return $this->belongsTo('App\Upload','second_cover_image_id', 'id');
     }
+
+
+    // Children
     public function product_galleries()
     {
         return $this->hasMany('App\ProductGallery');

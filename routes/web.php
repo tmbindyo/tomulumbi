@@ -62,3 +62,8 @@ Route::get('/project/show/{project_id}', 'Landing\ProjectController@projectShow'
 
 
 Route::post('/add/cart', 'Landing\StoreController@addToCart')->name('add.cart');
+Route::post('/update/cart/{item_id}', 'Landing\StoreController@updateCart')->name('update.cart');
+Route::get('/subtract/cart/item/quantity/{item_id}', 'Landing\StoreController@subtractCartItemQuantity')->name('subtract.cart.item.quantity');
+Route::get('/add/cart/item/quantity/{item_id}', 'Landing\StoreController@AddCartItemQuantity')->name('add.cart.item.quantity');
+Route::get('/remove/item/{item_id}', 'Landing\StoreController@removeItem')->name('remove.item');
+Route::get('/clear/cart', 'Landing\StoreController@clearCart')->name('clear.cart');
