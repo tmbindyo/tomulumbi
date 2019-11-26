@@ -37,6 +37,13 @@ trait PasswordTrait
         return $password;
     }
 
+    public function generateString()
+    {
+        # 3). Unique auto-generated (5 digit numeric code)
+        $random_string = substr(md5(rand()), 0, 15);
+        return $random_string;
+    }
+
 
     public function generatePin()
     {

@@ -12,6 +12,7 @@ class LandingController extends Controller
     use ViewTrait;
     public function welcome(Request $request)
     {
+
         // save that user visited
         $cookie = $request->cookie();
         $view_type = "81e702ff-08ee-49eb-9900-d2f9703a4bbf";
