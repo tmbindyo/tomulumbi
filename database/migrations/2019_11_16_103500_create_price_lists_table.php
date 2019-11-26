@@ -17,6 +17,7 @@ class CreatePriceListsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name');
+            $table->longText('description');
             $table->double('price',10,2);
 
             $table->integer('user_id')->unsigned();

@@ -74,6 +74,10 @@
 <!-- Active js -->
 <script src="{{ asset('themes/store/amado/') }}/js/active.js"></script>
 
+<!-- js content -->
+@yield ('js')
+<!-- /js content -->
+
 </body>
 
 </html>

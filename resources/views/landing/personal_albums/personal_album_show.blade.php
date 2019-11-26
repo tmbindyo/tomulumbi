@@ -78,6 +78,13 @@
                             <li><a href="{{route('welcome')}}">Home</a></li>
                             <li class="active"><a href="{{route('personal.albums')}}">Album View</a></li>
                             <li><a href="{{route('tags')}}">Tag View</a></li>
+                            @if($album->is_download == 1)
+                                @if($album->is_download_pin == 1)
+                                    <li><a href="#" data-toggle="modal" data-target=".contact-modal-md"><span class="fa fa-download"></span> Download Album</a></li>
+                                @else
+                                    <li><a href="{{route('personal.album.download',$albumView->id)}}"><span class="fa fa-download"></span> Download Album</a></li>
+                                @endif
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -160,6 +167,7 @@
 
             <!-- email -->
 
+        {{route('personal.album.download',$albumView->id)}}
             <!-- social -->
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
@@ -179,6 +187,47 @@
 </footer>
 
 <!-- footer -->
+
+<!-- ***** donwload pin modal ***** -->
+<div class="contact-popup-form" id="contact-modal-md">
+    <div class="modal fade contact-modal-md" tabindex="-1" role="dialog" aria-labelledby="contact-modal-md" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="center fa fa-4x fa-download"></i>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route('personal.album.download.pin',$albumView->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                        @csrf
+
+                        <div class="has-warning">
+                            <input type="number" name="download_pin" required="required" class="form-control input-lg" required="required" placeholder="Proof Download Pin">
+                        </div>
+
+                        <br>
+
+                        @if($album->client_access_password != '')
+                            <div class="has-warning">
+                                <input type="text" name="client_exclusive_password" required="required" class="form-control input-lg" required="required" placeholder="Client Exclusive Password">
+                            </div>
+                        @endif
+
+                        <br>
+
+                        <div class="row text-center">
+                            <button type="submit" class="btn btn-success btn-block btn-lg ">{{ __('DOWNLOAD') }}</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** download pin modal ***** -->
+
 
 <!-- jQuery -->
 
@@ -220,7 +269,9 @@
         touchswipe    :true,
         mousewheel    :true,
         rclick_prevent  :true,
-        download    :false,
+        @if($album->is_download == 1 && now()<$album->expiry_date && $album->client_access_password == '')
+        download    :true,
+        @endif
         // more options here
     });
 </script>

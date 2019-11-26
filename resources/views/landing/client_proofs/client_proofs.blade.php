@@ -48,14 +48,14 @@
                 <h2>Get in touch</h2>
                 <form method="post" action="{{ route('email.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
-                    <div class="field half first">
+                    <div class="field">
                         <input type="text" name="name" id="name" placeholder="Name" required />
                     </div>
-                    <div class="field half first">
-                        <input type="text" name="subject" id="subject" placeholder="Name" required />
-                    </div>
-                    <div class="field half">
+                    <div class="field">
                         <input type="email" name="email" id="email" placeholder="Email" required />
+                    </div>
+                    <div class="field">
+                        <input type="text" name="subject" id="subject" placeholder="Subject" required />
                     </div>
                     <div class="field">
                         <textarea name="message" id="message" placeholder="Message" required></textarea>

@@ -12,6 +12,10 @@ use App\DesignWork;
 use App\Status;
 use App\Tag;
 use App\ToDo;
+use App\Traits\DesignTrait;
+use App\Traits\DownloadViewNumbersTrait;
+use App\Traits\NavbarTrait;
+use App\Traits\StatusCountTrait;
 use App\Typography;
 use App\Upload;
 use Auth;
@@ -26,6 +30,10 @@ use Intervention\Image\ImageManagerStatic as Image;
 class DesignController extends Controller
 {
     use UserTrait;
+    use DesignTrait;
+    use NavbarTrait;
+    use StatusCountTrait;
+    use DownloadViewNumbersTrait;
     public function __construct()
     {
         $this->middleware('auth');
@@ -36,21 +44,26 @@ class DesignController extends Controller
         $user = $this->getAdmin();
         // Get albums
         $designs = Design::with('user','status','contact')->get();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the design status counts
+        $designsStatusCount = $this->designsStatusCount();
 
-        return view('admin.designs',compact('designs','user'));
+        return view('admin.designs',compact('designs','user','navbarValues','designsStatusCount'));
     }
 
     public function designCreate()
     {
         // User
         $user = $this->getAdmin();
-
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
         // Tags
         $contacts = Contact::all();
         // Categories
         $categories = Category::all();
 
-        return view('admin.design_create',compact('user','contacts','categories'));
+        return view('admin.design_create',compact('user','contacts','categories','navbarValues'));
     }
 
     public function designStore(Request $request)
@@ -62,6 +75,7 @@ class DesignController extends Controller
         $design->date = date('Y-m-d', strtotime($request->date));
 
         $design->views = 0;
+        $design->gallery_views = 0;
         $design->contact_id = $request->contact;
         $design->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $design->user_id = Auth::user()->id;
@@ -83,6 +97,12 @@ class DesignController extends Controller
 
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get design aggregations
+        $designArray = $this->getDesign($design_id);
+        // Get views and downloads
+        $designViews = $this->getDesignViews($design_id);
         // Clients
         $contacts = Contact::all();
         // Categories
@@ -92,12 +112,8 @@ class DesignController extends Controller
         // Get design
         $design = Design::findOrFail($design_id);
         $design = Design::where('id',$design_id)->with('design_categories','contact','user','status','cover_image')->first();
-
-
-//        return $design;
         // Design status
         $designStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
-
         // Pending to dos
         $pendingToDos = ToDo::with('user','status','design')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('design_id',$design->id)->get();
         // In progress to dos
@@ -111,7 +127,7 @@ class DesignController extends Controller
         $designWork = DesignWork::where('design_id',$design_id)->with('upload')->get();
 
 //        return $designWork;
-        return view('admin.design_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies'));
+        return view('admin.design_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies','navbarValues','designArray','designViews'));
     }
 
     public function designUpdate(Request $request, $design_id)
@@ -360,6 +376,7 @@ class DesignController extends Controller
         $designWork = new DesignWork();
         $designWork->name = $request->name;
         $designWork->description = $request->description;
+        $designWork->views = 0;
         $designWork->upload_id = $design_id;
         $designWork->design_id = $design_id;
         $designWork->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";

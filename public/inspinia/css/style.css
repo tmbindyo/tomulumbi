@@ -5651,11 +5651,25 @@ del {
   color: #bebec3;
   font-weight: 600;
 }
+.album-set-imitation {
+  text-align: center;
+  padding: 0px 0;
+  background-color: #f8f8f9;
+  color: #bebec3;
+  font-weight: 600;
+}
 .cart-product-imitation {
   text-align: center;
   padding-top: 30px;
   height: 80px;
   width: 80px;
+  background-color: #f8f8f9;
+}
+.cart-album-set-imitation {
+  text-align: center;
+  padding-top: 30px;
+  height: 0px;
+  width: 0px;
   background-color: #f8f8f9;
 }
 .product-imitation.xl {

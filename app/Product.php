@@ -12,7 +12,6 @@ class Product extends Model
     public $incrementing = false;
 
     // Parents
-
     public function status()
     {
         return $this->belongsTo('App\Status');
@@ -47,6 +46,10 @@ class Product extends Model
     public function price_lists()
     {
         return $this->hasMany('App\PriceList');
+    }
+    public function lowest_price()
+    {
+        return $this->hasMany('App\PriceList')->orderBy('price','asc');
     }
     public function to_dos()
     {

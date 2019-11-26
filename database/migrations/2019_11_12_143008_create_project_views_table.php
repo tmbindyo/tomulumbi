@@ -24,6 +24,7 @@ class CreateProjectViewsTable extends Migration
 
             $table->longText('request')->nullable();
             $table->integer('number');
+            $table->string('cookie');
 
             $table->timestamps();
             $table->softDeletes();

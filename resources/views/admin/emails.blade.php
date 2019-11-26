@@ -38,6 +38,47 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
+
+            <div class="col-lg-12">
+                <div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-warning m-r-sm">{{$emailStatusCount['unreadEmails']}}</button>
+                                Unread
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info m-r-sm">{{$emailStatusCount['seenEmails']}}</button>
+                                Seen
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary m-r-sm">{{$emailStatusCount['readEmails']}}</button>
+                                Read
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success m-r-sm">{{$emailStatusCount['repliedEmails']}}</button>
+                                Replied
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger m-r-sm">{{$emailStatusCount['flaggedEmails']}}</button>
+                                Flagged
+                            </td>
+                        </tr>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">

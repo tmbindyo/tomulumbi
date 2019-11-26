@@ -12,8 +12,8 @@
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mt-50">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">{{$product->type->name}}</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('store')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('store.type.products',$product->type_id)}}">{{$product->type->name}}</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$product->name}}</li>
                         </ol>
                     </nav>
@@ -65,9 +65,9 @@
                         <!-- Product Meta Data -->
                         <div class="product-meta-data">
                             <div class="line"></div>
-                            <p class="product-price">$180</p>
+                            <p class="product-price">Ksh. {{$product->lowest_price->first()->price}}</p>
                             <a href="{{route('store.product.show',1)}}">
-                                <h6>White Modern Chair</h6>
+                                <h6>{{$product->name}}</h6>
                             </a>
                             <!-- Ratings & Review -->
                             <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
@@ -97,7 +97,7 @@
                                 <div class="col-12 mb-3">
                                     <select name="price_list" class="w-100" id="country">
                                         @foreach($product->price_lists as $priceList)
-                                            <option value="{{$priceList->id}}">{{$priceList->size->size}} {{$priceList->sub_type->name}}</option>
+                                            <option data-fid="" value="{{$priceList->id}}">{{$priceList->size->size}} {{$priceList->sub_type->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -10,6 +10,7 @@ use App\Design;
 use App\DesignGallery;
 use App\DesignWork;
 use App\Tag;
+use App\Traits\ViewTrait;
 use App\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,21 +19,41 @@ use function GuzzleHttp\Psr7\str;
 
 class AlbumController extends Controller
 {
-    public function clientProofs()
+    use ViewTrait;
+    public function clientProofs(Request $request)
     {
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "10200706-0362-43a6-be1a-62bcc49ddcb9";
+        $view_id = '';
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+
         // Get albums
         $albums = Album::where('album_type_id','ca64a5e0-d39b-4f2c-a136-9c523d935ea4')->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('user','status')->get();
         return view('landing.client_proofs.client_proofs',compact('albums'));
     }
 
-    function clientProof($album_id){
+    function clientProof(Request $request,$album_id){
+
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "10200706-0362-43a6-be1a-62bcc49ddcb9";
+        $view_id = '';
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+
         $albumExists = Album::findOrFail($album_id);
         $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
 //        return $album;
         return view('landing.client_proofs.client_proof',compact('album'));
     }
 
-    function clientProofAccess($album_id){
+    function clientProofAccess(Request $request,$album_id){
+
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "10200706-0362-43a6-be1a-62bcc49ddcb9";
+        $view_id = '';
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
 
         // Check if the album is client exclusive
 
@@ -46,8 +67,6 @@ class AlbumController extends Controller
 //            return redirect(route('client.proof.show',$album->id));
 //        }
 
-//        return $album->cover_image;
-//        return $album;
         return view('landing.client_proofs.access',compact('album'));
     }
 
@@ -74,11 +93,18 @@ class AlbumController extends Controller
 
                 // Register album view
                 $albumView = new AlbumView();
+                $albumView->cookie = $request->cookie();
                 $albumView->expiry = $expiry;
                 $albumView->email = $request->email;
                 $albumView->album_id = $albumExists->id;
                 $albumView->number = $albumExists->views;
                 $albumView->save();
+
+                // save that user visited
+                $cookie = $request->cookie();
+                $view_type = "10200706-0362-43a6-be1a-62bcc49ddcb9";
+                $view_id = $albumView->id;
+                $view = $this->trackView($cookie,$request,$view_type,$view_id);
 
                 return redirect(route('client.proof.show', $albumView->id));
 
@@ -97,16 +123,23 @@ class AlbumController extends Controller
 
         // Register album view
         $albumView = new AlbumView();
+        $albumView->cookie = $request->cookie();
         $albumView->expiry = $expiry;
         $albumView->email = $request->email;
         $albumView->album_id = $albumExists->id;
         $albumView->number = $albumExists->views;
         $albumView->save();
 
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "10200706-0362-43a6-be1a-62bcc49ddcb9";
+        $view_id = $albumView->id;
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+
         return redirect(route('client.proof.show', $albumView->id));
     }
 
-    function clientProofShow($album_view_id){
+    function clientProofShow( Request $request, $album_view_id){
 
         // Check if the ablum exists
         $album = Album::where('id',$album_view_id)->first();
@@ -132,11 +165,18 @@ class AlbumController extends Controller
 
             // Register album view
             $albumView = new AlbumView();
+            $albumView->cookie = $request->cookie();
             $albumView->album_id = $album->id;
             $albumView->number = $albumExists->views;
             $albumView->save();
 
         }
+
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "10200706-0362-43a6-be1a-62bcc49ddcb9";
+        $view_id = $albumView->id;
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
 
 //        return $album;
         // Album Sets
@@ -144,11 +184,17 @@ class AlbumController extends Controller
         return view('landing.client_proofs.client_proof_show',compact('album','albumSets','albumView'));
     }
 
-    function clientProofDownload($album_view_id){
+    function clientProofDownload(Request $request, $album_view_id){
 
 
         // todo Limit Total Number of Gallery Downloads
         $albumView = AlbumView::findOrFail($album_view_id);
+
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "10200706-0362-43a6-be1a-62bcc49ddcb9";
+        $view_id = $albumView->id;
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
 
         $albumExists = Album::findOrFail($albumView->album_id);
         $album = Album::where('id',$albumView->album_id)->first();
@@ -161,6 +207,7 @@ class AlbumController extends Controller
 
         // track download
         $albumDownload = new AlbumDownload();
+        $albumDownload->cookie = $request->cookie();
         $albumDownload->album_view_id = $albumView->id;
         $albumDownload->album_id = $album->id;
         $albumDownload->save();
@@ -169,7 +216,7 @@ class AlbumController extends Controller
         $folderName = str_replace(' ', '',  $album->name.'/');
 
         // Get folder path
-        $path = public_path()."/client/proof/".$folderName.'1500/';
+        $path = public_path()."/work/client/proof/".$folderName.'1500/';
 //        return $path;
 
         // Zip folder
@@ -203,6 +250,11 @@ class AlbumController extends Controller
 
         $albumView = AlbumView::findOrFail($album_view_id);
 
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "10200706-0362-43a6-be1a-62bcc49ddcb9";
+        $view_id = $albumView->id;
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
 
         $albumExists = Album::findOrFail($albumView->album_id);
         $album = Album::where('id',$albumView->album_id)->first();
@@ -220,6 +272,7 @@ class AlbumController extends Controller
         }
         // track download
         $albumDownload = new AlbumDownload();
+        $albumDownload->cookie = $request->cookie();
         $albumDownload->album_view_id = $albumView->id;
         $albumDownload->album_id = $album->id;
         $albumDownload->save();
@@ -258,8 +311,14 @@ class AlbumController extends Controller
 
 
 
-    public function personalAlbums()
+    public function personalAlbums(Request $request)
     {
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
+        $view_id = '';
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+
         // Get albums
         $albums = Album::where('album_type_id','6fdf4858-01ce-43ff-bbe6-827f09fa1cef')->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('user','status')->get();
 
@@ -267,10 +326,15 @@ class AlbumController extends Controller
         return view('landing.personal_albums.personal_albums',compact('albums'));
     }
 
-    function personalAlbumAccess($album_id){
+    function personalAlbumAccess(Request $request,$album_id){
+
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
+        $view_id = '';
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
 
         // Check if the album is client exclusive
-
         $albumExists = Album::findOrFail($album_id);
         $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
 
@@ -279,6 +343,7 @@ class AlbumController extends Controller
             return view('landing.personal_albums.access',compact('album'));
 //            return redirect()->route('personal.album.access.check',$album->id);
         }else{
+            // create a
             return redirect()->route('personal.album.show',$album->id);
         }
     }
@@ -303,6 +368,7 @@ class AlbumController extends Controller
 
                 // Register album view
                 $albumView = new AlbumView();
+                $albumView->cookie = $request->cookie();
                 $albumView->expiry = $expiry;
                 $albumView->email = $request->email;
                 $albumView->album_id = $albumExists->id;
@@ -326,16 +392,24 @@ class AlbumController extends Controller
 
         // Register album view
         $albumView = new AlbumView();
+        $albumView->cookie = $request->cookie();
         $albumView->expiry = $expiry;
         $albumView->email = $request->email;
         $albumView->album_id = $albumExists->id;
         $albumView->number = $albumExists->views;
         $albumView->save();
 
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
+        $view_id = $albumView->id;
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+
         return redirect(route('personal.album.show', $albumView->id));
     }
 
-    function personalAlbumShow($album_view_id){
+    function personalAlbumShow(Request $request,$album_view_id){
+
 
         // Check if the ablum exists
         $album = Album::where('id',$album_view_id)->first();
@@ -358,28 +432,179 @@ class AlbumController extends Controller
             $albumExists = Album::findOrFail($album->id);
             $albumExists->views++;
             $albumExists->save();
-
+            // Get token expiry
+            $expiry = now();
+            $expiry->modify('+ 1 hour');
             // Register album view
             $albumView = new AlbumView();
+            $albumView->cookie = $request->cookie();
             $albumView->album_id = $album->id;
+            $albumView->expiry = $expiry;
             $albumView->number = $albumExists->views;
             $albumView->save();
         }
 
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
+        $view_id = $albumView->id;
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
 
-        return view('landing.personal_albums.personal_album_show',compact('album','albumSets'));
+        return view('landing.personal_albums.personal_album_show',compact('album','albumSets','albumView'));
+    }
+
+    function personalAlbumDownload(Request $request,$album_view_id){
+
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
+        $view_id = $album_view_id;
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+
+        // todo Limit Total Number of Gallery Downloads
+        $albumView = AlbumView::findOrFail($album_view_id);
+
+        $albumExists = Album::findOrFail($albumView->album_id);
+        $album = Album::where('id',$albumView->album_id)->first();
+
+        // Check if the expiry date has expired
+
+//        return now().'|'.$album->expiry_date;
+        if (now()>$album->expiry_date){
+            return back()->withWarning('The download period for the selected proof has expired.');
+        }else{
+
+        }
+
+
+        // track download
+        $albumDownload = new AlbumDownload();
+        $albumDownload->cookie = $request->cookie();
+        $albumDownload->album_view_id = $albumView->id;
+        $albumDownload->album_id = $album->id;
+        $albumDownload->save();
+
+        // Begin download process
+        $folderName = str_replace(' ', '',  $album->name.'/');
+
+        // Get folder path
+        $path = public_path()."/work/personal/album/".$folderName.'1500/';
+//        return $path;
+
+        // Zip folder
+        $zip_file = $album->name.'.zip';
+//        $zip_file = str_replace(' ', '',  $album->name.'.zip');
+//        return $zip_file;
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+        foreach ($files as $name => $file)
+        {
+            // We're skipping all subfolders
+            if (!$file->isDir()) {
+                $filePath     = $file->getRealPath();
+
+                // extracting filename with substr/strlen
+                $relativePath = substr($filePath, strlen($path));
+
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $zip->close();
+        return response()->download($zip_file);
+    }
+
+    function personalAlbumDownloadPin(Request $request, $album_view_id){
+
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
+        $view_id = $album_view_id;
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+
+        // check if the download pin is correct
+        // todo Limit Total Number of Gallery Downloads
+
+        $albumView = AlbumView::findOrFail($album_view_id);
+
+
+        $albumExists = Album::findOrFail($albumView->album_id);
+        $album = Album::where('id',$albumView->album_id)->first();
+
+        if (now()>$album->expiry_date){
+            return back()->withWarning('The download period for the selected proof has expired.');
+        }
+
+        if ($album->client_access_password != $request->client_exclusive_password){
+            return back()->withWarning('The client exclusive password entered is incorrect');
+        }
+
+        if ($album->download_pin != $request->download_pin){
+            return back()->withWarning('The pin entered is incorrect');
+        }
+        // track download
+        $albumDownload = new AlbumDownload();
+        $albumDownload->cookie = $request->cookie();
+        $albumDownload->album_view_id = $albumView->id;
+        $albumDownload->album_id = $album->id;
+        $albumDownload->save();
+
+        // Begin download process
+        $folderName = str_replace(' ', '',  $album->name.'/');
+
+        // Get folder path
+        $path = public_path()."/client/proof/".$folderName.'1500/';
+//        return $path;
+
+        // Zip folder
+        $zip_file = $album->name.'.zip';
+//        $zip_file = str_replace(' ', '',  $album->name.'.zip');
+//        return $zip_file;
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+        foreach ($files as $name => $file)
+        {
+            // We're skipping all subfolders
+            if (!$file->isDir()) {
+                $filePath     = $file->getRealPath();
+
+                // extracting filename with substr/strlen
+                $relativePath = substr($filePath, strlen($path));
+
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $zip->close();
+        return response()->download($zip_file);
     }
 
 
-    public function tags()
+    public function tags(Request $request)
     {
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
+        $view_id = '';
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+
         $tags = Tag::with('cover_image')->get();
         return view('landing.personal_albums.tags',compact('tags'));
     }
-    public function tagShow($tag_id)
+
+    public function tagShow(Request $request,$tag_id)
     {
+
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
+        $view_id = '';
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
 
         $tag = Tag::where('id',$tag_id)->with('thumbnail_size')->first();
         $uploads = Upload::where('tag_id',$tag_id)->with('album','tag.thumbnail_size')->where('is_password',False)->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->get();

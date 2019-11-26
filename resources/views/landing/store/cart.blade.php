@@ -38,9 +38,9 @@
                                         <div class="qty-btn d-flex">
                                             <p>Qty</p>
                                             <div class="quantity">
-                                                <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="{{$item->quantity}}">
-                                                <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                <span class="qty-minus subtractCartItemQuantity" data-fid="{{$item->id}}" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                <input type="number" disabled class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="{{$item->quantity}}">
+                                                <span class="qty-plus AddCartItemQuantity" data-fid="{{$item->id}}" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                             </div>
                                         </div>
                                     </td>
@@ -54,7 +54,7 @@
                     <div class="cart-summary">
                         <h5>Cart Total</h5>
                         <ul class="summary-table">
-                            <li><span>subtotal:</span> <span>{{$total}}</span></li>
+                            <li><span>subtotal:</span> <span id="subtotal">{{$total}}</span></li>
                             <li><span>delivery:</span> <span>Free</span></li>
                             <li><span>total:</span> <span>$140.00</span></li>
                         </ul>
@@ -67,5 +67,90 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@section('js')
+
+    <script>
+        $('.subtractCartItemQuantity').on('click',function(){
+            var id = $(this).data('fid')
+
+            //send value by ajax to server
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '{{url('subtract/cart/item/quantity')}}'+'/'+id);
+            xhr.setRequestHeader('Content-Type', '');
+            xhr.send();
+            xhr.onload = function() {
+                console.log(this.responseText);
+
+                // if row is equals to 0, delete row
+                alert("Item Quantity reduced.");
+            }
+        });
+
+    </script>
+
+    <script>
+        $('.AddCartItemQuantity').on('click',function(){
+            var id = $(this).data('fid')
+
+            //send value by ajax to server
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '{{url('add/cart/item/quantity')}}'+'/'+id, true);
+            xhr.setRequestHeader('Content-Type', '');
+            xhr.responseType = 'json';
+            xhr.send();
+            xhr.onload = function() {
+
+                // parse json response to array
+                var jsonResponse = xhr.response;
+
+                // Get value of price updated item
+                var price = jsonResponse.price;
+
+                // Get current subtotal
+                subtotal = document.getElementById("subtotal").innerText;
+                // Get new subtotal
+                var newsubtotal = Number(subtotal) + Number(price);
+
+                // set new price to subtotal span
+                document.getElementById("subtotal").textContent=newsubtotal;
+                alert("Item quantity increased.");
+            }
+        });
+
+    </script>
+
+    <script>
+        $('.subtractCartItemQuantity').on('click',function(){
+            var id = $(this).data('fid')
+
+            //send value by ajax to server
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '{{url('subtract/cart/item/quantity')}}'+'/'+id, true);
+            xhr.setRequestHeader('Content-Type', '');
+            xhr.responseType = 'json';
+            xhr.send();
+            xhr.onload = function() {
+
+                // parse json response to array
+                var jsonResponse = xhr.response;
+
+                // Get value of price updated item
+                var price = jsonResponse.price;
+
+                // Get current subtotal
+                subtotal = document.getElementById("subtotal").innerText;
+                // Get new subtotal
+                var newsubtotal = Number(subtotal) - Number(price);
+
+                // set new price to subtotal span
+                document.getElementById("subtotal").textContent=newsubtotal;
+                alert("Item quantity reduced.");
+            }
+        });
+
+    </script>
 
 @endsection

@@ -17,9 +17,54 @@
 
 
 @section('content')
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Contact's</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('admin.dashboard')}}">Home</a>
+                </li>
+                <li class="active">
+                    <a href="{{route('admin.contacts')}}">Contact's</a>
+                </li>
+                <li class="active">
+                    <strong>Contact</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
 
 
         <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-warning m-r-sm">{{$contactWorkCount['contactAlbums']}}</button>
+                                    Albums
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-info m-r-sm">{{$contactWorkCount['contactProjects']}}</button>
+                                    Projects
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary m-r-sm">{{$contactWorkCount['contactDesigns']}}</button>
+                                    Designs
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+
+            </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">

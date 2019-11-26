@@ -16,6 +16,7 @@ class CreateAlbumViewsTable extends Migration
         Schema::create('album_views', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string('cookie');
             $table->dateTime('expiry')->nullable();
             $table->string('email')->nullable();
             $table->uuid('album_id')->nullable();

@@ -6,6 +6,8 @@ use App\Journal;
 use App\JournalGallery;
 use App\JournalLabel;
 use App\Label;
+use App\Order;
+use App\OrderProduct;
 use App\PriceList;
 use App\Product;
 use App\ProductGallery;
@@ -14,6 +16,10 @@ use App\Status;
 use App\SubType;
 use App\ThumbnailSize;
 use App\ToDo;
+use App\Traits\DownloadViewNumbersTrait;
+use App\Traits\NavbarTrait;
+use App\Traits\ProductTrait;
+use App\Traits\StatusCountTrait;
 use App\Traits\UserTrait;
 use App\Type;
 use App\Typography;
@@ -28,6 +34,10 @@ use Intervention\Image\ImageManagerStatic as Image;
 class ProductController extends Controller
 {
     use UserTrait;
+    use NavbarTrait;
+    use ProductTrait;
+    use StatusCountTrait;
+    use DownloadViewNumbersTrait;
     public function __construct()
     {
         $this->middleware('auth');
@@ -37,19 +47,27 @@ class ProductController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
         // Get albums
         $products = Product::with('user','status')->get();
+        // Get the design status counts
+        $productsStatusCount = $this->productsStatusCount();
 
-        return view('admin.products',compact('products','user'));
+//        return $productsStatusCount;
+
+        return view('admin.products',compact('products','user','navbarValues','productsStatusCount'));
     }
 
     public function productCreate()
     {
         // User
         $user = $this->getAdmin();
-        // Labels
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Types
         $types = Type::all();
-        return view('admin.product_create',compact('user','types'));
+        return view('admin.product_create',compact('user','types','navbarValues'));
     }
 
     public function productStore(Request $request)
@@ -66,13 +84,19 @@ class ProductController extends Controller
         $product->save();
 
 
-        return redirect()->route('admin.products')->withSuccess('Product '.$product->name.' succesfully created');
+        return redirect()->route('admin.product.show',$product->id)->withSuccess('Product '.$product->name.' succesfully created');
     }
 
     public function productShow($product_id)
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get product aggregations
+        $productArray = $this->getProduct($product_id);
+        // Get views and downloads
+        $productViews = $this->getProductViews($product_id);
         // Get typography
         $typographies = Typography::all();
         // Get thumbnail sizes
@@ -100,7 +124,7 @@ class ProductController extends Controller
         $overdueToDos = ToDo::with('user','status','product')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('product_id',$product->id)->get();
         // product gallery
         $productGallery = ProductGallery::where('product_id',$product_id)->with('upload')->get();
-        return view('admin.product_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','product','productGallery','productStatuses','typographies','thumbnailSizes','types','priceLists','subTypes','sizes'));
+        return view('admin.product_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','product','productGallery','productStatuses','typographies','thumbnailSizes','types','priceLists','subTypes','sizes','navbarValues','productViews','productArray'));
     }
 
     public function productUpdate(Request $request, $product_id)
@@ -113,12 +137,18 @@ class ProductController extends Controller
         $product = Product::findOrFail($product_id);
 
         // Check if the cover image has been uploaded if the status is being updated to published
-        if ($request->status == "be8843ac-07ab-4373-83d9-0a3e02cd4ff5" && $product->cover_image_id == ""){
+        if ($request->status == "e5d06435-7df5-45dd-a4e9-e57f538b8366" && $product->cover_image_id == ""){
             return back()->withWarning(__('Please set a cover image before making the product to published.'));
         }
-        if ($request->status == "be8843ac-07ab-4373-83d9-0a3e02cd4ff5" && $product->second_cover_image_id == ""){
+        if ($request->status == "e5d06435-7df5-45dd-a4e9-e57f538b8366" && $product->second_cover_image_id == ""){
             return back()->withWarning(__('Please set the secondary cover image before making the product to published.'));
         }
+        // if has no price list
+        $priceList = PriceList::where('product_id',$product_id)->first();
+        if (!($priceList)){
+            return back()->withWarning(__("The product can't be set to live without a price list"));
+        }
+
 
         $product->name = $request->name;
         $product->description = $request->description;
@@ -183,11 +213,11 @@ class ProductController extends Controller
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
 
-//            Image::make( $path )->resize(750, null, function ($constraint) {
-//                $constraint->aspectRatio();
-//            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
 
-            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
+//            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
 
 
             Image::make( $path )->resize(1000, null, function ($constraint) {
@@ -217,11 +247,11 @@ class ProductController extends Controller
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
 
-            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
+//            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
 
-//            Image::make( $path )->resize(null, 750, function ($constraint) {
-//                $constraint->aspectRatio();
-//            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
 
             Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
@@ -382,11 +412,11 @@ class ProductController extends Controller
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
 
-//            Image::make( $path )->resize(750, null, function ($constraint) {
-//                $constraint->aspectRatio();
-//            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
 
-            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
+//            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
 
 
             Image::make( $path )->resize(1000, null, function ($constraint) {
@@ -416,11 +446,11 @@ class ProductController extends Controller
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
 
-            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
+//            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
 
-//            Image::make( $path )->resize(null, 750, function ($constraint) {
-//                $constraint->aspectRatio();
-//            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
 
             Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
@@ -743,14 +773,12 @@ class ProductController extends Controller
         return back()->withSuccess(__('Product '.$product->name.' successfully restored.'));
     }
 
-
-
     // Price lists
     public function priceListStore(Request $request, $product_id)
     {
         $priceList = new PriceList();
-        $priceList->name = '400';
-        $priceList->description = '400';
+        $priceList->name = $request->price;
+        $priceList->description = $request->description;
         $priceList->price = $request->price;
         $priceList->product_id = $request->product_id;
         $priceList->sub_type_id = $request->sub_type;
@@ -762,38 +790,49 @@ class ProductController extends Controller
         return back()->withSuccess(__('Price list successfully restored.'));
     }
 
-    public function priceListShow($priceList_id)
+    public function priceListShow($price_list_id)
     {
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get views and downloads
+        $ordersAndSales = $this->getPriceListOrders($price_list_id);
         // Check if priceList exists
-        $priceListExists = PriceList::findOrFail($priceList_id);
-
+        $priceListExists = PriceList::findOrFail($price_list_id);
         // User
         $user = $this->getAdmin();
-        $priceList = PriceList::with('user','status')->where('id',$priceList_id)->with('price_lists')->first();
+        // sub types
+        $subTypes = SubType::with('type')->get();
+        // sizes
+        $sizes = Size::all();
+        // get price list
+        $priceList = PriceList::with('user','status','product')->where('id',$price_list_id)->first();
+        // orders
+        $orders = OrderProduct::with('product')->where("price_list_id",$price_list_id)->where("is_sale",False)->get();
+        // sales
+        $sales = OrderProduct::with('product')->where("price_list_id",$price_list_id)->where("is_sale",True)->get();
 
-        return view('admin.priceList_show',compact('priceList','user'));
+        return view('admin.price_list_show',compact('priceList','user','navbarValues','orders','sales','subTypes','sizes','ordersAndSales'));
     }
 
-    public function priceListUpdate(Request $request, $priceList_id)
+    public function priceListUpdate(Request $request, $price_list_id)
     {
 
-        $priceList = PriceList::findOrFail($priceList_id);
-        $priceList->name = $request->name;
+        $priceList = PriceList::findOrFail($price_list_id);
+        $priceList->name = $request->price;
+        $priceList->description = $request->description;
         $priceList->price = $request->price;
-        $priceList->product_id = $request->product_id;
-        $priceList->sub_type_id = $request->sub_type_id;
-        $priceList->size_id = $request->size_id;
+        $priceList->sub_type_id = $request->sub_type;
+        $priceList->size_id = $request->size;
         $priceList->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $priceList->user_id = Auth::user()->id;
         $priceList->save();
-
-        return redirect()->route('admin.priceLists')->withSuccess('Price list updated!');
+        return back()->withSuccess('Price list updated!');
     }
 
-    public function priceListDelete($priceList_id)
+    public function priceListDelete($price_list_id)
     {
 
-        $priceList = PriceList::findOrFail($priceList_id);
+        $priceList = PriceList::findOrFail($price_list_id);
         $priceList->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
         $priceList->user_id = Auth::user()->id;
         $priceList->save();
@@ -801,10 +840,10 @@ class ProductController extends Controller
         return back()->withSuccess(__('Price list '.$priceList->name.' successfully deleted.'));
     }
 
-    public function priceListRestore($priceList_id)
+    public function priceListRestore($price_list_id)
     {
 
-        $priceList = PriceList::findOrFail($priceList_id);
+        $priceList = PriceList::findOrFail($price_list_id);
         $priceList->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $priceList->user_id = Auth::user()->id;
         $priceList->save();

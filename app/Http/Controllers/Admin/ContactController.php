@@ -7,6 +7,8 @@ use App\Contact;
 use App\ContactType;
 use App\Design;
 use App\Project;
+use App\Traits\ContactWorkCountTrait;
+use App\Traits\NavbarTrait;
 use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 class ContactController extends Controller
 {
     use UserTrait;
+    use NavbarTrait;
+    use ContactWorkCountTrait;
 
     public function __construct()
     {
@@ -25,21 +29,26 @@ class ContactController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get all contacts
         $contacts = Contact::with('status','contact_type')->get();
+        // Get contact types
         $contactTypes = ContactType::all();
 
-        return view('admin.contacts',compact('contacts','user','contactTypes'));
+        return view('admin.contacts',compact('contacts','user','contactTypes','navbarValues'));
     }
 
     public function contactCreate()
     {
         // User
         $user = $this->getAdmin();
-
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
         $contacts = Contact::with('user','status','contact_type')->get();
         $contactTypes = ContactType::all();
 
-        return view('admin.contact_create',compact('contacts','user','contactTypes'));
+        return view('admin.contact_create',compact('contacts','user','contactTypes','navbarValues'));
     }
 
     public function contactStore(Request $request)
@@ -56,23 +65,17 @@ class ContactController extends Controller
         return redirect()->route('admin.contacts')->withSuccess(__('Contact '.$contact->name.' successfully created.'));
     }
 
-//    public function contactShow($contact_id)
-//    {
-//        // User
-//        $user = $this->getAdmin();
-//
-//        $contact = Contact::findOrFail($contact_id);
-//        $contact = Contact::where('id',$contact_id)->with('status')->get();
-//
-//        return view('admin.contact_show',compact('contact','user'));
-//    }
-
     public function contactShow($contact_id)
     {
         // Check if project type exists
         $contactExists = Contact::findOrFail($contact_id);
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the contact work count
+        $contactWorkCount = $this->ContactWorkCount($contact_id);
+
         $contact = Contact::with('user','status')->where('id',$contact_id)->first();
         $contactTypes = ContactType::all();
 
@@ -80,7 +83,7 @@ class ContactController extends Controller
         $projects = Project::with('user','status')->where('contact_id',$contact_id)->get();
         $albums = Album::with('user','status')->where('contact_id',$contact_id)->get();
 
-        return view('admin.contact_show',compact('contact','user','designs','projects','albums','contactTypes'));
+        return view('admin.contact_show',compact('contact','user','designs','projects','albums','contactTypes','navbarValues','contactWorkCount'));
     }
 
     public function contactUpdate(Request $request, $contact_id)

@@ -59,12 +59,14 @@
                                             </div>
                                         @endif
 
-                                        <div class="form-group">
+                                        <div class="has-warning">
                                             <label>Name</label>
                                             <input type="name" name="name" value="{{$category->name}}" class="form-control input-lg">
                                         </div>
+                                        <br>
+                                        <hr>
                                         <div>
-                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                            <button class="btn btn-lg btn-primary btn-block" type="submit"><strong>Update</strong></button>
                                         </div>
                                     </form>
                                 </div>

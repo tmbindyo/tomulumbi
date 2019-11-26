@@ -26,13 +26,6 @@ class AlbumTypeTableSeeder extends Seeder
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
-            DB::table('album_types')->insert([
-                'id' => '6ce90e06-e1c4-4df7-87b6-fe2d4e9ffbc0',
-                'name' => 'Backup',
-                'description' => 'Backup album',
-                'user_id' => 1,
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-            ]);
 
     }
 }

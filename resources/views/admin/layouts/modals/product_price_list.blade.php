@@ -28,6 +28,13 @@
                         </div>
                     </div>
                     <br>
+                    <div class="">
+                        <div class="has-warning">
+                            <textarea class="form-control" rows="5" name="description" placeholder="Description..."></textarea>
+                            <i>Give your price list a price</i>
+                        </div>
+                    </div>
+                    <br>
                     <div class="has-warning">
                         <label class="control-label">Sub Types</label>
                         <select class="form-control m-b input-lg" name="sub_type">

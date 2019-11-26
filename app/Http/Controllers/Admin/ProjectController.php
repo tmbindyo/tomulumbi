@@ -14,6 +14,10 @@ use App\ProjectType;
 use App\Status;
 use App\ThumbnailSize;
 use App\ToDo;
+use App\Traits\DownloadViewNumbersTrait;
+use App\Traits\NavbarTrait;
+use App\Traits\ProjectTrait;
+use App\Traits\StatusCountTrait;
 use App\Traits\UserTrait;
 use App\Typography;
 use App\Upload;
@@ -28,6 +32,10 @@ use Intervention\Image\ImageManagerStatic as Image;
 class ProjectController extends Controller
 {
     use UserTrait;
+    use NavbarTrait;
+    use ProjectTrait;
+    use StatusCountTrait;
+    use DownloadViewNumbersTrait;
     public function __construct()
     {
         $this->middleware('auth');
@@ -37,21 +45,27 @@ class ProjectController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the project status counts
+        $projectsStatusCount = $this->projectsStatusCount();
         // Get albums
         $projects = Project::with('user','status','contact','project_type')->get();
 
-        return view('admin.projects',compact('projects','user'));
+        return view('admin.projects',compact('projects','user','navbarValues','projectsStatusCount'));
     }
 
     public function projectCreate()
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
         // Tags
         $contacts = Contact::all();
         // project types
         $projectTypes = ProjectType::all();
-        return view('admin.project_create',compact('user','contacts','projectTypes'));
+        return view('admin.project_create',compact('user','contacts','projectTypes','navbarValues'));
     }
 
     public function projectStore(Request $request)
@@ -78,6 +92,12 @@ class ProjectController extends Controller
 
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get project aggregations
+        $projectArray = $this->getProject($project_id);
+        // Get views and downloads
+        $projectViews = $this->getProjectViews($project_id);
         // Clients
         $contacts = Contact::all();
         // Get typography
@@ -89,7 +109,6 @@ class ProjectController extends Controller
         // Get project
         $project = Project::findOrFail($project_id);
         $project = Project::where('id',$project_id)->with('contact','user','status','cover_image')->first();
-
         // Project status
         $projectStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
@@ -105,7 +124,7 @@ class ProjectController extends Controller
         // project gallery
         $projectGallery = ProjectGallery::where('project_id',$project_id)->with('upload')->get();
 
-        return view('admin.project_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','project','projectGallery','projectStatuses','typographies','thumbnailSizes','projectTypes'));
+        return view('admin.project_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','project','projectGallery','projectStatuses','typographies','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
     }
 
     public function projectUpdate(Request $request, $project_id)

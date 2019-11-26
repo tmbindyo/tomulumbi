@@ -3,13 +3,20 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Email;
+use App\Traits\ViewTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LandingController extends Controller
 {
-    public function welcome()
+    use ViewTrait;
+    public function welcome(Request $request)
     {
+        // save that user visited
+        $cookie = $request->cookie();
+        $view_type = "81e702ff-08ee-49eb-9900-d2f9703a4bbf";
+        $view_id = '';
+        $view = $this->trackView($cookie,$request,$view_type,$view_id);
 
         return view('welcome');
     }

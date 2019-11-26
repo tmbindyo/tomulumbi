@@ -18,6 +18,7 @@ class CreateDesignWorksTable extends Migration
 
             $table->string('name');
             $table->text('description');
+            $table->integer('views');
 
             $table->text('upload_id')->nullable();
             $table->text('design_id');

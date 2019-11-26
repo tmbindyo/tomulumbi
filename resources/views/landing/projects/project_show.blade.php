@@ -10,7 +10,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Glint</title>
+    <title>tomulumbi | {{$project->name}}</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -20,19 +20,20 @@
 
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" href="{{ asset('themes/journal/glint/') }}/css/base.css">
-    <link rel="stylesheet" href="{{ asset('themes/journal/glint/') }}/css/vendor.css">
-    <link rel="stylesheet" href="{{ asset('themes/journal/glint/') }}/css/main.css">
+    <link rel="stylesheet" href="{{ asset('themes/project/glint/') }}/css/base.css">
+    <link rel="stylesheet" href="{{ asset('themes/project/glint/') }}/css/base.css">
+    <link rel="stylesheet" href="{{ asset('themes/project/glint/') }}/css/vendor.css">
+    <link rel="stylesheet" href="{{ asset('themes/project/glint/') }}/css/main.css">
 
     <!-- script
     ================================================== -->
-    <script src="{{ asset('themes/journal/glint/') }}/js/modernizr.js"></script>
-    <script src="{{ asset('themes/journal/glint/') }}/js/pace.min.js"></script>
+    <script src="{{ asset('themes/project/glint/') }}/js/modernizr.js"></script>
+    <script src="{{ asset('themes/project/glint/') }}/js/pace.min.js"></script>
 
     <!-- favicons
     ================================================== -->
-    <link rel="shortcut icon" href="{{ asset('themes/journal/glint/') }}/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="{{ asset('themes/journal/glint/') }}/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('themes/project/glint/') }}/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ asset('themes/project/glint/') }}/favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -44,7 +45,7 @@
 
     <div class="header-logo">
         <a class="site-logo" href="{{route('projects')}}">
-            <img src="{{ asset('themes/journal/glint/') }}/images/logo.png" alt="Homepage">
+            <img src="{{ asset('themes/project/glint/') }}/images/logo.png" alt="Homepage">
         </a>
     </div>
 
@@ -428,9 +429,9 @@
 
 <!-- Java Script
 ================================================== -->
-<script src="{{ asset('themes/journal/glint/') }}/js/jquery-3.2.1.min.js"></script>
-<script src="{{ asset('themes/journal/glint/') }}/js/plugins.js"></script>
-<script src="{{ asset('themes/journal/glint/') }}/js/main.js"></script>
+<script src="{{ asset('themes/project/glint/') }}/js/jquery-3.2.1.min.js"></script>
+<script src="{{ asset('themes/project/glint/') }}/js/plugins.js"></script>
+<script src="{{ asset('themes/project/glint/') }}/js/main.js"></script>
 
 </body>
 

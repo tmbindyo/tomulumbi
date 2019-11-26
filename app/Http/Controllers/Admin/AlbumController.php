@@ -14,7 +14,11 @@ use App\ImagePosition;
 use App\Orientation;
 use App\Scheme;
 use App\ThumbnailSize;
+use App\Traits\AlbumTrait;
+use App\Traits\DownloadViewNumbersTrait;
 use App\Traits\PasswordTrait;
+use App\Traits\NavbarTrait;
+use App\Traits\StatusCountTrait;
 use App\Typography;
 use App\Upload;
 use DB;
@@ -41,7 +45,11 @@ use function GuzzleHttp\Psr7\str;
 class AlbumController extends Controller
 {
     use UserTrait;
+    use AlbumTrait;
     use PasswordTrait;
+    use NavbarTrait;
+    use StatusCountTrait;
+    use DownloadViewNumbersTrait;
     public function __construct()
     {
         $this->middleware('auth');
@@ -50,20 +58,25 @@ class AlbumController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the client proof status counts
+        $personalAlbumsStatusCount = $this->personalAlbumsStatusCount();
         // Get albums
         $albums = Album::with('user','status')->where('album_type_id','6fdf4858-01ce-43ff-bbe6-827f09fa1cef')->get();
 //        return $albums;
-        return view('admin.personal_albums',compact('albums','user'));
+        return view('admin.personal_albums',compact('albums','user','navbarValues','personalAlbumsStatusCount'));
     }
 
     public function personalAlbumCreate()
     {
         // Tags
         $tags = Tag::all();
-
         // User
         $user = $this->getAdmin();
-        return view('admin.personal_album_create',compact('user','tags'));
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.personal_album_create',compact('user','tags','navbarValues'));
     }
 
     public function personalAlbumStore(Request $request)
@@ -84,6 +97,7 @@ class AlbumController extends Controller
         $album->is_auto_expiry = False;
 
         $album->views = 0;
+        $album->download_restriction_limit = 0;
         $album->is_client_exclusive_access = False;
         $album->album_type_id = "6fdf4858-01ce-43ff-bbe6-827f09fa1cef";
         $album->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
@@ -123,17 +137,21 @@ class AlbumController extends Controller
 //        $albumSet->save();
 
 
-        return redirect()->route('admin.personal.albums')->withSuccess('Album '.$album->name.' successfully created!');
+        return redirect()->route('admin.personal.album.show',$album->id)->withSuccess('Album '.$album->name.' successfully created!');
     }
 
     public function personalAlbumShow($album_id)
     {
         // Check if album exists
         $albumExists = Album::findOrFail($album_id);
-
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get views and downloads
+        $albumViewsAndDownloads = $this->getAlbumDownloadViewNumbers($album_id);
+        // get album aggregations
+        $albumArray = $this->getAlbum($album_id);
         // User
         $user = $this->getAdmin();
-
         // Tags
         $tags = Tag::all();
 
@@ -166,7 +184,7 @@ class AlbumController extends Controller
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         $albumDownloadRestrictionEmails = AlbumDownloadRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'thumbnailSizes'));
+        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function personalAlbumDelete($album_id)
@@ -746,6 +764,18 @@ class AlbumController extends Controller
         return back()->withSuccess(__('Album set image successfully uploaded.'));
     }
 
+    public function personalAlbumSetShow($album_set_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $albumSet = AlbumSet::findOrFail($album_set_id);
+        $albumSet = AlbumSet::where('id',$album_set_id)->with('album','status','album_images.upload')->first();
+
+        return view('admin.personal_album_set_show',compact('user','navbarValues','albumSet'));
+    }
 
 
 
@@ -753,9 +783,13 @@ class AlbumController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the client proof status counts
+        $clientProofsStatusCount = $this->clientProofsStatusCount();
         // Get albums
         $albums = Album::with('user','status')->where('album_type_id','ca64a5e0-d39b-4f2c-a136-9c523d935ea4')->get();
-        return view('admin.client_proofs',compact('albums','user'));
+        return view('admin.client_proofs',compact('albums','user','navbarValues','clientProofsStatusCount'));
     }
 
     public function clientProofCreate()
@@ -764,10 +798,11 @@ class AlbumController extends Controller
         $tags = Tag::all();
         // Contacts
         $contacts = Contact::all();
-
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
         // User
         $user = $this->getAdmin();
-        return view('admin.client_proof_create',compact('user','tags','contacts'));
+        return view('admin.client_proof_create',compact('user','tags','contacts','navbarValues'));
     }
 
     public function clientProofStore(Request $request)
@@ -805,6 +840,7 @@ class AlbumController extends Controller
 
         $album->views = 0;
         $album->is_download = False;
+        $album->download_restriction_limit = 0;
         $album->is_client_exclusive_access = False;
 //        $album->password = $this->generatePassword();
 //        $album->client_access_password = $this->generatePassword();
@@ -840,20 +876,25 @@ class AlbumController extends Controller
 
     public function clientProofShow($album_id)
     {
+        // todo delete album image
         // Check if album exists
         $albumExists = Album::findOrFail($album_id);
 
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get views and downloads
+        $albumViewsAndDownloads = $this->getAlbumDownloadViewNumbers($album_id);
+        // get album aggregations
+        $albumArray = $this->getAlbum($album_id);
+//        return $albumArray;
         // Thumbnail sizes
         $thumbnailSizes = ThumbnailSize::all();
-
         // Tags
         $tags = Tag::all();
-
         // Client Proof Design
         $typographies = Typography::all();
-
         // Cover Image
         $coverDesigns = CoverDesign::all();
         $schemes = Scheme::all();
@@ -861,14 +902,10 @@ class AlbumController extends Controller
         $orientations = Orientation::all();
         $contentAligns = ContentAlign::all();
         $imagePositions = ImagePosition::all();
-
-
         // Album & Image status
         $albumStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
-
         // Get album
         $album = Album::with('user','status','cover_image','album_download_restriction_emails')->where('id',$album_id)->first();
-
         // Get all albums for to do dropdown
         $albums = Album::with('user','status')->get();
 
@@ -888,7 +925,7 @@ class AlbumController extends Controller
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         $albumDownloadRestrictionEmails = AlbumDownloadRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.client_proof_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes'));
+        return view('admin.client_proof_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function clientProofDelete($album_id)
@@ -910,6 +947,8 @@ class AlbumController extends Controller
 
         return back()->withSuccess(__('Client proof successfully restored.'));
     }
+
+
 
 
 
@@ -1219,6 +1258,8 @@ class AlbumController extends Controller
         $album->download_pin = $request->download_pin;
         if ($request->download_pin){
             $album->is_download_pin = True;
+        }else{
+            $album->is_download_pin = False;
         }
         $album->download_restriction_limit = $request->download_restriction_limit;
 
@@ -1313,6 +1354,19 @@ class AlbumController extends Controller
         $albumDownloadRestrictionEmail->delete();
 
         return back()->withSuccess(__('Client proof download restriction email successfully deleted.'));
+    }
+
+    public function clientProofSetShow($album_set_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $albumSet = AlbumSet::findOrFail($album_set_id);
+        $albumSet = AlbumSet::where('id',$album_set_id)->with('album','status','album_images.upload')->first();
+
+        return view('admin.client_proof_set_show',compact('user','navbarValues','albumSet'));
     }
 
     public function clientProofSetStore(Request $request, $album_id)
@@ -1526,6 +1580,14 @@ class AlbumController extends Controller
 
 
         return back()->withSuccess(__('Album set image successfully uploaded.'));
+    }
+
+    public function albumImageDelete($album_image_id)
+    {
+        $albumImage = AlbumImage::findOrFail($album_image_id);
+        $albumImage->delete();
+
+        return back()->withSuccess('Album image deleted!');
     }
 
 }

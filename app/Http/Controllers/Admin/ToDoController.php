@@ -7,7 +7,9 @@ use App\Design;
 use App\Journal;
 use App\Project;
 use App\ToDo;
+use App\Traits\NavbarTrait;
 use App\Traits\PasswordTrait;
+use App\Traits\StatusCountTrait;
 use App\Traits\UserTrait;
 use Auth;
 use Illuminate\Http\Request;
@@ -17,12 +19,18 @@ class ToDoController extends Controller
 {
     use UserTrait;
     use PasswordTrait;
+    use NavbarTrait;
+    use StatusCountTrait;
     public function __construct()
     {
         $this->middleware('auth');
     }
     public function toDos()
     {
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get to do status count
+        $toDoStatusCount = $this->toDoStatusCount();
         // Pending to dos
         $pendingToDos = ToDo::with('user','status','album','project','journal','design','product','email')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
         // In progress to dos
@@ -42,7 +50,7 @@ class ToDoController extends Controller
 
         // User
         $user = $this->getAdmin();
-        return view('admin.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects'));
+        return view('admin.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects','navbarValues','toDoStatusCount'));
     }
 
     public function toDoStore(Request $request)

@@ -49,6 +49,23 @@
 
 @section('content')
 
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Email's</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('admin.dashboard')}}">Home</a>
+                </li>
+                <li class="active">
+                    <a href="{{route('admin.emails')}}">Email's</a>
+                </li>
+                <li class="active">
+                    <strong>Email</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
     <div class="wrapper wrapper-content animated fadeIn">
 
         <div class="row">

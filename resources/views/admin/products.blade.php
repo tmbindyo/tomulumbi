@@ -43,6 +43,46 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
+
+            <div class="col-lg-12">
+                <div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-warning m-r-sm">{{$productsStatusCount['previewProducts']}}</button>
+                                Preview
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info m-r-sm">{{$productsStatusCount['unavailableProducts']}}</button>
+                                Unavailable
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger m-r-sm">{{$productsStatusCount['backOrderProducts']}}</button>
+                                Back Order
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info m-r-sm">{{$productsStatusCount['archivedProducts']}}</button>
+                                Archived
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info m-r-sm">{{$productsStatusCount['discontinuedProducts']}}</button>
+                                Discontinued
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success m-r-sm">{{$productsStatusCount['liveProducts']}}</button>
+                                Live
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">

@@ -14,6 +14,10 @@ use App\ProjectType;
 use App\Status;
 use App\ThumbnailSize;
 use App\ToDo;
+use App\Traits\DownloadViewNumbersTrait;
+use App\Traits\JournalTrait;
+use App\Traits\NavbarTrait;
+use App\Traits\StatusCountTrait;
 use App\Traits\UserTrait;
 use App\Typography;
 use DB;
@@ -28,6 +32,10 @@ use Intervention\Image\ImageManagerStatic as Image;
 class JournalController extends Controller
 {
     use UserTrait;
+    use NavbarTrait;
+    use JournalTrait;
+    use StatusCountTrait;
+    use DownloadViewNumbersTrait;
     public function __construct()
     {
         $this->middleware('auth');
@@ -37,19 +45,25 @@ class JournalController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the design status counts
+        $journalsStatusCount = $this->journalsStatusCount();
         // Get albums
         $journals = Journal::with('user','status')->get();
 
-        return view('admin.journals',compact('journals','user'));
+        return view('admin.journals',compact('journals','user','navbarValues','journalsStatusCount'));
     }
 
     public function journalCreate()
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
         // Labels
         $labels = Label::all();
-        return view('admin.journal_create',compact('user','labels'));
+        return view('admin.journal_create',compact('user','labels','navbarValues'));
     }
 
     public function journalStore(Request $request)
@@ -83,6 +97,12 @@ class JournalController extends Controller
 
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get project aggregations
+        $journalArray = $this->getJournal($journal_id);
+        // Get views and downloads
+        $journalViews = $this->getJournalViews($journal_id);
         // Get typography
         $typographies = Typography::all();
         // Get thumbnail sizes
@@ -92,10 +112,8 @@ class JournalController extends Controller
         // Get journal
         $journal = Journal::findOrFail($journal_id);
         $journal = Journal::where('id',$journal_id)->with('user','status','cover_image')->first();
-
         // Journal status
         $journalStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
-
         // Pending to dos
         $pendingToDos = ToDo::with('user','status','journal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('journal_id',$journal->id)->get();
         // In progress to dos
@@ -108,7 +126,7 @@ class JournalController extends Controller
         // journal gallery
         $journalGallery = JournalGallery::where('journal_id',$journal_id)->with('upload')->get();
         $journalLabels = JournalLabel::where('journal_id',$journal_id)->with('journal','label')->get();
-        return view('admin.journal_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','journal','journalGallery','journalStatuses','typographies','thumbnailSizes','labels','journalLabels'));
+        return view('admin.journal_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','journal','journalGallery','journalStatuses','typographies','thumbnailSizes','labels','journalLabels','navbarValues','journalArray','journalViews'));
     }
 
     public function journalUpdate(Request $request, $journal_id)

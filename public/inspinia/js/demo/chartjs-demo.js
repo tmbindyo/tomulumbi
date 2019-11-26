@@ -1,7 +1,7 @@
 $(function () {
 
     var lineData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: ["January", "February", "March", "April", "May", "June", "July","August","September","October","November","December"],
         datasets: [
             {
                 label: "Example dataset",
@@ -11,7 +11,7 @@ $(function () {
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
+                data: [65, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55]
             },
             {
                 label: "Example dataset",
@@ -21,7 +21,7 @@ $(function () {
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(26,179,148,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
+                data: [28, 48, 40, 19, 86, 27, 90, 48, 40, 19, 86, 27]
             }
         ]
     };
@@ -47,7 +47,7 @@ $(function () {
     var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
 
     var barData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: ["January", "February", "March", "April", "May", "June", "July","August","September","October","November","December"],
         datasets: [
             {
                 label: "My First dataset",
@@ -55,7 +55,7 @@ $(function () {
                 strokeColor: "rgba(220,220,220,0.8)",
                 highlightFill: "rgba(220,220,220,0.75)",
                 highlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
+                data: [65, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55]
             },
             {
                 label: "My Second dataset",
@@ -63,7 +63,7 @@ $(function () {
                 strokeColor: "rgba(26,179,148,0.8)",
                 highlightFill: "rgba(26,179,148,0.75)",
                 highlightStroke: "rgba(26,179,148,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
+                data: [28, 48, 40, 19, 86, 27, 90, 48, 40, 19, 86, 27]
             }
         ]
     };

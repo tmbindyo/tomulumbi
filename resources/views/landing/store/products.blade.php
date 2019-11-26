@@ -13,13 +13,9 @@
             <!--  Catagories  -->
             <div class="catagories-menu">
                 <ul>
-                    <li class="active"><a href="#">Chairs</a></li>
-                    <li><a href="#">Beds</a></li>
-                    <li><a href="#">Accesories</a></li>
-                    <li><a href="#">Furniture</a></li>
-                    <li><a href="#">Home Deco</a></li>
-                    <li><a href="#">Dressings</a></li>
-                    <li><a href="#">Tables</a></li>
+                    @foreach($types as $type)
+                        <li><a href="{{route('store.type.products',$type->id)}}">{{$type->name}}</a></li>
+                    @endforeach
                 </ul>
             </div>
         </div>
@@ -75,8 +71,6 @@
                                     <select name="select" id="viewProduct">
                                         <option value="value">12</option>
                                         <option value="value">24</option>
-                                        <option value="value">48</option>
-                                        <option value="value">96</option>
                                     </select>
                                 </form>
                             </div>
@@ -103,7 +97,7 @@
                                 <!-- Product Meta Data -->
                                 <div class="product-meta-data">
                                     <div class="line"></div>
-                                    <p class="product-price">$180</p>
+                                    <p class="product-price">From Ksh. {{$product->lowest_price->first()->price}}</p>
                                     <a href="{{route('store.product.show',$product->id)}}">
                                         <h6>{{ $product->name }}</h6>
                                     </a>
@@ -117,9 +111,9 @@
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </div>
-                                    <div class="cart">
-                                        <a href="{{route('store.cart')}}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('themes/store/amado/') }}/img/core-img/cart.png" alt=""></a>
-                                    </div>
+{{--                                    <div class="cart">--}}
+{{--                                        <a href="{{route('store.cart')}}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="{{ asset('themes/store/amado/') }}/img/core-img/cart.png" alt=""></a>--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>

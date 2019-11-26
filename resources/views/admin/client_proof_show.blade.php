@@ -49,584 +49,673 @@
 
 @section('content')
 
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Client Proof</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('admin.dashboard')}}">Home</a>
+                </li>
+                <li class="active">
+                    <a href="{{route('admin.client.proofs')}}">Client Proof's</a>
+                </li>
+                <li class="active">
+                    <strong>Client Proof</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
     <div class="wrapper wrapper-content animated fadeIn">
 
-            {{--    Client proof images    --}}
-            <div class="row m-t-lg">
-                <div class="col-lg-12 col-md-12">
-                    <div class="tabs-container">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-3"> <i class="fa fa-image"> Album Sets</i></a></li>
-                            @foreach($albumSets as $albumSet)
-                                <li class=""><a data-toggle="tab" href="#{{$albumSet->id}}"><i class="fa fa-desktop"> {{$albumSet->name}}</i></a></li>
-                            @endforeach
-                            <li class=""><a  data-toggle="modal" data-target="#albumSetRegistration" aria-expanded="false"><i class="fa fa-plus"></i></a></li>
-                        </ul>
-                        <div class="row">
-                            <div class="tab-content">
-                                <div id="tab-3" class="tab-pane active">
-                                    <div class="panel-body">
-                                        <strong>Album sets</strong>
+        {{--  counts  --}}
+        <div class="row">
 
-                                        <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
-                                            existence in this spot, which was created for the bliss of souls like mine.</p>
+            <div class="col-lg-12">
+                <div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-primary m-r-sm">{{$albumArray['albumImages']}}</button>
+                                Album Images
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success m-r-sm">{{$albumArray['albumSets']}}</button>
+                                Album Set's
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning m-r-sm">{{$albumArray['downloads']}}</button>
+                                Album Download's
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger m-r-sm">{{$albumArray['downloadLimit']}}</button>
+                                Album Download Limit
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
 
-                                        <p>I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-                                            the present moment; and yet I feel that I never was a greater artist than now. When.</p>
-                                    </div>
-                                </div>
+                </div>
+            </div>
 
-                                @foreach($albumSets as $albumSet)
-                                    <div id="{{$albumSet->id}}" class="tab-pane">
-                                        <div class="panel-body">
+        </div>
 
-                                            <div class="lightBoxGallery">
-
-                                                @isset($albumSet->album_images)
-                                                    @foreach($albumSet->album_images as $albumSetImage)
-                                                        <a href="{{ asset('') }}{{ $albumSetImage->upload->pixels100 }}" title="{{ $albumSetImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $albumSetImage->upload->pixels100 }}"></a>
-                                                    @endforeach
-                                                @endisset
-                                                <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-                                                <div id="blueimp-gallery" class="blueimp-gallery">
-                                                    <div class="slides"></div>
-                                                    <h3 class="title"></h3>
-                                                    <a class="prev">‹</a>
-                                                    <a class="next">›</a>
-                                                    <a class="close">×</a>
-                                                    <a class="play-pause"></a>
-                                                    <ol class="indicator"></ol>
-                                                </div>
-
-                                            </div>
-
-                                            <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.client.proof.set.image.upload',$albumSet->id)}}">
-                                                @csrf
-                                                <div class="dropzone-previews"></div>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-
-
+        {{--  view downlod graphy  --}}
+        <div class="row">
+            <div class="">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>
+                            Views x Downloads
+                        </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <canvas id="lineChart" height="100"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-
-            {{--    Client proof settings    --}}
-            <div class="row m-t-lg">
-                <div class="col-lg-12 col-md-12">
-                    <div class="tabs-container">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
-                            <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Design</a></li>
-                            <li class=""><a data-toggle="tab" href="#privacy"><i class="fa fa-lock"></i> Privacy</a></li>
-                            <li class=""><a data-toggle="tab" href="#download"><i class="fa fa-download"></i> Download</a></li>
-                        </ul>
+        {{--    Client proof images    --}}
+        <div class="row m-t-lg">
+            <div class="col-lg-12 col-md-12">
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        @foreach($albumSets as $albumSet)
+                            <li @if($loop->iteration == 1) class="active" @endif><a data-toggle="tab" href="#{{$albumSet->id}}"><i class="fa fa-desktop"> {{$albumSet->name}}</i></a></li>
+                        @endforeach
+                        <li class=""><a  data-toggle="modal" data-target="#albumSetRegistration" aria-expanded="false"><i class="fa fa-plus"></i></a></li>
+                    </ul>
+                    <div class="row">
                         <div class="tab-content">
-                            <div id="collection_settings" class="tab-pane active">
-                                <div class="panel-body">
-                                    <div class="col-md-10 col-md-offset-1">
+                            @foreach($albumSets as $albumSet)
+                                <div id="{{$albumSet->id}}" class="tab-pane @if($loop->iteration == 1) active @endif">
+                                    <div class="panel-body">
+                                        {{--  Viewing album images --}}
+                                        <a href="{{route('admin.client.proof.set.show',$albumSet->id)}}" class="btn btn-primary btn-outline btn-block btn-lg">View Album Set</a>
+                                        <br>
 
-                                        <form method="post" action="{{ route('admin.client.proof.update.collection.settings',$album->id) }}" autocomplete="off">
+                                        <div class="lightBoxGallery">
+
+                                            @isset($albumSet->album_images)
+                                                @foreach($albumSet->album_images as $albumSetImage)
+                                                    <a href="{{ asset('') }}{{ $albumSetImage->upload->pixels1000 }}" title="{{ $albumSetImage->upload->name }}" data-fid="{{$albumSetImage->id}}" data-gallery="" ><img src="{{ asset('') }}{{ $albumSetImage->upload->pixels100 }}"></a>
+                                                @endforeach
+                                            @endisset
+                                            <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+                                            <div id="blueimp-gallery" class="blueimp-gallery">
+                                                <div class="slides"></div>
+                                                <h3 class="title"></h3>
+                                                <a class="prev">‹</a>
+                                                <a class="next">›</a>
+                                                <a class="close">×</a>
+                                                <a class="play-pause"></a>
+                                                <ol class="indicator"></ol>
+                                            </div>
+
+                                        </div>
+
+                                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.client.proof.set.image.upload',$albumSet->id)}}">
                                             @csrf
+                                            <div class="dropzone-previews"></div>
+                                        </form>
 
-                                            @if (session('status'))
-                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                    {{ session('status') }}
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                            @endif
+                                    </div>
+                                </div>
+                            @endforeach
 
-                                            <div class="form-group">
-                                                <label>Collection Name</label>
-                                                <input name="name" type="text" value="{{$album->name}}" class="form-control input-lg">
-                                                <i>Pick something short and sweet. Imagine choosing a title for a photo album cover.</i>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {{--    Client proof settings    --}}
+        <div class="row m-t-lg">
+            <div class="col-lg-12 col-md-12">
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
+                        <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Design</a></li>
+                        <li class=""><a data-toggle="tab" href="#privacy"><i class="fa fa-lock"></i> Privacy</a></li>
+                        <li class=""><a data-toggle="tab" href="#download"><i class="fa fa-download"></i> Download</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="collection_settings" class="tab-pane active">
+                            <div class="panel-body">
+                                <div class="col-md-10 col-md-offset-1">
+
+                                    <form method="post" action="{{ route('admin.client.proof.update.collection.settings',$album->id) }}" autocomplete="off">
+                                        @csrf
+
+                                        @if (session('status'))
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                {{ session('status') }}
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
+                                        @endif
 
-                                            <div class="form-group" id="data_1">
-                                                <label>Event Date</label>
-                                                <div class="input-group date">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-calendar"></i>
-                                                        </span>
-                                                    <input type="text" name="date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->date))}}">
-                                                </div>
+                                        <div class="form-group">
+                                            <label>Collection Name</label>
+                                            <input name="name" type="text" value="{{$album->name}}" class="form-control input-lg">
+                                            <i>Pick something short and sweet. Imagine choosing a title for a photo album cover.</i>
+                                        </div>
+
+                                        <div class="form-group" id="data_1">
+                                            <label>Event Date</label>
+                                            <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                <input type="text" name="date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->date))}}">
                                             </div>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label">Status</label>
-                                                <select class="form-control m-b input-lg" name="status">
-                                                    @foreach($albumStatuses as $albumStatus)
-                                                        <option value="{{$albumStatus->id}}" @if($albumStatus->id === $album->status_id) selected @endif>{{$albumStatus->name}}</option>
+                                        <div class="form-group">
+                                            <label class="control-label">Status</label>
+                                            <select class="form-control m-b input-lg" name="status">
+                                                @foreach($albumStatuses as $albumStatus)
+                                                    <option value="{{$albumStatus->id}}" @if($albumStatus->id === $album->status_id) selected @endif>{{$albumStatus->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>You can take the collection online/offline quickly. Hidden collections can only be seen by you.</i>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Tags</label>
+                                            <div class="input-group">
+                                                <select name="tags[]" data-placeholder="Choose Tags:" class="chosen-select form-control-lg" multiple="multiple" style="width:450px;" tabindex="4">
+                                                    @foreach($tags as $tag)
+                                                        <option value="{{$tag->id}}" @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach >{{$tag->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                <i>You can take the collection online/offline quickly. Hidden collections can only be seen by you.</i>
                                             </div>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label>Tags</label>
-                                                <div class="input-group">
-                                                    <select name="tags[]" data-placeholder="Choose Tags:" class="chosen-select form-control-lg" multiple="multiple" style="width:450px;" tabindex="4">
-                                                        @foreach($tags as $tag)
-                                                            <option value="{{$tag->id}}" @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach >{{$tag->name}}</option>
+                                        <div class="form-group" id="data_1">
+                                            <label>Expiry Date</label>
+                                            <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                <input type="text" name="expiry_date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->expiry_date))}}">
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div>
+                                            <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Collection Settings</strong></button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="design" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="row m-t-lg">
+                                    <div class="col-md-6">
+                                        <h2 class="text-center">Album Images Design</h2>
+                                        <hr>
+                                        <form method="post" action="{{ route('admin.client.proof.update.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
+                                            @csrf
+                                            {{--  Album typography  --}}
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <h3 class="text-center">Typography</h3>
+                                                <div class="form-group">
+                                                    <select class="form-control m-b input-lg" name="typography">
+                                                        @foreach($typographies as $typography)
+                                                            <option value="{{$typography->id}}" @if($typography->id === $album->typography_id) selected @endif>{{$typography->name}}</option>
                                                         @endforeach
                                                     </select>
+                                                    <i>Choose between different typography styles to best compliment the proof.</i>
                                                 </div>
                                             </div>
-
-                                            <div class="form-group" id="data_1">
-                                                <label>Expiry Date</label>
-                                                <div class="input-group date">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-calendar"></i>
-                                                        </span>
-                                                    <input type="text" name="expiry_date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->expiry_date))}}">
+                                            {{--  Album thumbnail size  --}}
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <h4 class="text-center">Thumbnail Size</h4>
+                                                <div class="form-group">
+                                                    <select class="form-control m-b input-lg" name="thumbnail_size" required>
+                                                        @foreach($thumbnailSizes as $thumbnailSize)
+                                                            <option value="{{$thumbnailSize->id}}" @if($thumbnailSize->id === $album->thumbnail_size_id) selected @endif>{{$thumbnailSize->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>Adjust the display size of photos in the gallery.</i>
                                                 </div>
                                             </div>
+                                            <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Album Images Design Settings</button>
+                                        </form>
+                                        <hr>
+                                        {{--  Cover Image  --}}
+                                        <div class="col-md-12">
+                                            <h2 class="text-center">Cover Image</h2>
+                                            <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
+                                            <br>
+                                        </div>
+                                        <div class="col-md-10 col-md-offset-1">
 
-                                            <hr>
-
-                                            <div>
-                                                <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Collection Settings</strong></button>
+                                            <div class="center">
+                                                <img alt="image" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
                                             </div>
+                                        </div>
 
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h2 class="text-center">Cover Image Design</h2>
+                                        <hr>
+                                        <form method="post" action="{{ route('admin.client.proof.update.cover.image.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
+                                            @csrf
+                                            {{--  Cover Image Designs  --}}
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <h3 class="text-center">Design</h3>
+                                                <div class="form-group">
+                                                    <select class="form-control m-b input-lg" name="cover_design" required>
+                                                        @foreach($coverDesigns as $coverDesign)
+                                                            <option value="{{$coverDesign->id}}" @if($coverDesign->id === $album->cover_design_id) selected @endif>{{$coverDesign->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>Choose between different typography styles to best compliment the proof.</i>
+                                                </div>
+                                            </div>
+                                            {{--  Cover Image scheme  --}}
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <h3 class="text-center">Scheme</h3>
+                                                <div class="form-group">
+                                                    <select class="form-control m-b input-lg" name="scheme" required>
+                                                        @foreach($schemes as $scheme)
+                                                            <option value="{{$scheme->id}}" @if($scheme->id === $album->scheme_id) selected @endif>{{$scheme->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>Choose between different scheme styles to best compliment the proof.</i>
+                                                </div>
+                                            </div>
+                                            {{--  Cover Image Color  --}}
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <h3 class="text-center">Color</h3>
+                                                <div class="form-group">
+                                                    <select class="form-control m-b input-lg" name="color" required>
+                                                        @foreach($colors as $color)
+                                                            <option value="{{$color->id}}" @if($color->id === $album->color_id) selected @endif>{{$color->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>Choose between different color styles to best compliment the proof.</i>
+                                                </div>
+                                            </div>
+                                            {{--  Cover Image Orientations  --}}
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <h3 class="text-center">Orientation</h3>
+                                                <div class="form-group">
+                                                    <select class="form-control m-b input-lg" name="orientation" required>
+                                                        @foreach($orientations as $orientation)
+                                                            <option value="{{$orientation->id}}" @if($orientation->id === $album->orientation_id) selected @endif>{{$orientation->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>Choose between different orientation styles to best compliment the proof.</i>
+                                                </div>
+                                            </div>
+                                            {{--  Cover Image Content alignment  --}}
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <h3 class="text-center">Content Alignment</h3>
+
+                                                <div class="form-group">
+                                                    <select class="form-control m-b input-lg" name="content_align" required>
+                                                        @foreach($contentAligns as $contentAlign)
+                                                            <option value="{{$contentAlign->id}}" @if($contentAlign->id === $album->content_align_id) selected @endif>{{$contentAlign->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>Choose between different content alignment styles to best compliment the proof.</i>
+                                                </div>
+                                            </div>
+                                            {{--  Cover Image position  --}}
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <h3 class="text-center">Image Position</h3>
+                                                <div class="form-group">
+                                                    <select class="form-control m-b input-lg" name="image_position" required>
+                                                        @foreach($imagePositions as $imagePosition)
+                                                            <option value="{{$imagePosition->id}}" @if($imagePosition->id === $album->image_position_id) selected @endif>{{$imagePosition->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>Choose between different content alignment styles to best compliment the proof.</i>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Design Settings</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div id="design" class="tab-pane">
-                                <div class="panel-body">
-                                    <div class="row m-t-lg">
-                                        <div class="col-md-6">
-                                            <h2 class="text-center">Album Images Design</h2>
-                                            <hr>
-                                            <form method="post" action="{{ route('admin.client.proof.update.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
-                                                @csrf
-                                                {{--  Album typography  --}}
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <h3 class="text-center">Typography</h3>
-                                                    <div class="form-group">
-                                                        <select class="form-control m-b input-lg" name="typography">
-                                                            @foreach($typographies as $typography)
-                                                                <option value="{{$typography->id}}" @if($typography->id === $album->typography_id) selected @endif>{{$typography->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i>Choose between different typography styles to best compliment the proof.</i>
-                                                    </div>
-                                                </div>
-                                                {{--  Album thumbnail size  --}}
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <h4 class="text-center">Thumbnail Size</h4>
-                                                    <div class="form-group">
-                                                        <select class="form-control m-b input-lg" name="thumbnail_size" required>
-                                                            @foreach($thumbnailSizes as $thumbnailSize)
-                                                                <option value="{{$thumbnailSize->id}}" @if($thumbnailSize->id === $album->thumbnail_size_id) selected @endif>{{$thumbnailSize->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i>Adjust the display size of photos in the gallery.</i>
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Album Images Design Settings</button>
-                                            </form>
-                                            <hr>
-                                            {{--  Cover Image  --}}
-                                            <div class="col-md-12">
-                                                <h2 class="text-center">Cover Image</h2>
-                                                <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
-                                                <br>
-                                            </div>
-                                            <div class="col-md-10 col-md-offset-1">
+                        </div>
+                        <div id="privacy" class="tab-pane">
+                            <div class="panel-body">
+                                <form method="post" action="{{ route('admin.client.proof.update.privacy',$album->id) }}" autocomplete="off">
+                                    @csrf
 
-                                                <div class="center">
-                                                    <img alt="image" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
+                                    <div class="col-md-10 col-md-offset-1">
+
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <div class="input-group m-b">
+                                                <input name="album_password" id="album_password" type="text" value="{{$album->password}}" class="form-control input-lg">
+                                                <div class="input-group-btn">
+                                                    <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateAlbumPassword" data-fid="{{$album->id}}" type="button">Generate Password</button>
                                                 </div>
                                             </div>
-
-
+                                            <i>Leave blank to make this collection public. Setting a password will require all guests to use this password in order to see the collection.</i>
                                         </div>
-                                        <div class="col-md-6">
-                                            <h2 class="text-center">Cover Image Design</h2>
-                                            <hr>
-                                            <form method="post" action="{{ route('admin.client.proof.update.cover.image.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
-                                                @csrf
-                                                {{--  Cover Image Designs  --}}
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <h3 class="text-center">Design</h3>
-                                                    <div class="form-group">
-                                                        <select class="form-control m-b input-lg" name="cover_design" required>
-                                                            @foreach($coverDesigns as $coverDesign)
-                                                                <option value="{{$coverDesign->id}}" @if($coverDesign->id === $album->cover_design_id) selected @endif>{{$coverDesign->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i>Choose between different typography styles to best compliment the proof.</i>
-                                                    </div>
-                                                </div>
-                                                {{--  Cover Image scheme  --}}
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <h3 class="text-center">Scheme</h3>
-                                                    <div class="form-group">
-                                                        <select class="form-control m-b input-lg" name="scheme" required>
-                                                            @foreach($schemes as $scheme)
-                                                                <option value="{{$scheme->id}}" @if($scheme->id === $album->scheme_id) selected @endif>{{$scheme->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i>Choose between different scheme styles to best compliment the proof.</i>
-                                                    </div>
-                                                </div>
-                                                {{--  Cover Image Color  --}}
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <h3 class="text-center">Color</h3>
-                                                    <div class="form-group">
-                                                        <select class="form-control m-b input-lg" name="color" required>
-                                                            @foreach($colors as $color)
-                                                                <option value="{{$color->id}}" @if($color->id === $album->color_id) selected @endif>{{$color->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i>Choose between different color styles to best compliment the proof.</i>
-                                                    </div>
-                                                </div>
-                                                {{--  Cover Image Orientations  --}}
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <h3 class="text-center">Orientation</h3>
-                                                    <div class="form-group">
-                                                        <select class="form-control m-b input-lg" name="orientation" required>
-                                                            @foreach($orientations as $orientation)
-                                                                <option value="{{$orientation->id}}" @if($orientation->id === $album->orientation_id) selected @endif>{{$orientation->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i>Choose between different orientation styles to best compliment the proof.</i>
-                                                    </div>
-                                                </div>
-                                                {{--  Cover Image Content alignment  --}}
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <h3 class="text-center">Content Alignment</h3>
 
-                                                    <div class="form-group">
-                                                        <select class="form-control m-b input-lg" name="content_align" required>
-                                                            @foreach($contentAligns as $contentAlign)
-                                                                <option value="{{$contentAlign->id}}" @if($contentAlign->id === $album->content_align_id) selected @endif>{{$contentAlign->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i>Choose between different content alignment styles to best compliment the proof.</i>
-                                                    </div>
+                                        <div class="form-group">
+                                            <p>
+                                                Homepage visibility
+                                            </p>
+                                            <input type="checkbox" name="is_homepage_visible" class="js-switch_2" @if($album->is_homepage_visible === 1) checked @endif />
+                                            <i>Show or hide your collection in the Homepage area.</i>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p>
+                                                Client Exclusive Access
+                                            </p>
+                                            <input type="checkbox" name="is_client_exclusive_access" class="js-switch_3" @if($album->is_client_exclusive_access === 1) checked @endif />
+                                            <i>Turn on to have the abilty to make selected photo sets client-only and to give your clients the ability to mark photos private. </i>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Client Exclusive Access Password</label>
+                                            <div class="input-group m-b">
+                                                <input name="client_exclusive_access_password" id="client_exclusive_access_password" type="text" value="{{$album->client_access_password}}" class="form-control input-lg">
+                                                <div class="input-group-btn">
+                                                    <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateClientExclusiveAccessPassword" data-fid="{{$album->id}}" type="button">Generate Client Exclusive Access Password</button>
                                                 </div>
-                                                {{--  Cover Image position  --}}
-                                                <div class="col-md-10 col-md-offset-1">
-                                                    <h3 class="text-center">Image Position</h3>
-                                                    <div class="form-group">
-                                                        <select class="form-control m-b input-lg" name="image_position" required>
-                                                            @foreach($imagePositions as $imagePosition)
-                                                                <option value="{{$imagePosition->id}}" @if($imagePosition->id === $album->image_position_id) selected @endif>{{$imagePosition->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i>Choose between different content alignment styles to best compliment the proof.</i>
-                                                    </div>
+                                            </div>
+                                            <i>Turn on to have the abilty to make selected photo sets client-only and to give your clients the ability to mark photos private. </i>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Photo Sets Visibility</label>
+                                        </div>
+
+                                        @foreach($albumSets as $albumSet)
+
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <input class="updateAlbumSetVisibility" data-fid="{{$albumSet->id}}" id="checkbox1" @if($albumSet->is_client_exclusive_access === 1) checked @endif type="checkbox">
+                                                    <label for="checkbox1">
+                                                        {{$albumSet->name}}
+                                                    </label>
                                                 </div>
-                                                <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Design Settings</button>
-                                            </form>
+                                            </div>
+                                        @endforeach
+                                        <i>Make selected photo sets private so only your clients have access. Regular guests can only see public sets.</i>
+
+                                        <div class="form-group">
+                                            <p>
+                                                Allow Clients to Mark Photos Private
+                                            </p>
+                                            <input type="checkbox" name="is_client_make_private" class="js-switch_4" @if($album->is_client_make_private === 1) checked @endif />
+                                            <i>Give clients the ability to mark photos private. Private photos are not visible to public guests and only clients can see them. </i>
+                                        </div>
+
+                                        <hr>
+
+                                        <div>
+                                            <button class="btn btn-block btn-outline btn-primary btn-lg m-t-n-xs" type="submit"><strong>Update Privacy Settings</strong></button>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
+
                             </div>
-                            <div id="privacy" class="tab-pane">
-                                <div class="panel-body">
-                                    <form method="post" action="{{ route('admin.client.proof.update.privacy',$album->id) }}" autocomplete="off">
-                                        @csrf
+                        </div>
+                        <div id="download" class="tab-pane">
+                            <div class="panel-body">
+                                <form method="post" action="{{ route('admin.client.proof.update.download',$album->id) }}" autocomplete="off">
+                                    @csrf
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="container-fluid">
 
-                                        <div class="col-md-10 col-md-offset-1">
-
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                <div class="input-group m-b">
-                                                    <input name="album_password" id="album_password" type="text" value="{{$album->password}}" class="form-control input-lg">
-                                                    <div class="input-group-btn">
-                                                        <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateAlbumPassword" data-fid="{{$album->id}}" type="button">Generate Password</button>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <p>
+                                                        Download Status
+                                                    </p>
+                                                    <input type="checkbox" name="is_download" class="js-switch" @if($album->is_download === 1) checked @endif />
+                                                    <br>
+                                                    <i>Turn on to allow your clients to download photos from this Collection.</i>
                                                 </div>
-                                                <i>Leave blank to make this collection public. Setting a password will require all guests to use this password in order to see the collection.</i>
                                             </div>
 
-                                            <div class="form-group">
-                                                <p>
-                                                    Homepage visibility
-                                                </p>
-                                                <input type="checkbox" name="is_homepage_visible" class="js-switch_2" @if($album->is_homepage_visible === 1) checked @endif />
-                                                <i>Show or hide your collection in the Homepage area.</i>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <p>
-                                                    Client Exclusive Access
-                                                </p>
-                                                <input type="checkbox" name="is_client_exclusive_access" class="js-switch_3" @if($album->is_client_exclusive_access === 1) checked @endif />
-                                                <i>Turn on to have the abilty to make selected photo sets client-only and to give your clients the ability to mark photos private. </i>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Client Exclusive Access Password</label>
-                                                <div class="input-group m-b">
-                                                    <input name="client_exclusive_access_password" id="client_exclusive_access_password" type="text" value="{{$album->client_access_password}}" class="form-control input-lg">
-                                                    <div class="input-group-btn">
-                                                        <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateClientExclusiveAccessPassword" data-fid="{{$album->id}}" type="button">Generate Client Exclusive Access Password</button>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label>Download Pin</label>
+                                                    <div class="input-group m-b">
+                                                        <input name="download_pin" id="download_pin" type="number" value="{{$album->download_pin}}" class="form-control input-lg">
+                                                        <div class="input-group-btn">
+                                                            <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateAlbumPin" data-fid="{{$album->id}}" type="button">Generate Pin</button>
+                                                        </div>
                                                     </div>
+                                                    <i>Your clients will be required to input this download pin to download photos.</i>
                                                 </div>
-                                                <i>Turn on to have the abilty to make selected photo sets client-only and to give your clients the ability to mark photos private. </i>
                                             </div>
+
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label>Limit Total Number of Gallery Downloads</label>
+                                                    <input type="number" name="download_restriction_limit" value="{{$album->download_restriction_limit}}" class="form-control input-lg">
+                                                    <i>Limit the number of times this PIN can be used for Gallery Download. This does not apply to Single Photo download. If Email Restriction is on, each email can use the PIN up to the Download Limit.</i>
+                                                </div>
+                                            </div>
+
+                                            <br>
+                                            <div>
+                                                <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Download Settings</strong></button>
+                                            </div>
+                                            <br>
+                                            <hr>
 
                                             <div class="form-group">
-                                                <label>Photo Sets Visibility</label>
+                                                <label>Restrict Download for Photo Sets</label>
                                             </div>
-
                                             @foreach($albumSets as $albumSet)
-
                                                 <div class="form-group">
                                                     <div class="checkbox">
-                                                        <input class="updateAlbumSetVisibility" data-fid="{{$albumSet->id}}" id="checkbox1" @if($albumSet->is_client_exclusive_access === 1) checked @endif type="checkbox">
+                                                        <input class="updateAlbumSetDownload" data-fid="{{$albumSet->id}}" id="checkbox1" @if($albumSet->is_email_download_restrict === 1) checked @endif type="checkbox">
                                                         <label for="checkbox1">
                                                             {{$albumSet->name}}
                                                         </label>
                                                     </div>
                                                 </div>
                                             @endforeach
-                                            <i>Make selected photo sets private so only your clients have access. Regular guests can only see public sets.</i>
+                                            <i>Disable download for specific photo sets in the collection. This applies to both Gallery Download and Single Photo Download. </i>
 
-                                            <div class="form-group">
-                                                <p>
-                                                    Allow Clients to Mark Photos Private
-                                                </p>
-                                                <input type="checkbox" name="is_client_make_private" class="js-switch_4" @if($album->is_client_make_private === 1) checked @endif />
-                                                <i>Give clients the ability to mark photos private. Private photos are not visible to public guests and only clients can see them. </i>
+                                            <br>
+                                            <hr>
+
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label>Restrict To Specific Emails</label>
+                                                    <div class="input-group m-b">
+                                                        <input id="email_restriction" type="email" class="form-control input-lg">
+                                                        <div class="input-group-btn">
+                                                            <button tabindex="-1" class="btn btn-lg btn-primary btn-outline restrictToEmail" data-fid="{{$album->id}}" type="button">Restrict To Email</button>
+                                                        </div>
+                                                    </div>
+                                                    <i>Restrict download to only emails you have entered here.</i>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="ibox-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Email</th>
+                                                                <th class="text-right" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach($albumDownloadRestrictionEmails as $albumDownloadRestrictionEmail)
+                                                                <tr class="gradeX">
+                                                                    <td>{{$albumDownloadRestrictionEmail->email}}</td>
+                                                                    <td class="text-center">
+                                                                        <div class="btn-group">
+                                                                            <a href="{{route('admin.client.proof.restrict.to.specific.email.delete',$albumDownloadRestrictionEmail->id)}}" class="btn-danger btn btn-block btn-xs">Delete</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <th>Email</th>
+                                                                <th class="text-right" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
 
                                             <hr>
 
-                                            <div>
-                                                <button class="btn btn-block btn-outline btn-primary btn-lg m-t-n-xs" type="submit"><strong>Update Privacy Settings</strong></button>
-                                            </div>
                                         </div>
-                                    </form>
 
-                                </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div id="download" class="tab-pane">
-                                <div class="panel-body">
-                                    <form method="post" action="{{ route('admin.client.proof.update.download',$album->id) }}" autocomplete="off">
-                                        @csrf
-                                        <div class="col-md-10 col-md-offset-1">
-                                            <div class="container-fluid">
-
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <p>
-                                                            Download Status
-                                                        </p>
-                                                        <input type="checkbox" name="is_download" class="js-switch" @if($album->is_download === 1) checked @endif />
-                                                        <br>
-                                                        <i>Turn on to allow your clients to download photos from this Collection.</i>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label>Download Pin</label>
-                                                        <div class="input-group m-b">
-                                                            <input name="download_pin" id="download_pin" type="number" value="{{$album->download_pin}}" class="form-control input-lg" required>
-                                                            <div class="input-group-btn">
-                                                                <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateAlbumPin" data-fid="{{$album->id}}" type="button">Generate Pin</button>
-                                                            </div>
-                                                        </div>
-                                                        <i>Your clients will be required to input this download pin to download photos.</i>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label>Limit Total Number of Gallery Downloads</label>
-                                                        <input type="number" name="download_restriction_limit" value="{{$album->download_restriction_limit}}" class="form-control input-lg">
-                                                        <i>Limit the number of times this PIN can be used for Gallery Download. This does not apply to Single Photo download. If Email Restriction is on, each email can use the PIN up to the Download Limit.</i>
-                                                    </div>
-                                                </div>
-
-                                                <br>
-                                                <div>
-                                                    <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Download Settings</strong></button>
-                                                </div>
-                                                <br>
-                                                <hr>
-
-                                                <div class="form-group">
-                                                    <label>Restrict Download for Photo Sets</label>
-                                                </div>
-                                                @foreach($albumSets as $albumSet)
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <input class="updateAlbumSetDownload" data-fid="{{$albumSet->id}}" id="checkbox1" @if($albumSet->is_email_download_restrict === 1) checked @endif type="checkbox">
-                                                            <label for="checkbox1">
-                                                                {{$albumSet->name}}
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                                <i>Disable download for specific photo sets in the collection. This applies to both Gallery Download and Single Photo Download. </i>
-
-                                                <br>
-                                                <hr>
-
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label>Restrict To Specific Emails</label>
-                                                        <div class="input-group m-b">
-                                                            <input id="email_restriction" type="email" class="form-control input-lg">
-                                                            <div class="input-group-btn">
-                                                                <button tabindex="-1" class="btn btn-lg btn-primary btn-outline restrictToEmail" data-fid="{{$album->id}}" type="button">Restrict To Email</button>
-                                                            </div>
-                                                        </div>
-                                                        <i>Restrict download to only emails you have entered here.</i>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="ibox-content">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                                <thead>
-                                                                <tr>
-                                                                    <th>Email</th>
-                                                                    <th class="text-right" data-sort-ignore="true">Action</th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                @foreach($albumDownloadRestrictionEmails as $albumDownloadRestrictionEmail)
-                                                                    <tr class="gradeX">
-                                                                        <td>{{$albumDownloadRestrictionEmail->email}}</td>
-                                                                        <td class="text-center">
-                                                                            <div class="btn-group">
-                                                                                <a href="{{route('admin.client.proof.restrict.to.specific.email.delete',$albumDownloadRestrictionEmail->id)}}" class="btn-danger btn btn-block btn-xs">Delete</a>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                                </tbody>
-                                                                <tfoot>
-                                                                <tr>
-                                                                    <th>Email</th>
-                                                                    <th class="text-right" data-sort-ignore="true">Action</th>
-                                                                </tr>
-                                                                </tfoot>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <hr>
-
-                                            </div>
-
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{--    To Do's    --}}
-            <div class="row m-t-lg">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>To Do's</h5>
-                            <div class="ibox-tools">
-                                <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
-                            </div>
-                        </div>
-                        <div class="">
-                            <ul class="pending-to-do">
-                                @foreach($pendingToDos as $pendingToDo)
-                                    <li>
-                                        <div>
-                                            <small>{{$pendingToDo->due_date}}</small>
-                                            <h4>{{$pendingToDo->name}}</h4>
-                                            <p>{{$pendingToDo->notes}}.</p>
-                                            @if($pendingToDo->is_album === 1)
-                                                <p><span class="badge badge-primary">{{$pendingToDo->album->name}}</span></p>
-                                            @endif
-                                            <a href="{{route('admin.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-
-                            <ul class="in-progress-to-do">
-                                @foreach($inProgressToDos as $inProgressToDo)
-                                    <li>
-                                        <div>
-                                            <small>{{$inProgressToDo->due_date}}</small>
-                                            <h4>{{$inProgressToDo->name}}</h4>
-                                            <p>{{$inProgressToDo->notes}}.</p>
-                                            @if($inProgressToDo->is_album === 1)
-                                                <p><span class="badge badge-primary">{{$inProgressToDo->album->name}}</span></p>
-                                            @endif
-                                            <a href="{{route('admin.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <ul class="overdue-to-do">
-                                @foreach($overdueToDos as $overdueToDo)
-                                    <li>
-                                        <div>
-                                            <small>{{$overdueToDo->due_date}}</small>
-                                            <h4>{{$overdueToDo->name}}</h4>
-                                            <p>{{$overdueToDo->notes}}.</p>
-                                            @if($overdueToDo->is_album === 1)
-                                                <p><span class="badge badge-primary">{{$overdueToDo->album->name}}</span></p>
-                                            @endif
-                                            @if($overdueToDo->status->name === "Pending")
-                                                <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
-                                            @elseif($overdueToDo->status->name === "In progress")
-                                                <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
-                                            @endif
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <ul class="completed-to-do">
-                                @foreach($completedToDos as $completedToDo)
-                                    <li>
-                                        <div>
-                                            <small>{{$completedToDo->due_date}}</small>
-                                            <h4>{{$completedToDo->name}}</h4>
-                                            <p>{{$completedToDo->notes}}.</p>
-                                            @if($completedToDo->is_album === 1)
-                                                <p><span class="badge badge-primary">{{$completedToDo->album->name}}</span></p>
-                                            @endif
-                                            <a href="{{route('admin.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
                         </div>
 
                     </div>
                 </div>
             </div>
+        </div>
+
+        <br>
+        {{--  to do Counts  --}}
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <button type="button" class="btn btn-warning m-r-sm">{{$albumArray['pendingToDos']}}</button>
+                            Pending
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-info m-r-sm">{{$albumArray['inProgressToDos']}}</button>
+                            In progress
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary m-r-sm">{{$albumArray['completedToDos']}}</button>
+                            Completed
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success m-r-sm">{{$albumArray['overdueToDos']}}</button>
+                            Overdue
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--    To Do's    --}}
+        <div class="row m-t-lg">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>To Do's</h5>
+                        <div class="ibox-tools">
+                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <ul class="pending-to-do">
+                            @foreach($pendingToDos as $pendingToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$pendingToDo->due_date}}</small>
+                                        <h4>{{$pendingToDo->name}}</h4>
+                                        <p>{{$pendingToDo->notes}}.</p>
+                                        @if($pendingToDo->is_album === 1)
+                                            <p><span class="badge badge-primary">{{$pendingToDo->album->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('admin.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <ul class="in-progress-to-do">
+                            @foreach($inProgressToDos as $inProgressToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$inProgressToDo->due_date}}</small>
+                                        <h4>{{$inProgressToDo->name}}</h4>
+                                        <p>{{$inProgressToDo->notes}}.</p>
+                                        @if($inProgressToDo->is_album === 1)
+                                            <p><span class="badge badge-primary">{{$inProgressToDo->album->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('admin.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="overdue-to-do">
+                            @foreach($overdueToDos as $overdueToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$overdueToDo->due_date}}</small>
+                                        <h4>{{$overdueToDo->name}}</h4>
+                                        <p>{{$overdueToDo->notes}}.</p>
+                                        @if($overdueToDo->is_album === 1)
+                                            <p><span class="badge badge-primary">{{$overdueToDo->album->name}}</span></p>
+                                        @endif
+                                        @if($overdueToDo->status->name === "Pending")
+                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                        @elseif($overdueToDo->status->name === "In progress")
+                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="completed-to-do">
+                            @foreach($completedToDos as $completedToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$completedToDo->due_date}}</small>
+                                        <h4>{{$completedToDo->name}}</h4>
+                                        <p>{{$completedToDo->notes}}.</p>
+                                        @if($completedToDo->is_album === 1)
+                                            <p><span class="badge badge-primary">{{$completedToDo->album->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('admin.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         </div>
 
 @endsection
@@ -646,6 +735,9 @@
     <!-- Custom and plugin javascript -->
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
+
+    <!-- ChartJS-->
+    <script src="{{ asset('inspinia') }}/js/plugins/chartJs/Chart.min.js"></script>
 
     <!-- Chosen -->
     <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
@@ -705,6 +797,82 @@
     <!-- Masonry -->
     <script src="{{ asset('inspinia') }}/js/plugins/masonary/masonry.pkgd.min.js"></script>
 
+    {{-- download x views line chart  --}}
+    <script>
+        $(function () {
+            var lineData = {
+                labels: ["January", "February", "March", "April", "May", "June", "July","August","September","October","November","December"],
+                datasets: [
+                    {
+                        label: "Example dataset",
+                        fillColor: "rgba(220,220,220,0.5)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: [
+                            {{$albumViewsAndDownloads['views']['1']}},
+                            {{$albumViewsAndDownloads['views']['2']}},
+                            {{$albumViewsAndDownloads['views']['3']}},
+                            {{$albumViewsAndDownloads['views']['4']}},
+                            {{$albumViewsAndDownloads['views']['5']}},
+                            {{$albumViewsAndDownloads['views']['6']}},
+                            {{$albumViewsAndDownloads['views']['7']}},
+                            {{$albumViewsAndDownloads['views']['8']}},
+                            {{$albumViewsAndDownloads['views']['9']}},
+                            {{$albumViewsAndDownloads['views']['10']}},
+                            {{$albumViewsAndDownloads['views']['11']}},
+                            {{$albumViewsAndDownloads['views']['12']}}
+                            ]
+                    },
+                    {
+                        label: "Example dataset",
+                        fillColor: "rgba(26,179,148,0.5)",
+                        strokeColor: "rgba(26,179,148,0.7)",
+                        pointColor: "rgba(26,179,148,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: [
+                            {{$albumViewsAndDownloads['downloads']['1']}},
+                            {{$albumViewsAndDownloads['downloads']['2']}},
+                            {{$albumViewsAndDownloads['downloads']['3']}},
+                            {{$albumViewsAndDownloads['downloads']['4']}},
+                            {{$albumViewsAndDownloads['downloads']['5']}},
+                            {{$albumViewsAndDownloads['downloads']['6']}},
+                            {{$albumViewsAndDownloads['downloads']['7']}},
+                            {{$albumViewsAndDownloads['downloads']['8']}},
+                            {{$albumViewsAndDownloads['downloads']['9']}},
+                            {{$albumViewsAndDownloads['downloads']['10']}},
+                            {{$albumViewsAndDownloads['downloads']['11']}},
+                            {{$albumViewsAndDownloads['downloads']['12']}}
+                            ]
+                    }
+                ]
+            };
+
+            var lineOptions = {
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                bezierCurve: true,
+                bezierCurveTension: 0.4,
+                pointDot: true,
+                pointDotRadius: 4,
+                pointDotStrokeWidth: 1,
+                pointHitDetectionRadius: 20,
+                datasetStroke: true,
+                datasetStrokeWidth: 2,
+                datasetFill: true,
+                responsive: true,
+            };
+
+
+            var ctx = document.getElementById("lineChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+        });
+    </script>
 
     <style>
 

@@ -43,6 +43,35 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
+
+            <div class="col-lg-12">
+                <div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-warning m-r-sm">{{$clientProofsStatusCount['previewClientProofs']}}</button>
+                                Preview
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info m-r-sm">{{$clientProofsStatusCount['hiddenClientProofs']}}</button>
+                                Hidden
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success m-r-sm">{{$clientProofsStatusCount['publishedClientProofs']}}</button>
+                                Published
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">

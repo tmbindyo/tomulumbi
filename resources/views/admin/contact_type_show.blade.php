@@ -81,6 +81,7 @@
                                         <input type="name" name="name" value="{{$contactType->name}}" class="form-control input-lg">
                                         <i>Contact type name</i>
                                     </div>
+                                    <br>
                                     <div class="has-warning">
                                         <textarea id="description" rows="5" name="description" class="resizable_textarea form-control" required="required">{{$contactType->description}}</textarea>
                                     </div>

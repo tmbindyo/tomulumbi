@@ -45,8 +45,7 @@
                         </div>
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-sm-8 b-r">
-                                    <p>Edit project type.</p>
+                                <div class="col-sm-8 col-md-offset-2">
                                     <form method="post" action="{{ route('admin.project.type.update',$projectType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                         @csrf
 
@@ -60,24 +59,19 @@
                                             </div>
                                         @endif
 
-                                        <div class="form-group">
+                                        <div class="has-warning">
                                             <label>Name</label>
-                                            <input type="name" name="name" value="{{$projectType->name}}" class="form-control">
+                                            <input type="name" name="name" value="{{$projectType->name}}" class="form-control input-lg">
                                         </div>
-                                        <div class="form-group">
+                                        <br>
+                                        <div class="has-warning">
                                             <label>Description</label>
-                                            <textarea id="description" name="description" class="resizable_textarea form-control" required="required">{{$projectType->description}}</textarea>
+                                            <textarea id="description" name="description" class="resizable_textarea form-control" rows="5" required="required">{{$projectType->description}}</textarea>
                                         </div>
                                         <div>
                                             <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="col-sm-4"><h4>Not a member?</h4>
-                                    <p>You can create an account:</p>
-                                    <p class="text-center">
-                                        <a href=""><i class="fa fa-sign-in big-icon"></i></a>
-                                    </p>
                                 </div>
                             </div>
                         </div>

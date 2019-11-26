@@ -65,6 +65,40 @@
 
 
     <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-warning m-r-sm">{{$toDoStatusCount['pendingToDos']}}</button>
+                                Pending
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info m-r-sm">{{$toDoStatusCount['inProgressToDos']}}</button>
+                                In progress
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary m-r-sm">{{$toDoStatusCount['completedToDos']}}</button>
+                                Completed
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success m-r-sm">{{$toDoStatusCount['overdueToDos']}}</button>
+                                Overdue
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+
+                </div>
+            </div>
+
+        </div>
+
         <ul class="pending-to-do">
             @foreach($pendingToDos as $pendingToDo)
                 <li>

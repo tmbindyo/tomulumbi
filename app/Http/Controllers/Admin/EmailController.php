@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\ToDo;
 use App\Album;
-use App\AlbumType;
 use App\Email;
 use App\Status;
-use App\ToDo;
+use App\AlbumType;
+use App\Traits\StatusCountTrait;
 use App\Traits\UserTrait;
+use App\Traits\NavbarTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class EmailController extends Controller
 {
     use UserTrait;
+    use NavbarTrait;
+    use StatusCountTrait;
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,17 +27,23 @@ class EmailController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get email status count
+        $emailStatusCount = $this->emailsStatusCount();
+        // get all emails
         $emails = Email::with('status')->get();
-
-        return view('admin.emails',compact('emails','user'));
+        return view('admin.emails',compact('emails','user','navbarValues','emailStatusCount'));
     }
 
     public function emailShow($email_id)
     {
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
         // Check if album type exists
         $email = Email::findOrFail($email_id);
         // update status to seen
-        $email->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $email->status_id = "f7c44dec-2fca-4807-a500-364430240167";
         $email->save();
 
         // email statuses
@@ -55,7 +65,7 @@ class EmailController extends Controller
         // Get email
         $email = Email::where('id',$email_id)->with('status')->first();
 
-        return view('admin.email_show',compact('email','user','emailStatuses','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+        return view('admin.email_show',compact('email','user','emailStatuses','pendingToDos','inProgressToDos','completedToDos','overdueToDos','navbarValues'));
     }
 
     public function emailUpdate(Request $request, $email_id)

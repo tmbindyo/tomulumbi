@@ -19,6 +19,7 @@ class CreateDesignsTable extends Migration
             $table->string('name');
             $table->date('date');
             $table->integer('views');
+            $table->integer('gallery_views');
             $table->text('description')->nullable();
 
             $table->uuid('cover_image_id')->nullable();

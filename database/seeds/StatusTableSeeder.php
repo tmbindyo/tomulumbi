@@ -69,7 +69,7 @@ class StatusTableSeeder extends Seeder
         ]);
 
 
-        // Image or album status
+        // Image or album or design or journal or project status
         DB::table('statuses')->insert([
             'id' => 'cad5abf4-ed94-4184-8f7a-fe5084fb7d56',
             'name' => 'Preview',
@@ -147,7 +147,7 @@ class StatusTableSeeder extends Seeder
             'id' => 'f7c44dec-2fca-4807-a500-364430240167',
             'name' => 'Seen',
             'label' => 'label-info',
-            'description' => 'Viewed',
+            'description' => 'Seen',
             'status_type_id' => '5e230684-dc16-4889-a3d3-9e734726f02a',
             'user_id' => 1,
         ]);
@@ -156,7 +156,7 @@ class StatusTableSeeder extends Seeder
             'id' => '33a90a31-d779-41ec-ae2b-11649119f496',
             'name' => 'Read',
             'label' => 'label-primary',
-            'description' => 'Viewed',
+            'description' => 'Read',
             'status_type_id' => '5e230684-dc16-4889-a3d3-9e734726f02a',
             'user_id' => 1,
         ]);
@@ -165,7 +165,7 @@ class StatusTableSeeder extends Seeder
             'id' => '25743169-a5f2-4e71-878d-6c6ef02dfb08',
             'name' => 'Replied',
             'label' => 'label-success',
-            'description' => 'Viewed',
+            'description' => 'Replied',
             'status_type_id' => '5e230684-dc16-4889-a3d3-9e734726f02a',
             'user_id' => 1,
         ]);
@@ -174,7 +174,7 @@ class StatusTableSeeder extends Seeder
             'id' => 'b911d833-c581-4e59-bfd0-72ea1becf544',
             'name' => 'Flagged',
             'label' => 'label-danger',
-            'description' => 'Viewed',
+            'description' => 'Flagged',
             'status_type_id' => '5e230684-dc16-4889-a3d3-9e734726f02a',
             'user_id' => 1,
         ]);
@@ -362,6 +362,54 @@ class StatusTableSeeder extends Seeder
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
         ]);
+
+
+        // Sales
+        DB::table('statuses')->insert([
+            'id' => 'ab95912f-1a23-4443-b822-4159adb1185a',
+            'name' => 'To Do',
+            'description' => 'To Do.',
+            'label' => 'label-warning',
+            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '7dd005e0-54b5-481d-a135-64286fd381f6',
+            'name' => 'Standby',
+            'description' => 'Standby.',
+            'label' => 'label-danger',
+            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => 'b6d97a8a-6c38-4f3b-9435-3d5c8ccbe9ce',
+            'name' => 'Won',
+            'description' => 'Won.',
+            'label' => 'label-success',
+            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '9bf16fa3-fab4-42c9-97cb-ee8343e84bfc',
+            'name' => 'Lost',
+            'description' => 'Lost.',
+            'label' => 'label-info',
+            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => 'd30625aa-8b2d-4f08-b6e6-a45e4ee22d5a',
+            'name' => 'Cancelled',
+            'description' => 'Cancelled.',
+            'label' => 'label-primary',
+            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
+            'user_id' => 1,
+        ]);
+
 
 
 

@@ -140,6 +140,8 @@ Route::post('/personal/album/update/design/{album_id}', 'Admin\AlbumController@p
 Route::post('/personal/album/update/privacy/{album_id}', 'Admin\AlbumController@personalAlbumUpdatePrivacy')->name('admin.personal.album.update.privacy');
 Route::post('/personal/album/image/update/print/status/{album_set_id}', 'Admin\AlbumController@personalAlbumImageUpdatePrintStatus')->name('admin.personal.album.image.update.print.status');
 
+Route::get('/personal/album/set/show/{album_set_id}', 'Admin\AlbumController@personalAlbumSetShow')->name('admin.personal.album.set.show');
+
 Route::get('/client/proofs', 'Admin\AlbumController@clientProofs')->name('admin.client.proofs');
 Route::get('/client/proof/create', 'Admin\AlbumController@clientProofCreate')->name('admin.client.proof.create');
 Route::post('/clint/proof/store', 'Admin\AlbumController@clientProofStore')->name('admin.client.proof.store');
@@ -158,11 +160,13 @@ Route::get('/client/proof/restrict/to/specific/{album_id}/email/{email}', 'Admin
 Route::get('/client/proof/restrict/to/specific/email/delete/{restriction_email_id}', 'Admin\AlbumController@clientProofDownloadRestrictionEmailDelete')->name('admin.client.proof.restrict.to.specific.email.delete');
 
 // Album set
-Route::get('/client/proof/set/{album_id}', 'Admin\AlbumController@clientProofSet')->name('admin.client.proof.set');
 Route::post('/client/proof/set/{album_id}/store', 'Admin\AlbumController@clientProofSetStore')->name('admin.client.proof.set.store');
+Route::get('/client/proof/set/show/{album_set_id}', 'Admin\AlbumController@clientProofSetShow')->name('admin.client.proof.set.show');
 Route::get('/client/proof/set/status/{album_set_id}', 'Admin\AlbumController@clientProofSetStatus')->name('admin.client.proof.set.status');
 Route::get('/client/proof/set/download/status/{album_set_id}', 'Admin\AlbumController@clientProofSetDownloadStatus')->name('admin.client.proof.set.download.status');
 Route::post('/client/proof/set/image/upload/{album_set_id}', 'Admin\AlbumController@clientProofSetImageUpload')->name('admin.client.proof.set.image.upload');
+
+Route::get('/album/image/delete/{album_image_id}', 'Admin\AlbumController@albumImageDelete')->name('admin.album.image.delete');
 
 
 // Designs
@@ -221,6 +225,7 @@ Route::get('/product/restore/{product_id}', 'Admin\ProductController@productRest
 
 // price lists
 Route::post('/price/list/store/{product_id}', 'Admin\ProductController@priceListStore')->name('admin.price.list.store');
+Route::get('/price/list/show/{price_list_id}', 'Admin\ProductController@priceListShow')->name('admin.price.list.show');
 Route::post('/price/list/update/{price_list_id}', 'Admin\ProductController@priceListUpdate')->name('admin.price.list.update');
 Route::get('/price/list/delete/{price_list_id}', 'Admin\ProductController@priceListDelete')->name('admin.price.list.delete');
 Route::get('/price/list/restore/{price_list_id}', 'Admin\ProductController@priceListRestore')->name('admin.price.list.restore');
