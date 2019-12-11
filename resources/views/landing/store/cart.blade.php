@@ -54,9 +54,7 @@
                     <div class="cart-summary">
                         <h5>Cart Total</h5>
                         <ul class="summary-table">
-                            <li><span>subtotal:</span> <span id="subtotal">{{$total}}</span></li>
-                            <li><span>delivery:</span> <span>Free</span></li>
-                            <li><span>total:</span> <span>$140.00</span></li>
+                            <li><span>subtotal:</span> <span id="subtotal">$ {{$total}}</span></li>
                         </ul>
                         <div class="amado-btn-group mt-30 mb-100">
                             <a href="{{route('store.checkout')}}" class="btn amado-btn mb-15 w-100">Checkout</a>

@@ -363,55 +363,43 @@ class StatusTableSeeder extends Seeder
             'user_id' => 1,
         ]);
 
-
-        // Sales
+        // Expense statuses
         DB::table('statuses')->insert([
-            'id' => 'ab95912f-1a23-4443-b822-4159adb1185a',
-            'name' => 'To Do',
-            'description' => 'To Do.',
-            'label' => 'label-warning',
-            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
-            'user_id' => 1,
-        ]);
-
-        DB::table('statuses')->insert([
-            'id' => '7dd005e0-54b5-481d-a135-64286fd381f6',
-            'name' => 'Standby',
-            'description' => 'Standby.',
-            'label' => 'label-danger',
-            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
-            'user_id' => 1,
-        ]);
-
-        DB::table('statuses')->insert([
-            'id' => 'b6d97a8a-6c38-4f3b-9435-3d5c8ccbe9ce',
-            'name' => 'Won',
-            'description' => 'Won.',
-            'label' => 'label-success',
-            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
-            'user_id' => 1,
-        ]);
-
-        DB::table('statuses')->insert([
-            'id' => '9bf16fa3-fab4-42c9-97cb-ee8343e84bfc',
-            'name' => 'Lost',
-            'description' => 'Lost.',
-            'label' => 'label-info',
-            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
-            'user_id' => 1,
-        ]);
-
-        DB::table('statuses')->insert([
-            'id' => 'd30625aa-8b2d-4f08-b6e6-a45e4ee22d5a',
-            'name' => 'Cancelled',
-            'description' => 'Cancelled.',
+            'id' => '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0',
+            'name' => 'Billable',
+            'description' => 'Billable.',
             'label' => 'label-primary',
-            'status_type_id' => 'a2fd6d40-969f-41a8-ba35-f7aad59307d7',
+            'status_type_id' => '7805a9f3-c7ca-4a09-b021-cc9b253e2810',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => 'ce2c5387-337e-432c-9571-4ad97f702426',
+            'name' => 'Non Billable',
+            'description' => 'Non Billable.',
+            'label' => 'label-success',
+            'status_type_id' => '7805a9f3-c7ca-4a09-b021-cc9b253e2810',
             'user_id' => 1,
         ]);
 
 
-
+        // transaction
+        DB::table('statuses')->insert([
+            'id' => '2fb4fa58-f73d-40e6-ab80-f0d904393bf2',
+            'name' => 'Paid',
+            'description' => 'Paid.',
+            'label' => 'label-success',
+            'status_type_id' => '8f56fc70-6cd8-496f-9aec-89e5748968db',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => 'a40b5983-3c6b-4563-ab7c-20deefc1992b',
+            'name' => 'Pending',
+            'description' => 'Pending.',
+            'label' => 'label-success',
+            'status_type_id' => '8f56fc70-6cd8-496f-9aec-89e5748968db',
+            'user_id' => 1,
+        ]);
 
     }
 }

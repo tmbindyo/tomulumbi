@@ -151,7 +151,7 @@ trait StatusCountTrait
     public function productsStatusCount()
     {
 
-        // Get preview journals
+        // Get preview products
         $previewProducts = Product::where('status_id','f1a32788-4016-4104-804b-92186b340eb0')->count();
         // Get unavailable journals
         $unavailableProducts = Product::where('status_id','2ae05f4d-318d-4475-a9b0-a648694eb5c2')->count();
@@ -180,13 +180,78 @@ trait StatusCountTrait
     public function ordersStatusCount()
     {
 
-        return $productsCount;
+        // Get pending orders
+        $pendingOrders = Order::where('status_id','e2f5f913-f0df-4749-9053-ea2ab8a89547')->count();
+        // Get awaiting payment orders
+        $awaitingPaymentOrders = Order::where('status_id','39c51a73-063f-48d6-b0ce-c86f2a0f7cdd')->count();
+        // Get awaiting fulfillment order
+        $awaitingFulfillmentOrders = Order::where('status_id','66e71792-5289-4554-ba69-97933dfb1e49')->count();
+        // Get awaiting shipment order
+        $awaitingShipmentOrders = Order::where('status_id','5e86e6f3-2972-4886-bd8f-4b0dd16af97a')->count();
+        // Get awaiting pickup orders
+        $awaitingPickupOrders = Order::where('status_id','d456e5e5-9e7b-429a-a376-c3ea5ea908cd')->count();
+        // Get partially shipped orders
+        $partiallyShippedOrders = Order::where('status_id','ad7e83d4-e051-42f7-8feb-60176f027901')->count();
+        // Get completed orders
+        $completedOrders = Order::where('status_id','19bc0cb0-9565-4280-a992-cb0a530a0a51')->count();
+        // Get shipped orders
+        $shippedOrders = Order::where('status_id','cdbc4045-d03c-4b13-8432-b430f4c70b88')->count();
+        // Get cancelled orders
+        $cancelledOrders = Order::where('status_id','d228f839-2378-49d1-90b7-eb31dc4cc946')->count();
+        // Get declined orders
+        $declinedOrders = Order::where('status_id','91934c68-da79-4d52-a94d-c83ceccea43d')->count();
+        // Get refunded orders
+        $refundedOrders = Order::where('status_id','e4db1356-dc9e-43d8-aef3-ca8988885928')->count();
+        // Get disputed orders
+        $disputedOrders = Order::where('status_id','a1b1b8a1-4dba-420e-b4a8-686134da8b1c')->count();
+        // Get manual verification required orders
+        $manualVerificationRequiredOrders = Order::where('status_id','4a531fe5-bd9e-44c9-a630-84e6b979d599')->count();
+        // Get partially refunded orders
+        $partiallyRefundedOrders = Order::where('status_id','ff20d28a-90fc-472c-8219-5ba865c9880e')->count();
+
+        $statusCountArray = array(
+            "pendingOrders"=>$pendingOrders,
+            "awaitingPaymentOrders"=>$awaitingPaymentOrders,
+            "awaitingFulfillmentOrders"=>$awaitingFulfillmentOrders,
+            "awaitingShipmentOrders"=>$awaitingShipmentOrders,
+            "awaitingPickupOrders"=>$awaitingPickupOrders,
+            "partiallyShippedOrders"=>$partiallyShippedOrders,
+            "completedOrders"=>$completedOrders,
+            "shippedOrders"=>$shippedOrders,
+            "cancelledOrders"=>$cancelledOrders,
+            "declinedOrders"=>$declinedOrders,
+            "refundedOrders"=>$refundedOrders,
+            "disputedOrders"=>$disputedOrders,
+            "manualVerificationRequiredOrders"=>$manualVerificationRequiredOrders,
+            "partiallyRefundedOrders"=>$partiallyRefundedOrders
+        );
+
+        return $statusCountArray;
     }
 
     public function salesStatusCount()
     {
 
         return $ordersCount;
+    }
+
+    public function expensesStatusCount()
+    {
+        // Get preview journals
+        $previewJournals = Journal::where('status_id','cad5abf4-ed94-4184-8f7a-fe5084fb7d56')->count();
+        // Get hidden journals
+        $hiddenJournals = Journal::where('status_id','389842b7-a010-40c1-85cf-4f5b5144ccea')->count();
+        // Get published journals
+        $publishedJournals = Journal::where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->count();
+
+        $statusCountArray = array(
+            "previewJournals"=>$previewJournals,
+            "hiddenJournals"=>$hiddenJournals,
+            "publishedJournals"=>$publishedJournals
+        );
+
+        return $statusCountArray;
+
     }
 
 

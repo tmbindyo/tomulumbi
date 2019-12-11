@@ -16,4 +16,5 @@ class ViewType extends Model
     {
         return $this->hasMany('App\View');
     }
+
 }

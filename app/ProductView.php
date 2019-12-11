@@ -24,4 +24,9 @@ class ProductView extends Model
     {
         return $this->belongsTo('App\Product');
     }
+
+    public function view()
+    {
+        return $this->hasOne('App\View','view_id','id');
+    }
 }

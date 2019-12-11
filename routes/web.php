@@ -15,6 +15,7 @@ Auth::routes();
 
 // Welcome
 Route::get('/welcome', 'Landing\LandingController@welcome')->name('welcome');
+Route::get('/test/email', 'Landing\LandingController@testEmail')->name('test.email');
 
 
 // Client proofs
@@ -57,6 +58,7 @@ Route::post('/email/store', 'Landing\LandingController@emailStore')->name('email
 Route::get('/store', 'Landing\StoreController@store')->name('store');
 Route::get('/store/cart', 'Landing\StoreController@cart')->name('store.cart');
 Route::get('/store/checkout', 'Landing\StoreController@checkout')->name('store.checkout');
+Route::post('/store/checkout/store', 'Landing\StoreController@checkoutStore')->name('store.checkout.store');
 Route::get('/store/products', 'Landing\StoreController@products')->name('store.products');
 Route::get('/store/type/{type_id}/products', 'Landing\StoreController@typeProducts')->name('store.type.products');
 Route::get('/store/product/show/{product_id}', 'Landing\StoreController@productShow')->name('store.product.show');

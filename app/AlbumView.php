@@ -20,4 +20,9 @@ class AlbumView extends Model
     {
         return $this->hasMany('App\AlbumDownload');
     }
+
+    public function view()
+    {
+        return $this->hasOne('App\View','view_id','id');
+    }
 }

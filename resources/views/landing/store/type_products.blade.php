@@ -97,7 +97,7 @@
                                 <!-- Product Meta Data -->
                                 <div class="product-meta-data">
                                     <div class="line"></div>
-                                    <p class="product-price">From Ksh. {{$product->lowest_price->first()->price}}</p>
+                                    <p class="product-price">From $. {{$product->lowest_price->first()->price}}</p>
                                     <a href="{{route('store.product.show',$product->id)}}">
                                         <h6>{{ $product->name }}</h6>
                                     </a>

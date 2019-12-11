@@ -40,6 +40,10 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Email');
     }
+    public function order()
+    {
+        return $this->belongsTo('App\Order');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');

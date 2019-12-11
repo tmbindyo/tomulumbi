@@ -2,33 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Journal;
-use App\JournalGallery;
-use App\JournalLabel;
-use App\Label;
-use App\Order;
-use App\OrderProduct;
-use App\PriceList;
-use App\Product;
-use App\ProductGallery;
+
 use App\Size;
-use App\Status;
-use App\SubType;
-use App\ThumbnailSize;
+use App\Type;
 use App\ToDo;
-use App\Traits\DownloadViewNumbersTrait;
+use App\Status;
+use App\Upload;
+use App\Product;
+use App\SubType;
+use App\PriceList;
+use App\Typography;
+use App\OrderProduct;
+use App\ThumbnailSize;
+use App\ProductGallery;
+use App\Traits\UserTrait;
 use App\Traits\NavbarTrait;
+use Illuminate\Http\Request;
 use App\Traits\ProductTrait;
 use App\Traits\StatusCountTrait;
-use App\Traits\UserTrait;
-use App\Type;
-use App\Typography;
-use App\Upload;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use App\Traits\DownloadViewNumbersTrait;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends Controller
@@ -50,7 +46,7 @@ class ProductController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         // Get albums
-        $products = Product::with('user','status')->get();
+        $products = Product::with('user','status')->withCount('order_products')->get();
         // Get the design status counts
         $productsStatusCount = $this->productsStatusCount();
 
@@ -111,9 +107,9 @@ class ProductController extends Controller
         // Price lists
         $priceLists = PriceList::where('product_id',$product->id)->with('sub_type.type','size','status','user')->get();
         // sub types
-        $subTypes = SubType::with('type')->get();
+        $subTypes = SubType::where('type_id', $product->type_id)->with('type')->get();
         // sizes
-        $sizes = Size::all();
+        $sizes = Size::where('type_id', $product->type_id)->get();
         // Pending to dos
         $pendingToDos = ToDo::with('user','status','product')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('product_id',$product->id)->get();
         // In progress to dos
@@ -759,8 +755,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($album_type_id);
         $product->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
         $product->save();
-
         return back()->withSuccess(__('Product '.$product->name.' successfully deleted.'));
+
     }
 
     public function productRestore($album_type_id)
@@ -769,13 +765,13 @@ class ProductController extends Controller
         $product = Product::findOrFail($album_type_id);
         $product->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $product->save();
-
         return back()->withSuccess(__('Product '.$product->name.' successfully restored.'));
     }
 
     // Price lists
     public function priceListStore(Request $request, $product_id)
     {
+
         $priceList = new PriceList();
         $priceList->name = $request->price;
         $priceList->description = $request->description;
@@ -788,6 +784,7 @@ class ProductController extends Controller
         $priceList->user_id = Auth::user()->id;
         $priceList->save();
         return back()->withSuccess(__('Price list successfully restored.'));
+
     }
 
     public function priceListShow($price_list_id)
@@ -807,10 +804,11 @@ class ProductController extends Controller
         // get price list
         $priceList = PriceList::with('user','status','product')->where('id',$price_list_id)->first();
         // orders
-        $orders = OrderProduct::with('product')->where("price_list_id",$price_list_id)->where("is_sale",False)->get();
+        $orders = OrderProduct::with('product','status','order')->where('is_paid',True)->where("price_list_id",$price_list_id)->get();
         // sales
-        $sales = OrderProduct::with('product')->where("price_list_id",$price_list_id)->where("is_sale",True)->get();
+        $sales = OrderProduct::with('product')->where('is_paid',True)->where("price_list_id",$price_list_id)->get();
 
+//        return $orders;
         return view('admin.price_list_show',compact('priceList','user','navbarValues','orders','sales','subTypes','sizes','ordersAndSales'));
     }
 

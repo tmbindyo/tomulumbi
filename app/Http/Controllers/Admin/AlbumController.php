@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Client;
 use App\Color;
 use App\Contact;
 use App\ContentAlign;
@@ -50,10 +49,12 @@ class AlbumController extends Controller
     use NavbarTrait;
     use StatusCountTrait;
     use DownloadViewNumbersTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
     }
+
     public function personalAlbums()
     {
         // User
@@ -163,7 +164,7 @@ class AlbumController extends Controller
         $albumStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
         // Get album
-        $album = Album::with('user','status','cover_image','album_download_restriction_emails')->where('id',$album_id)->first();
+        $album = Album::with('user','status','cover_image','album_download_restriction_emails','expenses.expense_type')->where('id',$album_id)->first();
 
         // Get all albums for to do dropdown
         $albums = Album::with('user','status')->get();
@@ -905,7 +906,7 @@ class AlbumController extends Controller
         // Album & Image status
         $albumStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
         // Get album
-        $album = Album::with('user','status','cover_image','album_download_restriction_emails')->where('id',$album_id)->first();
+        $album = Album::with('user','status','cover_image','album_download_restriction_emails','expenses.expense_type')->where('id',$album_id)->first();
         // Get all albums for to do dropdown
         $albums = Album::with('user','status')->get();
 

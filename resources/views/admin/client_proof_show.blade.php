@@ -191,6 +191,7 @@
                         <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Design</a></li>
                         <li class=""><a data-toggle="tab" href="#privacy"><i class="fa fa-lock"></i> Privacy</a></li>
                         <li class=""><a data-toggle="tab" href="#download"><i class="fa fa-download"></i> Download</a></li>
+                        <li class=""><a data-toggle="tab" href="#expenses"><i class="fa fa-dollar"></i> Expenses</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="collection_settings" class="tab-pane active">
@@ -598,6 +599,61 @@
 
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                        <div id="expenses" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Recurring</th>
+                                            <th>Expense #</th>
+                                            <th>Date</th>
+                                            <th>Expense Type</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($album->expenses as $expense)
+                                            <tr class="gradeA">
+                                                <td>
+                                                    @if($expense->is_recurring == 1)
+                                                        <p><span class="badge badge-success">True</span></p>
+                                                    @else
+                                                        <p><span class="badge badge-success">False</span></p>
+                                                    @endif
+                                                </td>
+                                                <td>{{$expense->reference}}</td>
+                                                <td>{{$expense->date}}</td>
+                                                <td>{{$expense->expense_type->name}}</td>
+                                                <td>{{$expense->total}}</td>
+                                                <td>
+                                                    <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('admin.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Recurring</th>
+                                            <th>Expense #</th>
+                                            <th>Date</th>
+                                            <th>Expense Type</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 

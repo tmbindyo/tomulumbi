@@ -20,6 +20,10 @@ class Size extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function type()
+    {
+        return $this->belongsTo('App\Type');
+    }
 
     // Children
     public function price_lists()

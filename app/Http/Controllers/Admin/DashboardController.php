@@ -21,31 +21,9 @@ class DashboardController extends Controller
     {
         // User
         $user = $this->getAdmin();
-        return view('admin.dashboard',compact('user'));
-    }
-    public function albumDashboard()
-    {
-        // User
-        $user = $this->getAdmin();
-        return view('admin.album_dashboard',compact('user'));
-    }
-    public function clientDashboard()
-    {
-        // User
-        $user = $this->getAdmin();
-        return view('admin.client_dashboard',compact('user'));
-    }
-    public function designDashboard()
-    {
-        // User
-        $user = $this->getAdmin();
-        return view('admin.design_dashboard',compact('user'));
-    }
-    public function projectDashboard()
-    {
-        // User
-        $user = $this->getAdmin();
-        return view('admin.project_dashboard',compact('user'));
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.dashboard',compact('user','navbarValues'));
     }
 
 }

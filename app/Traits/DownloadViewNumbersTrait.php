@@ -292,7 +292,7 @@ trait DownloadViewNumbersTrait
     {
         // get year
         $year = date('Y');
-        $orders = OrderProduct::where('price_list_id',$price_list_id)->where('is_sale',False)->where(DB::raw('YEAR(created_at)'), '=', $year)->select('id', 'created_at')
+        $orders = OrderProduct::where('price_list_id',$price_list_id)->where(DB::raw('YEAR(created_at)'), '=', $year)->select('id', 'created_at')
             ->get()
             ->groupBy(function($date) {
                 //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
@@ -315,7 +315,7 @@ trait DownloadViewNumbersTrait
         }
 
 
-        $sales = OrderProduct::where('price_list_id',$price_list_id)->where('is_sale',True)->where(DB::raw('YEAR(created_at)'), '=', $year)->select('id', 'created_at')
+        $sales = OrderProduct::where('price_list_id',$price_list_id)->where(DB::raw('YEAR(created_at)'), '=', $year)->select('id', 'created_at')
             ->get()
             ->groupBy(function($date) {
                 //return Carbon::parse($date->created_at)->format('Y'); // grouping by years

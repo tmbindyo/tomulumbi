@@ -28,6 +28,10 @@ class Design extends Model
     {
         return $this->hasMany('App\DesignCategory');
     }
+    public function expenses()
+    {
+        return $this->hasMany('App\Expense');
+    }
     public function to_dos()
     {
         return $this->hasMany('App\ToDo');

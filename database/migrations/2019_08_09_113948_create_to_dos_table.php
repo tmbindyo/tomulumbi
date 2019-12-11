@@ -27,6 +27,7 @@ class CreateToDosTable extends Migration
             $table->boolean('is_project');
             $table->boolean('is_product');
             $table->boolean('is_email');
+            $table->boolean('is_order');
 
             $table->uuid('album_id')->nullable();
             $table->uuid('design_id')->nullable();
@@ -34,6 +35,7 @@ class CreateToDosTable extends Migration
             $table->uuid('project_id')->nullable();
             $table->uuid('product_id')->nullable();
             $table->uuid('email_id')->nullable();
+            $table->uuid('order_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

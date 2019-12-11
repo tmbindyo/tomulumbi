@@ -103,6 +103,13 @@ class ToDoController extends Controller
         }else{
             $todo->is_email = False;
         }
+        // order
+        if($request->is_order){
+            $todo->is_order = True;
+            $todo->order_id = $request->order;
+        }else{
+            $todo->is_order = False;
+        }
 
         $todo->status_id = "f3df38e3-c854-4a06-be26-43dff410a3bc";
         $todo->user_id = Auth::user()->id;
@@ -156,6 +163,13 @@ class ToDoController extends Controller
             $todo->email_id = $request->email;
         }else{
             $todo->is_email = False;
+        }
+        // order
+        if($request->is_order){
+            $todo->is_order = True;
+            $todo->order_id = $request->order;
+        }else{
+            $todo->is_order = False;
         }
 
         $todo->save();

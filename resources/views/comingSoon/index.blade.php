@@ -7,12 +7,12 @@
     <head>
         <meta charset="utf-8">
         <title>
-            Tomulumbi | Coming Soon
+            tomulumbi | Coming Soon
         </title><!-- Behavioral Meta Data -->
         <meta content="yes" name="apple-mobile-web-app-capable">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"><!-- Core Meta Data -->
-        <meta content="Tomulumbi" name="author">
-        <meta content="Tomulumbi photography" name="description">
+        <meta content="tomulumbi" name="author">
+        <meta content="tomulumbi photography" name="description">
         <meta content="Photography" name="keywords"><!-- Open Graph Meta Data -->
         <meta content="website">
         <meta content="index.html"><!-- Twitter Card Meta Data -->
@@ -66,7 +66,7 @@
                 <li class="layer" data-depth="0.20">
                     <div class="title">
                         <h2>
-                            Tomulumbi
+                            tomulumbi
                         </h2>
                         <span class="line"></span>
                     </div>

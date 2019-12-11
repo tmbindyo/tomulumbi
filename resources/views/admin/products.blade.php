@@ -120,7 +120,7 @@
                                 @foreach($products as $product)
                                     <tr class="gradeX">
                                         <td>{{$product->name}}</td>
-                                        <td>{{$product->sales}}</td>
+                                        <td>{{$product->order_products_count}}</td>
                                         <td>{{$product->views}}</td>
                                         <td>{{$product->user->name}}</td>
                                         <td>

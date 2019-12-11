@@ -71,6 +71,11 @@
                             Typographies
                         </a>
                     </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.accounts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.accounts')}}">
+                            Accounts
+                        </a>
+                    </li>
                 </ul>
             </li>
 
@@ -110,31 +115,29 @@
                 <a href="{{ route('admin.products') }}"><i class="fa fa-tags"></i> <span class="nav-label">Products</span><span class="label label-warning pull-right">{{$navbarValues['productsCount']}}</span></a>
             </li>
 
+            <li class="nav-item {{ Route::currentRouteNamed( 'admin.orders' ) ?  'active' : '' }}">
+                <a href="{{ route('admin.orders') }}"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Orders</span><span class="label label-warning pull-right">{{$navbarValues['ordersCount']}}</span></a>
+            </li>
+
+
             <li>
-                <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Store</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-dollar"></i> <span class="nav-label">Expenses</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.store' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.store')}}">
-                            Orders <span class="label label-warning pull-right">{{$navbarValues['ordersCount']}}</span>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.expenses' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.expenses')}}">
+                            Expenses <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.store' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.store')}}">
-                            Sales <span class="label label-warning pull-right">{{$navbarValues['salesCount']}}</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.store' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.store')}}">
-                            Pending Cart <span class="label label-warning pull-right">{{$navbarValues['abandonedCartsCount']}}</span>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.transactions' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.transactions')}}">
+                            Transactions <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
                         </a>
                     </li>
 
                 </ul>
             </li>
-
         </ul>
 
     </div>

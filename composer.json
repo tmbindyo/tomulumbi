@@ -19,6 +19,8 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "nesbot/carbon": "^2.27",
+        "select2/select2": "^4.0",
+        "srmklive/paypal": "~1.0",
         "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {

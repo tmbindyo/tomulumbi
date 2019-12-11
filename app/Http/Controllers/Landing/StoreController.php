@@ -2,29 +2,42 @@
 
 namespace App\Http\Controllers\Landing;
 
+use App\Client;
+use App\Mail\OrderEmails;
+use App\Order;
+use App\OrderProduct;
 use App\PriceList;
 use App\Product;
 use App\ProductGallery;
 use App\ProductView;
+use App\Traits\PaypalPaymentTrait;
+use App\Traits\ReferenceNumberTrait;
 use App\Traits\ViewTrait;
 use App\Type;
 use Darryldecode\Cart\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use Srmklive\PayPal\Facades\PayPal;
+use Srmklive\PayPal\Services\ExpressCheckout;
+use Srmklive\PayPal\Services\AdaptivePayments;
+
 
 class StoreController extends Controller
 {
 
     use ViewTrait;
+    use ReferenceNumberTrait;
+
 
     public function store(Request $request)
     {
 
         // save that user visited
-        $cookie = $request->cookie();
+
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+        $view = $this->trackView($request,$view_type,$view_id);
 
         $productCount = Product::count();
         if ($productCount>9){
@@ -41,10 +54,9 @@ class StoreController extends Controller
     {
 
         // save that user visited
-        $cookie = $request->cookie();
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+        $view = $this->trackView($request,$view_type,$view_id);
 
         // get types
         $types = Type::all();
@@ -64,10 +76,10 @@ class StoreController extends Controller
     {
 
         // save that user visited
-        $cookie = $request->cookie();
+
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+        $view = $this->trackView($request,$view_type,$view_id);
 
         $typeGet = Type::findOrFail($type_id);
         // get types
@@ -85,18 +97,20 @@ class StoreController extends Controller
         $productExists = Product::findOrFail($product_id);
         $productExists->views++;
         $productExists->save();
+
         // create view record
         $productView = new ProductView();
-        $productView->cookie = $request->cookie();
+        $productView->cookie = $this->getCookie($request);
         $productView->is_product = True;
         $productView->product_id = $product_id;
         $productView->number = $productExists->views;
         $productView->save();
         // save that user visited
-        $cookie = $request->cookie();
+
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = $productView->id;
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+        $view = $this->trackView($request,$view_type,$view_id);
+
         // Get product
         $product = Product::where('id',$product_id)->with('lowest_price','cover_image','second_cover_image','product_galleries.upload','price_lists.sub_type','price_lists.size','type')->first();
         return view('landing.store.product_show',compact('product'));
@@ -106,71 +120,207 @@ class StoreController extends Controller
     {
 
         // save that user visited
-        $cookie = $request->cookie();
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+        $view = $this->trackView($request,$view_type,$view_id);
+        // Get cookie
+        $cookie = $this->getCookie($request);
+        // Get user cart
+        $cart = \Cart::session($cookie)->getContent();
+        // get user total
+        $total = \Cart::session($cookie)->getSubTotal();
 
-        $ip = request()->ip();
-
-        $cart = \Cart::session($ip)->getContent();
-
-//        return $cart;
-        $total = \Cart::session($ip)->getSubTotal();
         return view('landing.store.cart',compact('cart','total'));
 
     }
 
     public function checkout(Request $request)
     {
+
         // save that user visited
-        $cookie = $request->cookie();
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+        $view = $this->trackView($request,$view_type,$view_id);
+        // get user cookie
+        $cookie = $this->getCookie($request);
+        // get cart
+        $cart = \Cart::session($cookie)->getContent();
 
-        //
-        return view('landing.store.checkout');
+        // get user total
+        $total = \Cart::session($cookie)->getSubTotal();
+        return view('landing.store.checkout',compact('total'));
+
+    }
+
+    public function checkoutStore(Request $request)
+    {
+
+        // save that user visited
+        $view_type = "382da08a-1149-4178-9e7a-92539705f436";
+        $view_id = '';
+        $view = $this->trackView($request,$view_type,$view_id);
+        // get user cookie
+        $cookie = $this->getCookie($request);
+        // get cart
+        $cart = \Cart::session($cookie)->getContent();
+        // get user total
+        $total = \Cart::session($cookie)->getSubTotal();
+        // Generate reference
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
+        // check if client exists
+        $client = Client::where('email',$request->email)->first();
+        if (!$client){
+            // create client
+            $client = new Client();
+            $client->name = $request->first_name.' '.$request->last_name;
+            $client->email = $request->email;
+            $client->phone = $request->phone_number;
+            $client->user_id = 1;
+            $client->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+            $client->save();
+        }
+
+        // order
+        $order = new Order();
+        $order->cookie = $cookie;
+        $order->email = $request->email;
+        $order->order_number = $reference;
+        $order->customer_notes = $request->comment;
+
+        $order->total = $total;
+        $order->subtotal = $total;
+        $order->refund = $total;
+        // discount is based on promo codes
+        $order->discount = 0;
+
+        $order->expiry_date = date('Y-m-d', strtotime(date('Y-m-d'). ' + 5 days'));
+        $order->due_date = date('Y-m-d', strtotime(date('Y-m-d'). ' + 15 days'));
+
+        $order->promo_code_id = '';
+        $order->status_id = '39c51a73-063f-48d6-b0ce-c86f2a0f7cdd';
+        $order->client_id = $client->id;
+
+        if ($request->delivery_method == "pickup"){
+            $order->is_delivery = False;
+        }else{
+            $order->is_delivery = True;
+        }
+        $order->is_returned = False;
+        $order->is_refunded = False;
+        $order->is_paid = False;
+
+        $order->save();
+
+
+        foreach ($cart as $item){
+
+            // order product
+            $orderProduct = new OrderProduct();
+            $orderProduct->rate = $item->price;
+            $orderProduct->quantity = $item->quantity;
+            $orderProduct->refund_amount = 0;
+            $orderProduct->status_id = '39c51a73-063f-48d6-b0ce-c86f2a0f7cdd';
+            $orderProduct->order_id = $order->id;
+            $orderProduct->product_id = $item->attributes->product['id'];
+            $orderProduct->price_list_id = $item->name;
+            $orderProduct->is_returned = False;
+            $orderProduct->is_refunded = False;
+            $orderProduct->is_paid = False;
+            $orderProduct->save();
+        }
+
+        // clear cart
+//        \Cart::session($cookie)->clear();
+
+        $orderData = Order::where('id',$order->id)->with('order_product.product.cover_image','order_product.product.second_cover_image','order_product.price_list.size','order_product.price_list.sub_type')->first();
+        // todo replace email with $order->email
+        Mail::to('tmbindyo@fluidtechglobal.com')->send(new OrderEmails($orderData));
+
+
+        // payment
+
+        // https://github.com/srmklive/laravel-paypal
+        // To use express checkout.
+        $provider = new ExpressCheckout();
+        // To use express checkout(used by default).
+        $provider = PayPal::setProvider('express_checkout');
+        // Additional PayPal API Parameters
+        $options = [
+            'BRANDNAME' => 'tomulumbi',
+            'LOGOIMG' => 'https://example.com/mylogo.png',
+            'CHANNELTYPE' => 'Merchant'
+        ];
+
+        $data['items'] = [];
+        foreach ($orderData->order_product as $item){
+            $data['items'][] = [
+                'name' => $item->product->name,
+                'price' => $item->price_list->price,
+                'desc'  => $item->price_list->price,
+                'qty' => $item->quantity
+            ];
+        }
+
+        $data['invoice_id'] = $order->order_number;
+        $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
+        $data['return_url'] = url('/payment/success');
+        $data['cancel_url'] = url('/cart');
+
+        $data['total'] = $order->total;
+
+        // Express Checkout
+        $response = $provider->setExpressCheckout($data);
+        // clear cart
+        \Cart::session($cookie)->clear();
+        // This will redirect user to PayPal
+        return redirect($response['paypal_link']);
+
+    }
+
+    public function orderPayment(Request $request)
+    {
+        // save that user visited
+        $orderData = Order::where('id',$order->id)->first();
+        $orderData->is_paid = True;
+        // todo replace email with $order->email
+        // send successfulpayment email
+        Mail::to('tmbindyo@fluidtechglobal.com')->send(new OrderEmails($orderData));
+
     }
 
     public function addToCart(Request $request)
     {
 
         // save that user visited
-        $cookie = $request->cookie();
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
-
-//        return $request->fullUrl();
-//        return $request->userAgent();
-        $value = $request->cookie();
-        return $value;
-//        $ip = request()->ip();
-
+        $view = $this->trackView($request,$view_type,$view_id);
+        // get user cookie
+        $cookie = $this->getCookie($request);
         // Get product
         $product = PriceList::findOrFail($request->price_list);
         $product = PriceList::where('id',$request->price_list)->with('product.cover_image','sub_type','size')->first();
 
         // todo check if product already exists
-        $cart = \Cart::getContent();
-
+        $cart = \Cart::session($cookie)->getContent();
 
         if(!$cart->isEmpty()){
             // $cart is not empty
             foreach ($cart as $item){
                 if ($item->name == $product->id){
                     $quantity = doubleval($item->quantity);
-                    \Cart::session($value)->update($item->id, array(
-                        'quantity' => +1, // so if the current product has a quantity of 4, it will subtract 1 and will result to 3
+                    \Cart::session($cookie)->update($item->id, array(
+                        'quantity' => +$request->quantity, // so if the current product has a quantity of 4, it will subtract 1 and will result to 3
                     ));
                 }else{
                     // product doesn't exist
-                    $options = $value->except('_token', 'productId', 'price', 'qty');
+                    $options = $request->except('_token', 'productId', 'price', 'qty');
                     $options = array();
 
                     // add to cart
-                    \Cart::session($value)->add(uniqid(), $product->id, $product->price, $request->quantity, $product);
+                    \Cart::session($cookie)->add(uniqid(), $product->id, $product->price, $request->quantity, $product);
                 }
             }
         } else {
@@ -180,10 +330,9 @@ class StoreController extends Controller
             $options = array();
 
             // add to cart
-            \Cart::session($value)->add(uniqid(), $product->id, $product->price, $request->quantity, $product);
+            \Cart::session($cookie)->add(uniqid(), $product->id, $product->price, $request->quantity, $product);
         }
 
-//        return \Cart::getContent();
         return back()->withSuccess(__('Item added to cart successfully.'));
 
     }
@@ -192,60 +341,60 @@ class StoreController extends Controller
     {
 
         // save that user visited
-        $cookie = $request->cookie();
+
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
-
-        $item = \Cart::get($item_id);
+        $view = $this->trackView($request,$view_type,$view_id);
+        // get user cookie
+        $cookie = $this->getCookie($request);
+        // get item
+        $item = \Cart::session($cookie)->get($item_id);
 
         if ($item->quantity == 1){
-            \Cart::remove($item_id);
+            \Cart::session($cookie)->remove($item_id);
         }else{
-            \Cart::update($item_id, array(
+            \Cart::session($cookie)->update($item_id, array(
                 'quantity' => -1, // so if the current product has a quantity of 4, it will subtract 1 and will result to 3
             ));
-            $item = \Cart::get($item_id);
+            $item = \Cart::session($cookie)->get($item_id);
         }
-
         return $item;
         // if quantity is 0, remove item
-
-
     }
 
     public function addCartItemQuantity(Request $request, $item_id)
     {
 
         // save that user visited
-        $cookie = $request->cookie();
+
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
-
-        $item = \Cart::get($item_id);
-
-        \Cart::update($item_id, array(
+        $view = $this->trackView($request,$view_type,$view_id);
+        // get user cookie
+        $cookie = $this->getCookie($request);
+        // get item
+        $item = \Cart::session($cookie)->get($item_id);
+        \Cart::session($cookie)->update($item_id, array(
             'quantity' => +1, // so if the current product has a quantity of 4, it will subtract 1 and will result to 3
         ));
-
         return $item;
         return "Item quantity successfully added.";
-
     }
 
     public function removeItem(Request $request, $id)
     {
 
         // save that user visited
-        $cookie = $request->cookie();
+
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
+        $view = $this->trackView($request,$view_type,$view_id);
+        // get user cookie
+        $cookie = $this->getCookie($request);
+        // get item
+        \Cart::session($cookie)->remove($id);
 
-        \Cart::remove($id);
-
-        if (\Cart::isEmpty()) {
+        if (\Cart::session($cookie)->isEmpty()) {
             return redirect()->back()->with('message', 'Your shopping cart is empty, if problems persist please send us an email. Sorry for any inconveniences caused.');
         }
         return back()->withSuccess(__('Item removed from cart successfully.'));
@@ -256,14 +405,17 @@ class StoreController extends Controller
     {
 
         // save that user visited
-        $cookie = $request->cookie();
+
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";
         $view_id = '';
-        $view = $this->trackView($cookie,$request,$view_type,$view_id);
-
-        \Cart::clear();
+        $view = $this->trackView($request,$view_type,$view_id);
+        // get user cookie
+        $cookie = $this->getCookie($request);
+        // clear cart
+        \Cart::session($cookie)->clear();
         return back()->withSuccess(__('The cart has been cleared.'));
 
     }
+
 
 }

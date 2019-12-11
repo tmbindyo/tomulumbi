@@ -35,6 +35,10 @@ class Product extends Model
 
 
     // Children
+    public function order_products()
+    {
+        return $this->hasMany('App\OrderProduct');
+    }
     public function product_galleries()
     {
         return $this->hasMany('App\ProductGallery');

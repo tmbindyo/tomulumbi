@@ -16,29 +16,27 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string('cookie');
+            $table->string('email');
+
             $table->string('order_number');
             $table->text('customer_notes');
-            $table->text('terms_and_conditions');
-            $table->date('date');
             $table->date('expiry_date');
             $table->date('due_date');
 
-            $table->double('subtotal', 20,2);
             $table->double('discount', 20,2);
-            $table->double('adjustment', 20,2);
+            $table->double('subtotal', 20,2);
             $table->double('total', 20,2);
             $table->double('refund', 20,2);
-            $table->double('adjustment_value', 20,2);
 
-            $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('promo_code_id')->nullable();
+            $table->uuid('client_id');
 
             $table->boolean('is_returned');
             $table->boolean('is_refunded');
+            $table->boolean('is_delivery');
             $table->boolean('is_paid');
-            $table->boolean('is_order');
-            $table->boolean('is_sale');
-
 
             $table->timestamps();
             $table->softDeletes();

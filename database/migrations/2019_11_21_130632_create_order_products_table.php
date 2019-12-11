@@ -20,7 +20,6 @@ class CreateOrderProductsTable extends Migration
             $table->double('quantity', 20,2);
             $table->double('refund_amount', 20,2)->nullable();
 
-            $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('order_id');
             $table->uuid('product_id');
@@ -28,8 +27,7 @@ class CreateOrderProductsTable extends Migration
 
             $table->boolean('is_returned');
             $table->boolean('is_refunded');
-
-            $table->boolean('is_sale');
+            $table->boolean('is_paid');
 
             $table->timestamps();
             $table->softDeletes();

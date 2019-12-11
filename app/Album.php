@@ -52,11 +52,18 @@ class Album extends Model
     {
         return $this->hasMany('App\AlbumFavouriteList');
     }
+    public function expenses()
+    {
+        return $this->hasMany('App\Expense');
+    }
     public function to_dos()
     {
         return $this->hasMany('App\ToDo');
     }
-
+    public function projects()
+    {
+        return $this->hasMany('App\Project');
+    }
 
 
     // Parents

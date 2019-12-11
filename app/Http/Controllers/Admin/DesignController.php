@@ -89,7 +89,7 @@ class DesignController extends Controller
             $designCategory->save();
         }
 
-        return redirect()->route('admin.designs')->withSuccess('Design '.$design->name.' succesfully created');
+        return redirect()->route('admin.design.show',$design->id)->withSuccess('Design '.$design->name.' succesfully created');
     }
 
     public function designShow($design_id)
@@ -111,7 +111,7 @@ class DesignController extends Controller
         $typographies = Typography::all();
         // Get design
         $design = Design::findOrFail($design_id);
-        $design = Design::where('id',$design_id)->with('design_categories','contact','user','status','cover_image')->first();
+        $design = Design::where('id',$design_id)->with('design_categories','contact','user','status','cover_image','expenses.expense_type')->first();
         // Design status
         $designStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
         // Pending to dos

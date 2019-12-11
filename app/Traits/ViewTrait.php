@@ -20,22 +20,32 @@ trait ViewTrait
     }
 
     public function getCookie($request) {
-        return $request->cookie('tomulumbi_session');
+        // check if set
+        if (isset($request->cookie['tomulumbi_session'])){
+            return $request->cookie('tomulumbi_session');
+        }else{
+            // set cookie
+            return $request->cookie('tomulumbi_session');
+        }
     }
 
-    public function trackView($cookie,$request,$view_type,$view_id)
+    public function trackView($request,$view_type,$view_id)
     {
+
+        //        return $request->fullUrl();
+//        return $request->userAgent();
+
 
         // Save view
         $view = new View();
-        $view->cookie = $cookie['tomulumbi_session'];
+        $view->cookie = $this->getCookie($request);
         $view->route = $request->fullUrl();
         $view->view_id = $view_id;
         $view->view_type_id = $view_type;
         $view->ip = request()->ip();
         $view->save();
-
         return $view->id;
+
     }
 
 }

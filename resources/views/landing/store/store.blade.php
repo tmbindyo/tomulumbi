@@ -15,7 +15,7 @@
                         <!-- Hover Content -->
                         <div class="hover-content">
                             <div class="line"></div>
-                            <p>From Ksh. {{$product->lowest_price->first()->price}}</p>
+                            <p>From $ {{$product->lowest_price->first()->price}}</p>
                             <h4>{{$product->name}}</h4>
                         </div>
                     </a>

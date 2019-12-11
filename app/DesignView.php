@@ -24,4 +24,9 @@ class DesignView extends Model
     {
         return $this->belongsTo('App\DesignGallery');
     }
+
+    public function view()
+    {
+        return $this->hasOne('App\View','view_id','id');
+    }
 }

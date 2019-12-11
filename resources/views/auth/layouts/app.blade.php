@@ -7,7 +7,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Tomulumbi') }}</title>
+        <title>{{ config('app.name', 'tomulumbi') }}</title>
         <!-- Favicon -->
         <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
         <!-- Fonts -->
@@ -48,7 +48,7 @@
                      -o-transition: -o-transform 0.3s ease-out;
                         transition: transform 0.3s ease-out;
               }
-              
+
               .modal.in .modal-dialog {
                 -webkit-transform: translate(0, 0);
                     -ms-transform: translate(0, 0);
@@ -65,7 +65,7 @@
                 @csrf
             </form>
         @endauth
-        
+
         <div class="main-content">
             @include('auth.layouts.navbars.navbar')
             @yield('content')
@@ -86,9 +86,9 @@
         <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
         <!-- <script src="{{ asset('argon') }}/vendor/dropzone/dist/min/dropzone.min.js"></script> -->
         {{-- <script src="/assets"></script> --}}
-        
+
         @stack('js')
-        
+
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
         <script>

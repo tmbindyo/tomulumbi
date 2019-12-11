@@ -68,5 +68,19 @@ class StatusTypeTableSeeder extends Seeder
             'user_id' => 1,
         ]);
 
+        DB::table('status_types')->insert([
+            'id' => '7805a9f3-c7ca-4a09-b021-cc9b253e2810',
+            'name' => 'Expense status type',
+            'description' => 'Expense status type',
+            'user_id' => 1,
+        ]);
+
+        DB::table('status_types')->insert([
+            'id' => '8f56fc70-6cd8-496f-9aec-89e5748968db',
+            'name' => 'Transaction status type',
+            'description' => 'Transaction status type',
+            'user_id' => 1,
+        ]);
+
     }
 }

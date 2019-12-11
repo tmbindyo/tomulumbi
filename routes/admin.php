@@ -231,8 +231,58 @@ Route::get('/price/list/delete/{price_list_id}', 'Admin\ProductController@priceL
 Route::get('/price/list/restore/{price_list_id}', 'Admin\ProductController@priceListRestore')->name('admin.price.list.restore');
 
 // store
-Route::get('/store', 'Admin\DashboardController@dashboard')->name('admin.store');
+Route::get('/orders', 'Admin\SaleController@orders')->name('admin.orders');
+Route::get('/order/create', 'Admin\SaleController@orderCreate')->name('admin.order.create');
+Route::post('/order/store', 'Admin\SaleController@orderStore')->name('admin.order.store');
+Route::get('/order/show/{order_id}', 'Admin\SaleController@orderShow')->name('admin.order.show');
+Route::post('/order/update/status/{order_id}', 'Admin\SaleController@orderUpdateStatus')->name('admin.order.update.status');
+Route::post('/order/{order_id}/payment/store', 'Admin\SaleController@orderPaymentStore')->name('admin.order.payment.store');
+Route::post('/order/{order_id}/expense/store', 'Admin\SaleController@orderExpenseStore')->name('admin.order.expense.store');
 
+// expenses
+Route::get('/expenses', 'Admin\ExpenseController@expenses')->name('admin.expenses');
+Route::get('/expense/create', 'Admin\ExpenseController@expenseCreate')->name('admin.expense.create');
+Route::post('/expense/store', 'Admin\ExpenseController@expenseStore')->name('admin.expense.store');
+Route::get('/expense/show/{expense_id}', 'Admin\ExpenseController@expenseShow')->name('admin.expense.show');
+Route::get('/expense/edit/{expense_id}', 'Admin\ExpenseController@expenseEdit')->name('admin.expense.edit');
+Route::post('/expense/update/{expense_id}', 'Admin\ExpenseController@expenseUpdate')->name('admin.expense.update');
+Route::get('/expense/delete/{expense_id}', 'Admin\ExpenseController@expenseDelete')->name('admin.expense.delete');
+Route::get('/expense/restore/{expense_id}', 'Admin\ExpenseController@expenseRestore')->name('admin.expense.restore');
+Route::get('/expense/product/delete/{expense_id}', 'Admin\ExpenseController@expenseProductDelete')->name('admin.expense.product.delete');
+Route::get('/expense/product/restore/{expense_id}', 'Admin\ExpenseController@expenseProductRestore')->name('admin.expense.product.restore');
+
+
+// transactions
+Route::get('/transactions', 'Admin\ExpenseController@transactions')->name('admin.transactions');
+Route::get('/transaction/create/{expense_id}', 'Admin\ExpenseController@transactionCreate')->name('admin.transaction.create');
+Route::post('/transaction/store', 'Admin\ExpenseController@transactionStore')->name('admin.transaction.store');
+Route::get('/account/withdrawal/{account_id}', 'Admin\ExpenseController@accountWithdrawal')->name('admin.account.withdrawal');
+Route::get('/account/deposit/{account_id}', 'Admin\ExpenseController@accountDeposit')->name('admin.account.deposit');
+Route::get('/transaction/edit/{transaction_id}', 'Admin\ExpenseController@transactionEdit')->name('admin.transaction.edit');
+Route::post('/transaction/update/{transaction_id}', 'Admin\ExpenseController@transactionUpdate')->name('admin.transaction.update');
+Route::get('/transaction/billed/{transaction_id}', 'Admin\ExpenseController@transactionBilled')->name('admin.transaction.billed');
+Route::get('/transaction/delete/{transaction_id}', 'Admin\ExpenseController@transactionDelete')->name('admin.transaction.delete');
+Route::get('/transaction/restore/{transaction_id}', 'Admin\ExpenseController@transactionRestore')->name('admin.transaction.restore');
+
+
+// accounts
+Route::get('/accounts', 'Admin\AccountController@accounts')->name('admin.accounts');
+Route::get('/account/create', 'Admin\AccountController@accountCreate')->name('admin.account.create');
+Route::post('/account/store', 'Admin\AccountController@accountStore')->name('admin.account.store');
+Route::get('/account/show/{account_id}', 'Admin\AccountController@accountShow')->name('admin.account.show');
+Route::get('/account/edit/{account_id}', 'Admin\AccountController@accountEdit')->name('admin.account.edit');
+Route::post('/account/update/{account_id}', 'Admin\AccountController@accountUpdate')->name('admin.account.update');
+Route::get('/account/delete/{account_id}', 'Admin\AccountController@accountDelete')->name('admin.account.delete');
+Route::get('/account/restore/{account_id}', 'Admin\AccountController@accountRestore')->name('admin.account.restore');
+
+// account adjustment
+Route::get('/account/adjustment/create/{account_id}', 'Admin\AccountController@accountAdjustmentCreate')->name('admin.account.adjustment.create');
+Route::get('/account/adjustment/create/{account_id}', 'Admin\AccountController@accountAdjustmentCreate')->name('admin.account.adjustment.create');
+Route::post('/account/adjustment/store', 'Admin\AccountController@accountAdjustmentStore')->name('admin.account.adjustment.store');
+Route::get('/account/adjustment/edit/{account_id}', 'Admin\AccountController@accountAdjustmentEdit')->name('admin.account.adjustment.edit');
+Route::post('/account/adjustment/update/{account_id}', 'Admin\AccountController@accountAdjustmentUpdate')->name('admin.account.adjustment.update');
+Route::get('/account/adjustment/delete/{account_id}', 'Admin\AccountController@accountAdjustmentDelete')->name('admin.account.adjustment.delete');
+Route::get('/account/adjustment/restore/{account_id}', 'Admin\AccountController@accountAdjustmentRestore')->name('admin.account.adjustment.restore');
 
 
 

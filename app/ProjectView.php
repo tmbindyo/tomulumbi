@@ -25,4 +25,9 @@ class ProjectView extends Model
         return $this->belongsTo('App\Project');
     }
 
+    public function view()
+    {
+        return $this->hasOne('App\View','view_id','id');
+    }
+
 }

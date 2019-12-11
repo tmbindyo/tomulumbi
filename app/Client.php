@@ -16,6 +16,10 @@ class Client extends Model
     {
         return $this->hasMany('App\Design');
     }
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
 
     // Parents
     public function status()

@@ -84,7 +84,7 @@ class ProjectController extends Controller
         $project->user_id = Auth::user()->id;
         $project->save();
 
-        return redirect()->route('admin.projects')->withSuccess('Project '.$project->name.' succesfully created');
+        return redirect()->route('admin.project.show',$project->id)->withSuccess('Project '.$project->name.' succesfully created');
     }
 
     public function projectShow($project_id)

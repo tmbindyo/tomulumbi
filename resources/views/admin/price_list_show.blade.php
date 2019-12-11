@@ -213,9 +213,11 @@
                                 <tbody>
                                 @foreach($orders as $order)
                                     <tr class="gradeX">
-                                        <td>{{$order->name}}</td>
+{{--                                        <td>{{$order->name}}</td>--}}
                                         <td>{{$order->date}}</td>
-                                        <td>{{$order->user->name}}</td>
+                                        <td>{{$order->date}}</td>
+                                        <td>{{$order->date}}</td>
+{{--                                        <td>{{$order->user->name}}</td>--}}
                                         <td>{{$order->album_views_count}}</td>
                                         <td>
                                             <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
@@ -285,9 +287,11 @@
                                 <tbody>
                                 @foreach($sales as $sale)
                                     <tr class="gradeX">
-                                        <td>{{$sale->name}}</td>
+{{--                                        <td>{{$sale->name}}</td>--}}
                                         <td>{{$sale->date}}</td>
-                                        <td>{{$sale->user->name}}</td>
+                                        <td>{{$sale->date}}</td>
+                                        <td>{{$sale->date}}</td>
+{{--                                        <td>{{$sale->user->name}}</td>--}}
                                         <td>{{$sale->album_views_count}}</td>
                                         <td>
                                             <span class="label {{$sale->status->label}}">{{$sale->status->name}}</span>

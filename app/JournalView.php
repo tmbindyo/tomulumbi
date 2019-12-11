@@ -24,4 +24,9 @@ class JournalView extends Model
     {
         return $this->belongsTo('App\Journal');
     }
+
+    public function view()
+    {
+        return $this->hasOne('App\View','view_id','id');
+    }
 }

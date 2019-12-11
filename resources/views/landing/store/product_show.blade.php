@@ -65,7 +65,7 @@
                         <!-- Product Meta Data -->
                         <div class="product-meta-data">
                             <div class="line"></div>
-                            <p class="product-price">Ksh. {{$product->lowest_price->first()->price}}</p>
+                            <p class="product-price">$. {{$product->lowest_price->first()->price}}</p>
                             <a href="{{route('store.product.show',1)}}">
                                 <h6>{{$product->name}}</h6>
                             </a>

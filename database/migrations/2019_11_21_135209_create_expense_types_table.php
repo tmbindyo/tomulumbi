@@ -17,11 +17,11 @@ class CreateExpenseTypesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name');
+            $table->string('code');
             $table->longText('description');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('type_id');
 
             $table->timestamps();
             $table->softDeletes();
