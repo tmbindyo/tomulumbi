@@ -261,6 +261,7 @@ Route::get('/account/deposit/{account_id}', 'Admin\ExpenseController@accountDepo
 Route::get('/transaction/edit/{transaction_id}', 'Admin\ExpenseController@transactionEdit')->name('admin.transaction.edit');
 Route::post('/transaction/update/{transaction_id}', 'Admin\ExpenseController@transactionUpdate')->name('admin.transaction.update');
 Route::get('/transaction/billed/{transaction_id}', 'Admin\ExpenseController@transactionBilled')->name('admin.transaction.billed');
+Route::get('/transaction/pending/payment/{transaction_id}', 'Admin\ExpenseController@transactionPendingPayment')->name('admin.transaction.pending.payment');
 Route::get('/transaction/delete/{transaction_id}', 'Admin\ExpenseController@transactionDelete')->name('admin.transaction.delete');
 Route::get('/transaction/restore/{transaction_id}', 'Admin\ExpenseController@transactionRestore')->name('admin.transaction.restore');
 
@@ -283,6 +284,8 @@ Route::get('/account/adjustment/edit/{account_id}', 'Admin\AccountController@acc
 Route::post('/account/adjustment/update/{account_id}', 'Admin\AccountController@accountAdjustmentUpdate')->name('admin.account.adjustment.update');
 Route::get('/account/adjustment/delete/{account_id}', 'Admin\AccountController@accountAdjustmentDelete')->name('admin.account.adjustment.delete');
 Route::get('/account/adjustment/restore/{account_id}', 'Admin\AccountController@accountAdjustmentRestore')->name('admin.account.adjustment.restore');
+
+Route::get('/account/recurring/test', 'Admin\ExpenseController@testRecurring')->name('admin.account.recurring.test');
 
 
 

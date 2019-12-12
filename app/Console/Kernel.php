@@ -24,6 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('recurring:payments')
+            ->daily();
         // $schedule->command('inspire')
         //          ->hourly();
     }

@@ -314,18 +314,23 @@
                                                             <th>Account</th>
                                                             <th>Amount</th>
                                                             <th>Status</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
                                                         @foreach($pendingPayments as $transaction)
                                                             <tr class="gradeA">
                                                                 <td>{{$transaction->date}}</td>
-                                                                <td>{{$transaction->date}}</td>
                                                                 <td>{{$transaction->reference}}</td>
                                                                 <td>{{$transaction->account->name}}</td>
                                                                 <td>{{$transaction->amount}}</td>
                                                                 <td>
                                                                     <p><span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span></p>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                            <a href="{{ route('admin.transaction.pending.payment', $transaction->id) }}" class="btn-warning btn btn-xs">Paid</a>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -337,6 +342,7 @@
                                                             <th>Account</th>
                                                             <th>Amount</th>
                                                             <th>Status</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                         </tfoot>
                                                     </table>
