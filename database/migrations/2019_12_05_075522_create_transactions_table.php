@@ -36,6 +36,10 @@ class CreateTransactionsTable extends Migration
             $table->boolean('is_transfer');
             $table->boolean('is_billed')->nullable();
 
+            // to track if payment is loan
+            $table->boolean('is_loan')->nullable();
+            $table->boolean('is_paid')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });
