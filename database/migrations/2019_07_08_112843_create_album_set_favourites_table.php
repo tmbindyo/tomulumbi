@@ -15,11 +15,14 @@ class CreateAlbumSetFavouritesTable extends Migration
     {
         Schema::create('album_set_favourites', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('email');
             $table->text('note');
+
             $table->uuid('album_set_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

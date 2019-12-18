@@ -15,10 +15,13 @@ class CreateAlbumDownloadRestrictionEmailsTable extends Migration
     {
         Schema::create('album_download_restriction_emails', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('email');
+
             $table->uuid('album_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

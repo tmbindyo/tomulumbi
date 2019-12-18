@@ -12,17 +12,22 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([AccountTableSeeder::class]);
+        $this->call([ActionTypeTableSeeder::class]);
         $this->call([AlbumTypeTableSeeder::class]);
+        $this->call([CampaignTypeTableSeeder::class]);
         $this->call([CategoryTableSeeder::class]);
         $this->call([ColorTableSeeder::class]);
         $this->call([ContactTypeTableSeeder::class]);
         $this->call([ContentAlignTableSeeder::class]);
         $this->call([CoverDesignTableSeeder::class]);
+        $this->call([DealStageTableSeeder::class]);
         $this->call([DownloadResolutionTableSeeder::class]);
-        $this->call([ExpenseTypeTableSeeder::class]);
+        $this->call([ExpenseAccountTableSeeder::class]);
         $this->call([FrequencyTableSeeder::class]);
         $this->call([ImagePositionTableSeeder::class]);
         $this->call([LabelTableSeeder::class]);
+        $this->call([LeadSourceTableSeeder::class]);
+        $this->call([OrganizationTypeTableSeeder::class]);
         $this->call([OrientationTableSeeder::class]);
         $this->call([ProjectTypeTableSeeder::class]);
         $this->call([SchemeTableSeeder::class]);

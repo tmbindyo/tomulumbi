@@ -15,10 +15,13 @@ class CreateAlbumExpiryReminderEmailsTable extends Migration
     {
         Schema::create('album_expiry_reminder_emails', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->text('email');
+            
             $table->uuid('album_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

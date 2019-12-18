@@ -16,15 +16,15 @@ class CreateJournalViewsTable extends Migration
         Schema::create('journal_views', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->boolean('is_journal')->nullable();
-            $table->boolean('is_journal_gallery')->nullable();
+            $table->longText('request')->nullable();
+            $table->integer('number');
+            $table->string('cookie');
 
             $table->uuid('journal_id')->nullable();
             $table->uuid('journal_gallery_id')->nullable();
 
-            $table->longText('request')->nullable();
-            $table->integer('number');
-            $table->string('cookie');
+            $table->boolean('is_journal')->nullable();
+            $table->boolean('is_journal_gallery')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

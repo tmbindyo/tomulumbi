@@ -17,18 +17,17 @@ class CreatePromoCodesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->integer('limit');
+            $table->integer('assigned');
+            $table->integer('used');
             $table->string('reference');
             $table->text('terms_and_conditions');
+
             $table->date('expiry_date');
 
             $table->double('discount', 20,2);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-
-            $table->boolean('is_returned');
-            $table->boolean('is_refunded');
-            $table->boolean('is_paid');
 
             $table->timestamps();
             $table->softDeletes();

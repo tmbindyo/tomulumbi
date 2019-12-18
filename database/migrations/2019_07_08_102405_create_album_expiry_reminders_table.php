@@ -15,6 +15,7 @@ class CreateAlbumExpiryRemindersTable extends Migration
     {
         Schema::create('album_expiry_reminders', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            
             $table->integer('days');
 
             $table->boolean('to_registered_clients');
@@ -26,6 +27,7 @@ class CreateAlbumExpiryRemindersTable extends Migration
             $table->uuid('album_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

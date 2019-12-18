@@ -82,5 +82,26 @@ class StatusTypeTableSeeder extends Seeder
             'user_id' => 1,
         ]);
 
+        DB::table('status_types')->insert([
+            'id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'name' => 'Campaign status type',
+            'description' => 'Campaign status type',
+            'user_id' => 1,
+        ]);
+
+        DB::table('status_types')->insert([
+            'id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
+            'name' => 'Lead status type',
+            'description' => 'Campaign status type',
+            'user_id' => 1,
+        ]);
+
+        DB::table('status_types')->insert([
+            'id' => '61aeb9aa-b965-4bb6-88f5-1e97114470bd',
+            'name' => 'Contact status type',
+            'description' => 'Campaign status type',
+            'user_id' => 1,
+        ]);
+
     }
 }

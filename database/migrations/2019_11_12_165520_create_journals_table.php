@@ -22,12 +22,21 @@ class CreateJournalsTable extends Migration
             $table->string('color');
             $table->text('description')->nullable();
             $table->longText('body')->nullable();
+            $table->integer('series_number')->nullable();
 
             $table->uuid('cover_image_id')->nullable();
             $table->uuid('thumbnail_size_id')->nullable();
             $table->uuid('typography_id')->nullable();
+            $table->uuid('journal_series_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
+            $table->boolean('is_project');
+            $table->uuid('project_id')->unsigned();
+            $table->boolean('is_album');
+            $table->uuid('album_id')->unsigned();
+            $table->boolean('is_design');
+            $table->uuid('design_id')->unsigned();
 
             $table->timestamps();
             $table->softDeletes();

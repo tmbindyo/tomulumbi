@@ -15,10 +15,13 @@ class CreateImagePositionsTable extends Migration
     {
         Schema::create('image_positions', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name');
             $table->string('reference');
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

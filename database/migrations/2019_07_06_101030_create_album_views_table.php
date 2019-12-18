@@ -19,10 +19,10 @@ class CreateAlbumViewsTable extends Migration
             $table->string('cookie');
             $table->dateTime('expiry')->nullable();
             $table->string('email')->nullable();
-            $table->uuid('album_id')->nullable();
-
             $table->longText('request')->nullable();
             $table->integer('number');
+
+            $table->uuid('album_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

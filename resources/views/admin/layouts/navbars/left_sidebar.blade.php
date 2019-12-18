@@ -87,8 +87,41 @@
                 <a href="{{ route('admin.to.dos') }}"><i class="fa fa-list"></i> <span class="nav-label">To Do's</span></a>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
-                <a href="{{ route('admin.contacts') }}"><i class="fa fa-phone"></i> <span class="nav-label">Contact's</span></a>
+            <li>
+                <a href="#"><i class="fa fa-users"></i> <span class="nav-label">CRM</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contacts')}}">
+                            Feed <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contacts')}}">
+                            Transactions <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contacts')}}">
+                            Leads <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contacts')}}">
+                            Contacts <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contacts')}}">
+                            Deals <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
+                        </a>
+                    </li>
+
+                </ul>
             </li>
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.client.proofs' ) ?  'active' : '' }}">
@@ -96,7 +129,7 @@
             </li>
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.personal.albums' ) ?  'active' : '' }}">
-                <a href="{{ route('admin.personal.albums') }}"><i class="fa fa-camera"></i> <span class="nav-label">Personal Album's</span><span class="label label-warning pull-right">{{$navbarValues['personalAlbumsCount']}}</span></a>
+                <a href="{{ route('admin.personal.albums') }}"><i class="fa fa-camera"></i> <span class="nav-label">Personal Albums</span><span class="label label-warning pull-right">{{$navbarValues['personalAlbumsCount']}}</span></a>
             </li>
 
             <li class="nav-item {{ Route::currentRouteNamed( 'admin.designs' ) ?  'active' : '' }}">
@@ -138,6 +171,7 @@
 
                 </ul>
             </li>
+
         </ul>
 
     </div>

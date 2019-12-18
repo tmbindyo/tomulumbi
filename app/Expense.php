@@ -17,13 +17,17 @@ class Expense extends Model
     {
         return $this->hasMany('App\Album');
     }
+    public function expense_items()
+    {
+        return $this->hasMany('App\ExpenseItem');
+    }
     public function payments()
     {
         return $this->hasMany('App\Payment');
     }
-    public function expense_items()
+    public function transactions()
     {
-        return $this->hasMany('App\ExpenseItem');
+        return $this->hasMany('App\Transaction');
     }
 
     // Parents
@@ -39,9 +43,9 @@ class Expense extends Model
     {
         return $this->belongsTo('App\Design');
     }
-    public function expense_type()
+    public function expense_account()
     {
-        return $this->belongsTo('App\ExpenseType');
+        return $this->belongsTo('App\ExpenseAccount');
     }
     public function frequency()
     {
@@ -58,10 +62,6 @@ class Expense extends Model
     public function status()
     {
         return $this->belongsTo('App\Status');
-    }
-    public function transaction()
-    {
-        return $this->belongsTo('App\Transaction');
     }
     public function user()
     {

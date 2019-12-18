@@ -59,6 +59,11 @@ class CreateAlbumsTable extends Migration
             $table->uuid('status_id');
             $table->uuid('contact_id')->nullable();
 
+            $table->boolean('is_deal');
+            $table->uuid('deal_id')->unsigned();
+            $table->boolean('is_project');
+            $table->uuid('project_id')->unsigned();
+
             $table->timestamps();
             $table->softDeletes();
         });

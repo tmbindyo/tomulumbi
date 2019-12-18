@@ -401,5 +401,95 @@ class StatusTableSeeder extends Seeder
             'user_id' => 1,
         ]);
 
+        // campaign statuses
+        DB::table('statuses')->insert([
+            'id' => '30d10ccb-65c9-4872-8dce-06990d842962',
+            'name' => 'Planning',
+            'description' => 'Planning.',
+            'label' => 'label-info',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '2b734324-55a9-4731-b036-102a59b2ecb9',
+            'name' => 'Active',
+            'description' => 'Active.',
+            'label' => 'label-primary',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => 'aa2efe40-1d5c-4f7a-bc65-76b56a1ac11a',
+            'name' => 'Inactive',
+            'description' => 'Inactive.',
+            'label' => 'label-warning',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+        DB::table('statuses')->insert([
+            'id' => '57f2e96e-3c02-4382-8623-67fe6e1de9a0',
+            'name' => 'Complete',
+            'description' => 'Complete.',
+            'label' => 'label-success',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+
+        // lead statuses
+        DB::table('statuses')->insert([
+            'id' => 'fa346c7a-e8d9-4672-a22d-1e098d7f3f63',
+            'name' => 'Attempted to contact',
+            'description' => 'Attempted to contact.',
+            'label' => 'label-success',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => 'f74f08a6-526c-46e5-aeeb-072b90bed515',
+            'name' => 'Contact in future',
+            'description' => 'Contact in future.',
+            'label' => 'label-success',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '2c0d7cf1-13de-4af2-804e-7a10c36df5c3',
+            'name' => 'Contacted',
+            'description' => 'Contacted.',
+            'label' => 'label-success',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '6d4ba04a-187e-423e-9292-abc2a545bab5',
+            'name' => 'Junk Lead',
+            'description' => 'Junk Lead.',
+            'label' => 'label-success',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '9610da08-9087-40a6-93e2-00511bd7e754',
+            'name' => 'Lost Lead',
+            'description' => 'Lost Lead.',
+            'label' => 'label-success',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+
+        DB::table('statuses')->insert([
+            'id' => '6e4c30ea-99eb-481f-970c-cc5878f8e0db',
+            'name' => 'Not Contacted',
+            'description' => 'Not Contacted.',
+            'label' => 'label-success',
+            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'user_id' => 1,
+        ]);
+
+
     }
 }

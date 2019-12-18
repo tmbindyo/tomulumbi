@@ -15,12 +15,15 @@ class CreateAlbumSetsTable extends Migration
     {
         Schema::create('album_sets', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name');
             $table->boolean('is_client_exclusive_access');
             $table->boolean('is_email_download_restrict');
+
             $table->uuid('album_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            
             $table->timestamps();
             $table->softDeletes();
         });

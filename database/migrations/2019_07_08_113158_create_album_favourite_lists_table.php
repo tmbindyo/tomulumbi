@@ -15,12 +15,15 @@ class CreateAlbumFavouriteListsTable extends Migration
     {
         Schema::create('album_favourite_lists', function (Blueprint $table) {
             $table->uuid('id')->primary();
+
             $table->string('name');
             $table->text('description');
             $table->integer('max_selection');
+
             $table->uuid('album_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

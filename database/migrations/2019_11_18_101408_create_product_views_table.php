@@ -16,15 +16,15 @@ class CreateProductViewsTable extends Migration
         Schema::create('product_views', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->boolean('is_product')->nullable();
-            $table->boolean('is_product_gallery')->nullable();
+            $table->longText('request')->nullable();
+            $table->integer('number');
+            $table->string('cookie');
 
             $table->uuid('product_id')->nullable();
             $table->uuid('product_gallery_id')->nullable();
 
-            $table->longText('request')->nullable();
-            $table->integer('number');
-            $table->string('cookie');
+            $table->boolean('is_product')->nullable();
+            $table->boolean('is_product_gallery')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

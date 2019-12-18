@@ -28,9 +28,11 @@ class CreateProjectsTable extends Migration
             $table->uuid('typography_id')->nullable();
             $table->text('contact_id')->nullable();
             $table->text('album_id')->nullable();
-//            $table->text('partner_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
+            $table->boolean('is_deal');
+            $table->uuid('deal_id')->unsigned();
 
             $table->timestamps();
             $table->softDeletes();

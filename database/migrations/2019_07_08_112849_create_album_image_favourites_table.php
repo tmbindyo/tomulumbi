@@ -18,9 +18,11 @@ class CreateAlbumImageFavouritesTable extends Migration
 
             $table->string('email');
             $table->text('note');
+
             $table->uuid('album_image_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+
             $table->timestamps();
             $table->softDeletes();
         });

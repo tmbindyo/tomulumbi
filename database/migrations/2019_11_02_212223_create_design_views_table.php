@@ -16,17 +16,17 @@ class CreateDesignViewsTable extends Migration
         Schema::create('design_views', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->boolean('is_design')->nullable();
-            $table->boolean('is_design_work')->nullable();
-            $table->boolean('is_design_gallery')->nullable();
+            $table->longText('request')->nullable();
+            $table->integer('number');
+            $table->string('cookie');
 
             $table->uuid('design_id')->nullable();
             $table->uuid('design_work_id')->nullable();
             $table->uuid('design_gallery_id')->nullable();
 
-            $table->longText('request')->nullable();
-            $table->integer('number');
-            $table->string('cookie');
+            $table->boolean('is_design')->nullable();
+            $table->boolean('is_design_work')->nullable();
+            $table->boolean('is_design_gallery')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

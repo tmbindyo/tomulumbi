@@ -16,15 +16,15 @@ class CreateProjectViewsTable extends Migration
         Schema::create('project_views', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->boolean('is_project')->nullable();
-            $table->boolean('is_project_gallery')->nullable();
+            $table->longText('request')->nullable();
+            $table->integer('number');
+            $table->string('cookie');
 
             $table->uuid('project_id')->nullable();
             $table->uuid('project_gallery_id')->nullable();
 
-            $table->longText('request')->nullable();
-            $table->integer('number');
-            $table->string('cookie');
+            $table->boolean('is_project')->nullable();
+            $table->boolean('is_project_gallery')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
