@@ -12,18 +12,6 @@ class Album extends Model
     public $incrementing = false;
 
     // Children
-    public function album_sets()
-    {
-        return $this->hasMany('App\AlbumSet');
-    }
-    public function album_views()
-    {
-        return $this->hasMany('App\AlbumView');
-    }
-    public function album_tags()
-    {
-        return $this->hasMany('App\AlbumTag');
-    }
     public function album_registrations()
     {
         return $this->hasMany('App\AlbumRegistration');
@@ -52,17 +40,41 @@ class Album extends Model
     {
         return $this->hasMany('App\AlbumFavouriteList');
     }
+    public function album_sets()
+    {
+        return $this->hasMany('App\AlbumSet');
+    }
+    public function album_tags()
+    {
+        return $this->hasMany('App\AlbumTag');
+    }
+    public function album_views()
+    {
+        return $this->hasMany('App\AlbumView');
+    }
     public function expenses()
     {
         return $this->hasMany('App\Expense');
+    }
+    public function journals()
+    {
+        return $this->hasMany('App\Journal');
+    }
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
+    }
+    public function projects()
+    {
+        return $this->hasMany('App\Project');
     }
     public function to_dos()
     {
         return $this->hasMany('App\ToDo');
     }
-    public function projects()
+    public function upload()
     {
-        return $this->hasMany('App\Project');
+        return $this->hasMany('App\Upload');
     }
 
 
@@ -91,6 +103,10 @@ class Album extends Model
     {
         return $this->belongsTo('App\CoverDesign');
     }
+    public function deal()
+    {
+        return $this->belongsTo('App\Deal');
+    }
     public function image_position()
     {
         return $this->belongsTo('App\ImagePosition');
@@ -98,6 +114,10 @@ class Album extends Model
     public function orientation()
     {
         return $this->belongsTo('App\Orientation');
+    }
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
     }
     public function scheme()
     {

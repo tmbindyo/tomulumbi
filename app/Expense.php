@@ -13,17 +13,9 @@ class Expense extends Model
 
     // Children
 
-    public function albums()
-    {
-        return $this->hasMany('App\Album');
-    }
     public function expense_items()
     {
         return $this->hasMany('App\ExpenseItem');
-    }
-    public function payments()
-    {
-        return $this->hasMany('App\Payment');
     }
     public function transactions()
     {
@@ -31,17 +23,25 @@ class Expense extends Model
     }
 
     // Parents
-    public function account()
-    {
-        return $this->belongsTo('App\Account');
-    }
     public function album()
     {
         return $this->belongsTo('App\Album');
     }
+    public function asset()
+    {
+        return $this->belongsTo('App\Asset');
+    }
     public function design()
     {
         return $this->belongsTo('App\Design');
+    }
+    public function campaign()
+    {
+        return $this->belongsTo('App\Campaign');
+    }
+    public function expense()
+    {
+        return $this->belongsTo('App\Expense');
     }
     public function expense_account()
     {
@@ -50,6 +50,10 @@ class Expense extends Model
     public function frequency()
     {
         return $this->belongsTo('App\Frequency');
+    }
+    public function liability()
+    {
+        return $this->belongsTo('App\Liability');
     }
     public function order()
     {
@@ -62,6 +66,10 @@ class Expense extends Model
     public function status()
     {
         return $this->belongsTo('App\Status');
+    }
+    public function transfer()
+    {
+        return $this->belongsTo('App\Transfer');
     }
     public function user()
     {

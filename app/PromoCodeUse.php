@@ -12,17 +12,21 @@ class PromoCodeUse extends Model
     public $incrementing = false;
 
     // Parents
-    public function status()
+    public function order()
     {
-        return $this->belongsTo('App\Status');
+        return $this->hasMany('App\Order');
     }
     public function promo_code()
     {
         return $this->hasMany('App\PromoCode');
     }
-    public function order()
+    public function status()
     {
-        return $this->hasMany('App\Order');
+        return $this->belongsTo('App\Status');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
 }

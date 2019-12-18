@@ -46,8 +46,6 @@ class CreateExpensesTable extends Migration
             $table->uuid('campaign_id')->nullable();
             $table->boolean('is_asset')->nullable();
             $table->uuid('asset_id')->nullable();
-            $table->boolean('is_expense')->nullable();
-            $table->uuid('expense_id')->nullable();
 
             $table->boolean('is_draft');
             $table->boolean('is_recurring');

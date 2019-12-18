@@ -24,19 +24,6 @@ class CreateContactsTable extends Migration
             $table->string('website');
             $table->longText('about');
 
-            $table->integer('user_id')->unsigned();
-            $table->uuid('contact_type_id');
-            $table->uuid('status_id');
-
-            $table->string('company')->nullable();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('mobile_number')->nullable();
-            $table->string('website')->nullable();
-            $table->string('description')->nullable();
-
             // address
             $table->string('street')->nullable();
             $table->string('city')->nullable();
@@ -46,6 +33,7 @@ class CreateContactsTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('organization_id');
             $table->uuid('title_id');
             $table->uuid('lead_source_id');
             $table->uuid('industry_id');

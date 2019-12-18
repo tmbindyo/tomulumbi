@@ -12,11 +12,19 @@ class Payment extends Model
     public $incrementing = false;
 
     // Children
+    public function refunds()
+    {
+        return $this->hasMany('App\Refund');
+    }
 
     // Parents
     public function account()
     {
         return $this->belongsTo('App\Account');
+    }
+    public function asset_action()
+    {
+        return $this->belongsTo('App\AssetAction');
     }
     public function album()
     {
@@ -26,9 +34,9 @@ class Payment extends Model
     {
         return $this->belongsTo('App\Design');
     }
-    public function expense()
+    public function order()
     {
-        return $this->belongsTo('App\Expense');
+        return $this->belongsTo('App\Order');
     }
     public function project()
     {
@@ -41,9 +49,5 @@ class Payment extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-    public function order()
-    {
-        return $this->belongsTo('App\Order');
     }
 }

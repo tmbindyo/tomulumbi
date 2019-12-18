@@ -28,11 +28,19 @@ class Account extends Model
     }
     public function destination_account()
     {
-        return $this->hasMany('App\Transaction','destination_account_id','id');
+        return $this->hasMany('App\Transfer','destination_account_id','id');
+    }
+    public function liability()
+    {
+        return $this->hasMany('App\Liability');
     }
     public function transactions()
     {
         return $this->hasMany('App\Transaction');
+    }
+    public function transfer()
+    {
+        return $this->hasMany('App\Transfer');
     }
     public function payments()
     {
@@ -40,6 +48,6 @@ class Account extends Model
     }
     public function source_account()
     {
-        return $this->hasMany('App\Transaction','source_account_id','id');
+        return $this->hasMany('App\Transfer','source_account_id','id');
     }
 }

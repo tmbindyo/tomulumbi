@@ -16,17 +16,9 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\Account');
     }
-    public function destination_account()
-    {
-        return $this->belongsTo('App\Account','destination_account_id','id');
-    }
     public function expense()
     {
         return $this->belongsTo('App\Expense');
-    }
-    public function source_account()
-    {
-        return $this->belongsTo('App\Account','source_account_id','id');
     }
     public function status()
     {
@@ -35,12 +27,6 @@ class Transaction extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-
-    // children
-    public function expenses()
-    {
-        return $this->hasMany('App\Expense');
     }
 
 }

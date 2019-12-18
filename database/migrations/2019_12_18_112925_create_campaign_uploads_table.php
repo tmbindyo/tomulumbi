@@ -17,6 +17,7 @@ class CreateCampaignUploadsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
             $table->uuid('campaign_id');
             $table->uuid('upload_id');
 

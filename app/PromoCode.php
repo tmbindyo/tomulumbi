@@ -26,4 +26,8 @@ class PromoCode extends Model
     {
         return $this->hasMany('App\PromoCodeUse');
     }
+    public function promo_code_assignments()
+    {
+        return $this->hasMany('App\PromoCodeAssignment');
+    }
 }

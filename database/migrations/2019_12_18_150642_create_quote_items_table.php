@@ -24,6 +24,7 @@ class CreateQuoteItemsTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('quote_id');
 
             $table->timestamps();
             $table->softDeletes();

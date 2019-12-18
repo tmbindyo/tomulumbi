@@ -12,7 +12,10 @@ class Email extends Model
     public $incrementing = false;
 
     // Children
-    // project partner, and
+    public function email_contact()
+    {
+        return $this->hasOne('App\EmailContact');
+    }
 
     // Parents
     public function status()

@@ -29,7 +29,6 @@ class CreateTransactionsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('account_id')->nullable();
-
             $table->uuid('expense_id')->nullable();
 
             $table->boolean('is_billed')->nullable();

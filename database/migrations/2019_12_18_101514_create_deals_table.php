@@ -26,7 +26,6 @@ class CreateDealsTable extends Migration
             $table->uuid('organization_id');
             $table->uuid('contact_id');
             $table->uuid('lead_source_id');
-            $table->uuid('contact_type_id');
             $table->uuid('deal_stage_id');
 
             $table->boolean('is_campaign');
