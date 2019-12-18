@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePromoCodeContactAssignmentsTable extends Migration
+class CreatePromoCodeAssignmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePromoCodeContactAssignmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('promo_code_contact_assignments', function (Blueprint $table) {
+        Schema::create('promo_code_assignments', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
             $table->integer('user_id')->unsigned();
@@ -35,6 +35,6 @@ class CreatePromoCodeContactAssignmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('promo_code_contact_assignments');
+        Schema::dropIfExists('promo_code_assignments');
     }
 }
