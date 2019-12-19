@@ -29,9 +29,9 @@ class CreateDesignsTable extends Migration
             $table->uuid('status_id');
 
             $table->boolean('is_project');
-            $table->uuid('project_id')->unsigned();
+            $table->uuid('project_id');
             $table->boolean('is_deal');
-            $table->uuid('deal_id')->unsigned();
+            $table->uuid('deal_id');
 
             $table->timestamps();
             $table->softDeletes();

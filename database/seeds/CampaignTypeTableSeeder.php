@@ -17,7 +17,6 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Sell',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => '314f08f0-2735-498a-a924-4dacf49f88f6',
             ]);
 
             DB::table('campaign_types')->insert([
@@ -25,7 +24,6 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Conference',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => '314f08f0-2735-498a-a924-4dacf49f88f6',
             ]);
 
             DB::table('campaign_types')->insert([
@@ -33,7 +31,6 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Webniar',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => '314f08f0-2735-498a-a924-4dacf49f88f6',
             ]);
 
             DB::table('campaign_types')->insert([
@@ -41,71 +38,62 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Trade Show',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
             ]);
 
             DB::table('campaign_types')->insert([
-                'id' => '56f4db2f-e685-4307-99c9-52a0640fd4eb',
+                'id' => '23c139e8-4c04-423f-9e9b-04e8921f61c1',
                 'name' => 'Public Relations',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
             ]);
 
             DB::table('campaign_types')->insert([
-                'id' => '56f4db2f-e685-4307-99c9-52a0640fd4eb',
+                'id' => '383ff37f-9fee-42ad-981f-baacc3a41338',
                 'name' => 'Partners',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
             ]);
 
             DB::table('campaign_types')->insert([
-                'id' => '56f4db2f-e685-4307-99c9-52a0640fd4eb',
+                'id' => '89135570-7baa-4ae8-bce5-1df1a06d589e',
                 'name' => 'Referral Program',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
             ]);
 
             DB::table('campaign_types')->insert([
-                'id' => '56f4db2f-e685-4307-99c9-52a0640fd4eb',
+                'id' => '186ce466-b837-4975-a8ef-f1117720cb40',
                 'name' => 'Advertisment',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
             ]);
 
             DB::table('campaign_types')->insert([
-                'id' => '56f4db2f-e685-4307-99c9-52a0640fd4eb',
+                'id' => '2e81a235-0421-4008-b0aa-4ceaf4e0d2b9',
                 'name' => 'Banner Ad',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
             ]);
 
             DB::table('campaign_types')->insert([
-                'id' => '56f4db2f-e685-4307-99c9-52a0640fd4eb',
+                'id' => '895fdf34-adca-482e-a20b-87d73139e0ca',
                 'name' => 'Email',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
             ]);
 
             DB::table('campaign_types')->insert([
-                'id' => '56f4db2f-e685-4307-99c9-52a0640fd4eb',
+                'id' => 'b7e7b954-8b66-4b0e-9c85-e7045faa2c49',
                 'name' => 'Telemarketing',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
             ]);
 
             DB::table('campaign_types')->insert([
-                'id' => '56f4db2f-e685-4307-99c9-52a0640fd4eb',
+                'id' => 'd2f9c962-2af0-4566-bd54-d92fdafa8a3b',
                 'name' => 'Other',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'type_id' => 'ca64a5e0-d39b-4f2c-a136-9c523d935ea4',
             ]);
 
     }

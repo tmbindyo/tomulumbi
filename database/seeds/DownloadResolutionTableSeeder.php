@@ -43,25 +43,25 @@ class DownloadResolutionTableSeeder extends Seeder
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('download_resolutions')->insert([
-            'id' => '2757ef7f-57cd-46ab-aa1f-bdb509b378a4',
+            'id' => 'e1b8718e-4afc-4ffb-9d66-1773e482cad5',
             'name' => '1500',
             'user_id' => 1,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('download_resolutions')->insert([
-            'id' => '2757ef7f-57cd-46ab-aa1f-bdb509b378a4',
+            'id' => 'af103812-4992-4357-ab6d-22eaf1479411',
             'name' => '2500',
             'user_id' => 1,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('download_resolutions')->insert([
-            'id' => '2757ef7f-57cd-46ab-aa1f-bdb509b378a4',
+            'id' => '73ed39a8-5ff4-4ec0-95c9-7dfbc864f6ca',
             'name' => '3600',
             'user_id' => 1,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('download_resolutions')->insert([
-            'id' => '2757ef7f-57cd-46ab-aa1f-bdb509b378a4',
+            'id' => '642052bf-6797-434a-97b8-28cdc3c491af',
             'name' => 'original',
             'user_id' => 1,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',

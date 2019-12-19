@@ -32,11 +32,11 @@ class CreateJournalsTable extends Migration
             $table->uuid('status_id');
 
             $table->boolean('is_project');
-            $table->uuid('project_id')->unsigned();
+            $table->uuid('project_id');
             $table->boolean('is_album');
-            $table->uuid('album_id')->unsigned();
+            $table->uuid('album_id');
             $table->boolean('is_design');
-            $table->uuid('design_id')->unsigned();
+            $table->uuid('design_id');
 
             $table->timestamps();
             $table->softDeletes();
