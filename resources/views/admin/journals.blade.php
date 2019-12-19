@@ -71,6 +71,83 @@
             </div>
         </div>
 
+        {{-- journal series --}}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Journal Series</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Views</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($journals as $journal)
+                                    <tr class="gradeX">
+                                        <td>{{$journal->name}}</td>
+                                        <td>{{$journal->date}}</td>
+                                        <td>{{$journal->views}}</td>
+                                        <td>{{$journal->user->name}}</td>
+                                        <td>
+                                            <span class="label {{$journal->status->label}}">{{$journal->status->name}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{ route('admin.journal.show', $journal->id) }}" class="btn-white btn btn-xs">View</a>
+                                                @if($journal->status->name == "Deleted")
+                                                    <a href="{{ route('admin.journal.restore', $journal->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                @else
+                                                    <a href="{{ route('admin.journal.delete', $journal->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Views</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- journals --}}
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
