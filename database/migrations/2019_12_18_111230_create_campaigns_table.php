@@ -17,6 +17,7 @@ class CreateCampaignsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('name');
+            $table->longText('description');
 
             $table->date('start_date');
             $table->date('end_date');

@@ -23,7 +23,7 @@ class ActionType extends Model
 
 
     // Children
-    public function asset_action()
+    public function asset_actions()
     {
         return $this->hasMany('App\AssetAction');
     }

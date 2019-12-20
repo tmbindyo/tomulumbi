@@ -26,8 +26,8 @@
             <li>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.album.type.shows' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.album.types')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.action.type.shows' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.action.types')}}">
                             Action Types
                         </a>
                     </li>
@@ -41,8 +41,8 @@
                             Categories
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.categories' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.categories')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.campaign.types' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.campaign.types')}}">
                             Campaign Types
                         </a>
                     </li>
@@ -51,28 +51,28 @@
                             Contact Types
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contact.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contact.types')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.expense.accounts' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.expense.accounts')}}">
                             Expense Accounts
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contact.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contact.types')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.frequencies' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.frequencies')}}">
                             Frequencies
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contact.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contact.types')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.labels' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.labels')}}">
                             Label
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contact.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contact.types')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.lead.sources' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.lead.sources')}}">
                             Lead Source
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.project.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.project.types')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.organization.types' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.organization.types')}}">
                             Organization Types
                         </a>
                     </li>
@@ -96,8 +96,8 @@
                             Tags
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.tags' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.tags')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.titles' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.titles')}}">
                             Title
                         </a>
                     </li>
@@ -126,14 +126,14 @@
                 <a href="#"><i class="fa fa-users"></i> <span class="nav-label">CRM</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contacts')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.feed' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.feed')}}">
                             Feed <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contacts' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contacts')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.campaigns' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.campaigns')}}">
                             Campaign <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
                         </a>
                     </li>

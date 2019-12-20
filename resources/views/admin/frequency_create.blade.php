@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Type Create')
+@section('title', 'Frequency Create')
 
 @section('css')
 
@@ -40,16 +40,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Album Type's</h2>
+            <h2>Frequency's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.album.types')}}">Album Type's</a>
+                    <a href="{{route('admin.frequencies')}}">Frequency's</a>
                 </li>
                 <li class="active">
-                    <strong>Album Type Create</strong>
+                    <strong>Frequency Create</strong>
                 </li>
             </ol>
         </div>
@@ -60,7 +60,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Album Type Registration <small>Form</small></h5>
+                        <h5>Frequency Registration <small>Form</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -84,7 +84,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.album.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.frequency.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -105,8 +105,21 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea id="description" rows="5" name="description" class="resizable_textarea form-control input-lg" required="required" placeholder="Description..."></textarea>
+                                        <select name="type" class="select2_demo_tag form-control input-lg">
+                                            <option selected disabled >Select Type</option>
+                                            <option value="day">day</option>
+                                            <option value="week">week</option>
+                                            <option value="month">month</option>
+                                            <option value="year">year</option>
+                                        </select>
+                                        <i>type</i>
                                     </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <input type="number" id="frequency" name="frequency" required="required" placeholder="Frequency" class="form-control input-lg">
+                                        <i>frequency</i>
+                                    </div>
+
 
                                     <br>
                                     <hr>

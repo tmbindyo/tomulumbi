@@ -2,29 +2,39 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
+use App\Tag;
+use App\Size;
+use App\Type;
+use App\Label;
+use App\Title;
 use App\Album;
-use App\AlbumCategory;
+use App\Upload;
+use App\Design;
+use App\Project;
+use App\SubType;
+use App\Contact;
+use App\Journal;
+use App\Category;
 use App\AlbumSet;
 use App\AlbumTag;
-use App\Contact;
-use App\ContactType;
-use App\Design;
-use App\Journal;
-use App\Project;
-use App\ProjectType;
-use App\Size;
-use App\SubType;
-use App\ThumbnailSize;
-use App\Traits\NavbarTrait;
-use App\Traits\UserTrait;
-use App\Type;
-use App\Typography;
-use App\Upload;
-use Auth;
+use App\Frequency;
 use App\AlbumType;
-use App\Category;
-use App\Tag;
+use App\Typography;
+use App\LeadSource;
+use App\ActionType;
+use App\ContactType;
+use App\AssetAction;
+use App\ProjectType;
+use App\CampaignType;
+use App\AlbumCategory;
+use App\ThumbnailSize;
+use App\ExpenseAccount;
+use App\Traits\UserTrait;
+use App\OrganizationType;
 use Illuminate\Http\File;
+use App\Traits\NavbarTrait;
+use App\ContactContactType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
@@ -40,6 +50,91 @@ class SettingsController extends Controller
         $this->middleware('auth');
     }
 
+    // action type functions
+    public function actionTypes()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $actionTypes = ActionType::with('user','status')->get();
+
+        return view('admin.action_types',compact('actionTypes','user','navbarValues'));
+    }
+
+    public function actionTypeCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.action_type_create',compact('user','navbarValues'));
+    }
+
+    public function actionTypeStore(Request $request)
+    {
+
+        $actionType = new ActionType();
+        $actionType->name = $request->name;
+        $actionType->description = $request->description;
+        $actionType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $actionType->user_id = Auth::user()->id;
+        $actionType->save();
+
+        return redirect()->route('admin.action.type.show',$actionType->id)->withSuccess('Action type updated!');
+    }
+
+    public function actionTypeShow($action_type_id)
+    {
+        // Check if action type exists
+        $actionTypeExists = ActionType::findOrFail($action_type_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // action type
+        $actionType = ActionType::with('user','status')->withCount('asset_actions')->where('id',$action_type_id)->first();
+        // action type actions
+        $actionTypeAssetActions = AssetAction::with('contact','user','status','asset')->where('action_type_id',$action_type_id)->get();
+        return view('admin.action_type_show',compact('actionType','user','actionTypeAssetActions','navbarValues'));
+    }
+
+    public function actionTypeUpdate(Request $request, $action_type_id)
+    {
+
+        $actionType = ActionType::findOrFail($action_type_id);
+        $actionType->name = $request->name;
+        $actionType->description = $request->description;
+        $actionType->user_id = Auth::user()->id;
+        $actionType->save();
+
+        return redirect()->route('admin.action.type.show',$action_type_id)->withSuccess('Action type '. $actionType->name .' updated!');
+    }
+
+    public function actionTypeDelete($action_type_id)
+    {
+
+        $actionType = ActionType::findOrFail($action_type_id);
+        $actionType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $actionType->user_id = Auth::user()->id;
+        $actionType->save();
+
+        return back()->withSuccess(__('Action type '.$actionType->name.' successfully deleted.'));
+    }
+
+    public function actionTypeRestore($action_type_id)
+    {
+
+        $actionType = ActionType::findOrFail($action_type_id);
+        $actionType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $actionType->user_id = Auth::user()->id;
+        $actionType->save();
+
+        return back()->withSuccess(__('Action type '.$actionType->name.' successfully restored.'));
+    }
+
+
+    // action type functions
     public function albumTypes()
     {
         // User
@@ -55,7 +150,9 @@ class SettingsController extends Controller
     {
         // User
         $user = $this->getAdmin();
-        return view('admin.album_type_create',compact('user'));
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.album_type_create',compact('user','navbarValues'));
     }
 
     public function albumTypeStore(Request $request)
@@ -68,7 +165,7 @@ class SettingsController extends Controller
         $albumType->user_id = Auth::user()->id;
         $albumType->save();
 
-        return redirect()->route('admin.album.types')->withSuccess('Album type updated!');
+        return redirect()->route('admin.album.type.show',$albumType->id)->withSuccess('Album type updated!');
     }
 
     public function albumTypeShow($album_type_id)
@@ -80,7 +177,7 @@ class SettingsController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         // album type
-        $albumType = AlbumType::with('user','status')->where('id',$album_type_id)->with('albums.status')->first();
+        $albumType = AlbumType::with('user','status','albums.status')->where('id',$album_type_id)->withCount('albums')->first();
         // album type albums
         $albumTypeAlbums = Album::with('user','status')->where('album_type_id',$album_type_id)->withCount('album_views')->get();
         return view('admin.album_type_show',compact('albumType','user','albumTypeAlbums','navbarValues'));
@@ -92,7 +189,6 @@ class SettingsController extends Controller
         $albumType = AlbumType::findOrFail($album_type_id);
         $albumType->name = $request->name;
         $albumType->description = $request->description;
-        $albumType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $albumType->user_id = Auth::user()->id;
         $albumType->save();
 
@@ -122,6 +218,159 @@ class SettingsController extends Controller
     }
 
 
+    // categories
+    public function categories()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $categories = Category::with('user','status')->get();
+        return view('admin.categories',compact('categories','user','navbarValues'));
+    }
+
+    public function categoryCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.category_create',compact('user','navbarValues'));
+    }
+
+    public function categoryStore(Request $request)
+    {
+        $category = new Category();
+        $category->name = mb_strtolower($request->name);
+        $category->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $category->user_id = Auth::user()->id;
+        $category->save();
+        return redirect()->route('admin.category.show',$category->id)->withSuccess(__('Category '.$category->name.' successfully created.'));
+    }
+
+    public function categoryShow($category_id)
+    {
+        // Check if category exists
+        $categoryExists = Category::findOrFail($category_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $category = Category::with('user','status','design_categories.design.status')->where('id',$category_id)->withCount('design_categories')->first();
+        return view('admin.category_show',compact('category','user','navbarValues'));
+    }
+
+    public function categoryUpdate(Request $request, $album_type_id)
+    {
+
+        $category = Category::findOrFail($album_type_id);
+        $category->name = mb_strtolower($request->name);
+        $category->user_id = Auth::user()->id;
+        $category->save();
+
+        return redirect()->route('admin.category.show',$category->id)->withSuccess('Category updated!');
+    }
+
+    public function categoryDelete($album_type_id)
+    {
+
+        $category = Category::findOrFail($album_type_id);
+        $category->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $category->user_id = Auth::user()->id;
+        $category->save();
+
+        return back()->withSuccess(__('Category '.$category->name.' successfully deleted.'));
+    }
+
+    public function categoryRestore($album_type_id)
+    {
+
+        $category = Category::findOrFail($album_type_id);
+        $category->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $category->user_id = Auth::user()->id;
+        $category->save();
+
+        return back()->withSuccess(__('Category '.$category->name.' successfully restored.'));
+    }
+
+
+    // campaign types
+    public function campaignTypes()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $campaignTypes = CampaignType::with('user','status')->get();
+        return view('admin.campaign_types',compact('campaignTypes','user','navbarValues'));
+    }
+
+    public function campaignTypeCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.campaign_type_create',compact('user','navbarValues'));
+    }
+
+    public function campaignTypeStore(Request $request)
+    {
+        $campaignType = new CampaignType();
+        $campaignType->name = $request->name;
+        $campaignType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $campaignType->user_id = Auth::user()->id;
+        $campaignType->save();
+
+        return redirect()->route('admin.campaign.type.show',$campaignType->id)->withSuccess('Campaign type updated!');
+    }
+
+    public function campaignTypeShow($campaign_type_id)
+    {
+        // Check if campaign type exists
+        $campaignTypeExists = CampaignType::findOrFail($campaign_type_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get campaign type
+        $campaignType = CampaignType::with('user','status','campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
+        return view('admin.campaign_type_show',compact('campaignType','user','navbarValues'));
+    }
+
+    public function campaignTypeUpdate(Request $request, $campaign_type_id)
+    {
+
+        $campaignType = CampaignType::findOrFail($campaign_type_id);
+        $campaignType->name = $request->name;
+        $campaignType->save();
+
+        return redirect()->route('admin.campaign.type.show',$campaignType->id)->withSuccess('Campaign type updated!');
+    }
+
+    public function campaignTypeDelete($campaign_type_id)
+    {
+
+        $campaignType = CampaignType::findOrFail($campaign_type_id);
+        $campaignType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $campaignType->user_id = Auth::user()->id;
+        $campaignType->save();
+
+        return back()->withSuccess(__('Campaign type '.$campaignType->name.' successfully deleted.'));
+    }
+    public function campaignTypeRestore($campaign_type_id)
+    {
+
+        $campaignType = CampaignType::findOrFail($campaign_type_id);
+        $campaignType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $campaignType->user_id = Auth::user()->id;
+        $campaignType->save();
+
+        return back()->withSuccess(__('Campaign type '.$campaignType->name.' successfully restored.'));
+    }
+
+
+    // contact types
     public function contactTypes()
     {
         // User
@@ -150,7 +399,7 @@ class SettingsController extends Controller
         $contactType->user_id = Auth::user()->id;
         $contactType->save();
 
-        return redirect()->route('admin.contact.types')->withSuccess('Contact type updated!');
+        return redirect()->route('admin.contact.type.show',$contactType->id)->withSuccess('Contact type created!');
     }
 
     public function contactTypeShow($contact_type_id)
@@ -163,8 +412,8 @@ class SettingsController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get contact type
         $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contacts')->first();
-        $contactTypeContacts = Contact::with('user','status')->where('contact_type_id',$contact_type_id)->get();
-        return view('admin.contact_type_show',compact('contactType','user','contactTypeContacts','navbarValues'));
+        $contactContactTypes = ContactContactType::with('user','status','contact')->where('contact_type_id',$contact_type_id)->get();
+        return view('admin.contact_type_show',compact('contactType','user','contactContactTypes','navbarValues'));
     }
 
     public function contactTypeUpdate(Request $request, $contact_type_id)
@@ -173,10 +422,9 @@ class SettingsController extends Controller
         $contactType = ContactType::findOrFail($contact_type_id);
         $contactType->name = $request->name;
         $contactType->description = $request->description;
-        $contactType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $contactType->save();
 
-        return redirect()->route('admin.contact.types')->withSuccess('Contact type updated!');
+        return redirect()->route('admin.contact.type.show',$contactType->id)->withSuccess('Contact type updated!');
     }
 
     public function contactTypeDelete($contact_type_id)
@@ -201,6 +449,397 @@ class SettingsController extends Controller
     }
 
 
+    // expense accounts
+    public function expenseAccounts()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $expenseAccounts = ExpenseAccount::with('user','status')->get();
+        return view('admin.expense_accounts',compact('expenseAccounts','user','navbarValues'));
+    }
+
+    public function expenseAccountCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.expense_account_create',compact('user','navbarValues'));
+    }
+
+    public function expenseAccountStore(Request $request)
+    {
+        $expenseAccount = new ExpenseAccount();
+        $expenseAccount->name = $request->name;
+        $expenseAccount->description = $request->description;
+        $expenseAccount->code = $request->code;
+        $expenseAccount->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $expenseAccount->user_id = Auth::user()->id;
+        $expenseAccount->save();
+
+        return redirect()->route('admin.expense.account.show',$expenseAccount->id)->withSuccess('Expense account created!');
+    }
+
+    public function expenseAccountShow($expense_account_id)
+    {
+        // Check if contact type exists
+        $expenseAccountExists = ExpenseAccount::findOrFail($expense_account_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get contact type
+        $expenseAccount = ExpenseAccount::with('user','status','expenses')->where('id',$expense_account_id)->withCount('expenses')->first();
+        return view('admin.expense_account_show',compact('expenseAccount','user','navbarValues'));
+    }
+
+    public function expenseAccountUpdate(Request $request, $expense_account_id)
+    {
+
+        $expenseAccount = ExpenseAccount::findOrFail($expense_account_id);
+        $expenseAccount->name = $request->name;
+        $expenseAccount->description = $request->description;
+        $expenseAccount->code = $request->code;
+        $expenseAccount->save();
+
+        return redirect()->route('admin.expense.account.show',$expenseAccount->id)->withSuccess('Expense account updated!');
+    }
+
+    public function expenseAccountDelete($expense_account_id)
+    {
+
+        $expenseAccount = ExpenseAccount::findOrFail($expense_account_id);
+        $expenseAccount->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $expenseAccount->user_id = Auth::user()->id;
+        $expenseAccount->save();
+
+        return back()->withSuccess(__('Expense account '.$expenseAccount->name.' successfully deleted.'));
+    }
+    public function expenseAccountRestore($expense_account_id)
+    {
+
+        $expenseAccount = ExpenseAccount::findOrFail($expense_account_id);
+        $expenseAccount->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $expenseAccount->user_id = Auth::user()->id;
+        $expenseAccount->save();
+
+        return back()->withSuccess(__('Expense account '.$expenseAccount->name.' successfully restored.'));
+    }
+
+
+    // frequency
+    public function Frequencies()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $frequencies = Frequency::with('user')->get();
+        return view('admin.frequencies',compact('frequencies','user','navbarValues'));
+    }
+
+    public function frequencyCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.frequency_create',compact('user','navbarValues'));
+    }
+
+    public function frequencyStore(Request $request)
+    {
+        $frequency = new Frequency();
+        $frequency->name = $request->name;
+        $frequency->type = $request->type;
+        $frequency->frequency = $request->frequency;
+        $frequency->user_id = Auth::user()->id;
+        $frequency->save();
+
+        return redirect()->route('admin.frequency.show',$frequency->id)->withSuccess('Frequency created!');
+    }
+
+    public function frequencyShow($Frequency_id)
+    {
+        // Check if contact type exists
+        $frequencyExists = Frequency::findOrFail($Frequency_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get contact type
+        $frequency = Frequency::with('user','expenses')->where('id',$Frequency_id)->withCount('expenses')->first();
+        return view('admin.frequency_show',compact('frequency','user','navbarValues'));
+    }
+
+    public function frequencyUpdate(Request $request, $Frequency_id)
+    {
+
+        $frequency = Frequency::findOrFail($Frequency_id);
+        $frequency->name = $request->name;
+        $frequency->type = $request->type;
+        $frequency->frequency = $request->frequency;
+        $frequency->user_id = Auth::user()->id;
+        $frequency->save();
+
+        return redirect()->route('admin.frequency.show',$frequency->id)->withSuccess('Frequency updated!');
+    }
+
+    public function frequencyDelete($Frequency_id)
+    {
+
+        $frequency = Frequency::findOrFail($Frequency_id);
+        $frequency->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $frequency->user_id = Auth::user()->id;
+        $frequency->save();
+
+        return back()->withSuccess(__('Frequeny '.$frequency->name.' successfully deleted.'));
+    }
+    public function frequencyRestore($Frequency_id)
+    {
+
+        $frequency = Frequency::findOrFail($Frequency_id);
+        $frequency->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $frequency->user_id = Auth::user()->id;
+        $frequency->save();
+
+        return back()->withSuccess(__('Frequeny '.$frequency->name.' successfully restored.'));
+    }
+
+
+    // labels
+    public function labels()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $labels = Label::with('user','status')->get();
+        return view('admin.labels',compact('labels','user','navbarValues'));
+    }
+
+    public function labelCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.label_create',compact('user','navbarValues'));
+    }
+
+    public function labelStore(Request $request)
+    {
+        $label = new Label();
+        $label->name = $request->name;
+        $label->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $label->user_id = Auth::user()->id;
+        $label->save();
+
+        return redirect()->route('admin.label.show',$label->id)->withSuccess('Label created!');
+    }
+
+    public function labelShow($label_id)
+    {
+        // Check if contact type exists
+        $labelExists = Label::findOrFail($label_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get contact type
+        $label = Label::with('user','status','journal_labels.journal')->where('id',$label_id)->withCount('journal_labels')->first();
+        return view('admin.label_show',compact('label','user','navbarValues'));
+    }
+
+    public function labelUpdate(Request $request, $label_id)
+    {
+
+        $label = Label::findOrFail($label_id);
+        $label->name = $request->name;
+        $label->save();
+
+        return redirect()->route('admin.label.show',$label->id)->withSuccess('Contact type updated!');
+    }
+
+    public function labelDelete($label_id)
+    {
+
+        $label = Label::findOrFail($label_id);
+        $label->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $label->user_id = Auth::user()->id;
+        $label->save();
+
+        return back()->withSuccess(__('Label '.$label->name.' successfully deleted.'));
+    }
+    public function labelRestore($label_id)
+    {
+
+        $label = Label::findOrFail($label_id);
+        $label->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $label->user_id = Auth::user()->id;
+        $label->save();
+
+        return back()->withSuccess(__('Label '.$label->name.' successfully restored.'));
+    }
+
+
+    // lead sources
+    public function leadSources()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $leadSources = LeadSource::with('user','status')->get();
+        return view('admin.lead_sources',compact('leadSources','user','navbarValues'));
+    }
+
+    public function leadSourceCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.lead_source_create',compact('user','navbarValues'));
+    }
+
+    public function leadSourceStore(Request $request)
+    {
+        $leadSource = new LeadSource();
+        $leadSource->name = $request->name;
+        $leadSource->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $leadSource->user_id = Auth::user()->id;
+        $leadSource->save();
+
+        return redirect()->route('admin.lead.source.show',$leadSource->id)->withSuccess('Expense account created!');
+    }
+
+    public function leadSourceShow($lead_source_id)
+    {
+        // Check if contact type exists
+        $leadSourceExists = LeadSource::findOrFail($lead_source_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get contact type
+        $leadSource = LeadSource::with('user','status','contacts','deals')->where('id',$lead_source_id)->withCount('contacts','deals')->first();
+        return view('admin.lead_source_show',compact('leadSource','user','navbarValues'));
+    }
+
+    public function leadSourceUpdate(Request $request, $lead_source_id)
+    {
+
+        $leadSource = LeadSource::findOrFail($lead_source_id);
+        $leadSource->save();
+
+        return redirect()->route('admin.lead.source.show',$leadSource->id)->withSuccess('Expense account updated!');
+    }
+
+    public function leadSourceDelete($lead_source_id)
+    {
+
+        $leadSource = LeadSource::findOrFail($lead_source_id);
+        $leadSource->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $leadSource->user_id = Auth::user()->id;
+        $leadSource->save();
+
+        return back()->withSuccess(__('Expense account '.$leadSource->name.' successfully deleted.'));
+    }
+    public function leadSourceRestore($lead_source_id)
+    {
+
+        $leadSource = LeadSource::findOrFail($lead_source_id);
+        $leadSource->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $leadSource->user_id = Auth::user()->id;
+        $leadSource->save();
+
+        return back()->withSuccess(__('Expense account '.$leadSource->name.' successfully restored.'));
+    }
+
+
+    // organization types
+    public function organizationTypes()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $organizationTypes = OrganizationType::with('user','status')->get();
+
+        return view('admin.organization_types',compact('organizationTypes','user','navbarValues'));
+    }
+
+    public function organizationTypeCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.organization_type_create',compact('user','navbarValues'));
+    }
+
+    public function organizationTypeStore(Request $request)
+    {
+
+        $organizationType = new OrganizationType();
+        $organizationType->name = $request->name;
+        $organizationType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $organizationType->user_id = Auth::user()->id;
+        $organizationType->save();
+        return redirect()->route('admin.organization.type.show',$organizationType->id)->withSuccess('Organization type '.$organizationType->name.' created!');
+    }
+
+    public function organizationTypeShow($organization_type_id)
+    {
+        // Check if organization type exists
+        $organizationTypeExists = OrganizationType::findOrFail($organization_type_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $organizationType = OrganizationType::with('user','status','organizations')->withCount('organizations')->where('id',$organization_type_id)->first();
+        return view('admin.organization_type_show',compact('organizationType','user','navbarValues'));
+    }
+
+    public function organizationTypeUpdate(Request $request, $organization_type_id)
+    {
+
+        $organizationType = OrganizationType::findOrFail($organization_type_id);
+        $organizationType->name = $request->name;
+        $organizationType->user_id = Auth::user()->id;
+        $organizationType->save();
+
+        return redirect()->route('admin.organization.type.show',$organizationType->id)->withSuccess('Organization type updated!');
+    }
+
+    public function organizationTypeDelete($organization_type_id)
+    {
+
+        $organizationType = OrganizationType::findOrFail($organization_type_id);
+        $organizationType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $organizationType->user_id = Auth::user()->id;
+        $organizationType->save();
+
+        return back()->withSuccess(__('Organization type '.$organizationType->name.' successfully deleted.'));
+    }
+
+    public function organizationTypeRestore($organization_type_id)
+    {
+
+        $organizationType = OrganizationType::findOrFail($organization_type_id);
+        $organizationType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $organizationType->user_id = Auth::user()->id;
+        $organizationType->save();
+
+        return back()->withSuccess(__('Organization type '.$organizationType->name.' successfully restored.'));
+    }
+
+
+
+    // project types
     public function projectTypes()
     {
         // User
@@ -230,7 +869,7 @@ class SettingsController extends Controller
         $projectType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $projectType->user_id = Auth::user()->id;
         $projectType->save();
-        return redirect()->route('admin.project.types')->withSuccess('Project type '.$projectType->name.' created!');
+        return redirect()->route('admin.project.type.show',$projectType->id)->withSuccess('Project type '.$projectType->name.' created!');
     }
 
     public function projectTypeShow($project_type_id)
@@ -252,11 +891,10 @@ class SettingsController extends Controller
         $projectType = ProjectType::findOrFail($project_type_id);
         $projectType->name = $request->name;
         $projectType->description = $request->description;
-        $projectType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $projectType->user_id = Auth::user()->id;
         $projectType->save();
 
-        return redirect()->route('admin.project.types')->withSuccess('Project type updated!');
+        return redirect()->route('admin.project.type.how',$projectType->id)->withSuccess('Project type updated!');
     }
 
     public function projectTypeDelete($project_type_id)
@@ -282,12 +920,171 @@ class SettingsController extends Controller
     }
 
 
+    // sizes
+    public function sizes()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $sizes = Size::with('user','status')->get();
+        return view('admin.sizes',compact('sizes','user','navbarValues'));
+    }
+
+    public function sizeCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.size_create',compact('user','navbarValues'));
+    }
+
+    public function sizeStore(Request $request)
+    {
+        $size = new Size();
+        $size->size = mb_strtolower($request->size);
+        $size->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $size->user_id = Auth::user()->id;
+        $size->save();
+        return redirect()->route('admin.sizes')->withSuccess(__('Size '.$size->name.' successfully created.'));
+    }
+
+    public function sizeShow($size_id)
+    {
+        // Check if size exists
+        $sizeExists = Size::findOrFail($size_id);
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        $size = Size::with('user','status')->where('id',$size_id)->with('price_lists')->first();
+
+        return view('admin.size_show',compact('size','user','navbarValues'));
+    }
+
+    public function sizeUpdate(Request $request, $size_id)
+    {
+
+        $size = Size::findOrFail($size_id);
+        $size->size = mb_strtolower($request->size);
+        $size->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $size->user_id = Auth::user()->id;
+        $size->save();
+
+        return redirect()->route('admin.sizes')->withSuccess('Size updated!');
+    }
+
+    public function sizeDelete($size_id)
+    {
+
+        $size = Size::findOrFail($size_id);
+        $size->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $size->user_id = Auth::user()->id;
+        $size->save();
+
+        return back()->withSuccess(__('Size '.$size->name.' successfully deleted.'));
+    }
+
+    public function sizeRestore($size_id)
+    {
+
+        $size = Size::findOrFail($size_id);
+        $size->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $size->user_id = Auth::user()->id;
+        $size->save();
+
+        return back()->withSuccess(__('Size '.$size->name.' successfully restored.'));
+    }
 
 
+    // Sub types
+    public function subTypes()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // sub types
+        $subTypes = SubType::with('user','status','type')->get();
+        return view('admin.sub_types',compact('subTypes','user','navbarValues'));
+    }
+
+    public function subTypeCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // types
+        $types = Type::all();
+        return view('admin.sub_type_create',compact('user','types','navbarValues'));
+    }
+
+    public function subTypeStore(Request $request)
+    {
+        $subType = new SubType();
+        $subType->name = mb_strtolower($request->name);
+        $subType->description = $request->description;
+        $subType->type_id = $request->type;
+        $subType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $subType->user_id = Auth::user()->id;
+        $subType->save();
+        return redirect()->route('admin.sub_types')->withSuccess(__('Sub type '.$subType->name.' successfully created.'));
+    }
+
+    public function subTypeShow($sub_type_id)
+    {
+        // Check if type exists
+        $subTypeExists = SubType::findOrFail($sub_type_id);
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // types
+        $types = Type::all();
+        // User
+        $user = $this->getAdmin();
+        $subType = SubType::with('user','status')->where('id',$sub_type_id)->with('type','price_lists.product')->first();
+        return view('admin.sub_type_show',compact('subType','user','types','navbarValues'));
+    }
+
+    public function subTypeUpdate(Request $request, $sub_type_id)
+    {
+
+        $subType = SubType::findOrFail($sub_type_id);
+        $subType->name = mb_strtolower($request->name);
+        $subType->description = $request->description;
+        $subType->type_id = $request->type;
+        $subType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $subType->user_id = Auth::user()->id;
+        $subType->save();
+
+        return redirect()->route('admin.sub.types')->withSuccess('Sub Type updated!');
+    }
+
+    public function subTypeDelete($sub_type_id)
+    {
+
+        $subType = SubType::findOrFail($sub_type_id);
+        $subType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $subType->user_id = Auth::user()->id;
+        $subType->save();
+
+        return back()->withSuccess(__('Type '.$subType->name.' successfully deleted.'));
+    }
+
+    public function subTypeRestore($sub_type_id)
+    {
+
+        $subType = SubType::findOrFail($sub_type_id);
+        $subType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $subType->user_id = Auth::user()->id;
+        $subType->save();
+
+        return back()->withSuccess(__('Type '.$subType->name.' successfully restored.'));
+    }
 
 
-
-
+    // tags
     public function tags()
     {
         // User
@@ -524,84 +1321,82 @@ class SettingsController extends Controller
     }
 
 
-
-
-
-    public function categories()
+    // titles
+    public function titles()
     {
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        $categories = Category::with('user','status')->get();
-        return view('admin.categories',compact('categories','user','navbarValues'));
+        $titles = Title::with('user','status')->get();
+        return view('admin.titles',compact('titles','user','navbarValues'));
     }
-
-    public function categoryCreate()
+    public function titleCreate()
     {
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.category_create',compact('user','navbarValues'));
+        $thumbnailSizes = ThumbnailSize::all();
+        return view('admin.title_create',compact('user','thumbnailSizes','navbarValues'));
     }
 
-    public function categoryStore(Request $request)
+    public function titleStore(Request $request)
     {
-        $category = new Category();
-        $category->name = mb_strtolower($request->name);
-        $category->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $category->user_id = Auth::user()->id;
-        $category->save();
-        return redirect()->route('admin.categories')->withSuccess(__('Category '.$category->name.' successfully created.'));
+        $title = new Title();
+        $title->name = ($request->name);
+        $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $title->user_id = Auth::user()->id;
+        $title->save();
+        return redirect()->route('admin.titles')->withSuccess(__('Title successfully created.'));
     }
 
-    public function categoryShow($category_id)
+    public function titleShow($title_id)
     {
-        // Check if category exists
-        $categoryExists = Category::findOrFail($category_id);
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        $category = Category::with('user','status')->where('id',$category_id)->with('design_categories.design.status')->first();
-        return view('admin.category_show',compact('category','user','navbarValues'));
+        // Check if title exists
+        $titleExists = Title::findOrFail($title_id);
+        $title = Title::with('user','status','contacts')->withCount('contacts')->where('id',$title_id)->first();
+
+        return view('admin.title_show',compact('title','user','navbarValues'));
     }
 
-    public function categoryUpdate(Request $request, $album_type_id)
+    public function titleUpdate(Request $request, $album_type_id)
     {
 
-        $category = Category::findOrFail($album_type_id);
-        $category->name = mb_strtolower($request->name);
-        $category->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $category->user_id = Auth::user()->id;
-        $category->save();
+        $title = Title::findOrFail($album_type_id);
+        $title->name = ($request->name);
+        $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $title->user_id = Auth::user()->id;
+        $title->save();
 
-        return redirect()->route('admin.categories')->withSuccess('Category updated!');
+        return redirect()->route('admin.titles')->withSuccess('Title updated!');
     }
 
-    public function categoryDelete($album_type_id)
+    public function titleDelete($album_type_id)
     {
 
-        $category = Category::findOrFail($album_type_id);
-        $category->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
-        $category->user_id = Auth::user()->id;
-        $category->save();
+        $title = Title::findOrFail($album_type_id);
+        $title->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $title->user_id = Auth::user()->id;
+        $title->save();
 
-        return back()->withSuccess(__('Category '.$category->name.' successfully deleted.'));
+        return back()->withSuccess(__('Title '.$title->name.' successfully deleted.'));
     }
 
-    public function categoryRestore($album_type_id)
+    public function titleRestore($album_type_id)
     {
 
-        $category = Category::findOrFail($album_type_id);
-        $category->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $category->user_id = Auth::user()->id;
-        $category->save();
+        $title = Title::findOrFail($album_type_id);
+        $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $title->user_id = Auth::user()->id;
+        $title->save();
 
-        return back()->withSuccess(__('Category '.$category->name.' successfully restored.'));
+        return back()->withSuccess(__('Title '.$title->name.' successfully restored.'));
     }
-
 
 
 
@@ -684,177 +1479,7 @@ class SettingsController extends Controller
     }
 
 
-    // Sub types
-    public function subTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // sub types
-        $subTypes = SubType::with('user','status','type')->get();
-        return view('admin.sub_types',compact('subTypes','user','navbarValues'));
-    }
-
-    public function subTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // types
-        $types = Type::all();
-        return view('admin.sub_type_create',compact('user','types','navbarValues'));
-    }
-
-    public function subTypeStore(Request $request)
-    {
-        $subType = new SubType();
-        $subType->name = mb_strtolower($request->name);
-        $subType->description = $request->description;
-        $subType->type_id = $request->type;
-        $subType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $subType->user_id = Auth::user()->id;
-        $subType->save();
-        return redirect()->route('admin.sub_types')->withSuccess(__('Sub type '.$subType->name.' successfully created.'));
-    }
-
-    public function subTypeShow($sub_type_id)
-    {
-        // Check if type exists
-        $subTypeExists = SubType::findOrFail($sub_type_id);
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // types
-        $types = Type::all();
-        // User
-        $user = $this->getAdmin();
-        $subType = SubType::with('user','status')->where('id',$sub_type_id)->with('type','price_lists.product')->first();
-        return view('admin.sub_type_show',compact('subType','user','types','navbarValues'));
-    }
-
-    public function subTypeUpdate(Request $request, $sub_type_id)
-    {
-
-        $subType = SubType::findOrFail($sub_type_id);
-        $subType->name = mb_strtolower($request->name);
-        $subType->description = $request->description;
-        $subType->type_id = $request->type;
-        $subType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $subType->user_id = Auth::user()->id;
-        $subType->save();
-
-        return redirect()->route('admin.sub.types')->withSuccess('Sub Type updated!');
-    }
-
-    public function subTypeDelete($sub_type_id)
-    {
-
-        $subType = SubType::findOrFail($sub_type_id);
-        $subType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
-        $subType->user_id = Auth::user()->id;
-        $subType->save();
-
-        return back()->withSuccess(__('Type '.$subType->name.' successfully deleted.'));
-    }
-
-    public function subTypeRestore($sub_type_id)
-    {
-
-        $subType = SubType::findOrFail($sub_type_id);
-        $subType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $subType->user_id = Auth::user()->id;
-        $subType->save();
-
-        return back()->withSuccess(__('Type '.$subType->name.' successfully restored.'));
-    }
-
-
-
-    public function sizes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $sizes = Size::with('user','status')->get();
-        return view('admin.sizes',compact('sizes','user','navbarValues'));
-    }
-
-    public function sizeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.size_create',compact('user','navbarValues'));
-    }
-
-    public function sizeStore(Request $request)
-    {
-        $size = new Size();
-        $size->size = mb_strtolower($request->size);
-        $size->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $size->user_id = Auth::user()->id;
-        $size->save();
-        return redirect()->route('admin.sizes')->withSuccess(__('Size '.$size->name.' successfully created.'));
-    }
-
-    public function sizeShow($size_id)
-    {
-        // Check if size exists
-        $sizeExists = Size::findOrFail($size_id);
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // User
-        $user = $this->getAdmin();
-        $size = Size::with('user','status')->where('id',$size_id)->with('price_lists')->first();
-
-        return view('admin.size_show',compact('size','user','navbarValues'));
-    }
-
-    public function sizeUpdate(Request $request, $size_id)
-    {
-
-        $size = Size::findOrFail($size_id);
-        $size->size = mb_strtolower($request->size);
-        $size->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $size->user_id = Auth::user()->id;
-        $size->save();
-
-        return redirect()->route('admin.sizes')->withSuccess('Size updated!');
-    }
-
-    public function sizeDelete($size_id)
-    {
-
-        $size = Size::findOrFail($size_id);
-        $size->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
-        $size->user_id = Auth::user()->id;
-        $size->save();
-
-        return back()->withSuccess(__('Size '.$size->name.' successfully deleted.'));
-    }
-
-    public function sizeRestore($size_id)
-    {
-
-        $size = Size::findOrFail($size_id);
-        $size->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $size->user_id = Auth::user()->id;
-        $size->save();
-
-        return back()->withSuccess(__('Size '.$size->name.' successfully restored.'));
-    }
-
-
-
-
-
-
-
-
-
+    // typographies
     public function typographies()
     {
         // User

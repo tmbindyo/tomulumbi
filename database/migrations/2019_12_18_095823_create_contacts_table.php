@@ -38,6 +38,7 @@ class CreateContactsTable extends Migration
             $table->uuid('lead_source_id');
             $table->uuid('industry_id');
             $table->uuid('campaign_id')->nullable();
+            $table->uuid('contact_type_id');
 
             $table->boolean('is_lead');
 

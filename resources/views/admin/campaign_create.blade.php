@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Type Create')
+@section('title', 'Campaign Create')
 
 @section('css')
 
@@ -40,16 +40,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Album Type's</h2>
+            <h2>Campaign's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.album.types')}}">Album Type's</a>
+                    <a href="{{route('admin.campaigns')}}">Campaign's</a>
                 </li>
                 <li class="active">
-                    <strong>Album Type Create</strong>
+                    <strong>Campaign Create</strong>
                 </li>
             </ol>
         </div>
@@ -60,7 +60,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Album Type Registration <small>Form</small></h5>
+                        <h5>Campaign Registration <small>Form</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -84,7 +84,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.album.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.campaign.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -104,9 +104,59 @@
                                         <i>name</i>
                                     </div>
                                     <br>
-                                    <div class="has-warning">
-                                        <textarea id="description" rows="5" name="description" class="resizable_textarea form-control input-lg" required="required" placeholder="Description..."></textarea>
+                                    <div class="has-warning" id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <input type="text" required="required" name="start_date" class="form-control input-lg" value="7/27/2019">
+                                        </div>
+                                        <i>What is the start date of the event?</i>
+                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
+                                    <br>
+                                    <div class="has-warning" id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <input type="text" required="required" name="end_date" class="form-control input-lg" value="7/27/2019">
+                                        </div>
+                                        <i>What is the end date of the event?</i>
+                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <select name="type" class="select2_demo_tag form-control input-lg">
+                                            <option selected disabled >Select Type</option>
+                                            @foreach ($campaignTypes as $campaignType)
+                                                <option value="{{$campaignType->id}}">{{$campaignType->name}}</option>
+                                            @endforeach
+
+                                        </select>
+                                        <i>type</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <input type="number" id="expected_revenue" name="expected_revenue" required="required" placeholder="Expected Revenue" class="form-control input-lg">
+                                        <i>expected revenue</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <input type="number" id="actual_cost" name="actual_cost" required="required" placeholder="Actual Cost" class="form-control input-lg">
+                                        <i>actual cost</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" placeholder="Budgeted Cost" class="form-control input-lg">
+                                        <i>actual cost</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        <i>Give a brief description on what the project is about</i>
+                                    </div>
+
 
                                     <br>
                                     <hr>

@@ -100,14 +100,9 @@
                                 <div class="col-md-10 col-md-offset-1">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" placeholder="Contact type Name" class="form-control input-lg">
-                                        <i>Contact type name</i>
+                                        <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                        <i>name</i>
                                     </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <textarea id="description" rows="5" name="description" class="resizable_textarea form-control input-lg" required="required" placeholder="Description..."></textarea>
-                                    </div>
-
                                     <br>
                                     <hr>
 

@@ -69,7 +69,6 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -79,14 +78,13 @@
                 @foreach($contactTypes as $contactType)
                     <tr class="gradeX">
                         <td>{{$contactType->name}}</td>
-                        <td>{{$contactType->description}}</td>
                         <td>{{$contactType->user->name}}</td>
                         <td>
                             <span class="label {{$contactType->status->label}}">{{$contactType->status->name}}</span>
                         </td>
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('admin.contact.type', $contactType->id) }}" class="btn-white btn btn-xs">View</a>
+                                <a href="{{ route('admin.contact.type.show', $contactType->id) }}" class="btn-white btn btn-xs">View</a>
                                 @if($contactType->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
                                     <a href="{{ route('admin.contact.type.restore', $contactType->id) }}" class="btn-warning btn btn-xs">Restore</a>
                                 @else
@@ -100,7 +98,6 @@
                 <tfoot>
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Album;
+use App\Campaign;
+use App\Contact;
+use App\Deal;
 use App\Design;
+use App\Email;
 use App\Journal;
 use App\Project;
 use App\ToDo;
@@ -14,6 +18,9 @@ use App\Traits\UserTrait;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Order;
+use App\Organization;
+use App\Product;
 
 class ToDoController extends Controller
 {
@@ -47,10 +54,25 @@ class ToDoController extends Controller
         $journals = Journal::get();
         // Projects
         $projects = Project::get();
+        // Product
+        $products = Product::get();
+        // Order
+        $orders = Order::get();
+        // Email
+        $emails = Email::get();
+        // Contact
+        $contacts = Contact::get();
+        // Organization
+        $organizations = Organization::get();
+        // Deal
+        $deals = Deal::get();
+        // Campaign
+        $campaigns = Campaign::get();
+
 
         // User
         $user = $this->getAdmin();
-        return view('admin.to_dos',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects','navbarValues','toDoStatusCount'));
+        return view('admin.to_dos',compact('products','orders','emails','contacts','organizations','deals','campaigns','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects','navbarValues','toDoStatusCount'));
     }
 
     public function toDoStore(Request $request)
@@ -60,11 +82,12 @@ class ToDoController extends Controller
         $todo = new ToDo();
         $todo->name = $request->name;
         $todo->notes = $request->notes;
+        $todo->is_completed = False;
         $todo->due_date = date('Y-m-d', strtotime($request->due_date));
         // album
         if($request->is_album){
             $todo->is_album = True;
-            $todo->album_id = $request->album;
+            $todo->album_id = $request->album_id;
         }else{
             $todo->is_album = False;
         }
@@ -96,13 +119,6 @@ class ToDoController extends Controller
         }else{
             $todo->is_product = False;
         }
-        // email
-        if($request->is_email){
-            $todo->is_email = True;
-            $todo->email_id = $request->email;
-        }else{
-            $todo->is_email = False;
-        }
         // order
         if($request->is_order){
             $todo->is_order = True;
@@ -110,6 +126,42 @@ class ToDoController extends Controller
         }else{
             $todo->is_order = False;
         }
+        // email
+        if($request->is_email){
+            $todo->is_email = True;
+            $todo->email_id = $request->email;
+        }else{
+            $todo->is_email = False;
+        }
+        // contact
+        if($request->is_contact){
+            $todo->is_contact = True;
+            $todo->contact_id = $request->contact;
+        }else{
+            $todo->is_contact = False;
+        }
+        // organization
+        if($request->is_organization){
+            $todo->is_organization = True;
+            $todo->organization_id = $request->organization;
+        }else{
+            $todo->is_organization = False;
+        }
+        // deal
+        if($request->is_deal){
+            $todo->is_deal = True;
+            $todo->deal_id = $request->deal;
+        }else{
+            $todo->is_deal = False;
+        }
+        // campaign
+        if($request->is_campaign){
+            $todo->is_campaign = True;
+            $todo->campaign_id = $request->campaign;
+        }else{
+            $todo->is_campaign = False;
+        }
+
 
         $todo->status_id = "f3df38e3-c854-4a06-be26-43dff410a3bc";
         $todo->user_id = Auth::user()->id;
@@ -123,11 +175,14 @@ class ToDoController extends Controller
         $todo = ToDo::findOrFail($to_do_id);
         $todo->name = $request->name;
         $todo->notes = $request->notes;
-        // TODO update todo database to from due to due_date
+        $todo->is_completed = False;
         $todo->due_date = date('Y-m-d', strtotime($request->due_date));
+        // album
         if($request->is_album){
             $todo->is_album = True;
             $todo->album_id = $request->album_id;
+        }else{
+            $todo->is_album = False;
         }
         // design
         if($request->is_design){
@@ -157,6 +212,13 @@ class ToDoController extends Controller
         }else{
             $todo->is_product = False;
         }
+        // order
+        if($request->is_order){
+            $todo->is_order = True;
+            $todo->order_id = $request->order;
+        }else{
+            $todo->is_order = False;
+        }
         // email
         if($request->is_email){
             $todo->is_email = True;
@@ -164,12 +226,33 @@ class ToDoController extends Controller
         }else{
             $todo->is_email = False;
         }
-        // order
-        if($request->is_order){
-            $todo->is_order = True;
-            $todo->order_id = $request->order;
+        // contact
+        if($request->is_contact){
+            $todo->is_contact = True;
+            $todo->contact_id = $request->contact;
         }else{
-            $todo->is_order = False;
+            $todo->is_contact = False;
+        }
+        // organization
+        if($request->is_organization){
+            $todo->is_organization = True;
+            $todo->organization_id = $request->organization;
+        }else{
+            $todo->is_organization = False;
+        }
+        // deal
+        if($request->is_deal){
+            $todo->is_deal = True;
+            $todo->deal_id = $request->deal;
+        }else{
+            $todo->is_deal = False;
+        }
+        // campaign
+        if($request->is_campaign){
+            $todo->is_campaign = True;
+            $todo->campaign_id = $request->campaign;
+        }else{
+            $todo->is_campaign = False;
         }
 
         $todo->save();

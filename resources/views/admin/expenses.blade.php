@@ -63,7 +63,8 @@
                                     <th>Date</th>
                                     <th>Created</th>
                                     <th>Expense Type</th>
-                                    <th>Amount</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
                                     <th>Status</th>
                                     <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                 </tr>
@@ -80,7 +81,7 @@
                                         </td>
                                         <td>
                                             @if($expense->is_order == 1)
-                                                <p><span class="badge badge-success">Order</span></p>
+                                                <p><a href="{{route('admin.order.show',$expense->order_id)}}" class="badge badge-success">Order</a></p>
                                             @elseif($expense->is_album == 1)
                                                 <p>
                                                     <a
@@ -94,9 +95,15 @@
                                             @elseif($expense->is_project == 1)
                                                 <p><a href="{{route('admin.project.show',$expense->project->id)}}" class="badge badge-primary">Project {{$expense->project->name}}</a></p>
                                             @elseif($expense->is_project == 1)
-                                                <p><span class="badge badge-primary">Design {{$expense->design->name}}</span></p>
-                                            @elseif($expense->is_transaction == 1)
-                                                <p><span class="badge badge-primary">Transaction</span></p>
+                                                <p><a href="{{route('admin.project.show',$expense->project_id)}}" class="badge badge-primary">Design {{$expense->design->name}}</a></p>
+                                            @elseif($expense->is_liability == 1)
+                                                <p><a href="{{route('admin.liability.show',$expense->liability_id)}}" class="badge badge-primary">Liability</a></p>
+                                            @elseif($expense->is_transfer == 1)
+                                                <p><a href="{{route('admin.transfer.show',$expense->transfer_id)}}" class="badge badge-primary">Transfer</a></p>
+                                            @elseif($expense->is_campaign == 1)
+                                                <p><a href="{{route('admin.campaign.show',$expense->campaign_id)}}" class="badge badge-primary">Campaign</a></p>
+                                            @elseif($expense->is_asset == 1)
+                                                <p><a href="{{route('admin.asset.show',$expense->asset_id)}}" class="badge badge-primary">Asset</a></p>
                                             @else
                                                 <p><span class="badge badge-info">None</span></p>
                                             @endif
@@ -106,6 +113,7 @@
                                         <td>{{$expense->created_at}}</td>
                                         <td>{{$expense->expense_type->name}}</td>
                                         <td>{{$expense->total}}</td>
+                                        <td>{{$expense->paid}}</td>
                                         <td>
                                             <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
                                         </td>
@@ -125,7 +133,8 @@
                                     <th>Date</th>
                                     <th>Created</th>
                                     <th>Expense Type</th>
-                                    <th>Amount</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
                                     <th>Status</th>
                                     <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                 </tr>

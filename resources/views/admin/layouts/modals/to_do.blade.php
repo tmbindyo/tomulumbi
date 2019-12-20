@@ -1,5 +1,5 @@
 <div class="modal inmodal" id="toDoRegistration" tabindex="-1" role="dialog" aria-labelledby="tagRegistrationLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -19,7 +19,6 @@
                             </ul>
                         </div>
                     @endif
-
 
                     <div class="row">
                         <div class="col-md-6">
@@ -53,7 +52,7 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <div class="has-warning">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <input name="is_album" type="checkbox" class="js-switch_3" />
@@ -62,9 +61,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-4">
                             <div class="has-warning">
-                                <select name="album" class="select2_demo_2 form-control input-lg">
+                                <select name="album" class="select2_demo_tag form-control input-lg">
                                     <option>Select Album</option>
                                     @foreach($albums as $album)
                                         <option value="{{$album->id}}">{{$album->name}}</option>
@@ -73,9 +72,7 @@
                                 <i>What album does the to do belong to</i>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <div class="has-warning">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <input name="is_design" type="checkbox" class="js-switch_4" />
@@ -84,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-4">
                             <div class="has-warning">
                                 <select name="design" class="select2_demo_2 form-control input-lg">
                                     <option>Select Design</option>
@@ -96,8 +93,9 @@
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <div class="has-warning">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <input name="is_journal" type="checkbox" class="js-switch_5" />
@@ -106,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-4">
                             <div class="has-warning">
                                 <select name="journal" class="select2_demo_2 form-control input-lg">
                                     <option>Select Journal</option>
@@ -117,9 +115,7 @@
                                 <i>What journal does the to do belong to</i>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <div class="has-warning">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <input name="is_project" type="checkbox" class="js-switch_6" />
@@ -128,7 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-4">
                             <div class="has-warning">
                                 <select name="project" class="select2_demo_2 form-control input-lg">
                                     <option>Select Project</option>
@@ -137,6 +133,158 @@
                                     @endforeach
                                 </select>
                                 <i>What project does the to do belong to</i>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_product" type="checkbox" class="js-switch_7" />
+                                    <br>
+                                    <i>Check if it belongs to a Product.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="product" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Product</option>
+                                    @foreach($products as $product)
+                                        <option value="{{$product->id}}">{{$product->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What product does the to do belong to</i>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_order" type="checkbox" class="js-switch_8" />
+                                    <br>
+                                    <i>Check if it belongs to a Order.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="order" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Order</option>
+                                    @foreach($orders as $order)
+                                        <option value="{{$order->id}}">{{$order->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What order does the to do belong to</i>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_email" type="checkbox" class="js-switch_9" />
+                                    <br>
+                                    <i>Check if it belongs to a Email.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="email" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Email</option>
+                                    @foreach($emails as $email)
+                                        <option value="{{$email->id}}">{{$email->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What email does the to do belong to</i>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_contact" type="checkbox" class="js-switch_10" />
+                                    <br>
+                                    <i>Check if it belongs to a Contact.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="contact" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Contact</option>
+                                    @foreach($contacts as $contact)
+                                        <option value="{{$contact->id}}">{{$contact->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What contact does the to do belong to</i>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_organization" type="checkbox" class="js-switch_11" />
+                                    <br>
+                                    <i>Check if it belongs to a Organization.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="organization" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Organization</option>
+                                    @foreach($organizations as $organization)
+                                        <option value="{{$organization->id}}">{{$organization->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What organization does the to do belong to</i>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_deal" type="checkbox" class="js-switch_12" />
+                                    <br>
+                                    <i>Check if it belongs to a Deal.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="deal" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Deal</option>
+                                    @foreach($deals as $deal)
+                                        <option value="{{$deal->id}}">{{$deal->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What deal does the to do belong to</i>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_campaign" type="checkbox" class="js-switch_13" />
+                                    <br>
+                                    <i>Check if it belongs to a Campaign.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="campaign" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Campaign</option>
+                                    @foreach($campaigns as $campaign)
+                                        <option value="{{$campaign->id}}">{{$campaign->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What campaign does the to do belong to</i>
                             </div>
                         </div>
                     </div>

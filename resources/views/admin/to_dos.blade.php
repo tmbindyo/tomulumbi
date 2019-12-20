@@ -431,6 +431,30 @@
             var elem_6 = document.querySelector('.js-switch_6');
             var switchery_6 = new Switchery(elem_6, { color: '#1AB394' });
 
+            var elem_7 = document.querySelector('.js-switch_7');
+            var switchery_7 = new Switchery(elem_7, { color: '#1AB394' });
+
+            var elem_8 = document.querySelector('.js-switch_8');
+            var switchery_8 = new Switchery(elem_8, { color: '#1AB394' });
+
+            var elem_9 = document.querySelector('.js-switch_9');
+            var switchery_9 = new Switchery(elem_9, { color: '#1AB394' });
+
+            var elem_10 = document.querySelector('.js-switch_10');
+            var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
+
+            var elem_11 = document.querySelector('.js-switch_11');
+            var switchery_11 = new Switchery(elem_11, { color: '#1AB394' });
+
+            var elem_12 = document.querySelector('.js-switch_12');
+            var switchery_12 = new Switchery(elem_12, { color: '#1AB394' });
+
+            var elem_13 = document.querySelector('.js-switch_13');
+            var switchery_13 = new Switchery(elem_13, { color: '#1AB394' });
+
+            var elem_14 = document.querySelector('.js-switch_14');
+            var switchery_14 = new Switchery(elem_14, { color: '#1AB394' });
+
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green'
@@ -494,8 +518,8 @@
 
             $(".select2_demo_1").select2();
             $(".select2_demo_2").select2();
-            $(".select2_demo_3").select2({
-                placeholder: "Select a state",
+            $(".select2_demo_tag").select2({
+                placeholder: "Select Tags",
                 allowClear: true
             });
 

@@ -22,7 +22,7 @@ class CampaignType extends Model
     }
 
     // children
-    public function campaign()
+    public function campaigns()
     {
         return $this->hasMany('App\Campaign');
     }

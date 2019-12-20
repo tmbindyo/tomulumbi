@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Types')
+@section('title', 'Lead Sources')
 
 @section('css')
 
@@ -20,7 +20,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Album Types</h2>
+            <h2>Lead Sources</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -29,13 +29,13 @@
                     Settings
                 </li>
                 <li class="active">
-                    <strong>Album Types</strong>
+                    <strong>Lead Sources</strong>
                 </li>
             </ol>
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('admin.album.type.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.lead.source.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
             <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Album Types</h5>
+                    <h5>Lead Sources</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -69,29 +69,26 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($albumTypes as $albumType)
+                @foreach($leadSources as $leadSource)
                     <tr class="gradeX">
-                        <td>{{$albumType->name}}</td>
-                        <td>{{$albumType->description}}</td>
-                        <td>{{$albumType->user->name}}</td>
+                        <td>{{$leadSource->name}}</td>
+                        <td>{{$leadSource->user->name}}</td>
                         <td>
-                            <span class="label {{$albumType->status->label}}">{{$albumType->status->name}}</span>
+                            <span class="label {{$leadSource->status->label}}">{{$leadSource->status->name}}</span>
                         </td>
-
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('admin.album.type.show', $albumType->id) }}" class="btn-white btn btn-xs">View</a>
-                                @if($albumType->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                    <a href="{{ route('admin.album.type.restore', $albumType->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                <a href="{{ route('admin.lead.source.show', $leadSource->id) }}" class="btn-white btn btn-xs">View</a>
+                                @if($leadSource->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                    <a href="{{ route('admin.lead.source.restore', $leadSource->id) }}" class="btn-warning btn btn-xs">Restore</a>
                                 @else
-                                    <a href="{{ route('admin.album.type.delete', $albumType->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                    <a href="{{ route('admin.lead.source.delete', $leadSource->id) }}" class="btn-danger btn btn-xs">Delete</a>
                                 @endif
                             </div>
                         </td>
@@ -101,7 +98,6 @@
                 <tfoot>
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -118,8 +114,6 @@
 
 
 @endsection
-
-{{--@include('admin.layouts.modals.album_type')--}}
 
 @section('js')
 

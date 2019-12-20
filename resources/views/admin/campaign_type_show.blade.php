@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Type')
+@section('title', 'Campaign Type')
 
 @section('css')
 
@@ -20,19 +20,19 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Allbum Type</h2>
+            <h2>Campaign Type</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <strong>Settings's</strong>
+                    <strong>Settingss</strong>
                 </li>
                 <li class="active">
-                   <a href="{{route('admin.album.types')}}"><strong>Album Type's</strong></a>
+                   <a href="{{route('admin.campaign.types')}}"><strong>Campaign Types</strong></a>
                 </li>
                 <li class="active">
-                    <strong>Album Type</strong>
+                    <strong>Campaign Type</strong>
                 </li>
             </ol>
         </div>
@@ -44,7 +44,7 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Album type <small>edit</small></h5>
+                        <h5>Campaign type <small>edit</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -66,7 +66,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-8 col-md-offset-2">
-                                <form method="post" action="{{ route('admin.album.type.update',$albumType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.campaign.type.update',$campaignType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -82,16 +82,9 @@
 
                                     <div class="row">
                                         <div class="has-warning">
-                                            <input type="name" name="name" value="{{$albumType->name}}" class="form-control input-lg">
+                                            <input type="name" name="name" value="{{$campaignType->name}}" class="form-control input-lg">
                                         </div>
                                         <i>name</i>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="has-warning">
-                                            <textarea id="description" rows="5" name="description" class="resizable_textarea form-control input-lg" required="required">{{$albumType->description}}</textarea>
-                                        </div>
-                                        <i>description</i>
                                     </div>
                                     <br>
 
@@ -105,13 +98,12 @@
                 </div>
             </div>
         </div>
-
-        {{--  albums  --}}
+        {{--  campaigns  --}}
         <div class="row">
             <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Albums ({{$albumType->albums_count}})</h5>
+                    <h5>Campaigns ({{$campaignType->campaigns_count}})</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -128,53 +120,54 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-
                     <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>User</th>
-                    <th>Views</th>
-                    <th>Status</th>
-                    <th width="13em">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($albumTypeAlbums as $albumTypeAlbum)
-                    <tr class="gradeX">
-                        <td>{{$albumTypeAlbum->name}}</td>
-                        <td>{{$albumTypeAlbum->date}}</td>
-                        <td>{{$albumTypeAlbum->user->name}}</td>
-                        <td>{{$albumTypeAlbum->album_views_count}}</td>
-                        <td>
-                            <span class="label {{$albumTypeAlbum->status->label}}">{{$albumTypeAlbum->status->name}}</span>
-                        </td>
-                        <td class="text-right">
-{{--                                todo check why route is album but id is album type--}}
-                            <div class="btn-group">
-                                @if($albumType->id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
-                                    <a href="{{ route('admin.client.proof.show', $albumTypeAlbum->id) }}" class="btn-white btn btn-xs">View</a>
-                                @elseif($albumType->id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
-                                    <a href="{{ route('admin.personal.album.show', $albumTypeAlbum->id) }}" class="btn-white btn btn-xs">View</a>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>User</th>
-                    <th>Views</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-                </table>
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Expected Revenue</th>
+                                    <th>Budgeted Cost</th>
+                                    <th>Actual Cost</th>
+                                    <th>Status</th>
+                                    <th width="13em">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($campaignType->campaigns as $campaignTypeCampaign)
+                                <tr class="gradeX">
+                                    <td>{{$campaignTypeCampaign->name}}</td>
+                                    <td>{{$campaignTypeCampaign->start_date}}</td>
+                                    <td>{{$campaignTypeCampaign->end_date}}</td>
+                                    <td>{{$campaignTypeCampaign->expected_revenue}}</td>
+                                    <td>{{$campaignTypeCampaign->budgeted_cost}}</td>
+                                    <td>{{$campaignTypeCampaign->actual_cost}}</td>
+                                    <td>{{$campaignTypeCampaign->user->name}}</td>
+                                    <td>
+                                        <span class="label {{$campaignTypeCampaign->status->label}}">{{$campaignTypeCampaign->status->name}}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="btn-group">
+                                            <a href="{{ route('admin.campaign.show', $campaignTypeCampaign->id) }}" class="btn-white btn btn-xs">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Expected Revenue</th>
+                                    <th>Budgeted Cost</th>
+                                    <th>Actual Cost</th>
+                                    <th>Status</th>
+                                    <th width="13em">Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
 
                 </div>

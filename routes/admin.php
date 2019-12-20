@@ -9,45 +9,24 @@ Route::get('/dashboard', 'Admin\DashboardController@dashboard')->name('admin.das
 Route::get('/calendar', 'Admin\CalendarController@viewCalender')->name('admin.calendar');
 
 
-// Settings
+// Action types
+Route::get('/action/types', 'Admin\SettingsController@actionTypes')->name('admin.action.types');
+Route::get('/action/type/create', 'Admin\SettingsController@actionTypeCreate')->name('admin.action.type.create');
+Route::post('/action/type/store', 'Admin\SettingsController@actionTypeStore')->name('admin.action.type.store');
+Route::get('/action/type/show/{action_type_id}', 'Admin\SettingsController@actionTypeShow')->name('admin.action.type.show');
+Route::post('/action/type/update/{action_type_id}', 'Admin\SettingsController@actionTypeUpdate')->name('admin.action.type.update');
+Route::get('/action/type/delete/{action_type_id}', 'Admin\SettingsController@actionTypeDelete')->name('admin.action.type.delete');
+Route::get('/action/type/restore/{action_type_id}', 'Admin\SettingsController@actionTypeRestore')->name('admin.action.type.restore');
+
+
+// Album types
 Route::get('/album/types', 'Admin\SettingsController@albumTypes')->name('admin.album.types');
 Route::get('/album/type/create', 'Admin\SettingsController@albumTypeCreate')->name('admin.album.type.create');
 Route::post('/album/type/store', 'Admin\SettingsController@albumTypeStore')->name('admin.album.type.store');
 Route::get('/album/type/show/{album_type_id}', 'Admin\SettingsController@albumTypeShow')->name('admin.album.type.show');
-Route::post('/album/type/update/{album_type_id}', 'Admin\SettingsController@albumTypeUpdate')->name('admin.album.type.show.update');
-Route::get('/album/type/delete/{album_type_id}', 'Admin\SettingsController@albumTypeDelete')->name('admin.album.type.show.delete');
-Route::get('/album/type/restore/{album_type_id}', 'Admin\SettingsController@albumTypeRestore')->name('admin.album.type.show.restore');
-
-
-// Contact types
-Route::get('/contact/types', 'Admin\SettingsController@contactTypes')->name('admin.contact.types');
-Route::get('/contact/type/create', 'Admin\SettingsController@contactTypeCreate')->name('admin.contact.type.create');
-Route::post('/contact/type/store', 'Admin\SettingsController@contactTypeStore')->name('admin.contact.type.store');
-Route::get('/contact/type/show/{contact_type_id}', 'Admin\SettingsController@contactTypeShow')->name('admin.contact.type');
-Route::post('/contact/type/update/{contact_type_id}', 'Admin\SettingsController@contactTypeUpdate')->name('admin.contact.type.update');
-Route::get('/contact/type/delete/{contact_type_id}', 'Admin\SettingsController@contactTypeDelete')->name('admin.contact.type.delete');
-Route::get('/contact/type/restore/{contact_type_id}', 'Admin\SettingsController@contactTypeRestore')->name('admin.contact.type.restore');
-
-
-// Project types
-Route::get('/project/types', 'Admin\SettingsController@projectTypes')->name('admin.project.types');
-Route::get('/project/type/create', 'Admin\SettingsController@projectTypeCreate')->name('admin.project.type.create');
-Route::post('/project/type/store', 'Admin\SettingsController@projectTypeStore')->name('admin.project.type.store');
-Route::get('/project/type/show/{project_type_id}', 'Admin\SettingsController@projectTypeShow')->name('admin.project.type.show');
-Route::post('/project/type/update/{project_type_id}', 'Admin\SettingsController@projectTypeUpdate')->name('admin.project.type.update');
-Route::get('/project/type/delete/{project_type_id}', 'Admin\SettingsController@projectTypeDelete')->name('admin.project.type.delete');
-Route::get('/project/type/restore/{project_type_id}', 'Admin\SettingsController@projectTypeRestore')->name('admin.project.type.restore');
-
-
-// Tags
-Route::get('/tags', 'Admin\SettingsController@tags')->name('admin.tags');
-Route::get('/tag/create', 'Admin\SettingsController@tagCreate')->name('admin.tag.create');
-Route::get('/tag/show/{tag_id}', 'Admin\SettingsController@tagShow')->name('admin.tag.show');
-Route::post('/tag/store', 'Admin\SettingsController@tagStore')->name('admin.tag.store');
-Route::post('/tag/update/{tag_id}', 'Admin\SettingsController@tagUpdate')->name('admin.tag.update');
-Route::post('/tag/cover/image/{album_id}', 'Admin\SettingsController@tagCoverImageUpload')->name('admin.tag.cover.image');
-Route::get('/tag/delete/{tag_id}', 'Admin\SettingsController@tagDelete')->name('admin.tag.delete');
-Route::get('/tag/restore/{tag_id}', 'Admin\SettingsController@tagRestore')->name('admin.tag.restore');
+Route::post('/album/type/update/{album_type_id}', 'Admin\SettingsController@albumTypeUpdate')->name('admin.album.type.update');
+Route::get('/album/type/delete/{album_type_id}', 'Admin\SettingsController@albumTypeDelete')->name('admin.album.type.delete');
+Route::get('/album/type/restore/{album_type_id}', 'Admin\SettingsController@albumTypeRestore')->name('admin.album.type.restore');
 
 
 // Category
@@ -60,45 +39,160 @@ Route::get('/category/delete/{category_id}', 'Admin\SettingsController@categoryD
 Route::get('/category/restore/{category_id}', 'Admin\SettingsController@categoryRestore')->name('admin.category.restore');
 
 
-// typography
-Route::get('/typographies', 'Admin\SettingsController@typographies')->name('admin.typographies');
-Route::get('/typography/create', 'Admin\SettingsController@typographyCreate')->name('admin.typography.create');
-Route::get('/typography/show/{typography_id}', 'Admin\SettingsController@typographyShow')->name('admin.typography.show');
-Route::post('/typography/store', 'Admin\SettingsController@typographyStore')->name('admin.typography.store');
-Route::post('/typography/update/{typography_id}', 'Admin\SettingsController@typographyUpdate')->name('admin.typography.update');
-Route::get('/typography/delete/{typography_id}', 'Admin\SettingsController@typographyDelete')->name('admin.typography.delete');
-Route::get('/typography/restore/{typography_id}', 'Admin\SettingsController@typographyRestore')->name('admin.typography.restore');
+// Campaign types
+Route::get('/campaign/types', 'Admin\SettingsController@campaignTypes')->name('admin.campaign.types');
+Route::get('/campaign/type/create', 'Admin\SettingsController@campaignTypeCreate')->name('admin.campaign.type.create');
+Route::post('/campaign/type/store', 'Admin\SettingsController@campaignTypeStore')->name('admin.campaign.type.store');
+Route::get('/campaign/type/show/{campaign_type_id}', 'Admin\SettingsController@campaignTypeShow')->name('admin.campaign.type.show');
+Route::post('/campaign/type/update/{campaign_type_id}', 'Admin\SettingsController@campaignTypeUpdate')->name('admin.campaign.type.update');
+Route::get('/campaign/type/delete/{campaign_type_id}', 'Admin\SettingsController@campaignTypeDelete')->name('admin.campaign.type.delete');
+Route::get('/campaign/type/restore/{campaign_type_id}', 'Admin\SettingsController@campaignTypeRestore')->name('admin.campaign.type.restore');
 
 
-// types
-Route::get('/types', 'Admin\SettingsController@types')->name('admin.types');
-Route::get('/type/create', 'Admin\SettingsController@typeCreate')->name('admin.type.create');
-Route::get('/type/show/{type_id}', 'Admin\SettingsController@typeShow')->name('admin.type.show');
-Route::post('/type/store', 'Admin\SettingsController@typeStore')->name('admin.type.store');
-Route::post('/type/update/{type_id}', 'Admin\SettingsController@typeUpdate')->name('admin.type.update');
-Route::get('/type/delete/{type_id}', 'Admin\SettingsController@typeDelete')->name('admin.type.delete');
-Route::get('/type/restore/{type_id}', 'Admin\SettingsController@typeRestore')->name('admin.type.restore');
+// Contact types
+Route::get('/contact/types', 'Admin\SettingsController@contactTypes')->name('admin.contact.types');
+Route::get('/contact/type/create', 'Admin\SettingsController@contactTypeCreate')->name('admin.contact.type.create');
+Route::post('/contact/type/store', 'Admin\SettingsController@contactTypeStore')->name('admin.contact.type.store');
+Route::get('/contact/type/show/{contact_type_id}', 'Admin\SettingsController@contactTypeShow')->name('admin.contact.type.show');
+Route::post('/contact/type/update/{contact_type_id}', 'Admin\SettingsController@contactTypeUpdate')->name('admin.contact.type.update');
+Route::get('/contact/type/delete/{contact_type_id}', 'Admin\SettingsController@contactTypeDelete')->name('admin.contact.type.delete');
+Route::get('/contact/type/restore/{contact_type_id}', 'Admin\SettingsController@contactTypeRestore')->name('admin.contact.type.restore');
 
 
-// sub types
-Route::get('/sub/types', 'Admin\SettingsController@subTypes')->name('admin.sub.types');
-Route::get('/sub/type/create', 'Admin\SettingsController@subTypeCreate')->name('admin.sub.type.create');
-Route::get('/sub/type/show/{sub_type_id}', 'Admin\SettingsController@subTypeShow')->name('admin.sub.type.show');
-Route::post('/sub/type/store', 'Admin\SettingsController@subTypeStore')->name('admin.sub.type.store');
-Route::post('/sub/type/update/{sub_type_id}', 'Admin\SettingsController@subTypeUpdate')->name('admin.sub.type.update');
-Route::get('/sub/type/delete/{sub_type_id}', 'Admin\SettingsController@subTypeDelete')->name('admin.sub.type.delete');
-Route::get('/sub/type/restore/{sub_type_id}', 'Admin\SettingsController@subTypeRestore')->name('admin.sub.type.restore');
+// Expense accounts
+Route::get('/expense/accounts', 'Admin\SettingsController@expenseAccounts')->name('admin.expense.accounts');
+Route::get('/expense/account/create', 'Admin\SettingsController@expenseAccountCreate')->name('admin.expense.account.create');
+Route::post('/expense/account/store', 'Admin\SettingsController@expenseAccountStore')->name('admin.expense.account.store');
+Route::get('/expense/account/show/{contact_type_id}', 'Admin\SettingsController@expenseAccountShow')->name('admin.expense.account.show');
+Route::post('/expense/account/update/{contact_type_id}', 'Admin\SettingsController@expenseAccountUpdate')->name('admin.expense.account.update');
+Route::get('/expense/account/delete/{contact_type_id}', 'Admin\SettingsController@expenseAccountDelete')->name('admin.expense.account.delete');
+Route::get('/expense/account/restore/{contact_type_id}', 'Admin\SettingsController@expenseAccountRestore')->name('admin.expense.account.restore');
+
+
+// Frequencies
+Route::get('/frequencies', 'Admin\SettingsController@frequencies')->name('admin.frequencies');
+Route::get('/frequency/create', 'Admin\SettingsController@frequencyCreate')->name('admin.frequency.create');
+Route::post('/frequency/store', 'Admin\SettingsController@frequencyStore')->name('admin.frequency.store');
+Route::get('/frequency/show/{contact_type_id}', 'Admin\SettingsController@frequencyShow')->name('admin.frequency.show');
+Route::post('/frequency/update/{contact_type_id}', 'Admin\SettingsController@frequencyUpdate')->name('admin.frequency.update');
+Route::get('/frequency/delete/{contact_type_id}', 'Admin\SettingsController@frequencyDelete')->name('admin.frequency.delete');
+Route::get('/frequency/restore/{contact_type_id}', 'Admin\SettingsController@frequencyRestore')->name('admin.frequency.restore');
+
+
+// labels
+Route::get('/labels', 'Admin\SettingsController@labels')->name('admin.labels');
+Route::get('/label/create', 'Admin\SettingsController@labelCreate')->name('admin.label.create');
+Route::post('/label/store', 'Admin\SettingsController@labelStore')->name('admin.label.store');
+Route::get('/label/show/{project_type_id}', 'Admin\SettingsController@labelShow')->name('admin.label.show');
+Route::post('/label/update/{project_type_id}', 'Admin\SettingsController@labelUpdate')->name('admin.label.update');
+Route::get('/label/delete/{project_type_id}', 'Admin\SettingsController@labelDelete')->name('admin.label.delete');
+Route::get('/label/restore/{project_type_id}', 'Admin\SettingsController@labelRestore')->name('admin.label.restore');
+
+
+// Lead sources
+Route::get('/lead/sources', 'Admin\SettingsController@leadSources')->name('admin.lead.sources');
+Route::get('/lead/source/create', 'Admin\SettingsController@leadSourceCreate')->name('admin.lead.source.create');
+Route::post('/lead/source/store', 'Admin\SettingsController@leadSourceStore')->name('admin.lead.source.store');
+Route::get('/lead/source/show/{project_type_id}', 'Admin\SettingsController@leadSourceShow')->name('admin.lead.source.show');
+Route::post('/lead/source/update/{project_type_id}', 'Admin\SettingsController@leadSourceUpdate')->name('admin.lead.source.update');
+Route::get('/lead/source/delete/{project_type_id}', 'Admin\SettingsController@leadSourceDelete')->name('admin.lead.source.delete');
+Route::get('/lead/source/restore/{project_type_id}', 'Admin\SettingsController@leadSourceRestore')->name('admin.lead.source.restore');
+
+
+// Organization types
+Route::get('/organization/types', 'Admin\SettingsController@organizationTypes')->name('admin.organization.types');
+Route::get('/organization/type/create', 'Admin\SettingsController@organizationTypeCreate')->name('admin.organization.type.create');
+Route::post('/organization/type/store', 'Admin\SettingsController@organizationTypeStore')->name('admin.organization.type.store');
+Route::get('/organization/type/show/{organization_type_id}', 'Admin\SettingsController@organizationTypeShow')->name('admin.organization.type.show');
+Route::post('/organization/type/update/{organization_type_id}', 'Admin\SettingsController@organizationTypeUpdate')->name('admin.organization.type.update');
+Route::get('/organization/type/delete/{organization_type_id}', 'Admin\SettingsController@organizationTypeDelete')->name('admin.organization.type.delete');
+Route::get('/organization/type/restore/{organization_type_id}', 'Admin\SettingsController@organizationTypeRestore')->name('admin.organization.type.restore');
+
+
+// Project types
+Route::get('/project/types', 'Admin\SettingsController@projectTypes')->name('admin.project.types');
+Route::get('/project/type/create', 'Admin\SettingsController@projectTypeCreate')->name('admin.project.type.create');
+Route::post('/project/type/store', 'Admin\SettingsController@projectTypeStore')->name('admin.project.type.store');
+Route::get('/project/type/show/{project_type_id}', 'Admin\SettingsController@projectTypeShow')->name('admin.project.type.show');
+Route::post('/project/type/update/{project_type_id}', 'Admin\SettingsController@projectTypeUpdate')->name('admin.project.type.update');
+Route::get('/project/type/delete/{project_type_id}', 'Admin\SettingsController@projectTypeDelete')->name('admin.project.type.delete');
+Route::get('/project/type/restore/{project_type_id}', 'Admin\SettingsController@projectTypeRestore')->name('admin.project.type.restore');
 
 
 // sizes
 Route::get('/sizes', 'Admin\SettingsController@sizes')->name('admin.sizes');
 Route::get('/size/create', 'Admin\SettingsController@sizeCreate')->name('admin.size.create');
-Route::get('/size/show/{size_id}', 'Admin\SettingsController@sizeShow')->name('admin.size.show');
 Route::post('/size/store', 'Admin\SettingsController@sizeStore')->name('admin.size.store');
+Route::get('/size/show/{size_id}', 'Admin\SettingsController@sizeShow')->name('admin.size.show');
 Route::post('/size/update/{size_id}', 'Admin\SettingsController@sizeUpdate')->name('admin.size.update');
 Route::get('/size/delete/{size_id}', 'Admin\SettingsController@sizeDelete')->name('admin.size.delete');
 Route::get('/size/restore/{size_id}', 'Admin\SettingsController@sizeRestore')->name('admin.size.restore');
 
+
+// sub types
+Route::get('/sub/types', 'Admin\SettingsController@subTypes')->name('admin.sub.types');
+Route::get('/sub/type/create', 'Admin\SettingsController@subTypeCreate')->name('admin.sub.type.create');
+Route::post('/sub/type/store', 'Admin\SettingsController@subTypeStore')->name('admin.sub.type.store');
+Route::get('/sub/type/show/{sub_type_id}', 'Admin\SettingsController@subTypeShow')->name('admin.sub.type.show');
+Route::post('/sub/type/update/{sub_type_id}', 'Admin\SettingsController@subTypeUpdate')->name('admin.sub.type.update');
+Route::get('/sub/type/delete/{sub_type_id}', 'Admin\SettingsController@subTypeDelete')->name('admin.sub.type.delete');
+Route::get('/sub/type/restore/{sub_type_id}', 'Admin\SettingsController@subTypeRestore')->name('admin.sub.type.restore');
+
+
+// Tags
+Route::get('/tags', 'Admin\SettingsController@tags')->name('admin.tags');
+Route::get('/tag/create', 'Admin\SettingsController@tagCreate')->name('admin.tag.create');
+Route::post('/tag/store', 'Admin\SettingsController@tagStore')->name('admin.tag.store');
+Route::get('/tag/show/{tag_id}', 'Admin\SettingsController@tagShow')->name('admin.tag.show');
+Route::post('/tag/update/{tag_id}', 'Admin\SettingsController@tagUpdate')->name('admin.tag.update');
+Route::post('/tag/cover/image/{album_id}', 'Admin\SettingsController@tagCoverImageUpload')->name('admin.tag.cover.image');
+Route::get('/tag/delete/{tag_id}', 'Admin\SettingsController@tagDelete')->name('admin.tag.delete');
+Route::get('/tag/restore/{tag_id}', 'Admin\SettingsController@tagRestore')->name('admin.tag.restore');
+
+
+// Titles
+Route::get('/titles', 'Admin\SettingsController@titles')->name('admin.titles');
+Route::get('/title/create', 'Admin\SettingsController@titleCreate')->name('admin.title.create');
+Route::post('/title/store', 'Admin\SettingsController@titleStore')->name('admin.title.store');
+Route::get('/title/show/{title_id}', 'Admin\SettingsController@titleShow')->name('admin.title.show');
+Route::post('/title/update/{title_id}', 'Admin\SettingsController@titleUpdate')->name('admin.title.update');
+Route::get('/title/delete/{title_id}', 'Admin\SettingsController@titleDelete')->name('admin.title.delete');
+Route::get('/title/restore/{title_id}', 'Admin\SettingsController@titleRestore')->name('admin.title.restore');
+
+
+// types
+Route::get('/types', 'Admin\SettingsController@types')->name('admin.types');
+Route::get('/type/create', 'Admin\SettingsController@typeCreate')->name('admin.type.create');
+Route::post('/type/store', 'Admin\SettingsController@typeStore')->name('admin.type.store');
+Route::get('/type/show/{type_id}', 'Admin\SettingsController@typeShow')->name('admin.type.show');
+Route::post('/type/update/{type_id}', 'Admin\SettingsController@typeUpdate')->name('admin.type.update');
+Route::get('/type/delete/{type_id}', 'Admin\SettingsController@typeDelete')->name('admin.type.delete');
+Route::get('/type/restore/{type_id}', 'Admin\SettingsController@typeRestore')->name('admin.type.restore');
+
+
+// typography
+Route::get('/typographies', 'Admin\SettingsController@typographies')->name('admin.typographies');
+Route::get('/typography/create', 'Admin\SettingsController@typographyCreate')->name('admin.typography.create');
+Route::post('/typography/store', 'Admin\SettingsController@typographyStore')->name('admin.typography.store');
+Route::get('/typography/show/{typography_id}', 'Admin\SettingsController@typographyShow')->name('admin.typography.show');
+Route::post('/typography/update/{typography_id}', 'Admin\SettingsController@typographyUpdate')->name('admin.typography.update');
+Route::get('/typography/delete/{typography_id}', 'Admin\SettingsController@typographyDelete')->name('admin.typography.delete');
+Route::get('/typography/restore/{typography_id}', 'Admin\SettingsController@typographyRestore')->name('admin.typography.restore');
+
+
+
+
+// CRM
+Route::get('/feed', 'Admin\CRMController@feed')->name('admin.feed');
+
+// campaign
+Route::get('/campaigns', 'Admin\CRMController@campaigns')->name('admin.campaigns');
+Route::get('/campaign/create', 'Admin\CRMController@campaignCreate')->name('admin.campaign.create');
+Route::post('/campaign/store', 'Admin\CRMController@campaignStore')->name('admin.campaign.store');
+Route::get('/campaign/show/{campaign_id}', 'Admin\CRMController@campaignShow')->name('admin.campaign.show');
+Route::post('/campaign/update/{campaign_id}', 'Admin\CRMController@campaignUpdate')->name('admin.campaign.update');
+Route::get('/campaign/delete/{campaign_id}', 'Admin\CRMController@campaignDelete')->name('admin.campaign.delete');
+Route::get('/campaign/restore/{campaign_id}', 'Admin\CRMController@campaignRestore')->name('admin.campaign.restore');
 
 // Contacts
 Route::get('/contacts', 'Admin\ContactController@contacts')->name('admin.contacts');

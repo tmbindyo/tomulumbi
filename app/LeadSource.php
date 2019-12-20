@@ -14,11 +14,11 @@ class LeadSource extends Model
     // Children
     public function contacts()
     {
-        return $this->belongsTo('App\Contact');
+        return $this->hasMany('App\Contact');
     }
     public function deals()
     {
-        return $this->belongsTo('App\Deal');
+        return $this->hasMany('App\Deal');
     }
 
     // Parents

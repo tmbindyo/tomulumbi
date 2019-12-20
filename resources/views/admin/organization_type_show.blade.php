@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Types')
+@section('title', 'Organization Type')
 
 @section('css')
 
@@ -20,23 +20,18 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Album Types</h2>
+            <h2>Organization Type's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
-                <li>
-                    Settings
+                <li class="active">
+                    <a href="{{route('admin.organization.types')}}">Organization Type's</a>
                 </li>
                 <li class="active">
-                    <strong>Album Types</strong>
+                    <strong>Organization Type Create</strong>
                 </li>
             </ol>
-        </div>
-        <div class="col-md-3">
-            <div class="title-action">
-                <a href="{{route('admin.album.type.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
-            </div>
         </div>
     </div>
 
@@ -44,9 +39,64 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Organization type <small>edit</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-8 col-md-offset-2">
+                                <p>Edit.</p>
+                                <form method="post" action="{{ route('admin.organization.type.update',$organizationType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                    @csrf
+
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
+                                    <div class="has-warning">
+                                        <input type="name" name="name" value="{{$organizationType->name}}" class="form-control input-lg">
+                                        <i>name</i>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Album Types</h5>
+                    <h5>Organization Type Organizations ({{$organizationType->organizations_count}})</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -69,30 +119,26 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($albumTypes as $albumType)
+                @foreach($organizationType->organizations as $organization)
                     <tr class="gradeX">
-                        <td>{{$albumType->name}}</td>
-                        <td>{{$albumType->description}}</td>
-                        <td>{{$albumType->user->name}}</td>
+                        <td>{{$organization->name}}</td>
+                        <td>{{$organization->email}}</td>
+                        <td>{{$organization->phone_number}}</td>
+                        <td>{{$organization->user->name}}</td>
                         <td>
-                            <span class="label {{$albumType->status->label}}">{{$albumType->status->name}}</span>
+                            <span class="label {{$organization->status->label}}">{{$organization->status->name}}</span>
                         </td>
-
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('admin.album.type.show', $albumType->id) }}" class="btn-white btn btn-xs">View</a>
-                                @if($albumType->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                    <a href="{{ route('admin.album.type.restore', $albumType->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                @else
-                                    <a href="{{ route('admin.album.type.delete', $albumType->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                @endif
+                                <a href="{{ route('admin.organization.show', $organization->id) }}" class="btn-white btn btn-xs">View</a>
                             </div>
                         </td>
                     </tr>
@@ -101,7 +147,8 @@
                 <tfoot>
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -118,8 +165,6 @@
 
 
 @endsection
-
-{{--@include('admin.layouts.modals.album_type')--}}
 
 @section('js')
 

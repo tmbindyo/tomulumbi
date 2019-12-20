@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Type Create')
+@section('title', 'Organization Type Create')
 
 @section('css')
 
@@ -40,16 +40,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Album Type's</h2>
+            <h2>Organization Type's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.album.types')}}">Album Type's</a>
+                    <a href="{{route('admin.organization.types')}}">Organization Type's</a>
                 </li>
                 <li class="active">
-                    <strong>Album Type Create</strong>
+                    <strong>Organization Type Create</strong>
                 </li>
             </ol>
         </div>
@@ -60,7 +60,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Album Type Registration <small>Form</small></h5>
+                        <h5>Organization Type Registration <small>Form</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -84,7 +84,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.album.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.organization.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -103,11 +103,6 @@
                                         <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <textarea id="description" rows="5" name="description" class="resizable_textarea form-control input-lg" required="required" placeholder="Description..."></textarea>
-                                    </div>
-
                                     <br>
                                     <hr>
 

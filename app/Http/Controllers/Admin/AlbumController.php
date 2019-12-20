@@ -32,7 +32,6 @@ use App\Category;
 use App\AlbumImage;
 use App\AlbumCategory;
 use App\Traits\UserTrait;
-//use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
