@@ -16,10 +16,10 @@ class CreatePromoCodesTable extends Migration
         Schema::create('promo_codes', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string('reference');
             $table->integer('limit');
             $table->integer('assigned');
             $table->integer('used');
-            $table->string('reference');
             $table->text('terms_and_conditions');
 
             $table->date('expiry_date');

@@ -16,23 +16,23 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string('reference');
+
             $table->string('name');
             $table->string('phone_number');
             $table->string('website');
-            $table->string('reference');
             $table->string('email');
+
+            $table->longText('description');
 
             $table->string('street');
             $table->string('city');
-            $table->string('province');
-            $table->string('code');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('organization_type_id');
-            $table->uuid('parent_account_id');
-            $table->uuid('parent_organization_id');
-            $table->uuid('campaign_id');
+            $table->uuid('parent_organization_id')->nullable();
+            $table->uuid('campaign_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

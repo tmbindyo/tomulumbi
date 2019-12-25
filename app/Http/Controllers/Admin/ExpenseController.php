@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use DB;
-use App\Account;
 use App\Album;
+use App\Order;
 use App\Design;
+use App\Status;
+use App\Account;
+use App\Project;
 use App\Expense;
+use App\Frequency;
+use App\Transaction;
 use App\ExpenseItem;
 use App\ExpenseType;
-use App\Frequency;
-use App\Order;
-use App\Project;
-use App\Status;
-use App\Traits\NavbarTrait;
-use App\Traits\ReferenceNumberTrait;
-use App\Traits\StatusCountTrait;
 use App\Traits\UserTrait;
-use App\Transaction;
+use App\Traits\NavbarTrait;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Mail\CancelledOrder;
+use App\Traits\StatusCountTrait;
+use App\Traits\ReferenceNumberTrait;
+use App\Http\Controllers\Controller;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -607,7 +607,7 @@ class ExpenseController extends Controller
         $orderData = [
             'message'=>'Test'
         ];
-        
+
         Mail::to('tmbindyo@fluidtechglobal.com')->send(new CancelledOrder($orderData));
 
     }

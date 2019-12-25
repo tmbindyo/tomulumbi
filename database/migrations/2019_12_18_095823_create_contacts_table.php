@@ -20,25 +20,20 @@ class CreateContactsTable extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('phone_number');
-            $table->string('mobile_number');
-            $table->string('website');
+            $table->string('website')->nullable();
             $table->longText('about');
 
             // address
             $table->string('street')->nullable();
             $table->string('city')->nullable();
-            $table->string('province')->nullable();
             $table->string('postal_code')->nullable();
-            $table->string('country')->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('organization_id');
-            $table->uuid('title_id');
-            $table->uuid('lead_source_id');
-            $table->uuid('industry_id');
+            $table->uuid('organization_id')->nullable();
+            $table->uuid('title_id')->nullable();
+            $table->uuid('lead_source_id')->nullable();
             $table->uuid('campaign_id')->nullable();
-            $table->uuid('contact_type_id');
 
             $table->boolean('is_lead');
 

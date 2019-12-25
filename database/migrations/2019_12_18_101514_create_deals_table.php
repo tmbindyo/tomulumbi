@@ -16,20 +16,21 @@ class CreateDealsTable extends Migration
         Schema::create('deals', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string('reference');
+
             $table->string('name');
             $table->double('amount',200,2);
+            $table->date('starting_date');
             $table->date('closing_date');
             $table->integer('probability');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('organization_id');
-            $table->uuid('contact_id');
-            $table->uuid('lead_source_id');
+            $table->uuid('contact_id')->nullable();
+            $table->uuid('lead_source_id')->nullable();
             $table->uuid('deal_stage_id');
-
-            $table->boolean('is_campaign');
-            $table->uuid('campaign_id');
+            $table->uuid('campaign_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

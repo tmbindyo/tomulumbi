@@ -14,19 +14,19 @@ class Organization extends Model
     // Children
     public function contacts()
     {
-        return $this->belongsTo('App\Contact');
+        return $this->hasMany('App\Contact');
     }
     public function deals()
     {
-        return $this->belongsTo('App\Deal');
+        return $this->hasMany('App\Deal');
     }
     public function quotes()
     {
-        return $this->belongsTo('App\Quote');
+        return $this->hasMany('App\Quote');
     }
     public function to_dos()
     {
-        return $this->belongsTo('App\ToDo');
+        return $this->hasMany('App\ToDo');
     }
 
     // Parents

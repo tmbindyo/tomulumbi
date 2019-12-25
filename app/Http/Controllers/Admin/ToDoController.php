@@ -39,13 +39,13 @@ class ToDoController extends Controller
         // Get to do status count
         $toDoStatusCount = $this->toDoStatusCount();
         // Pending to dos
-        $pendingToDos = ToDo::with('user','status','album','project','journal','design','product','email')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
+        $pendingToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
         // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','album','project','journal','design','product','email')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
+        $inProgressToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
         // Completed to dos
-        $completedToDos = ToDo::with('user','status','album','project','journal','design','product','email')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
+        $completedToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
         // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','album','project','journal','design','product','email')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
+        $overdueToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
         // Albums
         $albums = Album::get();
         // Designs

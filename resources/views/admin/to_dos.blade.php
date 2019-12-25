@@ -107,22 +107,37 @@
                         <h4>{{$pendingToDo->name}}</h4>
                         <p>{{$pendingToDo->notes}}.</p>
                         @if($pendingToDo->is_album === 1)
-                            <p><span class="badge badge-primary">{{$pendingToDo->album->name}}</span></p>
+                            <p><span class="badge badge-primary">Album:{{$pendingToDo->album->name}}</span></p>
                         @endif
                         @if($pendingToDo->is_design === 1)
-                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                            <p><span class="badge badge-primary">Design:{{$pendingToDo->design->name}}</span></p>
                         @endif
                         @if($pendingToDo->is_journal === 1)
-                            <p><span class="badge badge-primary">{{$pendingToDo->journal->name}}</span></p>
+                            <p><span class="badge badge-primary">Journal:{{$pendingToDo->journal->name}}</span></p>
                         @endif
                         @if($pendingToDo->is_project === 1)
-                            <p><span class="badge badge-primary">{{$pendingToDo->project->name}}</span></p>
+                            <p><span class="badge badge-primary">Project:{{$pendingToDo->project->name}}</span></p>
                         @endif
                         @if($pendingToDo->is_product === 1)
-                            <p><span class="badge badge-primary">{{$pendingToDo->product->name}}</span></p>
+                            <p><span class="badge badge-primary">Product:{{$pendingToDo->product->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_order === 1)
+                            <p><span class="badge badge-primary">Order:{{$pendingToDo->order->name}}</span></p>
                         @endif
                         @if($pendingToDo->is_email === 1)
                             <p><span class="badge badge-primary">Email:{{$pendingToDo->email->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_contact === 1)
+                            <p><span class="badge badge-primary">Contact:{{$pendingToDo->contact->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_organization === 1)
+                            <p><span class="badge badge-primary">Organization:{{$pendingToDo->organization->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_deal === 1)
+                            <p><span class="badge badge-primary">Deal:{{$pendingToDo->deal->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_campaign === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$pendingToDo->campaign->name}}</span></p>
                         @endif
                         <a href="{{route('admin.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                     </div>
@@ -137,22 +152,37 @@
                         <h4>{{$inProgressToDo->name}}</h4>
                         <p>{{$inProgressToDo->notes}}.</p>
                         @if($inProgressToDo->is_album === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->album->name}}</span></p>
+                            <p><span class="badge badge-primary">Album:{{$inProgressToDo->album->name}}</span></p>
                         @endif
                         @if($inProgressToDo->is_design === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                            <p><span class="badge badge-primary">Design:{{$inProgressToDo->design->name}}</span></p>
                         @endif
                         @if($inProgressToDo->is_journal === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->journal->name}}</span></p>
+                            <p><span class="badge badge-primary">Journal:{{$inProgressToDo->journal->name}}</span></p>
                         @endif
                         @if($inProgressToDo->is_project === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->project->name}}</span></p>
+                            <p><span class="badge badge-primary">Project:{{$inProgressToDo->project->name}}</span></p>
                         @endif
                         @if($inProgressToDo->is_product === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->product->name}}</span></p>
+                            <p><span class="badge badge-primary">Product:{{$inProgressToDo->product->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_order === 1)
+                            <p><span class="badge badge-primary">Order:{{$inProgressToDo->order->name}}</span></p>
                         @endif
                         @if($inProgressToDo->is_email === 1)
                             <p><span class="badge badge-primary">Email:{{$inProgressToDo->email->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_contact === 1)
+                            <p><span class="badge badge-primary">Contact:{{$inProgressToDo->contact->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_organization === 1)
+                            <p><span class="badge badge-primary">Organization:{{$inProgressToDo->organization->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_deal === 1)
+                            <p><span class="badge badge-primary">Deal:{{$inProgressToDo->deal->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_campaign === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$inProgressToDo->campaign->name}}</span></p>
                         @endif
                         <a href="{{route('admin.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
                     </div>
@@ -167,22 +197,37 @@
                         <h4>{{$overdueToDo->name}}</h4>
                         <p>{{$overdueToDo->notes}}.</p>
                         @if($overdueToDo->is_album === 1)
-                            <p><span class="badge badge-primary">{{$overdueToDo->album->name}}</span></p>
+                            <p><span class="badge badge-primary">Album:{{$overdueToDo->album->name}}</span></p>
                         @endif
                         @if($overdueToDo->is_design === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                            <p><span class="badge badge-primary">Design:{{$overdueToDo->design->name}}</span></p>
                         @endif
                         @if($overdueToDo->is_journal === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->journal->name}}</span></p>
+                            <p><span class="badge badge-primary">Journal:{{$overdueToDo->journal->name}}</span></p>
                         @endif
                         @if($overdueToDo->is_project === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->project->name}}</span></p>
+                            <p><span class="badge badge-primary">Project:{{$overdueToDo->project->name}}</span></p>
                         @endif
                         @if($overdueToDo->is_product === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->product->name}}</span></p>
+                            <p><span class="badge badge-primary">Product:{{$overdueToDo->product->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_order === 1)
+                            <p><span class="badge badge-primary">Order:{{$overdueToDo->order->name}}</span></p>
                         @endif
                         @if($overdueToDo->is_email === 1)
-                            <p><span class="badge badge-primary">Email:{{$inProgressToDo->email->subject}}</span></p>
+                            <p><span class="badge badge-primary">Email:{{$overdueToDo->email->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_contact === 1)
+                            <p><span class="badge badge-primary">Contact:{{$overdueToDo->contact->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_organization === 1)
+                            <p><span class="badge badge-primary">Organization:{{$overdueToDo->organization->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_deal === 1)
+                            <p><span class="badge badge-primary">Deal:{{$overdueToDo->deal->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_campaign === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$overdueToDo->campaign->name}}</span></p>
                         @endif
                         @if($overdueToDo->status->name === "Pending")
                             <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
@@ -201,22 +246,37 @@
                         <h4>{{$completedToDo->name}}</h4>
                         <p>{{$completedToDo->notes}}.</p>
                         @if($completedToDo->is_album === 1)
-                            <p><span class="badge badge-primary">{{$completedToDo->album->name}}</span></p>
+                            <p><span class="badge badge-primary">Album:{{$completedToDo->album->name}}</span></p>
                         @endif
                         @if($completedToDo->is_design === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                            <p><span class="badge badge-primary">Design:{{$completedToDo->design->name}}</span></p>
                         @endif
                         @if($completedToDo->is_journal === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->journal->name}}</span></p>
+                            <p><span class="badge badge-primary">Journal:{{$completedToDo->journal->name}}</span></p>
                         @endif
                         @if($completedToDo->is_project === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->project->name}}</span></p>
+                            <p><span class="badge badge-primary">Project:{{$completedToDo->project->name}}</span></p>
                         @endif
                         @if($completedToDo->is_product === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->product->name}}</span></p>
+                            <p><span class="badge badge-primary">Product:{{$completedToDo->product->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_order === 1)
+                            <p><span class="badge badge-primary">Order:{{$completedToDo->order->name}}</span></p>
                         @endif
                         @if($completedToDo->is_email === 1)
-                            <p><span class="badge badge-primary">{{$inProgressToDo->email->name}}</span></p>
+                            <p><span class="badge badge-primary">Email:{{$completedToDo->email->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_contact === 1)
+                            <p><span class="badge badge-primary">Contact:{{$completedToDo->contact->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_organization === 1)
+                            <p><span class="badge badge-primary">Organization:{{$completedToDo->organization->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_deal === 1)
+                            <p><span class="badge badge-primary">Deal:{{$completedToDo->deal->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_campaign === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$completedToDo->campaign->name}}</span></p>
                         @endif
                         <a href="{{route('admin.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
                     </div>

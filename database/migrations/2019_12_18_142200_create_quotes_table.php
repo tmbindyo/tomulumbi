@@ -37,8 +37,9 @@ class CreateQuotesTable extends Migration
 
             $table->boolean('has_uploads');
             $table->boolean('is_draft');
-
             $table->boolean('is_accepted');
+            $table->boolean('is_rejected');
+            $table->boolean('is_cancelled');
 
             $table->timestamps();
             $table->softDeletes();

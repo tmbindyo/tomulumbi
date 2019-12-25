@@ -115,46 +115,46 @@
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($organizationType->organizations as $organization)
-                    <tr class="gradeX">
-                        <td>{{$organization->name}}</td>
-                        <td>{{$organization->email}}</td>
-                        <td>{{$organization->phone_number}}</td>
-                        <td>{{$organization->user->name}}</td>
-                        <td>
-                            <span class="label {{$organization->status->label}}">{{$organization->status->name}}</span>
-                        </td>
-                        <td class="text-right">
-                            <div class="btn-group">
-                                <a href="{{ route('admin.organization.show', $organization->id) }}" class="btn-white btn btn-xs">View</a>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-                </table>
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($organizationType->organizations as $organization)
+                                    <tr class="gradeX">
+                                        <td>{{$organization->name}}</td>
+                                        <td>{{$organization->email}}</td>
+                                        <td>{{$organization->phone_number}}</td>
+                                        <td>{{$organization->user->name}}</td>
+                                        <td>
+                                            <span class="label {{$organization->status->label}}">{{$organization->status->name}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <a href="{{ route('admin.organization.show', $organization->id) }}" class="btn-white btn btn-xs">View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
 
                 </div>

@@ -181,11 +181,23 @@ Route::get('/typography/restore/{typography_id}', 'Admin\SettingsController@typo
 
 
 
+// To Dos
+Route::get('/to/dos', 'Admin\ToDoController@toDos')->name('admin.to.dos');
+Route::post('/to/do/store', 'Admin\ToDoController@toDoStore')->name('admin.to.do.store');
+Route::post('/to/do/update/{todo_id}', 'Admin\ToDoController@toDoUpdate')->name('admin.to.do.update');
+Route::get('/to/do/set/in/progress/{todo_id}', 'Admin\ToDoController@toDoSetInProgress')->name('admin.to.do.set.in.progress');
+Route::get('/to/do/set/completed/{todo_id}', 'Admin\ToDoController@toDoSetCompleted')->name('admin.to.do.set.completed');
+Route::get('/to/do/delete/{todo_id}', 'Admin\ToDoController@toDoDelete')->name('admin.to.do.delete');
 
-// CRM
+
+
+/// CRM
+
+// Feed
 Route::get('/feed', 'Admin\CRMController@feed')->name('admin.feed');
 
-// campaign
+
+// Campaign
 Route::get('/campaigns', 'Admin\CRMController@campaigns')->name('admin.campaigns');
 Route::get('/campaign/create', 'Admin\CRMController@campaignCreate')->name('admin.campaign.create');
 Route::post('/campaign/store', 'Admin\CRMController@campaignStore')->name('admin.campaign.store');
@@ -194,29 +206,53 @@ Route::post('/campaign/update/{campaign_id}', 'Admin\CRMController@campaignUpdat
 Route::get('/campaign/delete/{campaign_id}', 'Admin\CRMController@campaignDelete')->name('admin.campaign.delete');
 Route::get('/campaign/restore/{campaign_id}', 'Admin\CRMController@campaignRestore')->name('admin.campaign.restore');
 
+// Campaign uploads
+Route::get('/campaign/uploads/{campaign_id}', 'Admin\CRMController@campaignUploads')->name('admin.campaign.uploads');
+Route::post('/campaign/upload/store/{campaign_id}', 'Admin\CRMController@campaignUploadStore')->name('admin.campaign.upload.store');
+Route::get('/campaign/upload/download/{upload_id}', 'Admin\CRMController@campaignUploadDownload')->name('admin.campaign.upload.download');
+
+
+// Leads
+Route::get('/leads', 'Admin\CRMController@leads')->name('admin.leads');
+
+
 // Contacts
-Route::get('/contacts', 'Admin\ContactController@contacts')->name('admin.contacts');
-Route::get('/contact/create', 'Admin\ContactController@contactCreate')->name('admin.contact.create');
-Route::post('/contact/store', 'Admin\ContactController@contactStore')->name('admin.contact.store');
-Route::get('/contact/show/{contact_id}', 'Admin\ContactController@contactShow')->name('admin.contact.show');
-Route::post('/contact/update/{contact_id}', 'Admin\ContactController@contactUpdate')->name('admin.contact.update');
-Route::get('/contact/delete/{contact_id}', 'Admin\ContactController@contactDelete')->name('admin.contact.delete');
-Route::get('/contact/restore/{contact_id}', 'Admin\ContactController@contactRestore')->name('admin.contact.restore');
+Route::get('/contacts', 'Admin\CRMController@contacts')->name('admin.contacts');
+Route::get('/contact/create', 'Admin\CRMController@contactCreate')->name('admin.contact.create');
+Route::post('/contact/store', 'Admin\CRMController@contactStore')->name('admin.contact.store');
+Route::get('/contact/show/{contact_id}', 'Admin\CRMController@contactShow')->name('admin.contact.show');
+Route::post('/contact/update/{contact_id}', 'Admin\CRMController@contactUpdate')->name('admin.contact.update');
+Route::get('/contact/delete/{contact_id}', 'Admin\CRMController@contactDelete')->name('admin.contact.delete');
+Route::get('/contact/restore/{contact_id}', 'Admin\CRMController@contactRestore')->name('admin.contact.restore');
+
+Route::get('/contact/update/lead/to/contact/{contact_id}', 'Admin\CRMController@contactUpdateLeadToContact')->name('admin.contact.update.lead.to.contact');
+Route::post('/contact/contact/type/store/{contact_id}', 'Admin\CRMController@contactContactTypeStore')->name('admin.contact.contact.type.store');
+
+
+// organizations
+Route::get('/organizations', 'Admin\CRMController@organizations')->name('admin.organizations');
+Route::get('/organization/create', 'Admin\CRMController@organizationCreate')->name('admin.organization.create');
+Route::post('/organization/store', 'Admin\CRMController@organizationStore')->name('admin.organization.store');
+Route::get('/organization/show/{organization_id}', 'Admin\CRMController@organizationShow')->name('admin.organization.show');
+Route::post('/organization/update/{organization_id}', 'Admin\CRMController@organizationUpdate')->name('admin.organization.update');
+Route::get('/organization/delete/{organization_id}', 'Admin\CRMController@organizationDelete')->name('admin.organization.delete');
+Route::get('/organization/restore/{organization_id}', 'Admin\CRMController@organizationRestore')->name('admin.organization.restore');
+
+
+// Deals
+Route::get('/deals', 'Admin\CRMController@deals')->name('admin.deals');
+Route::get('/deal/create', 'Admin\CRMController@dealCreate')->name('admin.deal.create');
+Route::post('/deal/store', 'Admin\CRMController@dealStore')->name('admin.deal.store');
+Route::get('/deal/show/{deal_id}', 'Admin\CRMController@dealShow')->name('admin.deal.show');
+Route::post('/deal/update/{deal_id}', 'Admin\CRMController@dealUpdate')->name('admin.deal.update');
+Route::get('/deal/delete/{deal_id}', 'Admin\CRMController@dealDelete')->name('admin.deal.delete');
+Route::get('/deal/restore/{deal_id}', 'Admin\CRMController@dealRestore')->name('admin.deal.restore');
 
 
 // Emails
 Route::get('/emails', 'Admin\EmailController@emails')->name('admin.emails');
 Route::get('/email/show/{email_id}', 'Admin\EmailController@emailShow')->name('admin.email.show');
 Route::post('/email/update/{email_id}', 'Admin\EmailController@emailUpdate')->name('admin.email.update');
-
-
-// To Dos
-Route::get('/to/dos', 'Admin\ToDoController@toDos')->name('admin.to.dos');
-Route::post('/to/do/store', 'Admin\ToDoController@toDoStore')->name('admin.to.do.store');
-Route::post('/to/do/update/{todo_id}', 'Admin\ToDoController@toDoUpdate')->name('admin.to.do.update');
-Route::get('/to/do/set/in/progress/{todo_id}', 'Admin\ToDoController@toDoSetInProgress')->name('admin.to.do.set.in.progress');
-Route::get('/to/do/set/completed/{todo_id}', 'Admin\ToDoController@toDoSetCompleted')->name('admin.to.do.set.completed');
-Route::get('/to/do/delete/{todo_id}', 'Admin\ToDoController@toDoDelete')->name('admin.to.do.delete');
 
 
 // Album

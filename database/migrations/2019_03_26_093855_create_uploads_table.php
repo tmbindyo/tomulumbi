@@ -37,6 +37,7 @@ class CreateUploadsTable extends Migration
             $table->string('size');
 
             // image information
+            $table->string('file_type');
             $table->string('name');
             $table->string('extension');
             $table->string('orientation')->nullable();
@@ -69,6 +70,7 @@ class CreateUploadsTable extends Migration
             $table->uuid('project_id')->nullable();
             $table->uuid('journal_id')->nullable();
             $table->uuid('product_id')->nullable();
+            $table->uuid('campaign_id')->nullable();
             $table->uuid('upload_type_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

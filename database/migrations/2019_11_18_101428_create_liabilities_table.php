@@ -16,6 +16,8 @@ class CreateLiabilitiesTable extends Migration
         Schema::create('liabilities', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string('reference');
+
             $table->decimal('amount',20,2);
             $table->decimal('paid',20,2);
 

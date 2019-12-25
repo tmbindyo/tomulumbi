@@ -14,7 +14,7 @@ class Campaign extends Model
     // Parents
     public function campaign_type()
     {
-        return $this->belongsTo('App\CampaignypeT');
+        return $this->belongsTo('App\CampaignType');
     }
     public function user()
     {
@@ -26,11 +26,11 @@ class Campaign extends Model
     }
 
     // children
-    public function campaign_upload()
+    public function campaign_uploads()
     {
-        return $this->hasMany('App\CampaignUpload');
+        return $this->hasMany('App\Upload');
     }
-    public function contact()
+    public function contacts()
     {
         return $this->hasMany('App\Contact');
     }

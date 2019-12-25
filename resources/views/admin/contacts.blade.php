@@ -71,7 +71,6 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone Number</th>
-                                    <th>Contact Type</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -79,10 +78,9 @@
                                 <tbody>
                                 @foreach($contacts as $contact)
                                     <tr class="gradeX">
-                                        <td>{{$contact->name}}</td>
+                                        <td>@if($contact->title){{$contact->title->name}}.@endif {{$contact->first_name}} {{$contact->last_name}}</td>
                                         <td>{{$contact->email}}</td>
                                         <td>{{$contact->phone_number}}</td>
-                                        <td>{{$contact->contact_type->name}}</td>
                                         <td>
                                             <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
                                         </td>
@@ -104,7 +102,6 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone Number</th>
-                                    <th>Contact Type</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>

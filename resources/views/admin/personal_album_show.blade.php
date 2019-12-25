@@ -11,9 +11,6 @@
 
     <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 
-    <!-- Data picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
     <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/plugins/dropzone/basic.css" rel="stylesheet">

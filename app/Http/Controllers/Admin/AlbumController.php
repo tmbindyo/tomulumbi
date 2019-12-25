@@ -6,9 +6,6 @@ use App\Color;
 use App\Contact;
 use App\ContentAlign;
 use App\CoverDesign;
-use App\Design;
-use App\GridSpacing;
-use App\GridStyle;
 use App\ImagePosition;
 use App\Orientation;
 use App\Scheme;
@@ -95,6 +92,10 @@ class AlbumController extends Controller
         }
 
         $album->is_auto_expiry = False;
+        $album->is_deal = False;
+        $album->is_project = False;
+        $album->deal_id ='';
+        $album->project_id ='';
 
         $album->views = 0;
         $album->download_restriction_limit = 0;

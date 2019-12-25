@@ -45,6 +45,9 @@
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
+                <li>
+                    CRM
+                </li>
                 <li class="active">
                     <a href="{{route('admin.campaigns')}}">Campaign's</a>
                 </li>
@@ -143,18 +146,18 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="actual_cost" name="actual_cost" required="required" placeholder="Actual Cost" class="form-control input-lg">
-                                        <i>actual cost</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
                                         <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" placeholder="Budgeted Cost" class="form-control input-lg">
-                                        <i>actual cost</i>
+                                        <i>budgeted cost</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
                                         <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
                                         <i>Give a brief description on what the project is about</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <textarea rows="5" id="expected_response" name="expected_response" required="required" placeholder="Expected response" class="form-control input-lg"></textarea>
+                                        <i>Give a the expected response</i>
                                     </div>
 
 

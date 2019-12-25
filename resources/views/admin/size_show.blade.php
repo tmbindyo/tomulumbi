@@ -20,7 +20,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Allbum Size</h2>
+            <h2>Album Size</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>

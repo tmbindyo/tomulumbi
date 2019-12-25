@@ -16,6 +16,9 @@ class CreatePromoCodeAssignmentsTable extends Migration
         Schema::create('promo_code_assignments', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string('reference');
+            $table->integer('assigned');
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('promo_code_id');
