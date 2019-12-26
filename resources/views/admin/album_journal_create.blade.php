@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Design Create')
+@section('title', 'Journal Create')
 
 @section('css')
 
@@ -40,16 +40,20 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Design's</h2>
+            <h2>Journal's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.client.proofs')}}">Design's</a>
+                    @if($album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
+                        <a href="{{ route('admin.client.proof.show', $album->id) }}" class="btn-white btn btn-xs">View</a>
+                    @elseif($album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
+                        <a href="{{ route('admin.personal.album.show', $album->id) }}" class="btn-white btn btn-xs">View</a>
+                    @endif
                 </li>
                 <li class="active">
-                    <strong>Design Create</strong>
+                    <strong>Project Journal Create</strong>
                 </li>
             </ol>
         </div>
@@ -60,7 +64,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Design Registration <small>Form</small></h5>
+                        <h5>Journal Registration <small>Form</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -84,7 +88,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.design.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.journal.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -115,28 +119,36 @@
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
-                                    {{--  Album client  --}}
                                     <div class="has-warning">
-                                        <select name="contact" class="select2_demo_client form-control input-lg">
-                                            @foreach($contacts as $contact)
-                                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
+                                        <select required="required" name="labels[]" class="select2_demo_label form-control input-lg" multiple="multiple">
+                                            <option>Select Label</option>
+                                            @foreach($labels as $label)
+                                                <option value="{{$label->id}}">{{$label->name}}</option>
                                             @endforeach
                                         </select>
-                                        <i>Select Client.</i>
+                                        <i>Labels: What kind of collection is this? Separate your tags with a comma. e.g. wedding, outdoor, summer</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select required="required" name="categories[]" class="select2_demo_category form-control input-lg" multiple="multiple">
-                                            @foreach($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>Categories: What kind of collection is this? Separate your categories with a comma. e.g. wedding, outdoor, summer</i>
+                                        <input type="text" name="color" class="form-control demo1  input-lg" value="#5367ce" />
+                                        <i>Background color of text</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
                                         <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
-                                        <i>Give a brief description on what the project is about</i>
+                                        <i>Give a brief description on what the journal is about</i>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="checkbox" name="is_album" class="js-switch_3" checked/>
+                                            <i>is album</i>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select required="required" name="album" class="select2_demo_label form-control input-lg">
+                                                <option value="{{$album->id}}">{{$album->name}}</option>
+                                            </select>
+                                            <i>Project: The album that the album belongs to.</i>
+                                        </div>
                                     </div>
 
                                     <br>
@@ -377,8 +389,8 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_client").select2({
-            placeholder: "Select Client",
+        $(".select2_demo_label").select2({
+            placeholder: "Select Label",
             allowClear: true
         });
         $(".select2_demo_category").select2({

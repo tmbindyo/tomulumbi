@@ -49,7 +49,7 @@ class JournalController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get the design status counts
         $journalsStatusCount = $this->journalsStatusCount();
-        // Get albums
+        // Get journals
         $journals = Journal::with('user','status')->get();
 
         return view('admin.journals',compact('journals','user','navbarValues','journalsStatusCount'));
@@ -75,6 +75,28 @@ class JournalController extends Controller
         $journal->color = $request->color;
         $journal->date = date('Y-m-d', strtotime($request->date));
 
+        if($request->is_project == "on"){
+            $journal->is_project = True;
+            $journal->project_id = $request->project;
+        }else{
+            $journal->is_project = False;
+            $journal->project_id = '';
+        }
+        if($request->is_design == "on"){
+            $journal->is_design = True;
+            $journal->design_id = $request->design;
+        }else{
+            $journal->is_design = False;
+            $journal->design_id = '';
+        }
+        if($request->is_album == "on"){
+            $journal->is_album = True;
+            $journal->album_id = $request->album;
+        }else{
+            $journal->is_album = False;
+            $journal->album_id = '';
+        }
+
         $journal->views = 0;
         $journal->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
         $journal->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
@@ -89,7 +111,7 @@ class JournalController extends Controller
             $journalAlbum->save();
         }
 
-        return redirect()->route('admin.journals')->withSuccess('Journal '.$journal->name.' succesfully created');
+        return redirect()->route('admin.journal.show',$journal->id)->withSuccess('Journal '.$journal->name.' succesfully created');
     }
 
     public function journalShow($journal_id)

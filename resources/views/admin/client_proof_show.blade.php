@@ -50,7 +50,7 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             <h2>Client Proof</h2>
             <ol class="breadcrumb">
                 <li>
@@ -63,6 +63,17 @@
                     <strong>Client Proof</strong>
                 </li>
             </ol>
+        </div>
+        <div class="col-lg-4">
+            <div class="title-action">
+                <a href="{{route('admin.personal.album.create.journal',$album->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
+                @if($album->project_id)
+                    <a href="{{route('admin.project.show',$album->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> View Project </a>
+                @endif
+                @if($album->design_id)
+                    <a href="{{route('admin.design.show',$album->design_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> View Design </a>
+                @endif
+            </div>
         </div>
     </div>
 

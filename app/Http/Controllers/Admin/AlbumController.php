@@ -2,40 +2,42 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Color;
-use App\Contact;
-use App\ContentAlign;
-use App\CoverDesign;
-use App\ImagePosition;
-use App\Orientation;
-use App\Scheme;
-use App\ThumbnailSize;
-use App\Traits\AlbumTrait;
-use App\Traits\DownloadViewNumbersTrait;
-use App\Traits\PasswordTrait;
-use App\Traits\NavbarTrait;
-use App\Traits\StatusCountTrait;
-use App\Typography;
-use App\Upload;
 use DB;
 use Auth;
 use App\Tag;
 use App\ToDo;
 use App\Album;
+use App\Color;
+use App\Label;
 use App\Status;
+use App\Scheme;
+use App\Upload;
+use App\Project;
+use App\Contact;
 use App\AlbumSet;
 use App\AlbumTag;
 use App\Category;
 use App\AlbumImage;
+use App\Typography;
+use App\Orientation;
+use App\CoverDesign;
+use App\ContentAlign;
+use App\ImagePosition;
 use App\AlbumCategory;
+use App\ThumbnailSize;
 use App\Traits\UserTrait;
+use App\Traits\AlbumTrait;
+use App\Traits\NavbarTrait;
 use Illuminate\Http\Request;
+use App\Traits\PasswordTrait;
+use App\Traits\StatusCountTrait;
+use function GuzzleHttp\Psr7\str;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use App\AlbumDownloadRestrictionEmail;
-use Illuminate\Support\Facades\File;
+use App\Traits\DownloadViewNumbersTrait;
 use Intervention\Image\ImageManagerStatic as Image;
-use function GuzzleHttp\Psr7\str;
 
 class AlbumController extends Controller
 {
@@ -91,12 +93,26 @@ class AlbumController extends Controller
             $album->is_homepage_visible = False;
         }
 
-        $album->is_auto_expiry = False;
-        $album->is_deal = False;
-        $album->is_project = False;
-        $album->deal_id ='';
-        $album->project_id ='';
+        if($request->is_project){
+            $album->is_project = True;
+            $album->project_id = $request->project;
+        }else{
+            $album->is_project = False;
+        }
+        if($request->is_deal){
+            $album->is_deal = True;
+            $album->deal_id =$request->deal;
+        }else{
+            $album->is_deal = False;
+        }
+        if($request->is_design){
+            $album->is_design = True;
+            $album->design_id =$request->design;
+        }else{
+            $album->is_design = False;
+        }
 
+        $album->is_auto_expiry = False;
         $album->views = 0;
         $album->download_restriction_limit = 0;
         $album->is_client_exclusive_access = False;
@@ -827,7 +843,24 @@ class AlbumController extends Controller
         else{
             $album->is_auto_expiry = False;
         }
-
+        if($request->is_project){
+            $album->is_project = True;
+            $album->project_id = $request->project;
+        }else{
+            $album->is_project = False;
+        }
+        if($request->is_deal){
+            $album->is_deal = True;
+            $album->deal_id ='';
+        }else{
+            $album->is_deal = False;
+        }
+        if($request->is_design){
+            $album->is_design = True;
+            $album->design_id =$request->design;
+        }else{
+            $album->is_design = False;
+        }
         // Not sure why this was here
 //        $album->thumbnail_size_id = "6fdf4858-01ce-43ff-bbe6-827f09fa1cef";
         $album->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
@@ -871,7 +904,7 @@ class AlbumController extends Controller
         $albumSet->save();
 
 
-        return redirect()->route('admin.client.proofs')->withSuccess('Album '.$album->name.' successfully created!');
+        return redirect()->route('admin.client.proof.show',$album->id)->withSuccess('Album '.$album->name.' successfully created!');
 
     }
 
@@ -1589,6 +1622,18 @@ class AlbumController extends Controller
         $albumImage->delete();
 
         return back()->withSuccess('Album image deleted!');
+    }
+
+    public function personalAlbumCreateJournal($album_id)
+    {
+        $album = Album::findOrFail($album_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Labels
+        $labels = Label::all();
+        return view('admin.album_journal_create',compact('album','user','labels','navbarValues'));
     }
 
 }

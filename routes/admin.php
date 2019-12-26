@@ -249,6 +249,16 @@ Route::get('/deal/delete/{deal_id}', 'Admin\CRMController@dealDelete')->name('ad
 Route::get('/deal/restore/{deal_id}', 'Admin\CRMController@dealRestore')->name('admin.deal.restore');
 
 
+// Quotes
+Route::get('/quotes', 'Admin\CRMController@quotes')->name('admin.quotes');
+Route::get('/quote/create', 'Admin\CRMController@quoteCreate')->name('admin.quote.create');
+Route::post('/quote/store', 'Admin\CRMController@quoteStore')->name('admin.quote.store');
+Route::get('/quote/show/{quote_id}', 'Admin\CRMController@quoteShow')->name('admin.quote.show');
+Route::post('/quote/update/{quote_id}', 'Admin\CRMController@quoteUpdate')->name('admin.quote.update');
+Route::get('/quote/delete/{quote_id}', 'Admin\CRMController@quoteDelete')->name('admin.quote.delete');
+Route::get('/quote/restore/{quote_id}', 'Admin\CRMController@quoteRestore')->name('admin.quote.restore');
+
+
 // Emails
 Route::get('/emails', 'Admin\EmailController@emails')->name('admin.emails');
 Route::get('/email/show/{email_id}', 'Admin\EmailController@emailShow')->name('admin.email.show');
@@ -260,6 +270,9 @@ Route::get('/personal/albums', 'Admin\AlbumController@personalAlbums')->name('ad
 Route::get('/personal/album/create', 'Admin\AlbumController@personalAlbumCreate')->name('admin.personal.album.create');
 Route::post('/personal/album/store', 'Admin\AlbumController@personalAlbumStore')->name('admin.personal.album.store');
 Route::get('/personal/album/show/{album_id}', 'Admin\AlbumController@personalAlbumShow')->name('admin.personal.album.show');
+
+Route::get('/personal/album/create/journal/{album_id}', 'Admin\AlbumController@personalAlbumCreateJournal')->name('admin.personal.album.create.journal');
+
 Route::post('/personal/album/update/{album_id}', 'Admin\AlbumController@personalAlbumUpdate')->name('admin.personal.album.update');
 Route::get('/personal/album/delete/{album_id}', 'Admin\AlbumController@personalAlbumDelete')->name('admin.personal.album.delete');
 Route::get('/personal/album/restore/{album_id}', 'Admin\AlbumController@personalAlbumRestore')->name('admin.personal.album.restore');
@@ -304,6 +317,11 @@ Route::get('/designs', 'Admin\DesignController@designs')->name('admin.designs');
 Route::get('/design/create', 'Admin\DesignController@designCreate')->name('admin.design.create');
 Route::post('/design/store', 'Admin\DesignController@designStore')->name('admin.design.store');
 Route::get('/design/show/{design_id}', 'Admin\DesignController@designShow')->name('admin.design.show');
+
+Route::get('/design/personal/album/create/{design_id}', 'Admin\DesignController@designPersonalAlbumCreate')->name('admin.design.personal.album.create');
+Route::get('/design/client/proof/create/{design_id}', 'Admin\DesignController@designClientProofCreate')->name('admin.design.client.proof.create');
+Route::get('/design/journal/create/{design_id}', 'Admin\DesignController@designJournalCreate')->name('admin.design.journal.create');
+
 Route::post('/design/update/{design_id}', 'Admin\DesignController@designUpdate')->name('admin.design.update');
 Route::post('/design/cover/image/{design_id}', 'Admin\DesignController@designCoverImageUpload')->name('admin.design.cover.image');
 Route::post('/design/gallery/image/upload/{design_id}', 'Admin\DesignController@designGalleryImageUpload')->name('admin.design.gallery.image.upload');
@@ -319,6 +337,12 @@ Route::get('/projects', 'Admin\ProjectController@projects')->name('admin.project
 Route::get('/project/create', 'Admin\ProjectController@projectCreate')->name('admin.project.create');
 Route::post('/project/store', 'Admin\ProjectController@projectStore')->name('admin.project.store');
 Route::get('/project/show/{project_id}', 'Admin\ProjectController@projectShow')->name('admin.project.show');
+
+Route::get('/project/personal/album/create/{project_id}', 'Admin\ProjectController@projectPersonalAlbumCreate')->name('admin.project.personal.album.create');
+Route::get('/project/client/proof/create/{project_id}', 'Admin\ProjectController@projectClientProofCreate')->name('admin.project.client.proof.create');
+Route::get('/project/design/create/{project_id}', 'Admin\ProjectController@projectDesignCreate')->name('admin.project.design.create');
+Route::get('/project/journal/create/{project_id}', 'Admin\ProjectController@projectJournalCreate')->name('admin.project.journal.create');
+
 Route::post('/project/update/{project_id}', 'Admin\ProjectController@projectUpdate')->name('admin.project.update');
 Route::post('/project/cover/image/{project_id}', 'Admin\ProjectController@projectCoverImageUpload')->name('admin.project.cover.image');
 Route::post('/project/gallery/image/upload/{project_id}', 'Admin\ProjectController@projectGalleryImageUpload')->name('admin.project.gallery.image.upload');

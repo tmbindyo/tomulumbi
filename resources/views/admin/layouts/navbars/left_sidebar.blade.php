@@ -162,6 +162,12 @@
                         </a>
                     </li>
 
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.transactions' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.transactions')}}">
+                            Quotes <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
 
@@ -221,18 +227,6 @@
                     <li class="nav-item {{ Route::currentRouteNamed( 'admin.orders' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'admin.products')}}">
                             Promo Codes <span class="label label-warning pull-right">{{$navbarValues['productsCount']}}</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.transactions' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.transactions')}}">
-                            Quotes <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.transactions' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.transactions')}}">
-                            Transactions <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
                         </a>
                     </li>
 

@@ -52,7 +52,7 @@
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-9">
+        <div class="col-lg-6">
             <h2>Project's</h2>
             <ol class="breadcrumb">
                 <li>
@@ -65,6 +65,14 @@
                     <strong>Project</strong>
                 </li>
             </ol>
+        </div>
+        <div class="col-lg-6">
+            <div class="title-action">
+                <a href="{{route('admin.project.personal.album.create',$project->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Personal Album </a>
+                <a href="{{route('admin.project.client.proof.create',$project->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Client Proof </a>
+                <a href="{{route('admin.project.design.create',$project->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Design </a>
+                <a href="{{route('admin.project.journal.create',$project->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
+            </div>
         </div>
     </div>
 
@@ -185,6 +193,9 @@
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
                         <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Project</a></li>
                         <li class=""><a data-toggle="tab" href="#expenses"><i class="fa fa-dollar"></i> Expenses</a></li>
+                        <li class=""><a data-toggle="tab" href="#albums"><i class="fa fa-film"></i> Albums</a></li>
+                        <li class=""><a data-toggle="tab" href="#designs"><i class="fa fa-paint-brush"></i> Design</a></li>
+                        <li class=""><a data-toggle="tab" href="#journals"><i class="fa fa-pencil"></i> Journal</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="collection_settings" class="tab-pane active">
@@ -398,6 +409,158 @@
                                             <th>Amount</th>
                                             <th>Status</th>
                                             <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="albums" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Date</th>
+                                                <th>User</th>
+                                                <th>Views</th>
+                                                <th>Status</th>
+                                                <th width="13em">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($projectAlbums as $projectAlbum)
+                                                <tr class="gradeX">
+                                                    <td>{{$projectAlbum->name}}</td>
+                                                    <td>{{$projectAlbum->date}}</td>
+                                                    <td>{{$projectAlbum->user->name}}</td>
+                                                    <td>{{$projectAlbum->album_views_count}}</td>
+                                                    <td>
+                                                        <span class="label {{$projectAlbum->status->label}}">{{$projectAlbum->status->name}}</span>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <div class="btn-group">
+                                                            @if($projectAlbum->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
+                                                                <a href="{{ route('admin.client.proof.show', $projectAlbum->id) }}" class="btn-white btn btn-xs">View</a>
+                                                            @elseif($projectAlbum->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
+                                                                <a href="{{ route('admin.personal.album.show', $projectAlbum->id) }}" class="btn-white btn btn-xs">View</a>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Date</th>
+                                                <th>User</th>
+                                                <th>Views</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="designs" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Date</th>
+                                            <th>Views</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($projectDesigns as $design)
+                                            <tr class="gradeX">
+                                                <td>{{$design->name}}</td>
+                                                <td>{{$design->date}}</td>
+                                                <td>{{$design->views}}</td>
+                                                <td>{{$design->user->name}}</td>
+                                                <td>
+                                                    <span class="label {{$design->status->label}}">{{$design->status->name}}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('admin.design.show', $design->id) }}" class="btn-white btn btn-xs">View</a>
+                                                        @if($design->status->name == "Deleted")
+                                                            <a href="{{ route('admin.design.restore', $design->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @else
+                                                            <a href="{{ route('admin.design.delete', $design->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Date</th>
+                                            <th>Views</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="journals" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Date</th>
+                                            <th>Views</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($projectJournals as $journal)
+                                            <tr class="gradeX">
+                                                <td>{{$journal->name}}</td>
+                                                <td>{{$journal->date}}</td>
+                                                <td>{{$journal->views}}</td>
+                                                <td>{{$journal->user->name}}</td>
+                                                <td>
+                                                    <span class="label {{$journal->status->label}}">{{$journal->status->name}}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('admin.journal.show', $journal->id) }}" class="btn-white btn btn-xs">View</a>
+                                                        @if($journal->status->name == "Deleted")
+                                                            <a href="{{ route('admin.journal.restore', $journal->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @else
+                                                            <a href="{{ route('admin.journal.delete', $journal->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Date</th>
+                                            <th>Views</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                         </tfoot>
                                     </table>

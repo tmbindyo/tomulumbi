@@ -129,7 +129,7 @@
                                         <select name="contact" class="select2_demo_contact form-control input-lg" multiple="multiple">
                                             <option>Select Contact</option>
                                             @foreach($contacts as $contact)
-                                                <option value="{{$contact->id}}">{{$contact->name}}</option>
+                                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
                                             @endforeach
                                         </select>
                                         <i>Client: This is based on your contacts, whoever is selected here is tied to the project as the client.</i>

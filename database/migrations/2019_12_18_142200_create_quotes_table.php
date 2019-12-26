@@ -33,6 +33,7 @@ class CreateQuotesTable extends Migration
             $table->uuid('status_id');
             $table->uuid('organization_id')->nullable();
             $table->uuid('contact_id')->nullable();
+            $table->boolean('is_deal');
             $table->uuid('deal_id')->nullable();
 
             $table->boolean('has_uploads');

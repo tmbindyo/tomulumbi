@@ -63,6 +63,8 @@ class CreateAlbumsTable extends Migration
             $table->uuid('deal_id')->nullable();
             $table->boolean('is_project');
             $table->uuid('project_id')->nullable();
+            $table->boolean('is_design');
+            $table->uuid('design_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

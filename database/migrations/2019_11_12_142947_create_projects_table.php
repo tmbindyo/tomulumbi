@@ -32,7 +32,7 @@ class CreateProjectsTable extends Migration
             $table->uuid('status_id');
 
             $table->boolean('is_deal');
-            $table->uuid('deal_id');
+            $table->uuid('deal_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

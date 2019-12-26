@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Album;
 use App\Category;
 use App\Client;
 use App\Contact;
@@ -22,6 +23,8 @@ use Auth;
 use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Journal;
+use App\Label;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -42,7 +45,7 @@ class DesignController extends Controller
     {
         // User
         $user = $this->getAdmin();
-        // Get albums
+        // Get designs
         $designs = Design::with('user','status','contact')->get();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
@@ -74,6 +77,21 @@ class DesignController extends Controller
         $design->description = $request->description;
         $design->date = date('Y-m-d', strtotime($request->date));
 
+        // 
+        if($request->is_project == "on"){
+            $design->is_project = True;
+            $design->project_id = $request->project;
+        }else{
+            $design->is_project = False;
+        }
+        if($request->is_deal == "on"){
+            $design->is_deal = True;
+            $design->deal_id = $request->deal;
+        }else{
+            $design->is_deal = False;
+            $design->deal_id = '';
+        }
+        
         $design->views = 0;
         $design->gallery_views = 0;
         $design->contact_id = $request->contact;
@@ -112,6 +130,10 @@ class DesignController extends Controller
         // Get design
         $design = Design::findOrFail($design_id);
         $design = Design::where('id',$design_id)->with('design_categories','contact','user','status','cover_image','expenses.expense_type')->first();
+        // design albums
+        $designAlbums = Album::with('user','status')->where('design_id',$design_id)->withCount('album_views')->get();
+        // design journals
+        $designJournals = Journal::with('user','status')->where('design_id',$design_id)->get();
         // Design status
         $designStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
         // Pending to dos
@@ -126,8 +148,48 @@ class DesignController extends Controller
         $designGallery = DesignGallery::where('design_id',$design_id)->with('upload')->get();
         $designWork = DesignWork::where('design_id',$design_id)->with('upload')->get();
 
-//        return $designWork;
-        return view('admin.design_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies','navbarValues','designArray','designViews'));
+        return view('admin.design_show',compact('designJournals','designAlbums','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies','navbarValues','designArray','designViews'));
+    }
+
+    public function designPersonalAlbumCreate($design_id)
+    {
+        // get design
+        $design = Design::findOrFail($design_id);
+        // Tags
+        $tags = Tag::all();
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.design_personal_album_create',compact('user','tags','navbarValues','design'));
+    }
+
+    public function designClientProofCreate($design_id)
+    {
+        // get design
+        $design = Design::findOrFail($design_id);
+        // Tags
+        $tags = Tag::all();
+        // Contacts
+        $contacts = Contact::all();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        return view('admin.design_client_proof_create',compact('design','user','tags','contacts','navbarValues'));
+    }
+
+    public function designJournalCreate($design_id)
+    {
+        // get design
+        $design = Design::findOrFail($design_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Labels
+        $labels = Label::all();
+        return view('admin.design_journal_create',compact('design','user','labels','navbarValues'));
     }
 
     public function designUpdate(Request $request, $design_id)

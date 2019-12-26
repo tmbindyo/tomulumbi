@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Design Create')
+@section('title', 'Client Proof Create')
 
 @section('css')
 
@@ -40,16 +40,16 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Design's</h2>
+            <h2>Client Proof's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.client.proofs')}}">Design's</a>
+                    <a href="{{route('admin.design.show',$design->id)}}">Project</a>
                 </li>
                 <li class="active">
-                    <strong>Design Create</strong>
+                    <strong>Project Client Proof Create</strong>
                 </li>
             </ol>
         </div>
@@ -60,7 +60,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Design Registration <small>Form</small></h5>
+                        <h5>Client Proof Registration <small>Form</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -84,7 +84,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.design.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.client.proof.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -115,28 +115,74 @@
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
-                                    {{--  Album client  --}}
                                     <div class="has-warning">
-                                        <select name="contact" class="select2_demo_client form-control input-lg">
+                                        <select required="required" name="tags[]" class="select2_demo_tag form-control input-lg" multiple="multiple">
+                                            <option>Select Tag</option>
+                                            @foreach($tags as $tag)
+                                                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>Tags: What kind of collection is this? Separate your tags with a comma. e.g. wedding, outdoor, summer</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <select name="contact" class="select2_demo_contact form-control input-lg" multiple="multiple">
+                                            <option>Select Contact</option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
                                             @endforeach
                                         </select>
-                                        <i>Select Client.</i>
+                                        <i>Client: This is based on your contacts, whoever is selected here is tied to the project as the client.</i>
                                     </div>
                                     <br>
-                                    <div class="has-warning">
-                                        <select required="required" name="categories[]" class="select2_demo_category form-control input-lg" multiple="multiple">
-                                            @foreach($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>Categories: What kind of collection is this? Separate your categories with a comma. e.g. wedding, outdoor, summer</i>
+                                    <div class="has-warning" id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <input type="text" name="expiry_date" class="form-control input-lg" value="7/27/2019">
+                                        </div>
+                                        <i>Collection will become Hidden when it reaches 11:59pm on the expiry date.</i>
+                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
-                                    <div class="has-warning">
-                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
-                                        <i>Give a brief description on what the project is about</i>
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            <div class="has-warning">
+                                                <label>Homepage Visibility</label>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <input name="is_homepage_visible" type="checkbox" class="js-switch" checked />
+                                                    <br>
+                                                    <i>Show or hide your collection in your Homepage area.</i>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div class="has-warning">
+                                                <label class="">Auto Expiry</label>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <input name="is_auto_expiry" type="checkbox" class="js-switch_3" checked />
+                                                    <i>Auto expiry.</i>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="checkbox" name="is_design" class="js-switch_4" checked/>
+                                            <i>is design</i>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select required="required" name="design" class="select2_demo_design form-control input-lg">
+                                                <option value="{{$design->id}}">{{$design->name}}</option>
+                                            </select>
+                                            <i>Project: The design that the album belongs to.</i>
+                                        </div>
                                     </div>
 
                                     <br>
@@ -319,6 +365,9 @@
 
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+        
+        var elem_4 = document.querySelector('.js-switch_4');
+        var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
 
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
@@ -377,8 +426,12 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_client").select2({
-            placeholder: "Select Client",
+        $(".select2_demo_tag").select2({
+            placeholder: "Select Tags",
+            allowClear: true
+        });
+        $(".select2_demo_contact").select2({
+            placeholder: "Select Contacts",
             allowClear: true
         });
         $(".select2_demo_category").select2({

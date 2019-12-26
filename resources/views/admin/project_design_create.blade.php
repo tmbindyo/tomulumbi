@@ -46,10 +46,10 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.client.proofs')}}">Design's</a>
+                    <a href="{{route('admin.project.show',$project->id)}}">Project</a>
                 </li>
                 <li class="active">
-                    <strong>Design Create</strong>
+                    <strong>Project Design Create</strong>
                 </li>
             </ol>
         </div>
@@ -137,6 +137,19 @@
                                     <div class="has-warning">
                                         <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
                                         <i>Give a brief description on what the project is about</i>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="checkbox" name="is_project" class="js-switch_3" checked/>
+                                            <i>is project</i>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select required="required" name="project" class="select2_demo_project form-control input-lg">
+                                                <option value="{{$project->id}}">{{$project->name}}</option>
+                                            </select>
+                                            <i>Project: The project that the album belongs to.</i>
+                                        </div>
                                     </div>
 
                                     <br>

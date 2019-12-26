@@ -130,51 +130,50 @@
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>User</th>
-                    <th>Views</th>
-                    <th>Status</th>
-                    <th width="13em">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($albumTypeAlbums as $albumTypeAlbum)
-                    <tr class="gradeX">
-                        <td>{{$albumTypeAlbum->name}}</td>
-                        <td>{{$albumTypeAlbum->date}}</td>
-                        <td>{{$albumTypeAlbum->user->name}}</td>
-                        <td>{{$albumTypeAlbum->album_views_count}}</td>
-                        <td>
-                            <span class="label {{$albumTypeAlbum->status->label}}">{{$albumTypeAlbum->status->name}}</span>
-                        </td>
-                        <td class="text-right">
-{{--                                todo check why route is album but id is album type--}}
-                            <div class="btn-group">
-                                @if($albumType->id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
-                                    <a href="{{ route('admin.client.proof.show', $albumTypeAlbum->id) }}" class="btn-white btn btn-xs">View</a>
-                                @elseif($albumType->id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
-                                    <a href="{{ route('admin.personal.album.show', $albumTypeAlbum->id) }}" class="btn-white btn btn-xs">View</a>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>User</th>
-                    <th>Views</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-                </table>
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>User</th>
+                                    <th>Views</th>
+                                    <th>Status</th>
+                                    <th width="13em">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($albumTypeAlbums as $albumTypeAlbum)
+                                    <tr class="gradeX">
+                                        <td>{{$albumTypeAlbum->name}}</td>
+                                        <td>{{$albumTypeAlbum->date}}</td>
+                                        <td>{{$albumTypeAlbum->user->name}}</td>
+                                        <td>{{$albumTypeAlbum->album_views_count}}</td>
+                                        <td>
+                                            <span class="label {{$albumTypeAlbum->status->label}}">{{$albumTypeAlbum->status->name}}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                @if($albumType->id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
+                                                    <a href="{{ route('admin.client.proof.show', $albumTypeAlbum->id) }}" class="btn-white btn btn-xs">View</a>
+                                                @elseif($albumType->id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
+                                                    <a href="{{ route('admin.personal.album.show', $albumTypeAlbum->id) }}" class="btn-white btn btn-xs">View</a>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>User</th>
+                                    <th>Views</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
 
                 </div>

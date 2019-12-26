@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Album;
 use App\Category;
 use App\Contact;
 use App\Design;
@@ -23,6 +24,9 @@ use App\Typography;
 use App\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Journal;
+use App\Label;
+use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -76,6 +80,9 @@ class ProjectController extends Controller
         $project->description = $request->description;
         $project->date = date('Y-m-d', strtotime($request->date));
 
+        $project->is_deal = False;
+        $project->deal_id = '';
+
         $project->views = 0;
         $project->contact_id = $request->contact;
         $project->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
@@ -109,6 +116,13 @@ class ProjectController extends Controller
         // Get project
         $project = Project::findOrFail($project_id);
         $project = Project::where('id',$project_id)->with('contact','user','status','cover_image')->first();
+        // project albums
+        $projectAlbums = Album::with('user','status')->where('project_id',$project_id)->withCount('album_views')->get();
+        // project designs
+        $projectDesigns = Design::with('user','status','contact')->where('project_id',$project_id)->get();
+        // project journals
+        $projectJournals = Journal::with('user','status')->where('project_id',$project_id)->get();
+
         // Project status
         $projectStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
@@ -124,7 +138,64 @@ class ProjectController extends Controller
         // project gallery
         $projectGallery = ProjectGallery::where('project_id',$project_id)->with('upload')->get();
 
-        return view('admin.project_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','project','projectGallery','projectStatuses','typographies','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
+        return view('admin.project_show',compact('projectJournals','projectDesigns','projectAlbums','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','project','projectGallery','projectStatuses','typographies','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
+    }
+
+    public function projectPersonalAlbumCreate($project_id)
+    {
+        // get project
+        $project = Project::findOrFail($project_id);
+        // Tags
+        $tags = Tag::all();
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.project_personal_album_create',compact('user','tags','navbarValues','project'));
+    }
+
+    public function projectClientProofCreate($project_id)
+    {
+        // get project
+        $project = Project::findOrFail($project_id);
+        // Tags
+        $tags = Tag::all();
+        // Contacts
+        $contacts = Contact::all();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        return view('admin.project_client_proof_create',compact('project','user','tags','contacts','navbarValues'));
+    }
+
+    public function projectDesignCreate($project_id)
+    {
+        // get project
+        $project = Project::findOrFail($project_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Tags
+        $contacts = Contact::all();
+        // Categories
+        $categories = Category::all();
+
+        return view('admin.project_design_create',compact('project','user','contacts','categories','navbarValues'));
+    }
+
+    public function projectJournalCreate($project_id)
+    {
+        // get project
+        $project = Project::findOrFail($project_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Labels
+        $labels = Label::all();
+        return view('admin.project_journal_create',compact('project','user','labels','navbarValues'));
     }
 
     public function projectUpdate(Request $request, $project_id)

@@ -61,6 +61,17 @@
                 </li>
             </ol>
         </div>
+        <div class="col-lg-3">
+            <div class="title-action">
+                <a href="{{route('admin.personal.album.create.journal',$album->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
+                @if($album->project_id)
+                    <a href="{{route('admin.project.show',$album->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> View Project </a>
+                @endif
+                @if($album->design_id)
+                    <a href="{{route('admin.design.show',$album->design_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> View Design </a>
+                @endif
+            </div>
+        </div>
     </div>
 
     <div class="wrapper wrapper-content animated fadeIn">
