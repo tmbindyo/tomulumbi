@@ -71,6 +71,8 @@ class CreateUploadsTable extends Migration
             $table->uuid('journal_id')->nullable();
             $table->uuid('product_id')->nullable();
             $table->uuid('campaign_id')->nullable();
+            $table->uuid('quote_id')->nullable();
+
             $table->uuid('upload_type_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

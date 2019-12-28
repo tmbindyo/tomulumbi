@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Expense Accounts')
+@section('title', 'Frequencies')
 
 @section('css')
 
@@ -20,7 +20,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Expense Accounts</h2>
+            <h2>Frequencies</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -29,13 +29,13 @@
                     Settings
                 </li>
                 <li class="active">
-                    <strong>Expense Accounts</strong>
+                    <strong>Frequencies</strong>
                 </li>
             </ol>
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('admin.frequency.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.frequency.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Frequency  </a>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
             <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Expense Accounts</h5>
+                    <h5>Frequencies</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>

@@ -34,6 +34,10 @@ class Campaign extends Model
     {
         return $this->hasMany('App\Contact');
     }
+    public function deals()
+    {
+        return $this->hasMany('App\Deal');
+    }
     public function expenses()
     {
         return $this->hasMany('App\Expense');
@@ -41,6 +45,10 @@ class Campaign extends Model
     public function organizations()
     {
         return $this->hasMany('App\Organization');
+    }
+    public function quotes()
+    {
+        return $this->hasMany('App\Quote');
     }
     public function to_dos()
     {

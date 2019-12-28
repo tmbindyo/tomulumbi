@@ -19,6 +19,7 @@ class CreateDealsTable extends Migration
             $table->string('reference');
 
             $table->string('name');
+            $table->longText('about');
             $table->double('amount',200,2);
             $table->date('starting_date');
             $table->date('closing_date');

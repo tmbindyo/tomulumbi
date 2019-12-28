@@ -12,27 +12,32 @@ class Quote extends Model
     public $incrementing = false;
 
     // Children
-    public function quote_item()
+    public function quote_items()
     {
         return $this->hasMany('App\QuoteItem');
     }
+    public function quote_taxes()
+    {
+        return $this->hasMany('App\QuoteTax');
+    }
+    public function uploads()
+    {
+        return $this->hasMany('App\Upload');
+    }
+
 
     // Parents
     public function contact()
     {
         return $this->belongsTo('App\Contact');
     }
+    public function campaign()
+    {
+        return $this->belongsTo('App\Campaign');
+    }
     public function deal()
     {
         return $this->belongsTo('App\Deal');
-    }
-    public function order()
-    {
-        return $this->hasMany('App\Order');
-    }
-    public function organization()
-    {
-        return $this->belongsTo('App\Organization');
     }
     public function status()
     {

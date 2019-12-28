@@ -202,6 +202,13 @@ Route::get('/campaigns', 'Admin\CRMController@campaigns')->name('admin.campaigns
 Route::get('/campaign/create', 'Admin\CRMController@campaignCreate')->name('admin.campaign.create');
 Route::post('/campaign/store', 'Admin\CRMController@campaignStore')->name('admin.campaign.store');
 Route::get('/campaign/show/{campaign_id}', 'Admin\CRMController@campaignShow')->name('admin.campaign.show');
+
+Route::get('/campaign/contact/create/{campaign_id}', 'Admin\CRMController@campaignContactCreate')->name('admin.campaign.contact.create');
+Route::get('/campaign/deal/create/{campaign_id}', 'Admin\CRMController@campaignDealCreate')->name('admin.campaign.deal.create');
+Route::get('/campaign/expense/create/{campaign_id}', 'Admin\CRMController@campaignExpenseCreate')->name('admin.campaign.expense.create');
+Route::get('/campaign/quote/create/{campaign_id}', 'Admin\CRMController@campaignQuoteCreate')->name('admin.campaign.quote.create');
+Route::get('/campaign/organization/create/{campaign_id}', 'Admin\CRMController@campaignOrganizationCreate')->name('admin.campaign.organization.create');
+
 Route::post('/campaign/update/{campaign_id}', 'Admin\CRMController@campaignUpdate')->name('admin.campaign.update');
 Route::get('/campaign/delete/{campaign_id}', 'Admin\CRMController@campaignDelete')->name('admin.campaign.delete');
 Route::get('/campaign/restore/{campaign_id}', 'Admin\CRMController@campaignRestore')->name('admin.campaign.restore');
@@ -254,7 +261,13 @@ Route::get('/quotes', 'Admin\CRMController@quotes')->name('admin.quotes');
 Route::get('/quote/create', 'Admin\CRMController@quoteCreate')->name('admin.quote.create');
 Route::post('/quote/store', 'Admin\CRMController@quoteStore')->name('admin.quote.store');
 Route::get('/quote/show/{quote_id}', 'Admin\CRMController@quoteShow')->name('admin.quote.show');
+Route::get('/quote/edit/{quote_id}', 'Admin\CRMController@quoteEdit')->name('admin.quote.edit');
+Route::get('/quote/print/{quote_id}', 'Admin\CRMController@quotePrint')->name('admin.quote.print');
+Route::get('/quote/send/{quote_id}', 'Admin\CRMController@quoteSend')->name('admin.quote.send');
 Route::post('/quote/update/{quote_id}', 'Admin\CRMController@quoteUpdate')->name('admin.quote.update');
+Route::get('/quote/accepted/{quote_id}', 'Admin\CRMController@quoteAccepted')->name('admin.quote.accepted');
+Route::get('/quote/rejected/{quote_id}', 'Admin\CRMController@quoteRefected')->name('admin.quote.rejected');
+Route::get('/quote/cancelled/{quote_id}', 'Admin\CRMController@quoteCancelled')->name('admin.quote.cancelled');
 Route::get('/quote/delete/{quote_id}', 'Admin\CRMController@quoteDelete')->name('admin.quote.delete');
 Route::get('/quote/restore/{quote_id}', 'Admin\CRMController@quoteRestore')->name('admin.quote.restore');
 

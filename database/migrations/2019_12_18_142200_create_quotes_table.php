@@ -17,6 +17,7 @@ class CreateQuotesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('reference');
+
             $table->text('customer_notes')->nullable();
             $table->longText('terms_and_conditions')->nullable();
             $table->date('date');
@@ -31,16 +32,17 @@ class CreateQuotesTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('organization_id')->nullable();
             $table->uuid('contact_id')->nullable();
             $table->boolean('is_deal');
             $table->uuid('deal_id')->nullable();
+            $table->boolean('is_campaign');
+            $table->uuid('campaign_id')->nullable();
 
-            $table->boolean('has_uploads');
             $table->boolean('is_draft');
-            $table->boolean('is_accepted');
+            $table->boolean('has_uploads');
             $table->boolean('is_rejected');
             $table->boolean('is_cancelled');
+            $table->boolean('is_accepted');
 
             $table->timestamps();
             $table->softDeletes();

@@ -35,7 +35,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('admin.expense.account.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.expense.account.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense Account </a>
             </div>
         </div>
     </div>

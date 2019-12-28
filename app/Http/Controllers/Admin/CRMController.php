@@ -32,6 +32,9 @@ use App\Traits\DealWorkCountTrait;
 use Illuminate\Support\Facades\File;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
+use App\QuoteItem;
+use App\QuoteTax;
+use App\Tax;
 use App\Traits\ContactWorkCountTrait;
 use Illuminate\Support\Facades\Input;
 use App\Traits\DocumentExtensionTrait;
@@ -133,7 +136,7 @@ class CRMController extends Controller
         // get campaign types
         $campaignTypes = CampaignType::all();
         // Get campaigns
-        $campaign = Campaign::with('user','status','campaign_type','campaign_uploads','contacts','expenses','organizations','to_dos')->withCount('campaign_uploads','contacts','expenses','organizations','to_dos')->where('id',$campaign_id)->first();
+        $campaign = Campaign::with('user','status','campaign_type','campaign_uploads','contacts','expenses','organizations','to_dos','quotes.status','deals')->withCount('campaign_uploads','contacts','expenses','organizations','to_dos')->where('id',$campaign_id)->first();
         // Pending to dos
         $pendingToDos = ToDo::with('user','status','campaign')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('campaign_id',$campaign->id)->get();
         // In progress to dos
@@ -144,6 +147,68 @@ class CRMController extends Controller
         $overdueToDos = ToDo::with('user','status','campaign')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('campaign_id',$campaign->id)->get();
 
         return view('admin.campaign_show',compact('campaign','user','navbarValues','campaignTypes','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+    }
+
+    public function campaignContactCreate($campaign_id)
+    {
+        // get Campaign
+        $campaign = Campaign::findOrFail($campaign_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get contacts
+        $contacts = Contact::with('user','status','contact_type')->get();
+        // get contact types
+        $contactTypes = ContactType::all();
+        // get organizations
+        $organizations = Organization::all();
+        // get titles
+        $titles = Title::all();
+        // get lead sources
+        $leadSources = LeadSource::all();
+        // get campaigns
+        $campaigns = Campaign::all();
+        return view('admin.campaign_contact_create',compact('campaign','contacts','user','contactTypes','navbarValues','organizations','titles','leadSources','campaigns'));
+    }
+
+    public function campaignDealCreate($campaign_id)
+    {
+
+        // get Campaign
+        $campaign = Campaign::findOrFail($campaign_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // organization
+        $organizations = Organization::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+        // lead source
+        $leadSources = LeadSource::all();
+        // deal stage
+        $dealStages = DealStage::all();
+        return view('admin.campaign_deal_create',compact('campaign','dealStages','leadSources','contacts','organizations','user','navbarValues'));
+
+    }
+
+    public function campaignQuoteCreate($campaign_id)
+    {
+        // get campaign
+        $campaign = Campaign::findOrFail($campaign_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // organization
+        $organizations = Organization::all();
+        // get taxes
+        $taxes = Tax::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+        return view('admin.campaign_quote_create',compact('campaign','taxes','contacts','organizations','user','navbarValues'));
+
     }
 
     public function campaignUploads($campaign_id)
@@ -366,6 +431,11 @@ class CRMController extends Controller
         $contact->organization_id = $request->organization;
         $contact->campaign_id = $request->campaign;
 
+        if($request->organization){
+            $contact->is_organization = True;
+        }else{
+            $contact->is_organization = False;
+        }
         if($request->is_lead == "on"){
             $contact->is_lead = True;
         }else{
@@ -457,7 +527,7 @@ class CRMController extends Controller
         $contact->campaign_id = $request->campaign;
         $contact->save();
 
-        // Album tags update
+        // contact type contacts update
         $contactTypeRequestDate =array();
         foreach ($request->contact_types as $contactTypeContacts){
             // Append to array
@@ -695,6 +765,7 @@ class CRMController extends Controller
         $deal->lead_source_id = $request->lead_source;
         $deal->deal_stage_id = $request->deal_stage;
         $deal->campaign_id = $request->campaign;
+        $deal->about = $request->about;
         $deal->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $deal->user_id = Auth::user()->id;
         $deal->save();
@@ -759,6 +830,7 @@ class CRMController extends Controller
         $deal->lead_source_id = $request->lead_source;
         $deal->deal_stage_id = $request->deal_stage;
         $deal->campaign_id = $request->campaign;
+        $deal->about = $request->about;
         $deal->user_id = Auth::user()->id;
         $deal->save();
         return redirect()->route('admin.deal.show',$deal->id)->withSuccess('Deal updated!');
@@ -784,6 +856,418 @@ class CRMController extends Controller
         $deal->save();
 
         return back()->withSuccess(__('Deal '.$deal->name.' successfully restored.'));
+    }
+
+    // quotes
+    public function quotes()
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $quotes = Quote::with('user','status')->get();
+        return view('admin.quotes',compact('quotes','user','navbarValues'));
+
+    }
+
+    public function quoteCreate()
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // organization
+        $organizations = Organization::all();
+        // get taxes
+        $taxes = Tax::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+        return view('admin.quote_create',compact('taxes','contacts','organizations','user','navbarValues'));
+
+    }
+
+    public function dealQuoteCreate($deal_id)
+    {
+
+        // get deal
+        $deal = Deal::findOrFail($deal_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get taxes
+        $taxes = Tax::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+        return view('admin.deal_quote_create',compact('deal','taxes','contacts','user','navbarValues'));
+
+    }
+
+    public function quoteStore(Request $request)
+    {
+        // Generate reference
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
+        $quote = new Quote();
+        $quote->reference = $reference;
+        $quote->date = date('Y-m-d', strtotime($request->date));
+        $quote->due_date = date('Y-m-d', strtotime($request->due_date));
+
+        $quote->customer_notes = $request->customer_notes;
+        $quote->terms_and_conditions = $request->terms_and_conditions;
+
+        $quote->subtotal = $request->subtotal;
+        $quote->discount = $request->discount;
+        $quote->total = $request->grand_total;
+
+        $quote->tax = 0;
+        $quote->paid = 0;
+        $quote->balance = 0;
+
+        if($request->is_deal == "on"){
+            $quote->is_deal = True;
+            $quote->deal_id = $request->deal;
+        }else{
+            $quote->is_deal = False;
+        }
+
+        if($request->is_campaign == "on"){
+            $quote->is_campaign = True;
+            $quote->campaign_id = $request->campaign;
+        }else{
+            $quote->is_campaign = False;
+        }
+
+        if($request->is_draft == "on"){
+            $quote->is_draft = True;
+        }else{
+            $quote->is_draft = False;
+        }
+
+        $quote->has_uploads = False;
+        $quote->is_rejected = False;
+        $quote->is_cancelled = False;
+        $quote->is_accepted = False;
+
+        $quote->contact_id = $request->contact;
+        $quote->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $quote->user_id = Auth::user()->id;
+        $quote->save();
+
+        // Quote items
+        foreach ($request->item_details as $item) {
+
+            $quoteItem =  new QuoteItem();
+            $quoteItem->product = $item['item'];
+            $quoteItem->rate = $item['rate'];
+            $quoteItem->quantity = $item['quantity'];
+            $quoteItem->amount = $item['amount'];
+            $quoteItem->quote_id = $quote->id;
+            $quoteItem->is_refunded = False;
+            $quoteItem->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+            $quoteItem->user_id = Auth::user()->id;
+            $quoteItem->save();
+        }
+
+        $taxTotal = 0;
+        // check if taxes applied
+        if($request->taxes){
+            // save quote taxes
+            foreach ($request->taxes as $quoteTaxes){
+                // get tax
+                $tax = Tax::findOrFail($quoteTaxes);
+                $quoteTax = new QuoteTax();
+                $quoteTax->quote_id = $quote->id;
+                $quoteTax->tax_id = $quoteTaxes;
+                $quoteTax->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $quoteTax->user_id = Auth::user()->id;
+                $quoteTax->save();
+
+                if ($tax->is_percentage == 1){
+                    // get percentage
+                    $amount = doubleval($tax->amount/100) * doubleval($request->grand_total);
+                    $taxTotal = $taxTotal + $amount;
+                }else{
+                    // add as is
+                    $taxTotal = $taxTotal + $tax->amount;
+                }
+            }
+        }
+
+        // calculate tax and update tax amount and update total
+        $quoteUpdateTax = Quote::findOrFail($quote->id);
+        $quoteUpdateTax->total = $quoteUpdateTax->sub_total + $quoteUpdateTax->discount + $taxTotal;
+        $quoteUpdateTax->tax = $taxTotal;
+        $quoteUpdateTax->save();
+
+        return redirect()->route('admin.quote.show',$quote->id)->withSuccess('Quote created!');
+
+    }
+
+    public function quoteShow($quote_id)
+    {
+        // Check if contact type exists
+        $quoteExists = Quote::findOrFail($quote_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get taxes
+        $taxes = Tax::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+
+        // Get quotes
+        $quote = Quote::with('user','status','contact','campaign','deal','quote_items')->withCount('quote_items')->where('id',$quote_id)->first();
+
+        return view('admin.quote_show',compact('contacts','taxes','quote','user','navbarValues'));
+    }
+
+    public function quoteEdit($quote_id)
+    {
+        // Check if contact type exists
+        $quoteExists = Quote::findOrFail($quote_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get taxes
+        $taxes = Tax::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+
+        // Get quotes
+        $quote = Quote::with('user','status','contact','campaign','deal','quote_items','quote_taxes')->withCount('quote_items')->where('id',$quote_id)->first();
+
+        return view('admin.quote_edit',compact('contacts','taxes','quote','user','navbarValues'));
+    }
+
+    public function quotePrint($quote_id)
+    {
+        // Check if contact type exists
+        $quoteExists = Quote::findOrFail($quote_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get taxes
+        $taxes = Tax::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+
+        // Get quotes
+        $quote = Quote::with('user','status','contact','campaign','deal')->where('id',$quote_id)->first();
+
+        return view('admin.quote_print',compact('contacts','taxes','quote','user','navbarValues'));
+    }
+
+    public function quoteSend($quote_id)
+    {
+        // Check if contact type exists
+        $quoteExists = Quote::findOrFail($quote_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get taxes
+        $taxes = Tax::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+
+        // Get quotes
+        $quote = Quote::with('user','status','contact','campaign','deal')->where('id',$quote_id)->first();
+
+        return view('admin.quote_send',compact('contacts','taxes','quote','user','navbarValues'));
+    }
+
+    public function quoteUpdate(Request $request, $quote_id)
+    {
+
+        $quote = Quote::findOrFail($quote_id);
+        $quote->date = date('Y-m-d', strtotime($request->date));
+        $quote->due_date = date('Y-m-d', strtotime($request->due_date));
+
+        $quote->customer_notes = $request->customer_notes;
+        $quote->terms_and_conditions = $request->terms_and_conditions;
+
+        $quote->subtotal = $request->subtotal;
+        $quote->discount = $request->discount;
+        $quote->total = $request->grand_total;
+
+        if($request->is_deal == "on"){
+            $quote->is_deal = True;
+            $quote->deal_id = $request->deal;
+        }else{
+            $quote->is_deal = False;
+        }
+
+        if($request->is_campaign == "on"){
+            $quote->is_campaign = True;
+            $quote->campaign_id = $request->campaign;
+        }else{
+            $quote->is_campaign = False;
+        }
+
+        if($request->is_draft == "on"){
+            $quote->is_draft = True;
+        }else{
+            $quote->is_draft = False;
+        }
+
+        $quote->has_uploads = False;
+        $quote->is_rejected = False;
+        $quote->is_cancelled = False;
+        $quote->is_accepted = False;
+
+        $quote->contact_id = $request->contact;
+        $quote->save();
+
+        $quoteCurrentItems =array();
+        // Quote items
+        foreach ($request->item_details as $item) {
+
+            $quoteItemNames[]['id'] = $item['item'];
+            // check if product exists
+            $product = QuoteItem::where('quote_id',$quote->id)->where('product',$item['item'])->first();
+
+            if($product === null) {
+                $quoteItem =  new QuoteItem();
+                $quoteItem->product = $item['item'];
+                $quoteItem->rate = $item['rate'];
+                $quoteItem->quantity = $item['quantity'];
+                $quoteItem->amount = $item['amount'];
+                $quoteItem->quote_id = $quote->id;
+                $quoteItem->is_refunded = False;
+                $quoteItem->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+                $quoteItem->user_id = Auth::user()->id;
+                $quoteItem->save();
+            }else{
+                $product->product = $item['item'];
+                $product->rate = $item['rate'];
+                $product->quantity = $item['quantity'];
+                $product->amount = $item['amount'];
+                $product->save();
+            }
+        }
+
+        $quoteItemIds = QuoteItem::where('quote_id',$quote_id)->whereNotIn('product',$quoteItemNames)->select('id')->get()->toArray();
+        DB::table('quote_items')->whereIn('id', $quoteItemIds)->delete();
+
+        $taxTotal = 0;
+        // check if taxes applied
+        // Quote taxes update
+        $quoteRequestTaxes =array();
+        foreach ($request->taxes as $quoteQuoteTax){
+            // Append to array
+            $quoteRequestTaxes[]['id'] = $quoteQuoteTax;
+
+            // Check if quote tax exists
+            $quoteTax = QuoteTax::where('quote_id',$quote->id)->where('tax_id',$quoteQuoteTax)->first();
+            if($quoteTax === null) {
+                $quoteTax = new QuoteTax();
+                $quoteTax->quote_id = $quote->id;
+                $quoteTax->tax_id = $quoteQuoteTax;
+                $quoteTax->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $quoteTax->user_id = Auth::user()->id;
+                $quoteTax->save();
+            }
+            $tax = Tax::findOrFail($quoteQuoteTax);
+            if ($tax->is_percentage == 1){
+                // get percentage
+                $amount = doubleval($tax->amount/100) * doubleval($request->grand_total);
+                $taxTotal = $taxTotal + $amount;
+            }else{
+                // add as is
+                $taxTotal = $taxTotal + $tax->amount;
+            }
+        }
+
+        $quoteTaxesIds = QuoteTax::where('quote_id',$quote_id)->whereNotIn('tax_id',$quoteRequestTaxes)->select('id')->get()->toArray();
+        DB::table('quote_taxes')->whereIn('id', $quoteTaxesIds)->delete();
+
+
+        // calculate tax and update tax amount and update total
+        $quoteUpdateTax = Quote::findOrFail($quote->id);
+        $quoteUpdateTax->total = $request->subtotal + $request->discount + $taxTotal;
+        $quoteUpdateTax->tax = $taxTotal;
+        $quoteUpdateTax->save();
+
+        return redirect()->route('admin.quote.show',$quote->id)->withSuccess('Quote updated!');
+
+    }
+
+    public function quoteDelete($quote_id)
+    {
+
+        $quote = Quote::findOrFail($quote_id);
+        $quote->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $quote->user_id = Auth::user()->id;
+        $quote->save();
+
+        return back()->withSuccess(__('Quote '.$quote->name.' successfully deleted.'));
+    }
+
+    public function quoteAccepted($quote_id)
+    {
+
+        $quote = Quote::findOrFail($quote_id);
+        $quote->is_accepted = True;
+        $quote->user_id = Auth::user()->id;
+        $quote->save();
+
+        return back()->withSuccess(__('Quote '.$quote->name.' successfully marked as accepted.'));
+    }
+
+    public function quoteRejected($quote_id)
+    {
+
+        $quote = Quote::findOrFail($quote_id);
+        $quote->is_rejected = True;
+        $quote->user_id = Auth::user()->id;
+        $quote->save();
+
+        return back()->withSuccess(__('Quote '.$quote->name.' successfully marked as rejected.'));
+    }
+
+    public function quoteCancelled($quote_id)
+    {
+
+        $quote = Quote::findOrFail($quote_id);
+        $quote->is_cancelled = True;
+        $quote->user_id = Auth::user()->id;
+        $quote->save();
+
+        return back()->withSuccess(__('Quote '.$quote->name.' successfully marked as cancelled.'));
+    }
+
+    public function quoteRestore($quote_id)
+    {
+
+        $quote = Quote::findOrFail($quote_id);
+        $quote->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $quote->user_id = Auth::user()->id;
+        $quote->save();
+
+        return back()->withSuccess(__('Quote '.$quote->name.' successfully restored.'));
     }
 
 }

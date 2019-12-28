@@ -58,7 +58,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="#" data-toggle="modal" data-target="#toDoRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="#" data-toggle="modal" data-target="#toDoRegistration" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> To Do </a>
             </div>
         </div>
     </div>

@@ -30,6 +30,7 @@ class CreateContactsTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->boolean('is_organization');
             $table->uuid('organization_id')->nullable();
             $table->uuid('title_id')->nullable();
             $table->uuid('lead_source_id')->nullable();

@@ -54,6 +54,16 @@
                 </li>
             </ol>
         </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                @if($deal->campaign_id)
+                    <a href="{{route('admin.campaign.show',$deal->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                @endif
+                @if($deal->contact_id)
+                    <a href="{{route('admin.contact.show',$deal->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                @endif
+            </div>
+        </div>
     </div>
 
 
@@ -134,14 +144,14 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Name">
+                                                <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$deal->name}}">
                                                 <i>name</i>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <input type="number" id="amount" name="amount" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Amount">
+                                                <input type="number" id="amount" name="amount" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$deal->amount}}">
                                                 <i>amount</i>
                                             </div>
                                         </div>
@@ -154,7 +164,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="starting_date" class="form-control input-lg" value="7/27/2019">
+                                                    <input type="text" name="starting_date" class="form-control input-lg" value="{{$deal->starting_date}}">
                                                 </div>
                                                 <i>start date for the deal.</i>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -166,7 +176,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" name="closing_date" class="form-control input-lg" value="7/27/2019">
+                                                    <input type="text" name="closing_date" class="form-control input-lg" value="{{$deal->closing_date}}">
                                                 </div>
                                                 <i>closing date for the deal.</i>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -179,14 +189,14 @@
                                             <select name="deal_stage" class="select2_demo_tag form-control input-lg">
                                                 <option>Select Deal Stage</option>
                                                 @foreach($dealStages as $dealStage)
-                                                    <option value="{{$dealStage->id}}">{{$dealStage->name}}</option>
+                                                    <option @if($dealStage->id == $deal->deal_stage_id) selected @endif value="{{$dealStage->id}}">{{$dealStage->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>deal stage</i>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <input type="number" id="probability" name="probability" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Probability">
+                                                <input type="number" id="probability" name="probability" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" value="{{$deal->probability}}">
                                                 <i>probability</i>
                                             </div>
                                         </div>
@@ -197,17 +207,16 @@
                                             <select required="required" name="organization" class="select2_demo_tag form-control input-lg">
                                                 <option>Select Organization</option>
                                                 @foreach($organizations as $organization)
-                                                    <option value="{{$organization->id}}">{{$organization->name}}</option>
+                                                    <option @if($organization->id == $deal->organization_id) selected @endif value="{{$organization->id}}">{{$organization->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>organization</i>
                                         </div>
-
                                         <div class="col-md-6">
-                                            <select required="required" name="title" class="select2_demo_tag form-control input-lg">
+                                            <select required="required" name="contact" class="select2_demo_tag form-control input-lg">
                                                 <option>Select Contact</option>
                                                 @foreach($contacts as $contact)
-                                                    <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
+                                                    <option @if($contact->id == $deal->contact_id) selected @endif value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>contact</i>
@@ -219,7 +228,7 @@
                                             <select required="required" name="lead_source" class="select2_demo_tag form-control input-lg">
                                                 <option>Select Lead Source</option>
                                                 @foreach($leadSources as $leadSource)
-                                                    <option value="{{$leadSource->id}}">{{$leadSource->name}}</option>
+                                                    <option @if($leadSource->id == $deal->lead_source_id) selected @endif value="{{$leadSource->id}}">{{$leadSource->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>lead source</i>
@@ -230,7 +239,7 @@
                                                 <select required="required" name="campaign" class="select2_demo_tag form-control input-lg">
                                                     <option>Select Campaign</option>
                                                     @foreach($campaigns as $campaign)
-                                                        <option value="{{$campaign->id}}">{{$campaign->name}}</option>
+                                                        <option @if($campaign->id == $deal->campaign_id) selected @endif value="{{$campaign->id}}">{{$campaign->name}}</option>
                                                     @endforeach
                                                 </select>
                                                 <i>campaign</i>
@@ -241,7 +250,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="has-warning">
-                                                <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required" placeholder="About..."></textarea>
+                                                <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required">{{$deal->about}}</textarea>
                                             </div>
                                         </div>
                                     </div>
