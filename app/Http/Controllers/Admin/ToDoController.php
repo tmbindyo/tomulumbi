@@ -105,6 +105,13 @@ class ToDoController extends Controller
         }else{
             $todo->is_journal = False;
         }
+        // journal series
+        if($request->is_journal_series){
+            $todo->is_journal_series = True;
+            $todo->journal_series_id = $request->journal_series;
+        }else{
+            $todo->is_journal_series = False;
+        }
         // project
         if($request->is_project){
             $todo->is_project = True;

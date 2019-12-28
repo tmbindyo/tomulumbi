@@ -22,6 +22,9 @@ class CreateJournalSeriesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 
+            $table->boolean('is_journal_series');
+            $table->uuid('journal_series_id')->nullable();
+            
             $table->timestamps();
             $table->softDeletes();
         });

@@ -24,6 +24,7 @@ use DB;
 use App\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\JournalSeries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -36,11 +37,85 @@ class JournalController extends Controller
     use JournalTrait;
     use StatusCountTrait;
     use DownloadViewNumbersTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    public function journalSeriesCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get journal series
+        $journalSeries = JournalSeries::all();
+        return view('admin.journal_series_create',compact('journalSeries','user','navbarValues'));
+    }
+
+    public function journalSeriesStore(Request $request)
+    {
+
+        $journalSeries = new JournalSeries();
+        $journalSeries->name = $request->name;
+        $journalSeries->description = $request->description;
+        if($request->is_journal_series == "on"){
+            $journalSeries->is_journal_series = True;
+            $journalSeries->journal_series_id = $request->journal_series;
+        }else{
+            $journalSeries->is_journal_series = False;
+        }
+        $journalSeries->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $journalSeries->user_id = Auth::user()->id;
+        $journalSeries->save();
+
+        return redirect()->route('admin.journal.series.show',$journalSeries->id)->withSuccess('Journal series updated!');
+    }
+
+    public function journalSeriesShow($journal_series_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get journal series
+        $journalSerieses = JournalSeries::all();
+
+        // Get journal series
+        $journalSeries = JournalSeries::findOrFail($journal_series_id);
+        $journalSeries = JournalSeries::where('id',$journal_series_id)->with('user','status')->first();
+        // project journals
+        $journalSeriesJournals = Journal::with('user','status')->where('journal_series_id',$journal_series_id)->get();
+
+        // Pending to dos
+        $pendingToDos = ToDo::with('user','status','journal_series')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('journal_series_id',$journalSeries->id)->get();
+        // In progress to dos
+        $inProgressToDos = ToDo::with('user','status','journal_series')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('journal_series_id',$journalSeries->id)->get();
+        // Completed to dos
+        $completedToDos = ToDo::with('user','status','journal_series')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('journal_series_id',$journalSeries->id)->get();
+        // Overdue to dos
+        $overdueToDos = ToDo::with('user','status','journal_series')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('journal_series_id',$journalSeries->id)->get();
+
+
+        return view('admin.journal_series_show',compact('journalSeriesJournals','journalSeries','overdueToDos','completedToDos','inProgressToDos','pendingToDos','journalSerieses','user','navbarValues'));
+    }
+
+    public function journalSeriesJournalCreate($journal_series_id)
+    {
+        // get journal series
+        $journalSeries = JournalSeries::findOrFail($journal_series_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Labels
+        $labels = Label::all();
+        return view('admin.journal_series_journal_create',compact('journalSeries','user','labels','navbarValues'));
+    }
+
+
+    // journals
     public function journals()
     {
         // User
@@ -51,8 +126,11 @@ class JournalController extends Controller
         $journalsStatusCount = $this->journalsStatusCount();
         // Get journals
         $journals = Journal::with('user','status')->get();
+        // get journal series
+        $journalSeries = JournalSeries::with('user','status')->withCount('journals')->get();
 
-        return view('admin.journals',compact('journals','user','navbarValues','journalsStatusCount'));
+
+        return view('admin.journals',compact('journalSeries','journals','user','navbarValues','journalsStatusCount'));
     }
 
     public function journalCreate()
@@ -80,21 +158,24 @@ class JournalController extends Controller
             $journal->project_id = $request->project;
         }else{
             $journal->is_project = False;
-            $journal->project_id = '';
         }
         if($request->is_design == "on"){
             $journal->is_design = True;
             $journal->design_id = $request->design;
         }else{
             $journal->is_design = False;
-            $journal->design_id = '';
         }
         if($request->is_album == "on"){
             $journal->is_album = True;
             $journal->album_id = $request->album;
         }else{
             $journal->is_album = False;
-            $journal->album_id = '';
+        }
+        if($request->is_journal_series == "on"){
+            $journal->is_journal_series = True;
+            $journal->journal_series_id = $request->journal_series;
+        }else{
+            $journal->is_journal_series = False;
         }
 
         $journal->views = 0;

@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Campaign Create')
+@section('title', 'Journal Series Create')
 
 @section('css')
 
@@ -50,7 +50,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-5">
-            <h2>Campaign's</h2>
+            <h2>Journal Series's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -59,21 +59,16 @@
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.campaigns')}}">Campaign's</a>
+                    <a href="{{route('admin.journals')}}">Journal Series's</a>
                 </li>
                 <li class="active">
-                    <strong>Campaign Create</strong>
+                    <strong>Journal Series Create</strong>
                 </li>
             </ol>
         </div>
         <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('admin.campaign.contact.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
-                <a href="{{route('admin.campaign.deal.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deal </a>
-                <a href="{{route('admin.campaign.expense.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
-                <a href="{{route('admin.campaign.quote.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Quote </a>
-                <a href="{{route('admin.campaign.organization.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Organization </a>
-                <a href="{{route('admin.campaign.uploads',$campaign->id)}}" class="btn btn-success btn-outline">Uploads</a>
+                <a href="{{route('admin.journal.series.journal.create',$journalSeries->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
             </div>
         </div>
     </div>
@@ -83,7 +78,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Campaign Registration <small>Form</small></h5>
+                        <h5>Journal Series Registration <small>Form</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -107,7 +102,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.campaign.update',$campaign->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.journal.series.update',$journalSeries->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -123,84 +118,28 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" value="{{$campaign->name}}" class="form-control input-lg">
+                                        <input type="text" id="name" name="name" required="required" value="{{$journalSeries->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
                                     <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="has-warning" id="data_1">
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                    <input type="text" required="required" name="start_date" class="form-control input-lg" value="{{$campaign->start_date}}">
-                                                </div>
-                                                <i>What is the start date of the event?</i>
-                                                <span id="inputSuccess2Status4" class="sr-only">(success)</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning" id="data_1">
-                                                <div class="input-group date">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                    <input type="text" required="required" name="end_date" class="form-control input-lg" value="{{$campaign->end_date}}">
-                                                </div>
-                                                <i>What is the end date of the event?</i>
-                                                <span id="inputSuccess2Status4" class="sr-only">(success)</span>
-                                            </div>
-                                        </div>
+                                    <div class="has-warning">
+                                        <textarea id="description" rows="5" name="description" class="resizable_textarea form-control input-lg" required="required">{{$journalSeries->description}}</textarea>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            <input type="checkbox" name="is_journal_series" class="js-switch_3" @if($journalSeries->is_journal_series == 1) checked @endif/>
+                                            <i>is journal series</i>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="has-warning">
-                                                <select name="type" class="select2_demo_tag form-control input-lg">
-                                                    <option selected disabled >Select Type</option>
-                                                    @foreach ($campaignTypes as $campaignType)
-                                                        <option @if($campaign->campaign_type_id == $campaignType->id) selected @endif value="{{$campaignType->id}}">{{$campaignType->name}}</option>
+                                                <select required="required" name="journal_series" class="select2_demo_tag form-control input-lg">
+                                                    <option>Select Journal Series</option>
+                                                    @foreach($journalSerieses as $series)
+                                                        <option @if($series->id == $journalSeries->journal_series_id) selected @endif value="{{$series->id}}">{{$series->name}}</option>
                                                     @endforeach
-
                                                 </select>
-                                                <i>type</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                <input type="number" id="expected_revenue" name="expected_revenue" required="required" value="{{$campaign->expected_revenue}}" class="form-control input-lg">
-                                                <i>expected revenue</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                <input type="number" id="actual_cost" name="actual_cost" required="required" value="{{$campaign->actual_cost}}" class="form-control input-lg" readonly>
-                                                <i>actual cost</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" value="{{$campaign->budgeted_cost}}" class="form-control input-lg">
-                                                <i>budgeted cost</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$campaign->description}}</textarea>
-                                                <i>Give a brief description on what the project is about</i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="has-warning">
-                                                <textarea rows="5" id="expected_response" name="expected_response" required="required" class="form-control input-lg">{{$campaign->expected_response}}</textarea>
-                                                <i>Give a the expected response</i>
+                                                <i>journal series</i>
                                             </div>
                                         </div>
                                     </div>
@@ -233,7 +172,7 @@
                                     <div class="m-b-md">
                                     </div>
                                     <dl class="dl-horizontal">
-                                        <dt>Status:</dt> <dd><span class="label {{$campaign->status->label}}">{{$campaign->status->name}}</span></dd>
+                                        <dt>Status:</dt> <dd><span class="label {{$journalSeries->status->label}}">{{$journalSeries->status->name}}</span></dd>
                                     </dl>
                                 </div>
                             </div>
@@ -241,14 +180,14 @@
                                 <div class="col-lg-5">
                                     <dl class="dl-horizontal">
 
-                                        <dt>Created by:</dt> <dd>{{$campaign->user->name}}</dd>
+                                        <dt>Created by:</dt> <dd>{{$journalSeries->user->name}}</dd>
                                     </dl>
                                 </div>
                                 <div class="col-lg-7" id="cluster_info">
                                     <dl class="dl-horizontal" >
 
-                                        <dt>Last Updated:</dt> <dd>{{$campaign->updated_at}}</dd>
-                                        <dt>Created:</dt> <dd> {{$campaign->created_at}} </dd>
+                                        <dt>Last Updated:</dt> <dd>{{$journalSeries->updated_at}}</dd>
+                                        <dt>Created:</dt> <dd> {{$journalSeries->created_at}} </dd>
                                     </dl>
                                 </div>
                             </div>
@@ -258,11 +197,7 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#contacts" data-toggle="tab">Contacts</a></li>
-                                            <li class=""><a href="#deals" data-toggle="tab">Deal</a></li>
-                                            <li class=""><a href="#expenses" data-toggle="tab">Expenses</a></li>
-                                            <li class=""><a href="#organizations" data-toggle="tab">Organizations</a></li>
-                                            <li class=""><a href="#quotes" data-toggle="tab">Quotes</a></li>
+                                            <li class="active"><a href="#journals" data-toggle="tab">Journals</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -270,84 +205,36 @@
                                 <div class="panel-body">
 
                                     <div class="tab-content">
-                                        <div class="tab-pane active" id="contacts">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($campaign->contacts as $contact)
-                                                            <tr class="gradeX">
-                                                                <td>{{$contact->first_name}} {{$contact->last_name}}</td>
-                                                                <td>{{$contact->email}}</td>
-                                                                <td>{{$contact->phone_number}}</td>
-                                                                <td>{{$contact->user->name}}</td>
-                                                                <td>
-                                                                    <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <div class="btn-group">
-                                                                        <a href="{{ route('admin.contact.show', $contact->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="deals">
-
+                                        <div class="tab-pane active" id="journals">
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                     <thead>
                                                     <tr>
-                                                        <th>Reference</th>
-                                                        <th>Amount</th>
-                                                        <th>Starting Date</th>
-                                                        <th>Closing Date</th>
-                                                        <th>Probability</th>
+                                                        <th>Name</th>
+                                                        <th>Date</th>
+                                                        <th>Views</th>
+                                                        <th>User</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($campaign->deals as $deal)
+                                                    @foreach($journalSeriesJournals as $journal)
                                                         <tr class="gradeX">
-                                                            <td>{{$deal->reference}}</td>
-                                                            <td>{{$deal->amount}}</td>
-                                                            <td>{{$deal->starting_date}}</td>
-                                                            <td>{{$deal->closing_date}}</td>
-                                                            <td>{{$deal->probability}}</td>
+                                                            <td>{{$journal->name}}</td>
+                                                            <td>{{$journal->date}}</td>
+                                                            <td>{{$journal->views}}</td>
+                                                            <td>{{$journal->user->name}}</td>
                                                             <td>
-                                                                <span class="label {{$deal->status->label}}">{{$deal->status->name}}</span>
+                                                                <span class="label {{$journal->status->label}}">{{$journal->status->name}}</span>
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('admin.deal.show', $deal->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                    @if($deal->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('admin.deal.restore', $deal->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                    <a href="{{ route('admin.journal.show', $journal->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @if($journal->status->name == "Deleted")
+                                                                        <a href="{{ route('admin.journal.restore', $journal->id) }}" class="btn-warning btn btn-xs">Restore</a>
                                                                     @else
-                                                                        <a href="{{ route('admin.deal.delete', $deal->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                        <a href="{{ route('admin.journal.delete', $journal->id) }}" class="btn-danger btn btn-xs">Delete</a>
                                                                     @endif
                                                                 </div>
                                                             </td>
@@ -356,185 +243,10 @@
                                                     </tbody>
                                                     <tfoot>
                                                     <tr>
-                                                        <th>Reference</th>
-                                                        <th>Amount</th>
-                                                        <th>Starting Date</th>
-                                                        <th>Closing Date</th>
-                                                        <th>Probability</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="expenses">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Recurring</th>
-                                                        <th>Expense #</th>
+                                                        <th>Name</th>
                                                         <th>Date</th>
-                                                        <th>Created</th>
-                                                        <th>Expense Type</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($campaign->expenses as $expense)
-                                                        <tr class="gradeA">
-                                                            <td>
-                                                                @if($expense->is_recurring == 1)
-                                                                    <p><span class="badge badge-success">True</span></p>
-                                                                @else
-                                                                    <p><span class="badge badge-success">False</span></p>
-                                                                @endif
-                                                            </td>
-                                                            <td>{{$expense->reference}}</td>
-                                                            <td>{{$expense->date}}</td>
-                                                            <td>{{$expense->created_at}}</td>
-                                                            <td>{{$expense->expense_type->name}}</td>
-                                                            <td>{{$expense->total}}</td>
-                                                            <td>{{$expense->paid}}</td>
-                                                            <td>
-                                                                <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('admin.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Recurring</th>
-                                                        <th>Expense #</th>
-                                                        <th>Date</th>
-                                                        <th>Created</th>
-                                                        <th>Expense Type</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="organizations">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($campaign->organizations as $organization)
-                                                            <tr class="gradeX">
-                                                                <td>{{$organization->name}}</td>
-                                                                <td>{{$organization->email}}</td>
-                                                                <td>{{$organization->phone_number}}</td>
-                                                                <td>{{$organization->user->name}}</td>
-                                                                <td>
-                                                                    <span class="label {{$organization->status->label}}">{{$organization->status->name}}</span>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <div class="btn-group">
-                                                                        <a href="{{ route('admin.organization.show', $organization->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Email</th>
-                                                            <th>Phone Number</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="quotes">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Balance</th>
-                                                        <th>State</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($campaign->quotes as $quote)
-                                                        <tr class="gradeX">
-                                                            <td>{{$quote->reference}}</td>
-                                                            <td>{{$quote->total}}</td>
-                                                            <td>{{$quote->paid}}</td>
-                                                            <td>{{$quote->balance}}</td>
-                                                            <td>
-                                                                @if($quote->is_draft == 1)
-                                                                    <span class="label label-info"> Draft </span>
-                                                                @endif
-                                                                @if($quote->is_accepted == 1)
-                                                                    <span class="label label-primary"> Accepted </span>
-                                                                @endif
-                                                                @if($quote->is_rejected == 1)
-                                                                    <span class="label label-warning"> Rejected </span>
-                                                                @endif
-                                                                @if($quote->is_cancelled == 1)
-                                                                    <span class="label label-danger"> Cancelled </span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <span class="label {{$quote->status->label}}">{{$quote->status->name}}</span>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('admin.quote.show', $quote->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                    @if($quote->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('admin.quote.restore', $quote->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                    @else
-                                                                        <a href="{{ route('admin.quote.delete', $quote->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                    @endif
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Balance</th>
-                                                        <th>State</th>
+                                                        <th>Views</th>
+                                                        <th>User</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -543,6 +255,7 @@
                                             </div>
 
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -642,7 +355,7 @@
 
 @endsection
 
-@include('admin.layouts.modals.campaign_to_do')
+@include('admin.layouts.modals.journal_series_to_do')
 
 @section('js')
 
@@ -659,6 +372,43 @@
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
+
+<!-- Chosen -->
+<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
+
+<!-- Input Mask-->
+<script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+<!-- Data picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<!-- Switchery -->
+<script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
+
+<!-- iCheck -->
+<script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
+
+<!-- MENU -->
+<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<!-- Color picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+<!-- Clock picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
+
+<!-- Image cropper -->
+<script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
+
+<!-- Date range use moment.js same as full calendar plugin -->
+<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
+
+<!-- Date range picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+<!-- Select2 -->
+<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
 
 <!-- Chosen -->
 <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
@@ -718,41 +468,6 @@
 <!-- Masonry -->
 <script src="{{ asset('inspinia') }}/js/plugins/masonary/masonry.pkgd.min.js"></script>
 
-<!-- Chosen -->
-<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
-
-<!-- Input Mask-->
-<script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
-
-<!-- Data picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-<!-- Switchery -->
-<script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
-
-<!-- iCheck -->
-<script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
-
-<!-- MENU -->
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-<!-- Color picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-
-<!-- Clock picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
-
-<!-- Image cropper -->
-<script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
-
-<!-- Date range use moment.js same as full calendar plugin -->
-<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
-
-<!-- Date range picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
-
-<!-- Select2 -->
-<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
 <style>
 
@@ -940,6 +655,7 @@
 
     }
 </script>
+
 <script>
     $(document).ready(function(){
 

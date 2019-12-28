@@ -36,7 +36,8 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('admin.journal.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.journal.series.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Jounal Series </a>
+                <a href="{{route('admin.journal.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
             </div>
         </div>
     </div>
@@ -107,22 +108,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($journals as $journal)
+                                @foreach($journalSeries as $series)
                                     <tr class="gradeX">
-                                        <td>{{$journal->name}}</td>
-                                        <td>{{$journal->date}}</td>
-                                        <td>{{$journal->views}}</td>
-                                        <td>{{$journal->user->name}}</td>
+                                        <td>{{$series->name}}</td>
+                                        <td>{{$series->created_at}}</td>
+                                        <td>{{$series->journals_count}}</td>
+                                        <td>{{$series->user->name}}</td>
                                         <td>
-                                            <span class="label {{$journal->status->label}}">{{$journal->status->name}}</span>
+                                            <span class="label {{$series->status->label}}">{{$series->status->name}}</span>
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group">
-                                                <a href="{{ route('admin.journal.show', $journal->id) }}" class="btn-white btn btn-xs">View</a>
-                                                @if($journal->status->name == "Deleted")
-                                                    <a href="{{ route('admin.journal.restore', $journal->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                <a href="{{ route('admin.journal.series.show', $series->id) }}" class="btn-white btn btn-xs">View</a>
+                                                @if($series->status->name == "Deleted")
+                                                    <a href="{{ route('admin.journal.series.restore', $series->id) }}" class="btn-warning btn btn-xs">Restore</a>
                                                 @else
-                                                    <a href="{{ route('admin.journal.delete', $journal->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    <a href="{{ route('admin.journal.series.delete', $series->id) }}" class="btn-danger btn btn-xs">Delete</a>
                                                 @endif
                                             </div>
                                         </td>

@@ -529,6 +529,41 @@
 <!-- Masonry -->
 <script src="{{ asset('inspinia') }}/js/plugins/masonary/masonry.pkgd.min.js"></script>
 
+<!-- Chosen -->
+<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
+
+<!-- Input Mask-->
+<script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+<!-- Data picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<!-- Switchery -->
+<script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
+
+<!-- iCheck -->
+<script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
+
+<!-- MENU -->
+<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<!-- Color picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+<!-- Clock picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
+
+<!-- Image cropper -->
+<script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
+
+<!-- Date range use moment.js same as full calendar plugin -->
+<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
+
+<!-- Date range picker -->
+<script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+<!-- Select2 -->
+<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
 <style>
 
@@ -729,6 +764,37 @@
             }
         });
 
+        var $inputImage = $("#inputImage");
+        if (window.FileReader) {
+            $inputImage.change(function() {
+                var fileReader = new FileReader(),
+                    files = this.files,
+                    file;
+
+                if (!files.length) {
+                    return;
+                }
+
+                file = files[0];
+
+                if (/^image\/\w+$/.test(file.type)) {
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function () {
+                        $inputImage.val("");
+                        $image.cropper("reset", true).cropper("replace", this.result);
+                    };
+                } else {
+                    showMessage("Please choose an image file.");
+                }
+            });
+        } else {
+            $inputImage.addClass("hide");
+        }
+
+        $("#download").click(function() {
+            window.open($image.cropper("getDataURL"));
+        });
+
         $("#zoomIn").click(function() {
             $image.cropper("zoom", 0.1);
         });
@@ -792,22 +858,10 @@
         var switchery = new Switchery(elem, { color: '#1AB394' });
 
         var elem_2 = document.querySelector('.js-switch_2');
-        var switchery_2 = new Switchery(elem_2, { color: '#1AB394' });
+        var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
 
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
-
-        var elem_4 = document.querySelector('.js-switch_4');
-        var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
-
-        var elem_5 = document.querySelector('.js-switch_5');
-        var switchery_5 = new Switchery(elem_5, { color: '#1AB394' });
-
-        var elem_6 = document.querySelector('.js-switch_6');
-        var switchery_6 = new Switchery(elem_6, { color: '#1AB394' });
-
-        var elem_10 = document.querySelector('.js-switch_10');
-        var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
 
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
@@ -816,12 +870,6 @@
 
         $('.demo1').colorpicker();
 
-        var divStyle = $('.back-change')[0].style;
-        $('#demo_apidemo').colorpicker({
-            color: divStyle.backgroundColor
-        }).on('changeColor', function(ev) {
-            divStyle.backgroundColor = ev.color.toHex();
-        });
 
         $('.clockpicker').clockpicker();
 
@@ -872,33 +920,17 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_3").select2({
-            placeholder: "Select a state",
+        $(".select2_demo_tag").select2({
+            placeholder: "Select Tags",
             allowClear: true
         });
-
-
-        $(".touchspin1").TouchSpin({
-            buttondown_class: 'btn btn-white',
-            buttonup_class: 'btn btn-white'
+        $(".select2_demo_project").select2({
+            placeholder: "Select Project",
+            allowClear: true
         });
-
-        $(".touchspin2").TouchSpin({
-            min: 0,
-            max: 100,
-            step: 0.1,
-            decimals: 2,
-            boostat: 5,
-            maxboostedstep: 10,
-            postfix: '%',
-            buttondown_class: 'btn btn-white',
-            buttonup_class: 'btn btn-white'
-        });
-
-        $(".touchspin3").TouchSpin({
-            verticalbuttons: true,
-            buttondown_class: 'btn btn-white',
-            buttonup_class: 'btn btn-white'
+        $(".select2_demo_category").select2({
+            placeholder: "Select Categories",
+            allowClear: true
         });
 
 
@@ -913,56 +945,6 @@
     for (var selector in config) {
         $(selector).chosen(config[selector]);
     }
-
-    $("#ionrange_1").ionRangeSlider({
-        min: 0,
-        max: 5000,
-        type: 'double',
-        prefix: "$",
-        maxPostfix: "+",
-        prettify: false,
-        hasGrid: true
-    });
-
-    $("#ionrange_2").ionRangeSlider({
-        min: 0,
-        max: 10,
-        type: 'single',
-        step: 0.1,
-        postfix: " carats",
-        prettify: false,
-        hasGrid: true
-    });
-
-    $("#ionrange_3").ionRangeSlider({
-        min: -50,
-        max: 50,
-        from: 0,
-        postfix: "°",
-        prettify: false,
-        hasGrid: true
-    });
-
-    $("#ionrange_4").ionRangeSlider({
-        values: [
-            "January", "February", "March",
-            "April", "May", "June",
-            "July", "August", "September",
-            "October", "November", "December"
-        ],
-        type: 'single',
-        hasGrid: true
-    });
-
-    $("#ionrange_5").ionRangeSlider({
-        min: 10000,
-        max: 100000,
-        step: 100,
-        postfix: " km",
-        from: 55000,
-        hideMinMax: true,
-        hideFromTo: false
-    });
 
     $(".dial").knob();
 

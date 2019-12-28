@@ -1,14 +1,23 @@
 <?php
 
+// Emails
+Route::get('/emails', 'Admin\EmailController@emails')->name('admin.emails');
+Route::get('/email/show/{email_id}', 'Admin\EmailController@emailShow')->name('admin.email.show');
+Route::post('/email/update/{email_id}', 'Admin\EmailController@emailUpdate')->name('admin.email.update');
+
+
 
 // Dashboard
 Route::get('/dashboard', 'Admin\DashboardController@dashboard')->name('admin.dashboard');
+
 
 
 // Calendar
 Route::get('/calendar', 'Admin\CalendarController@viewCalender')->name('admin.calendar');
 
 
+
+// Settings
 // Action types
 Route::get('/action/types', 'Admin\SettingsController@actionTypes')->name('admin.action.types');
 Route::get('/action/type/create', 'Admin\SettingsController@actionTypeCreate')->name('admin.action.type.create');
@@ -191,8 +200,8 @@ Route::get('/to/do/delete/{todo_id}', 'Admin\ToDoController@toDoDelete')->name('
 
 
 
-/// CRM
 
+/// CRM
 // Feed
 Route::get('/feed', 'Admin\CRMController@feed')->name('admin.feed');
 
@@ -272,12 +281,8 @@ Route::get('/quote/delete/{quote_id}', 'Admin\CRMController@quoteDelete')->name(
 Route::get('/quote/restore/{quote_id}', 'Admin\CRMController@quoteRestore')->name('admin.quote.restore');
 
 
-// Emails
-Route::get('/emails', 'Admin\EmailController@emails')->name('admin.emails');
-Route::get('/email/show/{email_id}', 'Admin\EmailController@emailShow')->name('admin.email.show');
-Route::post('/email/update/{email_id}', 'Admin\EmailController@emailUpdate')->name('admin.email.update');
 
-
+// Work
 // Album
 Route::get('/personal/albums', 'Admin\AlbumController@personalAlbums')->name('admin.personal.albums');
 Route::get('/personal/album/create', 'Admin\AlbumController@personalAlbumCreate')->name('admin.personal.album.create');
@@ -364,6 +369,17 @@ Route::get('/project/delete/{project_id}', 'Admin\ProjectController@projectDelet
 Route::get('/project/restore/{project_id}', 'Admin\ProjectController@projectRestore')->name('admin.project.restore');
 
 
+// Journal series
+Route::get('/journal/series/create', 'Admin\JournalController@journalSeriesCreate')->name('admin.journal.series.create');
+Route::post('/journal/series/store', 'Admin\JournalController@journalSeriesStore')->name('admin.journal.series.store');
+Route::get('/journal/series/show/{journal_series_id}', 'Admin\JournalController@journalSeriesShow')->name('admin.journal.series.show');
+
+Route::get('/journal/series/journal/create/{journal_series_id}', 'Admin\JournalController@journalSeriesJournalCreate')->name('admin.journal.series.journal.create');
+
+Route::post('/journal/series/update/{journal_series_id}', 'Admin\JournalController@journalSeriesUpdate')->name('admin.journal.series.update');
+Route::get('/journal/series/delete/{journal_series_id}', 'Admin\JournalController@journalSeriesDelete')->name('admin.journal.series.delete');
+Route::get('/journal/series/restore/{journal_series_id}', 'Admin\JournalController@journalSeriesRestore')->name('admin.journal.series.restore');
+
 // Journals
 Route::get('/journals', 'Admin\JournalController@journals')->name('admin.journals');
 Route::get('/journal/create', 'Admin\JournalController@journalCreate')->name('admin.journal.create');
@@ -375,6 +391,18 @@ Route::post('/journal/gallery/image/upload/{journal_id}', 'Admin\JournalControll
 Route::post('/journal/update/design/{journal_id}', 'Admin\JournalController@journalUpdateDesign')->name('admin.journal.update.design');
 Route::get('/journal/delete/{journal_id}', 'Admin\JournalController@journalDelete')->name('admin.journal.delete');
 Route::get('/journal/restore/{journal_id}', 'Admin\JournalController@journalRestore')->name('admin.journal.restore');
+
+
+
+// store
+// orders
+Route::get('/orders', 'Admin\SaleController@orders')->name('admin.orders');
+Route::get('/order/create', 'Admin\SaleController@orderCreate')->name('admin.order.create');
+Route::post('/order/store', 'Admin\SaleController@orderStore')->name('admin.order.store');
+Route::get('/order/show/{order_id}', 'Admin\SaleController@orderShow')->name('admin.order.show');
+Route::post('/order/update/status/{order_id}', 'Admin\SaleController@orderUpdateStatus')->name('admin.order.update.status');
+Route::post('/order/{order_id}/payment/store', 'Admin\SaleController@orderPaymentStore')->name('admin.order.payment.store');
+Route::post('/order/{order_id}/expense/store', 'Admin\SaleController@orderExpenseStore')->name('admin.order.expense.store');
 
 
 // Products
@@ -389,7 +417,6 @@ Route::post('/product/gallery/image/upload/{product_id}', 'Admin\ProductControll
 Route::get('/product/delete/{product_id}', 'Admin\ProductController@productDelete')->name('admin.product.delete');
 Route::get('/product/restore/{product_id}', 'Admin\ProductController@productRestore')->name('admin.product.restore');
 
-
 // price lists
 Route::post('/price/list/store/{product_id}', 'Admin\ProductController@priceListStore')->name('admin.price.list.store');
 Route::get('/price/list/show/{price_list_id}', 'Admin\ProductController@priceListShow')->name('admin.price.list.show');
@@ -397,15 +424,19 @@ Route::post('/price/list/update/{price_list_id}', 'Admin\ProductController@price
 Route::get('/price/list/delete/{price_list_id}', 'Admin\ProductController@priceListDelete')->name('admin.price.list.delete');
 Route::get('/price/list/restore/{price_list_id}', 'Admin\ProductController@priceListRestore')->name('admin.price.list.restore');
 
-// store
-Route::get('/orders', 'Admin\SaleController@orders')->name('admin.orders');
-Route::get('/order/create', 'Admin\SaleController@orderCreate')->name('admin.order.create');
-Route::post('/order/store', 'Admin\SaleController@orderStore')->name('admin.order.store');
-Route::get('/order/show/{order_id}', 'Admin\SaleController@orderShow')->name('admin.order.show');
-Route::post('/order/update/status/{order_id}', 'Admin\SaleController@orderUpdateStatus')->name('admin.order.update.status');
-Route::post('/order/{order_id}/payment/store', 'Admin\SaleController@orderPaymentStore')->name('admin.order.payment.store');
-Route::post('/order/{order_id}/expense/store', 'Admin\SaleController@orderExpenseStore')->name('admin.order.expense.store');
 
+// promo codes
+Route::get('/promo/codes', 'Admin\SaleController@promoCodes')->name('admin.promo.codes');
+Route::get('/promo/code/create', 'Admin\SaleController@promoCodeCreate')->name('admin.promo.code.create');
+Route::post('/promo/code/store', 'Admin\SaleController@promoCodeStore')->name('admin.promo.code.store');
+Route::get('/promo/code/show/{promo_code_id}', 'Admin\SaleController@promoCodeShow')->name('admin.promo.code.show');
+Route::post('/promo/code/update/status/{promo_code_id}', 'Admin\SaleController@promoCodeUpdateStatus')->name('admin.promo.code.update.status');
+Route::get('/promo/code/delete/{promo_code_id}', 'Admin\ProductController@promoCodeDelete')->name('admin.promo.code.delete');
+Route::get('/promo/code/restore/{promo_code_id}', 'Admin\ProductController@promoCodeRestore')->name('admin.promo.code.restore');
+
+
+
+// Accounting
 // expenses
 Route::get('/expenses', 'Admin\ExpenseController@expenses')->name('admin.expenses');
 Route::get('/expense/create', 'Admin\ExpenseController@expenseCreate')->name('admin.expense.create');

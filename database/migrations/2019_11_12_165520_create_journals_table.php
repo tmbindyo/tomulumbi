@@ -27,10 +27,11 @@ class CreateJournalsTable extends Migration
             $table->uuid('cover_image_id')->nullable();
             $table->uuid('thumbnail_size_id')->nullable();
             $table->uuid('typography_id')->nullable();
-            $table->uuid('journal_series_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 
+            $table->boolean('is_journal_series');
+            $table->uuid('journal_series_id')->nullable();
             $table->boolean('is_project');
             $table->uuid('project_id')->nullable();
             $table->boolean('is_album');

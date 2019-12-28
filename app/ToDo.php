@@ -40,6 +40,10 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Journal');
     }
+    public function journal_series()
+    {
+        return $this->belongsTo('App\JournalSeries');
+    }
     public function order()
     {
         return $this->belongsTo('App\Order');

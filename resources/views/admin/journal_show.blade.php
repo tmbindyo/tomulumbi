@@ -72,6 +72,9 @@
                 @if($journal->project_id)
                     <a href="{{route('admin.project.show',$journal->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Project </a>
                 @endif
+                @if($journal->journal_series_id)
+                    <a href="{{route('admin.journal.series.show',$journal->journal_series_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Journal Series </a>
+                @endif
                 @if($journal->album_id)
                     @if($journal->album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
                         <a href="{{ route('admin.client.proof.show', $journal->album_id) }}" class="btn-primary btn btn-outline"> <i class="fa fa-eye"></i> Album</a>
