@@ -10,6 +10,7 @@ use App\Status;
 use App\Account;
 use App\Project;
 use App\Expense;
+use App\ExpenseAccount;
 use App\Frequency;
 use App\Transaction;
 use App\ExpenseItem;
@@ -60,8 +61,8 @@ class ExpenseController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
-        // Get expense types
-        $expenseTypes = ExpenseType::all();
+        // expense accounts
+        $expenseAccounts = ExpenseAccount::all();
         // get orders
         $orders = Order::with('status')->get();
         // expense statuses
@@ -78,7 +79,7 @@ class ExpenseController extends Controller
         // get frequencies
         $frequencies = Frequency::all();
 
-        return view('admin.expense_create',compact('orders','user','navbarValues','journalsStatusCount','clientProofs','personalAlbums','projects','designs','frequencies','expenseTypes','transactions','expenseStatuses'));
+        return view('admin.expense_create',compact('orders','user','navbarValues','journalsStatusCount','clientProofs','personalAlbums','projects','designs','frequencies','expenseAccounts','transactions','expenseStatuses'));
     }
 
     public function expenseStore(Request $request)
@@ -92,7 +93,6 @@ class ExpenseController extends Controller
         // select expense type
         $expense = new Expense();
         $expense->reference = $reference;
-        $expense->expense_type_id = $request->expense_type;
         $expense->date = date('Y-m-d', strtotime($request->date));
 
         if ($request->is_order == "on")
@@ -120,6 +120,11 @@ class ExpenseController extends Controller
             $expense->is_transaction = True;
             $expense->transaction_id = $request->transaction;
         }
+        if ($request->is_transfer == "on")
+        {
+            $expense->is_transfer = True;
+            $expense->transfer_id = $request->transfer;
+        }
         if ($request->is_recurring == "on")
         {
             $expense->is_recurring = True;
@@ -145,6 +150,7 @@ class ExpenseController extends Controller
 
         $expense->notes = $request->notes;
 
+        $expense->expense_account_id = $request->expense_account;
         $expense->user_id = Auth::user()->id;
         $expense->status_id = $request->status;
 
@@ -178,7 +184,7 @@ class ExpenseController extends Controller
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // get expense
-        $expense = Expense::where('id',$expense_id)->with('transaction','status','expense_items','payments','account','design','expense_type','frequency','order','project','user','album')->withCount('expense_items')->first();
+        $expense = Expense::where('id',$expense_id)->with('transfer','status','expense_items','transactions','design','expense_account','frequency','order','project','user','album')->withCount('expense_items')->first();
         $payments = Transaction::where('expense_id',$expense->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense','account','status')->get();
         $pendingPayments = Transaction::where('expense_id',$expense->id)->where('status_id','a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('expense','account','status')->get();
         return view('admin.expense_show',compact('expense','user','navbarValues','journalsStatusCount','payments','pendingPayments'));
@@ -193,7 +199,7 @@ class ExpenseController extends Controller
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // Get expense types
-        $expenseTypes = ExpenseType::all();
+        $expenseAccounts = ExpenseAccount::all();
         // get orders
         $orders = Order::with('status')->get();
         // expense statuses
@@ -212,7 +218,7 @@ class ExpenseController extends Controller
         // get expense
         $expense = Expense::where('id',$expense_id)->with('transaction','status','expense_items','payments','account','design','expense_type','frequency','order','project','user','album')->withCount('expense_items')->first();
 
-        return view('admin.expense_edit',compact('expense','user','navbarValues','journalsStatusCount','expenseTypes','orders','expenseStatuses','personalAlbums','clientProofs','projects','designs','transactions','frequencies'));
+        return view('admin.expense_edit',compact('expense','user','navbarValues','journalsStatusCount','expenseAccounts','orders','expenseStatuses','personalAlbums','clientProofs','projects','designs','transactions','frequencies'));
     }
 
     public function expenseUpdate(Request $request, $expense_id)

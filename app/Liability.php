@@ -18,11 +18,11 @@ class Liability extends Model
     }
 
     // Parents
-    public function accounts()
+    public function account()
     {
         return $this->belongsTo('App\Account');
     }
-    public function contacts()
+    public function contact()
     {
         return $this->belongsTo('App\Contact');
     }

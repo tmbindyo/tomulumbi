@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Account;
 use DB;
 use Auth;
 use App\Deal;
@@ -9,6 +10,7 @@ use App\ToDo;
 use App\Quote;
 use App\Order;
 use App\Album;
+use App\AlbumContact;
 use App\Title;
 use App\Design;
 use App\Upload;
@@ -20,20 +22,27 @@ use App\UploadType;
 use App\LeadSource;
 use App\ContactType;
 use App\CampaignType;
+use App\Category;
 use App\Organization;
 use App\Traits\UserTrait;
 use App\OrganizationType;
 use App\Traits\NavbarTrait;
 use App\ContactContactType;
 use App\DealStage;
+use App\DesignContact;
 use Illuminate\Http\Request;
 use App\PromoCodeAssignment;
 use App\Traits\DealWorkCountTrait;
 use Illuminate\Support\Facades\File;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
+use App\PriceList;
+use App\ProjectContact;
+use App\ProjectType;
+use App\PromoCode;
 use App\QuoteItem;
 use App\QuoteTax;
+use App\Tag;
 use App\Tax;
 use App\Traits\ContactWorkCountTrait;
 use Illuminate\Support\Facades\Input;
@@ -77,6 +86,27 @@ class CRMController extends Controller
         $contactTypes = ContactType::all();
 
         return view('admin.leads',compact('leads','user','contactTypes','navbarValues'));
+    }
+
+    public function leadCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get contacts
+        $contacts = Contact::with('user','status','contact_type')->get();
+        // get contact types
+        $contactTypes = ContactType::all();
+        // get organizations
+        $organizations = Organization::all();
+        // get titles
+        $titles = Title::all();
+        // get lead sources
+        $leadSources = LeadSource::all();
+        // get campaigns
+        $campaigns = Campaign::all();
+        return view('admin.lead_create',compact('contacts','user','contactTypes','navbarValues','organizations','titles','leadSources','campaigns'));
     }
 
     // campaigns
@@ -483,13 +513,13 @@ class CRMController extends Controller
         // get campaigns
         $campaigns = Campaign::all();
         // contact designs
-        $designs = Design::with('user','status')->where('contact_id',$contact_id)->get();
+        $designContacts = DesignContact::with('user','status','design')->where('contact_id',$contact_id)->get();
         // contact projects
-        $projects = Project::with('user','status')->where('contact_id',$contact_id)->get();
+        $projectContacts = ProjectContact::with('user','status','project')->where('contact_id',$contact_id)->get();
         // contact albums
-        $albums = Album::with('user','status')->where('contact_id',$contact_id)->get();
+        $albumContacts = AlbumContact::with('user','status','album')->where('contact_id',$contact_id)->get();
         // contact orders
-        $orders = Order::with('user','status')->where('contact_id',$contact_id)->get();
+        $orders = Order::with('status','order_products','promo_code_uses','contact.organization')->withCount('order_products')->where('contact_id',$contact_id)->get();
         // ontact owed liability
         $liabilities = Liability::with('user','status')->where('contact_id',$contact_id)->get();
         // contact promo codes
@@ -508,7 +538,134 @@ class CRMController extends Controller
         $completedToDos = ToDo::with('user','status','contact')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('contact_id',$contact->id)->get();
         // Overdue to dos
         $overdueToDos = ToDo::with('user','status','contact')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('contact_id',$contact->id)->get();
-        return view('admin.contact_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','contactContactTypes','quotes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designs','projects','albums','contactTypes','navbarValues','contactWorkCount'));
+        return view('admin.contact_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','contactContactTypes','quotes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount'));
+    }
+
+    public function contactPromoCodeAssign($contact_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get promo code
+        $promoCodes = PromoCode::with('status','user')->get();
+        // get contacts
+        $contact = Contact::where('id',$contact_id)->with('organization')->first();
+        return view('admin.contact_promo_code_assign',compact('promoCodes','contact','user','navbarValues'));
+    }
+
+    public function contactClientProofCreate($contact_id)
+    {
+        // Tags
+        $tags = Tag::all();
+        // Contacts
+        $contact = Contact::where('id',$contact_id)->first();
+        // Contacts
+        $contacts = Contact::all();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        return view('admin.contact_client_proof_create',compact('user','tags','contact','contacts','navbarValues'));
+    }
+
+    public function contactDealCreate($contact_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // organization
+        $organizations = Organization::all();
+        // campaign
+        $campaigns = Campaign::all();
+        // get contacts
+        $contacts = Contact::all();
+        // contact
+        $dealContact = Contact::where('id',$contact_id)->with('organization')->first();
+        // lead source
+        $leadSources = LeadSource::all();
+        // deal stage
+        $dealStages = DealStage::all();
+        return view('admin.contact_deal_create',compact('contacts','campaigns','dealStages','leadSources','dealContact','organizations','user','navbarValues'));
+
+    }
+
+    public function contactDesignCreate($contact_id)
+    {
+        // get contact
+        $designContact = Contact::findOrFail($contact_id);
+        // get contacts
+        $contacts = Contact::all();
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Categories
+        $categories = Category::all();
+
+        return view('admin.contact_design_create',compact('contacts','user','designContact','categories','navbarValues'));
+    }
+
+    public function contactLiabilityCreate($contact_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // get contact
+        $contactLiability = Contact::where('id',$contact_id)->with('organization')->first();
+        // get contacts
+        $contacts = Contact::with('organization')->get();
+        return view('admin.contact_liability_create',compact('contactLiability','user','navbarValues','accounts','contacts'));
+    }
+
+    public function contactOrderCreate($contact_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // products
+        $priceLists = PriceList::with('product.status','sub_type','size','status')->get();
+        // contacts
+        $contact = Contact::where('id',$contact_id)->with('organization')->first();
+
+        return view('admin.contact_order_create',compact('contact','priceLists','user','navbarValues'));
+    }
+
+    public function contactProjectCreate($contact_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // contact
+        $contact = Contact::findOrFail($contact_id);
+        $contacts = Contact::with('organization')->get();
+        // project types
+        $projectTypes = ProjectType::all();
+        return view('admin.contact_project_create',compact('contacts','user','contact','projectTypes','navbarValues'));
+    }
+
+    public function contactQuoteCreate($contact_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // organization
+        $organizations = Organization::all();
+        // get taxes
+        $taxes = Tax::all();
+        // contact
+        $contact = Contact::findOrFail($contact_id);
+        return view('admin.contact_quote_create',compact('taxes','contact','organizations','user','navbarValues'));
+
     }
 
     public function contactUpdate(Request $request, $contact_id)
@@ -670,6 +827,48 @@ class CRMController extends Controller
         $overdueToDos = ToDo::with('user','status','organization')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('organization_id',$organization->id)->get();
 
         return view('admin.organization_show',compact('organization','organizations','user','navbarValues','organizationTypes','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+    }
+
+    public function organizationContactCreate($organization_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get contacts
+        $contacts = Contact::with('user','status','contact_type')->get();
+        // get contact types
+        $contactTypes = ContactType::all();
+        // get organization
+        $organization = Organization::findOrFail($organization_id);
+        // get titles
+        $titles = Title::all();
+        // get lead sources
+        $leadSources = LeadSource::all();
+        // get campaigns
+        $campaigns = Campaign::all();
+        return view('admin.organization_contact_create',compact('contacts','user','contactTypes','navbarValues','organization','titles','leadSources','campaigns'));
+    }
+
+    public function organizationDealCreate($organization_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // organization
+        $organization = Organization::findOrFail($organization_id);
+        // campaign
+        $campaigns = Campaign::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+        // lead source
+        $leadSources = LeadSource::all();
+        // deal stage
+        $dealStages = DealStage::all();
+        return view('admin.organization_deal_create',compact('campaigns','dealStages','leadSources','contacts','organization','user','navbarValues'));
+
     }
 
     public function organizationUpdate(Request $request, $organization_id)

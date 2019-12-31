@@ -19,6 +19,8 @@ class CreatePromoCodeAssignmentsTable extends Migration
             $table->string('reference');
             $table->integer('assigned');
 
+            $table->date('expiry_date');
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('promo_code_id');

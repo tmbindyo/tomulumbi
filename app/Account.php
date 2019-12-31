@@ -26,28 +26,32 @@ class Account extends Model
     {
         return $this->hasMany('App\AccountAdjustment');
     }
+    public function deposits()
+    {
+        return $this->hasMany('App\Deposit');
+    }
     public function destination_account()
     {
         return $this->hasMany('App\Transfer','destination_account_id','id');
     }
-    public function liability()
+    public function liabilities()
     {
         return $this->hasMany('App\Liability');
-    }
-    public function transactions()
-    {
-        return $this->hasMany('App\Transaction');
-    }
-    public function transfer()
-    {
-        return $this->hasMany('App\Transfer');
     }
     public function payments()
     {
         return $this->hasMany('App\Payment');
     }
+    public function refunds()
+    {
+        return $this->hasMany('App\Refund');
+    }
     public function source_account()
     {
         return $this->hasMany('App\Transfer','source_account_id','id');
+    }
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction');
     }
 }

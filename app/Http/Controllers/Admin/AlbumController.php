@@ -24,6 +24,7 @@ use App\CoverDesign;
 use App\ContentAlign;
 use App\ImagePosition;
 use App\AlbumCategory;
+use App\AlbumContact;
 use App\ThumbnailSize;
 use App\Traits\UserTrait;
 use App\Traits\AlbumTrait;
@@ -879,7 +880,6 @@ class AlbumController extends Controller
 //        $album->password = $this->generatePassword();
 //        $album->client_access_password = $this->generatePassword();
         $album->album_type_id = "ca64a5e0-d39b-4f2c-a136-9c523d935ea4";
-        $album->contact_id = $request->contact;
         $album->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $album->user_id = Auth::user()->id;
         $album->save();
@@ -891,6 +891,15 @@ class AlbumController extends Controller
             $albumTag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $albumTag->user_id = Auth::user()->id;
             $albumTag->save();
+        }
+
+        foreach ($request->contacts as $albumRequestContact){
+            $albumContact = new AlbumContact();
+            $albumContact->album_id = $album->id;
+            $albumContact->contact_id = $albumRequestContact;
+            $albumContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $albumContact->user_id = Auth::user()->id;
+            $albumContact->save();
         }
 
         // Save Album set
@@ -925,6 +934,8 @@ class AlbumController extends Controller
 //        return $albumArray;
         // Thumbnail sizes
         $thumbnailSizes = ThumbnailSize::all();
+        // contacts
+        $contacts = Contact::all();
         // Tags
         $tags = Tag::all();
         // Client Proof Design
@@ -956,10 +967,14 @@ class AlbumController extends Controller
         // Album Dependencies
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
+        // album tags
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
+        // album contacts
+        $albumContacts = AlbumContact::where('album_id',$album_id)->get();
+        // album restricted emails
         $albumDownloadRestrictionEmails = AlbumDownloadRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.client_proof_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
+        return view('admin.client_proof_show',compact('albumContacts','contacts','album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function clientProofDelete($album_id)
@@ -1018,6 +1033,29 @@ class AlbumController extends Controller
 
         $albumTagsIds = AlbumTag::where('album_id',$album_id)->whereNotIn('tag_id',$albumRequestTags)->select('id')->get()->toArray();
         DB::table('album_tags')->whereIn('id', $albumTagsIds)->delete();
+
+
+        // Album contacts update
+        $albumRequestContacts =array();
+        foreach ($request->contacts as $albumAlbumContact){
+            // Append to array
+            $albumRequestContacts[]['id'] = $albumAlbumContact;
+
+            // Check if album contact exists
+            $albumContact = AlbumContact::where('album_id',$album->id)->where('contact_id',$albumAlbumContact)->first();
+
+            if($albumContact === null) {
+                $albumContact = new AlbumContact();
+                $albumContact->album_id = $album->id;
+                $albumContact->contact_id = $albumAlbumContact;
+                $albumContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $albumContact->user_id = Auth::user()->id;
+                $albumContact->save();
+            }
+        }
+
+        $albumContactsIds = AlbumContact::where('album_id',$album_id)->whereNotIn('contact_id',$albumRequestContacts)->select('id')->get()->toArray();
+        DB::table('album_contacts')->whereIn('id', $albumContactsIds)->delete();
 
         return back()->withSuccess('Album collection settings updated!');
     }

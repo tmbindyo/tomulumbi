@@ -26,7 +26,6 @@ class CreateProjectsTable extends Migration
             $table->uuid('thumbnail_size_id')->nullable();
             $table->uuid('cover_image_id')->nullable();
             $table->uuid('typography_id')->nullable();
-            $table->text('contact_id')->nullable();
             $table->text('album_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

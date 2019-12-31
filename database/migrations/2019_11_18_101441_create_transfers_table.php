@@ -20,6 +20,10 @@ class CreateTransfersTable extends Migration
             $table->longText('notes')->nullable();
 
             $table->decimal('amount',20,2);
+            $table->decimal('source_initial_amount',20,2);
+            $table->decimal('source_subsequent_amount',20,2);
+            $table->decimal('destination_initial_amount',20,2);
+            $table->decimal('destination_subsequent_amount',20,2);
 
             $table->date('date');
 

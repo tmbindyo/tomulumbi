@@ -28,6 +28,8 @@ class CreateAccountAdjustmentsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('account_id')->nullable();
+            $table->boolean('is_deposit');
+            $table->uuid('deposit_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

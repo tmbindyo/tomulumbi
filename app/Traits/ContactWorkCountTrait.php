@@ -5,10 +5,13 @@ namespace App\Traits;
 use App\Deal;
 use App\Quote;
 use App\Album;
+use App\AlbumContact;
 use App\Order;
 use App\Design;
+use App\DesignContact;
 use App\Project;
 use App\Liability;
+use App\ProjectContact;
 use App\PromoCodeAssignment;
 
 trait ContactWorkCountTrait
@@ -17,11 +20,11 @@ trait ContactWorkCountTrait
     public function ContactWorkCount($contact_id)
     {
         // Get contact albums
-        $contactAlbums = Album::where('contact_id',$contact_id)->count();
+        $contactAlbums = AlbumContact::where('contact_id',$contact_id)->count();
         // Get contact projects
-        $contactProjects = Project::where('contact_id',$contact_id)->count();
+        $contactProjects = ProjectContact::where('contact_id',$contact_id)->count();
         // Get contact designs
-        $contactDesigns = Design::where('contact_id',$contact_id)->count();
+        $contactDesigns = DesignContact::where('contact_id',$contact_id)->count();
         // Get contact orders
         $contactOrder = Order::where('contact_id',$contact_id)->count();
         // Get contact liabilities

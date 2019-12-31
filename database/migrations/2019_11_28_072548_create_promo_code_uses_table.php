@@ -16,6 +16,8 @@ class CreatePromoCodeUsesTable extends Migration
         Schema::create('promo_code_uses', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string('reference');
+
             $table->uuid('status_id');
             $table->uuid('promo_code_id');
             $table->uuid('order_id');

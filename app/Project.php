@@ -16,10 +16,6 @@ class Project extends Model
     {
         return $this->belongsTo('App\Album');
     }
-    public function contact()
-    {
-        return $this->belongsTo('App\Contact');
-    }
     public function deal()
     {
         return $this->belongsTo('App\Deal');
@@ -49,6 +45,10 @@ class Project extends Model
     public function albums()
     {
         return $this->hasMany('App\Album');
+    }
+    public function project_contacts()
+    {
+        return $this->hasMany('App\ProjectContact');
     }
     public function cover_image()
     {

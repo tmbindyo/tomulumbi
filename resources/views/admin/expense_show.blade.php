@@ -204,7 +204,7 @@
                                 <dl class="dl-horizontal">
 
                                     <dt>Created by:</dt> <dd>{{$expense->user->name}}</dd>
-                                    <dt>Expense Type:</dt> <dd><a href="#" class="text-navy"> {{$expense->expense_type->name}}</a> </dd>
+                                    <dt>Expense Type:</dt> <dd><a href="#" class="text-navy"> {{$expense->expense_account->name}}</a> </dd>
                                     <dt>Account:</dt> <dd> 	 </dd>
                                 </dl>
                             </div>
@@ -389,6 +389,9 @@
                     @endif
                     @if($expense->is_design == 1)
                         <li><a href="{{route('admin.design.show',$expense->design->id)}}"><i class="fa fa-paint-brush"></i> {{$expense->design->name}}</a></li>
+                    @endif
+                    @if($expense->is_transfer == 1 )
+                        <li><a href="{{route('admin.transfer.show',$expense->transfer->id)}}"><i class="fa fa-share"></i> {{$expense->transfer->reference}}</a></li>
                     @endif
                     @if($expense->is_transaction == 1)
                         <li><a href="#"><i class="fa fa-dollar"></i> {{$expense->transaction->reference}}</a></li>

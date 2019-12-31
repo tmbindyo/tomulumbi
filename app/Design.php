@@ -12,6 +12,10 @@ class Design extends Model
     public $incrementing = false;
 
     // Children
+    public function design_contacts()
+    {
+        return $this->hasMany('App\DesignContact');
+    }
     public function design_categories()
     {
         return $this->hasMany('App\DesignCategory');
@@ -50,10 +54,6 @@ class Design extends Model
     }
 
     // Parents
-    public function contact()
-    {
-        return $this->belongsTo('App\Contact');
-    }
     public function cover_image()
     {
         return $this->belongsTo('App\Upload','cover_image_id', 'id');

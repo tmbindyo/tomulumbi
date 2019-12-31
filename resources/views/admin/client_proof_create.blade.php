@@ -126,10 +126,10 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="contact" class="select2_demo_contact form-control input-lg" multiple="multiple">
+                                        <select name="contacts[]" class="select2_demo_contact form-control input-lg" multiple="multiple">
                                             <option>Select Contact</option>
                                             @foreach($contacts as $contact)
-                                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
+                                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                                             @endforeach
                                         </select>
                                         <i>Client: This is based on your contacts, whoever is selected here is tied to the project as the client.</i>

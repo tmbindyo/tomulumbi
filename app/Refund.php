@@ -12,6 +12,10 @@ class Refund extends Model
     public $incrementing = false;
 
     // parents
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
     public function payment()
     {
         return $this->belongsTo('App\Payment');

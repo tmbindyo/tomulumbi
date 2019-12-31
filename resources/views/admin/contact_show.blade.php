@@ -40,7 +40,7 @@
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-9">
+        <div class="col-lg-3">
             <h2>Contact's</h2>
             <ol class="breadcrumb">
                 <li>
@@ -54,9 +54,19 @@
                 </li>
             </ol>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-9">
             <div class="title-action">
-                <a href="{{route('admin.campaign.show',$contact->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                <a href="{{route('admin.contact.promo.code.assign',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Assign Promo Code </a>
+                <a href="{{route('admin.contact.client.proof.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Client Proof </a>
+                <a href="{{route('admin.contact.deal.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deal </a>
+                <a href="{{route('admin.contact.design.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Design </a>
+                <a href="{{route('admin.contact.liability.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
+                <a href="{{route('admin.contact.order.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Order </a>
+                <a href="{{route('admin.contact.project.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Project </a>
+                <a href="{{route('admin.contact.quote.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Quote </a>
+                @if($contact->campaign_id)
+                    <a href="{{route('admin.campaign.show',$contact->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                @endif
             </div>
         </div>
     </div>
@@ -344,21 +354,21 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($albums as $album)
+                                                    @foreach($albumContacts as $albumContact)
                                                         <tr class="gradeX">
-                                                            <td>{{$album->date}}</td>
-                                                            <td>{{$album->name}}</td>
-                                                            <td>{{$album->views}}</td>
-                                                            <td>{{$album->user->name}}</td>
+                                                            <td>{{$albumContact->album->date}}</td>
+                                                            <td>{{$albumContact->album->name}}</td>
+                                                            <td>{{$albumContact->album->views}}</td>
+                                                            <td>{{$albumContact->album->user->name}}</td>
                                                             <td>
-                                                                <span class="label {{$album->status->label}}">{{$album->status->name}}</span>
+                                                                <span class="label {{$albumContact->album->status->label}}">{{$albumContact->album->status->name}}</span>
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    @if($album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
-                                                                        <a href="{{ route('admin.personal.album.show', $album->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                    @elseif($album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
-                                                                        <a href="{{ route('admin.client.proof.show', $album->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @if($albumContact->album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
+                                                                        <a href="{{ route('admin.personal.album.show', $albumContact->album->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    @elseif($albumContact->album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
+                                                                        <a href="{{ route('admin.client.proof.show', $albumContact->album->id) }}" class="btn-white btn btn-xs">View</a>
                                                                     @endif
                                                                 </div>
                                                             </td>
@@ -394,18 +404,18 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($designs as $design)
+                                                    @foreach($designContacts as $designContact)
                                                         <tr class="gradeX">
-                                                            <td>{{$design->name}}</td>
-                                                            <td>{{$design->date}}</td>
-                                                            <td>{{$design->views}}</td>
-                                                            <td>{{$design->user->name}}</td>
+                                                            <td>{{$designContact->design->name}}</td>
+                                                            <td>{{$designContact->design->date}}</td>
+                                                            <td>{{$designContact->design->views}}</td>
+                                                            <td>{{$designContact->design->user->name}}</td>
                                                             <td>
-                                                                <span class="label {{$design->status->label}}">{{$design->status->name}}</span>
+                                                                <span class="label {{$designContact->design->status->label}}">{{$designContact->design->status->name}}</span>
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('admin.design.show', $design->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('admin.design.show', $designContact->design->id) }}" class="btn-white btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -440,19 +450,19 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($projects as $project)
+                                                    @foreach($projectContacts as $projectContact)
                                                         <tr class="gradeX">
-                                                            <td>{{$project->date}}</td>
-                                                            <td>{{$project->name}}</td>
-                                                            <td>{{$project->views}}</td>
-                                                            <td>{{$project->user->name}}</td>
+                                                            <td>{{$projectContact->project->date}}</td>
+                                                            <td>{{$projectContact->project->name}}</td>
+                                                            <td>{{$projectContact->project->views}}</td>
+                                                            <td>{{$projectContact->project->user->name}}</td>
                                                             <td>
-                                                                <span class="label {{$project->status->label}}">{{$project->status->name}}</span>
+                                                                <span class="label {{$projectContact->project->status->label}}">{{$projectContact->project->status->name}}</span>
                                                             </td>
 
                                                             <td class="text-right">
                                                                 <div class="btn-group">
-                                                                    <a href="{{ route('admin.project.show', $project->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    <a href="{{ route('admin.project.show', $projectContact->project->id) }}" class="btn-white btn btn-xs">View</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -478,11 +488,14 @@
                                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                     <thead>
                                                     <tr>
-                                                        <th>Name</th>
-                                                        <th>Date</th>
-                                                        <th>Price</th>
+                                                        <th>Reference</th>
+                                                        <th>Created</th>
+                                                        <th>Total</th>
+                                                        <th>Discount</th>
+                                                        <th>Refunded</th>
+                                                        <th>Products</th>
+                                                        <th>State</th>
                                                         <th>Client</th>
-                                                        <th>Delivery</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -490,11 +503,40 @@
                                                     <tbody>
                                                     @foreach($orders as $order)
                                                         <tr class="gradeX">
-                                                            <td>{{$order->order_number}}</td>
+                                                            <td>
+                                                                {{$order->order_number}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$order->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                            </td>
                                                             <td>{{$order->created_at}}</td>
                                                             <td>{{$order->total}}</td>
-                                                            <td>{{$order->client->name}}</td>
-                                                            <td>{{$order->total}}</td>
+                                                            <td>{{$order->discount}}</td>
+                                                            <td>{{$order->refund}}</td>
+                                                            <td>{{$order->order_products_count}}</td>
+
+                                                            <td>
+                                                                @if($order->is_returned == 1 )
+                                                                    <span class="label label-warning">Returned</span>
+                                                                @endif
+                                                                @if($order->is_refunded == 1 )
+                                                                    <span class="label label-danger">Refunded</span>
+                                                                @endif
+                                                                @if($order->is_delivery == 1 )
+                                                                    <span class="label label-success">Delivered</span>
+                                                                @endif
+                                                                @if($order->is_paid == 1 )
+                                                                    <span class="label label-success">Paid</span>
+                                                                @endif
+                                                                @if($order->is_client == 1 )
+                                                                    <span class="label label-primary">Client</span>
+                                                                @else
+                                                                    <span class="label label-primary">User</span>
+                                                                @endif
+                                                                @if($order->is_draft == 1 )
+                                                                    <span class="label label-info">Draft</span>
+                                                                @endif
+                                                            </td>
+
+                                                            <td>{{$order->contact->first_name}} {{$order->contact->last_name}} @if($order->contact->organization) [{{$order->contact->organization->name}}]@endif</td>
                                                             <td>
                                                                 <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
                                                             </td>
@@ -508,11 +550,14 @@
                                                     </tbody>
                                                     <tfoot>
                                                     <tr>
-                                                        <th>Name</th>
-                                                        <th>Date</th>
-                                                        <th>Price</th>
+                                                        <th>Reference</th>
+                                                        <th>Created</th>
+                                                        <th>Total</th>
+                                                        <th>Discount</th>
+                                                        <th>Refunded</th>
+                                                        <th>Products</th>
+                                                        <th>State</th>
                                                         <th>Client</th>
-                                                        <th>Delivery</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -639,8 +684,6 @@
                                                         <th>Amount</th>
                                                         <th>Start</th>
                                                         <th>End</th>
-                                                        <th>Stage</th>
-                                                        <th>Lead Source</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -653,8 +696,6 @@
                                                             <td>{{$deal->amount}}</td>
                                                             <td>{{$deal->start_date}}</td>
                                                             <td>{{$deal->end_date}}</td>
-                                                            <td>{{$deal->deal_stage->name}}</td>
-                                                            <td>{{$deal->lead_source->name}}</td>
                                                             <td>
                                                                 <span class="label {{$deal->status->label}}">{{$deal->status->name}}</span>
                                                             </td>
@@ -673,8 +714,6 @@
                                                         <th>Amount</th>
                                                         <th>Start</th>
                                                         <th>End</th>
-                                                        <th>Stage</th>
-                                                        <th>Lead Source</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>

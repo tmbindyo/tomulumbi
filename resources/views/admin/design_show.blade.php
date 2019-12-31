@@ -69,7 +69,10 @@
                 <a href="{{route('admin.design.client.proof.create',$design->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Client Proof </a>
                 <a href="{{route('admin.design.journal.create',$design->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
                 @if($design->project_id)
-                    <a href="{{route('admin.project.show',$design->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> View Project </a>
+                    <a href="{{route('admin.project.show',$design->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Project </a>
+                @endif
+                @if($design->contact_id)
+                    <a href="{{route('admin.contact.show',$design->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
                 @endif
             </div>
         </div>
@@ -312,9 +315,9 @@
                                         <div class="form-group">
                                             <label>Clients</label>
                                             <div class="input-group">
-                                                <select name="contact" data-placeholder="Choose Contacts:" class="chosen-select form-control-lg" style="width:450px;" tabindex="4">
+                                                <select name="contacts[]" data-placeholder="Choose Contacts:" class="chosen-select form-control-lg" style="width:450px;" tabindex="4" multiple="multiple">
                                                     @foreach($contacts as $contact)
-                                                        <option value="{{$contact->id}}" @if($design->contact_id === $contact->id) selected @endif  >{{$contact->name}}</option>
+                                                        <option value="{{$contact->id}}" @foreach ($designContacts as $designContact)  @if($contact->id == $designContact->contact_id) selected @endif @endforeach >{{$contact->first_name}} {{$contact->last_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -664,7 +667,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 
 @endsection

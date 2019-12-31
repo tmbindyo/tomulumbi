@@ -175,7 +175,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <select required="required" name="title" class="select2_demo_tag form-control input-lg">
+                                        <select required="required" name="contact" class="select2_demo_tag form-control input-lg">
                                             <option>Select Contact</option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>

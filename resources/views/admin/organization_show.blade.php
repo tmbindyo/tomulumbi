@@ -67,8 +67,8 @@
         </div>
         <div class="col-md-4">
             <div class="title-action">
-                <a href="{{route('admin.organization.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
-                <a href="{{route('admin.organization.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deal </a>
+                <a href="{{route('admin.organization.contact.create',$organization->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                <a href="{{route('admin.organization.deal.create',$organization->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deal </a>
             </div>
         </div>
     </div>

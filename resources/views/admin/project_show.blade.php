@@ -247,9 +247,9 @@
                                         <div class="form-group">
                                             <label>Clients</label>
                                             <div class="input-group">
-                                                <select name="contact" data-placeholder="Choose Contacts:" class="chosen-select form-control-lg" style="width:450px;" tabindex="4">
+                                                <select name="contacts[]" data-placeholder="Choose Contacts:" class="chosen-select form-control-lg" style="width:450px;" tabindex="4" multiple="multiple">
                                                     @foreach($contacts as $contact)
-                                                        <option value="{{$contact->id}}" @if($project->contact_id === $contact->id) selected @endif  >{{$contact->name}}</option>
+                                                        <option value="{{$contact->id}}" @foreach($projectContacts as $projectContact) @if($projectContact->contact_id == $contact->id) selected @endif @endforeach >{{$contact->first_name}} {{$contact->last_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

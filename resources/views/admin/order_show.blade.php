@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', $order->order_number)
+@section('title','Order '.$order->order_number)
 
 @section('css')
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
@@ -55,7 +55,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Products</h2>
+            <h2>Orders</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -64,9 +64,14 @@
                     Settings
                 </li>
                 <li class="active">
-                    <strong>Product</strong>
+                    <strong>Order</strong>
                 </li>
             </ol>
+        </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="{{route('admin.contact.show',$order->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+            </div>
         </div>
     </div>
 
@@ -82,7 +87,7 @@
                         <span class="pull-right">(<strong>{{$orderArray['orderProductsCount']}}</strong>) items</span>
                         <h5>Items in your cart</h5>
                     </div>
-                    @foreach($order->order_product as $item)
+                    @foreach($order->order_products as $item)
                         <div class="ibox-content">
 
 
@@ -106,14 +111,14 @@
                                             </p>
                                             <dl class="small m-b-none">
                                                 <dt>Description lists</dt>
-                                                <dd>A description list is perfect for defining terms.</dd>
+                                                <dd>[{{$item->price_list->size->size}} {{$item->price_list->sub_type->name}}] ({{$item->price_list->product->status->name}}).</dd>
                                             </dl>
 
-                                            <div class="m-t-sm">
-                                                <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                                |
-                                                <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                            </div>
+                                            @if($order->is_client == 0)
+                                                <div class="m-t-sm">
+                                                    <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
+                                                </div>
+                                            @endif
                                         </td>
 
                                         <td width="65">

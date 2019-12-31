@@ -52,6 +52,10 @@ class Album extends Model
     {
         return $this->hasMany('App\AlbumView');
     }
+    public function album_contacts()
+    {
+        return $this->hasMany('App\AlbumContact');
+    }
     public function expenses()
     {
         return $this->hasMany('App\Expense');
@@ -90,10 +94,6 @@ class Album extends Model
     public function color()
     {
         return $this->belongsTo('App\Color');
-    }
-    public function contact()
-    {
-        return $this->belongsTo('App\Contact');
     }
     public function content_align()
     {

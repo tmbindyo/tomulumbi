@@ -8,6 +8,7 @@ use App\Client;
 use App\Contact;
 use App\Design;
 use App\DesignCategory;
+use App\DesignContact;
 use App\DesignGallery;
 use App\DesignWork;
 use App\Status;
@@ -77,7 +78,7 @@ class DesignController extends Controller
         $design->description = $request->description;
         $design->date = date('Y-m-d', strtotime($request->date));
 
-        // 
+        //
         if($request->is_project == "on"){
             $design->is_project = True;
             $design->project_id = $request->project;
@@ -91,10 +92,9 @@ class DesignController extends Controller
             $design->is_deal = False;
             $design->deal_id = '';
         }
-        
+
         $design->views = 0;
         $design->gallery_views = 0;
-        $design->contact_id = $request->contact;
         $design->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $design->user_id = Auth::user()->id;
         $design->save();
@@ -105,6 +105,15 @@ class DesignController extends Controller
             $designCategory->category_id = $designCategoryId;
             $designCategory->user_id = Auth::user()->id;
             $designCategory->save();
+        }
+
+        foreach ($request->contacts as $designRequestContact){
+            $designContact = new DesignContact();
+            $designContact->design_id = $design->id;
+            $designContact->contact_id = $designRequestContact;
+            $designContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $designContact->user_id = Auth::user()->id;
+            $designContact->save();
         }
 
         return redirect()->route('admin.design.show',$design->id)->withSuccess('Design '.$design->name.' succesfully created');
@@ -129,7 +138,7 @@ class DesignController extends Controller
         $typographies = Typography::all();
         // Get design
         $design = Design::findOrFail($design_id);
-        $design = Design::where('id',$design_id)->with('design_categories','contact','user','status','cover_image','expenses.expense_type')->first();
+        $design = Design::where('id',$design_id)->with('design_categories','user','status','cover_image','expenses.expense_type')->first();
         // design albums
         $designAlbums = Album::with('user','status')->where('design_id',$design_id)->withCount('album_views')->get();
         // design journals
@@ -148,7 +157,11 @@ class DesignController extends Controller
         $designGallery = DesignGallery::where('design_id',$design_id)->with('upload')->get();
         $designWork = DesignWork::where('design_id',$design_id)->with('upload')->get();
 
-        return view('admin.design_show',compact('designJournals','designAlbums','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies','navbarValues','designArray','designViews'));
+        // design categories
+        $designCategories = DesignCategory::where('design_id',$design_id)->get();
+        // design contacts
+        $designContacts = DesignContact::where('design_id',$design_id)->get();
+        return view('admin.design_show',compact('designCategories','designContacts','designJournals','designAlbums','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies','navbarValues','designArray','designViews'));
     }
 
     public function designPersonalAlbumCreate($design_id)
@@ -208,7 +221,6 @@ class DesignController extends Controller
 
         $design->name = $request->name;
         $design->description = $request->description;
-        $design->contact_id = $request->contact;
         $design->status_id = $request->status;
         $design->date = date('Y-m-d', strtotime($request->date));
         $design->save();
@@ -233,6 +245,29 @@ class DesignController extends Controller
 
         $designCategoriesIds = DesignCategory::where('design_id',$design_id)->whereNotIn('category_id',$designRequestCategories)->select('id')->get()->toArray();
         DB::table('design_categories')->whereIn('id', $designCategoriesIds)->delete();
+
+
+        // Design contacts update
+        $designRequestContacts =array();
+        foreach ($request->contacts as $designDesignContact){
+            // Append to array
+            $designRequestContacts[]['id'] = $designDesignContact;
+
+            // Check if design contact exists
+            $designContact = DesignContact::where('design_id',$design->id)->where('contact_id',$designDesignContact)->first();
+
+            if($designContact === null) {
+                $designContact = new DesignContact();
+                $designContact->design_id = $design->id;
+                $designContact->contact_id = $designDesignContact;
+                $designContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $designContact->user_id = Auth::user()->id;
+                $designContact->save();
+            }
+        }
+
+        $designContactsIds = DesignContact::where('design_id',$design_id)->whereNotIn('contact_id',$designRequestContacts)->select('id')->get()->toArray();
+        DB::table('design_contacts')->whereIn('id', $designContactsIds)->delete();
 
 
         return back()->withSuccess(__('Design successfully uploaded.'));

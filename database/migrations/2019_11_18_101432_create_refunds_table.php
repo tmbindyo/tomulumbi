@@ -16,13 +16,17 @@ class CreateRefundsTable extends Migration
         Schema::create('refunds', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->double('refund_amount', 20,2)->nullable();
+            $table->string('reference');
+            $table->longText('notes')->nullable();
+
+            $table->double('amount', 20,2);
 
             $table->date('date');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('payment_id');
+            $table->uuid('account_id');
 
             $table->timestamps();
             $table->softDeletes();

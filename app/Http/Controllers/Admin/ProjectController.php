@@ -7,6 +7,7 @@ use App\Category;
 use App\Contact;
 use App\Design;
 use App\DesignCategory;
+use App\DesignContact;
 use App\DesignGallery;
 use App\DesignWork;
 use App\Project;
@@ -26,6 +27,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Journal;
 use App\Label;
+use App\ProjectContact;
 use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -80,16 +82,28 @@ class ProjectController extends Controller
         $project->description = $request->description;
         $project->date = date('Y-m-d', strtotime($request->date));
 
-        $project->is_deal = False;
-        $project->deal_id = '';
+        if($request->is_deal == "on"){
+            $project->is_deal = True;
+            $project->deal_id = $request->deal;
+        }else{
+            $project->is_deal = False;
+        }
 
         $project->views = 0;
-        $project->contact_id = $request->contact;
         $project->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
         $project->project_type_id = $request->project_type;
         $project->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $project->user_id = Auth::user()->id;
         $project->save();
+
+        foreach ($request->contacts as $projectRequestContact){
+            $projectContact = new ProjectContact();
+            $projectContact->project_id = $project->id;
+            $projectContact->contact_id = $projectRequestContact;
+            $projectContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $projectContact->user_id = Auth::user()->id;
+            $projectContact->save();
+        }
 
         return redirect()->route('admin.project.show',$project->id)->withSuccess('Project '.$project->name.' succesfully created');
     }
@@ -115,14 +129,15 @@ class ProjectController extends Controller
         $projectTypes = ProjectType::all();
         // Get project
         $project = Project::findOrFail($project_id);
-        $project = Project::where('id',$project_id)->with('contact','user','status','cover_image')->first();
+        $project = Project::where('id',$project_id)->with('user','status','cover_image')->first();
         // project albums
         $projectAlbums = Album::with('user','status')->where('project_id',$project_id)->withCount('album_views')->get();
         // project designs
         $projectDesigns = Design::with('user','status','contact')->where('project_id',$project_id)->get();
         // project journals
         $projectJournals = Journal::with('user','status')->where('project_id',$project_id)->get();
-
+        // project contacts
+        $projectContacts = ProjectContact::where('project_id',$project_id)->get();
         // Project status
         $projectStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
@@ -138,7 +153,7 @@ class ProjectController extends Controller
         // project gallery
         $projectGallery = ProjectGallery::where('project_id',$project_id)->with('upload')->get();
 
-        return view('admin.project_show',compact('projectJournals','projectDesigns','projectAlbums','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','project','projectGallery','projectStatuses','typographies','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
+        return view('admin.project_show',compact('projectContacts','projectJournals','projectDesigns','projectAlbums','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','project','projectGallery','projectStatuses','typographies','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
     }
 
     public function projectPersonalAlbumCreate($project_id)
@@ -218,10 +233,32 @@ class ProjectController extends Controller
         $project->project_type_id = $request->project_type;
         $project->thumbnail_size_id = $request->thumbnail_size;
         $project->typography_id = $request->typography;
-        $project->contact_id = $request->contact;
         $project->status_id = $request->status;
         $project->date = date('Y-m-d', strtotime($request->date));
         $project->save();
+
+        // Design contacts update
+        $projectRequestContacts =array();
+        foreach ($request->contacts as $projectDesignContact){
+            // Append to array
+            $projectRequestContacts[]['id'] = $projectDesignContact;
+
+            // Check if project contact exists
+            $projectContact = DesignContact::where('project_id',$project->id)->where('contact_id',$projectDesignContact)->first();
+
+            if($projectContact === null) {
+                $projectContact = new DesignContact();
+                $projectContact->project_id = $project->id;
+                $projectContact->contact_id = $projectDesignContact;
+                $projectContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $projectContact->user_id = Auth::user()->id;
+                $projectContact->save();
+            }
+        }
+
+        $projectContactsIds = DesignContact::where('project_id',$project_id)->whereNotIn('contact_id',$projectRequestContacts)->select('id')->get()->toArray();
+        DB::table('project_contacts')->whereIn('id', $projectContactsIds)->delete();
+
 
 
         return back()->withSuccess(__('Project successfully uploaded.'));

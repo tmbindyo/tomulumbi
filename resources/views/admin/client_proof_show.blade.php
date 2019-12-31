@@ -73,6 +73,9 @@
                 @if($album->design_id)
                     <a href="{{route('admin.design.show',$album->design_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> View Design </a>
                 @endif
+                @if($album->contact_id)
+                    <a href="{{route('admin.contact.show',$album->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                @endif
             </div>
         </div>
     </div>
@@ -250,9 +253,20 @@
                                         <div class="form-group">
                                             <label>Tags</label>
                                             <div class="input-group">
-                                                <select name="tags[]" data-placeholder="Choose Tags:" class="chosen-select form-control-lg" multiple="multiple" style="width:450px;" tabindex="4">
+                                                <select name="tags[]" data-placeholder="Choose Tags:" class="chosen-select form-control-lg" multiple="multiple" style="width:650px;" tabindex="4">
                                                     @foreach($tags as $tag)
                                                         <option value="{{$tag->id}}" @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach >{{$tag->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Contacts</label>
+                                            <div class="input-group">
+                                                <select name="contacts[]" data-placeholder="Choose Contacts:" class="chosen-select form-control-lg" multiple="multiple" style="width:650px;" tabindex="4">
+                                                    @foreach($contacts as $contact)
+                                                        <option value="{{$contact->id}}" @foreach($albumContacts as $albumContact) @if($contact->id === $albumContact->contact->id) selected @endif @endforeach >{{$contact->first_name}} {{$contact->last_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

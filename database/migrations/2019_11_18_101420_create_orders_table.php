@@ -36,6 +36,8 @@ class CreateOrdersTable extends Migration
             $table->boolean('is_refunded');
             $table->boolean('is_delivery');
             $table->boolean('is_paid');
+            $table->boolean('is_client');
+            $table->boolean('is_draft');
 
             $table->timestamps();
             $table->softDeletes();

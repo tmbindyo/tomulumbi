@@ -60,8 +60,8 @@
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
-                <li>
-                    Settings
+                <li class="active">
+                    <a href="{{route('admin.products')}}">Product's</a>
                 </li>
                 <li class="active">
                     <strong>Product</strong>

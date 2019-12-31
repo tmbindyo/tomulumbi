@@ -46,7 +46,7 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.client.proofs')}}">Product's</a>
+                    <a href="{{route('admin.products')}}">Product's</a>
                 </li>
                 <li class="active">
                     <strong>Product Create</strong>

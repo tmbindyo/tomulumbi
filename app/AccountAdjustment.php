@@ -12,6 +12,14 @@ class AccountAdjustment extends Model
     public $incrementing = false;
 
     // Parents
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
+    public function deposit()
+    {
+        return $this->belongsTo('App\Deposit');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');
@@ -19,9 +27,5 @@ class AccountAdjustment extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-    public function account()
-    {
-        return $this->belongsTo('App\Account');
     }
 }

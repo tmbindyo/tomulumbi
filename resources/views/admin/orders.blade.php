@@ -36,7 +36,7 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('admin.order.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.order.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Order </a>
             </div>
         </div>
     </div>
@@ -244,11 +244,14 @@
                             <table class="table table-striped table-bordered table-hover dataTables-example" >
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Price</th>
+                                    <th>Reference</th>
+                                    <th>Created</th>
+                                    <th>Total</th>
+                                    <th>Discount</th>
+                                    <th>Refunded</th>
+                                    <th>Products</th>
+                                    <th>State</th>
                                     <th>Client</th>
-                                    <th>Delivery</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -256,11 +259,40 @@
                                 <tbody>
                                 @foreach($orders as $order)
                                     <tr class="gradeX">
-                                        <td>{{$order->order_number}}</td>
+                                        <td>
+                                            {{$order->order_number}}
+                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$order->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                        </td>
                                         <td>{{$order->created_at}}</td>
                                         <td>{{$order->total}}</td>
-                                        <td>{{$order->client->name}}</td>
-                                        <td>{{$order->total}}</td>
+                                        <td>{{$order->discount}}</td>
+                                        <td>{{$order->refund}}</td>
+                                        <td>{{$order->order_products_count}}</td>
+
+                                        <td>
+                                            @if($order->is_returned == 1 )
+                                                <span class="label label-warning">Returned</span>
+                                            @endif
+                                            @if($order->is_refunded == 1 )
+                                                <span class="label label-danger">Refunded</span>
+                                            @endif
+                                            @if($order->is_delivery == 1 )
+                                                <span class="label label-success">Delivered</span>
+                                            @endif
+                                            @if($order->is_paid == 1 )
+                                                <span class="label label-success">Paid</span>
+                                            @endif
+                                            @if($order->is_client == 1 )
+                                                <span class="label label-primary">Client</span>
+                                            @else
+                                                <span class="label label-primary">User</span>
+                                            @endif
+                                            @if($order->is_draft == 1 )
+                                                <span class="label label-info">Draft</span>
+                                            @endif
+                                        </td>
+
+                                        <td>{{$order->contact->first_name}} {{$order->contact->last_name}} @if($order->contact->organization) [{{$order->contact->organization->name}}]@endif</td>
                                         <td>
                                             <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
                                         </td>
@@ -274,11 +306,14 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Price</th>
+                                    <th>Reference</th>
+                                    <th>Created</th>
+                                    <th>Total</th>
+                                    <th>Discount</th>
+                                    <th>Refunded</th>
+                                    <th>Products</th>
+                                    <th>State</th>
                                     <th>Client</th>
-                                    <th>Delivery</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>

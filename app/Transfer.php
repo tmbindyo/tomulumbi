@@ -14,7 +14,7 @@ class Transfer extends Model
     // children
     public function expenses()
     {
-        return $this->hasMany('App\Expense','destination_account_id','id');
+        return $this->hasMany('App\Expense');
     }
 
     // Parents

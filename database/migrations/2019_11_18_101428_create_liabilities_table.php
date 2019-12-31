@@ -17,6 +17,7 @@ class CreateLiabilitiesTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('reference');
+            $table->longText('about');
 
             $table->decimal('amount',20,2);
             $table->decimal('paid',20,2);

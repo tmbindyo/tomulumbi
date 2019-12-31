@@ -117,7 +117,8 @@
                                     <br>
                                     {{--  Album client  --}}
                                     <div class="has-warning">
-                                        <select name="contact" class="select2_demo_client form-control input-lg">
+                                        <select name="contacts[]" class="select2_demo_client form-control input-lg" multiple="multiple">
+                                            <option>Select Contact</option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
                                             @endforeach

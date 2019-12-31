@@ -218,14 +218,14 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.orders' ) ?  'active' : '' }}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.products' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'admin.products')}}">
                             Products <span class="label label-warning pull-right">{{$navbarValues['productsCount']}}</span>
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.orders' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.products')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.promo.codes' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.promo.codes')}}">
                             Promo Codes <span class="label label-warning pull-right">{{$navbarValues['productsCount']}}</span>
                         </a>
                     </li>
@@ -249,8 +249,8 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.expenses' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.expenses')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.liabilities' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.liabilities')}}">
                             Liabilities <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
                         </a>
                     </li>
@@ -273,9 +273,9 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.expenses' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.expenses')}}">
-                            Transfer <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.transfers' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.transfers')}}">
+                            Transfers <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
                         </a>
                     </li>
 

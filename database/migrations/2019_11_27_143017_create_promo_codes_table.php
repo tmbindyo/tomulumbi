@@ -24,6 +24,7 @@ class CreatePromoCodesTable extends Migration
 
             $table->date('expiry_date');
 
+            $table->boolean('is_percentage');
             $table->double('discount', 20,2);
 
             $table->integer('user_id')->unsigned();

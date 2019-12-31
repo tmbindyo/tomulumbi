@@ -210,6 +210,8 @@ class StoreController extends Controller
         $order->is_returned = False;
         $order->is_refunded = False;
         $order->is_paid = False;
+        $order->is_client = True;
+        $order->is_draft = False;
 
         $order->save();
 
