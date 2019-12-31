@@ -40,7 +40,7 @@
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-9">
+        <div class="col-lg-5">
             <h2>Deal's</h2>
             <ol class="breadcrumb">
                 <li>
@@ -54,8 +54,12 @@
                 </li>
             </ol>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-7">
             <div class="title-action">
+                <a href="{{route('admin.deal.client.proof.create',$deal->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Client Proof </a>
+                <a href="{{route('admin.deal.design.create',$deal->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Design </a>
+                <a href="{{route('admin.deal.project.create',$deal->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Project </a>
+                <a href="{{route('admin.deal.quote.create',$deal->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Quote </a>
                 @if($deal->campaign_id)
                     <a href="{{route('admin.campaign.show',$deal->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
                 @endif

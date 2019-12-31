@@ -68,10 +68,13 @@
             <div class="title-action">
                 <a href="{{route('admin.personal.album.create.journal',$album->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
                 @if($album->project_id)
-                    <a href="{{route('admin.project.show',$album->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> View Project </a>
+                    <a href="{{route('admin.project.show',$album->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Project </a>
+                @endif
+                @if($album->deal_id)
+                    <a href="{{route('admin.deal.show',$album->deal_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Deal </a>
                 @endif
                 @if($album->design_id)
-                    <a href="{{route('admin.design.show',$album->design_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> View Design </a>
+                    <a href="{{route('admin.design.show',$album->design_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Design </a>
                 @endif
                 @if($album->contact_id)
                     <a href="{{route('admin.contact.show',$album->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>

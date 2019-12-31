@@ -72,6 +72,9 @@
                 <a href="{{route('admin.project.client.proof.create',$project->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Client Proof </a>
                 <a href="{{route('admin.project.design.create',$project->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Design </a>
                 <a href="{{route('admin.project.journal.create',$project->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
+                @if($project->deal_id)
+                    <a href="{{route('admin.deal.show',$project->deal_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Deal </a>
+                @endif
             </div>
         </div>
     </div>

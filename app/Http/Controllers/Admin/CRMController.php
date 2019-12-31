@@ -1015,6 +1015,70 @@ class CRMController extends Controller
         return view('admin.deal_show',compact('quotes','albums','projects','designs','dealStages','leadSources','contacts','campaigns','organizations','deal','user','navbarValues','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
     }
 
+    public function dealClientProofCreate($deal_id)
+    {
+        // Tags
+        $tags = Tag::all();
+        // Contacts
+        $contacts = Contact::all();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        // deal
+        $deal = Deal::findOrFail($deal_id);
+        return view('admin.deal_client_proof_create',compact('deal','user','tags','contacts','navbarValues'));
+    }
+
+    public function dealDesignCreate($deal_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Tags
+        $contacts = Contact::all();
+        // Categories
+        $categories = Category::all();
+        // deal
+        $deal = Deal::findOrFail($deal_id);
+        return view('admin.deal_design_create',compact('deal','user','contacts','categories','navbarValues'));
+    }
+
+    public function dealProjectCreate($deal_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Tags
+        $contacts = Contact::all();
+        // project types
+        $projectTypes = ProjectType::all();
+        // deal
+        $deal = Deal::findOrFail($deal_id);
+        return view('admin.deal_project_create',compact('deal','user','contacts','projectTypes','navbarValues'));
+    }
+
+    public function dealQuoteCreate($deal_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // organization
+        $organizations = Organization::all();
+        // get taxes
+        $taxes = Tax::all();
+        // contact
+        $contacts = Contact::with('organization')->get();
+        // deal
+        $deal = Deal::findOrFail($deal_id);
+        return view('admin.deal_quote_create',compact('deal','taxes','contacts','organizations','user','navbarValues'));
+
+    }
+
     public function dealUpdate(Request $request, $deal_id)
     {
 
@@ -1046,6 +1110,7 @@ class CRMController extends Controller
 
         return back()->withSuccess(__('Deal '.$deal->name.' successfully deleted.'));
     }
+
     public function dealRestore($deal_id)
     {
 
@@ -1084,23 +1149,6 @@ class CRMController extends Controller
         // contact
         $contacts = Contact::with('organization')->get();
         return view('admin.quote_create',compact('taxes','contacts','organizations','user','navbarValues'));
-
-    }
-
-    public function dealQuoteCreate($deal_id)
-    {
-
-        // get deal
-        $deal = Deal::findOrFail($deal_id);
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // get taxes
-        $taxes = Tax::all();
-        // contact
-        $contacts = Contact::with('organization')->get();
-        return view('admin.deal_quote_create',compact('deal','taxes','contacts','user','navbarValues'));
 
     }
 

@@ -275,6 +275,12 @@ Route::get('/deals', 'Admin\CRMController@deals')->name('admin.deals');
 Route::get('/deal/create', 'Admin\CRMController@dealCreate')->name('admin.deal.create');
 Route::post('/deal/store', 'Admin\CRMController@dealStore')->name('admin.deal.store');
 Route::get('/deal/show/{deal_id}', 'Admin\CRMController@dealShow')->name('admin.deal.show');
+
+Route::get('/deal/client/proof/create/{deal_id}', 'Admin\CRMController@dealClientProofCreate')->name('admin.deal.client.proof.create');
+Route::get('/deal/design/create/{deal_id}', 'Admin\CRMController@dealDesignCreate')->name('admin.deal.design.create');
+Route::get('/deal/project/create/{deal_id}', 'Admin\CRMController@dealProjectCreate')->name('admin.deal.project.create');
+Route::get('/deal/quote/create/{deal_id}', 'Admin\CRMController@dealQuoteCreate')->name('admin.deal.quote.create');
+
 Route::post('/deal/update/{deal_id}', 'Admin\CRMController@dealUpdate')->name('admin.deal.update');
 Route::get('/deal/delete/{deal_id}', 'Admin\CRMController@dealDelete')->name('admin.deal.delete');
 Route::get('/deal/restore/{deal_id}', 'Admin\CRMController@dealRestore')->name('admin.deal.restore');

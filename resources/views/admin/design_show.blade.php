@@ -74,6 +74,9 @@
                 @if($design->contact_id)
                     <a href="{{route('admin.contact.show',$design->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
                 @endif
+                @if($design->deal_id)
+                    <a href="{{route('admin.deal.show',$design->deal_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Deal </a>
+                @endif
             </div>
         </div>
     </div>

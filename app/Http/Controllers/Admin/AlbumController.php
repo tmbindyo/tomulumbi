@@ -852,7 +852,7 @@ class AlbumController extends Controller
         }
         if($request->is_deal){
             $album->is_deal = True;
-            $album->deal_id ='';
+            $album->deal_id =$request->deal;
         }else{
             $album->is_deal = False;
         }

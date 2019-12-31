@@ -38,6 +38,9 @@
                     @if($quote->is_campaign == 1)
                         <a href="{{route('admin.campaign.show',$quote->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
                     @endif
+                    @if($quote->is_deal == 1)
+                        <a href="{{route('admin.deal.show',$quote->deal_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Deal </a>
+                    @endif
                     @if($quote->is_draft == 1)
                         <a href="{{route('admin.quote.edit',$quote->id)}}" class="btn btn-success btn-outline"><i class="fa fa-pencil"></i> Accepted </a>
                         <a href="{{route('admin.quote.edit',$quote->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Rejected </a>
