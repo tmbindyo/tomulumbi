@@ -139,10 +139,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <div class="col-md-12">
-                                            <div class="has-warning">
-                                                <textarea id="notes" rows="5" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="About..."></textarea>
-                                            </div>
+                                        <div class="has-warning">
+                                            <textarea id="notes" rows="5" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="About..."></textarea>
                                         </div>
                                     </div>
 

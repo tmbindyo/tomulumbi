@@ -26,14 +26,19 @@
             <li>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.action.type.shows' ) ?  'active' : '' }}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.action.types' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'admin.action.types')}}">
                             Action Types
                         </a>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.album.type.shows' ) ?  'active' : '' }}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.album.types' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'admin.album.types')}}">
                             Album Types
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.asset.categories' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.asset.categories')}}">
+                            Asset Categories
                         </a>
                     </li>
                     <li class="nav-item {{ Route::currentRouteNamed( 'admin.categories' ) ?  'active' : '' }}">
@@ -255,6 +260,12 @@
                         </a>
                     </li>
 
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.loans' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.loans')}}">
+                            Loans <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
+                        </a>
+                    </li>
+
                     <li class="nav-item {{ Route::currentRouteNamed( 'admin.expenses' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'admin.expenses')}}">
                             Payments <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
@@ -282,8 +293,29 @@
                 </ul>
             </li>
 
-            <li class="nav-item {{ Route::currentRouteNamed( 'admin.to.dos' ) ?  'active' : '' }}">
-                <a href="{{ route('admin.to.dos') }}"><i class="fa fa-archive"></i> <span class="nav-label">Assets</span></a>
+            <li>
+                <a href="#"><i class="fa fa-camera"></i> <span class="nav-label">Assets</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.assets' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.assets')}}">
+                            Assets <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.asset.actions' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.asset.actions')}}">
+                            Asset actions <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.kits' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.kits')}}">
+                            Kits <span class="label label-warning pull-right">{{$navbarValues['productsCount']}}</span>
+                        </a>
+                    </li>
+
+                </ul>
             </li>
 
         </ul>

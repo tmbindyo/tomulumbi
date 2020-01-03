@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Account;
+use App\ActionType;
 use DB;
 use Auth;
 use App\Deal;
@@ -11,6 +12,7 @@ use App\Quote;
 use App\Order;
 use App\Album;
 use App\AlbumContact;
+use App\Asset;
 use App\Title;
 use App\Design;
 use App\Upload;
@@ -36,6 +38,7 @@ use App\Traits\DealWorkCountTrait;
 use Illuminate\Support\Facades\File;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
+use App\Kit;
 use App\PriceList;
 use App\ProjectContact;
 use App\ProjectType;
@@ -539,6 +542,23 @@ class CRMController extends Controller
         // Overdue to dos
         $overdueToDos = ToDo::with('user','status','contact')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('contact_id',$contact->id)->get();
         return view('admin.contact_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','contactContactTypes','quotes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount'));
+    }
+
+    public function contactAssetActionCreate($contact_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get asset
+        $assets = Asset::all();
+        // get kits
+        $kits = Kit::all();
+        // action types
+        $actionTypes = ActionType::all();
+        // contacts
+        $contact = Contact::where('id',$contact_id)->with('organization')->first();
+        return view('admin.contact_asset_action_create',compact('contact','actionTypes','assets','kits','user','navbarValues'));
     }
 
     public function contactPromoCodeAssign($contact_id)

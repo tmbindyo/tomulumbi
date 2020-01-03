@@ -28,6 +28,7 @@ use App\AssetAction;
 use App\ProjectType;
 use App\CampaignType;
 use App\AlbumCategory;
+use App\AssetCategory;
 use App\ThumbnailSize;
 use App\ExpenseAccount;
 use App\Traits\UserTrait;
@@ -95,7 +96,7 @@ class SettingsController extends Controller
         // action type
         $actionType = ActionType::with('user','status')->withCount('asset_actions')->where('id',$action_type_id)->first();
         // action type actions
-        $actionTypeAssetActions = AssetAction::with('contact','user','status','asset')->where('action_type_id',$action_type_id)->get();
+        $actionTypeAssetActions = AssetAction::with('contact','user','status','asset','kit')->where('action_type_id',$action_type_id)->get();
         return view('admin.action_type_show',compact('actionType','user','actionTypeAssetActions','navbarValues'));
     }
 
@@ -218,6 +219,82 @@ class SettingsController extends Controller
     }
 
 
+    // asset categories
+    public function assetCategories()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $assetCategories = AssetCategory::with('user','status')->get();
+        return view('admin.categories',compact('assetCategories','user','navbarValues'));
+    }
+
+    public function assetCategoryCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.category_create',compact('user','navbarValues'));
+    }
+
+    public function assetCategoryStore(Request $request)
+    {
+        $category = new AssetCategory();
+        $category->name = mb_strtolower($request->name);
+        $category->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $category->user_id = Auth::user()->id;
+        $category->save();
+        return redirect()->route('admin.category.show',$category->id)->withSuccess(__('Asset category '.$category->name.' successfully created.'));
+    }
+
+    public function assetCategoryShow($asset_category_id)
+    {
+        // Check if category exists
+        $categoryExists = AssetCategory::findOrFail($asset_category_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $category = AssetCategory::with('user','status','assets.asset_category')->where('id',$asset_category_id)->withCount('assets')->first();
+        return view('admin.category_show',compact('category','user','navbarValues'));
+    }
+
+    public function assetCategoryUpdate(Request $request, $asset_category_id)
+    {
+
+        $assetCategory = AssetCategory::findOrFail($asset_category_id);
+        $assetCategory->name = mb_strtolower($request->name);
+        $assetCategory->user_id = Auth::user()->id;
+        $assetCategory->save();
+
+        return redirect()->route('admin.category.show',$assetCategory->id)->withSuccess('Asset category updated!');
+    }
+
+    public function assetCategoryDelete($asset_category_id)
+    {
+
+        $assetCategory = AssetCategory::findOrFail($asset_category_id);
+        $assetCategory->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $assetCategory->user_id = Auth::user()->id;
+        $assetCategory->save();
+
+        return back()->withSuccess(__('Asset category '.$assetCategory->name.' successfully deleted.'));
+    }
+
+    public function assetCategoryRestore($asset_category_id)
+    {
+
+        $assetCategory = AssetCategory::findOrFail($asset_category_id);
+        $assetCategory->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $assetCategory->user_id = Auth::user()->id;
+        $assetCategory->save();
+
+        return back()->withSuccess(__('Asset category '.$assetCategory->name.' successfully restored.'));
+    }
+
+
     // categories
     public function categories()
     {
@@ -260,10 +337,10 @@ class SettingsController extends Controller
         return view('admin.category_show',compact('category','user','navbarValues'));
     }
 
-    public function categoryUpdate(Request $request, $album_type_id)
+    public function categoryUpdate(Request $request, $category_id)
     {
 
-        $category = Category::findOrFail($album_type_id);
+        $category = Category::findOrFail($category_id);
         $category->name = mb_strtolower($request->name);
         $category->user_id = Auth::user()->id;
         $category->save();
@@ -271,10 +348,10 @@ class SettingsController extends Controller
         return redirect()->route('admin.category.show',$category->id)->withSuccess('Category updated!');
     }
 
-    public function categoryDelete($album_type_id)
+    public function categoryDelete($category_id)
     {
 
-        $category = Category::findOrFail($album_type_id);
+        $category = Category::findOrFail($category_id);
         $category->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
         $category->user_id = Auth::user()->id;
         $category->save();
@@ -282,10 +359,10 @@ class SettingsController extends Controller
         return back()->withSuccess(__('Category '.$category->name.' successfully deleted.'));
     }
 
-    public function categoryRestore($album_type_id)
+    public function categoryRestore($category_id)
     {
 
-        $category = Category::findOrFail($album_type_id);
+        $category = Category::findOrFail($category_id);
         $category->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $category->user_id = Auth::user()->id;
         $category->save();

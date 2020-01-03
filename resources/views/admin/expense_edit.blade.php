@@ -94,8 +94,8 @@
                                         {{--  expense type  --}}
                                         <div class="has-warning">
                                             <select name="expense_type" class="select-2 form-control input-lg">
-                                                @foreach($expenseTypes as $expenseType)
-                                                    <option @if($expenseType->id == $expense->id) selected @endif value="{{$expenseType->id}}">{{$expenseType->name}}</option>
+                                                @foreach($expenseAccounts as $expenseAccount)
+                                                    <option @if($expenseAccount->id == $expense->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -311,21 +311,85 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_transaction" name="is_transaction" type="checkbox" @if($expense->is_transaction == 1) checked @endif>
-                                            <label for="is_transaction">
-                                                Transaction
+                                            <input id="is_transfer" name="is_transfer" type="checkbox">
+                                            <label for="is_transfer">
+                                                Transfer
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="has-warning">
                                             <div class="has-warning">
-                                                <select name="transaction" class="select-2 form-control input-lg">
-                                                    @if($expense->is_transaction == 0)
-                                                        <option selected disabled>Select Transaction</option>
-                                                    @endif
-                                                    @foreach($transactions as $transaction)
-                                                        <option @if($transaction->id == $expense->transaction_id) selected @endif value="{{$transaction->id}}" >{{$transaction->name}}</option>
+                                                <select name="transfer" class="select-2 form-control input-lg">
+                                                    <option selected disabled>Select Transfer</option>
+                                                    @foreach($transfers as $transfer)
+                                                        <option @if($transfer->id == $expense->transfer_id) selected @endif value="{{$transfer->id}}" >{{$transfer->reference}} [{{$transfer->amount}}] ({{$transfer->date}})</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{--  Customer  --}}
+                                        <div class="checkbox checkbox-info">
+                                            <input id="is_campaign" name="is_campaign" type="checkbox">
+                                            <label for="is_campaign">
+                                                Campaign
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="has-warning">
+                                            <div class="has-warning">
+                                                <select name="campaign" class="select-2 form-control input-lg">
+                                                    <option selected disabled>Select Campaign</option>
+                                                    @foreach($campaigns as $campaign)
+                                                        <option @if($campaign->id == $expense->campaign_id) selected @endif value="{{$campaign->id}}" >{{$campaign->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        {{--  Customer  --}}
+                                        <div class="checkbox checkbox-info">
+                                            <input id="is_asset" name="is_asset" type="checkbox">
+                                            <label for="is_asset">
+                                                Asset
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="has-warning">
+                                            <div class="has-warning">
+                                                <select name="asset" class="select-2 form-control input-lg">
+                                                    <option selected disabled>Select Asset</option>
+                                                    @foreach($assets as $asset)
+                                                        <option @if($asset->id == $expense->asset_id) selected @endif value="{{$asset->id}}" >{{$asset->name}} [{{$asset->reference}}]</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{--  Customer  --}}
+                                        <div class="checkbox checkbox-info">
+                                            <input id="is_liability" name="is_liability" type="checkbox">
+                                            <label for="is_liability">
+                                                Liability
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="has-warning">
+                                            <div class="has-warning">
+                                                <select name="liability" class="select-2 form-control input-lg">
+                                                    <option selected disabled>Select Liability</option>
+                                                    @foreach($liabilities as $liability)
+                                                        <option @if($liability->id == $expense->liability_id) selected @endif value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
                                                     @endforeach
                                                 </select>
                                             </div>

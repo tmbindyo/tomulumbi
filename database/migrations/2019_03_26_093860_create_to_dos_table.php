@@ -47,6 +47,12 @@ class CreateToDosTable extends Migration
             $table->uuid('deal_id')->nullable();
             $table->boolean('is_campaign');
             $table->uuid('campaign_id')->nullable();
+            $table->boolean('is_asset');
+            $table->uuid('asset_id')->nullable();
+            $table->boolean('is_kit');
+            $table->uuid('kit_id')->nullable();
+            $table->boolean('is_asset_action');
+            $table->uuid('asset_action_id')->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

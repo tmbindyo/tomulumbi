@@ -109,7 +109,7 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select required="required" name="type" class="select2_demo_label form-control input-lg">
+                                        <select required="required" name="type" class="select2_demo_tag form-control input-lg">
                                             <option>Select Type</option>
                                             @foreach($types as $type)
                                                 <option value="{{$type->id}}">{{$type->name}}</option>

@@ -18,6 +18,8 @@ class AccountTableSeeder extends Seeder
             'reference' => 'zxspM',
             'name' => 'NCBA Account',
             'balance' => 0,
+            'goal' => 2000000,
+            'notes' => 'NCBA business account',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
             'created_at' => now()
@@ -27,6 +29,8 @@ class AccountTableSeeder extends Seeder
             'reference' => '1jqvG',
             'name' => 'Petty Cash',
             'balance' => 0,
+            'goal' => 20000,
+            'notes' => 'Physical cash always kept',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
             'created_at' => now()
@@ -36,6 +40,8 @@ class AccountTableSeeder extends Seeder
             'reference' => 'ZPmgY',
             'name' => 'Paypal',
             'balance' => 0,
+            'goal' => 0,
+            'notes' => 'Payments made to paypal',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
             'created_at' => now()
@@ -45,6 +51,8 @@ class AccountTableSeeder extends Seeder
             'reference' => 'zixco',
             'name' => 'MPESA',
             'balance' => 0,
+            'goal' => 0,
+            'notes' => 'MPESA balance, shared with my safaricom line.',
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             'user_id' => 1,
             'created_at' => now()

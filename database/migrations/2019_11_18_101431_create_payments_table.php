@@ -40,6 +40,8 @@ class CreatePaymentsTable extends Migration
             $table->uuid('project_id');
             $table->boolean('is_asset_action');
             $table->uuid('asset_action_id');
+            $table->boolean('is_loan');
+            $table->uuid('loan_id');
 
             $table->timestamps();
             $table->softDeletes();

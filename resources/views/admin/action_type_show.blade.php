@@ -132,33 +132,42 @@
                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                 <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Reference</th>
+                    <th>Amount</th>
                     <th>Date</th>
                     <th>Due Date</th>
-                    <th>Amount</th>
-                    <th>User</th>
+                    <th>Action Type</th>
                     <th>Contact</th>
+                    <th>Item</th>
+                    <th>User</th>
                     <th>Status</th>
-                    <th width="13em">Action</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($actionTypeAssetActions as $actionTypeAssetAction)
+                @foreach($actionTypeAssetActions as $assetAction)
                     <tr class="gradeX">
-                        <td>{{$actionTypeAssetActions->name}}</td>
-                        <td>{{$actionTypeAssetActions->date}}</td>
-                        <td>{{$actionTypeAssetActions->due_date}}</td>
-                        <td>{{$actionTypeAssetActions->amount}}</td>
-                        <td>{{$actionTypeAssetActions->user->name}}</td>
-                        <td>{{$actionTypeAssetActions->contact->name}}</td>
-                        <td>{{$actionTypeAssetActions->action_views_count}}</td>
+                        <td>{{$assetAction->reference}}</td>
+                        <td>{{$assetAction->amount}}</td>
+                        <td>{{$assetAction->date}}</td>
+                        <td>{{$assetAction->due_date}}</td>
+                        <td>{{$assetAction->action_type->name}}</td>
+                        <td>{{$assetAction->contact->first_name}} {{$assetAction->contact->last_name}}</td>
+                        <td>{{$assetAction->user->name}}</td>
                         <td>
-                            <span class="label {{$actionTypeAssetActions->status->label}}">{{$actionTypeAssetActions->status->name}}</span>
+                            @if($assetAction->is_asset == 1)
+                                <span class="label label-primary">{{$assetAction->asset->name}}</span>
+                            @elseif($assetAction->is_kit == 1)
+                                <span class="label label-primary">{{$assetAction->kit->name}}</span>
+                            @endif
                         </td>
+                        <td>
+                            <span class="label {{$assetAction->status->label}}">{{$assetAction->status->name}}</span>
+                        </td>
+
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('admin.client.proof.show', $actionTypeAssetActions->id) }}" class="btn-warning btn btn-xs">Payment</a>
-                                <a href="{{ route('admin.client.proof.show', $actionTypeAssetActions->asset->id) }}" class="btn-info btn btn-xs">Asset
+                                <a href="{{ route('admin.asset.action.show', $assetAction->id) }}" class="btn-white btn btn-xs">View</a>
                             </div>
                         </td>
                     </tr>
@@ -166,14 +175,16 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th>Name</th>
+                    <th>Reference</th>
+                    <th>Amount</th>
                     <th>Date</th>
                     <th>Due Date</th>
-                    <th>Amount</th>
-                    <th>User</th>
+                    <th>Action Type</th>
                     <th>Contact</th>
+                    <th>Item</th>
+                    <th>User</th>
                     <th>Status</th>
-                    <th width="13em">Action</th>
+                    <th>Action</th>
                 </tr>
                 </tfoot>
                 </table>

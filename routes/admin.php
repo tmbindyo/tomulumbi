@@ -39,6 +39,16 @@ Route::get('/album/type/restore/{album_type_id}', 'Admin\SettingsController@albu
 
 
 // Category
+Route::get('/asset/categories', 'Admin\SettingsController@assetCategories')->name('admin.asset.categories');
+Route::get('/asset/category/create', 'Admin\SettingsController@assetCategoryCreate')->name('admin.asset.category.create');
+Route::get('/asset/category/show/{category_id}', 'Admin\SettingsController@assetCategoryShow')->name('admin.asset.category.show');
+Route::post('/asset/category/store', 'Admin\SettingsController@assetCategoryStore')->name('admin.asset.category.store');
+Route::post('/asset/category/update/{category_id}', 'Admin\SettingsController@assetCategoryUpdate')->name('admin.asset.category.update');
+Route::get('/asset/category/delete/{category_id}', 'Admin\SettingsController@assetCategoryDelete')->name('admin.asset.category.delete');
+Route::get('/asset/category/restore/{category_id}', 'Admin\SettingsController@assetCategoryRestore')->name('admin.asset.category.restore');
+
+
+// Category
 Route::get('/categories', 'Admin\SettingsController@categories')->name('admin.categories');
 Route::get('/category/create', 'Admin\SettingsController@categoryCreate')->name('admin.category.create');
 Route::get('/category/show/{category_id}', 'Admin\SettingsController@categoryShow')->name('admin.category.show');
@@ -239,6 +249,7 @@ Route::get('/contact/create', 'Admin\CRMController@contactCreate')->name('admin.
 Route::post('/contact/store', 'Admin\CRMController@contactStore')->name('admin.contact.store');
 Route::get('/contact/show/{contact_id}', 'Admin\CRMController@contactShow')->name('admin.contact.show');
 
+Route::get('/contact/asset/action/create/{asset_id}', 'Admin\CRMController@contactAssetActionCreate')->name('admin.contact.asset.action.create');
 Route::get('/contact/promo/code/assign/{contact_id}', 'Admin\CRMController@contactPromoCodeAssign')->name('admin.contact.promo.code.assign');
 Route::get('/contact/client/proof/create/{contact_id}', 'Admin\CRMController@contactClientProofCreate')->name('admin.contact.client.proof.create');
 Route::get('/contact/deal/create/{contact_id}', 'Admin\CRMController@contactDealCreate')->name('admin.contact.deal.create');
@@ -467,13 +478,19 @@ Route::get('/accounts', 'Admin\AccountController@accounts')->name('admin.account
 Route::get('/account/create', 'Admin\AccountController@accountCreate')->name('admin.account.create');
 Route::post('/account/store', 'Admin\AccountController@accountStore')->name('admin.account.store');
 Route::get('/account/show/{account_id}', 'Admin\AccountController@accountShow')->name('admin.account.show');
+
+Route::get('/account/deposit/create/{account_id}', 'Admin\AccountController@accountDepositCreate')->name('admin.account.deposit.create');
+Route::get('/account/liability/create/{account_id}', 'Admin\AccountController@accountLiabilityCreate')->name('admin.account.liability.create');
+Route::get('/account/loan/create/{account_id}', 'Admin\AccountController@accountLoanCreate')->name('admin.account.loan.create');
+Route::get('/account/withdrawal/create/{account_id}', 'Admin\AccountController@accountWithdrawalCreate')->name('admin.account.withdrawal.create');
+
 Route::get('/account/edit/{account_id}', 'Admin\AccountController@accountEdit')->name('admin.account.edit');
 Route::post('/account/update/{account_id}', 'Admin\AccountController@accountUpdate')->name('admin.account.update');
 Route::get('/account/delete/{account_id}', 'Admin\AccountController@accountDelete')->name('admin.account.delete');
 Route::get('/account/restore/{account_id}', 'Admin\AccountController@accountRestore')->name('admin.account.restore');
 
+
 // deposits
-Route::get('/deposit/create/{account_id}', 'Admin\AccountController@depositCreate')->name('admin.deposit.create');
 Route::post('/deposit/store', 'Admin\AccountController@depositStore')->name('admin.deposit.store');
 Route::get('/deposit/show/{deposit_id}', 'Admin\AccountController@depositShow')->name('admin.deposit.show');
 
@@ -482,6 +499,18 @@ Route::get('/deposit/account/adjustment/create/{deposit_id}', 'Admin\AccountCont
 Route::post('/deposit/update/{deposit_id}', 'Admin\AccountController@depositUpdate')->name('admin.deposit.update');
 Route::get('/deposit/delete/{deposit_id}', 'Admin\AccountController@depositDelete')->name('admin.deposit.delete');
 Route::get('/deposit/restore/{deposit_id}', 'Admin\AccountController@depositRestore')->name('admin.deposit.restore');
+
+
+// withdrawals
+Route::get('/withdrawal/create/{account_id}', 'Admin\AccountController@withdrawalCreate')->name('admin.withdrawal.create');
+Route::post('/withdrawal/store', 'Admin\AccountController@withdrawalStore')->name('admin.withdrawal.store');
+Route::get('/withdrawal/show/{withdrawal_id}', 'Admin\AccountController@withdrawalShow')->name('admin.withdrawal.show');
+
+Route::get('/withdrawal/account/adjustment/create/{withdrawal_id}', 'Admin\AccountController@withdrawalAccountAdjustmentCreate')->name('admin.withdrawal.account.adjustment.create');
+
+Route::post('/withdrawal/update/{withdrawal_id}', 'Admin\AccountController@withdrawalUpdate')->name('admin.withdrawal.update');
+Route::get('/withdrawal/delete/{withdrawal_id}', 'Admin\AccountController@withdrawalDelete')->name('admin.withdrawal.delete');
+Route::get('/withdrawal/restore/{withdrawal_id}', 'Admin\AccountController@withdrawalRestore')->name('admin.withdrawal.restore');
 
 // account adjustment
 Route::get('/account/adjustment/create/{account_id}', 'Admin\AccountController@accountAdjustmentCreate')->name('admin.account.adjustment.create');
@@ -515,6 +544,17 @@ Route::get('/liability/edit/{liability_id}', 'Admin\AccountController@liabilityE
 Route::post('/liability/update/{liability_id}', 'Admin\AccountController@liabilityUpdate')->name('admin.liability.update');
 Route::get('/liability/delete/{liability_id}', 'Admin\AccountController@liabilityDelete')->name('admin.liability.delete');
 Route::get('/liability/restore/{liability_id}', 'Admin\AccountController@liabilityRestore')->name('admin.liability.restore');
+
+
+// loans
+Route::get('/loans', 'Admin\AccountController@loans')->name('admin.loans');
+Route::get('/loan/create', 'Admin\AccountController@loanCreate')->name('admin.loan.create');
+Route::post('/loan/store', 'Admin\AccountController@loanStore')->name('admin.loan.store');
+Route::get('/loan/show/{loan_id}', 'Admin\AccountController@loanShow')->name('admin.loan.show');
+Route::get('/loan/edit/{loan_id}', 'Admin\AccountController@loanEdit')->name('admin.loan.edit');
+Route::post('/loan/update/{loan_id}', 'Admin\AccountController@loanUpdate')->name('admin.loan.update');
+Route::get('/loan/delete/{loan_id}', 'Admin\AccountController@loanDelete')->name('admin.loan.delete');
+Route::get('/loan/restore/{loan_id}', 'Admin\AccountController@loanRestore')->name('admin.loan.restore');
 
 
 // payments
@@ -552,3 +592,51 @@ Route::get('/transfer/edit/{transfer_id}', 'Admin\AccountController@transferEdit
 Route::post('/transfer/update/{transfer_id}', 'Admin\AccountController@transferUpdate')->name('admin.transfer.update');
 Route::get('/transfer/delete/{transfer_id}', 'Admin\AccountController@transferDelete')->name('admin.transfer.delete');
 Route::get('/transfer/restore/{transfer_id}', 'Admin\AccountController@transferRestore')->name('admin.transfer.restore');
+
+
+// Assets
+// assets
+Route::get('/assets', 'Admin\AssetController@assets')->name('admin.assets');
+Route::get('/asset/create', 'Admin\AssetController@assetCreate')->name('admin.asset.create');
+Route::post('/asset/store', 'Admin\AssetController@assetStore')->name('admin.asset.store');
+Route::get('/asset/show/{asset_id}', 'Admin\AssetController@assetShow')->name('admin.asset.show');
+
+Route::get('/asset/asset/action/create/{asset_id}', 'Admin\AssetController@assetAssetActionCreate')->name('admin.asset.asset.action.create');
+Route::get('/asset/assign/kit/{asset_id}', 'Admin\AssetController@assetAssignKit')->name('admin.asset.assign.kit');
+
+Route::get('/asset/edit/{asset_id}', 'Admin\AssetController@assetEdit')->name('admin.asset.edit');
+Route::post('/asset/update/{asset_id}', 'Admin\AssetController@assetUpdate')->name('admin.asset.update');
+Route::get('/asset/delete/{asset_id}', 'Admin\AssetController@assetDelete')->name('admin.asset.delete');
+Route::get('/asset/restore/{asset_id}', 'Admin\AssetController@assetRestore')->name('admin.asset.restore');
+
+
+// asset actions
+Route::get('/asset/actions', 'Admin\AssetController@assetActions')->name('admin.asset.actions');
+Route::get('/asset/action/create', 'Admin\AssetController@assetActionCreate')->name('admin.asset.action.create');
+Route::post('/asset/action/store', 'Admin\AssetController@assetActionStore')->name('admin.asset.action.store');
+Route::get('/asset/action/show/{asset_id}', 'Admin\AssetController@assetActionShow')->name('admin.asset.action.show');
+Route::get('/asset/action/edit/{asset_id}', 'Admin\AssetController@assetActionEdit')->name('admin.asset.action.edit');
+Route::post('/asset/action/update/{asset_id}', 'Admin\AssetController@assetActionUpdate')->name('admin.asset.action.update');
+
+// kits
+Route::get('/kits', 'Admin\AssetController@kits')->name('admin.kits');
+Route::get('/kit/create', 'Admin\AssetController@kitCreate')->name('admin.kit.create');
+Route::post('/kit/store', 'Admin\AssetController@kitStore')->name('admin.kit.store');
+Route::get('/kit/show/{kit_id}', 'Admin\AssetController@kitShow')->name('admin.kit.show');
+
+Route::get('/kit/action/create/{kit_id}', 'Admin\AssetController@kitActionCreate')->name('admin.kit.action.create');
+Route::get('/kit/asset/create/{kit_id}', 'Admin\AssetController@kitAssetCreate')->name('admin.kit.asset.create');
+
+
+Route::get('/kit/edit/{kit_id}', 'Admin\AssetController@kitEdit')->name('admin.kit.edit');
+Route::post('/kit/update/{kit_id}', 'Admin\AssetController@kitUpdate')->name('admin.kit.update');
+Route::get('/kit/delete/{kit_id}', 'Admin\AssetController@kitDelete')->name('admin.kit.delete');
+Route::get('/kit/restore/{kit_id}', 'Admin\AssetController@kitRestore')->name('admin.kit.restore');
+
+
+
+// kit assets
+Route::post('/kit/asset/create/{kit_id}', 'Admin\AssetController@kitAssetCreate')->name('admin.kit.asset.create');
+Route::post('/kit/asset/store', 'Admin\AssetController@kitAssetStore')->name('admin.kit.asset.store');
+Route::get('/kit/asset/delete/{kit_id}', 'Admin\AssetController@kitAssetDelete')->name('admin.kit.asset.delete');
+Route::get('/kit/asset/restore/{kit_id}', 'Admin\AssetController@kitAssetRestore')->name('admin.kit.asset.restore');

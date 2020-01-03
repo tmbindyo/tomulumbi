@@ -56,12 +56,8 @@
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                @if($liability->account_id)
-                    <a href="{{route('admin.account.show',$liability->account_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
-                @endif
-                @if($liability->contact_id)
-                    <a href="{{route('admin.contact.show',$liability->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
-                @endif
+                <a href="{{route('admin.account.show',$liability->account_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
+                <a href="{{route('admin.contact.show',$liability->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
             </div>
         </div>
     </div>

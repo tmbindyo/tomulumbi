@@ -62,7 +62,7 @@
                                     <th>Expense #</th>
                                     <th>Date</th>
                                     <th>Created</th>
-                                    <th>Expense Type</th>
+                                    <th>Expense Account</th>
                                     <th>Total</th>
                                     <th>Paid</th>
                                     <th>Status</th>
@@ -111,7 +111,7 @@
                                         <td>{{$expense->reference}}</td>
                                         <td>{{$expense->date}}</td>
                                         <td>{{$expense->created_at}}</td>
-                                        <td>{{$expense->expense_type->name}}</td>
+                                        <td>{{$expense->expense_account->name}}</td>
                                         <td>{{$expense->total}}</td>
                                         <td>{{$expense->paid}}</td>
                                         <td>
@@ -132,7 +132,7 @@
                                     <th>Expense #</th>
                                     <th>Date</th>
                                     <th>Created</th>
-                                    <th>Expense Type</th>
+                                    <th>Expense Account</th>
                                     <th>Total</th>
                                     <th>Paid</th>
                                     <th>Status</th>

@@ -128,7 +128,7 @@
                             <p><span class="badge badge-primary">Email:{{$pendingToDo->email->name}}</span></p>
                         @endif
                         @if($pendingToDo->is_contact === 1)
-                            <p><span class="badge badge-primary">Contact:{{$pendingToDo->contact->name}}</span></p>
+                            <p><span class="badge badge-primary">Contact:{{$pendingToDo->contact->first_name}} {{$pendingToDo->contact->last_name}}</span></p>
                         @endif
                         @if($pendingToDo->is_organization === 1)
                             <p><span class="badge badge-primary">Organization:{{$pendingToDo->organization->name}}</span></p>
@@ -138,6 +138,15 @@
                         @endif
                         @if($pendingToDo->is_campaign === 1)
                             <p><span class="badge badge-primary">Campaign:{{$pendingToDo->campaign->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_asset === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$pendingToDo->asset->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_kit === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$pendingToDo->kit->name}}</span></p>
+                        @endif
+                        @if($pendingToDo->is_asset_action === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$pendingToDo->asset_action->name}}</span></p>
                         @endif
                         <a href="{{route('admin.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
                     </div>
@@ -173,7 +182,7 @@
                             <p><span class="badge badge-primary">Email:{{$inProgressToDo->email->name}}</span></p>
                         @endif
                         @if($inProgressToDo->is_contact === 1)
-                            <p><span class="badge badge-primary">Contact:{{$inProgressToDo->contact->name}}</span></p>
+                            <p><span class="badge badge-primary">Contact:{{$inProgressToDo->contact->first_name}} {{$inProgressToDo->contact->last_name}}</span></p>
                         @endif
                         @if($inProgressToDo->is_organization === 1)
                             <p><span class="badge badge-primary">Organization:{{$inProgressToDo->organization->name}}</span></p>
@@ -183,6 +192,15 @@
                         @endif
                         @if($inProgressToDo->is_campaign === 1)
                             <p><span class="badge badge-primary">Campaign:{{$inProgressToDo->campaign->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_asset === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$inProgressToDo->asset->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_kit === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$inProgressToDo->kit->name}}</span></p>
+                        @endif
+                        @if($inProgressToDo->is_asset_action === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$inProgressToDo->asset_action->name}}</span></p>
                         @endif
                         <a href="{{route('admin.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
                     </div>
@@ -218,7 +236,7 @@
                             <p><span class="badge badge-primary">Email:{{$overdueToDo->email->name}}</span></p>
                         @endif
                         @if($overdueToDo->is_contact === 1)
-                            <p><span class="badge badge-primary">Contact:{{$overdueToDo->contact->name}}</span></p>
+                            <p><span class="badge badge-primary">Contact:{{$overdueToDo->contact->first_name}} {{$overdueToDo->contact->last_name}}</span></p>
                         @endif
                         @if($overdueToDo->is_organization === 1)
                             <p><span class="badge badge-primary">Organization:{{$overdueToDo->organization->name}}</span></p>
@@ -228,6 +246,15 @@
                         @endif
                         @if($overdueToDo->is_campaign === 1)
                             <p><span class="badge badge-primary">Campaign:{{$overdueToDo->campaign->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_asset === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$overdueToDo->asset->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_kit === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$overdueToDo->kit->name}}</span></p>
+                        @endif
+                        @if($overdueToDo->is_asset_action === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$overdueToDo->asset_action->name}}</span></p>
                         @endif
                         @if($overdueToDo->status->name === "Pending")
                             <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
@@ -267,7 +294,7 @@
                             <p><span class="badge badge-primary">Email:{{$completedToDo->email->name}}</span></p>
                         @endif
                         @if($completedToDo->is_contact === 1)
-                            <p><span class="badge badge-primary">Contact:{{$completedToDo->contact->name}}</span></p>
+                            <p><span class="badge badge-primary">Contact:{{$completedToDo->contact->first_name}} {{$completedToDo->contact->last_name}}</span></p>
                         @endif
                         @if($completedToDo->is_organization === 1)
                             <p><span class="badge badge-primary">Organization:{{$completedToDo->organization->name}}</span></p>
@@ -277,6 +304,15 @@
                         @endif
                         @if($completedToDo->is_campaign === 1)
                             <p><span class="badge badge-primary">Campaign:{{$completedToDo->campaign->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_asset === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$completedToDo->asset->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_kit === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$completedToDo->kit->name}}</span></p>
+                        @endif
+                        @if($completedToDo->is_asset_action === 1)
+                            <p><span class="badge badge-primary">Campaign:{{$completedToDo->asset_action->name}}</span></p>
                         @endif
                         <a href="{{route('admin.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
                     </div>
@@ -514,6 +550,15 @@
 
             var elem_14 = document.querySelector('.js-switch_14');
             var switchery_14 = new Switchery(elem_14, { color: '#1AB394' });
+
+            var elem_15 = document.querySelector('.js-switch_15');
+            var switchery_15 = new Switchery(elem_15, { color: '#1AB394' });
+
+            var elem_16 = document.querySelector('.js-switch_16');
+            var switchery_16 = new Switchery(elem_16, { color: '#1AB394' });
+
+            var elem_17 = document.querySelector('.js-switch_17');
+            var switchery_17 = new Switchery(elem_17, { color: '#1AB394' });
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',

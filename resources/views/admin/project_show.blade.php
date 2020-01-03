@@ -390,7 +390,7 @@
                                                 </td>
                                                 <td>{{$expense->reference}}</td>
                                                 <td>{{$expense->date}}</td>
-                                                <td>{{$expense->expense_type->name}}</td>
+                                                <td>{{$expense->expense_account->name}}</td>
                                                 <td>{{$expense->total}}</td>
                                                 <td>
                                                     <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>

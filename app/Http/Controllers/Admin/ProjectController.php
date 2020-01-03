@@ -56,7 +56,7 @@ class ProjectController extends Controller
         // Get the project status counts
         $projectsStatusCount = $this->projectsStatusCount();
         // Get albums
-        $projects = Project::with('user','status','contact','project_type')->get();
+        $projects = Project::with('user','status','project_type')->get();
 
         return view('admin.projects',compact('projects','user','navbarValues','projectsStatusCount'));
     }

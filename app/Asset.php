@@ -12,6 +12,10 @@ class Asset extends Model
     public $incrementing = false;
 
     // Parents
+    public function asset_category()
+    {
+        return $this->belongsTo('App\AssetCategory');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -22,12 +26,20 @@ class Asset extends Model
     }
 
     // children
+    public function asset_actions()
+    {
+        return $this->hasMany('App\AssetAction');
+    }
     public function expenses()
     {
         return $this->hasMany('App\Expense');
     }
-    public function asset_actions()
+    public function kit_assets()
     {
-        return $this->hasMany('App\AssetAction');
+        return $this->hasMany('App\KitAsset');
+    }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
     }
 }

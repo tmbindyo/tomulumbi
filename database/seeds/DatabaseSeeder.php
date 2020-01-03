@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([AccountTableSeeder::class]);
         $this->call([ActionTypeTableSeeder::class]);
         $this->call([AlbumTypeTableSeeder::class]);
+        $this->call([AssetCategoryTableSeeder::class]);
         $this->call([CampaignTypeTableSeeder::class]);
         $this->call([CategoryTableSeeder::class]);
         $this->call([ColorTableSeeder::class]);

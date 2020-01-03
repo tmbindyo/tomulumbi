@@ -30,22 +30,22 @@ class CreateExpensesTable extends Migration
 
             $table->boolean('has_items')->nullable();
 
-            $table->boolean('is_order')->nullable();
+            $table->boolean('is_order');
             $table->uuid('order_id')->nullable();
-            $table->boolean('is_album')->nullable();
+            $table->boolean('is_album');
             $table->uuid('album_id')->nullable();
-            $table->boolean('is_project')->nullable();
+            $table->boolean('is_project');
             $table->uuid('project_id')->nullable();
-            $table->boolean('is_design')->nullable();
+            $table->boolean('is_design');
             $table->uuid('design_id')->nullable();
-            $table->boolean('is_liability')->nullable();
-            $table->uuid('liability_id')->nullable();
-            $table->boolean('is_transfer')->nullable();
+            $table->boolean('is_transfer');
             $table->uuid('transfer_id')->nullable();
-            $table->boolean('is_campaign')->nullable();
+            $table->boolean('is_campaign');
             $table->uuid('campaign_id')->nullable();
-            $table->boolean('is_asset')->nullable();
+            $table->boolean('is_asset');
             $table->uuid('asset_id')->nullable();
+            $table->boolean('is_liability');
+            $table->uuid('liability_id')->nullable();
 
             $table->boolean('is_draft');
             $table->boolean('is_recurring');

@@ -16,6 +16,14 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Album');
     }
+    public function asset()
+    {
+        return $this->belongsTo('App\Asset');
+    }
+    public function asset_action()
+    {
+        return $this->belongsTo('App\AssetAction');
+    }
     public function campaign()
     {
         return $this->belongsTo('App\Campaign');
@@ -43,6 +51,10 @@ class ToDo extends Model
     public function journal_series()
     {
         return $this->belongsTo('App\JournalSeries');
+    }
+    public function kit()
+    {
+        return $this->belongsTo('App\Kit');
     }
     public function order()
     {

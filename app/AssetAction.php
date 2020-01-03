@@ -20,6 +20,14 @@ class AssetAction extends Model
     {
         return $this->belongsTo('App\Asset');
     }
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
+    }
+    public function kit()
+    {
+        return $this->belongsTo('App\Kit');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -33,5 +41,9 @@ class AssetAction extends Model
     public function payments()
     {
         return $this->hasMany('App\Payment');
+    }
+    public function to_dos()
+    {
+        return $this->hasMany('App\ToDo');
     }
 }

@@ -287,6 +287,69 @@
                                 <i>What campaign does the to do belong to</i>
                             </div>
                         </div>
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_asset" type="checkbox" class="js-switch_14" />
+                                    <br>
+                                    <i>Check if it belongs to a Asset.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="asset" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Asset</option>
+                                    @foreach($assets as $asset)
+                                        <option value="{{$asset->id}}">{{$asset->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What asset does the to do belong to</i>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_kit" type="checkbox" class="js-switch_15" />
+                                    <br>
+                                    <i>Check if it belongs to a Kit.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="kit" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Kit</option>
+                                    @foreach($kits as $kit)
+                                        <option value="{{$kit->id}}">{{$kit->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What kit does the to do belong to</i>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_asset_action" type="checkbox" class="js-switch_16" />
+                                    <br>
+                                    <i>Check if it belongs to a Asset Action.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="asset_action" class="select2_demo_2 form-control input-lg">
+                                    <option>Select Asset Action</option>
+                                    @foreach($assetActions as $assetAction)
+                                        <option value="{{$assetAction->id}}">{{$assetAction->reference}} [{{$assetAction->due_date}}]</option>
+                                    @endforeach
+                                </select>
+                                <i>What asset action does the to do belong to</i>
+                            </div>
+                        </div>
                     </div>
 
                     <br>

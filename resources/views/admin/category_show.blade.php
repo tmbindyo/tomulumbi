@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Album Type')
+@section('title', 'Category')
 
 @section('css')
 

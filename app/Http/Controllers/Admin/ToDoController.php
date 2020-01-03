@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Album;
+use App\Asset;
+use App\AssetAction;
 use App\Campaign;
 use App\Contact;
 use App\Deal;
@@ -18,6 +20,7 @@ use App\Traits\UserTrait;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Kit;
 use App\Order;
 use App\Organization;
 use App\Product;
@@ -39,13 +42,13 @@ class ToDoController extends Controller
         // Get to do status count
         $toDoStatusCount = $this->toDoStatusCount();
         // Pending to dos
-        $pendingToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
+        $pendingToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
         // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
+        $inProgressToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
         // Completed to dos
-        $completedToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
+        $completedToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
         // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
+        $overdueToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
         // Albums
         $albums = Album::get();
         // Designs
@@ -68,11 +71,17 @@ class ToDoController extends Controller
         $deals = Deal::get();
         // Campaign
         $campaigns = Campaign::get();
+        // Asset
+        $assets = Asset::get();
+        // Kit
+        $kits = Kit::get();
+        // Asset action
+        $assetActions = AssetAction::get();
 
 
         // User
         $user = $this->getAdmin();
-        return view('admin.to_dos',compact('products','orders','emails','contacts','organizations','deals','campaigns','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects','navbarValues','toDoStatusCount'));
+        return view('admin.to_dos',compact('assetActions','assets','kits','products','orders','emails','contacts','organizations','deals','campaigns','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects','navbarValues','toDoStatusCount'));
     }
 
     public function toDoStore(Request $request)
@@ -168,6 +177,26 @@ class ToDoController extends Controller
         }else{
             $todo->is_campaign = False;
         }
+        // asset
+        if($request->is_asset){
+            $todo->is_asset = True;
+            $todo->asset_id = $request->asset;
+        }else{
+            $todo->is_asset = False;
+        }
+        // kit
+        if($request->is_kit){
+            $todo->is_kit = True;
+            $todo->kit_id = $request->kit;
+        }else{
+            $todo->is_kit = False;
+        }
+        if($request->is_asset_action){
+            $todo->is_asset_action = True;
+            $todo->asset_action_id = $request->asset_action;
+        }else{
+            $todo->is_asset_action = False;
+        }
 
 
         $todo->status_id = "f3df38e3-c854-4a06-be26-43dff410a3bc";
@@ -260,6 +289,26 @@ class ToDoController extends Controller
             $todo->campaign_id = $request->campaign;
         }else{
             $todo->is_campaign = False;
+        }
+        // asset
+        if($request->is_asset){
+            $todo->is_asset = True;
+            $todo->asset_id = $request->asset;
+        }else{
+            $todo->is_asset = False;
+        }
+        // kit
+        if($request->is_kit){
+            $todo->is_kit = True;
+            $todo->kit_id = $request->kit;
+        }else{
+            $todo->is_kit = False;
+        }
+        if($request->is_asset_action){
+            $todo->is_asset_action = True;
+            $todo->asset_action_id = $request->asset_action;
+        }else{
+            $todo->is_asset_action = False;
         }
 
         $todo->save();

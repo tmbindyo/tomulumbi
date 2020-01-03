@@ -16,8 +16,10 @@ use App\Traits\StatusCountTrait;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
 use App\Liability;
+use App\Loan;
 use App\Status;
 use App\Transfer;
+use App\Withdrawal;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -84,10 +86,52 @@ class AccountController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         // get account
-        $account = Account::where('id',$account_id)->with('status','user','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments.album','source_account.destination_account','deposits','liabilities.contact','refunds','transactions')->first();
+        $account = Account::where('id',$account_id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments.album','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
+        $goal = $account->goal;
+        $balance = $account->balance;
+        if ($balance == 0){
+            $percentage = 0;
+        }else{
+            $percentage = doubleval($goal)/$balance/100;
+        }
+        return view('admin.account_show',compact('account','user','navbarValues','percentage'));
+    }
 
-    //    return $account;
-        return view('admin.account_show',compact('account','user','navbarValues'));
+    public function accountDepositCreate($account_id)
+    {
+        // get account
+        $account = Account::findOrFail($account_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.deposit_create',compact('account','user','navbarValues'));
+    }
+
+    public function accountLiabilityCreate($account_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $account = Account::findOrFail($account_id);
+        // get contacts
+        $contacts = Contact::with('organization')->get();
+        return view('admin.account_liability_create',compact('user','navbarValues','account','contacts'));
+    }
+
+    public function accountLoanCreate($account_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $account = Account::findOrFail($account_id);
+        // get contacts
+        $contacts = Contact::with('organization')->get();
+        return view('admin.account_loan_create',compact('user','navbarValues','account','contacts'));
     }
 
 
@@ -99,6 +143,8 @@ class AccountController extends Controller
         $accountExists = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->first();
         $account->name = $request->name;
+        $account->goal = $request->goal;
+        $account->notes = $request->notes;
         $account->user_id = Auth::user()->id;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->save();
@@ -169,6 +215,13 @@ class AccountController extends Controller
             $accountAdjustment->deposit_id = $request->design;
         }else{
             $accountAdjustment->is_deposit = False;
+        }
+
+        if($request->is_withdrawal == "on"){
+            $accountAdjustment->is_withdrawal = True;
+            $accountAdjustment->withdrawal_id = $request->design;
+        }else{
+            $accountAdjustment->is_withdrawal = False;
         }
 
         $accountAdjustment->reference = $reference;
@@ -304,17 +357,6 @@ class AccountController extends Controller
 
 
     // deposits
-    public function depositCreate($account_id)
-    {
-        // get account
-        $account = Account::findOrFail($account_id);
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.deposit_create',compact('account','user','navbarValues'));
-    }
-
     public function depositStore(Request $request)
     {
 
@@ -416,6 +458,7 @@ class AccountController extends Controller
         return redirect()->route('admin.deposit.show',$deposit_id)->withSuccess('Deposit '. $deposit->name .' updated!');
     }
 
+
     public function depositDelete($deposit_id)
     {
 
@@ -436,6 +479,142 @@ class AccountController extends Controller
         $deposit->save();
 
         return back()->withSuccess(__('Deposit '.$deposit->name.' successfully restored.'));
+    }
+
+
+    // withdrawals
+    public function withdrawalCreate($account_id)
+    {
+        // get account
+        $account = Account::findOrFail($account_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.withdrawal_create',compact('account','user','navbarValues'));
+    }
+
+    public function withdrawalStore(Request $request)
+    {
+
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
+        // update account
+        $account = Account::findOrFail($request->account);
+        $initial_amount = $account->balance;
+        $new = doubleval($account->balance) + doubleval($request->amount);
+        $account->balance = $new;
+        $account->save();
+
+        $withdrawal = new Withdrawal();
+        $withdrawal->reference = $reference;
+        $withdrawal->about = $request->about;
+        $withdrawal->date = date('Y-m-d', strtotime($request->date));
+        $withdrawal->initial_amount = $initial_amount;
+        $withdrawal->amount = $request->amount;
+        $withdrawal->subsequent_amount = doubleval($account->balance) + doubleval($request->amount);
+        $withdrawal->account_id = $account->id;
+        $withdrawal->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $withdrawal->user_id = Auth::user()->id;
+        $withdrawal->save();
+
+        return redirect()->route('admin.withdrawal.show',$withdrawal->id)->withSuccess('Withdrawal updated!');
+    }
+
+    public function withdrawalShow($withdrawal_id)
+    {
+        // Check if action type exists
+        $withdrawalExists = Withdrawal::findOrFail($withdrawal_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get withdrawal
+        $withdrawal = Withdrawal::with('user','status','account','account_adjustments')->where('id',$withdrawal_id)->first();
+        return view('admin.withdrawal_show',compact('withdrawal','user','navbarValues'));
+    }
+
+    public function withdrawalAccountAdjustmentCreate($withdrawal_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get all accounts
+        $accounts = Account::all();
+        // get withdrawal
+        $withdrawalExists = Withdrawal::findOrFail($withdrawal_id);
+        $withdrawal = Withdrawal::with('user','status','account','account_adjustments')->where('id',$withdrawal_id)->first();
+        // get account
+        $accountExists = Account::findOrFail($withdrawal->account_id);
+        $account = Account::where('id',$withdrawal->account_id)->first();
+
+        return view('admin.withdrawal_account_adjustment_create',compact('withdrawal','account','user','navbarValues','accounts'));
+
+    }
+
+    public function withdrawalUpdate(Request $request, $withdrawal_id)
+    {
+
+        $withdrawal = Withdrawal::findOrFail($withdrawal_id);
+        $withdrawal->about = $request->about;
+        $withdrawal->amount = $request->amount;
+        $withdrawal->user_id = Auth::user()->id;
+        $withdrawal->save();
+
+        $size = 5;
+        $reference = $this->getRandomString($size);
+        // create adjustment
+        $accountAdjustment = new AccountAdjustment();
+        $accountAdjustment->reference = $reference;
+        $notes = 'Account adjustment for correction of withdrawal of '.$withdrawal->reference;
+        $accountAdjustment->reference = $notes;
+        $accountAdjustment->amount = $request->amount;
+
+        // TODO figuring out initial amount for this
+        $accountAdjustment->initial_account_amount = $withdrawal->initial_amount;
+        $accountAdjustment->subsequent_account_amount = $withdrawal->subsequent_amount;
+
+        $accountAdjustment->date = date('Y-m-d', strtotime($request->date));
+
+        $accountAdjustment->account_id = $withdrawal->account_id;
+        $accountAdjustment->is_withdrawal = True;
+        $accountAdjustment->withdrawal_id = $withdrawal->id;
+
+        $accountAdjustment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $accountAdjustment->user_id = Auth::user()->id;
+        $accountAdjustment->save();
+
+
+        // update account
+
+        // add transaction record
+
+        return redirect()->route('admin.withdrawal.show',$withdrawal_id)->withSuccess('Withdrawal '. $withdrawal->name .' updated!');
+    }
+
+    public function withdrawalDelete($withdrawal_id)
+    {
+
+        $withdrawal = Withdrawal::findOrFail($withdrawal_id);
+        $withdrawal->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $withdrawal->user_id = Auth::user()->id;
+        $withdrawal->save();
+
+        return back()->withSuccess(__('Withdrawal '.$withdrawal->name.' successfully deleted.'));
+    }
+
+    public function withdrawalRestore($withdrawal_id)
+    {
+
+        $withdrawal = Withdrawal::findOrFail($withdrawal_id);
+        $withdrawal->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $withdrawal->user_id = Auth::user()->id;
+        $withdrawal->save();
+
+        return back()->withSuccess(__('Withdrawal '.$withdrawal->name.' successfully restored.'));
     }
 
 
@@ -516,14 +695,14 @@ class AccountController extends Controller
         return view('admin.liability_show',compact('accounts','contacts','liability','user','navbarValues'));
     }
 
-    // TODO payment for liability
+    // TODO expense for liability
 
     public function liabilityUpdate(Request $request, $liability_id)
     {
 
         $liability = Liability::findOrFail($liability_id);
 
-        return redirect()->route('admin.liability.show',$liability->id)->withSuccess('Contact type updated!');
+        return redirect()->route('admin.liability.show',$liability->id)->withSuccess('Liability updated!');
     }
 
     public function liabilityDelete($liability_id)
@@ -545,6 +724,119 @@ class AccountController extends Controller
         $liability->save();
 
         return back()->withSuccess(__('Liability '.$liability->name.' successfully restored.'));
+    }
+
+
+    // loans
+    public function loans()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $loans = Loan::with('user','status','account','account')->get();
+        return view('admin.loans',compact('loans','user','navbarValues'));
+    }
+
+    public function loanCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // get contacts
+        $contacts = Contact::with('organization')->get();
+        return view('admin.loan_create',compact('user','navbarValues','accounts','contacts'));
+    }
+
+    public function loanStore(Request $request)
+    {
+
+        // generate reference
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
+        // calculations
+        $account = Account::findOrFail($request->account);
+        // check if this is an overdraft
+        if($request->amount > $account->balance){
+            return back()->withWarning(__('This loan will overdraft the account.'));
+        }
+        $accountBalance = doubleval($account->balance) - doubleval($request->amount);
+
+        // store loan record
+        $loan = new Loan();
+        $loan->reference = $reference;
+        $loan->about = $request->about;
+
+        $loan->amount = $request->amount;
+        $loan->paid = 0;
+
+        $loan->date = date('Y-m-d', strtotime($request->date));
+        $loan->due_date = date('Y-m-d', strtotime($request->due_date));
+
+        $loan->contact_id = $request->contact;
+        $loan->account_id = $request->account;
+
+        $loan->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $loan->user_id = Auth::user()->id;
+        $loan->save();
+
+        // update accounts balance
+        $account->balance = $accountBalance;
+        $account->save();
+
+        return redirect()->route('admin.loan.show',$loan->id)->withSuccess('Loan created!');
+    }
+
+    public function loanShow($loan_id)
+    {
+        // Check if contact type exists
+        $loanExists = Loan::findOrFail($loan_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // get contacts
+        $contacts = Contact::with('organization')->get();
+        // Get contact type
+        $loan = Loan::with('user','status','account','contact.organization','payments')->where('id',$loan_id)->first();
+        return view('admin.loan_show',compact('accounts','contacts','loan','user','navbarValues'));
+    }
+
+    // TODO payment for loan
+
+    public function loanUpdate(Request $request, $loan_id)
+    {
+
+        $loan = Loan::findOrFail($loan_id);
+
+        return redirect()->route('admin.loan.show',$loan->id)->withSuccess('Loan updated!');
+    }
+
+    public function loanDelete($loan_id)
+    {
+
+        $loan = Loan::findOrFail($loan_id);
+        $loan->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $loan->user_id = Auth::user()->id;
+        $loan->save();
+
+        return back()->withSuccess(__('Loan '.$loan->name.' successfully deleted.'));
+    }
+    public function loanRestore($loan_id)
+    {
+
+        $loan = Loan::findOrFail($loan_id);
+        $loan->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $loan->user_id = Auth::user()->id;
+        $loan->save();
+
+        return back()->withSuccess(__('Loan '.$loan->name.' successfully restored.'));
     }
 
 

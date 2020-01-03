@@ -16,6 +16,10 @@ class Contact extends Model
     {
         return $this->hasMany('App\Album');
     }
+    public function asset_actions()
+    {
+        return $this->hasMany('App\AssetAction');
+    }
     public function contact_contact_types()
     {
         return $this->hasMany('App\ContactContactType');
@@ -35,6 +39,10 @@ class Contact extends Model
     public function liabilities()
     {
         return $this->hasMany('App\Liability');
+    }
+    public function loans()
+    {
+        return $this->hasMany('App\Loan');
     }
     public function orders()
     {

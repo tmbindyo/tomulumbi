@@ -34,6 +34,10 @@ class Payment extends Model
     {
         return $this->belongsTo('App\Design');
     }
+    public function loan()
+    {
+        return $this->belongsTo('App\Loan');
+    }
     public function order()
     {
         return $this->belongsTo('App\Order');

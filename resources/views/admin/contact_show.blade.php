@@ -56,6 +56,7 @@
         </div>
         <div class="col-md-9">
             <div class="title-action">
+                <a href="{{route('admin.contact.asset.action.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Asset Action </a>
                 <a href="{{route('admin.contact.promo.code.assign',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Assign Promo Code </a>
                 <a href="{{route('admin.contact.client.proof.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Client Proof </a>
                 <a href="{{route('admin.contact.deal.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deal </a>

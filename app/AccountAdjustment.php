@@ -28,4 +28,8 @@ class AccountAdjustment extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function withdrawal()
+    {
+        return $this->belongsTo('App\Withdrawal');
+    }
 }

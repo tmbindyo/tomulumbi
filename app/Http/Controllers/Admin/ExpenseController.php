@@ -8,6 +8,8 @@ use App\Order;
 use App\Design;
 use App\Status;
 use App\Account;
+use App\Asset;
+use App\Campaign;
 use App\Project;
 use App\Expense;
 use App\ExpenseAccount;
@@ -22,6 +24,8 @@ use App\Mail\CancelledOrder;
 use App\Traits\StatusCountTrait;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
+use App\Liability;
+use App\Transfer;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -48,7 +52,7 @@ class ExpenseController extends Controller
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // Get albums
-        $expenses = Expense::with('user','status')->get();
+        $expenses = Expense::with('user','status','expense_account')->get();
 
         return view('admin.expenses',compact('expenses','user','navbarValues','journalsStatusCount'));
     }
@@ -74,12 +78,18 @@ class ExpenseController extends Controller
         $projects = Project::with('status')->get();
         // get design
         $designs = Design::with('status')->get();
-        // get transactions
-        $transactions = Transaction::all();
+        // get transfers
+        $transfers = Transfer::all();
+        // get campaign
+        $campaigns = Campaign::all();
+        // get asset
+        $assets = Asset::all();
+        // get liabilities
+        $liabilities = Liability::all();
         // get frequencies
         $frequencies = Frequency::all();
 
-        return view('admin.expense_create',compact('orders','user','navbarValues','journalsStatusCount','clientProofs','personalAlbums','projects','designs','frequencies','expenseAccounts','transactions','expenseStatuses'));
+        return view('admin.expense_create',compact('liabilities','assets','campaigns','orders','user','navbarValues','journalsStatusCount','clientProofs','personalAlbums','projects','designs','frequencies','expenseAccounts','transfers','expenseStatuses'));
     }
 
     public function expenseStore(Request $request)
@@ -99,31 +109,57 @@ class ExpenseController extends Controller
         {
             $expense->is_order = True;
             $expense->order_id = $request->order;
+        }else{
+            $expense->is_order = False;
         }
         if ($request->is_album == "on")
         {
             $expense->is_album = True;
             $expense->album_id = $request->album;
+        }else{
+            $expense->is_album = False;
         }
         if ($request->is_project == "on")
         {
             $expense->is_project = True;
             $expense->project_id = $request->project;
+        }else{
+            $expense->is_project = False;
         }
         if ($request->is_design == "on")
         {
             $expense->is_design = True;
             $expense->design_id = $request->design;
-        }
-        if ($request->is_transaction == "on")
-        {
-            $expense->is_transaction = True;
-            $expense->transaction_id = $request->transaction;
+        }else{
+            $expense->is_design = False;
         }
         if ($request->is_transfer == "on")
         {
             $expense->is_transfer = True;
             $expense->transfer_id = $request->transfer;
+        }else{
+            $expense->is_transfer = False;
+        }
+        if ($request->is_campaign == "on")
+        {
+            $expense->is_campaign = True;
+            $expense->campaign_id = $request->campaign;
+        }else{
+            $expense->is_campaign = False;
+        }
+        if ($request->is_asset == "on")
+        {
+            $expense->is_asset = True;
+            $expense->asset_id = $request->asset;
+        }else{
+            $expense->is_asset = False;
+        }
+        if ($request->is_liability == "on")
+        {
+            $expense->is_liability = True;
+            $expense->liability_id = $request->liability;
+        }else{
+            $expense->is_liability = False;
         }
         if ($request->is_recurring == "on")
         {
@@ -211,14 +247,20 @@ class ExpenseController extends Controller
         $projects = Project::with('status')->get();
         // get design
         $designs = Design::with('status')->get();
-        // get transactions
-        $transactions = Transaction::all();
+        // get transfers
+        $transfers = Transfer::all();
+        // get campaign
+        $campaigns = Campaign::all();
+        // get asset
+        $assets = Asset::all();
+        // get liabilities
+        $liabilities = Liability::all();
         // get frequencies
         $frequencies = Frequency::all();
         // get expense
-        $expense = Expense::where('id',$expense_id)->with('transaction','status','expense_items','payments','account','design','expense_type','frequency','order','project','user','album')->withCount('expense_items')->first();
+        $expense = Expense::where('id',$expense_id)->with('liability','asset','campaign','transfer','status','expense_items','transactions','design','expense_account','frequency','order','project','user','album')->withCount('expense_items')->first();
 
-        return view('admin.expense_edit',compact('expense','user','navbarValues','journalsStatusCount','expenseAccounts','orders','expenseStatuses','personalAlbums','clientProofs','projects','designs','transactions','frequencies'));
+        return view('admin.expense_edit',compact('liabilities','assets','campaigns','expense','user','navbarValues','journalsStatusCount','expenseAccounts','orders','expenseStatuses','personalAlbums','clientProofs','projects','designs','transfers','frequencies'));
     }
 
     public function expenseUpdate(Request $request, $expense_id)
@@ -234,31 +276,61 @@ class ExpenseController extends Controller
         $expense->reference = $reference;
         $expense->expense_type_id = $request->expense_type;
         $expense->date = date('Y-m-d', strtotime($request->date));
-
         if ($request->is_order == "on")
         {
             $expense->is_order = True;
             $expense->order_id = $request->order;
+        }else{
+            $expense->is_order = False;
         }
         if ($request->is_album == "on")
         {
             $expense->is_album = True;
             $expense->album_id = $request->album;
+        }else{
+            $expense->is_album = False;
         }
         if ($request->is_project == "on")
         {
             $expense->is_project = True;
             $expense->project_id = $request->project;
+        }else{
+            $expense->is_project = False;
         }
         if ($request->is_design == "on")
         {
             $expense->is_design = True;
             $expense->design_id = $request->design;
+        }else{
+            $expense->is_design = False;
         }
-        if ($request->is_transaction == "on")
+        if ($request->is_transfer == "on")
         {
-            $expense->is_transaction = True;
-            $expense->transaction_id = $request->transaction;
+            $expense->is_transfer = True;
+            $expense->transfer_id = $request->transfer;
+        }else{
+            $expense->is_transfer = False;
+        }
+        if ($request->is_campaign == "on")
+        {
+            $expense->is_campaign = True;
+            $expense->campaign_id = $request->campaign;
+        }else{
+            $expense->is_campaign = False;
+        }
+        if ($request->is_asset == "on")
+        {
+            $expense->is_asset = True;
+            $expense->asset_id = $request->asset;
+        }else{
+            $expense->is_asset = False;
+        }
+        if ($request->is_liability == "on")
+        {
+            $expense->is_liability = True;
+            $expense->liability_id = $request->liability;
+        }else{
+            $expense->is_liability = False;
         }
         if ($request->is_recurring == "on")
         {

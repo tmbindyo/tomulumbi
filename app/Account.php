@@ -38,6 +38,10 @@ class Account extends Model
     {
         return $this->hasMany('App\Liability');
     }
+    public function loans()
+    {
+        return $this->hasMany('App\Loan');
+    }
     public function payments()
     {
         return $this->hasMany('App\Payment');
@@ -53,5 +57,9 @@ class Account extends Model
     public function transactions()
     {
         return $this->hasMany('App\Transaction');
+    }
+    public function withdrawals()
+    {
+        return $this->hasMany('App\Withdrawal');
     }
 }
