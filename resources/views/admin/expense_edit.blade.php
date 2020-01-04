@@ -93,7 +93,7 @@
                                     <div class="col-md-8">
                                         {{--  expense type  --}}
                                         <div class="has-warning">
-                                            <select name="expense_type" class="select-2 form-control input-lg">
+                                            <select name="expense_account" class="select-2 form-control input-lg">
                                                 @foreach($expenseAccounts as $expenseAccount)
                                                     <option @if($expenseAccount->id == $expense->expense_account_id) selected @endif value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
                                                 @endforeach
@@ -110,7 +110,7 @@
                                         <br>
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <div class="has-warning">
+                                                <div class="has-warning" id="data_1">
                                                     <div class="input-group date">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-calendar"></i>
@@ -424,7 +424,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="has-warning">
+                                        <div class="has-warning" id="data_1">
                                             <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -435,7 +435,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="has-warning">
+                                        <div class="has-warning" id="data_1">
                                             <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>

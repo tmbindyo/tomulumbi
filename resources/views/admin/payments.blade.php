@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Asset Actions')
+@section('title', 'Payments')
 
 @section('css')
 
@@ -20,7 +20,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Asset Actions</h2>
+            <h2>Payments</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -29,13 +29,13 @@
                     Settings
                 </li>
                 <li class="active">
-                    <strong>Asset Actions</strong>
+                    <strong>Payments</strong>
                 </li>
             </ol>
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('admin.asset.action.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Asset Action </a>
+                <a href="{{route('admin.payment.create')}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
             <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Asset Actions</h5>
+                    <h5>Payments</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -70,42 +70,52 @@
                 <tr>
                     <th>Reference</th>
                     <th>Amount</th>
-                    <th>Paid</th>
+                    <th>Initial</th>
+                    <th>Subsequent</th>
                     <th>Date</th>
-                    <th>Due Date</th>
-                    <th>Action Type</th>
-                    <th>Contact</th>
-                    <th>Item</th>
+                    <th>Account</th>
+                    <th>For</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($assetActions as $assetAction)
+                @foreach($payments as $payment)
                     <tr class="gradeX">
-                        <td>{{$assetAction->reference}}</td>
-                        <td>{{$assetAction->amount}}</td>
-                        <td>{{$assetAction->paid}}</td>
-                        <td>{{$assetAction->date}}</td>
-                        <td>{{$assetAction->due_date}}</td>
-                        <td>{{$assetAction->action_type->name}}</td>
-                        <td>{{$assetAction->contact->first_name}} {{$assetAction->contact->last_name}}</td>
-                        <td>{{$assetAction->user->name}}</td>
                         <td>
-                            @if($assetAction->is_asset == 1)
-                                <span class="label label-primary">{{$assetAction->asset->name}}</span>
-                            @elseif($assetAction->is_kit == 1)
-                                <span class="label label-primary">{{$assetAction->kit->name}}</span>
+                            {{$payment->reference}}
+                            <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
+                        </td>
+                        <td>{{$payment->amount}}</td>
+                        <td>{{$payment->initial_balance}}</td>
+                        <td>{{$payment->current_balance}}</td>
+                        <td>{{$payment->date}}</td>
+                        <td>{{$payment->account->name}}</td>
+                        <td>
+                            @if($payment->is_order == 1)
+                                <span class="label label-success">Order: {{$payment->order->reference}}</span>
+                            @elseif($payment->is_quote == 1)
+                                <span class="label label-success">Quote: {{$payment->quote->reference}}</span>
+                            @elseif($payment->is_asset_action == 1)
+                                <span class="label label-success">Asset Action: {{$payment->asset_action->reference}}</span>
+                            @elseif($payment->is_loan == 1)
+                                <span class="label label-success">Loan: {{$payment->loan->reference}}</span>
                             @endif
                         </td>
+                        <td>{{$payment->user->name}}</td>
                         <td>
-                            <span class="label {{$assetAction->status->label}}">{{$assetAction->status->name}}</span>
+                            <span class="label {{$payment->status->label}}">{{$payment->status->name}}</span>
                         </td>
 
                         <td class="text-right">
                             <div class="btn-group">
-                                <a href="{{ route('admin.asset.action.show', $assetAction->id) }}" class="btn-white btn btn-xs">View</a>
+                                <a href="{{ route('admin.payment.show', $payment->id) }}" class="btn-default btn btn-xs">Show</a>
+                                @if($payment->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                    <a href="{{ route('admin.payment.restore', $payment->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                @else
+                                    <a href="{{ route('admin.payment.delete', $payment->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -115,12 +125,11 @@
                 <tr>
                     <th>Reference</th>
                     <th>Amount</th>
-                    <th>Paid</th>
+                    <th>Initial</th>
+                    <th>Subsequent</th>
                     <th>Date</th>
-                    <th>Due Date</th>
-                    <th>Action Type</th>
-                    <th>Contact</th>
-                    <th>Item</th>
+                    <th>Account</th>
+                    <th>For</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>

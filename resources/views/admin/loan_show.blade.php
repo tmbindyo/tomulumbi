@@ -56,9 +56,9 @@
         </div>
         <div class="col-md-5">
             <div class="title-action">
-                <a href="{{route('admin.account.show',$loan->account_id)}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
                 <a href="{{route('admin.account.show',$loan->account_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Account </a>
                 <a href="{{route('admin.contact.show',$loan->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                <a href="{{route('admin.loan.payment.create',$loan->id)}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
             </div>
         </div>
     </div>
@@ -141,6 +141,11 @@
                                     <div class="has-warning">
                                         <input type="number" id="amount" name="amount" required="required" value="{{$loan->amount}}" class="form-control input-lg">
                                         <i>amount</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <input type="number" id="paid" name="paid" required="required" value="{{$loan->paid}}" class="form-control input-lg" readonly>
+                                        <i>paid</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
@@ -259,7 +264,6 @@
                                                         <th>Subsequent</th>
                                                         <th>Account</th>
                                                         <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -271,16 +275,11 @@
                                                             </td>
                                                             <td>{{$payment->date}}</td>
                                                             <td>{{$payment->initial_balance}}</td>
-                                                            <td>{{$payment->paid}}</td>
+                                                            <td>{{$payment->amount}}</td>
                                                             <td>{{$payment->current_balance}}</td>
                                                             <td>{{$payment->account->name}}</td>
                                                             <td>
                                                                 <p><span class="label {{$payment->status->label}}">{{$payment->status->name}}</span></p>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('admin.payment.show', $payment->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -294,7 +293,6 @@
                                                         <th>Subsequent</th>
                                                         <th>Account</th>
                                                         <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>

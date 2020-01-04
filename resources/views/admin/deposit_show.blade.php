@@ -138,7 +138,7 @@
                                     <br>
                                     <div class="has-warning" readonly>
                                         <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$deposit->account->id}}">{{$deposit->account->name}}</option>
+                                            <option value="{{$deposit->account->id}}">{{$deposit->account->name}} [{{$deposit->account->balance}}]</option>
                                         </select>
                                         <i>type</i>
                                     </div>

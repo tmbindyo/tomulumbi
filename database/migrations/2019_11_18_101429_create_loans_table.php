@@ -20,7 +20,7 @@ class CreateLoansTable extends Migration
             $table->longText('about');
 
             $table->decimal('amount',20,2);
-            $table->decimal('paid',20,2);
+            $table->double('paid',200,2)->nullable();
 
             $table->date('date');
             $table->date('due_date');

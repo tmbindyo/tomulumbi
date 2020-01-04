@@ -302,6 +302,9 @@ Route::get('/quotes', 'Admin\CRMController@quotes')->name('admin.quotes');
 Route::get('/quote/create', 'Admin\CRMController@quoteCreate')->name('admin.quote.create');
 Route::post('/quote/store', 'Admin\CRMController@quoteStore')->name('admin.quote.store');
 Route::get('/quote/show/{quote_id}', 'Admin\CRMController@quoteShow')->name('admin.quote.show');
+
+Route::get('/quote/payment/create/{quote_id}', 'Admin\CRMController@quotePaymentCreate')->name('admin.quote.payment.create');
+
 Route::get('/quote/edit/{quote_id}', 'Admin\CRMController@quoteEdit')->name('admin.quote.edit');
 Route::get('/quote/print/{quote_id}', 'Admin\CRMController@quotePrint')->name('admin.quote.print');
 Route::get('/quote/send/{quote_id}', 'Admin\CRMController@quoteSend')->name('admin.quote.send');
@@ -432,6 +435,9 @@ Route::get('/orders', 'Admin\SaleController@orders')->name('admin.orders');
 Route::get('/order/create', 'Admin\SaleController@orderCreate')->name('admin.order.create');
 Route::post('/order/store', 'Admin\SaleController@orderStore')->name('admin.order.store');
 Route::get('/order/show/{order_id}', 'Admin\SaleController@orderShow')->name('admin.order.show');
+
+Route::get('/order/payment/create/{order_id}', 'Admin\SaleController@orderPaymentCreate')->name('admin.order.payment.create');
+
 Route::post('/order/update/status/{order_id}', 'Admin\SaleController@orderUpdateStatus')->name('admin.order.update.status');
 Route::post('/order/{order_id}/payment/store', 'Admin\SaleController@orderPaymentStore')->name('admin.order.payment.store');
 Route::post('/order/{order_id}/expense/store', 'Admin\SaleController@orderExpenseStore')->name('admin.order.expense.store');
@@ -489,8 +495,8 @@ Route::post('/account/update/{account_id}', 'Admin\AccountController@accountUpda
 Route::get('/account/delete/{account_id}', 'Admin\AccountController@accountDelete')->name('admin.account.delete');
 Route::get('/account/restore/{account_id}', 'Admin\AccountController@accountRestore')->name('admin.account.restore');
 
-
 // deposits
+
 Route::post('/deposit/store', 'Admin\AccountController@depositStore')->name('admin.deposit.store');
 Route::get('/deposit/show/{deposit_id}', 'Admin\AccountController@depositShow')->name('admin.deposit.show');
 
@@ -500,9 +506,7 @@ Route::post('/deposit/update/{deposit_id}', 'Admin\AccountController@depositUpda
 Route::get('/deposit/delete/{deposit_id}', 'Admin\AccountController@depositDelete')->name('admin.deposit.delete');
 Route::get('/deposit/restore/{deposit_id}', 'Admin\AccountController@depositRestore')->name('admin.deposit.restore');
 
-
 // withdrawals
-Route::get('/withdrawal/create/{account_id}', 'Admin\AccountController@withdrawalCreate')->name('admin.withdrawal.create');
 Route::post('/withdrawal/store', 'Admin\AccountController@withdrawalStore')->name('admin.withdrawal.store');
 Route::get('/withdrawal/show/{withdrawal_id}', 'Admin\AccountController@withdrawalShow')->name('admin.withdrawal.show');
 
@@ -551,6 +555,9 @@ Route::get('/loans', 'Admin\AccountController@loans')->name('admin.loans');
 Route::get('/loan/create', 'Admin\AccountController@loanCreate')->name('admin.loan.create');
 Route::post('/loan/store', 'Admin\AccountController@loanStore')->name('admin.loan.store');
 Route::get('/loan/show/{loan_id}', 'Admin\AccountController@loanShow')->name('admin.loan.show');
+
+Route::get('/loan/payment/create/{loan_id}', 'Admin\AccountController@loanPaymentCreate')->name('admin.loan.payment.create');
+
 Route::get('/loan/edit/{loan_id}', 'Admin\AccountController@loanEdit')->name('admin.loan.edit');
 Route::post('/loan/update/{loan_id}', 'Admin\AccountController@loanUpdate')->name('admin.loan.update');
 Route::get('/loan/delete/{loan_id}', 'Admin\AccountController@loanDelete')->name('admin.loan.delete');
@@ -559,19 +566,30 @@ Route::get('/loan/restore/{loan_id}', 'Admin\AccountController@loanRestore')->na
 
 // payments
 Route::get('/payments', 'Admin\ExpenseController@payments')->name('admin.payments');
+Route::get('/payment/create', 'Admin\ExpenseController@paymentCreate')->name('admin.payment.create');
+Route::post('/payment/store', 'Admin\ExpenseController@paymentStore')->name('admin.payment.store');
+Route::get('/payment/show/{payment_id}', 'Admin\ExpenseController@paymentShow')->name('admin.payment.show');
+
+Route::get('/payment/{payment_id}/refund/create', 'Admin\ExpenseController@refundCreate')->name('admin.payment.refund.create');
+
+Route::get('/payment/delete/{payment_id}', 'Admin\ExpenseController@paymentDelete')->name('admin.payment.delete');
+Route::get('/payment/restore/{payment_id}', 'Admin\ExpenseController@paymentRestore')->name('admin.payment.restore');
 
 
 // refunds
+Route::get('/refunds', 'Admin\ExpenseController@refunds')->name('admin.refunds');
+Route::post('/refund/store', 'Admin\ExpenseController@refundStore')->name('admin.refund.store');
+Route::get('/refund/show/{refund_id}', 'Admin\ExpenseController@refundShow')->name('admin.refund.show');
+Route::get('/refund/edit/{refund_id}', 'Admin\ExpenseController@refundEdit')->name('admin.refund.edit');
+Route::post('/refund/update/{refund_id}', 'Admin\ExpenseController@refundUpdate')->name('admin.refund.update');
+Route::get('/refund/delete/{refund_id}', 'Admin\ExpenseController@refundDelete')->name('admin.refund.delete');
+Route::get('/refund/restore/{refund_id}', 'Admin\ExpenseController@refundRestore')->name('admin.refund.restore');
 
 
 // transactions
 Route::get('/transactions', 'Admin\ExpenseController@transactions')->name('admin.transactions');
 Route::get('/transaction/create/{expense_id}', 'Admin\ExpenseController@transactionCreate')->name('admin.transaction.create');
 Route::post('/transaction/store', 'Admin\ExpenseController@transactionStore')->name('admin.transaction.store');
-
-Route::get('/account/withdrawal/{account_id}', 'Admin\ExpenseController@accountWithdrawal')->name('admin.account.withdrawal');
-Route::get('/account/deposit/{account_id}', 'Admin\ExpenseController@accountDeposit')->name('admin.account.deposit');
-
 Route::get('/transaction/edit/{transaction_id}', 'Admin\ExpenseController@transactionEdit')->name('admin.transaction.edit');
 Route::post('/transaction/update/{transaction_id}', 'Admin\ExpenseController@transactionUpdate')->name('admin.transaction.update');
 Route::get('/transaction/billed/{transaction_id}', 'Admin\ExpenseController@transactionBilled')->name('admin.transaction.billed');
@@ -615,6 +633,9 @@ Route::get('/asset/actions', 'Admin\AssetController@assetActions')->name('admin.
 Route::get('/asset/action/create', 'Admin\AssetController@assetActionCreate')->name('admin.asset.action.create');
 Route::post('/asset/action/store', 'Admin\AssetController@assetActionStore')->name('admin.asset.action.store');
 Route::get('/asset/action/show/{asset_id}', 'Admin\AssetController@assetActionShow')->name('admin.asset.action.show');
+
+Route::get('/asset/action/payment/create/{asset_id}', 'Admin\AssetController@assetActionPaymentCreate')->name('admin.asset.action.payment.create');
+
 Route::get('/asset/action/edit/{asset_id}', 'Admin\AssetController@assetActionEdit')->name('admin.asset.action.edit');
 Route::post('/asset/action/update/{asset_id}', 'Admin\AssetController@assetActionUpdate')->name('admin.asset.action.update');
 

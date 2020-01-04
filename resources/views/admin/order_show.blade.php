@@ -71,6 +71,7 @@
         <div class="col-md-3">
             <div class="title-action">
                 <a href="{{route('admin.contact.show',$order->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                <a href="{{route('admin.order.payment.create',$order->id)}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
             </div>
         </div>
     </div>
@@ -217,146 +218,167 @@
             </div>
         </div>
 
-        {{--  Product payments  --}}
+        {{--  details  --}}
         <div class="row">
             <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Payments</h5>
-                        <div class="ibox-tools">
-                            <div class="has-success">
-                                <a data-toggle="modal" data-target="#paymentRegistration" class="has-success btn btn-warning btn-outline" href="#">
-                                    <i class="fa fa-plus"> New</i>
-                                </a>
+                <div class="wrapper wrapper-content animated fadeInUp">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="m-b-md">
+                                    </div>
+                                    <dl class="dl-horizontal">
+                                        <dt>Status:</dt> <dd><span class="label {{$order->status->label}}">{{$order->status->name}}</span></dd>
+                                    </dl>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <dl class="dl-horizontal">
 
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>User</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($order->payments as $payment)
-                                    <tr class="gradeX">
-                                        <td>{{$payment->name}}</td>
-                                        <td>{{$payment->description}}</td>
-                                        <td>{{$payment->user->name}}</td>
-                                        <td>
-                                            <span class="label {{$payment->status->label}}">{{$payment->status->name}}</span>
-                                        </td>
+                                        <dt>Client:</dt> <dd>{{$order->contact->first_name}} {{$order->contact->last_name}}</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-lg-7" id="cluster_info">
+                                    <dl class="dl-horizontal" >
 
-                                        <td class="text-right">
-                                            <div class="btn-group">
-                                                <a href="{{ route('admin.payment.show', $payment->id) }}" class="btn-white btn btn-xs">View</a>
-                                                <a href="{{ route('admin.payment.restore', $payment->id) }}" class="btn-warning btn btn-xs">Refund</a>
+                                        <dt>Last Updated:</dt> <dd>{{$order->updated_at}}</dd>
+                                        <dt>Created:</dt> <dd> {{$order->created_at}} </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="row m-t-sm">
+                                <div class="col-lg-12">
+                                <div class="panel blank-panel">
+                                <div class="panel-heading">
+                                    <div class="panel-options">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#payments" data-toggle="tab">Asset Actions</a></li>
+                                            <li class=""><a href="#expenses" data-toggle="tab">Expenses</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="payments">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Date</th>
+                                                        <th>Initial #</th>
+                                                        <th>Paid</th>
+                                                        <th>Subsequent</th>
+                                                        <th>Account</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($order->payments as $payment)
+                                                        <tr class="gradeX">
+                                                            <td>
+                                                                {{$payment->reference}}
+                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                            </td>
+                                                            <td>{{$payment->date}}</td>
+                                                            <td>{{$payment->initial_balance}}</td>
+                                                            <td>{{$payment->amount}}</td>
+                                                            <td>{{$payment->current_balance}}</td>
+                                                            <td>{{$payment->account->name}}</td>
+                                                            <td>
+                                                                <p><span class="label {{$payment->status->label}}">{{$payment->status->name}}</span></p>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Reference</th>
+                                                        <th>Date</th>
+                                                        <th>Initial #</th>
+                                                        <th>Paid</th>
+                                                        <th>Subsequent</th>
+                                                        <th>Account</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
                                             </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>User</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
+                                        </div>
 
-        {{--  Product expenses  --}}
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Expenses</h5>
-                        <div class="ibox-tools">
-                            <div class="has-success">
-                                <a data-toggle="modal" data-target="#expenseRegistration" class="has-success btn btn-warning btn-outline" href="#">
-                                    <i class="fa fa-plus"> New</i>
-                                </a>
-                            </div>
+                                        <div class="tab-pane" id="expenses">
 
-                        </div>
-                    </div>
-                    <div class="ibox-content">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Recurring</th>
+                                                        <th>Expense #</th>
+                                                        <th>Date</th>
+                                                        <th>Expense Type</th>
+                                                        <th>Amount</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($order->expenses as $expense)
+                                                        <tr class="gradeA">
+                                                            <td>
+                                                                @if($expense->is_recurring == 1)
+                                                                    <p><span class="badge badge-success">True</span></p>
+                                                                @else
+                                                                    <p><span class="badge badge-success">False</span></p>
+                                                                @endif
+                                                            </td>
+                                                            <td>{{$expense->reference}}</td>
+                                                            <td>{{$expense->date}}</td>
+                                                            <td>{{$expense->expense_type->name}}</td>
+                                                            <td>{{$expense->total}}</td>
+                                                            <td>
+                                                                <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    <a href="{{ route('admin.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th>Recurring</th>
+                                                        <th>Expense #</th>
+                                                        <th>Date</th>
+                                                        <th>Expense Type</th>
+                                                        <th>Amount</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
 
-                        <div id="expenses" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                        <thead>
-                                        <tr>
-                                            <th>Recurring</th>
-                                            <th>Expense #</th>
-                                            <th>Date</th>
-                                            <th>Expense Type</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($order->expenses as $expense)
-                                            <tr class="gradeA">
-                                                <td>
-                                                    @if($expense->is_recurring == 1)
-                                                        <p><span class="badge badge-success">True</span></p>
-                                                    @else
-                                                        <p><span class="badge badge-success">False</span></p>
-                                                    @endif
-                                                </td>
-                                                <td>{{$expense->reference}}</td>
-                                                <td>{{$expense->date}}</td>
-                                                <td>{{$expense->expense_type->name}}</td>
-                                                <td>{{$expense->total}}</td>
-                                                <td>
-                                                    <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('admin.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Recurring</th>
-                                            <th>Expense #</th>
-                                            <th>Date</th>
-                                            <th>Expense Type</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+
 
         <br>
         {{--  to do Counts  --}}

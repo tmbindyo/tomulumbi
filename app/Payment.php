@@ -26,14 +26,6 @@ class Payment extends Model
     {
         return $this->belongsTo('App\AssetAction');
     }
-    public function album()
-    {
-        return $this->belongsTo('App\Album');
-    }
-    public function design()
-    {
-        return $this->belongsTo('App\Design');
-    }
     public function loan()
     {
         return $this->belongsTo('App\Loan');
@@ -42,9 +34,9 @@ class Payment extends Model
     {
         return $this->belongsTo('App\Order');
     }
-    public function project()
+    public function quote()
     {
-        return $this->belongsTo('App\Project');
+        return $this->belongsTo('App\Quote');
     }
     public function status()
     {

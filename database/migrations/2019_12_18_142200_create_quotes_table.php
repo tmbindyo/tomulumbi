@@ -27,7 +27,7 @@ class CreateQuotesTable extends Migration
             $table->double('discount', 20,2);
             $table->double('tax', 20,2);
             $table->double('total', 20,2);
-            $table->double('paid', 20,2);
+            $table->double('paid',200,2)->nullable();
             $table->double('balance', 20,2);
 
             $table->integer('user_id')->unsigned();

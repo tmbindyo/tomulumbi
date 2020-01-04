@@ -19,6 +19,7 @@ class CreateAssetActionsTable extends Migration
             $table->string('reference');
             $table->longText('notes')->nullable();
             $table->double('amount',200,2);
+            $table->double('paid',200,2)->nullable();
 
             $table->date('date');
             $table->date('due_date');

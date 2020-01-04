@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Account;
 use App\ActionType;
 use Illuminate\Support\Facades\Auth;
 use App\Kit;
@@ -255,6 +256,19 @@ class AssetController extends Controller
         $overdueToDos = ToDo::with('user','status','kit')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('asset_action_id',$assetAction->id)->get();
 
         return view('admin.asset_action_show',compact('assetAction','user','navbarValues','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+    }
+
+    public function assetActionPaymentCreate($asset_action_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // asset actions
+        $assetAction = AssetAction::findOrFail($asset_action_id);
+        return view('admin.asset_action_payment_create',compact('user','navbarValues','accounts','assetAction'));
     }
 
     public function assetActionUpdate(Request $request, $asset_action_id)

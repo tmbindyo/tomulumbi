@@ -1105,8 +1105,8 @@ class CRMController extends Controller
         $deal = Deal::findOrFail($deal_id);
         $deal->name = $request->name;
         $deal->amount = $request->amount;
-        $deal->starting_date = $request->starting_date;
-        $deal->closing_date = $request->closing_date;
+        $deal->starting_date = date('Y-m-d', strtotime($request->starting_date));
+        $deal->closing_date = date('Y-m-d', strtotime($request->closing_date));
         $deal->probability = $request->probability;
         $deal->organization_id = $request->organization;
         $deal->contact_id = $request->contact;
@@ -1191,7 +1191,6 @@ class CRMController extends Controller
         $quote->total = $request->grand_total;
 
         $quote->tax = 0;
-        $quote->paid = 0;
         $quote->balance = 0;
 
         if($request->is_deal == "on"){
@@ -1292,9 +1291,22 @@ class CRMController extends Controller
         $contacts = Contact::with('organization')->get();
 
         // Get quotes
-        $quote = Quote::with('user','status','contact','campaign','deal','quote_items')->withCount('quote_items')->where('id',$quote_id)->first();
+        $quote = Quote::with('user','status','contact','campaign','deal','quote_items','payments.account','payments.status')->withCount('quote_items')->where('id',$quote_id)->first();
 
         return view('admin.quote_show',compact('contacts','taxes','quote','user','navbarValues'));
+    }
+
+    public function quotePaymentCreate($quote_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // quotes
+        $quote = Quote::findOrFail($quote_id);
+        return view('admin.quote_payment_create',compact('user','navbarValues','accounts','quote'));
     }
 
     public function quoteEdit($quote_id)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Account;
 use Auth;
 use App\ToDo;
 use App\Order;
@@ -80,6 +81,7 @@ class SaleController extends Controller
         $order->discount = $request->discount;
         $order->total = $request->grand_total;
         $order->refund = 0;
+        $order->paid = 0;
 
         if($request->is_draft == "on"){
             $order->is_draft = True;
@@ -151,6 +153,19 @@ class SaleController extends Controller
         $overdueToDos = ToDo::with('user','status','order')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('order_id',$order->id)->get();
 //        return $order;
         return view('admin.order_show',compact('order','user','navbarValues','ordersStatusCount','orderArray','pendingToDos','inProgressToDos','completedToDos','overdueToDos','orderStatuses'));
+    }
+
+    public function orderPaymentCreate($order_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // loans
+        $order = Order::findOrFail($order_id);
+        return view('admin.order_payment_create',compact('user','navbarValues','accounts','order'));
     }
 
     public function orderUpdateStatus(Request $request, $order_id)

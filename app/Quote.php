@@ -12,6 +12,10 @@ class Quote extends Model
     public $incrementing = false;
 
     // Children
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
+    }
     public function quote_items()
     {
         return $this->hasMany('App\QuoteItem');

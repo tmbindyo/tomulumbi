@@ -9,6 +9,7 @@ use App\Design;
 use App\Status;
 use App\Account;
 use App\Asset;
+use App\AssetAction;
 use App\Campaign;
 use App\Project;
 use App\Expense;
@@ -25,6 +26,10 @@ use App\Traits\StatusCountTrait;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
 use App\Liability;
+use App\Loan;
+use App\Payment;
+use App\Quote;
+use App\Refund;
 use App\Transfer;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
@@ -274,7 +279,7 @@ class ExpenseController extends Controller
         $expenseExists = Expense::findOrFail($expense_id);
         $expense = Expense::where('id',$expense_id)->first();
         $expense->reference = $reference;
-        $expense->expense_type_id = $request->expense_type;
+        $expense->expense_account_id = $request->expense_account;
         $expense->date = date('Y-m-d', strtotime($request->date));
         if ($request->is_order == "on")
         {
@@ -370,6 +375,14 @@ class ExpenseController extends Controller
             if($expenseItem)
             {
                 $expenseProducts[]['id'] = $expenseItem->id;
+                $expenseItem->name = $item['item'];
+                $expenseItem->quantity = $item['quantity'];
+                $expenseItem->rate = $item['rate'];
+                $expenseItem->amount = $item['amount'];
+                $expenseItem->user_id = Auth::user()->id;
+                $expenseItem->expense_id = $expense->id;
+                $expenseItem->status_id = $request->status;
+                $expenseItem->save();
             }
             else
             {
@@ -443,144 +456,68 @@ class ExpenseController extends Controller
     public function transactionCreate($expense_id)
     {
 
-        // check if expense_id is 1
-        // get expense
-        if ($expense_id == 1){
-            $expense = [];
-        }else{
-            $expenseExists = Expense::findOrFail($expense_id);
-            $expense = Expense::where('id',$expense_id)->first();
-        }
-        $withdrawal = [];
-        $deposit = [];
-        $account = [];
-
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
-        // get accounts
-        $accounts = Account::all();
         // get expenses
-        $expenses = Expense::all();
-
-        // albums
-//        $album
-        // designs
-        // projects
-        // orders
+        $expense = Expense::findOrFail($expense_id);
+        // accounts
+        $accounts = Account::all();
 
         // transaction statuses
         $transactionStatuses = Status::where('status_type_id','8f56fc70-6cd8-496f-9aec-89e5748968db')->get();
-        return view('admin.transaction_create',compact('expense','user','navbarValues','journalsStatusCount','accounts','expenses','transactionStatuses','account','deposit','withdrawal'));
-    }
-
-    public function accountWithdrawal($account_id)
-    {
-
-        // get account
-        $accountExists = Account::findOrFail($account_id);
-        $withdrawal = Account::where('id',$account_id)->first();
-        $expense = [];
-        $deposit = [];
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // Get the design status counts
-        $journalsStatusCount = $this->expensesStatusCount();
-        // get accounts
-        $accounts = Account::all();
-        // get expenses
-        $expenses = Expense::all();
-        // transaction statuses
-        $transactionStatuses = Status::where('status_type_id','8f56fc70-6cd8-496f-9aec-89e5748968db')->get();
-        return view('admin.transaction_create',compact('expense','user','navbarValues','journalsStatusCount','accounts','expenses','transactionStatuses','withdrawal','deposit'));
-    }
-
-    public function accountDeposit($account_id)
-    {
-
-        // get account
-        $accountExists = Account::findOrFail($account_id);
-        $deposit = Account::where('id',$account_id)->first();
-        $expense = [];
-        $withdrawal = [];
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // Get the design status counts
-        $journalsStatusCount = $this->expensesStatusCount();
-        // get accounts
-        $accounts = Account::all();
-        // get expenses
-        $expenses = Expense::all();
-        // transaction statuses
-        $transactionStatuses = Status::where('status_type_id','8f56fc70-6cd8-496f-9aec-89e5748968db')->get();
-        return view('admin.transaction_create',compact('expense','user','navbarValues','journalsStatusCount','accounts','expenses','transactionStatuses','withdrawal','deposit'));
+        return view('admin.transaction_create',compact('accounts','expense','user','navbarValues','journalsStatusCount','transactionStatuses'));
     }
 
     public function transactionStore(Request $request)
     {
-
+        // get expense
+        $expense = Expense::findOrFail($request->expense);
         // User
         $user = $this->getAdmin();
         // new transaction
         $size = 5;
         $reference = $this->getRandomString($size);
         $transaction = new Transaction();
-        if ($request->is_expense == "on")
-        {
-            $transaction->is_expense = True;
-            $transaction->is_transfer = False;
-            $transaction->expense_id = $request->expense;
-
-            // update account paid
-            $expensePaid = Expense::where('id',$request->expense)->first();
-            $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
-            $expensePaid->save();
-        }
+        $transaction->expense_id = $request->expense;
         $transaction->account_id = $request->account;
         $transaction->amount = $request->amount;
+
+        $transaction->initial_amount = 0;
+        $transaction->subsequent_amount = 0;
+
         $transaction->reference = $reference;
         $transaction->date = date('Y-m-d', strtotime($request->date));
         $transaction->notes = $request->notes;
-        if ($request->is_transfer == "on")
-        {
-            $transaction->is_transfer = True;
-            $transaction->is_expense = False;
-            $transaction->source_account_id = $request->source_account;
-            $transaction->destination_account_id = $request->destination_account;
-        }
         $transaction->user_id = Auth::user()->id;
         $transaction->status_id = $request->status;
         $transaction->save();
 
-        if ($request->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2')
-        {
-            if ($request->is_expense == "on")
-            {
-                $account = Account::where('id',$request->account)->first();
-                $account->balance = doubleval($account->balance)-doubleval($request->amount);
-                $account->save();
-            } elseif ($request->is_transfer == "on")
-            {
-                // credit source
-                $account = Account::where('id',$request->source_account)->first();
-                $account->balance = doubleval($account->balance)-doubleval($request->amount);
-                $account->save();
-                // debit destination
-                $destinationAccount = Account::where('id',$request->destination_account)->first();
-                $destinationAccount->balance = doubleval($destinationAccount->balance)+doubleval($request->amount);
-                $destinationAccount->save();
-            }
-        }
         // account subtraction
+        if ($request->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2'){
 
-        return back()->withSuccess('Expense '.$transaction->reference.' successfully updated!');
+            // update expense paid
+            $expensePaid = Expense::where('id',$request->expense)->first();
+            $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
+            $expensePaid->save();
+
+            $account = Account::where('id',$request->account)->first();
+
+            // update transaction
+            $transaction = Transaction::findOrFail($transaction->id);
+            $transaction->initial_amount = $account->balance;
+            $transaction->subsequent_amount = doubleval($account->balance)-doubleval($request->amount);
+            $transaction->save();
+
+            // update account balance
+            $account->balance = doubleval($account->balance)-doubleval($request->amount);
+            $account->save();
+        }
+
+        return redirect()->route('admin.expense.show',$transaction->expense_id)->withSuccess('Expense '.$transaction->reference.' successfully updated!');
 
     }
 
@@ -593,29 +530,29 @@ class ExpenseController extends Controller
         $transaction = Transaction::findOrFail($transaction_id);
         // get transaction
         $transaction = Transaction::where('id',$transaction_id)->first();
-
         $transaction->user_id = Auth::user()->id;
         $transaction->status_id = $request->status;
         $transaction->save();
 
         if ($request->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2')
         {
-            if ($request->is_expense == "on")
-            {
-                $account = Account::where('id',$request->account)->first();
-                $account->balance = doubleval($account->balance)-doubleval($request->amount);
-                $account->save();
-            } elseif ($request->is_transfer == "on")
-            {
-                // credit source
-                $account = Account::where('id',$request->source_account)->first();
-                $account->balance = doubleval($account->balance)-doubleval($request->amount);
-                $account->save();
-                // debit destination
-                $account = Account::where('id',$request->destination_account)->first();
-                $account->balance = doubleval($account->balance)+doubleval($request->amount);
-                $account->save();
-            }
+            // update expense paid
+            $expensePaid = Expense::where('id',$request->expense)->first();
+            $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
+            $expensePaid->save();
+
+            $account = Account::where('id',$request->account)->first();
+
+            // update transaction
+            $transaction = Transaction::findOrFail($transaction->id);
+            $transaction->initial_amount = $account->balance;
+            $transaction->subsequent_amount = doubleval($account->balance)-doubleval($request->amount);
+            $transaction->save();
+
+            // update account balance
+            
+            $account->balance = doubleval($account->balance)-doubleval($request->amount);
+            $account->save();
         }
         // account subtraction
 
@@ -634,21 +571,25 @@ class ExpenseController extends Controller
         // get and update transaction
         $transaction = Transaction::where('id',$transaction_id)->first();
         $transaction->date = date('Y-m-d');
-        $transaction->notes = '';
         $transaction->user_id = $user->id;
-        $transaction->is_billed = True;
         $transaction->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2';
         $transaction->save();
 
-        // update account paid
-        $expensePaid = Expense::where('id',$transaction->expense_id)->first();
-        $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($transaction->amount);
+        // update expense paid
+        $expensePaid = Expense::where('id',$request->expense)->first();
+        $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
         $expensePaid->save();
 
-        // update account, subtract paid amount
-        $account = Account::where('id',$transaction->account_id)->first();
-        $account->balance = doubleval($account->balance) - doubleval($transaction->amount);
-        $account->user_id = $user->id;
+        $account = Account::where('id',$request->account)->first();
+
+        // update transaction
+        $transaction = Transaction::findOrFail($transaction->id);
+        $transaction->initial_amount = $account->balance;
+        $transaction->subsequent_amount = doubleval($account->balance)-doubleval($request->amount);
+        $transaction->save();
+
+        // update account balance
+        $account->balance = doubleval($account->balance)-doubleval($request->amount);
         $account->save();
 
         return back()->withSuccess('Expense '.$transaction->reference.' successfully marked as billed!');
@@ -665,6 +606,7 @@ class ExpenseController extends Controller
 
         // get and update transaction
         $transaction = Transaction::where('id',$transaction_id)->first();
+        $transaction->billed = date('Y-m-d');
         $transaction->user_id = $user->id;
         $transaction->status_id = '2fb4fa58-f73d-40e6-ab80-f0d904393bf2';
         $transaction->is_billed = True;
@@ -675,6 +617,8 @@ class ExpenseController extends Controller
         $account->balance = doubleval($account->balance) + doubleval($transaction->amount);
         $account->user_id = $user->id;
         $account->save();
+
+        // create record to track when billed
 
         return back()->withSuccess('Expense '.$transaction->reference.' successfully marked as billed!');
 
@@ -689,4 +633,250 @@ class ExpenseController extends Controller
         Mail::to('tmbindyo@fluidtechglobal.com')->send(new CancelledOrder($orderData));
 
     }
+
+
+    // payments
+    public function payments()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $payments = Payment::with('user','status','account')->get();
+        return view('admin.payments',compact('payments','user','navbarValues'));
+    }
+
+    public function paymentCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // asset actions
+        $assetActions = AssetAction::all();
+        // loans
+        $loans = Loan::all();
+        // orders
+        $orders = Order::where('is_client',False)->get();
+        // quotes
+        $quotes = Quote::all();
+        return view('admin.payment_create',compact('user','navbarValues','accounts','assetActions','loans','orders','quotes'));
+    }
+
+    public function paymentStore(Request $request)
+    {
+
+        // generate reference
+        $size = 5;
+        $reference = $this->getRandomString($size);
+        
+        // get account
+        $account = Account::findOrFail($request->account);
+        $accountBalance = doubleval($account->balance) + doubleval($request->amount);
+        $payment = new Payment();
+        $payment->reference = $reference;
+        $payment->notes = $request->notes;
+        $payment->date = date('Y-m-d', strtotime($request->date));
+        $payment->initial_balance = $account->balance;
+        $payment->amount = $request->amount;
+        $payment->current_balance = $accountBalance;
+
+        if($request->is_asset_action == "on"){
+            $payment->is_asset_action = True;
+            $payment->asset_action_id = $request->asset_action;
+            // update asset action as amount
+            $assetAction = AssetAction::findOrFail($request->asset_action);
+            $paid = doubleval($request->amount) + doubleval($assetAction->paid);
+            $assetAction->paid = $paid;
+            $assetAction->save();
+        }else{
+            $payment->is_asset_action = False;
+        }
+        if($request->is_loan == "on"){
+            $payment->is_loan = True;
+            $payment->loan_id = $request->loan;
+            // update loan as paid
+            $loan = Loan::findOrFail($request->loan);
+            $paid = doubleval($request->amount) + doubleval($loan->paid);
+            $loan->paid = $paid;
+            $loan->save();
+        }else{
+            $payment->is_loan = False;
+        }
+        if($request->is_order == "on"){
+            $payment->is_order = True;
+            $payment->order_id = $request->order;
+            // update order as paid
+            $order = Order::findOrFail($request->order);
+            $paid = doubleval($request->amount) + doubleval($order->paid);
+            $order->paid = $paid;
+            $order->save();
+        }else{
+            $payment->is_order = False;
+        }
+        if($request->is_quote == "on"){
+            $payment->is_quote = True;
+            $payment->quote_id = $request->quote;
+            // update quote as paid
+            $quote = Quote::findOrFail($request->quote);
+            $paid = doubleval($request->amount) + doubleval($quote->paid);
+            $quote->paid = $paid;
+            $quote->save();
+        }else{
+            $payment->is_quote = False;
+        }
+
+        $payment->account_id = $request->account;
+        $payment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $payment->user_id = Auth::user()->id;
+        $payment->save();
+
+        // credit account
+        $account->balance = $accountBalance;
+        $account->save();        
+
+        return redirect()->route('admin.payments')->withSuccess('Payment created!');
+    }
+
+    public function paymentShow($payment_id)
+    {
+        // Check if contact type exists
+        $paymentExists = Payment::findOrFail($payment_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get contact type
+        $payment = Payment::with('user','status','refunds.account','asset_action','loan','order','quote')->where('id',$payment_id)->first();
+        return view('admin.payment_show',compact('payment','user','navbarValues'));
+    }
+
+    public function paymentDelete($payment_id)
+    {
+
+        $payment = Payment::findOrFail($payment_id);
+        $payment->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $payment->user_id = Auth::user()->id;
+        $payment->save();
+
+        return back()->withSuccess(__('Payment '.$payment->name.' successfully deleted.'));
+    }
+    public function paymentRestore($payment_id)
+    {
+
+        $payment = Payment::findOrFail($payment_id);
+        $payment->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $payment->user_id = Auth::user()->id;
+        $payment->save();
+
+        return back()->withSuccess(__('Payment '.$payment->name.' successfully restored.'));
+    }
+
+
+
+    // refunds
+    public function refunds()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $refunds = Refund::with('user','status','account')->get();
+        return view('admin.refunds',compact('refunds','user','navbarValues'));
+    }
+
+    public function refundCreate($payment_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // payment
+        $payment = Payment::findOrFail($payment_id);
+        return view('admin.refund_create',compact('user','navbarValues','accounts','payment'));
+    }
+
+    public function refundStore(Request $request)
+    {
+
+        // generate reference
+        $size = 5;
+        $reference = $this->getRandomString($size);
+
+        // get account
+        $account = Account::findOrFail($request->account);
+        $accountBalance = doubleval($account->balance) - doubleval($request->amount);
+
+        // store refund record
+        $refund = new Refund();
+        $refund->reference = $reference;
+        $refund->notes = $request->notes;
+
+        $refund->initial_amount = $account->balance;
+        $refund->subsequent_amount = $accountBalance;
+        $refund->amount = $request->amount;
+
+        $refund->date = date('Y-m-d', strtotime($request->date));
+
+        $refund->payment_id = $request->payment;
+        $refund->account_id = $request->account;
+
+        $refund->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $refund->user_id = Auth::user()->id;
+        $refund->save();
+
+        // update accounts balance
+        $account->balance = $accountBalance;
+        $account->save();
+
+        return redirect()->route('admin.refund.show',$refund->id)->withSuccess('Refund created!');
+    }
+
+    public function refundShow($refund_id)
+    {
+        // Check if contact type exists
+        $refundExists = Refund::findOrFail($refund_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get contact type
+        $refund = Refund::with('user','status','account','payment')->where('id',$refund_id)->first();
+        return view('admin.refund_show',compact('refund','user','navbarValues'));
+    }
+
+    public function refundUpdate(Request $request, $refund_id)
+    {
+
+        $refund = Refund::findOrFail($refund_id);
+
+        return redirect()->route('admin.refund.show',$refund->id)->withSuccess('Refund updated!');
+    }
+
+    public function refundDelete($refund_id)
+    {
+
+        $refund = Refund::findOrFail($refund_id);
+        $refund->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $refund->user_id = Auth::user()->id;
+        $refund->save();
+
+        return back()->withSuccess(__('Refund '.$refund->name.' successfully deleted.'));
+    }
+
+    public function refundRestore($refund_id)
+    {
+
+        $refund = Refund::findOrFail($refund_id);
+        $refund->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $refund->user_id = Auth::user()->id;
+        $refund->save();
+
+        return back()->withSuccess(__('Refund '.$refund->name.' successfully restored.'));
+    }
+
 }

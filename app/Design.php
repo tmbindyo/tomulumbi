@@ -40,10 +40,6 @@ class Design extends Model
     {
         return $this->hasMany('App\Journal');
     }
-    public function payments()
-    {
-        return $this->hasMany('App\Payment');
-    }
     public function to_dos()
     {
         return $this->hasMany('App\ToDo');

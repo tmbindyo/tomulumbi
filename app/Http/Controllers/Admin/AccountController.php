@@ -86,7 +86,7 @@ class AccountController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         // get account
-        $account = Account::where('id',$account_id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments.album','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
+        $account = Account::where('id',$account_id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
         $goal = $account->goal;
         $balance = $account->balance;
         if ($balance == 0){
@@ -134,6 +134,16 @@ class AccountController extends Controller
         return view('admin.account_loan_create',compact('user','navbarValues','account','contacts'));
     }
 
+    public function accountWithdrawalCreate($account_id)
+    {
+        // get account
+        $account = Account::findOrFail($account_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.withdrawal_create',compact('account','user','navbarValues'));
+    }
 
     public function accountUpdate(Request $request, $account_id)
     {
@@ -483,17 +493,6 @@ class AccountController extends Controller
 
 
     // withdrawals
-    public function withdrawalCreate($account_id)
-    {
-        // get account
-        $account = Account::findOrFail($account_id);
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.withdrawal_create',compact('account','user','navbarValues'));
-    }
-
     public function withdrawalStore(Request $request)
     {
 
@@ -503,7 +502,7 @@ class AccountController extends Controller
         // update account
         $account = Account::findOrFail($request->account);
         $initial_amount = $account->balance;
-        $new = doubleval($account->balance) + doubleval($request->amount);
+        $new = doubleval($account->balance) - doubleval($request->amount);
         $account->balance = $new;
         $account->save();
 
@@ -734,7 +733,7 @@ class AccountController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        $loans = Loan::with('user','status','account','account')->get();
+        $loans = Loan::with('user','status','account')->get();
         return view('admin.loans',compact('loans','user','navbarValues'));
     }
 
@@ -772,7 +771,6 @@ class AccountController extends Controller
         $loan->about = $request->about;
 
         $loan->amount = $request->amount;
-        $loan->paid = 0;
 
         $loan->date = date('Y-m-d', strtotime($request->date));
         $loan->due_date = date('Y-m-d', strtotime($request->due_date));
@@ -808,14 +806,25 @@ class AccountController extends Controller
         return view('admin.loan_show',compact('accounts','contacts','loan','user','navbarValues'));
     }
 
-    // TODO payment for loan
+    public function loanPaymentCreate($loan_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // loans
+        $loan = Loan::findOrFail($loan_id);
+        return view('admin.loan_payment_create',compact('user','navbarValues','accounts','loan'));
+    }
 
     public function loanUpdate(Request $request, $loan_id)
     {
 
         $loan = Loan::findOrFail($loan_id);
-
         return redirect()->route('admin.loan.show',$loan->id)->withSuccess('Loan updated!');
+        
     }
 
     public function loanDelete($loan_id)

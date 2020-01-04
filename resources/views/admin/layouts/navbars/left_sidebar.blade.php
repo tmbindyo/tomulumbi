@@ -266,20 +266,20 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.expenses' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.expenses')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.payments' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.payments')}}">
                             Payments <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.expenses' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.expenses')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.refunds' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.refunds')}}">
                             Refunds <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
                         </a>
                     </li>
 
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.expenses' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.expenses')}}">
+                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.transactions' ) ?  'active' : '' }}">
+                        <a itemprop="url" class="nav-link" href="{{route( 'admin.transactions')}}">
                             Transactions <span class="label label-warning pull-right">{{$navbarValues['expensesCount']}}</span>
                         </a>
                     </li>

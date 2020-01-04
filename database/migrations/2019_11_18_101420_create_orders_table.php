@@ -28,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->double('subtotal', 20,2);
             $table->double('total', 20,2);
             $table->double('refund', 20,2);
+            $table->double('paid',200,2)->nullable();
 
             $table->uuid('status_id');
             $table->uuid('contact_id');

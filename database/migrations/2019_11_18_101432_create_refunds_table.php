@@ -20,6 +20,8 @@ class CreateRefundsTable extends Migration
             $table->longText('notes')->nullable();
 
             $table->double('amount', 20,2);
+            $table->double('initial_amount', 20,2);
+            $table->double('subsequent_amount', 20,2);
 
             $table->date('date');
 

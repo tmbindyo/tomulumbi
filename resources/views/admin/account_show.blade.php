@@ -42,6 +42,7 @@
                 <a href="{{route('admin.account.deposit.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Deposit </a>
                 <a href="{{route('admin.account.liability.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Liability </a>
                 <a href="{{route('admin.account.loan.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Loan </a>
+                <a href="{{route('admin.account.withdrawal.create',$account->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i> Withdrawal </a>
             </div>
         </div>
     </div>
@@ -448,7 +449,7 @@
                                                         </td>
                                                         <td>{{$payment->date}}</td>
                                                         <td>{{$payment->initial_amount}}</td>
-                                                        <td>{{$payment->paid}}</td>
+                                                        <td>{{$payment->amount}}</td>
                                                         <td>{{$payment->current_balance}}</td>
                                                         <td>{{$payment->user->name}}</td>
                                                         <td>

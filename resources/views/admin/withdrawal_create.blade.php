@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Deposit Create')
+@section('title', 'Withdrawal Create')
 
 @section('css')
 
@@ -40,7 +40,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Deposit's</h2>
+            <h2>Withdrawal's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -52,7 +52,7 @@
                     <a href="{{route('admin.account.show',$account->id)}}">Account</a>
                 </li>
                 <li class="active">
-                    <strong>Deposit Create</strong>
+                    <strong>Withdrawal Create</strong>
                 </li>
             </ol>
         </div>
@@ -63,7 +63,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Deposit Registration <small>Form</small></h5>
+                        <h5>Withdrawal Registration <small>Form</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -87,7 +87,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.deposit.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.withdrawal.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -127,7 +127,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
-                                        <i>about deposit</i>
+                                        <i>about withdrawal</i>
                                     </div>
 
 

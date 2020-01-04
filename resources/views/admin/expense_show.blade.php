@@ -205,13 +205,13 @@
 
                                     <dt>Created by:</dt> <dd>{{$expense->user->name}}</dd>
                                     <dt>Expense Type:</dt> <dd><a href="#" class="text-navy"> {{$expense->expense_account->name}}</a> </dd>
-                                    <dt>Account:</dt> <dd> 	 </dd>
+                                    <dt>Date:</dt> <dd>{{$expense->date}}</dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal" >
 
-                                    <dt>Date:</dt> <dd>{{$expense->date}}</dd>
+
                                     @if($expense->is_recurring == 1)
                                         <dt>Frequency:</dt> <dd><a href="#" class="text-navy"> {{$expense->frequency->name}}</a> </dd>
                                         <dt>Start Repeat:</dt> <dd> 	{{$expense->start_repeat}} </dd>
@@ -282,7 +282,7 @@
                                                                                     <a href="{{ route('admin.transaction.billed', $transaction->id) }}" class="btn-warning btn btn-xs">Mark Billed</a>
                                                                             </div>
                                                                         @else
-                                                                            <label class="label label-primary">Marked</label>
+                                                                            <label class="label label-primary">Marked Billed</label>
                                                                         @endif
                                                                     </td>
                                                                 @endif
@@ -329,7 +329,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="btn-group">
-                                                                            <a href="{{ route('admin.transaction.pending.payment', $transaction->id) }}" class="btn-warning btn btn-xs">Paid</a>
+                                                                            <a href="{{ route('admin.transaction.pending.payment', $transaction->id) }}" class="btn-warning btn btn-xs">Mark Paid</a>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -392,6 +392,15 @@
                     @endif
                     @if($expense->is_transfer == 1 )
                         <li><a href="{{route('admin.transfer.show',$expense->transfer->id)}}"><i class="fa fa-share"></i> {{$expense->transfer->reference}}</a></li>
+                    @endif
+                    @if($expense->is_campaign == 1 )
+                        <li><a href="{{route('admin.campaign.show',$expense->campaign->id)}}"><i class="fa fa-share"></i> {{$expense->campaign->name}}</a></li>
+                    @endif
+                    @if($expense->is_asset == 1 )
+                        <li><a href="{{route('admin.asset.show',$expense->asset->id)}}"><i class="fa fa-share"></i> {{$expense->asset->name}}</a></li>
+                    @endif
+                    @if($expense->is_liability == 1 )
+                        <li><a href="{{route('admin.liability.show',$expense->liability->id)}}"><i class="fa fa-share"></i> {{$expense->liability->reference}}</a></li>
                     @endif
                     @if($expense->is_transaction == 1)
                         <li><a href="#"><i class="fa fa-dollar"></i> {{$expense->transaction->reference}}</a></li>

@@ -25,6 +25,7 @@ class CreateTransactionsTable extends Migration
             $table->decimal('subsequent_amount',20,2)->nullable();
 
             $table->date('date');
+            $table->date('billed')->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

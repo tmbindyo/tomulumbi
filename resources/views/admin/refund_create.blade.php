@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Deposit Create')
+@section('title', 'Refund Create')
 
 @section('css')
 
@@ -40,19 +40,22 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Deposit's</h2>
+            <h2>Refund's</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li>
-                    Accounting
+                    CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.account.show',$account->id)}}">Account</a>
+                    <a href="{{route('admin.payments')}}">Payments</a>
                 </li>
                 <li class="active">
-                    <strong>Deposit Create</strong>
+                    <a href="{{route('admin.payment.show',$payment->id)}}">Payment</a>
+                </li>
+                <li class="active">
+                    <strong>Refund Create</strong>
                 </li>
             </ol>
         </div>
@@ -63,7 +66,7 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>Deposit Registration <small>Form</small></h5>
+                        <h5>Refund Registration <small>Form</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -87,7 +90,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.deposit.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.refund.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -103,7 +106,7 @@
                                 <div class="col-md-10 col-md-offset-1">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" placeholder="Amount" class="form-control input-lg">
+                                        <input type="number" id="amount" name="amount" required="required" value="{{$payment->amount}}" class="form-control input-lg">
                                         <i>amount</i>
                                     </div>
                                     <br>
@@ -112,24 +115,46 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" class="form-control input-lg" value="7/27/2019">
+                                            <input type="text" required="required" name="date_acquired" class="form-control input-lg" value="7/27/2019">
                                         </div>
-                                        <i>What is the start date of the event?</i>
+                                        <i>Date paid</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
                                         <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                            <option selected disabled >Select Account</option>
+                                            @foreach ($accounts as $account)
+                                                <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                            @endforeach
                                         </select>
-                                        <i>type</i>
+                                        <i>account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
-                                        <i>about deposit</i>
+                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        <i>notes</i>
                                     </div>
-
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="has-warning">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <input name="is_asset_action" type="checkbox" class="js-switch" checked />
+                                                    <br>
+                                                    <i>payment.</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="has-warning">
+                                                <select name="payment" class="select2_demo_tag form-control input-lg">
+                                                    <option value="{{$payment->id}}">{{$payment->reference}} [{{$payment->amount}}]</option>
+                                                </select>
+                                                <i>payment</i>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <br>
                                     <hr>
@@ -311,6 +336,9 @@
 
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+        
+        var elem_4 = document.querySelector('.js-switch_4');
+        var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
 
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',

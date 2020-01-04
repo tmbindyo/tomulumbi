@@ -22,26 +22,22 @@ class CreatePaymentsTable extends Migration
 
             $table->date('date');
 
+            $table->double('amount', 20, 2)->nullable();
             $table->double('initial_balance', 20, 2)->nullable();
-            $table->double('paid', 20, 2)->nullable();
             $table->double('current_balance', 20, 2)->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
             $table->uuid('account_id');
 
-            $table->boolean('is_order');
-            $table->uuid('order_id');
-            $table->boolean('is_album');
-            $table->uuid('album_id');
-            $table->boolean('is_design');
-            $table->uuid('design_id');
-            $table->boolean('is_project');
-            $table->uuid('project_id');
             $table->boolean('is_asset_action');
-            $table->uuid('asset_action_id');
+            $table->uuid('asset_action_id')->nullable();
             $table->boolean('is_loan');
-            $table->uuid('loan_id');
+            $table->uuid('loan_id')->nullable();
+            $table->boolean('is_order');
+            $table->uuid('order_id')->nullable();
+            $table->boolean('is_quote');
+            $table->uuid('quote_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

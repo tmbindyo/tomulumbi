@@ -247,6 +247,7 @@
                                     <th>Reference</th>
                                     <th>Created</th>
                                     <th>Total</th>
+                                    <th>Paid</th>
                                     <th>Discount</th>
                                     <th>Refunded</th>
                                     <th>Products</th>
@@ -265,6 +266,7 @@
                                         </td>
                                         <td>{{$order->created_at}}</td>
                                         <td>{{$order->total}}</td>
+                                        <td>{{$order->paid}}</td>
                                         <td>{{$order->discount}}</td>
                                         <td>{{$order->refund}}</td>
                                         <td>{{$order->order_products_count}}</td>
@@ -309,6 +311,7 @@
                                     <th>Reference</th>
                                     <th>Created</th>
                                     <th>Total</th>
+                                    <th>Paid</th>
                                     <th>Discount</th>
                                     <th>Refunded</th>
                                     <th>Products</th>
