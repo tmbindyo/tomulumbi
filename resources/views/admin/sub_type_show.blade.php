@@ -7,6 +7,8 @@
 <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
 <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
+<link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
 <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
 
 <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
@@ -110,8 +112,8 @@
                                     <br>
                                     <div class="row">
                                         <div class="has-warning">
-                                            <select required="required" name="type" class="select2_demo_tag form-control input-lg">
-                                                <option>Select Type</option>
+                                            <select required="required" name="type" class="select2_demo_type form-control input-lg">
+                                                <option></option>
                                                 @foreach($types as $type)
                                                     <option @if($type->id == $subType->type_id) selected @endif value="{{$type->id}}">{{$type->name}}</option>
                                                 @endforeach
@@ -142,7 +144,7 @@
             <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Price Lists</h5>
+                    <h5>Price Lists ({{$subType->price_lists_count}})</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -229,40 +231,40 @@
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
     <!-- Chosen -->
-<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
+    <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
 
-<!-- Input Mask-->
-<script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <!-- Input Mask-->
+    <script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
-<!-- Data picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <!-- Data picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
-<!-- Switchery -->
-<script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
+    <!-- Switchery -->
+    <script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
 
-<!-- iCheck -->
-<script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
+    <!-- iCheck -->
+    <script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
 
-<!-- MENU -->
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <!-- MENU -->
+    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
-<!-- Color picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <!-- Color picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
 
-<!-- Clock picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
+    <!-- Clock picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
 
-<!-- Image cropper -->
-<script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
+    <!-- Image cropper -->
+    <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
 
-<!-- Date range use moment.js same as full calendar plugin -->
-<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
 
-<!-- Date range picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Date range picker -->
+    <script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
 
-<!-- Select2 -->
-<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
 
     <!-- Page-Level Scripts -->
@@ -483,8 +485,8 @@
 
             $(".select2_demo_1").select2();
             $(".select2_demo_2").select2();
-            $(".select2_demo_tag").select2({
-                placeholder: "Select Tags",
+            $(".select2_demo_type").select2({
+                placeholder: "Select Type",
                 allowClear: true
             });
             $(".select2_demo_category").select2({

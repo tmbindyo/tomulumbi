@@ -117,7 +117,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <select required="required" name="tags[]" class="select2_demo_tag form-control input-lg" multiple="multiple">
-                                            <option>Select Tag</option>
+                                            <option></option>
                                             @foreach($tags as $tag)
                                                 <option value="{{$tag->id}}">{{$tag->name}}</option>
                                             @endforeach
@@ -127,7 +127,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <select name="contact" class="select2_demo_contact form-control input-lg" multiple="multiple">
-                                            <option>Select Contact</option>
+                                            <option></option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
                                             @endforeach
@@ -365,7 +365,7 @@
 
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
-        
+
         var elem_4 = document.querySelector('.js-switch_4');
         var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
 

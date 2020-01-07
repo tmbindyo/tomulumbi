@@ -122,7 +122,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <select required="required" name="tags[]" class="select2_demo_tag form-control input-lg" multiple="multiple">
-                                            <option>Select Tag</option>
+                                            <option></option>
                                             @foreach($tags as $tag)
                                                 <option value="{{$tag->id}}">{{$tag->name}}</option>
                                             @endforeach

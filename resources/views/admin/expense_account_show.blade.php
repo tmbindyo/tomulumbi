@@ -33,6 +33,11 @@
                 </li>
             </ol>
         </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="{{route('admin.expense.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
+            </div>
+        </div>
     </div>
 
 

@@ -69,6 +69,7 @@
                 <thead>
                 <tr>
                     <th>Size</th>
+                    <th>Type</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -78,6 +79,7 @@
                 @foreach($sizes as $size)
                     <tr class="gradeX">
                         <td>{{$size->size}}</td>
+                        <td>{{$size->type->name}}</td>
                         <td>{{$size->user->name}}</td>
                         <td>
                             <span class="label {{$size->status->label}}">{{$size->status->name}}</span>
@@ -99,6 +101,7 @@
                 <tfoot>
                 <tr>
                     <th>Size</th>
+                    <th>Type</th>
                     <th>User</th>
                     <th>Status</th>
                     <th>Action</th>

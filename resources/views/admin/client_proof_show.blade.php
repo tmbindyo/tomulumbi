@@ -881,6 +881,38 @@
     <!-- Masonry -->
     <script src="{{ asset('inspinia') }}/js/plugins/masonary/masonry.pkgd.min.js"></script>
 
+    {{--  Get due date to populate   --}}
+    <script>
+        $(document).ready(function() {
+            // Set date
+            console.log('var');
+            var today = new Date();
+            console.log(today);
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            mm ++;
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date_today = mm + '/' + dd + '/' + yyyy;
+            var time_curr = h + ':' + m;
+            console.log(time_curr);
+            document.getElementById("start_date").value = date_today;
+            document.getElementById("end_date").value = date_today;
+            document.getElementById("start_time").value = time_curr;
+            document.getElementById("end_time").value = time_curr;
+
+            // Set time
+        });
+
+    </script>
+
     {{-- download x views line chart  --}}
     <script>
         $(function () {
@@ -1233,6 +1265,12 @@
 
             var elem_10 = document.querySelector('.js-switch_10');
             var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
+
+            var elem_18 = document.querySelector('.js-switch_18');
+            var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+
+            var elem_19 = document.querySelector('.js-switch_19');
+            var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
 
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',

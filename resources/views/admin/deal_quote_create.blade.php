@@ -85,11 +85,8 @@
                                         <div class="col-md-12">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="contact" class="select2_demo_tag form-control input-lg">
-                                                    <option selected disabled>Select Contact</option>
-                                                    @foreach($contacts as $contact)
-                                                        <option value="{{$contact->id}}"> @if($contact->organization) {{$contact->organization->name}}: @endif {{$contact->last_name}}, {{$contact->first_name}}</option>
-                                                    @endforeach
+                                                <select name="deal" class="select2_demo_tag form-control input-lg">
+                                                    <option value="{{$deal->id}}">{{$deal->name}}</option>
                                                 </select>
                                             </div>
                                             <br>
@@ -206,18 +203,6 @@
                                             <i>draft</i>
                                             <br>
                                             <br>
-                                            <div class="has-warning">
-                                                <input name="is_deal" type="checkbox" class="js-switch_2" checked />
-                                                <br>
-                                                <i>is deal.</i>
-                                            </div>
-                                            <br>
-                                            <div class="has-warning">
-                                                <select name="deal" class="select2_demo_category form-control input-lg">
-                                                    <option value="{{$deal->id}}">{{$deal->name}}</option>
-                                                </select>
-                                                <i>deal.</i>
-                                            </div>
                                             <br>
                                             <br>
                                             <br>

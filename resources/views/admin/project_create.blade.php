@@ -118,7 +118,7 @@
                                     {{--  Album client  --}}
                                     <div class="has-warning">
                                         <select name="contacts[]" class="select2_demo_client form-control input-lg" multiple="multiple">
-                                            <option>Select Contact</option>
+                                            <option></option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
                                             @endforeach
@@ -127,7 +127,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="project_type" class="select2_demo_category form-control input-lg">
+                                        <select name="project_type" class="select2_demo_project_types form-control input-lg">
+                                            <option></option>
                                             @foreach($projectTypes as $projectType)
                                                 <option value="{{$projectType->id}}">{{$projectType->name}}</option>
                                             @endforeach
@@ -382,8 +383,8 @@
             placeholder: "Select Client",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_demo_project_types").select2({
+            placeholder: "Select Project Types",
             allowClear: true
         });
 

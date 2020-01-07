@@ -2,37 +2,38 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Tag;
+use App\ToDo;
 use App\Album;
-use App\Category;
-use App\Contact;
+use App\Label;
+use App\Status;
 use App\Design;
-use App\DesignCategory;
+use App\Upload;
+use App\Journal;
+use App\Contact;
+use App\Project;
+use App\Category;
+use App\Typography;
+use App\DesignWork;
+use App\ProjectType;
 use App\DesignContact;
 use App\DesignGallery;
-use App\DesignWork;
-use App\Project;
-use App\ProjectGallery;
-use App\ProjectType;
-use App\Status;
 use App\ThumbnailSize;
-use App\ToDo;
-use App\Traits\DownloadViewNumbersTrait;
+use App\ProjectGallery;
+use App\ProjectContact;
+use App\DesignCategory;
+use App\Traits\UserTrait;
 use App\Traits\NavbarTrait;
 use App\Traits\ProjectTrait;
-use App\Traits\StatusCountTrait;
-use App\Traits\UserTrait;
-use App\Typography;
-use App\Upload;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Journal;
-use App\Label;
-use App\ProjectContact;
-use App\Tag;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\StatusCountTrait;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use App\Traits\DocumentExtensionTrait;
+use App\Traits\DownloadViewNumbersTrait;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ProjectController extends Controller
@@ -41,6 +42,7 @@ class ProjectController extends Controller
     use NavbarTrait;
     use ProjectTrait;
     use StatusCountTrait;
+    use DocumentExtensionTrait;
     use DownloadViewNumbersTrait;
     public function __construct()
     {
@@ -430,6 +432,10 @@ class ProjectController extends Controller
         $upload->orientation = $orientation;
         $upload->size = $size;
 
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
         $upload->pixels500 = $pixel500FolderName.$image_name;
@@ -619,6 +625,10 @@ class ProjectController extends Controller
         $upload->name = $file_name;
         $upload->extension = $extension;
         $upload->orientation = $orientation;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;

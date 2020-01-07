@@ -36,6 +36,7 @@ use function GuzzleHttp\Psr7\str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use App\Traits\DocumentExtensionTrait;
 use App\AlbumDownloadRestrictionEmail;
 use App\Traits\DownloadViewNumbersTrait;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -44,9 +45,10 @@ class AlbumController extends Controller
 {
     use UserTrait;
     use AlbumTrait;
-    use PasswordTrait;
     use NavbarTrait;
+    use PasswordTrait;
     use StatusCountTrait;
+    use DocumentExtensionTrait;
     use DownloadViewNumbersTrait;
 
     public function __construct()
@@ -389,6 +391,10 @@ class AlbumController extends Controller
         $upload->extension = $extension;
         $upload->orientation = $orientation;
         $upload->size = $size;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
@@ -740,6 +746,10 @@ class AlbumController extends Controller
         $upload->extension = $extension;
         $upload->orientation = $orientation;
         $upload->size = $size;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
@@ -1290,6 +1300,10 @@ class AlbumController extends Controller
         $upload->orientation = $orientation;
         $upload->size = $size;
 
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
         $upload->pixels500 = $pixel500FolderName.$image_name;
@@ -1621,6 +1635,11 @@ class AlbumController extends Controller
         $upload->extension = $extension;
         $upload->orientation = $orientation;
         $upload->size = $size;
+        $upload->name = $file_name;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;

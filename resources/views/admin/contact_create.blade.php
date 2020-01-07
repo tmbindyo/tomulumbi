@@ -112,6 +112,18 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <select required="required" name="title" class="select2_demo_title form-control input-lg">
+                                            <option></option>
+                                            @foreach($titles as $title)
+                                                <option value="{{$title->id}}">{{$title->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>title</i>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="has-warning">
                                             <input type="text" id="first_name" name="first_name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="First Name">
                                             <i>first name</i>
@@ -144,30 +156,29 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <select required="required" name="organization" class="select2_demo_tag form-control input-lg">
-                                            <option>Select Organization</option>
+                                        <select name="organization" class="select2_demo_organization form-control input-lg">
+                                            <option></option>
                                             @foreach($organizations as $organization)
                                                 <option value="{{$organization->id}}">{{$organization->name}}</option>
                                             @endforeach
                                         </select>
                                         <i>organization</i>
                                     </div>
-
                                     <div class="col-md-6">
-                                        <select required="required" name="title" class="select2_demo_tag form-control input-lg">
-                                            <option>Select Title</option>
-                                            @foreach($titles as $title)
-                                                <option value="{{$title->id}}">{{$title->name}}</option>
+                                        <select name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple required="required">
+                                            <option></option>
+                                            @foreach($contactTypes as $contactType)
+                                                <option value="{{$contactType->id}}">{{$contactType->name}}</option>
                                             @endforeach
                                         </select>
-                                        <i>title</i>
+                                        <i>contact types</i>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <select required="required" name="lead_source" class="select2_demo_tag form-control input-lg">
-                                            <option>Select Lead Source</option>
+                                        <select name="lead_source" class="select2_demo_lead_source form-control input-lg">
+                                            <option></option>
                                             @foreach($leadSources as $leadSource)
                                                 <option value="{{$leadSource->id}}">{{$leadSource->name}}</option>
                                             @endforeach
@@ -177,8 +188,8 @@
 
                                     <div class="col-md-6">
                                         <div class="has-warning">
-                                            <select required="required" name="campaign" class="select2_demo_tag form-control input-lg">
-                                                <option>Select Campaign</option>
+                                            <select name="campaign" class="select2_demo_campaign form-control input-lg">
+                                                <option></option>
                                                 @foreach($campaigns as $campaign)
                                                     <option value="{{$campaign->id}}">{{$campaign->name}}</option>
                                                 @endforeach
@@ -188,23 +199,10 @@
                                     </div>
                                 </div>
                                 <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <select name="contact_types[]" class="select2_demo_tag form-control input-lg" multiple>
-                                                <option>Select Contact Types</option>
-                                                @foreach($contactTypes as $contactType)
-                                                    <option value="{{$contactType->id}}">{{$contactType->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>contact types</i>
-                                        </div>
-
-                                    </div>
-                                <br>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="has-warning">
-                                            <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required" placeholder="About..."></textarea>
+                                            <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required" placeholder="About"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -445,12 +443,24 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Contact Types",
+        $(".select2_demo_title").select2({
+            placeholder: "Select Title",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_demo_organization").select2({
+            placeholder: "Select Organization",
+            allowClear: true
+        });
+        $(".select2_demo_contact_type").select2({
+            placeholder: "Select Contact Type",
+            allowClear: true
+        });
+        $(".select2_demo_lead_source").select2({
+            placeholder: "Select Lead Source",
+            allowClear: true
+        });
+        $(".select2_demo_campaign").select2({
+            placeholder: "Select Campaign",
             allowClear: true
         });
 

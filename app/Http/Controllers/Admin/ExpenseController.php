@@ -448,7 +448,7 @@ class ExpenseController extends Controller
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // Get albums
-        $transactions = Transaction::with('user','status','source_account','destination_account','account','expense')->get();
+        $transactions = Transaction::with('user','status','account','expense')->get();
         return view('admin.transactions',compact('transactions','user','navbarValues','journalsStatusCount','transactions'));
 
     }
@@ -550,7 +550,7 @@ class ExpenseController extends Controller
             $transaction->save();
 
             // update account balance
-            
+
             $account->balance = doubleval($account->balance)-doubleval($request->amount);
             $account->save();
         }
@@ -671,7 +671,7 @@ class ExpenseController extends Controller
         // generate reference
         $size = 5;
         $reference = $this->getRandomString($size);
-        
+
         // get account
         $account = Account::findOrFail($request->account);
         $accountBalance = doubleval($account->balance) + doubleval($request->amount);
@@ -735,9 +735,9 @@ class ExpenseController extends Controller
 
         // credit account
         $account->balance = $accountBalance;
-        $account->save();        
+        $account->save();
 
-        return redirect()->route('admin.payments')->withSuccess('Payment created!');
+        return redirect()->route('admin.payment.show',$payment->id)->withSuccess('Payment created!');
     }
 
     public function paymentShow($payment_id)

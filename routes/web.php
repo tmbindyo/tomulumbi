@@ -9,7 +9,7 @@ Route::get('/contact', 'Landing\LandingController@index')->name('contact');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/', 'ComingSoon\ComingSoonController@comingSoon')->name('comingSoon');
+Route::get('/', 'Landing\LandingController@welcome')->name('tomulumbi');
 
 Auth::routes();
 

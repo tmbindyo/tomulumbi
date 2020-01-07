@@ -64,7 +64,6 @@
                 <a href="{{route('admin.contact.liability.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
                 <a href="{{route('admin.contact.order.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Order </a>
                 <a href="{{route('admin.contact.project.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Project </a>
-                <a href="{{route('admin.contact.quote.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Quote </a>
                 @if($contact->campaign_id)
                     <a href="{{route('admin.campaign.show',$contact->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
                 @endif
@@ -108,10 +107,6 @@
                             <td>
                                 <button type="button" class="btn btn-primary m-r-sm">{{$contactWorkCount['contactDeals']}}</button>
                                 Deals
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-info m-r-sm">{{$contactWorkCount['contactQuotes']}}</button>
-                                Quotes
                             </td>
                         </tr>
                         </tbody>
@@ -168,8 +163,17 @@
                                             <input type="checkbox" name="is_lead" class="js-switch_3" @if($contact->is_lead == True) checked @endif/>
                                             <i>lead</i>
                                         </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
                                         <div class="col-md-6">
-
+                                            <select required="required" name="title" class="select2_demo_title form-control input-lg">
+                                                <option></option>
+                                                @foreach($titles as $title)
+                                                    <option @if($contact->title_id == $title->id) selected @endif value="{{$title->id}}">{{$title->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>title</i>
                                         </div>
                                     </div>
                                     <br>
@@ -207,30 +211,29 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <select required="required" name="organization" class="select2_demo_tag form-control input-lg">
-                                                <option>Select Organization</option>
+                                            <select required="required" name="organization" class="select2_demo_organization form-control input-lg">
+                                                <option></option>
                                                 @foreach($organizations as $organization)
                                                     <option @if($contact->organization_id == $organization->id) selected @endif value="{{$organization->id}}">{{$organization->name}}</option>
                                                 @endforeach
                                             </select>
                                             <i>organization</i>
                                         </div>
-
                                         <div class="col-md-6">
-                                            <select required="required" name="title" class="select2_demo_tag form-control input-lg">
-                                                <option>Select Title</option>
-                                                @foreach($titles as $title)
-                                                    <option @if($contact->title_id == $title->id) selected @endif value="{{$title->id}}">{{$title->name}}</option>
+                                            <select required="required" name="contact_types[]" class="select2_demo_contact_type form-control input-lg" multiple>
+                                                <option></option>
+                                                @foreach($contactTypes as $contactType)
+                                                    <option @foreach($contactContactTypes as $contactContactType) @if($contactType->id === $contactContactType->contact_type->id) selected @endif @endforeach value="{{$contactType->id}}">{{$contactType->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <i>title</i>
+                                            <i>contact types</i>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <select required="required" name="lead_source" class="select2_demo_tag form-control input-lg">
-                                                <option>Select Lead Source</option>
+                                            <select required="required" name="lead_source" class="select2_demo_lead_source form-control input-lg">
+                                                <option></option>
                                                 @foreach($leadSources as $leadSource)
                                                     <option @if($contact->lead_source_id == $leadSource->id) selected @endif value="{{$leadSource->id}}">{{$leadSource->name}}</option>
                                                 @endforeach
@@ -240,8 +243,8 @@
 
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <select required="required" name="campaign" class="select2_demo_tag form-control input-lg">
-                                                    <option>Select Campaign</option>
+                                                <select required="required" name="campaign" class="select2_demo_campaign form-control input-lg">
+                                                    <option></option>
                                                     @foreach($campaigns as $campaign)
                                                         <option @if($contact->campaign_id == $campaign->id) selected @endif value="{{$campaign->id}}">{{$campaign->name}}</option>
                                                     @endforeach
@@ -249,19 +252,6 @@
                                                 <i>campaign</i>
                                             </div>
                                         </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <select required="required" name="contact_types[]" class="select2_demo_tag form-control input-lg" multiple>
-                                                <option>Select Contact Types</option>
-                                                @foreach($contactTypes as $contactType)
-                                                    <option @foreach($contactContactTypes as $contactContactType) @if($contactType->id === $contactContactType->contact_type->id) selected @endif @endforeach value="{{$contactType->id}}">{{$contactType->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>contact types</i>
-                                        </div>
-
                                     </div>
                                     <br>
                                     <div class="row">
@@ -333,7 +323,6 @@
                                             <li class=""><a href="#liabilities" data-toggle="tab">Liability</a></li>
                                             <li class=""><a href="#assigned_promo_codes" data-toggle="tab">Assigned Promo Codes</a></li>
                                             <li class=""><a href="#deals" data-toggle="tab">Deal</a></li>
-                                            <li class=""><a href="#quotes" data-toggle="tab">Quotes</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -723,75 +712,6 @@
                                             </div>
 
                                         </div>
-                                        <div class="tab-pane" id="quotes">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Due Date</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Balance</th>
-                                                        <th>Info</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($quotes as $quote)
-                                                        <tr class="gradeX">
-                                                            <td>{{$quote->reference}}</td>
-                                                            <td>{{$quote->due_date}}</td>
-                                                            <td>{{$quote->total}}</td>
-                                                            <td>{{$quote->paid}}</td>
-                                                            <td>{{$quote->balance}}</td>
-                                                            <td>
-                                                                @if ($quote->is_draft == True)
-                                                                    <span class="label label-danger">Draft</span>
-                                                                @else
-                                                                    <span class="label label-warning">Live</span>
-                                                                @endif
-                                                                @if ($quote->is_accepted == True)
-                                                                    <span class="label label-danger">Accepted</span>
-                                                                @else
-                                                                    <span class="label label-warning">Live</span>
-                                                                @endif
-                                                                @if ($quote->is_rejected == True)
-                                                                    <span class="label label-danger">Rejected</span>
-                                                                @endif
-                                                                @if ($quote->is_cancelled == True)
-                                                                    <span class="label label-danger">Cancelled</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <span class="label {{$quote->status->label}}">{{$quote->status->name}}</span>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('admin.quote.show', $quote->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Due Date</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Balance</th>
-                                                        <th>Info</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
                                     </div>
 
                                 </div>
@@ -945,6 +865,38 @@
 
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+{{--  Get due date to populate   --}}
+    <script>
+        $(document).ready(function() {
+            // Set date
+            console.log('var');
+            var today = new Date();
+            console.log(today);
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            mm ++;
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date_today = mm + '/' + dd + '/' + yyyy;
+            var time_curr = h + ':' + m;
+            console.log(time_curr);
+            document.getElementById("start_date").value = date_today;
+            document.getElementById("end_date").value = date_today;
+            document.getElementById("start_time").value = time_curr;
+            document.getElementById("end_time").value = time_curr;
+
+            // Set time
+        });
+
+    </script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -1110,6 +1062,12 @@
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
 
+        var elem_18 = document.querySelector('.js-switch_18');
+        var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+
+        var elem_19 = document.querySelector('.js-switch_19');
+        var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
+
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green'
@@ -1167,12 +1125,24 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Contact types",
+        $(".select2_demo_title").select2({
+            placeholder: "Select Title",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_demo_organization").select2({
+            placeholder: "Select Organization",
+            allowClear: true
+        });
+        $(".select2_demo_contact_type").select2({
+            placeholder: "Select Contact Type",
+            allowClear: true
+        });
+        $(".select2_demo_lead_source").select2({
+            placeholder: "Select Lead Source",
+            allowClear: true
+        });
+        $(".select2_demo_campaign").select2({
+            placeholder: "Select Campaign",
             allowClear: true
         });
 

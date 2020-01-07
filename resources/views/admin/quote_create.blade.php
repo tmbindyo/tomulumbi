@@ -85,10 +85,10 @@
                                         <div class="col-md-12">
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="contact" class="select2_demo_tag form-control input-lg">
-                                                    <option selected disabled>Select Contact</option>
-                                                    @foreach($contacts as $contact)
-                                                        <option value="{{$contact->id}}"> @if($contact->organization) {{$contact->organization->name}}: @endif {{$contact->last_name}}, {{$contact->first_name}}</option>
+                                                <select name="deal" class="select2_demo_deal form-control input-lg" required>
+                                                    <option></option>
+                                                    @foreach($deals as $deal)
+                                                        <option value="{{$deal->id}}">{{$deal->reference}} [{{$deal->amount}}]</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -96,6 +96,7 @@
                                             {{--  taxes  --}}
                                             <div class="has-warning">
                                                 <select name="taxes[]" class="select2_demo_taxes form-control input-lg" multiple>
+                                                    <option></option>
                                                     @foreach($taxes as $tax)
                                                         <option value="{{$tax->id}}">{{$tax->name}}</option>
                                                     @endforeach
@@ -469,12 +470,12 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Deal Types",
+        $(".select2_demo_deal").select2({
+            placeholder: "Select Deal",
             allowClear: true
         });
         $(".select2_demo_taxes").select2({
-            placeholder: "Select Tax",
+            placeholder: "Select Taxes",
             allowClear: true
         });
 

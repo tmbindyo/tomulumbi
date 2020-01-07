@@ -33,6 +33,11 @@
                 </li>
             </ol>
         </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="{{route('admin.journal.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
+            </div>
+        </div>
     </div>
 
 
@@ -41,7 +46,7 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Contact type <small>edit</small></h5>
+                        <h5>Label <small>edit</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>

@@ -28,6 +28,7 @@ use App\AssetAction;
 use App\ProjectType;
 use App\CampaignType;
 use App\AlbumCategory;
+use App\Asset;
 use App\AssetCategory;
 use App\ThumbnailSize;
 use App\ExpenseAccount;
@@ -38,7 +39,9 @@ use App\Traits\NavbarTrait;
 use App\ContactContactType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Kit;
 use Illuminate\Support\Facades\Input;
+use App\Traits\DocumentExtensionTrait;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -46,6 +49,8 @@ class SettingsController extends Controller
 {
     use UserTrait;
     use NavbarTrait;
+    use DocumentExtensionTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -98,6 +103,23 @@ class SettingsController extends Controller
         // action type actions
         $actionTypeAssetActions = AssetAction::with('contact','user','status','asset','kit')->where('action_type_id',$action_type_id)->get();
         return view('admin.action_type_show',compact('actionType','user','actionTypeAssetActions','navbarValues'));
+    }
+
+    public function actionTypeAssetActionCreate($action_type_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get asset
+        $assets = Asset::all();
+        // get kits
+        $kits = Kit::all();
+        // action types
+        $actionType = ActionType::findOrFail($action_type_id);
+        // contacts
+        $contacts = Contact::with('organization')->get();
+        return view('admin.action_type_asset_action_create',compact('kits','contacts','actionType','assets','user','navbarValues'));
     }
 
     public function actionTypeUpdate(Request $request, $action_type_id)
@@ -227,7 +249,7 @@ class SettingsController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $assetCategories = AssetCategory::with('user','status')->get();
-        return view('admin.categories',compact('assetCategories','user','navbarValues'));
+        return view('admin.asset_categories',compact('assetCategories','user','navbarValues'));
     }
 
     public function assetCategoryCreate()
@@ -236,7 +258,7 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.category_create',compact('user','navbarValues'));
+        return view('admin.asset_category_create',compact('user','navbarValues'));
     }
 
     public function assetCategoryStore(Request $request)
@@ -246,7 +268,7 @@ class SettingsController extends Controller
         $category->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $category->user_id = Auth::user()->id;
         $category->save();
-        return redirect()->route('admin.category.show',$category->id)->withSuccess(__('Asset category '.$category->name.' successfully created.'));
+        return redirect()->route('admin.asset.category.show',$category->id)->withSuccess(__('Asset category '.$category->name.' successfully created.'));
     }
 
     public function assetCategoryShow($asset_category_id)
@@ -257,8 +279,8 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        $category = AssetCategory::with('user','status','assets.asset_category')->where('id',$asset_category_id)->withCount('assets')->first();
-        return view('admin.category_show',compact('category','user','navbarValues'));
+        $assetCategory = AssetCategory::with('user','status','assets.asset_category')->where('id',$asset_category_id)->withCount('assets')->first();
+        return view('admin.asset_category_show',compact('assetCategory','user','navbarValues'));
     }
 
     public function assetCategoryUpdate(Request $request, $asset_category_id)
@@ -269,7 +291,7 @@ class SettingsController extends Controller
         $assetCategory->user_id = Auth::user()->id;
         $assetCategory->save();
 
-        return redirect()->route('admin.category.show',$assetCategory->id)->withSuccess('Asset category updated!');
+        return redirect()->route('admin.asset.category.show',$assetCategory->id)->withSuccess('Asset category updated!');
     }
 
     public function assetCategoryDelete($asset_category_id)
@@ -488,7 +510,7 @@ class SettingsController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         // Get contact type
-        $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contacts')->first();
+        $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contact_type_contacts')->first();
         $contactContactTypes = ContactContactType::with('user','status','contact')->where('contact_type_id',$contact_type_id)->get();
         return view('admin.contact_type_show',compact('contactType','user','contactContactTypes','navbarValues'));
     }
@@ -971,7 +993,7 @@ class SettingsController extends Controller
         $projectType->user_id = Auth::user()->id;
         $projectType->save();
 
-        return redirect()->route('admin.project.type.how',$projectType->id)->withSuccess('Project type updated!');
+        return redirect()->route('admin.project.type.show',$projectType->id)->withSuccess('Project type updated!');
     }
 
     public function projectTypeDelete($project_type_id)
@@ -1004,7 +1026,7 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        $sizes = Size::with('user','status')->get();
+        $sizes = Size::with('user','status','type')->get();
         return view('admin.sizes',compact('sizes','user','navbarValues'));
     }
 
@@ -1014,13 +1036,16 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.size_create',compact('user','navbarValues'));
+        // get types
+        $types = Type::all();
+        return view('admin.size_create',compact('types','user','navbarValues'));
     }
 
     public function sizeStore(Request $request)
     {
         $size = new Size();
-        $size->size = mb_strtolower($request->size);
+        $size->size = ($request->size);
+        $size->type_id = $request->type;
         $size->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $size->user_id = Auth::user()->id;
         $size->save();
@@ -1035,21 +1060,24 @@ class SettingsController extends Controller
         $navbarValues = $this->getNavbarValues();
         // User
         $user = $this->getAdmin();
-        $size = Size::with('user','status')->where('id',$size_id)->with('price_lists')->first();
+        $size = Size::with('user','status')->where('id',$size_id)->with('price_lists')->withCount('price_lists')->first();
+        // get types
+        $types = Type::all();
 
-        return view('admin.size_show',compact('size','user','navbarValues'));
+        return view('admin.size_show',compact('types','size','user','navbarValues'));
     }
 
     public function sizeUpdate(Request $request, $size_id)
     {
 
         $size = Size::findOrFail($size_id);
-        $size->size = mb_strtolower($request->size);
+        $size->size = ($request->size);
+        $size->type_id = $request->type;
         $size->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $size->user_id = Auth::user()->id;
         $size->save();
 
-        return redirect()->route('admin.sizes')->withSuccess('Size updated!');
+        return redirect()->route('admin.size.show',$size->id)->withSuccess('Size updated!');
     }
 
     public function sizeDelete($size_id)
@@ -1107,7 +1135,7 @@ class SettingsController extends Controller
         $subType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $subType->user_id = Auth::user()->id;
         $subType->save();
-        return redirect()->route('admin.sub_types')->withSuccess(__('Sub type '.$subType->name.' successfully created.'));
+        return redirect()->route('admin.sub.type.show',$subType->id)->withSuccess(__('Sub type '.$subType->name.' successfully created.'));
     }
 
     public function subTypeShow($sub_type_id)
@@ -1120,7 +1148,7 @@ class SettingsController extends Controller
         $types = Type::all();
         // User
         $user = $this->getAdmin();
-        $subType = SubType::with('user','status')->where('id',$sub_type_id)->with('type','price_lists.product')->first();
+        $subType = SubType::with('user','status')->where('id',$sub_type_id)->with('type','price_lists.product')->withCount('price_lists')->first();
         return view('admin.sub_type_show',compact('subType','user','types','navbarValues'));
     }
 
@@ -1135,7 +1163,7 @@ class SettingsController extends Controller
         $subType->user_id = Auth::user()->id;
         $subType->save();
 
-        return redirect()->route('admin.sub.types')->withSuccess('Sub Type updated!');
+        return redirect()->route('admin.sub.type.show',$subType->id)->withSuccess('Sub Type updated!');
     }
 
     public function subTypeDelete($sub_type_id)
@@ -1352,10 +1380,14 @@ class SettingsController extends Controller
 
         $upload->name = $file_name;
         $upload->extension = $extension;
-        $upload->image = "tag/".$folderName.$file_name;
+        $upload->original = "tag/".$folderName.$file_name;
         $upload->small_thumbnail = "tag/".$folderName.$small_thumbnail;
         $upload->large_thumbnail = "tag/".$folderName.$large_thumbnail;
         $upload->banner = "tag/".$folderName.$banner;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
 
         $upload->size = $size;
         $upload->is_client_exclusive_access = False;
@@ -1425,7 +1457,7 @@ class SettingsController extends Controller
         $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $title->user_id = Auth::user()->id;
         $title->save();
-        return redirect()->route('admin.titles')->withSuccess(__('Title successfully created.'));
+        return redirect()->route('admin.title.show',$title->id)->withSuccess(__('Title successfully created.'));
     }
 
     public function titleShow($title_id)
@@ -1450,7 +1482,7 @@ class SettingsController extends Controller
         $title->user_id = Auth::user()->id;
         $title->save();
 
-        return redirect()->route('admin.titles')->withSuccess('Title updated!');
+        return redirect()->route('admin.title.show',$title->id)->withSuccess('Title updated!');
     }
 
     public function titleDelete($album_type_id)
@@ -1504,7 +1536,7 @@ class SettingsController extends Controller
         $type->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $type->user_id = Auth::user()->id;
         $type->save();
-        return redirect()->route('admin.types')->withSuccess(__('Type '.$type->name.' successfully created.'));
+        return redirect()->route('admin.type.show',$type->id)->withSuccess(__('Type '.$type->name.' successfully created.'));
     }
 
     public function typeShow($type_id)
@@ -1530,7 +1562,7 @@ class SettingsController extends Controller
         $type->user_id = Auth::user()->id;
         $type->save();
 
-        return redirect()->route('admin.types')->withSuccess('Type updated!');
+        return redirect()->route('admin.type.show',$type->id)->withSuccess('Type updated!');
     }
 
     public function typeDelete($type_id)

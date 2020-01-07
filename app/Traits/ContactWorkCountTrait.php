@@ -33,8 +33,6 @@ trait ContactWorkCountTrait
         $contactAssignedPromoCodes = PromoCodeAssignment::where('contact_id',$contact_id)->count();
         // Get contact deals
         $contactDeals = Deal::where('contact_id',$contact_id)->count();
-        // Get contact quotes
-        $contactQuotes = Quote::where('contact_id',$contact_id)->count();
 
         $contactWorkCount = array(
             "contactAlbums"=>$contactAlbums,
@@ -43,8 +41,7 @@ trait ContactWorkCountTrait
             "contactOrder"=>$contactOrder,
             "contactLiabilities"=>$contactLiabilities,
             "contactAssignedPromoCodes"=>$contactAssignedPromoCodes,
-            "contactDeals"=>$contactDeals,
-            "contactQuotes"=>$contactQuotes
+            "contactDeals"=>$contactDeals
         );
         return $contactWorkCount;
     }

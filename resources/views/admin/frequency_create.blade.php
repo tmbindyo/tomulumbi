@@ -105,8 +105,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="type" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Type</option>
+                                        <select name="type" class="select2_demo_type form-control input-lg" required="required">
+                                            <option></option>
                                             <option value="day">day</option>
                                             <option value="week">week</option>
                                             <option value="month">month</option>
@@ -359,8 +359,8 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Tags",
+        $(".select2_demo_type").select2({
+            placeholder: "Select Type",
             allowClear: true
         });
         $(".select2_demo_category").select2({

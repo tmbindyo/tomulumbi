@@ -2,33 +2,34 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Album;
-use App\Category;
-use App\Client;
-use App\Contact;
-use App\Design;
-use App\DesignCategory;
-use App\DesignContact;
-use App\DesignGallery;
-use App\DesignWork;
-use App\Status;
+use Auth;
 use App\Tag;
 use App\ToDo;
-use App\Traits\DesignTrait;
-use App\Traits\DownloadViewNumbersTrait;
-use App\Traits\NavbarTrait;
-use App\Traits\StatusCountTrait;
-use App\Typography;
-use App\Upload;
-use Auth;
-use App\Traits\UserTrait;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Journal;
+use App\Album;
 use App\Label;
+use App\Design;
+use App\Upload;
+use App\Client;
+use App\Status;
+use App\Journal;
+use App\Contact;
+use App\Category;
+use App\Typography;
+use App\DesignWork;
+use App\DesignContact;
+use App\DesignGallery;
+use App\DesignCategory;
+use App\Traits\UserTrait;
+use App\Traits\DesignTrait;
+use App\Traits\NavbarTrait;
+use Illuminate\Http\Request;
+use App\Traits\StatusCountTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use App\Traits\DocumentExtensionTrait;
+use App\Traits\DownloadViewNumbersTrait;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class DesignController extends Controller
@@ -37,7 +38,9 @@ class DesignController extends Controller
     use DesignTrait;
     use NavbarTrait;
     use StatusCountTrait;
+    use DocumentExtensionTrait;
     use DownloadViewNumbersTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -47,7 +50,7 @@ class DesignController extends Controller
         // User
         $user = $this->getAdmin();
         // Get designs
-        $designs = Design::with('user','status','contact')->get();
+        $designs = Design::with('user','status')->get();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         // Get the design status counts
@@ -439,6 +442,10 @@ class DesignController extends Controller
         $upload->orientation = $orientation;
         $upload->size = $size;
 
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
         $upload->pixels500 = $pixel500FolderName.$image_name;
@@ -640,6 +647,10 @@ class DesignController extends Controller
         $upload->extension = $extension;
         $upload->orientation = $orientation;
         $upload->size = $size;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
@@ -852,6 +863,10 @@ class DesignController extends Controller
         $upload->orientation = $orientation;
         $upload->size = $size;
 
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
         $upload->pixels500 = $pixel500FolderName.$image_name;
@@ -1061,6 +1076,10 @@ class DesignController extends Controller
         $upload->name = $file_name;
         $upload->extension = $extension;
         $upload->orientation = $orientation;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;

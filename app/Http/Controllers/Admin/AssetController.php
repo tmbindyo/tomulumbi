@@ -212,6 +212,7 @@ class AssetController extends Controller
         $assetAction->reference = $reference;
         $assetAction->notes = $request->notes;
         $assetAction->amount = $request->amount;
+        $assetAction->paid = 0;
         $assetAction->date = date('Y-m-d', strtotime($request->date));
         $assetAction->due_date = date('Y-m-d', strtotime($request->due_date));
         $assetAction->action_type_id = $request->action_type;

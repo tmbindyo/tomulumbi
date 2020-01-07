@@ -107,47 +107,56 @@
                                         <i>name</i>
                                     </div>
                                     <br>
-                                    <div class="has-warning" id="data_1">
-                                        <div class="input-group date">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
-                                            <input type="text" required="required" name="start_date" class="form-control input-lg" value="7/27/2019">
+                                    <div class="row"> 
+                                        <div class="col-md-6">
+                                            <div class="has-warning" id="data_1">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                    <input type="text" required="required" name="start_date" class="form-control input-lg" value="7/27/2019">
+                                                </div>
+                                                <i>What is the start date of the campaign?</i>
+                                                <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                                            </div>
                                         </div>
-                                        <i>What is the start date of the event?</i>
-                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                                        <div class="col-md-6">
+                                            <div class="has-warning" id="data_1">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                    <input type="text" required="required" name="end_date" class="form-control input-lg" value="7/27/2019">
+                                                </div>
+                                                <i>What is the end date of the campaign?</i>
+                                                <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
-                                    <div class="has-warning" id="data_1">
-                                        <div class="input-group date">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
-                                            <input type="text" required="required" name="end_date" class="form-control input-lg" value="7/27/2019">
+                                    <div class="row"> 
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="expected_revenue" name="expected_revenue" required="required" placeholder="Expected Revenue" class="form-control input-lg">
+                                                <i>expected revenue</i>
+                                            </div>
                                         </div>
-                                        <i>What is the end date of the event?</i>
-                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" placeholder="Budgeted Cost" class="form-control input-lg">
+                                                <i>budgeted cost</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="type" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Type</option>
+                                        <select name="type" class="select2_demo_campaign_type form-control input-lg" required>
+                                            <option></option>
                                             @foreach ($campaignTypes as $campaignType)
                                                 <option value="{{$campaignType->id}}">{{$campaignType->name}}</option>
                                             @endforeach
-
                                         </select>
-                                        <i>type</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <input type="number" id="expected_revenue" name="expected_revenue" required="required" placeholder="Expected Revenue" class="form-control input-lg">
-                                        <i>expected revenue</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" placeholder="Budgeted Cost" class="form-control input-lg">
-                                        <i>budgeted cost</i>
+                                        <i>campaign type</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
@@ -399,8 +408,8 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Tags",
+        $(".select2_demo_campaign_type").select2({
+            placeholder: "Select Campaign Type",
             allowClear: true
         });
         $(".select2_demo_category").select2({

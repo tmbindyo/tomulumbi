@@ -18,6 +18,27 @@
 
 @section('content')
 
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Asset Categories</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{{route('admin.dashboard')}}">Home</a>
+                </li>
+                <li>
+                    Settings
+                </li>
+                <li class="active">
+                    <a href="{{route('admin.asset.categories')}}">Asset Categories</a>
+                </li>
+            </ol>
+        </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="{{route('admin.asset.category.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Asset </a>
+            </div>
+        </div>
+    </div>
 
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
@@ -62,6 +83,7 @@
                                         <div class="has-warning">
                                             <label>Name</label>
                                             <input type="name" name="name" value="{{$assetCategory->name}}" class="form-control input-lg">
+                                            <i>name</i>
                                         </div>
                                         <br>
                                         <hr>
@@ -79,7 +101,7 @@
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Designs ({{$assetCategory->assets_count}})</h5>
+                        <h5>Assets ({{$assetCategory->assets_count}})</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -104,8 +126,6 @@
                         <th>Reference</th>
                         <th>Name</th>
                         <th>Date Aquired</th>
-                        <th>Category</th>
-                        <th>Kit</th>
                         <th>User</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -117,8 +137,6 @@
                             <td>{{$asset->reference}}</td>
                             <td>{{$asset->name}}</td>
                             <td>{{$asset->date_acquired}}</td>
-                            <td>{{$asset->asset_category->name}}</td>
-                            <td>{{$asset->kit->name}}</td>
                             <td>{{$asset->user->name}}</td>
                             <td>
                                 <span class="label {{$asset->status->label}}">{{$asset->status->name}}</span>
@@ -136,8 +154,6 @@
                         <th>Reference</th>
                         <th>Name</th>
                         <th>Date Aquired</th>
-                        <th>Category</th>
-                        <th>Kit</th>
                         <th>User</th>
                         <th>Status</th>
                         <th>Action</th>

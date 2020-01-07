@@ -27,7 +27,7 @@ class CreateDealsTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-            $table->uuid('organization_id');
+            $table->uuid('organization_id')->nullable();
             $table->uuid('contact_id')->nullable();
             $table->uuid('lead_source_id')->nullable();
             $table->uuid('deal_stage_id');

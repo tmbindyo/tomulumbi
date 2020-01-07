@@ -33,6 +33,11 @@
                 </li>
             </ol>
         </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="{{route('admin.contact.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact</a>
+            </div>
+        </div>
     </div>
 
 
@@ -129,9 +134,9 @@
                             <tbody>
                                 @foreach($contactContactTypes as $contactContactType)
                                     <tr class="gradeX">
-                                        <td>{{$contactContactType->first_name}} {{$contactContactType->last_name}}</td>
-                                        <td>{{$contactContactType->email}}</td>
-                                        <td>{{$contactContactType->phone_number}}</td>
+                                        <td>{{$contactContactType->contact->first_name}} {{$contactContactType->contact->last_name}}</td>
+                                        <td>{{$contactContactType->contact->email}}</td>
+                                        <td>{{$contactContactType->contact->phone_number}}</td>
                                         <td>{{$contactContactType->user->name}}</td>
                                         <td>
                                             <span class="label {{$contactContactType->status->label}}">{{$contactContactType->status->name}}</span>

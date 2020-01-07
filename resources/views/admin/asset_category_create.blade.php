@@ -105,6 +105,7 @@
                                     <div class="form-group">
                                         <div class="has-warning">
                                             <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12 input-lg" required="required" placeholder="Name">
+                                            <i>name</i>
                                         </div>
                                     </div>
                                     <br>

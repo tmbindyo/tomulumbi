@@ -106,6 +106,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <textarea id="description" rows="5" name="description" class="resizable_textarea form-control input-lg" required="required" placeholder="Description..."></textarea>
+                                        <i>description</i>
                                     </div>
 
                                     <br>

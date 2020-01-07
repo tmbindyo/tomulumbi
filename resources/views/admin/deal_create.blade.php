@@ -147,8 +147,8 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <select name="deal_stage" class="select2_demo_tag form-control input-lg">
-                                            <option>Select Deal Stage</option>
+                                        <select name="deal_stage" class="select2_demo_deal_stage form-control input-lg" required>
+                                            <option></option>
                                             @foreach($dealStages as $dealStage)
                                                 <option value="{{$dealStage->id}}">{{$dealStage->name}}</option>
                                             @endforeach
@@ -165,8 +165,8 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <select required="required" name="organization" class="select2_demo_tag form-control input-lg">
-                                            <option>Select Organization</option>
+                                        <select name="organization" class="select2_demo_organization form-control input-lg">
+                                            <option></option>
                                             @foreach($organizations as $organization)
                                                 <option value="{{$organization->id}}">{{$organization->name}}</option>
                                             @endforeach
@@ -175,8 +175,8 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <select required="required" name="contact" class="select2_demo_tag form-control input-lg">
-                                            <option>Select Contact</option>
+                                        <select name="contact" class="select2_demo_contact form-control input-lg">
+                                            <option></option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
                                             @endforeach
@@ -187,8 +187,8 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <select required="required" name="lead_source" class="select2_demo_tag form-control input-lg">
-                                            <option>Select Lead Source</option>
+                                        <select name="lead_source" class="select2_demo_lead_source form-control input-lg">
+                                            <option></option>
                                             @foreach($leadSources as $leadSource)
                                                 <option value="{{$leadSource->id}}">{{$leadSource->name}}</option>
                                             @endforeach
@@ -198,8 +198,8 @@
 
                                     <div class="col-md-6">
                                         <div class="has-warning">
-                                            <select required="required" name="campaign" class="select2_demo_tag form-control input-lg">
-                                                <option>Select Campaign</option>
+                                            <select name="campaign" class="select2_demo_campaign form-control input-lg">
+                                                <option></option>
                                                 @foreach($campaigns as $campaign)
                                                     <option value="{{$campaign->id}}">{{$campaign->name}}</option>
                                                 @endforeach
@@ -453,12 +453,24 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Deal Types",
+        $(".select2_demo_deal_stage").select2({
+            placeholder: "Select Deal Stage",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_demo_organization").select2({
+            placeholder: "Select Organization",
+            allowClear: true
+        });
+        $(".select2_demo_contact").select2({
+            placeholder: "Select Contact",
+            allowClear: true
+        });
+        $(".select2_demo_lead_source").select2({
+            placeholder: "Select Lead Source",
+            allowClear: true
+        });
+        $(".select2_demo_campaign").select2({
+            placeholder: "Select Campaign",
             allowClear: true
         });
 

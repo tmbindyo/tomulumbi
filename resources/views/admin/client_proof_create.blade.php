@@ -117,7 +117,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <select required="required" name="tags[]" class="select2_demo_tag form-control input-lg" multiple="multiple">
-                                            <option>Select Tag</option>
+                                            <option></option>
                                             @foreach($tags as $tag)
                                                 <option value="{{$tag->id}}">{{$tag->name}}</option>
                                             @endforeach
@@ -126,8 +126,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="contacts[]" class="select2_demo_contact form-control input-lg" multiple="multiple">
-                                            <option>Select Contact</option>
+                                        <select name="contacts[]" class="select2_demo_contact form-control input-lg" multiple="multiple" required>
+                                            <option></option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                                             @endforeach

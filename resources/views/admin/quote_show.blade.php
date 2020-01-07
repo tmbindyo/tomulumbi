@@ -144,23 +144,23 @@
 
                         <hr/>
                         <span class="text-muted small">
-                            @if($quote->contact->organization_id == 1)
+                            @if($quote->deal->contact->organization_id == 1)
                                 {{--  if organization  --}}
                                 <address>
-                                    <strong>{{$quote->contact->company_name}}</strong><br>
+                                    <strong>{{$quote->deal->contact->company_name}}</strong><br>
                                     112 Street Avenu, 1080<br>
                                     Miami, CT 445611<br>
-                                    <abbr title="Phone">P:</abbr> {{$quote->contact->phone_number}}<br>
-                                    <abbr title="Email">E:</abbr> {{$quote->contact->email}}
+                                    <abbr title="Phone">P:</abbr> {{$quote->deal->contact->phone_number}}<br>
+                                    <abbr title="Email">E:</abbr> {{$quote->deal->contact->email}}
                                 </address>
                             @else
                                 {{--  if not organization  --}}
                                 <address>
-                                    <strong>{{$quote->contact->first_name}} {{$quote->contact->last_name}}</strong><br>
+                                    <strong>{{$quote->deal->contact->first_name}} {{$quote->deal->contact->last_name}}</strong><br>
                                     112 Street Avenu, 1080<br>
                                     Miami, CT 445611<br>
-                                    <abbr title="Phone">P:</abbr> {{$quote->contact->phone_number}}<br>
-                                    <abbr title="Email">E:</abbr> {{$quote->contact->email}}
+                                    <abbr title="Phone">P:</abbr> {{$quote->deal->contact->phone_number}}<br>
+                                    <abbr title="Email">E:</abbr> {{$quote->deal->contact->email}}
                                 </address>
                             @endif
                         </span>

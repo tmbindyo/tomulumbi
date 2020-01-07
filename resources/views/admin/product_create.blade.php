@@ -105,8 +105,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select required="required" name="type" class="select2_demo_label form-control input-lg">
-                                            <option>Select Type</option>
+                                        <select required="required" name="type" class="select2_demo_type form-control input-lg">
+                                            <option></option>
                                             @foreach($types as $type)
                                                 <option value="{{$type->id}}">{{$type->name}}</option>
                                             @endforeach
@@ -357,8 +357,8 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_label").select2({
-            placeholder: "Select Label",
+        $(".select2_demo_type").select2({
+            placeholder: "Select Type",
             allowClear: true
         });
         $(".select2_demo_category").select2({

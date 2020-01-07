@@ -88,9 +88,9 @@
                                         <div class="col-md-12">
                                             <br>
                                             <div class="has-warning">
-                                                <select name="contact" class="select2_demo_tag form-control input-lg">
+                                                <select name="contact" class="select2_demo_contact form-control input-lg">
                                                     @foreach ($contacts as $contact)
-                                                        <option>Select Contact</option>
+                                                        <option></option>
                                                         <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization) [{{$contact->organization->name}}] @endif</option>
                                                     @endforeach
                                                 </select>
@@ -141,8 +141,8 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_demo_tag form-control input-lg item-select">
-                                                        <option selected disabled>Select Item</option>
+                                                    <select onchange = "itemSelected(this)" data-placement="Select" name="item_details[0][item]" class="select2_demo_product form-control input-lg item-select">
+                                                        <option></option>
                                                         @foreach($priceLists as $priceList)
                                                             <option value="{{$priceList->id}}" data-product-quantity = "-20" data-product-selling-price = "{{$priceList->price}}">{{$priceList->product->name}} [{{$priceList->size->size}} {{$priceList->sub_type->name}}] ({{$priceList->product->status->name}})</option>
                                                         @endforeach
@@ -382,8 +382,8 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_demo_tag form-control input-lg item-select'>"+
-                                "<option selected disabled>Select Item</option>"+
+        firstCell.innerHTML = "<select onchange = 'itemSelected(this)' data-placement='Select' name='item_details["+tableValueArrayIndex+"][item]' class='select2_demo_product form-control input-lg item-select'>"+
+                                "<option></option>"+
                                 "@foreach($priceLists as $priceList)"+
                                 "<option value='{{$priceList->id}}' data-product-quantity = '-20' data-product-selling-price = '{{$priceList->price}}'>{{$priceList->product->name}} [{{$priceList->size->size}} {{$priceList->sub_type->name}}] ({{$priceList->product->status->name}})</option>"+
                                 "@endforeach"+
@@ -621,7 +621,15 @@
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
         $(".select2_demo_tag").select2({
+            placeholder: "Select Tag",
+            allowClear: true
+        });
+        $(".select2_demo_contact").select2({
             placeholder: "Select Contacts",
+            allowClear: true
+        });
+        $(".select2_demo_product").select2({
+            placeholder: "Select Product",
             allowClear: true
         });
         $(".select2_demo_category").select2({

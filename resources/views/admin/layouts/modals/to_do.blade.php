@@ -21,23 +21,80 @@
                     @endif
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="has-warning">
                                 <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
                                 <i>Give your to do a name</i>
                             </div>
                         </div>
-
-                        <div class="col-md-6">
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_end_date" type="checkbox" class="js-switch_18" />
+                                    <br>
+                                    <i>Check if it takes a couple of days.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
                             <div class="has-warning" id="data_1">
                                 <div class="input-group date">
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
-                                    <input type="text" name="due_date" id="due_date" class="form-control input-lg">
+                                    <input type="text" name="start_date" id="start_date" class="form-control input-lg" required>
                                 </div>
-                                <i>Due date.</i>
+                                <i>start date.</i>
                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="has-warning" id="data_1">
+                                <div class="input-group date">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                    <input type="text" name="end_date" id="end_date" class="form-control input-lg">
+                                </div>
+                                <i>end date.</i>
+                                <span id="inputSuccess2Status4" class="sr-only">(success)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_end_time" type="checkbox" class="js-switch_19" />
+                                    <br>
+                                    <i>Check if it takes a time period.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="has-warning">
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" name="start_time" id="start_time" class="form-control input-lg" required>
+                                    <span class="input-group-addon">
+                                    <span class="fa fa-clock-o"></span>
+                                    </span>
+                                </div>
+                                <i>start time.</i>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="has-warning" id="data_1">
+                                <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" name="end_time" id="end_time" class="form-control input-lg" value="09:30">
+                                    <span class="input-group-addon">
+                                    <span class="fa fa-clock-o"></span>
+                                    </span>
+                                </div>
+                                <i>end time.</i>
                             </div>
                         </div>
                     </div>
@@ -46,7 +103,7 @@
                         <div class="col-md-12">
                             <div class="has-warning">
                                 <textarea id="notes" rows="6" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="Notes..."></textarea>
-                                <i>Due date.</i>
+                                <i>notes.</i>
                             </div>
                         </div>
                     </div>
@@ -106,7 +163,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="has-warning">
-                                <select name="journal" class="select2_demo_2 form-control input-lg">
+                                <select name="journal" class="select2_demo_journal form-control input-lg">
                                     <option>Select Journal</option>
                                     @foreach($journals as $journal)
                                         <option value="{{$journal->id}}">{{$journal->name}}</option>
@@ -115,6 +172,29 @@
                                 <i>What journal does the to do belong to</i>
                             </div>
                         </div>
+                        <div class="col-lg-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_journal_series" type="checkbox" class="js-switch_17" />
+                                    <br>
+                                    <i>Check if it belongs to a Journal Series.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <select name="journal_series" class="select2_demo_journal_series form-control input-lg">
+                                    <option>Select Journal Series</option>
+                                    @foreach($journalSeries as $journalSeries)
+                                        <option value="{{$journalSeries->id}}">{{$journalSeries->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>What journal does the to do belong to</i>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-lg-2">
                             <div class="has-warning">
                                 <div class="col-md-12 col-sm-12 col-xs-12">

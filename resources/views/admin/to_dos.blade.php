@@ -389,10 +389,15 @@
     <script>
         $(document).ready(function() {
             // Set date
+            console.log('var');
             var today = new Date();
+            console.log(today);
             var dd = today.getDate();
             var mm = today.getMonth();
             var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            mm ++;
             if (dd < 10){
                 dd = '0'+dd;
             }
@@ -400,13 +405,18 @@
                 mm = '0'+mm;
             }
             var date_today = mm + '/' + dd + '/' + yyyy;
-            console.log(date_today);
-            document.getElementById("due_date").value = date_today;
+            var time_curr = h + ':' + m;
+            console.log(time_curr);
+            document.getElementById("start_date").value = date_today;
+            document.getElementById("end_date").value = date_today;
+            document.getElementById("start_time").value = time_curr;
+            document.getElementById("end_time").value = time_curr;
 
             // Set time
         });
 
     </script>
+
     <script>
         $(document).ready(function(){
 
@@ -560,6 +570,12 @@
             var elem_17 = document.querySelector('.js-switch_17');
             var switchery_17 = new Switchery(elem_17, { color: '#1AB394' });
 
+            var elem_18 = document.querySelector('.js-switch_18');
+            var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+
+            var elem_19 = document.querySelector('.js-switch_19');
+            var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
+
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green'
@@ -625,6 +641,66 @@
             $(".select2_demo_2").select2();
             $(".select2_demo_tag").select2({
                 placeholder: "Select Tags",
+                allowClear: true
+            });
+            $(".select2_demo_album").select2({
+                placeholder: "Select Album",
+                allowClear: true
+            });
+            $(".select2_demo_design").select2({
+                placeholder: "Select Design",
+                allowClear: true
+            });
+            $(".select2_demo_journal").select2({
+                placeholder: "Select Journal",
+                allowClear: true
+            });
+            $(".select2_demo_journal_series").select2({
+                placeholder: "Select Journal Series",
+                allowClear: true
+            });
+            $(".select2_demo_project").select2({
+                placeholder: "Select Project",
+                allowClear: true
+            });
+            $(".select2_demo_product").select2({
+                placeholder: "Select Product",
+                allowClear: true
+            });
+            $(".select2_demo_order").select2({
+                placeholder: "Select Order",
+                allowClear: true
+            });
+            $(".select2_demo_email").select2({
+                placeholder: "Select Email",
+                allowClear: true
+            });
+            $(".select2_demo_contact").select2({
+                placeholder: "Select Contact",
+                allowClear: true
+            });
+            $(".select2_demo_organization").select2({
+                placeholder: "Select Organization",
+                allowClear: true
+            });
+            $(".select2_demo_deal").select2({
+                placeholder: "Select Deal",
+                allowClear: true
+            });
+            $(".select2_demo_campaign").select2({
+                placeholder: "Select Campaign",
+                allowClear: true
+            });
+            $(".select2_demo_asset").select2({
+                placeholder: "Select Asset",
+                allowClear: true
+            });
+            $(".select2_demo_kit").select2({
+                placeholder: "Select Kit",
+                allowClear: true
+            });
+            $(".select2_demo_asset_action").select2({
+                placeholder: "Select Asset Action",
                 allowClear: true
             });
 

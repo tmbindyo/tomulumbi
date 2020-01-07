@@ -23,6 +23,9 @@ Route::get('/action/types', 'Admin\SettingsController@actionTypes')->name('admin
 Route::get('/action/type/create', 'Admin\SettingsController@actionTypeCreate')->name('admin.action.type.create');
 Route::post('/action/type/store', 'Admin\SettingsController@actionTypeStore')->name('admin.action.type.store');
 Route::get('/action/type/show/{action_type_id}', 'Admin\SettingsController@actionTypeShow')->name('admin.action.type.show');
+
+Route::get('/action/type/asset/action/create/{action_type_id}', 'Admin\SettingsController@actionTypeAssetActionCreate')->name('admin.action.type.asset.action.create');
+
 Route::post('/action/type/update/{action_type_id}', 'Admin\SettingsController@actionTypeUpdate')->name('admin.action.type.update');
 Route::get('/action/type/delete/{action_type_id}', 'Admin\SettingsController@actionTypeDelete')->name('admin.action.type.delete');
 Route::get('/action/type/restore/{action_type_id}', 'Admin\SettingsController@actionTypeRestore')->name('admin.action.type.restore');
@@ -112,10 +115,10 @@ Route::get('/label/restore/{project_type_id}', 'Admin\SettingsController@labelRe
 Route::get('/lead/sources', 'Admin\SettingsController@leadSources')->name('admin.lead.sources');
 Route::get('/lead/source/create', 'Admin\SettingsController@leadSourceCreate')->name('admin.lead.source.create');
 Route::post('/lead/source/store', 'Admin\SettingsController@leadSourceStore')->name('admin.lead.source.store');
-Route::get('/lead/source/show/{project_type_id}', 'Admin\SettingsController@leadSourceShow')->name('admin.lead.source.show');
-Route::post('/lead/source/update/{project_type_id}', 'Admin\SettingsController@leadSourceUpdate')->name('admin.lead.source.update');
-Route::get('/lead/source/delete/{project_type_id}', 'Admin\SettingsController@leadSourceDelete')->name('admin.lead.source.delete');
-Route::get('/lead/source/restore/{project_type_id}', 'Admin\SettingsController@leadSourceRestore')->name('admin.lead.source.restore');
+Route::get('/lead/source/show/{lead_source_id}', 'Admin\SettingsController@leadSourceShow')->name('admin.lead.source.show');
+Route::post('/lead/source/update/{lead_source_id}', 'Admin\SettingsController@leadSourceUpdate')->name('admin.lead.source.update');
+Route::get('/lead/source/delete/{lead_source_id}', 'Admin\SettingsController@leadSourceDelete')->name('admin.lead.source.delete');
+Route::get('/lead/source/restore/{lead_source_id}', 'Admin\SettingsController@leadSourceRestore')->name('admin.lead.source.restore');
 
 
 // Organization types
@@ -212,10 +215,6 @@ Route::get('/to/do/delete/{todo_id}', 'Admin\ToDoController@toDoDelete')->name('
 
 
 /// CRM
-// Feed
-Route::get('/feed', 'Admin\CRMController@feed')->name('admin.feed');
-
-
 // Campaign
 Route::get('/campaigns', 'Admin\CRMController@campaigns')->name('admin.campaigns');
 Route::get('/campaign/create', 'Admin\CRMController@campaignCreate')->name('admin.campaign.create');
@@ -225,7 +224,6 @@ Route::get('/campaign/show/{campaign_id}', 'Admin\CRMController@campaignShow')->
 Route::get('/campaign/contact/create/{campaign_id}', 'Admin\CRMController@campaignContactCreate')->name('admin.campaign.contact.create');
 Route::get('/campaign/deal/create/{campaign_id}', 'Admin\CRMController@campaignDealCreate')->name('admin.campaign.deal.create');
 Route::get('/campaign/expense/create/{campaign_id}', 'Admin\CRMController@campaignExpenseCreate')->name('admin.campaign.expense.create');
-Route::get('/campaign/quote/create/{campaign_id}', 'Admin\CRMController@campaignQuoteCreate')->name('admin.campaign.quote.create');
 Route::get('/campaign/organization/create/{campaign_id}', 'Admin\CRMController@campaignOrganizationCreate')->name('admin.campaign.organization.create');
 
 Route::post('/campaign/update/{campaign_id}', 'Admin\CRMController@campaignUpdate')->name('admin.campaign.update');
@@ -257,7 +255,6 @@ Route::get('/contact/design/create/{contact_id}', 'Admin\CRMController@contactDe
 Route::get('/contact/liability/create/{contact_id}', 'Admin\CRMController@contactLiabilityCreate')->name('admin.contact.liability.create');
 Route::get('/contact/order/create/{contact_id}', 'Admin\CRMController@contactOrderCreate')->name('admin.contact.order.create');
 Route::get('/contact/project/create/{contact_id}', 'Admin\CRMController@contactProjectCreate')->name('admin.contact.project.create');
-Route::get('/contact/quote/create/{contact_id}', 'Admin\CRMController@contactQuoteCreate')->name('admin.contact.quote.create');
 
 Route::post('/contact/update/{contact_id}', 'Admin\CRMController@contactUpdate')->name('admin.contact.update');
 Route::get('/contact/delete/{contact_id}', 'Admin\CRMController@contactDelete')->name('admin.contact.delete');

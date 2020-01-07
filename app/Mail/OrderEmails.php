@@ -34,7 +34,7 @@ class OrderEmails extends Mailable
         $subject = 'This is a demo!';
         $name = 'tomulumbi';
 
-        return $this->view('email_templates.Abandoned-Cart.HTML.index')
+        return $this->view('email_templates.Order-Confirmed.HTML.index')
             ->from($address, $name)
             ->cc($address, $name)
             ->bcc($address, $name)

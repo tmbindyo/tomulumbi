@@ -36,6 +36,11 @@
                 </li>
             </ol>
         </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="{{route('admin.action.type.asset.action.create',$actionType->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Asset Action </a>
+            </div>
+        </div>
     </div>
 
 
@@ -84,14 +89,14 @@
                                         <div class="has-warning">
                                             <input type="name" name="name" value="{{$actionType->name}}" class="form-control input-lg">
                                         </div>
-                                        <i>Action type name</i>
+                                        <i>name</i>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="has-warning">
                                             <textarea id="description" rows="5" name="description" class="resizable_textarea form-control input-lg" required="required">{{$actionType->description}}</textarea>
                                         </div>
-                                        <i>Action type description</i>
+                                        <i>description</i>
                                     </div>
                                     <br>
 
@@ -136,7 +141,6 @@
                     <th>Amount</th>
                     <th>Date</th>
                     <th>Due Date</th>
-                    <th>Action Type</th>
                     <th>Contact</th>
                     <th>Item</th>
                     <th>User</th>
@@ -151,7 +155,6 @@
                         <td>{{$assetAction->amount}}</td>
                         <td>{{$assetAction->date}}</td>
                         <td>{{$assetAction->due_date}}</td>
-                        <td>{{$assetAction->action_type->name}}</td>
                         <td>{{$assetAction->contact->first_name}} {{$assetAction->contact->last_name}}</td>
                         <td>{{$assetAction->user->name}}</td>
                         <td>
@@ -179,7 +182,6 @@
                     <th>Amount</th>
                     <th>Date</th>
                     <th>Due Date</th>
-                    <th>Action Type</th>
                     <th>Contact</th>
                     <th>Item</th>
                     <th>User</th>

@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\AlbumTag;
+use DB;
+use App\ToDo;
+use App\Label;
+use App\Upload;
+use App\Status;
+use App\Project;
 use App\Contact;
 use App\Journal;
-use App\JournalGallery;
-use App\JournalLabel;
-use App\Label;
-use App\Project;
-use App\ProjectGallery;
-use App\ProjectType;
-use App\Status;
-use App\ThumbnailSize;
-use App\ToDo;
-use App\Traits\DownloadViewNumbersTrait;
-use App\Traits\JournalTrait;
-use App\Traits\NavbarTrait;
-use App\Traits\StatusCountTrait;
-use App\Traits\UserTrait;
+use App\AlbumTag;
 use App\Typography;
-use DB;
-use App\Upload;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\ProjectType;
+use App\JournalLabel;
 use App\JournalSeries;
+use App\ThumbnailSize;
+use App\JournalGallery;
+use App\ProjectGallery;
+use App\Traits\UserTrait;
+use App\Traits\NavbarTrait;
+use App\Traits\JournalTrait;
+use Illuminate\Http\Request;
+use App\Traits\StatusCountTrait;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use App\Traits\DocumentExtensionTrait;
+use App\Traits\DownloadViewNumbersTrait;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class JournalController extends Controller
@@ -455,6 +456,10 @@ class JournalController extends Controller
         $upload->orientation = $orientation;
         $upload->size = $size;
 
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
         $upload->pixels500 = $pixel500FolderName.$image_name;
@@ -644,6 +649,10 @@ class JournalController extends Controller
         $upload->name = $file_name;
         $upload->extension = $extension;
         $upload->orientation = $orientation;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;

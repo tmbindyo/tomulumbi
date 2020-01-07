@@ -100,66 +100,83 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
-                                    <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
-                                        <i>name</i>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                                <i>name</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="text" id="phone_number" name="phone_number" required="required" placeholder="Phone Number" class="form-control input-lg">
+                                                <i>phone number</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
-                                    <div class="has-warning">
-                                        <input type="text" id="phone_number" name="phone_number" required="required" placeholder="Phone Number" class="form-control input-lg">
-                                        <i>phone number</i>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="email" id="email" name="email" required="required" placeholder="Email" class="form-control input-lg">
+                                                <i>email</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="url" id="website" name="website" required="required" placeholder="Website" class="form-control input-lg">
+                                                <i>website</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
-                                    <div class="has-warning">
-                                        <input type="email" id="email" name="email" required="required" placeholder="Email" class="form-control input-lg">
-                                        <i>email</i>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <select name="organization_type" class="select2_demo_organization_type form-control input-lg" required>
+                                                    <option></option>
+                                                    @foreach ($organizationTypes as $organizationType)
+                                                        <option value="{{$organizationType->id}}">{{$organizationType->name}}</option>
+                                                    @endforeach
+        
+                                                </select>
+                                                <i>organization type</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg">
+                                                    <option></option>
+                                                    @foreach ($organizations as $organization)
+                                                        <option value="{{$organization->id}}">{{$organization->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>parent organization</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
-                                    <div class="has-warning">
-                                        <input type="text" id="website" name="website" required="required" placeholder="Website" class="form-control input-lg">
-                                        <i>website</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <select name="organization_type" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Type</option>
-                                            @foreach ($organizationTypes as $organizationType)
-                                                <option value="{{$organizationType->id}}">{{$organizationType->name}}</option>
-                                            @endforeach
-
-                                        </select>
-                                        <i>type</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <select name="parent_organization" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Parent Organization</option>
-                                            @foreach ($organizations as $organization)
-                                                <option value="{{$organization->id}}">{{$organization->name}}</option>
-                                            @endforeach
-
-                                        </select>
-                                        <i>parent organization</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <input type="text" id="street" name="street" required="required" placeholder="Street" class="form-control input-lg">
-                                        <i>street</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <input type="text" id="city" name="city" required="required" placeholder="City" class="form-control input-lg">
-                                        <i>city</i>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="text" id="street" name="street" required="required" placeholder="Street" class="form-control input-lg">
+                                                <i>street</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="text" id="city" name="city" required="required" placeholder="City" class="form-control input-lg">
+                                                <i>city</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="has-warning">
                                         <textarea rows="5" id="description" name="description" required="required" placeholder="Description" class="form-control input-lg"></textarea>
                                         <i>description</i>
                                     </div>
-
-
                                     <br>
                                     <hr>
 
@@ -398,14 +415,15 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Tags",
+        $(".select2_demo_organization_type").select2({
+            placeholder: "Select Organization Type",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_demo_parent_organization").select2({
+            placeholder: "Select Parent Organization",
             allowClear: true
         });
+
 
 
     });

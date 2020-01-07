@@ -18,10 +18,28 @@ class CreateToDosTable extends Migration
 
             $table->string('name');
             $table->text('notes');
-            $table->date('due_date');
-            $table->date('date_completed')->nullable();
+
+            $table->date('start_date');
+            $table->integer('start_year');
+            $table->integer('start_month');
+            $table->integer('start_day');
+            $table->time('start_time');
+            $table->integer('start_hour');
+            $table->integer('start_minute');
+
+            $table->boolean('is_end_date');
+            $table->date('end_date')->nullable();
+            $table->integer('end_year')->nullable();
+            $table->integer('end_month')->nullable();
+            $table->integer('end_day')->nullable();
+
+            $table->boolean('is_end_time');
+            $table->time('end_time')->nullable();
+            $table->integer('end_hour')->nullable();
+            $table->integer('end_minute')->nullable();
 
             $table->boolean('is_completed');
+            $table->date('date_completed')->nullable();
 
             $table->boolean('is_album');
             $table->uuid('album_id')->nullable();

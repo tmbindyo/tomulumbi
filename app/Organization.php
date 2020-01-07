@@ -20,10 +20,6 @@ class Organization extends Model
     {
         return $this->hasMany('App\Deal');
     }
-    public function quotes()
-    {
-        return $this->hasMany('App\Quote');
-    }
     public function to_dos()
     {
         return $this->hasMany('App\ToDo');

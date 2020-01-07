@@ -24,11 +24,12 @@
                     <div class="input-group">
                         <input type="file" name="cover_image" class="form-control col-md-12 col-xs-12 input-lg">
                     </div>
-
+                    <br>
                     <div class="ln_solid"></div>
+                    <br>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">{{ __('Save') }}</button>
                     </div>
 
                 </form>

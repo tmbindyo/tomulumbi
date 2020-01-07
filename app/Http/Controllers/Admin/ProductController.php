@@ -24,6 +24,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use App\Traits\DocumentExtensionTrait;
 use App\Traits\DownloadViewNumbersTrait;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -33,6 +34,7 @@ class ProductController extends Controller
     use NavbarTrait;
     use ProductTrait;
     use StatusCountTrait;
+    use DocumentExtensionTrait;
     use DownloadViewNumbersTrait;
     public function __construct()
     {
@@ -330,6 +332,10 @@ class ProductController extends Controller
         $upload->orientation = $orientation;
         $upload->size = $size;
 
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
         $upload->pixels500 = $pixel500FolderName.$image_name;
@@ -529,6 +535,10 @@ class ProductController extends Controller
         $upload->orientation = $orientation;
         $upload->size = $size;
 
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;
         $upload->pixels500 = $pixel500FolderName.$image_name;
@@ -718,6 +728,10 @@ class ProductController extends Controller
         $upload->name = $file_name;
         $upload->extension = $extension;
         $upload->orientation = $orientation;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
         $upload->pixels300 = $pixel300FolderName.$image_name;

@@ -130,8 +130,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Account</option>
+                                        <select name="account" class="select2_demo_account form-control input-lg">
+                                            <option></option>
                                             @foreach ($accounts as $account)
                                                 <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
                                             @endforeach
@@ -140,8 +140,8 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="contact" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Contact</option>
+                                        <select name="contact" class="select2_demo_contact form-control input-lg">
+                                            <option></option>
                                             @foreach ($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                                             @endforeach
@@ -394,12 +394,12 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Tags",
+        $(".select2_demo_account").select2({
+            placeholder: "Select Account",
             allowClear: true
         });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_demo_contact").select2({
+            placeholder: "Select Contact",
             allowClear: true
         });
 

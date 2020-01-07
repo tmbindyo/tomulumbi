@@ -104,6 +104,16 @@
                                         <i>size</i>
                                     </div>
                                     <br>
+                                    <div class="has-warning">
+                                        <select name="type" class="select2_demo_type form-control input-lg" required>
+                                            <option></option>
+                                            @foreach ($types as $type)
+                                                <option value="{{$type->id}}">{{$type->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>type</i>
+                                    </div>
+                                    <br>
                                     <hr>
 
                                     <div class="text-center">
@@ -341,8 +351,8 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Tags",
+        $(".select2_demo_type").select2({
+            placeholder: "Select Type",
             allowClear: true
         });
         $(".select2_demo_category").select2({

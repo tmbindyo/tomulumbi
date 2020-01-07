@@ -33,6 +33,12 @@
                 </li>
             </ol>
         </div>
+        <div class="col-md-3">
+            <div class="title-action">
+                <a href="{{route('admin.contact.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
+                <a href="{{route('admin.deal.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deal </a>
+            </div>
+        </div>
     </div>
 
 
@@ -41,7 +47,7 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Expense account <small>edit</small></h5>
+                        <h5>Lead source <small>edit</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -80,15 +86,6 @@
                                     <div class="has-warning">
                                         <input type="name" name="name" value="{{$leadSource->name}}" class="form-control input-lg">
                                         <i>name</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <input type="text" id="code" name="code" required="required" value="{{$leadSource->code}}" class="form-control input-lg">
-                                        <i>code</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <textarea id="description" rows="5" name="description" class="resizable_textarea form-control input-lg" required="required">{{$leadSource->description}}</textarea>
                                     </div>
                                     <br>
                                     <div>

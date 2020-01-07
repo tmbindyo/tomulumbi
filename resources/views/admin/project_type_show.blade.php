@@ -18,6 +18,30 @@
 
 @section('content')
 
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-9">
+        <h2>Asset Categories</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{{route('admin.dashboard')}}">Home</a>
+            </li>
+            <li>
+                Settings
+            </li>
+            <li class="active">
+                <a href="{{route('admin.project.types')}}">Project Types</a>
+            </li>
+            <li class="active">
+                <a href="{{route('admin.project.type.show',$projectType->id)}}">Project Type</a>
+            </li>
+        </ol>
+    </div>
+    <div class="col-md-3">
+        <div class="title-action">
+            <a href="{{route('admin.project.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Project </a>
+        </div>
+    </div>
+</div>
 
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
@@ -68,8 +92,9 @@
                                             <label>Description</label>
                                             <textarea id="description" name="description" class="resizable_textarea form-control" rows="5" required="required">{{$projectType->description}}</textarea>
                                         </div>
+                                        <br>
                                         <div>
-                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                            <button class="btn btn-block btn-lg btn-primary" type="submit"><strong>Update</strong></button>
                                         </div>
                                     </form>
                                 </div>

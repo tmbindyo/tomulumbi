@@ -119,8 +119,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Photography</span>
-                                        <h2>Photography is on it's way.</h2>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <h2>Personal albums.</h2>
+                                        <p>The first idea was to have something that sounds profound like, the world throught my eyes, but oooh well. This is basically me and dabbling with a camera in hand trying to capture art.</p>
                                         <p><a href="{{route('personal.albums')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
@@ -141,8 +141,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Client Proofs</span>
-                                        <h2>Capture interesting things.</h2>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <h2>Work Work Work Work Work Work Work Work Work</h2>
+                                        <p>This is home to client proofs, so basically paid work, might be password secured but who knows, you might find an open proof.</p>
                                         <p><a href="{{route('client.proofs')}}" class="btn-view">View Client Proof's <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
@@ -163,8 +163,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Design Work</span>
-                                        <h2>Capture interesting things.</h2>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <h2>Random designs.</h2>
+                                        <p>Things I hope I could do, this is design, so I try design. I guess that's it.</p>
                                         <p><a href="{{route('designs')}}" class="btn-view">View Designs <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
@@ -185,8 +185,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Journals</span>
-                                        <h2>Discover New Things</h2>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <h2>Random words</h2>
+                                        <p>Random scribles of thoughts going through my mind, they may take various forms, I honestly don't know if I'll keep up with actively positng. I hope I do but...</p>
                                         <p><a href="{{route('journals')}}" class="btn-view">View Journals <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@
                                     <div class="desc">
                                         <span class="tag">Projects</span>
                                         <h2>Discover New Things</h2>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <p>Projects, projects, projects, projects, projects, projects, projects, all I honestly have to say about here is that you shall see projects that I have undertaken I guess?.</p>
                                         <p><a href="{{route('projects')}}" class="btn-view">View Projects <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
@@ -229,8 +229,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Store</span>
-                                        <h2>Discover New Things</h2>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <h2>Discover New Things, maybe but some?</h2>
+                                        <p>Random things that I hope are worth you spending your money on, so please spend money.</p>
                                         <p><a href="{{route('store')}}" class="btn-view">View Store <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>

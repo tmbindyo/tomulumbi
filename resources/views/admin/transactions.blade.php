@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-2">
             <div class="title-action">
-                <a href="{{route('admin.transaction.create',1)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
+                <a href="{{route('admin.expenses')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Expenses </a>
             </div>
         </div>
     </div>

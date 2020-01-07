@@ -20,6 +20,7 @@ use App\Traits\UserTrait;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\JournalSeries;
 use App\Kit;
 use App\Order;
 use App\Organization;
@@ -55,6 +56,8 @@ class ToDoController extends Controller
         $designs = Design::get();
         // Journals
         $journals = Journal::get();
+        // Journal series
+        $journalSeries = JournalSeries::get();
         // Projects
         $projects = Project::get();
         // Product
@@ -81,7 +84,7 @@ class ToDoController extends Controller
 
         // User
         $user = $this->getAdmin();
-        return view('admin.to_dos',compact('assetActions','assets','kits','products','orders','emails','contacts','organizations','deals','campaigns','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects','navbarValues','toDoStatusCount'));
+        return view('admin.to_dos',compact('journalSeries','assetActions','assets','kits','products','orders','emails','contacts','organizations','deals','campaigns','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects','navbarValues','toDoStatusCount'));
     }
 
     public function toDoStore(Request $request)
@@ -92,7 +95,35 @@ class ToDoController extends Controller
         $todo->name = $request->name;
         $todo->notes = $request->notes;
         $todo->is_completed = False;
-        $todo->due_date = date('Y-m-d', strtotime($request->due_date));
+
+
+        $todo->start_date = date('Y-m-d', strtotime($request->start_date));
+        $todo->start_year = date('Y', strtotime($request->start_date));
+        $todo->start_month = date('m', strtotime($request->start_date));
+        $todo->start_day = date('d', strtotime($request->start_date));
+        $todo->start_time = date('H:i:s', strtotime($request->start_time));
+        $todo->start_hour = date('H', strtotime($request->start_time));
+        $todo->start_minute = date('i', strtotime($request->start_time));
+        // if has end date
+        if($request->is_end_date == "on"){
+            $todo->is_end_date = True;
+            $todo->end_date = date('Y-m-d', strtotime($request->end_date));
+            $todo->end_year = date('Y', strtotime($request->end_date));
+            $todo->end_month = date('m', strtotime($request->end_date));
+            $todo->end_day = date('d', strtotime($request->end_date));
+        }else{
+            $todo->is_end_date = False;
+        }
+        // if has end time
+        if($request->is_end_time == "on"){
+            $todo->is_end_time = True;
+            $todo->end_time = date('H:i:s', strtotime($request->end_time));
+            $todo->end_hour = date('H', strtotime($request->end_time));
+            $todo->end_minute = date('i', strtotime($request->end_time));
+        }else{
+            $todo->is_end_time = False;
+        }
+        //
         // album
         if($request->is_album){
             $todo->is_album = True;

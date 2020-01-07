@@ -118,7 +118,7 @@
                                     {{--  Album client  --}}
                                     <div class="has-warning">
                                         <select name="contacts[]" class="select2_demo_client form-control input-lg" multiple="multiple">
-                                            <option>Select Contact</option>
+                                            <option></option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
                                             @endforeach
@@ -128,6 +128,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <select required="required" name="categories[]" class="select2_demo_category form-control input-lg" multiple="multiple">
+                                            <option></option>
                                             @foreach($categories as $category)
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach

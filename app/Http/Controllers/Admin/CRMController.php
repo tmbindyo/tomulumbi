@@ -226,24 +226,6 @@ class CRMController extends Controller
 
     }
 
-    public function campaignQuoteCreate($campaign_id)
-    {
-        // get campaign
-        $campaign = Campaign::findOrFail($campaign_id);
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // organization
-        $organizations = Organization::all();
-        // get taxes
-        $taxes = Tax::all();
-        // contact
-        $contacts = Contact::with('organization')->get();
-        return view('admin.campaign_quote_create',compact('campaign','taxes','contacts','organizations','user','navbarValues'));
-
-    }
-
     public function campaignUploads($campaign_id)
     {
         // Check if contact type exists
@@ -306,8 +288,7 @@ class CRMController extends Controller
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
 
-        // Get the navbar values
-        $extensionType = $this->uploadExtension($extension);
+
 
         $Artist = "Pending";
         $ApertureFNumber = "Pending";
@@ -347,8 +328,11 @@ class CRMController extends Controller
         $upload->software = $Software;
         $upload->shutter_speed = $ShutterSpeed;
 
-        $upload->name = $file_name;
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
         $upload->file_type = $extensionType;
+
+        $upload->name = $file_name;
         $upload->extension = $extension;
         $upload->orientation = "";
         $upload->size = $size;
@@ -531,8 +515,6 @@ class CRMController extends Controller
         $contactContactTypes = ContactContactType::with('user','status','contact_type')->where('contact_id',$contact_id)->get();
         // contact deals
         $deals = Deal::with('user','status','deal_stage','lead_source')->where('contact_id',$contact_id)->get();
-        // contact quotes
-        $quotes = Quote::with('user','status')->where('contact_id',$contact_id)->get();
         // Pending to dos
         $pendingToDos = ToDo::with('user','status','contact')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('contact_id',$contact->id)->get();
         // In progress to dos
@@ -541,7 +523,7 @@ class CRMController extends Controller
         $completedToDos = ToDo::with('user','status','contact')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('contact_id',$contact->id)->get();
         // Overdue to dos
         $overdueToDos = ToDo::with('user','status','contact')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('contact_id',$contact->id)->get();
-        return view('admin.contact_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','contactContactTypes','quotes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount'));
+        return view('admin.contact_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','contactContactTypes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount'));
     }
 
     public function contactAssetActionCreate($contact_id)
@@ -669,23 +651,6 @@ class CRMController extends Controller
         // project types
         $projectTypes = ProjectType::all();
         return view('admin.contact_project_create',compact('contacts','user','contact','projectTypes','navbarValues'));
-    }
-
-    public function contactQuoteCreate($contact_id)
-    {
-
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // organization
-        $organizations = Organization::all();
-        // get taxes
-        $taxes = Tax::all();
-        // contact
-        $contact = Contact::findOrFail($contact_id);
-        return view('admin.contact_quote_create',compact('taxes','contact','organizations','user','navbarValues'));
-
     }
 
     public function contactUpdate(Request $request, $contact_id)
@@ -1162,13 +1127,11 @@ class CRMController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        // organization
-        $organizations = Organization::all();
         // get taxes
         $taxes = Tax::all();
         // contact
-        $contacts = Contact::with('organization')->get();
-        return view('admin.quote_create',compact('taxes','contacts','organizations','user','navbarValues'));
+        $deals = Deal::all();
+        return view('admin.quote_create',compact('taxes','deals','user','navbarValues'));
 
     }
 
@@ -1192,20 +1155,7 @@ class CRMController extends Controller
 
         $quote->tax = 0;
         $quote->balance = 0;
-
-        if($request->is_deal == "on"){
-            $quote->is_deal = True;
-            $quote->deal_id = $request->deal;
-        }else{
-            $quote->is_deal = False;
-        }
-
-        if($request->is_campaign == "on"){
-            $quote->is_campaign = True;
-            $quote->campaign_id = $request->campaign;
-        }else{
-            $quote->is_campaign = False;
-        }
+        $quote->paid = 0;
 
         if($request->is_draft == "on"){
             $quote->is_draft = True;
@@ -1218,7 +1168,7 @@ class CRMController extends Controller
         $quote->is_cancelled = False;
         $quote->is_accepted = False;
 
-        $quote->contact_id = $request->contact;
+        $quote->deal_id = $request->deal;
         $quote->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $quote->user_id = Auth::user()->id;
         $quote->save();
@@ -1291,7 +1241,7 @@ class CRMController extends Controller
         $contacts = Contact::with('organization')->get();
 
         // Get quotes
-        $quote = Quote::with('user','status','contact','campaign','deal','quote_items','payments.account','payments.status')->withCount('quote_items')->where('id',$quote_id)->first();
+        $quote = Quote::with('user','status','contact','campaign','deal.contact.organization','deal.organization','quote_items','payments.account','payments.status')->withCount('quote_items')->where('id',$quote_id)->first();
 
         return view('admin.quote_show',compact('contacts','taxes','quote','user','navbarValues'));
     }
@@ -1324,12 +1274,12 @@ class CRMController extends Controller
         // get taxes
         $taxes = Tax::all();
         // contact
-        $contacts = Contact::with('organization')->get();
+        $deals = Deal::all();
 
         // Get quotes
         $quote = Quote::with('user','status','contact','campaign','deal','quote_items','quote_taxes')->withCount('quote_items')->where('id',$quote_id)->first();
 
-        return view('admin.quote_edit',compact('contacts','taxes','quote','user','navbarValues'));
+        return view('admin.quote_edit',compact('deals','taxes','quote','user','navbarValues'));
     }
 
     public function quotePrint($quote_id)
@@ -1392,20 +1342,6 @@ class CRMController extends Controller
         $quote->discount = $request->discount;
         $quote->total = $request->grand_total;
 
-        if($request->is_deal == "on"){
-            $quote->is_deal = True;
-            $quote->deal_id = $request->deal;
-        }else{
-            $quote->is_deal = False;
-        }
-
-        if($request->is_campaign == "on"){
-            $quote->is_campaign = True;
-            $quote->campaign_id = $request->campaign;
-        }else{
-            $quote->is_campaign = False;
-        }
-
         if($request->is_draft == "on"){
             $quote->is_draft = True;
         }else{
@@ -1417,7 +1353,7 @@ class CRMController extends Controller
         $quote->is_cancelled = False;
         $quote->is_accepted = False;
 
-        $quote->contact_id = $request->contact;
+        $quote->deal_id = $request->deal;
         $quote->save();
 
         $quoteCurrentItems =array();

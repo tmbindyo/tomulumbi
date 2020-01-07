@@ -35,11 +35,6 @@
                 </li>
             </ol>
         </div>
-        <div class="col-md-3">
-            <div class="title-action">
-                <a href="{{route('admin.tag.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> New </a>
-            </div>
-        </div>
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">

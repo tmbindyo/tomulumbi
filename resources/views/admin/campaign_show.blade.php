@@ -157,8 +157,8 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <select name="type" class="select2_demo_tag form-control input-lg">
-                                                    <option selected disabled >Select Type</option>
+                                                <select name="type" class="select2_demo_campaign_type form-control input-lg">
+                                                    <option></option>
                                                     @foreach ($campaignTypes as $campaignType)
                                                         <option @if($campaign->campaign_type_id == $campaignType->id) selected @endif value="{{$campaignType->id}}">{{$campaignType->name}}</option>
                                                     @endforeach
@@ -754,133 +754,37 @@
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
-<style>
+{{--  Get due date to populate   --}}
+    <script>
+        $(document).ready(function() {
+            // Set date
+            console.log('var');
+            var today = new Date();
+            console.log(today);
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            mm ++;
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date_today = mm + '/' + dd + '/' + yyyy;
+            var time_curr = h + ':' + m;
+            console.log(time_curr);
+            document.getElementById("start_date").value = date_today;
+            document.getElementById("end_date").value = date_today;
+            document.getElementById("start_time").value = time_curr;
+            document.getElementById("end_time").value = time_curr;
 
-    .grid .ibox {
-        margin-bottom: 0;
-    }
-
-    .grid-item {
-        margin-bottom: 25px;
-        width: 300px;
-    }
-</style>
-
-<script>
-    $('.updateAlbumSetVisibility').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('admin/client/proof/set/status/')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            alert(this.responseText);
-        }
-    });
-
-</script>
-
-<script>
-    $('.updateAlbumSetDownload').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('admin/client/proof/set/download/status/')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            alert(this.responseText);
-        }
-    });
-
-</script>
-
-
-<script>
-    $('.generateAlbumPassword').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('admin/client/proof/generate/password')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            document.getElementById("album_password").value = this.responseText;
-            alert("Album Password Generated");
-        }
-    });
-
-</script>
-
-<script>
-    $('.generateAlbumPin').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('admin/client/proof/generate/pin')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            document.getElementById("download_pin").value = this.responseText;
-            alert("Album Pin Generated");
-        }
-    });
-
-</script>
-
-<script>
-    $('.restrictToEmail').on('click',function(){
-        var id = $(this).data('fid')
-        var email = document.getElementById("email_restriction").value
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('admin/client/proof/restrict/to/specific')}}'+'/'+id +'/email/'+email);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            alert(this.responseText);
-        }
-        location.reload();
-    });
-
-</script>
-
-<script>
-    $('.generateClientExclusiveAccessPassword').on('click',function(){
-        var id = $(this).data('fid')
-
-        //send value by ajax to server
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", '{{url('admin/client/proof/generate/password')}}'+'/'+id);
-        xhr.setRequestHeader('Content-Type', '');
-        xhr.send();
-        xhr.onload = function() {
-            document.getElementById("client_exclusive_access_password").value = this.responseText;
-            alert("Client Exclusive Access Password Generated");
-        }
-    });
-
-</script>
-
-
-<script>
-    $(window).load(function() {
-
-        $('.grid').masonry({
-            // options
-            itemSelector: '.grid-item',
-            columnWidth: 300,
-            gutter: 25
+            // Set time
         });
 
-    });
-</script>
+    </script>
 
 <!-- Page-Level Scripts -->
 <script>
@@ -1051,6 +955,12 @@
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
 
+        var elem_18 = document.querySelector('.js-switch_18');
+        var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+
+        var elem_19 = document.querySelector('.js-switch_19');
+        var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
+
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green'
@@ -1108,16 +1018,8 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Tags",
-            allowClear: true
-        });
-        $(".select2_demo_project").select2({
-            placeholder: "Select Project",
-            allowClear: true
-        });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_demo_campaign_type").select2({
+            placeholder: "Select Campaign Type",
             allowClear: true
         });
 

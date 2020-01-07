@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Landing;
 
-use App\Client;
+use App\Contact;
 use App\Mail\OrderEmails;
 use App\Order;
 use App\OrderProduct;
@@ -169,17 +169,21 @@ class StoreController extends Controller
         $size = 5;
         $reference = $this->getRandomString($size);
 
-        // check if client exists
-        $client = Client::where('email',$request->email)->first();
-        if (!$client){
-            // create client
-            $client = new Client();
-            $client->name = $request->first_name.' '.$request->last_name;
-            $client->email = $request->email;
-            $client->phone = $request->phone_number;
-            $client->user_id = 1;
-            $client->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
-            $client->save();
+        // check if contact exists
+        $contact = Contact::where('email',$request->email)->first();
+        if (!$contact){
+            // create contact
+            $contact = new Contact();
+            $contact->first_name = $request->first_name;
+            $contact->last_name = $request->last_name;
+            $contact->email = $request->email;
+            $contact->phone_number = $request->phone_number;
+            $contact->user_id = 1;
+            $contact->is_organization = False;
+            $contact->is_lead = False;
+            $contact->about = '';
+            $contact->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
+            $contact->save();
         }
 
         // order
@@ -198,9 +202,8 @@ class StoreController extends Controller
         $order->expiry_date = date('Y-m-d', strtotime(date('Y-m-d'). ' + 5 days'));
         $order->due_date = date('Y-m-d', strtotime(date('Y-m-d'). ' + 15 days'));
 
-        $order->promo_code_id = '';
         $order->status_id = '39c51a73-063f-48d6-b0ce-c86f2a0f7cdd';
-        $order->client_id = $client->id;
+        $order->contact_id = $contact->id;
 
         if ($request->delivery_method == "pickup"){
             $order->is_delivery = False;
@@ -236,7 +239,7 @@ class StoreController extends Controller
         // clear cart
 //        \Cart::session($cookie)->clear();
 
-        $orderData = Order::where('id',$order->id)->with('order_product.product.cover_image','order_product.product.second_cover_image','order_product.price_list.size','order_product.price_list.sub_type')->first();
+        $orderData = Order::where('id',$order->id)->with('order_products.product.cover_image','order_products.product.second_cover_image','order_products.price_list.size','order_products.price_list.sub_type')->first();
         // todo replace email with $order->email
         Mail::to('tmbindyo@fluidtechglobal.com')->send(new OrderEmails($orderData));
 
@@ -256,7 +259,7 @@ class StoreController extends Controller
         ];
 
         $data['items'] = [];
-        foreach ($orderData->order_product as $item){
+        foreach ($orderData->order_products as $item){
             $data['items'][] = [
                 'name' => $item->product->name,
                 'price' => $item->price_list->price,

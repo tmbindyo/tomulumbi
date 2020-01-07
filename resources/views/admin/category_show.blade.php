@@ -18,6 +18,30 @@
 
 @section('content')
 
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-9">
+        <h2>Category's</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{{route('admin.dashboard')}}">Home</a>
+            </li>
+            <li>
+                <a href="#">Settings</a>
+            </li>
+            <li class="active">
+                <a href="{{route('admin.categories')}}">Category's</a>
+            </li>
+            <li class="active">
+                <strong>Category</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-md-3">
+        <div class="title-action">
+            <a href="{{route('admin.design.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Design </a>
+        </div>
+    </div>
+</div>
 
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
@@ -62,6 +86,7 @@
                                         <div class="has-warning">
                                             <label>Name</label>
                                             <input type="name" name="name" value="{{$category->name}}" class="form-control input-lg">
+                                            <i>name</i>
                                         </div>
                                         <br>
                                         <hr>

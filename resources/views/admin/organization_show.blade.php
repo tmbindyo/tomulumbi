@@ -125,8 +125,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <select name="parent_organization" class="select2_demo_tag form-control input-lg">
-                                                <option selected disabled >Select Parent Organization</option>
+                                            <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg">
+                                                <option></option>
                                                 @foreach ($organizations as $parent_organization)
                                                     <option @if($parent_organization->parent_organization_id ==$parent_organization->id)selected @endif @if($organization->id ==$parent_organization->id)disabled @endif value="{{$parent_organization->id}}">{{$parent_organization->name}}</option>
                                                 @endforeach
@@ -160,8 +160,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <select name="organization_type" class="select2_demo_tag form-control input-lg">
-                                                    <option selected disabled >Select Type</option>
+                                                <select name="organization_type" class="select2_demo_organization_type form-control input-lg">
+                                                    <option></option>
                                                     @foreach ($organizationTypes as $organizationType)
                                                         <option @if($organizationType->id == $organization->organization_type_id)selected @endif value="{{$organizationType->id}}">{{$organizationType->name}}</option>
                                                     @endforeach
@@ -565,6 +565,38 @@
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
+{{--  Get due date to populate   --}}
+    <script>
+        $(document).ready(function() {
+            // Set date
+            console.log('var');
+            var today = new Date();
+            console.log(today);
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yyyy = today.getFullYear();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            mm ++;
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date_today = mm + '/' + dd + '/' + yyyy;
+            var time_curr = h + ':' + m;
+            console.log(time_curr);
+            document.getElementById("start_date").value = date_today;
+            document.getElementById("end_date").value = date_today;
+            document.getElementById("start_time").value = time_curr;
+            document.getElementById("end_time").value = time_curr;
+
+            // Set time
+        });
+
+    </script>
+
 <style>
 
     .grid .ibox {
@@ -863,6 +895,12 @@
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
 
+        var elem_18 = document.querySelector('.js-switch_18');
+        var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+
+        var elem_19 = document.querySelector('.js-switch_19');
+        var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
+
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green'
@@ -920,12 +958,12 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Tags",
+        $(".select2_demo_parent_organization").select2({
+            placeholder: "Select Parent Organization",
             allowClear: true
         });
-        $(".select2_demo_project").select2({
-            placeholder: "Select Project",
+        $(".select2_demo_organization_type").select2({
+            placeholder: "Select Organization Type",
             allowClear: true
         });
         $(".select2_demo_category").select2({

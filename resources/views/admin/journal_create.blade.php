@@ -117,7 +117,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <select required="required" name="labels[]" class="select2_demo_label form-control input-lg" multiple="multiple">
-                                            <option>Select Label</option>
+                                            <option></option>
                                             @foreach($labels as $label)
                                                 <option value="{{$label->id}}">{{$label->name}}</option>
                                             @endforeach

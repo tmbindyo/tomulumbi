@@ -56,10 +56,6 @@ class Contact extends Model
     {
         return $this->hasMany('App\PromoCodeAssignment');
     }
-    public function quotes()
-    {
-        return $this->hasMany('App\Quote');
-    }
     public function to_dos()
     {
         return $this->hasMany('App\ToDo');
