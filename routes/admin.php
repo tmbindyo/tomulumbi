@@ -253,6 +253,7 @@ Route::get('/contact/client/proof/create/{contact_id}', 'Admin\CRMController@con
 Route::get('/contact/deal/create/{contact_id}', 'Admin\CRMController@contactDealCreate')->name('admin.contact.deal.create');
 Route::get('/contact/design/create/{contact_id}', 'Admin\CRMController@contactDesignCreate')->name('admin.contact.design.create');
 Route::get('/contact/liability/create/{contact_id}', 'Admin\CRMController@contactLiabilityCreate')->name('admin.contact.liability.create');
+Route::get('/contact/loan/create/{contact_id}', 'Admin\CRMController@contactLoanCreate')->name('admin.contact.loan.create');
 Route::get('/contact/order/create/{contact_id}', 'Admin\CRMController@contactOrderCreate')->name('admin.contact.order.create');
 Route::get('/contact/project/create/{contact_id}', 'Admin\CRMController@contactProjectCreate')->name('admin.contact.project.create');
 

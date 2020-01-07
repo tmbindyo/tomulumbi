@@ -266,6 +266,7 @@
                                                     <thead>
                                                     <tr>
                                                         <th>Reference</th>
+                                                        <th>Contact</th>
                                                         <th>Assigned</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
@@ -275,6 +276,7 @@
                                                     @foreach($promoCode->promo_code_assignments as $promoCodeAssignment)
                                                         <tr class="gradeX">
                                                             <td>{{$promoCodeAssignment->reference}}</td>
+                                                            <td>{{$promoCodeAssignment->contact->first_name}} {{$promoCodeAssignment->contact->last_name}}</td>
                                                             <td>{{$promoCodeAssignment->assigned}}</td>
                                                             <td>
                                                                 <span class="label {{$promoCodeAssignment->status->label}}">{{$promoCodeAssignment->status->name}}</span>
@@ -290,6 +292,7 @@
                                                     <tfoot>
                                                     <tr>
                                                         <th>Reference</th>
+                                                        <th>Contact</th>
                                                         <th>Assigned</th>
                                                         <th>Status</th>
                                                         <th>Action</th>

@@ -62,10 +62,14 @@
                 <a href="{{route('admin.contact.deal.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deal </a>
                 <a href="{{route('admin.contact.design.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Design </a>
                 <a href="{{route('admin.contact.liability.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Liability </a>
+                <a href="{{route('admin.contact.loan.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Loan </a>
                 <a href="{{route('admin.contact.order.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Order </a>
                 <a href="{{route('admin.contact.project.create',$contact->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Project </a>
                 @if($contact->campaign_id)
                     <a href="{{route('admin.campaign.show',$contact->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                @endif
+                @if($contact->organization_id)
+                    <a href="{{route('admin.organization.show',$contact->organization_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Organization </a>
                 @endif
             </div>
         </div>
@@ -316,13 +320,15 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#albums" data-toggle="tab">Albums</a></li>
-                                            <li class=""><a href="#designs" data-toggle="tab">Design</a></li>
-                                            <li class=""><a href="#projects" data-toggle="tab">Projects</a></li>
-                                            <li class=""><a href="#orders" data-toggle="tab">Orders</a></li>
-                                            <li class=""><a href="#liabilities" data-toggle="tab">Liability</a></li>
+                                            <li class="active"><a href="#asset_actions" data-toggle="tab">Asset Actions</a></li>
                                             <li class=""><a href="#assigned_promo_codes" data-toggle="tab">Assigned Promo Codes</a></li>
+                                            <li class=""><a href="#client-proofs" data-toggle="tab">Client Proofs</a></li>
                                             <li class=""><a href="#deals" data-toggle="tab">Deal</a></li>
+                                            <li class=""><a href="#designs" data-toggle="tab">Design</a></li>
+                                            <li class=""><a href="#liabilities" data-toggle="tab">Liability</a></li>
+                                            <li class=""><a href="#loans" data-toggle="tab">Loan</a></li>
+                                            <li class=""><a href="#orders" data-toggle="tab">Orders</a></li>
+                                            <li class=""><a href="#projects" data-toggle="tab">Projects</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -330,7 +336,7 @@
                                 <div class="panel-body">
 
                                     <div class="tab-content">
-                                        <div class="tab-pane active" id="albums">
+                                        <div class="tab-pane" id="client-proofs">
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                     <thead>
@@ -378,6 +384,72 @@
                                                 </table>
                                             </div>
 
+                                        </div>
+                                        <div class="tab-pane active" id="asset_actions">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Paid</th>
+                                                            <th>Date</th>
+                                                            <th>Due Date</th>
+                                                            <th>Action Type</th>
+                                                            <th>Contact</th>
+                                                            <th>Item</th>
+                                                            <th>User</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($assetActions as $assetAction)
+                                                            <tr class="gradeX">
+                                                                <td>{{$assetAction->reference}}</td>
+                                                                <td>{{$assetAction->amount}}</td>
+                                                                <td>{{$assetAction->paid}}</td>
+                                                                <td>{{$assetAction->date}}</td>
+                                                                <td>{{$assetAction->due_date}}</td>
+                                                                <td>{{$assetAction->action_type->name}}</td>
+                                                                <td>{{$assetAction->contact->first_name}} {{$assetAction->contact->last_name}}</td>
+                                                                <td>{{$assetAction->user->name}}</td>
+                                                                <td>
+                                                                    @if($assetAction->is_asset == 1)
+                                                                        <span class="label label-primary">{{$assetAction->asset->name}}</span>
+                                                                    @elseif($assetAction->is_kit == 1)
+                                                                        <span class="label label-primary">{{$assetAction->kit->name}}</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    <span class="label {{$assetAction->status->label}}">{{$assetAction->status->name}}</span>
+                                                                </td>
+
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        <a href="{{ route('admin.asset.action.show', $assetAction->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Paid</th>
+                                                            <th>Date</th>
+                                                            <th>Due Date</th>
+                                                            <th>Action Type</th>
+                                                            <th>Contact</th>
+                                                            <th>Item</th>
+                                                            <th>User</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
                                         </div>
                                         <div class="tab-pane" id="designs">
 
@@ -707,6 +779,76 @@
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane" id="loans">
+
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Paid</th>
+                                                            <th>Date</th>
+                                                            <th>Due Date</th>
+                                                            <th>User</th>
+                                                            <th>Account</th>
+                                                            <th>Contact</th>
+                                                            <th>User</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($loans as $loan)
+                                                            <tr class="gradeX">
+                                                                <td>
+                                                                    {{$loan->reference}}
+                                                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                                </td>
+                                                                <td>{{$loan->amount}}</td>
+                                                                <td>{{$loan->paid}}</td>
+                                                                <td>{{$loan->date}}</td>
+                                                                <td>{{$loan->due_date}}</td>
+                                                                <td>{{$loan->user->name}}</td>
+                                                                <td>{{$loan->account->name}}</td>
+                                                                <td>{{$loan->contact->first_name}} {{$loan->contact->last_name}}</td>
+                                                                <td>{{$loan->user->name}}</td>
+                                                                <td>
+                                                                    <span class="label {{$loan->status->label}}">{{$loan->status->name}}</span>
+                                                                </td>
+
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        <a href="{{ route('admin.loan.show', $loan->id) }}" class="btn-white btn btn-xs">View</a>
+                                                                        @if($loan->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                                            <a href="{{ route('admin.loan.restore', $loan->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                        @else
+                                                                            <a href="{{ route('admin.loan.delete', $loan->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                        @endif
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Paid</th>
+                                                            <th>Date</th>
+                                                            <th>Due Date</th>
+                                                            <th>User</th>
+                                                            <th>Account</th>
+                                                            <th>Contact</th>
+                                                            <th>User</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
                                                     </tfoot>
                                                 </table>
                                             </div>

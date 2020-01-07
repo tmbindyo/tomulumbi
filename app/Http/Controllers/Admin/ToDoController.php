@@ -90,7 +90,7 @@ class ToDoController extends Controller
     public function toDoStore(Request $request)
     {
 
-//        return $request;
+    //    return $request;
         $todo = new ToDo();
         $todo->name = $request->name;
         $todo->notes = $request->notes;
@@ -123,11 +123,11 @@ class ToDoController extends Controller
         }else{
             $todo->is_end_time = False;
         }
-        //
+
         // album
         if($request->is_album){
             $todo->is_album = True;
-            $todo->album_id = $request->album_id;
+            $todo->album_id = $request->album;
         }else{
             $todo->is_album = False;
         }

@@ -48,7 +48,7 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <h2>Organization's</h2>
             <ol class="breadcrumb">
                 <li>
@@ -65,8 +65,11 @@
                 </li>
             </ol>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="title-action">
+                @if($organization->campaign_id)
+                    <a href="{{route('admin.campaign.show',$organization->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
+                @endif
                 <a href="{{route('admin.organization.contact.create',$organization->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
                 <a href="{{route('admin.organization.deal.create',$organization->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deal </a>
             </div>

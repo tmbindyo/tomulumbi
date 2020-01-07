@@ -71,7 +71,6 @@
                 <a href="{{route('admin.campaign.contact.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Contact </a>
                 <a href="{{route('admin.campaign.deal.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Deal </a>
                 <a href="{{route('admin.campaign.expense.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
-                <a href="{{route('admin.campaign.quote.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Quote </a>
                 <a href="{{route('admin.campaign.organization.create',$campaign->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Organization </a>
                 <a href="{{route('admin.campaign.uploads',$campaign->id)}}" class="btn btn-success btn-outline">Uploads</a>
             </div>
@@ -262,7 +261,6 @@
                                             <li class=""><a href="#deals" data-toggle="tab">Deal</a></li>
                                             <li class=""><a href="#expenses" data-toggle="tab">Expenses</a></li>
                                             <li class=""><a href="#organizations" data-toggle="tab">Organizations</a></li>
-                                            <li class=""><a href="#quotes" data-toggle="tab">Quotes</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -379,7 +377,7 @@
                                                         <th>Expense #</th>
                                                         <th>Date</th>
                                                         <th>Created</th>
-                                                        <th>Expense Type</th>
+                                                        <th>Expense Account</th>
                                                         <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
@@ -399,7 +397,7 @@
                                                             <td>{{$expense->reference}}</td>
                                                             <td>{{$expense->date}}</td>
                                                             <td>{{$expense->created_at}}</td>
-                                                            <td>{{$expense->expense_type->name}}</td>
+                                                            <td>{{$expense->expense_account->name}}</td>
                                                             <td>{{$expense->total}}</td>
                                                             <td>{{$expense->paid}}</td>
                                                             <td>
@@ -419,7 +417,7 @@
                                                         <th>Expense #</th>
                                                         <th>Date</th>
                                                         <th>Created</th>
-                                                        <th>Expense Type</th>
+                                                        <th>Expense Account</th>
                                                         <th>Total</th>
                                                         <th>Paid</th>
                                                         <th>Status</th>
@@ -471,73 +469,6 @@
                                                             <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="quotes">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Balance</th>
-                                                        <th>State</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($campaign->quotes as $quote)
-                                                        <tr class="gradeX">
-                                                            <td>{{$quote->reference}}</td>
-                                                            <td>{{$quote->total}}</td>
-                                                            <td>{{$quote->paid}}</td>
-                                                            <td>{{$quote->balance}}</td>
-                                                            <td>
-                                                                @if($quote->is_draft == 1)
-                                                                    <span class="label label-info"> Draft </span>
-                                                                @endif
-                                                                @if($quote->is_accepted == 1)
-                                                                    <span class="label label-primary"> Accepted </span>
-                                                                @endif
-                                                                @if($quote->is_rejected == 1)
-                                                                    <span class="label label-warning"> Rejected </span>
-                                                                @endif
-                                                                @if($quote->is_cancelled == 1)
-                                                                    <span class="label label-danger"> Cancelled </span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <span class="label {{$quote->status->label}}">{{$quote->status->name}}</span>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('admin.quote.show', $quote->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                    @if($quote->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('admin.quote.restore', $quote->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                    @else
-                                                                        <a href="{{ route('admin.quote.delete', $quote->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                    @endif
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Balance</th>
-                                                        <th>State</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
                                                     </tfoot>
                                                 </table>
                                             </div>

@@ -1,5 +1,5 @@
 <div class="modal inmodal" id="toDoRegistration" tabindex="-1" role="dialog" aria-labelledby="tagRegistrationLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -121,7 +121,7 @@
                         <div class="col-lg-8">
                             <div class="has-warning">
                                 <select name="order" class="select2_demo_2 form-control input-lg">
-                                    <option value="{{$order->id}}">{{$order->name}}</option>
+                                    <option value="{{$order->id}}">{{$order->order_number}}</option>
                                 </select>
                                 <i>What order does the to do belong to</i>
                             </div>

@@ -13,6 +13,7 @@ use App\Order;
 use App\Album;
 use App\AlbumContact;
 use App\Asset;
+use App\AssetAction;
 use App\Title;
 use App\Design;
 use App\Upload;
@@ -32,6 +33,8 @@ use App\Traits\NavbarTrait;
 use App\ContactContactType;
 use App\DealStage;
 use App\DesignContact;
+use App\ExpenseAccount;
+use App\Frequency;
 use Illuminate\Http\Request;
 use App\PromoCodeAssignment;
 use App\Traits\DealWorkCountTrait;
@@ -39,12 +42,14 @@ use Illuminate\Support\Facades\File;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
 use App\Kit;
+use App\Loan;
 use App\PriceList;
 use App\ProjectContact;
 use App\ProjectType;
 use App\PromoCode;
 use App\QuoteItem;
 use App\QuoteTax;
+use App\Status;
 use App\Tag;
 use App\Tax;
 use App\Traits\ContactWorkCountTrait;
@@ -169,7 +174,7 @@ class CRMController extends Controller
         // get campaign types
         $campaignTypes = CampaignType::all();
         // Get campaigns
-        $campaign = Campaign::with('user','status','campaign_type','campaign_uploads','contacts','expenses','organizations','to_dos','quotes.status','deals')->withCount('campaign_uploads','contacts','expenses','organizations','to_dos')->where('id',$campaign_id)->first();
+        $campaign = Campaign::with('user','status','campaign_type','campaign_uploads','contacts','expenses','organizations','to_dos','deals')->withCount('campaign_uploads','contacts','expenses','organizations','to_dos')->where('id',$campaign_id)->first();
         // Pending to dos
         $pendingToDos = ToDo::with('user','status','campaign')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('campaign_id',$campaign->id)->get();
         // In progress to dos
@@ -223,6 +228,43 @@ class CRMController extends Controller
         // deal stage
         $dealStages = DealStage::all();
         return view('admin.campaign_deal_create',compact('campaign','dealStages','leadSources','contacts','organizations','user','navbarValues'));
+
+    }
+
+    public function campaignExpenseCreate($campaign_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // expense accounts
+        $expenseAccounts = ExpenseAccount::all();
+        // get orders
+        $orders = Order::with('status')->get();
+        // expense statuses
+        $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
+        // get campaign
+        $campaign = Campaign::where('id',$campaign_id)->first();
+        // get frequencies
+        $frequencies = Frequency::all();
+
+        return view('admin.campaign_expense_create',compact('campaign','user','navbarValues','frequencies','expenseAccounts','expenseStatuses'));
+    }
+
+    public function campaignOrganizationCreate($campaign_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // organization types
+        $organizationTypes = OrganizationType::all();
+        // organizations
+        $organizations = Organization::all();
+        // get campaign
+        $campaign = Campaign::where('id',$campaign_id)->first();
+        return view('admin.campaign_organization_create',compact('campaign','user','navbarValues','organizationTypes','organizations'));
 
     }
 
@@ -509,7 +551,12 @@ class CRMController extends Controller
         $orders = Order::with('status','order_products','promo_code_uses','contact.organization')->withCount('order_products')->where('contact_id',$contact_id)->get();
         // ontact owed liability
         $liabilities = Liability::with('user','status')->where('contact_id',$contact_id)->get();
+        // contact loans
+        $loans = Loan::with('user','status')->where('contact_id',$contact_id)->get();
+        // asset actions
+        $assetActions = AssetAction::with('user','status')->where('contact_id',$contact_id)->get();
         // contact promo codes
+        $assignedPromoCodes = PromoCodeAssignment::with('user','status','promo_code')->get();
         $assignedPromoCodes = PromoCodeAssignment::with('user','status','promo_code')->where('contact_id',$contact_id)->get();
         // contact contact types
         $contactContactTypes = ContactContactType::with('user','status','contact_type')->where('contact_id',$contact_id)->get();
@@ -523,7 +570,7 @@ class CRMController extends Controller
         $completedToDos = ToDo::with('user','status','contact')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('contact_id',$contact->id)->get();
         // Overdue to dos
         $overdueToDos = ToDo::with('user','status','contact')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('contact_id',$contact->id)->get();
-        return view('admin.contact_show',compact('overdueToDos','completedToDos','inProgressToDos','pendingToDos','contactContactTypes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount'));
+        return view('admin.contact_show',compact('assetActions','loans','overdueToDos','completedToDos','inProgressToDos','pendingToDos','contactContactTypes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount','loans'));
     }
 
     public function contactAssetActionCreate($contact_id)
@@ -623,6 +670,19 @@ class CRMController extends Controller
         // get contacts
         $contacts = Contact::with('organization')->get();
         return view('admin.contact_liability_create',compact('contactLiability','user','navbarValues','accounts','contacts'));
+    }
+
+    public function contactLoanCreate($contact_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get accounts
+        $accounts = Account::all();
+        // get contacts
+        $contact = Contact::with('organization')->where('id',$contact_id)->first();
+        return view('admin.contact_loan_create',compact('user','navbarValues','accounts','contact'));
     }
 
     public function contactOrderCreate($contact_id)
@@ -778,6 +838,7 @@ class CRMController extends Controller
         $organization->email = $request->email;
         $organization->organization_type_id = $request->organization_type;
         $organization->parent_organization_id = $request->parent_organization;
+        $organization->campaign_id = $request->campaign;
         $organization->street = $request->street;
         $organization->city = $request->city;
         $organization->description = $request->description;
@@ -1242,6 +1303,8 @@ class CRMController extends Controller
 
         // Get quotes
         $quote = Quote::with('user','status','contact','campaign','deal.contact.organization','deal.organization','quote_items','payments.account','payments.status')->withCount('quote_items')->where('id',$quote_id)->first();
+
+        return $quote;
 
         return view('admin.quote_show',compact('contacts','taxes','quote','user','navbarValues'));
     }
