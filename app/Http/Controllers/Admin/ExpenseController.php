@@ -504,6 +504,24 @@ class ExpenseController extends Controller
             $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
             $expensePaid->save();
 
+            // if liability
+            if ($expense->is_liability == 1){
+                $liability = Liability::findOrFail($expense->liability_id);
+                $liability->paid = doubleval($liability->paid)+doubleval($request->amount);
+                $liability->save();
+            }
+            // order
+            if ($expense->is_order == 1){
+                $order = Order::findOrFail($expense->order_id);
+                $order->paid = doubleval($order->paid)+doubleval($request->amount);
+                $order->save();
+            }
+            // campaign
+            if ($expense->is_campaign == 1){
+                $campaign = Campaign::findOrFail($expense->campaign_id);
+                $campaign->actual_cost = doubleval($campaign->actual_cost)+doubleval($request->amount);
+                $campaign->save();
+            }
             $account = Account::where('id',$request->account)->first();
 
             // update transaction

@@ -7,6 +7,8 @@
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 
+    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
 
@@ -35,10 +37,7 @@
         <div class="col-lg-7">
             <div class="title-action">
                 <a href="{{route('admin.quote.edit',$quote->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
-                @if($quote->is_campaign == 1)
-                    <a href="{{route('admin.campaign.show',$quote->campaign_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Campaign </a>
-                @endif
-                @if($quote->is_deal == 1)
+                @if($quote->deal_id)
                     <a href="{{route('admin.deal.show',$quote->deal_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Deal </a>
                 @endif
                 @if($quote->is_draft == 1)
@@ -144,10 +143,18 @@
 
                         <hr/>
                         <span class="text-muted small">
-                            @if($quote->deal->contact->organization_id == 1)
+                            @if($quote->deal->organization)
                                 {{--  if organization  --}}
                                 <address>
-                                    <strong>{{$quote->deal->contact->company_name}}</strong><br>
+                                    <strong>{{$quote->deal->organization->name}}</strong><br>
+                                    112 Street Avenu, 1080<br>
+                                    Miami, CT 445611<br>
+                                    <abbr title="Phone">P:</abbr> {{$quote->deal->organization->phone_number}}<br>
+                                    <abbr title="Email">E:</abbr> {{$quote->deal->organization->email}}
+                                </address>
+                            @elseif($quote->deal->contact->organization_id == 1)
+                                <address>
+                                    <strong>{{$quote->deal->contact->name}}</strong><br>
                                     112 Street Avenu, 1080<br>
                                     Miami, CT 445611<br>
                                     <abbr title="Phone">P:</abbr> {{$quote->deal->contact->phone_number}}<br>
@@ -226,55 +233,85 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="payments">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                <thead>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Date</th>
-                                                        <th>Initial #</th>
-                                                        <th>Paid</th>
-                                                        <th>Subsequent</th>
-                                                        <th>Account</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($quote->payments as $payment)
-                                                        <tr class="gradeX">
-                                                            <td>
-                                                                {{$payment->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                            </td>
-                                                            <td>{{$payment->date}}</td>
-                                                            <td>{{$payment->initial_balance}}</td>
-                                                            <td>{{$payment->amount}}</td>
-                                                            <td>{{$payment->current_balance}}</td>
-                                                            <td>{{$payment->account->name}}</td>
-                                                            <td>
-                                                                <p><span class="label {{$payment->status->label}}">{{$payment->status->name}}</span></p>
-                                                            </td>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Initial</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Date</th>
+                                                            <th>Account</th>
+                                                            <th>For</th>
+                                                            <th>User</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Date</th>
-                                                        <th>Initial #</th>
-                                                        <th>Paid</th>
-                                                        <th>Subsequent</th>
-                                                        <th>Account</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($payments as $payment)
+                                                            <tr class="gradeX">
+                                                                <td>
+                                                                    {{$payment->reference}}
+                                                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                                </td>
+                                                                <td>{{$payment->amount}}</td>
+                                                                <td>{{$payment->initial_balance}}</td>
+                                                                <td>{{$payment->current_balance}}</td>
+                                                                <td>{{$payment->date}}</td>
+                                                                <td>{{$payment->account->name}}</td>
+                                                                <td>
+                                                                    @if($payment->is_order == 1)
+                                                                        <span class="label label-success">Order: {{$payment->order->reference}}</span>
+                                                                    @elseif($payment->is_quote == 1)
+                                                                        <span class="label label-success">Quote: {{$payment->quote->reference}}</span>
+                                                                    @elseif($payment->is_asset_action == 1)
+                                                                        <span class="label label-success">Asset Action: {{$payment->asset_action->reference}}</span>
+                                                                    @elseif($payment->is_loan == 1)
+                                                                        <span class="label label-success">Loan: {{$payment->loan->reference}}</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{$payment->user->name}}</td>
+                                                                <td>
+                                                                    <span class="label {{$payment->status->label}}">{{$payment->status->name}}</span>
+                                                                </td>
+
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        <a href="{{ route('admin.payment.show', $payment->id) }}" class="btn-default btn btn-xs">Show</a>
+                                                                        @if($payment->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                                            <a href="{{ route('admin.payment.restore', $payment->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                                        @else
+                                                                            <a href="{{ route('admin.payment.delete', $payment->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                                        @endif
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Reference</th>
+                                                            <th>Amount</th>
+                                                            <th>Initial</th>
+                                                            <th>Subsequent</th>
+                                                            <th>Date</th>
+                                                            <th>Account</th>
+                                                            <th>For</th>
+                                                            <th>User</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+
                                         </div>
 
                                     </div>
 
                                 </div>
-
-                            </div>
 
                             </div>
                             </div>
@@ -295,8 +332,59 @@
 <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
+<script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
+
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
+<!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').DataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+    </script>
 @endsection

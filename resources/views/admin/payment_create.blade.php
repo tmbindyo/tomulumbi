@@ -112,7 +112,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date_acquired" class="form-control input-lg" value="7/27/2019">
+                                            <input type="text" required="required" name="date_acquired" id="date_acquired" class="form-control input-lg">
                                         </div>
                                         <i>Date paid</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -290,6 +290,34 @@
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
 <script>
+    $(document).ready(function() {
+        // Set date
+        console.log('var');
+        var today = new Date();
+        console.log(today);
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
+        document.getElementById("date_acquired").value = date_today;
+
+        // Set time
+    });
+
+</script>
+
+<script>
     $(document).ready(function(){
 
         var $image = $(".image-crop > img")
@@ -399,7 +427,7 @@
 
         var elem_3 = document.querySelector('.js-switch_3');
         var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
-        
+
         var elem_4 = document.querySelector('.js-switch_4');
         var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
 

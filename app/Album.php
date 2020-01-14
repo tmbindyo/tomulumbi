@@ -24,10 +24,6 @@ class Album extends Model
     {
         return $this->hasMany('App\AlbumExpiryReminderEmail');
     }
-    public function album_download_restriction_emails()
-    {
-        return $this->hasMany('App\AlbumDownloadRestrictionEmail');
-    }
     public function album_downloads()
     {
         return $this->hasMany('App\AlbumDownload');
@@ -51,6 +47,14 @@ class Album extends Model
     public function album_views()
     {
         return $this->hasMany('App\AlbumView');
+    }
+    public function album_view_restriction_emails()
+    {
+        return $this->hasMany('App\AlbumViewRestrictionEmail');
+    }
+    public function album_set_view_restriction_emails()
+    {
+        return $this->hasMany('App\AlbumSetViewRestrictionEmail');
     }
     public function album_contacts()
     {

@@ -215,7 +215,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <select required="required" name="organization" class="select2_demo_organization form-control input-lg">
+                                            <select name="organization" class="select2_demo_organization form-control input-lg">
                                                 <option></option>
                                                 @foreach($organizations as $organization)
                                                     <option @if($contact->organization_id == $organization->id) selected @endif value="{{$organization->id}}">{{$organization->name}}</option>

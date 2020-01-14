@@ -43,6 +43,7 @@ use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
 use App\Kit;
 use App\Loan;
+use App\Payment;
 use App\PriceList;
 use App\ProjectContact;
 use App\ProjectType;
@@ -381,7 +382,7 @@ class CRMController extends Controller
 
         $upload->original = "work/campaign/".$originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
         $upload->campaign_id = $campaign_id;
         $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
@@ -1303,10 +1304,10 @@ class CRMController extends Controller
 
         // Get quotes
         $quote = Quote::with('user','status','contact','campaign','deal.contact.organization','deal.organization','quote_items','payments.account','payments.status')->withCount('quote_items')->where('id',$quote_id)->first();
+        // Get contact type
+        $payments = Payment::with('user','status','refunds.account','asset_action','loan','order','quote')->where('quote_id',$quote->id)->get();
 
-        return $quote;
-
-        return view('admin.quote_show',compact('contacts','taxes','quote','user','navbarValues'));
+        return view('admin.quote_show',compact('payments','contacts','taxes','quote','user','navbarValues'));
     }
 
     public function quotePaymentCreate($quote_id)

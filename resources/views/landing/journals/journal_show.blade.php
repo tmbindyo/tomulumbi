@@ -68,16 +68,16 @@
 
         <ul class="header-social-list">
             <li>
-                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="https://twitter.com/tomulumbi"><i class="fa fa-twitter"></i></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="https://www.instagram.com/tomulumbi/"><i class="fa fa-instagram"></i></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <a href="https://www.behance.net/tomulumbi"><i class="fa fa-behance"></i></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="https://dribbble.com/tomulumbi"><i class="fa fa-dribbble"></i></a>
             </li>
         </ul>
 
@@ -88,7 +88,7 @@
 
 <!-- home
 ================================================== -->
-<section id="home">
+<section id="home" style="background-image: url({{ asset('') }}{{ $journal->cover_image->pixels1000 }});">
 
     <div class="overlay"></div>
 
@@ -114,16 +114,16 @@
 
     <ul class="home-social-list">
         <li class="animate-intro">
-            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="https://twitter.com/tomulumbi"><i class="fa fa-twitter"></i></a>
         </li>
         <li class="animate-intro">
-            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="https://www.instagram.com/tomulumbi/"><i class="fa fa-instagram"></i></a>
         </li>
         <li class="animate-intro">
-            <a href="#"><i class="fa fa-behance"></i></a>
+            <a href="https://www.behance.net/tomulumbi"><i class="fa fa-behance"></i></a>
         </li>
         <li class="animate-intro">
-            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="https://dribbble.com/tomulumbi"><i class="fa fa-dribbble"></i></a>
         </li>
     </ul> <!-- end home-social-list -->
 
@@ -200,6 +200,41 @@
 
 </section>  <!-- end portfolio -->
 
+
+
+<!-- contact
+================================================== -->
+<section id="contact">
+
+    <div class="overlay">
+
+    </div>
+
+    <div class="row narrow section-intro with-bottom-sep animate-this">
+        <div class="col-twelve">
+            @if($journal->project)
+                <a class="button button-primary" href="{{route('design.show',$journal->design->id)}}">Project {{$journal->project->name}}</a>
+            @endif
+            @if($journal->album)
+                @if($journal->album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
+                    <a class="button button-primary" href="{{ route('client.proof.access', $journal->album->id) }}">Client Proof {{$journal->album->name}}</a>
+                @elseif($journal->album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
+                    <a class="button button-primary" href="{{ route('personal.album.access', $journal->album->id) }}">Album {{$journal->album->name}}</a>
+                @endif
+            @endif
+            @if($journal->design)
+                <a class="button button-primary" href="{{route('design.show',$journal->design->id)}}">Design {{$journal->design->name}}</a>
+            @endif
+            <h1>RELATIONSHIPS</h1>
+
+
+        </div>
+    </div> <!-- end section-intro -->
+
+    </section> <!-- end contact -->
+
+
+
 <!-- footer
 ================================================== -->
 <footer>
@@ -235,6 +270,13 @@
 <script src="{{ asset('themes/journal/Infinity10') }}/js/plugins.js"></script>
 <script src="{{ asset('themes/journal/Infinity10') }}/js/main.js"></script>
 
+<script>
+    $(document).ready(function(){
+        $('img').bind('contextmenu', function(e){
+            return false;
+        });
+    });
+</script>
 </body>
 
 </html>

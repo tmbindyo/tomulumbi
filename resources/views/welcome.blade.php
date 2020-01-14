@@ -28,25 +28,25 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
 
     <!-- Animate.css -->
-    <link rel="stylesheet" href="{{ secure_asset('themes/design/bato') }}/css/animate.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/animate.css">
     <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="{{ secure_asset('themes/design/bato') }}/css/icomoon.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/icomoon.css">
     <!-- Bootstrap  -->
-    <link rel="stylesheet" href="{{ secure_asset('themes/design/bato') }}/css/bootstrap.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/bootstrap.css">
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href="{{ secure_asset('themes/design/bato') }}/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="{{ secure_asset('themes/design/bato') }}/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/owl.theme.default.min.css">
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="{{ secure_asset('themes/design/bato') }}/css/magnific-popup.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="{{ secure_asset('themes/design/bato') }}/css/style.css">
+    <link rel="stylesheet" href="{{ asset('themes/design/bato') }}/css/style.css">
 
 
     <!-- Modernizr JS -->
-    <script src="{{ secure_asset('themes/design/bato') }}/js/modernizr-2.6.2.min.js"></script>
+    <script src="{{ asset('themes/design/bato') }}/js/modernizr-2.6.2.min.js"></script>
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
-    <script src="{{ secure_asset('themes/design/bato') }}/js/respond.min.js"></script>
+    <script src="{{ asset('themes/design/bato') }}/js/respond.min.js"></script>
     <![endif]-->
 
 </head>
@@ -110,7 +110,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ secure_asset('themes/design/bato') }}/images/DSC_4799_small.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/DSC_4799_small.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
@@ -132,7 +132,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ secure_asset('themes/design/bato') }}/images/img_bg_2.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_2.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
@@ -154,7 +154,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ secure_asset('themes/design/bato') }}/images/img_bg_2.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_2.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
@@ -176,7 +176,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ secure_asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <h2 class="number">04/06</h2>
@@ -198,7 +198,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ secure_asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <h2 class="number">05/06</h2>
@@ -220,7 +220,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ secure_asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <h2 class="number">06/06</h2>
@@ -245,21 +245,21 @@
 </div>
 
 <!-- jQuery -->
-<script src="{{ secure_asset('themes/design/bato') }}/js/jquery.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
-<script src="{{ secure_asset('themes/design/bato') }}/js/jquery.easing.1.3.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->
-<script src="{{ secure_asset('themes/design/bato') }}/js/bootstrap.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/bootstrap.min.js"></script>
 <!-- Waypoints -->
-<script src="{{ secure_asset('themes/design/bato') }}/js/jquery.waypoints.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.waypoints.min.js"></script>
 <!-- Owl Carousel -->
-<script src="{{ secure_asset('themes/design/bato') }}/js/owl.carousel.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/owl.carousel.min.js"></script>
 <!-- Magnific Popup -->
-<script src="{{ secure_asset('themes/design/bato') }}/js/jquery.magnific-popup.min.js"></script>
-<script src="{{ secure_asset('themes/design/bato') }}/js/magnific-popup-options.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/jquery.magnific-popup.min.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/magnific-popup-options.js"></script>
 
 <!-- Main JS (Do not remove) -->
-<script src="{{ secure_asset('themes/design/bato') }}/js/main.js"></script>
+<script src="{{ asset('themes/design/bato') }}/js/main.js"></script>
 
 </body>
 </html>

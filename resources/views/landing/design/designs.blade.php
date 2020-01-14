@@ -57,34 +57,40 @@
     <div class="row">
         <section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 grid">
             <ul class="grid-lod effect-2" id="grid">
-                @foreach($firstColumn as $design)
-                    <li>
-                        <figure class="effect-oscar">
-                            <img src="{{ asset('') }}{{ $design->pixels1000 }}" alt="" class="img-responsive"/>
-                            <figcaption>
-                                <h2>{{ $design->design_name }} <span>@isset($design->client_name)[{{$design->client_name}}]@endisset</span></h2>
-                                <p>{{ $design->description }}</p>
-                                <a href="{{route('design.show',$design->design_id)}}">View</a>
-                            </figcaption>
-                        </figure>
-                    </li>
+                @foreach($designs as $design)
+                    @if($loop->iteration % 2 == 1)
+                        <li>
+                            <figure class="effect-oscar">
+                                <img src="{{ asset('') }}{{ $design->cover_image->pixels1000 }}" alt="" class="img-responsive"/>
+                                <figcaption>
+                                    <h2>{{ $design->name }}</h2>
+                                    <p>{{ $design->description }}</p>
+                                    <h5><span>@isset($design->design_contacts) @foreach($design->design_contacts as $contact)[{{$contact->contact->first_name}} {{$contact->contact->last_name}}] @endforeach @endisset</span></h5>
+                                    <a href="{{route('design.show',$design->id)}}">View</a>
+                                </figcaption>
+                            </figure>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </section>
 
         <section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 grid">
             <ul class="grid-lod effect-2" id="grid">
-                @foreach($secondColumn as $design)
-                    <li>
-                        <figure class="effect-oscar">
-                            <img src="{{ asset('') }}{{ $design->pixels1000 }}" alt="" class="img-responsive"/>
-                            <figcaption>
-                                <h2>{{ $design->design_name }} <span>@isset($design->client_name)[{{$design->client_name}}] @endisset</span></h2>
-                                <p>{{ $design->description }}</p>
-                                <a href="{{route('design.show',$design->design_id)}}">View</a>
-                            </figcaption>
-                        </figure>
-                    </li>
+                @foreach($designs as $design)
+                    @if($loop->iteration % 2 == 0)
+                        <li>
+                            <figure class="effect-oscar">
+                                <img src="{{ asset('') }}{{ $design->cover_image->pixels1000 }}" alt="" class="img-responsive"/>
+                                <figcaption>
+                                    <h2>{{ $design->name }} </h2>
+                                    <p>{{ $design->description }}</p>
+                                    <p><span>@isset($design->design_contacts) @foreach($design->design_contacts as $contact)[{{$contact->contact->first_name}} {{$contact->contact->last_name}}] @endforeach @endisset</span></p>
+                                    <a href="{{route('design.show',$design->id)}}">View</a>
+                                </figcaption>
+                            </figure>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </section>

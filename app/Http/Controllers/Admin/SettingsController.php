@@ -845,7 +845,7 @@ class SettingsController extends Controller
         $leadSource->user_id = Auth::user()->id;
         $leadSource->save();
 
-        return back()->withSuccess(__('Expense account '.$leadSource->name.' successfully deleted.'));
+        return back()->withSuccess(__('Lead source '.$leadSource->name.' successfully deleted.'));
     }
     public function leadSourceRestore($lead_source_id)
     {
@@ -855,7 +855,7 @@ class SettingsController extends Controller
         $leadSource->user_id = Auth::user()->id;
         $leadSource->save();
 
-        return back()->withSuccess(__('Expense account '.$leadSource->name.' successfully restored.'));
+        return back()->withSuccess(__('Lead source '.$leadSource->name.' successfully restored.'));
     }
 
 
@@ -1390,7 +1390,7 @@ class SettingsController extends Controller
         $upload->file_type = $extensionType;
 
         $upload->size = $size;
-        $upload->is_client_exclusive_access = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
         $upload->upload_type_id = "b2877336-2866-47f6-9b44-094b4d414d1b";
         $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -1446,8 +1446,7 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        $thumbnailSizes = ThumbnailSize::all();
-        return view('admin.title_create',compact('user','thumbnailSizes','navbarValues'));
+        return view('admin.title_create',compact('user','navbarValues'));
     }
 
     public function titleStore(Request $request)
@@ -1473,10 +1472,10 @@ class SettingsController extends Controller
         return view('admin.title_show',compact('title','user','navbarValues'));
     }
 
-    public function titleUpdate(Request $request, $album_type_id)
+    public function titleUpdate(Request $request, $title_id)
     {
 
-        $title = Title::findOrFail($album_type_id);
+        $title = Title::findOrFail($title_id);
         $title->name = ($request->name);
         $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $title->user_id = Auth::user()->id;
@@ -1485,10 +1484,10 @@ class SettingsController extends Controller
         return redirect()->route('admin.title.show',$title->id)->withSuccess('Title updated!');
     }
 
-    public function titleDelete($album_type_id)
+    public function titleDelete($title_id)
     {
 
-        $title = Title::findOrFail($album_type_id);
+        $title = Title::findOrFail($title_id);
         $title->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
         $title->user_id = Auth::user()->id;
         $title->save();
@@ -1496,10 +1495,10 @@ class SettingsController extends Controller
         return back()->withSuccess(__('Title '.$title->name.' successfully deleted.'));
     }
 
-    public function titleRestore($album_type_id)
+    public function titleRestore($title_id)
     {
 
-        $title = Title::findOrFail($album_type_id);
+        $title = Title::findOrFail($title_id);
         $title->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $title->user_id = Auth::user()->id;
         $title->save();

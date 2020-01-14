@@ -206,7 +206,6 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
                         <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Design</a></li>
-                        <li class=""><a data-toggle="tab" href="#privacy"><i class="fa fa-lock"></i> Privacy</a></li>
                         <li class=""><a data-toggle="tab" href="#download"><i class="fa fa-download"></i> Download</a></li>
                         <li class=""><a data-toggle="tab" href="#expenses"><i class="fa fa-dollar"></i> Expenses</a></li>
                     </ul>
@@ -429,86 +428,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="privacy" class="tab-pane">
-                            <div class="panel-body">
-                                <form method="post" action="{{ route('admin.client.proof.update.privacy',$album->id) }}" autocomplete="off">
-                                    @csrf
-
-                                    <div class="col-md-10 col-md-offset-1">
-
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <div class="input-group m-b">
-                                                <input name="album_password" id="album_password" type="text" value="{{$album->password}}" class="form-control input-lg">
-                                                <div class="input-group-btn">
-                                                    <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateAlbumPassword" data-fid="{{$album->id}}" type="button">Generate Password</button>
-                                                </div>
-                                            </div>
-                                            <i>Leave blank to make this collection public. Setting a password will require all guests to use this password in order to see the collection.</i>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <p>
-                                                Homepage visibility
-                                            </p>
-                                            <input type="checkbox" name="is_homepage_visible" class="js-switch_2" @if($album->is_homepage_visible === 1) checked @endif />
-                                            <i>Show or hide your collection in the Homepage area.</i>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <p>
-                                                Client Exclusive Access
-                                            </p>
-                                            <input type="checkbox" name="is_client_exclusive_access" class="js-switch_3" @if($album->is_client_exclusive_access === 1) checked @endif />
-                                            <i>Turn on to have the abilty to make selected photo sets client-only and to give your clients the ability to mark photos private. </i>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Client Exclusive Access Password</label>
-                                            <div class="input-group m-b">
-                                                <input name="client_exclusive_access_password" id="client_exclusive_access_password" type="text" value="{{$album->client_access_password}}" class="form-control input-lg">
-                                                <div class="input-group-btn">
-                                                    <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateClientExclusiveAccessPassword" data-fid="{{$album->id}}" type="button">Generate Client Exclusive Access Password</button>
-                                                </div>
-                                            </div>
-                                            <i>Turn on to have the abilty to make selected photo sets client-only and to give your clients the ability to mark photos private. </i>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Photo Sets Visibility</label>
-                                        </div>
-
-                                        @foreach($albumSets as $albumSet)
-
-                                            <div class="form-group">
-                                                <div class="checkbox">
-                                                    <input class="updateAlbumSetVisibility" data-fid="{{$albumSet->id}}" id="checkbox1" @if($albumSet->is_client_exclusive_access === 1) checked @endif type="checkbox">
-                                                    <label for="checkbox1">
-                                                        {{$albumSet->name}}
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                        <i>Make selected photo sets private so only your clients have access. Regular guests can only see public sets.</i>
-
-                                        <div class="form-group">
-                                            <p>
-                                                Allow Clients to Mark Photos Private
-                                            </p>
-                                            <input type="checkbox" name="is_client_make_private" class="js-switch_4" @if($album->is_client_make_private === 1) checked @endif />
-                                            <i>Give clients the ability to mark photos private. Private photos are not visible to public guests and only clients can see them. </i>
-                                        </div>
-
-                                        <hr>
-
-                                        <div>
-                                            <button class="btn btn-block btn-outline btn-primary btn-lg m-t-n-xs" type="submit"><strong>Update Privacy Settings</strong></button>
-                                        </div>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
                         <div id="download" class="tab-pane">
                             <div class="panel-body">
                                 <form method="post" action="{{ route('admin.client.proof.update.download',$album->id) }}" autocomplete="off">
@@ -524,6 +443,19 @@
                                                     <input type="checkbox" name="is_download" class="js-switch" @if($album->is_download === 1) checked @endif />
                                                     <br>
                                                     <i>Turn on to allow your clients to download photos from this Collection.</i>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label>Password</label>
+                                                    <div class="input-group m-b">
+                                                        <input name="album_password" id="album_password" type="text" value="{{$album->password}}" class="form-control input-lg">
+                                                        <div class="input-group-btn">
+                                                            <button tabindex="-1" class="btn btn-lg btn-primary btn-outline generateAlbumPassword" data-fid="{{$album->id}}" type="button">Generate Password</button>
+                                                        </div>
+                                                    </div>
+                                                    <i>Leave blank to make this collection public. Setting a password will require all guests to use this password in order to see the collection.</i>
                                                 </div>
                                             </div>
 
@@ -549,27 +481,21 @@
                                             </div>
 
                                             <br>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <p>
+                                                        Check If Album Sets are exclusive
+                                                    </p>
+                                                    <input type="checkbox" name="is_album_set_exclusive" class="js-switch_2" @if($album->is_album_set_exclusive === 1) checked @endif />
+                                                    <br>
+                                                    <i>Check this option if album sets are client exclusive i.e each client set should only be seen by a specific person.</i>
+                                                </div>
+                                            </div>
+
+                                            <br>
                                             <div>
                                                 <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Download Settings</strong></button>
                                             </div>
-                                            <br>
-                                            <hr>
-
-                                            <div class="form-group">
-                                                <label>Restrict Download for Photo Sets</label>
-                                            </div>
-                                            @foreach($albumSets as $albumSet)
-                                                <div class="form-group">
-                                                    <div class="checkbox">
-                                                        <input class="updateAlbumSetDownload" data-fid="{{$albumSet->id}}" id="checkbox1" @if($albumSet->is_email_download_restrict === 1) checked @endif type="checkbox">
-                                                        <label for="checkbox1">
-                                                            {{$albumSet->name}}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                            <i>Disable download for specific photo sets in the collection. This applies to both Gallery Download and Single Photo Download. </i>
-
                                             <br>
                                             <hr>
 
@@ -582,7 +508,7 @@
                                                             <button tabindex="-1" class="btn btn-lg btn-primary btn-outline restrictToEmail" data-fid="{{$album->id}}" type="button">Restrict To Email</button>
                                                         </div>
                                                     </div>
-                                                    <i>Restrict download to only emails you have entered here.</i>
+                                                    <i>Restrict view to only emails you have entered here.</i>
                                                 </div>
                                             </div>
 
@@ -593,16 +519,18 @@
                                                             <thead>
                                                             <tr>
                                                                 <th>Email</th>
+                                                                <th>Expiry</th>
                                                                 <th class="text-right" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            @foreach($albumDownloadRestrictionEmails as $albumDownloadRestrictionEmail)
+                                                            @foreach($albumViewRestrictionEmails as $albumViewRestrictionEmail)
                                                                 <tr class="gradeX">
-                                                                    <td>{{$albumDownloadRestrictionEmail->email}}</td>
+                                                                    <td>{{$albumViewRestrictionEmail->email}}</td>
+                                                                    <td>{{$albumViewRestrictionEmail->expiry}}</td>
                                                                     <td class="text-center">
                                                                         <div class="btn-group">
-                                                                            <a href="{{route('admin.client.proof.restrict.to.specific.email.delete',$albumDownloadRestrictionEmail->id)}}" class="btn-danger btn btn-block btn-xs">Delete</a>
+                                                                            <a href="{{route('admin.client.proof.restrict.to.specific.email.delete',$albumViewRestrictionEmail->id)}}" class="btn-danger btn btn-block btn-xs">Delete</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -611,6 +539,7 @@
                                                             <tfoot>
                                                             <tr>
                                                                 <th>Email</th>
+                                                                <th>Expiry</th>
                                                                 <th class="text-right" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </tfoot>
@@ -1018,22 +947,6 @@
 
     </script>
 
-    <script>
-        $('.updateAlbumSetDownload').on('click',function(){
-            var id = $(this).data('fid')
-
-            //send value by ajax to server
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", '{{url('admin/client/proof/set/download/status/')}}'+'/'+id);
-            xhr.setRequestHeader('Content-Type', '');
-            xhr.send();
-            xhr.onload = function() {
-                alert(this.responseText);
-            }
-        });
-
-    </script>
-
 
     <script>
         $('.generateAlbumPassword').on('click',function(){
@@ -1083,23 +996,6 @@
                 alert(this.responseText);
             }
             location.reload();
-        });
-
-    </script>
-
-    <script>
-        $('.generateClientExclusiveAccessPassword').on('click',function(){
-            var id = $(this).data('fid')
-
-            //send value by ajax to server
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", '{{url('admin/client/proof/generate/password')}}'+'/'+id);
-            xhr.setRequestHeader('Content-Type', '');
-            xhr.send();
-            xhr.onload = function() {
-                document.getElementById("client_exclusive_access_password").value = this.responseText;
-                alert("Client Exclusive Access Password Generated");
-            }
         });
 
     </script>

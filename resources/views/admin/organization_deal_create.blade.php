@@ -125,7 +125,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </span>
-                                                <input type="text" name="starting_date" class="form-control input-lg" value="7/27/2019">
+                                                <input type="text" name="starting_date" id="starting_date" class="form-control input-lg">
                                             </div>
                                             <i>start date for the deal.</i>
                                             <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -137,7 +137,7 @@
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </span>
-                                                <input type="text" name="closing_date" class="form-control input-lg" value="7/27/2019">
+                                                <input type="text" name="closing_date" id="closing_date" class="form-control input-lg">
                                             </div>
                                             <i>closing date for the deal.</i>
                                             <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -281,6 +281,35 @@
 
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Set date
+        console.log('var');
+        var today = new Date();
+        console.log(today);
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
+        document.getElementById("starting_date").value = date_today;
+        document.getElementById("closing_date").value = date_today;
+
+        // Set time
+    });
+
+</script>
 
 <script>
     $(document).ready(function(){

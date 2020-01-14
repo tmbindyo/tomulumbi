@@ -12,6 +12,10 @@ class Design extends Model
     public $incrementing = false;
 
     // Children
+    public function albums()
+    {
+        return $this->hasMany('App\Album');
+    }
     public function design_contacts()
     {
         return $this->hasMany('App\DesignContact');

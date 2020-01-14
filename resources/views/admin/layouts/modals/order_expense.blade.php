@@ -35,7 +35,7 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
-                                    <input type="text" name="due_date" class="form-control input-lg">
+                                    <input type="text" name="due_date" id="due_date" class="form-control input-lg">
                                 </div>
                                 <i> due date.</i>
                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>

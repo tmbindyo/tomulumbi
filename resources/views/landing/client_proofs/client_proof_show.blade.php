@@ -78,7 +78,7 @@
                             <li><a href="{{route('welcome')}}">Home</a></li>
                             <li><a href="{{route('client.proofs')}}">Client Proof's</a></li>
                             @if($album->is_download == 1)
-                                @if($album->is_download_pin == 1)
+                                @if($album->download_pin)
                                     <li><a href="#" data-toggle="modal" data-target=".contact-modal-md"><span class="fa fa-download"></span> Download Album</a></li>
                                 @else
                                     <li><a href="{{route('client.proof.download',$albumView->id)}}"><span class="fa fa-download"></span> Download Album</a></li>

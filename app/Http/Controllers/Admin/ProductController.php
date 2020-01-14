@@ -346,7 +346,7 @@ class ProductController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
         $upload->product_id = $product_id;
         $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
@@ -549,7 +549,7 @@ class ProductController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
         $upload->product_id = $product_id;
         $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
@@ -743,9 +743,7 @@ class ProductController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
-        $upload->is_album_set_image = False;
-//        $upload->is_album_cover = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
         $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $upload->upload_type_id = "720a967d-16b1-46c4-b22d-9e734e94c9e9";

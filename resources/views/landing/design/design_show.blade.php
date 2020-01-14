@@ -121,8 +121,6 @@
 
             <div class="row">
                 @foreach($design->design_works as $designWork)
-{{--                    {{$loop->index}}--}}
-
                     @if($loop->iteration % 2 == 0)
 
                         <div class="col-md-12">
@@ -141,7 +139,7 @@
                                             <div class="display-t js-fullheight">
                                                 <div class="display-tc js-fullheight">
                                                     <div class="text-inner text-inner-left">
-                                                        <h2><a href="{{route('design.work',$designWork->id)}}">{{$designWork->name}} {{$loop->iteration}}</a></h2>
+                                                        <h2><a href="{{route('design.work',$designWork->id)}}">{{$designWork->name}}</a></h2>
                                                         <p>{{$designWork->description}}</p>
                                                         <p><a href="{{route('design.work',$designWork->id)}}" class="btn-view">View Photo</a></p>
                                                     </div>
@@ -191,44 +189,91 @@
         </div>
     </div>
 
-{{--    <footer>--}}
-{{--        <div id="footer">--}}
-{{--            <div class="container">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-md-4 col-pb-sm text-center">--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="col-md-10">--}}
-{{--                                <h2>Office</h2>--}}
-{{--                                <p>291 South 21th Street, <br> Suite 721 New York NY 10016</p>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-4 col-pb-sm text-center">--}}
-{{--                        <h2>Get in Touch</h2>--}}
-{{--                        <p><a href="#">contact@tomulumbi.com</a></p>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-4 col-pb-sm text-center">--}}
-{{--                        <h2>Social</h2>--}}
-{{--                        <p class="colorlib-social-icons">--}}
-{{--                            <a href="#"><i class="icon-instagram2"></i></a>--}}
-{{--                            <a href="#"><i class="icon-twitter2"></i></a>--}}
-{{--                            <a href="#"><i class="icon-behance"></i></a>--}}
-{{--                        </p>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-md-12 text-center">--}}
-{{--                        <p>--}}
-{{--								<span class="block"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->--}}
-{{--Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://fluidtechglobal.com" target="_blank">Fluidtech Global</a>--}}
-{{--                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br></span>--}}
-{{--                            <span class="block">Images: <a href="https://www.tomulumbi.com/" target="_blank">tomulumbi</a></span>--}}
-{{--                        </p>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </footer>--}}
+    <div id="colorlib-subscribe">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center colorlib-heading animate-box">
+                    <h2>Subscribe Newsletter</h2>
+                    <p>Subscribe our newsletter and get latest update</p>
+                </div>
+            </div>
+            <div class="row animate-box">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            {{--  albums  --}}
+                            @if($designAlbums)
+                                @foreach ($designAlbums as $album)
+                                    <div class="col-one-third">
+                                        <div class="form-group">
+                                            @if($album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
+                                                <a href="{{ route('client.proof.access', $album->id) }}" class="btn btn-primary">View Album {{$album->name}}</a>
+                                            @elseif($album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
+                                                <a href="{{ route('personal.album.access', $album->id) }}" class="btn btn-primary">View Album {{$album->name}}</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
+                            {{--  journals  --}}
+                            @if($designJournals)
+                                @foreach ($designJournals as $journal)
+                                    <div class="col-one-third">
+                                        <div class="form-group">
+                                            <a href="{{ route('journal.show', $journal->id) }}" class="btn btn-primary">View Journal {{$journal->name}}</a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-pb-sm text-center">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h2>Office</h2>
+                                <p>General Accident House, <br> 2nd Floor</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-pb-sm text-center">
+                        <h2>Get in Touch</h2>
+                        <p><a href="#">contact@tomulumbi.com</a></p>
+                    </div>
+                    <div class="col-md-4 col-pb-sm text-center">
+                        <h2>Social</h2>
+                        <p class="colorlib-social-icons">
+                            <a href="https://www.instagram.com/tomulumbi/"><i class="icon-instagram2"></i></a>
+                            <a href="https://twitter.com/tomulumbi"><i class="icon-twitter2"></i></a>
+                            <a href="https://www.behance.net/tomulumbi"><i class="icon-behance"></i></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p>
+								<span class="block"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://fluidtechglobal.com" target="_blank">Fluidtech Global</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br></span>
+                            <span class="block">Images: <a href="https://www.tomulumbi.com/" target="_blank">tomulumbi</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </div>
 

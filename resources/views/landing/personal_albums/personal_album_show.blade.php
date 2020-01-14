@@ -57,7 +57,7 @@
 
             <!-- logo -->
 
-            <h1> <a href="{{route('welcome')}}" title="Picxa"><img src="{{ asset('themes/personal_albums/pixca') }}/images/logo.png" alt="Picxa" title="Picxa"/></a> </h1>
+            <h1> <a href="{{route('personal.albums')}}" title="Picxa"><img src="{{ asset('themes/personal_albums/pixca') }}/images/logo.png" alt="Picxa" title="Picxa"/></a> </h1>
 
             <!-- logo -->
 
@@ -78,13 +78,6 @@
                             <li><a href="{{route('welcome')}}">Home</a></li>
                             <li class="active"><a href="{{route('personal.albums')}}">Album View</a></li>
                             <li><a href="{{route('tags')}}">Tag View</a></li>
-                            @if($album->is_download == 1)
-                                @if($album->is_download_pin == 1)
-                                    <li><a href="#" data-toggle="modal" data-target=".contact-modal-md"><span class="fa fa-download"></span> Download Album</a></li>
-                                @else
-                                    <li><a href="{{route('personal.album.download',$albumView->id)}}"><span class="fa fa-download"></span> Download Album</a></li>
-                                @endif
-                            @endif
                         </ul>
                     </div>
                 </div>
@@ -165,9 +158,6 @@
                 <p>+254 739 459 370</p>
             </div>
 
-            <!-- email -->
-
-        {{route('personal.album.download',$albumView->id)}}
             <!-- social -->
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
@@ -230,14 +220,7 @@
 
 
 <!-- jQuery -->
-
-{{--<script src="https://code.jquery.com/jquery-3.2.1.min.js"--}}
-{{--        integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f"--}}
-{{--        crossorigin="anonymous">--}}
-{{--</script>--}}
 <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>--}}
-{{--<script>window.jQuery || document.write('<script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/jquery.min.js"><\/script>')</script>--}}
 <script src="{{ asset('inspinia') }}/js/plugins/lc-lightbox/js/lc_lightbox.lite.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/lc-lightbox/lib/AlloyFinger/alloy_finger.min.js"></script>
 <script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/plugins.js" type="text/javascript"></script>
@@ -269,7 +252,7 @@
         touchswipe    :true,
         mousewheel    :true,
         rclick_prevent  :true,
-        @if($album->is_download == 1 && now()<$album->expiry_date && $album->client_access_password == '')
+        @if($download == 'True' )
         download    :true,
         @endif
         // more options here

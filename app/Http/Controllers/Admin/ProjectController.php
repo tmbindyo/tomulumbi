@@ -98,13 +98,15 @@ class ProjectController extends Controller
         $project->user_id = Auth::user()->id;
         $project->save();
 
-        foreach ($request->contacts as $projectRequestContact){
-            $projectContact = new ProjectContact();
-            $projectContact->project_id = $project->id;
-            $projectContact->contact_id = $projectRequestContact;
-            $projectContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-            $projectContact->user_id = Auth::user()->id;
-            $projectContact->save();
+        if($request->contacts){
+            foreach ($request->contacts as $projectRequestContact){
+                $projectContact = new ProjectContact();
+                $projectContact->project_id = $project->id;
+                $projectContact->contact_id = $projectRequestContact;
+                $projectContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $projectContact->user_id = Auth::user()->id;
+                $projectContact->save();
+            }
         }
 
         return redirect()->route('admin.project.show',$project->id)->withSuccess('Project '.$project->name.' succesfully created');
@@ -135,7 +137,7 @@ class ProjectController extends Controller
         // project albums
         $projectAlbums = Album::with('user','status')->where('project_id',$project_id)->withCount('album_views')->get();
         // project designs
-        $projectDesigns = Design::with('user','status','contact')->where('project_id',$project_id)->get();
+        $projectDesigns = Design::with('user','status','design_contacts.contact')->where('project_id',$project_id)->get();
         // project journals
         $projectJournals = Journal::with('user','status')->where('project_id',$project_id)->get();
         // project contacts
@@ -239,28 +241,30 @@ class ProjectController extends Controller
         $project->date = date('Y-m-d', strtotime($request->date));
         $project->save();
 
-        // Design contacts update
-        $projectRequestContacts =array();
-        foreach ($request->contacts as $projectDesignContact){
-            // Append to array
-            $projectRequestContacts[]['id'] = $projectDesignContact;
+        if($request->contacts){
+            // Design contacts update
+            $projectRequestContacts =array();
+            foreach ($request->contacts as $projectDesignContact){
+                // Append to array
+                $projectRequestContacts[]['id'] = $projectDesignContact;
 
-            // Check if project contact exists
-            $projectContact = DesignContact::where('project_id',$project->id)->where('contact_id',$projectDesignContact)->first();
+                // Check if project contact exists
+                $projectContact = DesignContact::where('project_id',$project->id)->where('contact_id',$projectDesignContact)->first();
 
-            if($projectContact === null) {
-                $projectContact = new DesignContact();
-                $projectContact->project_id = $project->id;
-                $projectContact->contact_id = $projectDesignContact;
-                $projectContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-                $projectContact->user_id = Auth::user()->id;
-                $projectContact->save();
+                if($projectContact === null) {
+                    $projectContact = new DesignContact();
+                    $projectContact->project_id = $project->id;
+                    $projectContact->contact_id = $projectDesignContact;
+                    $projectContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                    $projectContact->user_id = Auth::user()->id;
+                    $projectContact->save();
+                }
             }
-        }
 
         $projectContactsIds = DesignContact::where('project_id',$project_id)->whereNotIn('contact_id',$projectRequestContacts)->select('id')->get()->toArray();
         DB::table('project_contacts')->whereIn('id', $projectContactsIds)->delete();
 
+        }
 
 
         return back()->withSuccess(__('Project successfully uploaded.'));
@@ -446,7 +450,7 @@ class ProjectController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
         $upload->project_id = $project_id;
         $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
@@ -640,9 +644,7 @@ class ProjectController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
-        $upload->is_album_set_image = False;
-//        $upload->is_album_cover = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
         $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $upload->upload_type_id = "720a967d-16b1-46c4-b22d-9e734e94c9e9";

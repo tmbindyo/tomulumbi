@@ -198,7 +198,7 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#account_adjustments" data-toggle="tab">Contacts</a></li>
+                                            <li class="active"><a href="#refunds" data-toggle="tab">Refunds</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -206,7 +206,7 @@
                                 <div class="panel-body">
 
                                     <div class="tab-content">
-                                        <div class="tab-pane active" id="account_adjustments">
+                                        <div class="tab-pane active" id="refunds">
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                     <thead>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlbumSetsTable extends Migration
+class CreateAlbumSetViewRestrictionEmailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateAlbumSetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('album_sets', function (Blueprint $table) {
+        Schema::create('album_set_view_restriction_emails', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name');
+            $table->string('email');
+            $table->date('expiry');
 
-            $table->uuid('album_id');
+            $table->uuid('album_set_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 
@@ -34,6 +35,6 @@ class CreateAlbumSetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('album_sets');
+        Schema::dropIfExists('album_set_view_restriction_emails');
     }
 }

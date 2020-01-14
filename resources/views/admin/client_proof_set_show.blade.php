@@ -63,7 +63,7 @@
                     <a href="{{route('admin.client.proof.show',$albumSet->album->id)}}">{{$albumSet->album->name}}Client Proof</a>
                 </li>
                 <li class="active">
-                    <strong>Client Proof</strong>
+                    <strong>{{$albumSet->name}}</strong>
                 </li>
             </ol>
         </div>
@@ -71,7 +71,77 @@
 
     <div class="wrapper wrapper-content animated fadeIn">
 
-        {{--    Client proof images    --}}
+        
+        
+        {{--    Client proof set download restrictions    --}}
+        <div class="row">
+            <div class="ibox">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>
+                            Album Set View Restrictions
+                        </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="form-group">
+                                    <label>Restrict To Specific Emails</label>
+                                    <div class="input-group m-b">
+                                        <input id="email_restriction" type="email" class="form-control input-lg">
+                                        <div class="input-group-btn">
+                                            <button tabindex="-1" class="btn btn-lg btn-primary btn-outline restrictToEmail" data-fid="{{$albumSet->id}}" type="button">Restrict To Email</button>
+                                        </div>
+                                    </div>
+                                    <i>Restrict view of album set to only emails you have entered here.</i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Expiry</th>
+                                            <th class="text-right" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($albumSetViewRestrictionEmails as $albumSetViewRestrictionEmail)
+                                            <tr class="gradeX">
+                                                <td>{{$albumSetViewRestrictionEmail->email}}</td>
+                                                <td>{{$albumSetViewRestrictionEmail->expiry}}</td>
+                                                <td class="text-center">
+                                                    <div class="btn-group">
+                                                        <a href="{{route('admin.client.proof.set.restrict.to.specific.email.delete',$albumSetViewRestrictionEmail->id)}}" class="btn-danger btn btn-block btn-xs">Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Expiry</th>
+                                            <th class="text-right" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {{--    Client proof set images    --}}
         <div class="row">
             @foreach($albumSet->album_images as $image)
                 <div class="col-md-3">
@@ -188,6 +258,23 @@
         }
     </style>
 
+    <script>
+        $('.restrictToEmail').on('click',function(){
+            var id = $(this).data('fid')
+            var email = document.getElementById("email_restriction").value
+
+            //send value by ajax to server
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '{{url('admin/client/proof/set/restrict/to/specific')}}'+'/'+id +'/email/'+email);
+            xhr.setRequestHeader('Content-Type', '');
+            xhr.send();
+            xhr.onload = function() {
+                alert(this.responseText);
+            }
+            location.reload();
+        });
+
+    </script>
 
     <script>
         $(window).load(function() {

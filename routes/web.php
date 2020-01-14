@@ -50,6 +50,19 @@ Route::get('/design/work/{design_work_id}', 'Landing\DesignController@designWork
 Route::get('/design/{design_id}/gallery', 'Landing\DesignController@designGallery')->name('design.gallery');
 
 
+
+// Journal
+Route::get('/journals', 'Landing\JournalController@journals')->name('journals');
+Route::get('/journal/show/{journal_id}', 'Landing\JournalController@journalShow')->name('journal.show');
+Route::get('/journal/gallery/{journal_id}', 'Landing\JournalController@journalGalleryShow')->name('journal.gallery.show');
+
+
+// Projects
+Route::get('/projects', 'Landing\ProjectController@projects')->name('projects');
+Route::get('/project/show/{project_id}', 'Landing\ProjectController@projectShow')->name('project.show');
+
+
+
 // Contact
 Route::post('/email/store', 'Landing\LandingController@emailStore')->name('email.store');
 
@@ -69,14 +82,3 @@ Route::get('/subtract/cart/item/quantity/{item_id}', 'Landing\StoreController@su
 Route::get('/add/cart/item/quantity/{item_id}', 'Landing\StoreController@addCartItemQuantity')->name('add.cart.item.quantity');
 Route::get('/remove/item/{item_id}', 'Landing\StoreController@removeItem')->name('remove.item');
 Route::get('/clear/cart', 'Landing\StoreController@clearCart')->name('clear.cart');
-
-
-// Journal
-Route::get('/journals', 'Landing\JournalController@journals')->name('journals');
-Route::get('/journal/show/{journal_id}', 'Landing\JournalController@journalShow')->name('journal.show');
-Route::get('/journal/gallery/{journal_id}', 'Landing\JournalController@journalGalleryShow')->name('journal.gallery.show');
-
-
-// Projects
-Route::get('/projects', 'Landing\ProjectController@projects')->name('projects');
-Route::get('/project/show/{project_id}', 'Landing\ProjectController@projectShow')->name('project.show');

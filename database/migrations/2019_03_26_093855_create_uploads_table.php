@@ -58,9 +58,8 @@ class CreateUploadsTable extends Migration
             $table->text('large_thumbnail')->nullable();
             $table->text('banner')->nullable();
 
-            $table->boolean('is_client_exclusive_access')->nullable();
-            $table->boolean('is_password')->nullable();
             $table->boolean('is_album_set_image');
+            $table->boolean('is_restrict_to_specific_email')->nullable();
 
             $table->uuid('tag_id')->nullable();
             $table->uuid('album_id')->nullable();

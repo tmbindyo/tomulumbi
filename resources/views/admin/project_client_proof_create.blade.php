@@ -109,7 +109,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" required="required" name="date" class="form-control input-lg" value="7/27/2019">
+                                            <input type="text" required="required" name="date" id="date" class="form-control input-lg">
                                         </div>
                                         <i>What is the date of the event?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -126,7 +126,7 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="contact" class="select2_demo_contact form-control input-lg" multiple="multiple">
+                                        <select name="contacts[]" class="select2_demo_contact form-control input-lg" multiple="multiple">
                                             <option></option>
                                             @foreach($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
@@ -140,7 +140,7 @@
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
-                                            <input type="text" name="expiry_date" class="form-control input-lg" value="7/27/2019">
+                                            <input type="text" name="expiry_date" id="expiry_date" class="form-control input-lg">
                                         </div>
                                         <i>Collection will become Hidden when it reaches 11:59pm on the expiry date.</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -148,19 +148,6 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
-
-                                            <div class="has-warning">
-                                                <label>Homepage Visibility</label>
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <input name="is_homepage_visible" type="checkbox" class="js-switch" checked />
-                                                    <br>
-                                                    <i>Show or hide your collection in your Homepage area.</i>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6">
-
                                             <div class="has-warning">
                                                 <label class="">Auto Expiry</label>
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -168,7 +155,6 @@
                                                     <i>Auto expiry.</i>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                     <br>
@@ -254,6 +240,35 @@
 
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Set date
+        console.log('var');
+        var today = new Date();
+        console.log(today);
+        var dd = today.getDate();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        mm ++;
+        if (dd < 10){
+            dd = '0'+dd;
+        }
+        if (mm < 10){
+            mm = '0'+mm;
+        }
+        var date_today = mm + '/' + dd + '/' + yyyy;
+        var time_curr = h + ':' + m;
+        console.log(time_curr);
+        document.getElementById("date").value = date_today;
+        document.getElementById("expiry_date").value = date_today;
+
+        // Set time
+    });
+
+</script>
 
 <script>
     $(document).ready(function(){

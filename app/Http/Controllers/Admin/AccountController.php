@@ -695,6 +695,29 @@ class AccountController extends Controller
     }
 
     // TODO expense for liability
+    public function liabilityExpenseCreate($liability_id)
+    {
+        // User
+        $user = $this->getUser();
+        // Institution
+        $institution = $this->getInstitution();
+        // expense accounts
+        $expenseAccounts = ExpenseAccount::all();
+        // get sales
+        $sales = Order::with('status')->get();
+        // expense statuses
+        $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
+        // get transfers
+        $transfers = Transfer::all();
+        // get campaign
+        $campaigns = Campaign::all();
+        // get liabilities
+        $liability = Liability::where('id',$liability_id)->first();
+        // get frequencies
+        $frequencies = Frequency::all();
+
+        return view('business.liability_expense_create',compact('liability','campaigns','sales','user','institution','frequencies','expenseAccounts','transfers','expenseStatuses'));
+    }
 
     public function liabilityUpdate(Request $request, $liability_id)
     {
@@ -825,7 +848,7 @@ class AccountController extends Controller
 
         $loan = Loan::findOrFail($loan_id);
         return redirect()->route('admin.loan.show',$loan->id)->withSuccess('Loan updated!');
-        
+
     }
 
     public function loanDelete($loan_id)

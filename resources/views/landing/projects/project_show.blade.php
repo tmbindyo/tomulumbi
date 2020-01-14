@@ -246,6 +246,57 @@
 
 </section> <!-- end s-works -->
 
+<!-- clients
+    ================================================== -->
+    <section id="clients" class="s-clients">
+
+        <div class="row section-header" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">Relationships</h3>
+            </div>
+        </div> <!-- end section-header -->
+
+
+        <div class="row clients-outer" data-aos="fade-up">
+            <div class="col-full">
+
+                <div class="">
+
+
+                    {{--  albums  --}}
+                    <div class="">
+                        @if($projectAlbums)
+                            @foreach ($projectAlbums as $album)
+                                @if($album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
+                                    <a class="btn btn--stroke" href="{{ route('client.proof.access', $album->id) }}">View Album {{$album->name}}</a>
+                                @elseif($album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
+                                    <a class="btn btn--stroke" href="{{ route('personal.album.access', $album->id) }}">View Album {{$album->name}}</a>
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
+
+
+                    {{--  designs  --}}
+                    @if($projectDesigns)
+                        @foreach ($projectDesigns as $design)
+                            <a class="btn btn--stroke" href="{{ route('design.show', $design->id) }}">View Design {{$design->name}}</a>
+                        @endforeach
+                    @endif
+
+
+                    {{--  journals  --}}
+                    @if($projectJournals)
+                        @foreach ($projectJournals as $journal)
+                            <a class="btn btn--stroke" href="{{ route('journal.show', $journal->id) }}">View Journal {{$journal->name}}</a>
+                        @endforeach
+                    @endif
+
+
+                </div> <!-- end clients -->
+            </div> <!-- end col-full -->
+        </div> <!-- end clients-outer -->
+    </section> <!-- end s-clients -->
 
 <!-- contact
 ================================================== -->

@@ -6,6 +6,7 @@ use App\Album;
 use App\AlbumDownload;
 use App\AlbumSet;
 use App\AlbumView;
+use App\AlbumViewRestrictionEmail;
 use App\Design;
 use App\DesignGallery;
 use App\DesignWork;
@@ -59,13 +60,6 @@ class AlbumController extends Controller
         $albumExists = Album::findOrFail($album_id);
         $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
 
-        // Require everyone to put an email
-//        if ($album->is_client_exclusive_access == 1){
-//
-//        } else {
-//            return redirect(route('client.proof.show',$album->id));
-//        }
-
         return view('landing.client_proofs.access',compact('album'));
     }
 
@@ -92,7 +86,7 @@ class AlbumController extends Controller
 
                 // Register album view
                 $albumView = new AlbumView();
-                $albumView->cookie = $request->cookie();
+                $albumView->cookie = $request->cookie()['tomulumbi_session'];
                 $albumView->expiry = $expiry;
                 $albumView->email = $request->email;
                 $albumView->album_id = $albumExists->id;
@@ -122,7 +116,7 @@ class AlbumController extends Controller
 
         // Register album view
         $albumView = new AlbumView();
-        $albumView->cookie = $request->cookie();
+        $albumView->cookie = $request->cookie()['tomulumbi_session'];
         $albumView->expiry = $expiry;
         $albumView->email = $request->email;
         $albumView->album_id = $albumExists->id;
@@ -198,15 +192,18 @@ class AlbumController extends Controller
         $albumExists = Album::findOrFail($albumView->album_id);
         $album = Album::where('id',$albumView->album_id)->first();
 
-        // Check if the expiry date has expired
-
-        if (now()>$album->expiry_date){
-            return back()->withWarning('The download period for the selected proof has expired.');
+        // Check if the download surpassed limit
+        $limit = doubleval($album->download_restriction_limit)  ;
+        $downloads = AlbumDownload::where('album_id',$album->id)->count();
+        if ($downloads+1>$limit){
+            return back()->withWarning('The proof number of permited album downloads has been surpassed.');
         }
+        $album->download_restriction_limit = $limit;
+        $album->save();
 
         // track download
         $albumDownload = new AlbumDownload();
-        $albumDownload->cookie = $request->cookie();
+        $albumDownload->cookie = $request->cookie()['tomulumbi_session'];
         $albumDownload->album_view_id = $albumView->id;
         $albumDownload->album_id = $album->id;
         $albumDownload->save();
@@ -258,8 +255,17 @@ class AlbumController extends Controller
         $albumExists = Album::findOrFail($albumView->album_id);
         $album = Album::where('id',$albumView->album_id)->first();
 
-        if (now()>$album->expiry_date){
-            return back()->withWarning('The download period for the selected proof has expired.');
+        // check if allowed to download pictures
+        $albumViewRestrictionEmail = AlbumViewRestrictionEmail::where('album_id',$albumView->album_id)->where('email',$albumView->email)->first();
+        if (!$albumViewRestrictionEmail){
+            return back()->withWarning("You aren't allowed to download images from this proof.");
+        }
+        // Check if the download surpassed limit
+        // Check if the download surpassed limit
+        $limit = doubleval($album->download_restriction_limit)  ;
+        $downloads = AlbumDownload::where('album_id',$album->id)->count();
+        if ($downloads+1>$limit){
+            return back()->withWarning('The proof number of permited album downloads has been surpassed.');
         }
 
         if ($album->client_access_password != $request->client_exclusive_password){
@@ -271,7 +277,7 @@ class AlbumController extends Controller
         }
         // track download
         $albumDownload = new AlbumDownload();
-        $albumDownload->cookie = $request->cookie();
+        $albumDownload->cookie = $request->cookie()['tomulumbi_session'];
         $albumDownload->album_view_id = $albumView->id;
         $albumDownload->album_id = $album->id;
         $albumDownload->save();
@@ -280,7 +286,7 @@ class AlbumController extends Controller
         $folderName = str_replace(' ', '',  $album->name.'/');
 
         // Get folder path
-        $path = public_path()."/client/proof/".$folderName.'1500/';
+        $path = public_path()."/work/client/proof/".$folderName.'1500/';
 //        return $path;
 
         // Zip folder
@@ -307,9 +313,6 @@ class AlbumController extends Controller
         return response()->download($zip_file);
     }
 
-
-
-
     public function personalAlbums(Request $request)
     {
         // save that user visited
@@ -325,7 +328,6 @@ class AlbumController extends Controller
     }
 
     function personalAlbumAccess(Request $request,$album_id){
-
         // save that user visited
         $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
         $view_id = '';
@@ -334,11 +336,13 @@ class AlbumController extends Controller
         // Check if the album is client exclusive
         $albumExists = Album::findOrFail($album_id);
         $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
-
+        // check status
+        if($album->status_id != 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5'){
+            return back()->withWarning("I'm sorry but the album isn't currently live.");
+        }
         // check the password
         if ($album->password){
             return view('landing.personal_albums.access',compact('album'));
-//            return redirect()->route('personal.album.access.check',$album->id);
         }else{
             // create a
             return redirect()->route('personal.album.show',$album->id);
@@ -350,6 +354,7 @@ class AlbumController extends Controller
         // https://medium.com/@panjeh/laravel-detector-mobile-browser-name-version-platform-device-robot-crawler-user-language-8499bee7607c
         $albumExists = Album::findOrFail($album_id);
         $album = Album::where('id',$album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets')->first();
+
 
         // Check if the passwords are the same
         if ($album->password) {
@@ -365,7 +370,7 @@ class AlbumController extends Controller
 
                 // Register album view
                 $albumView = new AlbumView();
-                $albumView->cookie = $request->cookie();
+                $albumView->cookie = $request->cookie()['tomulumbi_session'];
                 $albumView->expiry = $expiry;
                 $albumView->email = $request->email;
                 $albumView->album_id = $albumExists->id;
@@ -389,7 +394,7 @@ class AlbumController extends Controller
 
         // Register album view
         $albumView = new AlbumView();
-        $albumView->cookie = $request->cookie();
+        $albumView->cookie = $request->cookie()['tomulumbi_session'];
         $albumView->expiry = $expiry;
         $albumView->email = $request->email;
         $albumView->album_id = $albumExists->id;
@@ -410,22 +415,40 @@ class AlbumController extends Controller
 
         // Check if the ablum exists
         $album = Album::where('id',$album_view_id)->first();
-        if ($album === null) {
 
+        if ($album === null) {
             // get album view id (access token)
             $albumView = AlbumView::findOrFail($album_view_id);
+            // Get the album
+            $album = Album::where('id',$albumView->album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets','thumbnail_size')->first();
+            // check if allowed to download pictures
+            $albumViewRestrictionEmail = AlbumViewRestrictionEmail::where('album_id',$albumView->album_id)->first();
+            if ($albumViewRestrictionEmail){
+                //check if email is part of emails
+                $albumViewRestrictionEmail = AlbumViewRestrictionEmail::where('album_id',$albumView->album_id)->where('email',$albumView->email)->first();
+                if(!$albumViewRestrictionEmail){
+                    // download variable
+                    $download = "False";
+                }else{
+                    if($album->is_download == 1 && now()<$albumViewRestrictionEmail->expiry){
+                        $download = "True";
+                    }else{
+                        $download = "False";
+                    }
+                }
+            }else{
+                $download = "False";
+            }
 
             // check if the token has expired
             if (now() > $albumView->expiry){
                 return redirect()->route('client.proof.access',$albumView->album_id)->with('warning', 'The token has expired, please log in again. Thank you.');
             }
-            // Get the album
-            $album = Album::where('id',$albumView->album_id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets','thumbnail_size')->first();
 
         }else{
+            $download = "False";
             // Get the album
             $album = Album::where('id',$album->id)->with('cover_design','scheme','color','orientation','content_align','image_position','album_sets','thumbnail_size')->first();
-
             $albumExists = Album::findOrFail($album->id);
             $albumExists->views++;
             $albumExists->save();
@@ -434,23 +457,22 @@ class AlbumController extends Controller
             $expiry->modify('+ 1 hour');
             // Register album view
             $albumView = new AlbumView();
-            $albumView->cookie = $request->cookie();
+            $albumView->cookie = $request->cookie()['tomulumbi_session'];
             $albumView->album_id = $album->id;
             $albumView->expiry = $expiry;
             $albumView->number = $albumExists->views;
             $albumView->save();
+            // return $albumView;
         }
-
         // save that user visited
 
         $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
         $view_id = $albumView->id;
         $view = $this->trackView($request,$view_type,$view_id);
-
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
 
-        return view('landing.personal_albums.personal_album_show',compact('album','albumSets','albumView'));
+        return view('landing.personal_albums.personal_album_show',compact('album','albumSets','albumView','download'));
     }
 
     function personalAlbumDownload(Request $request,$album_view_id){
@@ -469,13 +491,13 @@ class AlbumController extends Controller
 
         // Check if the expiry date has expired
 
-//        return now().'|'.$album->expiry_date;
-        if (now()>$album->expiry_date){
-            return back()->withWarning('The download period for the selected proof has expired.');
-        }else{
-
+        // Check if the download surpassed limit
+        $limit = doubleval($album->download_restriction_limit) +1 ;
+        if ($limit>$album->download_restriction_limit){
+            return back()->withWarning('The proof number of permited album downloads has been surpassed.');
         }
-
+        $album->download_restriction_limit = $limit;
+        $album->save();
 
         // track download
         $albumDownload = new AlbumDownload();
@@ -532,9 +554,13 @@ class AlbumController extends Controller
         $albumExists = Album::findOrFail($albumView->album_id);
         $album = Album::where('id',$albumView->album_id)->first();
 
-        if (now()>$album->expiry_date){
-            return back()->withWarning('The download period for the selected proof has expired.');
+        // Check if the download surpassed limit
+        $limit = doubleval($album->download_restriction_limit) +1 ;
+        if ($limit>$album->download_restriction_limit){
+            return back()->withWarning('The proof number of permited album downloads has been surpassed.');
         }
+        $album->download_restriction_limit = $limit;
+        $album->save();
 
         if ($album->client_access_password != $request->client_exclusive_password){
             return back()->withWarning('The client exclusive password entered is incorrect');
@@ -596,7 +622,6 @@ class AlbumController extends Controller
 
     public function tagShow(Request $request,$tag_id)
     {
-
         // save that user visited
 
         $view_type = "578275c9-48dc-469c-a62f-f13583b95696";
@@ -604,7 +629,7 @@ class AlbumController extends Controller
         $view = $this->trackView($request,$view_type,$view_id);
 
         $tag = Tag::where('id',$tag_id)->with('thumbnail_size')->first();
-        $uploads = Upload::where('tag_id',$tag_id)->with('album','tag.thumbnail_size')->where('is_password',False)->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->get();
+        $uploads = Upload::where('tag_id',$tag_id)->with('album','tag.thumbnail_size')->where('is_restrict_to_specific_email',False)->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->get();
         return view('landing.personal_albums.tag_show',compact('tag','uploads'));
 
     }

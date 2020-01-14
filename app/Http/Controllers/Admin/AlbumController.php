@@ -37,7 +37,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use App\Traits\DocumentExtensionTrait;
-use App\AlbumDownloadRestrictionEmail;
+use App\AlbumSetViewRestrictionEmail;
+use App\AlbumViewRestrictionEmail;
 use App\Traits\DownloadViewNumbersTrait;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -89,13 +90,6 @@ class AlbumController extends Controller
         $album->location = $request->location;
         $album->date = date('Y-m-d', strtotime($request->date));
 
-        if ($request->is_homepage_visible){
-            $album->is_homepage_visible = True;
-        }
-        else{
-            $album->is_homepage_visible = False;
-        }
-
         if($request->is_project){
             $album->is_project = True;
             $album->project_id = $request->project;
@@ -115,16 +109,14 @@ class AlbumController extends Controller
             $album->is_design = False;
         }
 
-        $album->is_auto_expiry = False;
+        $album->is_download = False;
         $album->views = 0;
-        $album->download_restriction_limit = 0;
-        $album->is_client_exclusive_access = False;
+        $album->download_restriction_limit = 15;
         $album->album_type_id = "6fdf4858-01ce-43ff-bbe6-827f09fa1cef";
         $album->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $album->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
         $album->user_id = Auth::user()->id;
         $album->save();
-
 
         foreach ($request->tags as $albumAlbumTag){
             $albumTag = new AlbumTag();
@@ -139,23 +131,10 @@ class AlbumController extends Controller
             $albumSet = new AlbumSet();
             $albumSet->album_id = $album->id;
             $albumSet->name = $tag->name;
-            $albumSet->is_client_exclusive_access = False;
-            $albumSet->is_email_download_restrict = False;
             $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $albumSet->user_id = Auth::user()->id;
             $albumSet->save();
         }
-
-        // Save Album set
-//        $albumSet = new AlbumSet();
-//        $albumSet->album_id = $album->id;
-//        $albumSet->name = "Highlights";
-//        $albumSet->is_client_exclusive_access = False;
-//        $albumSet->is_email_download_restrict = False;
-//        $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-//        $albumSet->user_id = Auth::user()->id;
-//        $albumSet->save();
-
 
         return redirect()->route('admin.personal.album.show',$album->id)->withSuccess('Album '.$album->name.' successfully created!');
     }
@@ -183,7 +162,7 @@ class AlbumController extends Controller
         $albumStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
         // Get album
-        $album = Album::with('user','status','cover_image','album_download_restriction_emails','expenses.expense_type')->where('id',$album_id)->first();
+        $album = Album::with('user','status','cover_image','album_view_restriction_emails','expenses.expense_type')->where('id',$album_id)->first();
 
         // Get all albums for to do dropdown
         $albums = Album::with('user','status')->get();
@@ -202,9 +181,9 @@ class AlbumController extends Controller
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
-        $albumDownloadRestrictionEmails = AlbumDownloadRestrictionEmail::where('album_id',$album_id)->get();
+        $albumViewRestrictionEmails = AlbumViewRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
+        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function personalAlbumDelete($album_id)
@@ -406,7 +385,7 @@ class AlbumController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
         $upload->album_id = $album_id;
         $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
@@ -431,7 +410,6 @@ class AlbumController extends Controller
             return back()->withWarning(__('Please set a cover image before making the design to published.'));
         }
 
-//        return $album->status_id .':'. $request->status;
         // check if the album status has changed
         if ($album->status_id != $request->status){
             // get ids of uploads for the images
@@ -444,7 +422,6 @@ class AlbumController extends Controller
         $album->name = $request->name;
         $album->date = date('Y-m-d', strtotime($request->date));
         $album->status_id = $request->status;
-        $album->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
         $album->save();
 
         // Album tags update
@@ -468,8 +445,6 @@ class AlbumController extends Controller
                 $albumSet = new AlbumSet();
                 $albumSet->album_id = $album->id;
                 $albumSet->name = $tag->name;
-                $albumSet->is_client_exclusive_access = False;
-                $albumSet->is_email_download_restrict = False;
                 $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
                 $albumSet->user_id = Auth::user()->id;
                 $albumSet->save();
@@ -507,41 +482,29 @@ class AlbumController extends Controller
         $album = Album::findOrFail($album_id);
 
         // TODO Update column password to album_password
-        $album->password = $request->album_password;
+        // check if is download first to then set password
+        if($request->is_download == "on"){
+            $album->password = $request->album_password;
+        }
 
         if ($request->album_password){
             // get ids of uploads for the images
-            $checkUpload = Upload::where('album_id',$album_id)->where('is_password', False)->first();
+            $checkUpload = Upload::where('album_id',$album_id)->where('is_restrict_to_specific_email', False)->first();
             if ($checkUpload){
                 $uploadsIds = Upload::where('album_id',$album_id)->select('id')->get()->toArray();
                 DB::table('uploads')
                     ->whereIn('id', $uploadsIds)
-                    ->update(array('is_password' => True));
+                    ->update(array('is_restrict_to_specific_email' => True));
             }
 
         }else{
-            $checkUpload = Upload::where('album_id',$album_id)->where('is_password', True)->first();
+            $checkUpload = Upload::where('album_id',$album_id)->where('is_restrict_to_specific_email', True)->first();
             if ($checkUpload){
                 $uploadsIds = Upload::where('album_id',$album_id)->select('id')->get()->toArray();
                 DB::table('uploads')
                     ->whereIn('id', $uploadsIds)
-                    ->update(array('is_password' => False));
+                    ->update(array('is_restrict_to_specific_email' => False));
             }
-        }
-
-
-        if ($request->is_homepage_visible){
-            $album->is_homepage_visible = True;
-        }
-        else{
-            $album->is_homepage_visible = False;
-        }
-
-        if ($request->is_client_exclusive_access){
-            $album->is_client_exclusive_access = True;
-        }
-        else{
-            $album->is_client_exclusive_access = False;
         }
 
         // TODO Update db column from client_access_password to client_exclusive_access_password
@@ -761,15 +724,15 @@ class AlbumController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
         $upload->is_album_set_image = True;
 
         if ($album->password){
-            $upload->is_password = True;
+            $upload->is_restrict_to_specific_email = True;
         }else{
-            $upload->is_password = False;
+            $upload->is_restrict_to_specific_email = False;
         }
 
+        $upload->is_restrict_to_specific_email = False;
         $upload->album_id = $albumSet->album_id;
         $upload->album_set_id = $album_set_id;
         $upload->tag_id = $tag->id;
@@ -801,8 +764,9 @@ class AlbumController extends Controller
         $navbarValues = $this->getNavbarValues();
         $albumSet = AlbumSet::findOrFail($album_set_id);
         $albumSet = AlbumSet::where('id',$album_set_id)->with('album','status','album_images.upload')->first();
-
-        return view('admin.personal_album_set_show',compact('user','navbarValues','albumSet'));
+        // album restricted emails
+        $albumSetViewRestrictionEmails = AlbumSetViewRestrictionEmail::where('album_set_id',$album_set_id)->get();
+        return view('admin.personal_album_set_show',compact('user','navbarValues','albumSet','albumSetViewRestrictionEmails'));
     }
 
 
@@ -835,25 +799,10 @@ class AlbumController extends Controller
 
     public function clientProofStore(Request $request)
     {
-
         $album = new Album();
         $album->name = $request->name;
         $album->date = date('Y-m-d', strtotime($request->date));
 
-        if ($request->is_homepage_visible){
-            $album->is_homepage_visible = True;
-        }
-        else{
-            $album->is_homepage_visible = False;
-        }
-
-        if ($request->is_auto_expiry){
-            $album->is_auto_expiry = True;
-            $album->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
-        }
-        else{
-            $album->is_auto_expiry = False;
-        }
         if($request->is_project){
             $album->is_project = True;
             $album->project_id = $request->project;
@@ -872,10 +821,13 @@ class AlbumController extends Controller
         }else{
             $album->is_design = False;
         }
-        // Not sure why this was here
-//        $album->thumbnail_size_id = "6fdf4858-01ce-43ff-bbe6-827f09fa1cef";
-        $album->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
+        /// download
+        // TODO download pin is for whole album
+        // TODO check limit of gallery downloads, should have a max by default
+        // TODO remove restrict download for photo sets
 
+
+        $album->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
         $album->cover_design_id = "5e664dd9-8fe4-4f08-82de-80b0f41c592b";
         $album->scheme_id = "5e664dd9-8fe4-4f08-82de-80b0f41c592b";
         $album->color_id = "cb14e177-d992-4151-8200-6d2c9992f581";
@@ -885,10 +837,8 @@ class AlbumController extends Controller
 
         $album->views = 0;
         $album->is_download = False;
-        $album->download_restriction_limit = 0;
-        $album->is_client_exclusive_access = False;
-//        $album->password = $this->generatePassword();
-//        $album->client_access_password = $this->generatePassword();
+        $album->download_restriction_limit = 15;
+        $album->password = $this->generatePassword();
         $album->album_type_id = "ca64a5e0-d39b-4f2c-a136-9c523d935ea4";
         $album->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $album->user_id = Auth::user()->id;
@@ -916,8 +866,6 @@ class AlbumController extends Controller
         $albumSet = new AlbumSet();
         $albumSet->album_id = $album->id;
         $albumSet->name = "Highlights";
-        $albumSet->is_client_exclusive_access = False;
-        $albumSet->is_email_download_restrict = False;
         $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $albumSet->user_id = Auth::user()->id;
         $albumSet->save();
@@ -960,7 +908,7 @@ class AlbumController extends Controller
         // Album & Image status
         $albumStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
         // Get album
-        $album = Album::with('user','status','cover_image','album_download_restriction_emails','expenses.expense_type')->where('id',$album_id)->first();
+        $album = Album::with('user','status','cover_image','album_view_restriction_emails','expenses.expense_type')->where('id',$album_id)->first();
         // Get all albums for to do dropdown
         $albums = Album::with('user','status')->get();
 
@@ -982,9 +930,9 @@ class AlbumController extends Controller
         // album contacts
         $albumContacts = AlbumContact::where('album_id',$album_id)->get();
         // album restricted emails
-        $albumDownloadRestrictionEmails = AlbumDownloadRestrictionEmail::where('album_id',$album_id)->get();
+        $albumViewRestrictionEmails = AlbumViewRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.client_proof_show',compact('albumContacts','contacts','album','user','albumSets','tags','albumTags','albumStatuses','albumDownloadRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
+        return view('admin.client_proof_show',compact('albumContacts','contacts','album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function clientProofDelete($album_id)
@@ -1019,7 +967,6 @@ class AlbumController extends Controller
         $album->name = $request->name;
         $album->date = date('Y-m-d', strtotime($request->date));
         $album->status_id = $request->status;
-        $album->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
         $album->save();
 
         // Album tags update
@@ -1094,43 +1041,6 @@ class AlbumController extends Controller
         $album->save();
 
         return back()->withSuccess('Client proof design updated!');
-    }
-
-    public function clientProofUpdatePrivacy(Request $request, $album_id)
-    {
-
-        $album = Album::findOrFail($album_id);
-
-        // TODO Update column password to album_password
-        $album->password = $request->album_password;
-
-        if ($request->is_homepage_visible){
-            $album->is_homepage_visible = True;
-        }
-        else{
-            $album->is_homepage_visible = False;
-        }
-
-        if ($request->is_client_exclusive_access){
-            $album->is_client_exclusive_access = True;
-        }
-        else{
-            $album->is_client_exclusive_access = False;
-        }
-
-        // TODO Update db column from client_access_password to client_exclusive_access_password
-        $album->client_access_password = $request->client_exclusive_access_password;
-
-        if ($request->is_client_make_private){
-            $album->is_client_make_private = True;
-        }
-        else{
-            $album->is_client_make_private = False;
-        }
-
-        $album->save();
-
-        return back()->withSuccess('Album privacy updated!');
     }
 
     public function clientProofCoverImageUpload(Request $request,$album_id)
@@ -1314,7 +1224,7 @@ class AlbumController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
         $upload->album_id = $album_id;
         $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
@@ -1335,25 +1245,43 @@ class AlbumController extends Controller
 
         $album = Album::findOrFail($album_id);
 
-        if ($request->is_download){
+
+        if ($request->is_download == "on"){
             $album->is_download = True;
         }
         else{
             $album->is_download = False;
         }
+        $album->password = $request->album_password;
         $album->download_pin = $request->download_pin;
-        if ($request->download_pin){
-            $album->is_download_pin = True;
-        }else{
-            $album->is_download_pin = False;
-        }
         $album->download_restriction_limit = $request->download_restriction_limit;
+        if ($request->is_album_set_exclusive == "on"){
+            $album->is_album_set_exclusive = True;
+            $checkUpload = Upload::where('album_id',$album_id)->where('is_restrict_to_specific_email', False)->first();
+            if ($checkUpload){
+                $uploadsIds = Upload::where('album_id',$album_id)->select('id')->get()->toArray();
+                DB::table('uploads')
+                    ->whereIn('id', $uploadsIds)
+                    ->update(array('is_restrict_to_specific_email' => True));
+            }
+        }else{
+            $album->is_album_set_exclusive = False;
+            $checkUpload = Upload::where('album_id',$album_id)->where('is_restrict_to_specific_email', True)->first();
+            if ($checkUpload){
+                $uploadsIds = Upload::where('album_id',$album_id)->select('id')->get()->toArray();
+                DB::table('uploads')
+                    ->whereIn('id', $uploadsIds)
+                    ->update(array('is_restrict_to_specific_email' => False));
+            }
+        }
 
         $album->save();
+
 
         return back()->withSuccess('Album download updated!');
     }
 
+    // TODO use for album set email exclusivity
     public function clientProofSetStatus ($album_set_id) {
         // Remove appended %7D
         $remove = '%7D' ;
@@ -1379,31 +1307,6 @@ class AlbumController extends Controller
 
     }
 
-    public function clientProofSetDownloadStatus ($album_set_id) {
-        // Remove appended %7D
-        $remove = '%7D' ;
-        $trimmed = str_replace($remove, '', $album_set_id) ;
-
-        // Get album set
-        $albumSet = AlbumSet::where('id', $trimmed)->first();
-
-        // Update status
-        if($albumSet->is_email_download_restrict == 0){
-            // Album set not client only
-            $albumSet->is_email_download_restrict = True;
-        } elseif($albumSet->is_email_download_restrict == 1){
-            // Album set client only
-            $albumSet->is_email_download_restrict = False;
-        }
-        else{
-
-        }
-        $albumSet->save();
-
-        echo 'Album set client download successfully changed!';
-
-    }
-
     public function generateClientProofPassword ($album_id) {
         $password = $this->generatePassword();
         return $password;
@@ -1414,32 +1317,59 @@ class AlbumController extends Controller
         return $pin;
     }
 
-    public function clientProofDownloadRestrictionEmail ($album_id,$email) {
+    public function clientProofViewRestrictionEmail ($album_id,$email) {
         // Remove appended %7D
         $remove = '%7D' ;
         $trimmed = str_replace($remove, '', $album_id) ;
 
-        // Update album set is_email_download_restrict to true
         $album = Album::where('id', $trimmed)->first();
-        $album->is_email_download_restrict = True;
-        $album->save();
 
-        $albumDownloadRestrictionEmail = new AlbumDownloadRestrictionEmail();
-        $albumDownloadRestrictionEmail->album_id = $trimmed;
-        $albumDownloadRestrictionEmail->email = $email;
-        $albumDownloadRestrictionEmail->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $albumDownloadRestrictionEmail->user_id = Auth::user()->id;
-        $albumDownloadRestrictionEmail->save();
-        echo 'Client proof restricted to '.$email;
+        // TODO check if already exists
+        $albumViewRestrictionEmail = AlbumViewRestrictionEmail::where('album_id',$album->id)->where('email',$email)->first();
+        if($albumViewRestrictionEmail){
+            if($albumViewRestrictionEmail->expiry<date("Y-m-d")){
+                // expired
+                $albumViewRestrictionEmail->expiry = date('Y-m-d', strtotime(date("Y-m-d") . "+7 day") );
+                $albumViewRestrictionEmail->save();
+                echo 'Client proof '.$album->name.' for '.$email.' has been extended by a week.';
+            }else{
+                echo 'Client proof '.$album->name.' already has '.$email.' as a restriction';
+            }
+
+        }else{
+            $albumViewRestrictionEmail = new AlbumViewRestrictionEmail();
+            $albumViewRestrictionEmail->album_id = $album->id;
+            $albumViewRestrictionEmail->expiry = date('Y-m-d', strtotime(date("Y-m-d") . "+1 months") );
+            $albumViewRestrictionEmail->email = $email;
+            $albumViewRestrictionEmail->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $albumViewRestrictionEmail->user_id = Auth::user()->id;
+            $albumViewRestrictionEmail->save();
+            echo 'Client proof '.$album->name.' restricted to '.$email;
+        }
+
+
     }
 
-    public function clientProofDownloadRestrictionEmailDelete($album_download_restriction_id)
+    public function clientProofViewRestrictionEmailDelete($album_download_restriction_id)
     {
 
-        $albumDownloadRestrictionEmail = AlbumDownloadRestrictionEmail::findOrFail($album_download_restriction_id);
-        $albumDownloadRestrictionEmail->delete();
+        $albumViewRestrictionEmail = AlbumViewRestrictionEmail::findOrFail($album_download_restriction_id);
+        $albumViewRestrictionEmail->delete();
 
-        return back()->withSuccess(__('Client proof download restriction email successfully deleted.'));
+        return back()->withSuccess(__('Client proof view restriction email successfully deleted.'));
+    }
+
+    public function clientProofSetStore(Request $request, $album_id)
+    {
+
+        $albumSet = new AlbumSet();
+        $albumSet->album_id = $album_id;
+        $albumSet->name = $request->name;
+        $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $albumSet->user_id = Auth::user()->id;
+        $albumSet->save();
+
+        return back()->withSuccess(__('Album set successfully saved.'));
     }
 
     public function clientProofSetShow($album_set_id)
@@ -1451,23 +1381,73 @@ class AlbumController extends Controller
         $navbarValues = $this->getNavbarValues();
         $albumSet = AlbumSet::findOrFail($album_set_id);
         $albumSet = AlbumSet::where('id',$album_set_id)->with('album','status','album_images.upload')->first();
+        // album restricted emails
+        $albumSetViewRestrictionEmails = AlbumSetViewRestrictionEmail::where('album_set_id',$album_set_id)->get();
+        return view('admin.client_proof_set_show',compact('user','navbarValues','albumSet','albumSetViewRestrictionEmails'));
 
-        return view('admin.client_proof_set_show',compact('user','navbarValues','albumSet'));
     }
 
-    public function clientProofSetStore(Request $request, $album_id)
+    public function clientProofSetViewRestrictionEmail ($album_set_id,$email) {
+        // Remove appended %7D
+        $remove = '%7D' ;
+        $trimmed = str_replace($remove, '', $album_set_id) ;
+
+        $albumSet = AlbumSet::where('id', $trimmed)->first();
+
+        // TODO check if already exists
+        $albumSetViewRestrictionEmail = AlbumSetViewRestrictionEmail::where('album_set_id',$albumSet->id)->where('email',$email)->first();
+        if($albumSetViewRestrictionEmail){
+            if($albumSetViewRestrictionEmail->expiry<date("Y-m-d")){
+                // expired
+                $albumSetViewRestrictionEmail->expiry = date('Y-m-d', strtotime(date("Y-m-d") . "+7 day") );
+                $albumSetViewRestrictionEmail->save();
+                echo 'Client proof '.$albumSet->name.' for '.$email.' has been extended by a week.';
+            }else{
+                echo 'Client proof '.$albumSet->name.' already has '.$email.' as a restriction';
+            }
+
+        }else{
+            $albumSetViewRestrictionEmail = new AlbumSetViewRestrictionEmail();
+            $albumSetViewRestrictionEmail->album_set_id = $albumSet->id;
+            $albumSetViewRestrictionEmail->expiry = date('Y-m-d', strtotime(date("Y-m-d") . "+1 months") );
+            $albumSetViewRestrictionEmail->email = $email;
+            $albumSetViewRestrictionEmail->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $albumSetViewRestrictionEmail->user_id = Auth::user()->id;
+            $albumSetViewRestrictionEmail->save();
+
+            // check if email is part of albumViewRestrictionEmail
+            $albumViewRestrictionEmail = AlbumViewRestrictionEmail::where('album_id',$albumSet->album_id)->where('email',$email)->first();
+            if($albumViewRestrictionEmail){
+
+                // if expired
+                if($albumViewRestrictionEmail->expiry<date("Y-m-d")){
+                    // expired
+                    $albumViewRestrictionEmail->expiry = date('Y-m-d', strtotime(date("Y-m-d") . "+7 day") );
+                    $albumViewRestrictionEmail->save();
+                    echo 'Client proof '.$albumSet->name.' for '.$email.' has been extended by a week.';
+                }
+
+            }else{
+                $albumViewRestrictionEmail = new AlbumViewRestrictionEmail();
+                $albumViewRestrictionEmail->album_id = $albumSet->album_id;
+                $albumViewRestrictionEmail->expiry = date('Y-m-d', strtotime(date("Y-m-d") . "+1 months") );
+                $albumViewRestrictionEmail->email = $email;
+                $albumViewRestrictionEmail->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $albumViewRestrictionEmail->user_id = Auth::user()->id;
+                $albumViewRestrictionEmail->save();
+            }
+
+            echo 'Client proof '.$albumSet->name.' restricted to '.$email;
+        }
+    }
+
+    public function clientProofSetViewRestrictionEmailDelete($album_download_restriction_id)
     {
 
-        $albumSet = new AlbumSet();
-        $albumSet->album_id = $album_id;
-        $albumSet->name = $request->name;
-        $albumSet->is_client_exclusive_access = False;
-        $albumSet->is_email_download_restrict = False;
-        $albumSet->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $albumSet->user_id = Auth::user()->id;
-        $albumSet->save();
+        $albumSetViewRestrictionEmail = AlbumSetViewRestrictionEmail::findOrFail($album_download_restriction_id);
+        $albumSetViewRestrictionEmail->delete();
 
-        return back()->withSuccess(__('Album set successfully saved.'));
+        return back()->withSuccess(__('Client proof set view restriction email successfully deleted.'));
     }
 
     public function clientProofSetImageUpload(Request $request,$album_set_id)
@@ -1651,7 +1631,7 @@ class AlbumController extends Controller
         $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
-        $upload->is_client_exclusive_access = False;
+        $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = True;
         $upload->album_set_id = $album_set_id;
         $upload->upload_type_id = "b3399a38-b355-4235-8f93-36baf410eef2";
