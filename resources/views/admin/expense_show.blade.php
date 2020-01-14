@@ -37,7 +37,6 @@
         <div class="col-lg-4">
             <div class="title-action">
                 <a href="{{route('admin.expense.edit',$expense->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
-                <a href="{{route('admin.transaction.create',$expense->id)}}" class="btn btn-danger btn-outline"><i class="fa fa-dollar"></i> Make Payment </a>
             </div>
         </div>
     </div>
@@ -166,12 +165,6 @@
 {{--                                    </address>--}}
 {{--                                @endif--}}
                         </span>
-                        <div class="m-t-sm">
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-mail-forward"></i> Send</a>
-                                <a href="#" class="btn btn-danger btn-sm"> Cancel</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
 

@@ -594,14 +594,14 @@ class ExpenseController extends Controller
         $transaction->save();
 
         // update expense paid
-        $expensePaid = Expense::where('id',$request->expense)->first();
+        $expensePaid = Expense::where('id',$transaction->expense_id)->first();
         $expensePaid->paid = doubleval($expensePaid->paid)+doubleval($request->amount);
         $expensePaid->save();
 
-        $account = Account::where('id',$request->account)->first();
+        $account = Account::where('id',$transaction->account_id)->first();
 
         // update transaction
-        $transaction = Transaction::findOrFail($transaction->id);
+        $transaction = Transaction::findOrFail($transaction_id);
         $transaction->initial_amount = $account->balance;
         $transaction->subsequent_amount = doubleval($account->balance)-doubleval($request->amount);
         $transaction->save();

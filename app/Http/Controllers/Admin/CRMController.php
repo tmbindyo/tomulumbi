@@ -1303,7 +1303,8 @@ class CRMController extends Controller
         $contacts = Contact::with('organization')->get();
 
         // Get quotes
-        $quote = Quote::with('user','status','contact','campaign','deal.contact.organization','deal.organization','quote_items','payments.account','payments.status')->withCount('quote_items')->where('id',$quote_id)->first();
+        $quote = Quote::with('user','status','campaign','deal.contact.organization','deal.organization','quote_items','payments.account','payments.status')->withCount('quote_items')->where('id',$quote_id)->first();
+        return $quote;
         // Get contact type
         $payments = Payment::with('user','status','refunds.account','asset_action','loan','order','quote')->where('quote_id',$quote->id)->get();
 

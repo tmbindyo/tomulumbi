@@ -31,10 +31,6 @@ class Quote extends Model
 
 
     // Parents
-    public function contact()
-    {
-        return $this->belongsTo('App\Contact');
-    }
     public function campaign()
     {
         return $this->belongsTo('App\Campaign');
