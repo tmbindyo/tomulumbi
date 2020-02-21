@@ -1,6 +1,6 @@
 @extends('landing.store.layouts.app')
 
-@section('title', $product->name)
+@section('title', 'Product '.$product->name)
 
 @section('content')
 

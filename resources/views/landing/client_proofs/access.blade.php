@@ -8,6 +8,8 @@
 
     <title>tomulumbi | {{$album->name}}</title>
 
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
+
     <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
 

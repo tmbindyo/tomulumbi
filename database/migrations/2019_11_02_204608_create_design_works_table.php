@@ -20,8 +20,8 @@ class CreateDesignWorksTable extends Migration
             $table->text('description');
             $table->integer('views');
 
-            $table->text('upload_id')->nullable();
-            $table->text('design_id');
+            $table->uuid('upload_id')->nullable();
+            $table->uuid('design_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

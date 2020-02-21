@@ -50,7 +50,6 @@ Route::get('/design/work/{design_work_id}', 'Landing\DesignController@designWork
 Route::get('/design/{design_id}/gallery', 'Landing\DesignController@designGallery')->name('design.gallery');
 
 
-
 // Journal
 Route::get('/journals', 'Landing\JournalController@journals')->name('journals');
 Route::get('/journal/show/{journal_id}', 'Landing\JournalController@journalShow')->name('journal.show');
@@ -60,7 +59,6 @@ Route::get('/journal/gallery/{journal_id}', 'Landing\JournalController@journalGa
 // Projects
 Route::get('/projects', 'Landing\ProjectController@projects')->name('projects');
 Route::get('/project/show/{project_id}', 'Landing\ProjectController@projectShow')->name('project.show');
-
 
 
 // Contact
@@ -82,3 +80,17 @@ Route::get('/subtract/cart/item/quantity/{item_id}', 'Landing\StoreController@su
 Route::get('/add/cart/item/quantity/{item_id}', 'Landing\StoreController@addCartItemQuantity')->name('add.cart.item.quantity');
 Route::get('/remove/item/{item_id}', 'Landing\StoreController@removeItem')->name('remove.item');
 Route::get('/clear/cart', 'Landing\StoreController@clearCart')->name('clear.cart');
+
+
+// Tudeme
+Route::get('/tudeme/about', 'Landing\TudemeController@about')->name('tudeme.about');
+Route::get('/tudeme/blog', 'Landing\TudemeController@blog')->name('tudeme.blog');
+Route::get('/tudeme/categories', 'Landing\TudemeController@categories')->name('tudeme.categories');
+Route::get('/tudeme/contact', 'Landing\TudemeController@contact')->name('tudeme.contact');
+Route::get('/tudeme', 'Landing\TudemeController@index')->name('tudeme');
+Route::get('/tudeme/recipe', 'Landing\TudemeController@recipe')->name('tudeme.recipe');
+
+
+// Projects
+Route::get('/letters', 'Landing\LetterController@letters')->name('letters');
+Route::get('/letter/show/{letter_id}', 'Landing\LetterController@letterShow')->name('letter.show');

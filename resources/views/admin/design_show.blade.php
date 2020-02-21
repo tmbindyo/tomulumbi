@@ -201,26 +201,22 @@
                                                         </ul>
                                                     </div>
                                                 @endif
-                                                <div class="col-md-8">
-                                                    <div class="row">
-                                                        <div class="">
-                                                            <div class="has-success">
-                                                                <input type="text" placeholder="Set Name" id="name" name="name" value="{{$work->name}}" required="required" class="form-control col-md-7 col-xs-12 input-lg">
-                                                                <i>Give your design work a name</i>
-                                                            </div>
+                                                <div class="col-md-4">
+                                                    <div class="">
+                                                        <div class="has-success">
+                                                            <input type="text" placeholder="Set Name" id="name" name="name" value="{{$work->name}}" required="required" class="form-control col-md-7 col-xs-12 input-lg">
+                                                            <i>Give your design work a name</i>
                                                         </div>
                                                     </div>
                                                     <br>
-                                                    <div class="row">
-                                                        <div class="">
-                                                            <div class="has-success">
-                                                                <textarea class="form-control col-md-7 col-xs-12 input-lg" id="description" name="description" rows="5">{{$work->description}}</textarea>
-                                                                <i>Give your design work a description</i>
-                                                            </div>
+                                                    <div class="">
+                                                        <div class="has-success">
+                                                            <textarea class="form-control col-md-7 col-xs-12 input-lg" id="description" name="description" rows="5">{{$work->description}}</textarea>
+                                                            <i>Give your design work a description</i>
                                                         </div>
                                                     </div>
                                                     <br>
-                                                    <div class="row">
+                                                    <div class="">
                                                         <div class="input-group">
                                                             <input type="file" name="design_work" class="form-control col-md-12 col-xs-12 input-lg">
                                                         </div>
@@ -235,8 +231,8 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                            <div class="col-md-4">
-                                                <img src="{{ asset('') }}{{ $work->upload->pixels500 }}">
+                                            <div class="col-md-8">
+                                                <img class="img-fluid" src="{{ asset('') }}{{ $work->upload->pixels500 }}">
                                             </div>
                                         </div>
 

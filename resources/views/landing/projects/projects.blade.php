@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('themes/project/connect/') }}/css/style.min.css">
     <link rel="stylesheet" href="{{ asset('themes/project/connect/') }}/css/custom.css">
 
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
+
     <!--[if lt IE 9]>
     <script src="{{ asset('themes/project/connect/') }}/js/vendor/html5shiv.min.js"></script>
     <script src="{{ asset('themes/project/connect/') }}/js/vendor/respond.min.js"></script>
@@ -25,14 +27,14 @@
 
 <header role="banner" class="probootstrap-header">
     <div class="container">
-        <a href="{{route('welcome')}}" class="probootstrap-logo">tomulumbi</a>
+        <a href="{{route('tomulumbi')}}" class="probootstrap-logo">tomulumbi</a>
 
         <a href="#" class="probootstrap-burger-menu visible-xs" ><i>Menu</i></a>
         <div class="mobile-menu-overlay"></div>
 
         <nav role="navigation" class="probootstrap-nav hidden-xs">
             <ul class="probootstrap-main-nav">
-                <li class="active"><a href="{{route('welcome')}}">Home</a></li>
+                <li class="active"><a href="{{route('tomulumbi')}}">Home</a></li>
             </ul>
             <div class="extra-text visible-xs">
                 <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>

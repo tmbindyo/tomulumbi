@@ -236,6 +236,7 @@
         var date_today = mm + '/' + dd + '/' + yyyy;
         var time_curr = h + ':' + m;
         console.log(time_curr);
+        document.getElementById("date").value = date_today;
         document.getElementById("expiry_date").value = date_today;
 
         // Set time

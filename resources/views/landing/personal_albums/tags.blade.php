@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>tomulumbi | tag view</title>
+    <title>tomulumbi | tags</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300i,400,700" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('themes/personal_albums/photon') }}/fonts/icomoon/style.css">
@@ -55,7 +57,7 @@
                     <nav class="site-navigation position-relative text-right text-lg-center" role="navigation">
 
                         <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
-                            <li class="active"><a href="{{route('welcome')}}">Home</a></li>
+                            <li class="active"><a href="{{route('tomulumbi')}}">Home</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -64,19 +66,19 @@
                     <div class="d-none d-xl-inline-block">
                         <ul class="site-menu js-clone-nav ml-auto list-unstyled d-flex text-right mb-0" data-class="social">
                             <li>
-                                <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+                                <a href="https://facebook.com/tomulumbi" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
                             </li>
                             <li>
-                                <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
+                                <a href="https://twitter.com/tomulumbi" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
                             </li>
                             <li>
-                                <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+                                <a href="https://www.instagram.com/tomulumbi" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
                             </li>
-                            <li>
+                            {{--  <li>
                                 <a href="#" class="pl-3 pr-3"><span class="icon-youtube-play"></span></a>
-                            </li>
+                            </li>  --}}
                             <li>
-                                <a href="#" class="pl-3 pr-3"><span class="icon-behance"></span></a>
+                                <a href="https://www.behance.net/tomulumbi" class="pl-3 pr-3"><span class="icon-behance"></span></a>
                             </li>
                         </ul>
                     </div>

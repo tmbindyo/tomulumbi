@@ -12,7 +12,7 @@
     <title>tomulumbi | {{$design->name}}</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="{{ asset('themes/design/studio') }}/img/core-img/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{ asset('themes/design/studio') }}/css/core-style.css">
@@ -49,7 +49,7 @@
                 <div class="main-menu h-100">
                     <nav class="navbar h-100 navbar-expand-lg">
                         <!-- Logo Area  -->
-                        <a class="navbar-brand" href="{{route('designs')}}"><img src="{{ asset('themes/design/studio') }}/img/core-img/logo.png" alt="Logo"></a>
+                        <a class="navbar-brand" href="{{route('designs')}}"><img src="{{ asset('') }}/tomulumbi_logo.ico" alt="tomulumbi"></a>
 
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studioMenu" aria-controls="studioMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
 
@@ -57,7 +57,7 @@
                             <!-- Menu Area Start  -->
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('design.show',$design->id)}}"><span class="fa fa-2x fa-arrow-left"> Back to {{$design->name}}</span></a>
+                                    <a class="nav-link" href="{{route('design.show',$design->id)}}"><span class="fa fa-1x fa-arrow-left"> Back to {{$design->name}}</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -76,7 +76,7 @@
         <div class="carousel-inner h-100">
 
             @foreach($designGallery as $image)
-                <div class="carousel-item h-100 bg-img @if($loop->index == 0) active @endif" style="background-image: url({{ asset('') }}{{ $image->upload->pixels1500 }});">
+                <div class="carousel-item h-100 bg-img @if($loop->index == 0) active @endif" style="background-image: url({{ asset('') }}{{ $image->upload->pixels2500 }});">
                     <div class="carousel-content h-100">
                         <div class="slide-text">
                             <span>{{$loop->iteration}}.</span>

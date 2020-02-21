@@ -21,7 +21,7 @@
     <meta name="twitter:card" content="" />
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="{{ asset('themes/design/bato') }}/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
@@ -56,7 +56,7 @@
         <div class="colorlib-table-cell js-fullheight">
 
             <div class="row  text-center">
-                <h3><a href="{{route('welcome')}}">Home</a></h3>
+                <h3><a href="{{route('tomulumbi')}}">Home</a></h3>
                 <h3><a class="active" href="{{route('designs')}}">Designs</a></h3>
                 <div class="col-md-12">
                     <ul>
@@ -122,7 +122,6 @@
             <div class="row">
                 @foreach($design->design_works as $designWork)
                     @if($loop->iteration % 2 == 0)
-
                         <div class="col-md-12">
                             <div class="work-entry-flex animate-box js-fullheight">
                                 <div class="col-three-forth js-fullheight">

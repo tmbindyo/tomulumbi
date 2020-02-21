@@ -25,6 +25,7 @@ use App\Kit;
 use App\Order;
 use App\Organization;
 use App\Product;
+use App\Tudeme;
 
 class ToDoController extends Controller
 {
@@ -43,13 +44,13 @@ class ToDoController extends Controller
         // Get to do status count
         $toDoStatusCount = $this->toDoStatusCount();
         // Pending to dos
-        $pendingToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
+        $pendingToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
         // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
+        $inProgressToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
         // Completed to dos
-        $completedToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
+        $completedToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
         // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
+        $overdueToDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
         // Albums
         $albums = Album::get();
         // Designs
@@ -80,11 +81,13 @@ class ToDoController extends Controller
         $kits = Kit::get();
         // Asset action
         $assetActions = AssetAction::get();
+        // Asset action
+        $tudeme = Tudeme::get();
 
 
         // User
         $user = $this->getAdmin();
-        return view('admin.to_dos',compact('journalSeries','assetActions','assets','kits','products','orders','emails','contacts','organizations','deals','campaigns','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects','navbarValues','toDoStatusCount'));
+        return view('admin.to_dos',compact('journalSeries','tudeme','assetActions','assets','kits','products','orders','emails','contacts','organizations','deals','campaigns','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','albums','designs','journals','projects','navbarValues','toDoStatusCount'));
     }
 
     public function toDoStore(Request $request)
@@ -228,6 +231,12 @@ class ToDoController extends Controller
         }else{
             $todo->is_asset_action = False;
         }
+        if($request->is_tudeme){
+            $todo->is_tudeme = True;
+            $todo->tudeme_id = $request->tudeme;
+        }else{
+            $todo->is_tudeme = False;
+        }
 
 
         $todo->status_id = "f3df38e3-c854-4a06-be26-43dff410a3bc";
@@ -340,6 +349,12 @@ class ToDoController extends Controller
             $todo->asset_action_id = $request->asset_action;
         }else{
             $todo->is_asset_action = False;
+        }
+        if($request->is_tudeme){
+            $todo->is_tudeme = True;
+            $todo->tudeme_id = $request->tudeme;
+        }else{
+            $todo->is_tudeme = False;
         }
 
         $todo->save();

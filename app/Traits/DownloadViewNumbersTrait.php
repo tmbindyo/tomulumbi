@@ -22,6 +22,7 @@ use App\Sale;
 use Auth;
 use App\Loan;
 use App\Institution;
+use App\TudemeView;
 use Illuminate\Support\Facades\DB;
 
 trait DownloadViewNumbersTrait
@@ -225,6 +226,63 @@ trait DownloadViewNumbersTrait
         }
 
         $galleryViews = JournalView::where('journal_id',$journal_id)->where('is_journal_gallery',True)->where(DB::raw('YEAR(created_at)'), '=', $year)->select('id', 'created_at')
+            ->get()
+            ->groupBy(function($date) {
+                //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+                return Carbon::parse($date->created_at)->format('m'); // grouping by months
+            });
+
+        $galleryViewmCount = [];
+        $galleryViewArr = [];
+
+        foreach ($galleryViews as $key => $value) {
+            $galleryViewmCount[(int)$key] = count($value);
+        }
+
+        for($i = 1; $i <= 12; $i++){
+            if(!empty($galleryViewmCount[$i])){
+                $galleryViewArr[$i] = $galleryViewmCount[$i];
+            }else{
+                $galleryViewArr[$i] = 0;
+            }
+        }
+
+
+        $viewValues = array(
+            "views"=>$viewArr,
+            "galleryViews"=>$galleryViewArr
+        );
+
+        return $viewValues;
+    }
+
+    public function getTudemeViews($tudeme_id)
+    {
+        // get year
+        $year = date('Y');
+        $views = TudemeView::where('tudeme_id',$tudeme_id)->where(DB::raw('YEAR(created_at)'), '=', $year)->select('id', 'created_at')
+            ->get()
+            ->groupBy(function($date) {
+                //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+                return Carbon::parse($date->created_at)->format('m'); // grouping by months
+            });
+
+        $viewmcount = [];
+        $viewArr = [];
+
+        foreach ($views as $key => $value) {
+            $viewmcount[(int)$key] = count($value);
+        }
+
+        for($i = 1; $i <= 12; $i++){
+            if(!empty($viewmcount[$i])){
+                $viewArr[$i] = $viewmcount[$i];
+            }else{
+                $viewArr[$i] = 0;
+            }
+        }
+
+        $galleryViews = TudemeView::where('tudeme_id',$tudeme_id)->where('is_tudeme_gallery',True)->where(DB::raw('YEAR(created_at)'), '=', $year)->select('id', 'created_at')
             ->get()
             ->groupBy(function($date) {
                 //return Carbon::parse($date->created_at)->format('Y'); // grouping by years

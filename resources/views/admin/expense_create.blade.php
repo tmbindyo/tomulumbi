@@ -628,27 +628,6 @@
 </script>
 
 
-{{--  Get due date to populate   --}}
-<script>
-    $(document).ready(function() {
-        // Set date
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth();
-        var yyyy = today.getFullYear();
-        if (dd < 10){
-            dd = '0'+dd;
-        }
-        if (mm < 10){
-            mm = '0'+mm;
-        }
-        var date_today = mm + '/' + dd + '/' + yyyy;
-        document.getElementById("due_date").value = date_today;
-        document.getElementById("date").value = date_today;
-    });
-
-</script>
-
 <script>
     var subTotal = [];
     var adjustedValue;

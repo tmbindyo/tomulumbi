@@ -46,6 +46,7 @@ use App\Tag;
 use App\Title;
 use App\Transaction;
 use App\Transfer;
+use App\Tudeme;
 use App\Type;
 use App\Typography;
 
@@ -126,8 +127,12 @@ trait NavbarTrait
         $designsCount = Design::count();
         // Get projects count
         $projectsCount = Project::count();
-        // Get jounrals count
+        // Get fournal count
         $journalsCount = Journal::count();
+        // Get tudeme count
+        $tudemeCount = Tudeme::count();
+        // Get letter count
+        $letterCount = Journal::count();
 
 
         // store
@@ -200,6 +205,8 @@ trait NavbarTrait
             "designsCount"=>$designsCount,
             "projectsCount"=>$projectsCount,
             "journalsCount"=>$journalsCount,
+            "tudemeCount"=>$tudemeCount,
+            "letterCount"=>$letterCount,
 
             "ordersCount"=>$ordersCount,
             "productsCount"=>$productsCount,

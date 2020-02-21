@@ -21,7 +21,7 @@
     <meta name="twitter:card" content="" />
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
@@ -57,7 +57,7 @@
         <div class="colorlib-table-cell js-fullheight">
 
             <div class="row  text-center">
-                <h3><a href="{{route('welcome')}}">Home</a></h3>
+                <h3><a href="{{route('tomulumbi')}}">Home</a></h3>
                 <div class="col-md-12">
                     <ul>
                         <li></li>
@@ -88,7 +88,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="colorlib-navbar-brand">
-                        <a class="colorlib-logo" href="{{route('welcome')}}">tomulumbi</a>
+                        <a class="colorlib-logo" href="{{route('tomulumbi')}}">tomulumbi</a>
                     </div>
                     <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
                 </div>
@@ -115,7 +115,7 @@
                             <div class="desc">
                                 <span class="meta">{{$journal->date}}</span>
                                 <h2><a href="{{route('journal.show',$journal->id)}}">{{$journal->name}}</a></h2>
-                                <p>{{$journal->description}}</p>
+                                <p>{{str_limit($journal->description,100)}}</p>
                             </div>
                         </div>
                     </div>

@@ -249,10 +249,10 @@ class ProjectController extends Controller
                 $projectRequestContacts[]['id'] = $projectDesignContact;
 
                 // Check if project contact exists
-                $projectContact = DesignContact::where('project_id',$project->id)->where('contact_id',$projectDesignContact)->first();
+                $projectContact = ProjectContact::where('project_id',$project->id)->where('contact_id',$projectDesignContact)->first();
 
                 if($projectContact === null) {
-                    $projectContact = new DesignContact();
+                    $projectContact = new ProjectContact();
                     $projectContact->project_id = $project->id;
                     $projectContact->contact_id = $projectDesignContact;
                     $projectContact->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
@@ -261,7 +261,7 @@ class ProjectController extends Controller
                 }
             }
 
-        $projectContactsIds = DesignContact::where('project_id',$project_id)->whereNotIn('contact_id',$projectRequestContacts)->select('id')->get()->toArray();
+        $projectContactsIds = ProjectContact::where('project_id',$project_id)->whereNotIn('contact_id',$projectRequestContacts)->select('id')->get()->toArray();
         DB::table('project_contacts')->whereIn('id', $projectContactsIds)->delete();
 
         }

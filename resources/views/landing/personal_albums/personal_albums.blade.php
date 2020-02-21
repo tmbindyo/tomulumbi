@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <title>tomulumbi | album view</title>
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
+    <title>tomulumbi | albums</title>
 
     <!-- Normalize -->
 
@@ -56,7 +56,7 @@
 
             <!-- logo -->
 
-            <h1> <a href="{{route('welcome')}}" title="tomulumbi"><img src="{{ asset('themes/personal_albums/pixca') }}/images/logo.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
+            <h1> <a href="{{route('tomulumbi')}}" title="tomulumbi"><img src="{{ asset('') }}/tomulumbi.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
 
             <!-- logo -->
 
@@ -71,7 +71,7 @@
                     <div class="cross"> <span class="linee linea1"></span> <span class="linee linea2"></span> <span class="linee linea3"></span> </div>
                     <div class="main-menu">
                         <ul>
-                            <li><a href="{{route('welcome')}}">Home</a></li>
+                            <li><a href="{{route('tomulumbi')}}">Home</a></li>
                             <li class="active"><a href="{{route('personal.albums')}}">Album View</a></li>
                             <li><a href="{{route('tags')}}">Tag View</a></li>
                         </ul>

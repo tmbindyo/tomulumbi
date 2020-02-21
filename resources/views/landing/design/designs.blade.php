@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>tomulumbi | designs</title>
-    <link rel="shortcut icon" href="{{ asset('themes/design/avana') }}/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
     <!-- style -->
     <link href="{{ asset('themes/design/avana') }}/css/style.css" rel="stylesheet" type="text/css">
@@ -37,14 +37,14 @@
     <div class="container">
         <!-- logo -->
         <h1>
-            <a href="{{route('welcome')}}" title="tomulumbi"><img src="{{ asset('themes/design/avana') }}/images/logo.png" title="tomulumbi" alt="tomulumbi"/></a>
+            <a href="{{route('tomulumbi')}}" title="tomulumbi"><img width="93px" src="{{ asset('') }}/tomulumbi.png" title="tomulumbi" alt="tomulumbi"/></a>
         </h1>
         <!-- logo -->
 
         <!-- nav -->
         <nav role="header-nav" class="navy">
             <ul>
-                <li class="nav-active"><a href="{{route('welcome')}}" title="Work">Home</a></li>
+                <li class="nav-active"><a href="{{route('tomulumbi')}}" title="Work">Home</a></li>
             </ul>
         </nav>
         <!-- nav -->

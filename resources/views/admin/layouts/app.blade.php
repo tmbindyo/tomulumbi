@@ -9,6 +9,8 @@
 
     <title>tomulumbi | @yield('title')</title>
 
+    <link rel="shortcut icon" href="{{ asset('') }}tomulumbi_logo.ico" type="image/x-icon">
+
     @yield('css')
 
 </head>

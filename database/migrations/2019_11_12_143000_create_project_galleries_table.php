@@ -16,8 +16,8 @@ class CreateProjectGalleriesTable extends Migration
         Schema::create('project_galleries', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->text('upload_id');
-            $table->text('project_id');
+            $table->uuid('upload_id');
+            $table->uuid('project_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

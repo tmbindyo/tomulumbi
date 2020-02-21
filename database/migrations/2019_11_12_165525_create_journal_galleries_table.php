@@ -16,8 +16,8 @@ class CreateJournalGalleriesTable extends Migration
         Schema::create('journal_galleries', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->text('upload_id');
-            $table->text('journal_id');
+            $table->uuid('upload_id');
+            $table->uuid('journal_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

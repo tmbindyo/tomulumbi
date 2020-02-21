@@ -22,7 +22,7 @@
     <meta name="twitter:card" content="" />
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
@@ -98,7 +98,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="colorlib-navbar-brand">
-                        <a class="colorlib-logo" href="{{route('welcome')}}">tomulumbi</a>
+                        <a class="colorlib-logo" href="{{route('tomulumbi')}}">tomulumbi</a>
                     </div>
                     <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
                 </div>
@@ -223,13 +223,35 @@
                         <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
+                        <h2 class="number">05/06</h2>
+                        <div class="display-t js-fullheight">
+                            <div class="display-tc js-fullheight">
+                                <div class="text-inner">
+                                    <div class="desc">
+                                        <span class="tag">Tudeme</span>
+                                        <h2>A little dable in food.</h2>
+                                        <p>I happen to love food, so on the off chance I cook and/or experiment, I shall write about it :)".</p>
+                                        <p><a href="{{route('tudeme')}}" class="btn-view">View Projects <i class="icon-arrow-right3"></i></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="hero-flex js-fullheight">
+                    <div class="col-three-forth">
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
+                    </div>
+                    <div class="col-one-forth js-fullheight">
                         <h2 class="number">06/06</h2>
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Store</span>
-                                        <h2>Discover New Things, maybe but some?</h2>
+                                        <h2>Discover New Things, maybe buy some?</h2>
                                         <p>Random things that I hope are worth you spending your money on, so please spend money.</p>
                                         <p><a href="{{route('store')}}" class="btn-view">View Store <i class="icon-arrow-right3"></i></a></p>
                                     </div>

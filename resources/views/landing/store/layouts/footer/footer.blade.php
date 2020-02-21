@@ -7,7 +7,7 @@
                 <div class="single_widget_area">
                     <!-- Logo -->
                     <div class="footer-logo mr-50">
-                        <a href="{{route('welcome')}}"><img src="{{ asset('themes/store/amado/') }}/img/core-img/logo2.png" alt=""></a>
+                        <a href="{{route('tomulumbi')}}"><img src="{{ asset('themes/store/amado/') }}/img/core-img/logo2.png" alt=""></a>
                     </div>
                     <!-- Copywrite Text -->
                     <p class="copywrite">

@@ -7,6 +7,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
+
     <!--[if lte IE 8]><script src="{{ asset('themes/client_proof/phantom') }}/assets/js/ie/html5shiv.js"></script><![endif]-->
     <link rel="stylesheet" href="{{ asset('themes/client_proof/phantom') }}/assets/css/main.css" />
     <!--[if lte IE 9]><link rel="stylesheet" href="{{ asset('themes/client_proof/phantom') }}/assets/css/ie9.css" /><![endif]-->
@@ -25,8 +27,8 @@
         <div class="inner">
 
             <!-- Logo -->
-            <a href="{{ route('welcome') }}" class="logo">
-                <span class="symbol"><img src="{{ route('welcome') }}" alt="" /></span><span class="title">tomulumbi</span>
+            <a href="{{ route('tomulumbi') }}" class="logo">
+                <span class="symbol"><img src="{{ asset('') }}/tomulumbi_logo.ico" alt="" /></span><span class="title">tomulumbi</span>
             </a>
 
             <!-- Nav -->

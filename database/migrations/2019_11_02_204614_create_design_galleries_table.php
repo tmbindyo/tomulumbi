@@ -18,9 +18,9 @@ class CreateDesignGalleriesTable extends Migration
 
             $table->boolean('is_design_work');
 
-            $table->text('upload_id');
-            $table->text('design_id');
-            $table->text('design_work_id')->nullable();
+            $table->uuid('upload_id');
+            $table->uuid('design_id');
+            $table->uuid('design_work_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

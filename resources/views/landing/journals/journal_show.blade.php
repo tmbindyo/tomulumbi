@@ -15,6 +15,8 @@
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
+
     <!-- CSS
   ================================================== -->
     <link rel="stylesheet" href="{{ asset('themes/journal/Infinity10') }}/css/base.css">
@@ -36,8 +38,7 @@
 
     <!-- favicons
      ================================================== -->
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+     <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
 </head>
 
@@ -62,7 +63,7 @@
         <h3>tomulumbi.</h3>
 
         <ul class="nav-list">
-            <li class="current"><a href="{{route('welcome')}}" title="">Home</a></li>
+            <li class="current"><a href="{{route('tomulumbi')}}" title="">Home</a></li>
             <li><a href="{{route('journals')}}" title="">Journals</a></li>
         </ul>
 

@@ -12,7 +12,7 @@
     <title>tomulumbi | @yield('title')</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="{{ asset('themes/store/amado/') }}/img/core-img/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{ asset('themes/store/amado/') }}/css/core-style.css">
@@ -36,7 +36,7 @@
     <div class="mobile-nav">
         <!-- Navbar Brand -->
         <div class="amado-navbar-brand">
-            <a href="{{route('welcome')}}"><img src="{{ asset('themes/store/amado/') }}/img/core-img/logo.png" alt=""></a>
+            <a href="{{route('tomulumbi')}}"><img src="{{ asset('themes/store/amado/') }}/img/core-img/logo.png" alt=""></a>
         </div>
         <!-- Navbar Toggler -->
         <div class="amado-navbar-toggler">

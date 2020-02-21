@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
     <title>tomulumbi | {{$project->name}}</title>
 
     <!-- Gallery Popup Plugin With jQuery - LC Lightbox -->
@@ -57,7 +57,7 @@
 
             <!-- logo -->
 
-            <h1> <a href="{{route('welcome')}}" title="Picxa"><img src="{{ asset('themes/personal_albums/pixca') }}/images/logo.png" alt="Picxa" title="Picxa"/></a> </h1>
+            <h1> <a href="{{route('tomulumbi')}}" title="tomulumbi"><img src="{{ asset('themes/personal_albums/pixca') }}/images/logo.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
 
             <!-- logo -->
 
@@ -75,7 +75,7 @@
                     <div class="cross"> <span class="linee linea1"></span> <span class="linee linea2"></span> <span class="linee linea3"></span> </div>
                     <div class="main-menu">
                         <ul>
-                            <li><a href="{{route('welcome')}}">Home</a></li>
+                            <li><a href="{{route('tomulumbi')}}">Home</a></li>
                             <li><a href="{{route('project.show',$project->id)}}">Back To Project</a></li>
                         </ul>
                     </div>
@@ -134,7 +134,7 @@
 
             <!-- logo -->
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('themes/personal_albums/pixca') }}/images/footer-logo.png" alt="Picxa" title="Picxa"/>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('themes/personal_albums/pixca') }}/images/footer-logo.png" alt="tomulumbi" title="tomulumbi"/>
                 <p class="copy-right">Copyright &copy; <script>document.write(new Date().getFullYear());</script></p>
             </div>
 
@@ -164,12 +164,10 @@
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
                 <ul class="social">
-                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-delicious" aria-hidden="true"></i></a></li>
+                    <li><a href="https://facebook.com/tomulumbi"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="https://twitter.com/tomulumbi"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.instagram.com/tomulumbi"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.behance.net/tomulumbi"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
                 </ul>
                 <p class="made-by">Made with by <i class="fa fa-heart" aria-hidden="true"></i> <a href="http://www.designstub.com/" target="_blank">Designstub</a>
                 <p>

@@ -14,6 +14,8 @@
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
 
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
+
     <style>
         .text-background {
             position: relative;

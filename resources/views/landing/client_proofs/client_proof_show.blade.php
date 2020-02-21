@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
     <title>tomulumbi | {{$album->name}}</title>
 
     <!-- Gallery Popup Plugin With jQuery - LC Lightbox -->
@@ -57,7 +57,7 @@
 
             <!-- logo -->
 
-            <h1> <a href="{{route('client.proofs')}}" title="Picxa"><img src="{{ asset('themes/personal_albums/pixca') }}/images/logo.png" alt="Picxa" title="Picxa"/></a> </h1>
+            <h1> <a href="{{route('client.proofs')}}" title="tomulumbi"><img src="src="{{ asset('') }}/tomulumbi.png"" alt="tomulumbi" title="tomulumbi"/></a> </h1>
 
             <!-- logo -->
 
@@ -75,7 +75,7 @@
                     <div class="cross"> <span class="linee linea1"></span> <span class="linee linea2"></span> <span class="linee linea3"></span> </div>
                     <div class="main-menu">
                         <ul>
-                            <li><a href="{{route('welcome')}}">Home</a></li>
+                            <li><a href="{{route('tomulumbi')}}">Home</a></li>
                             <li><a href="{{route('client.proofs')}}">Client Proof's</a></li>
                             @if($album->is_download == 1)
                                 @if($album->download_pin)
@@ -121,11 +121,11 @@
                                     <h2>{{$album->name}}</h2>
 {{--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
                                     <a class="elem"
-                                       href="{{ asset('') }}{{ $albumSetImage->upload->pixels500 }}"
+                                       href="{{ asset('') }}{{ $albumSetImage->upload->pixels1500 }}"
                                        title="View"
                                        data-lcl-txt="Description 1"
                                        data-lcl-author="tomulumbi"
-                                       data-lcl-thumb="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}">
+                                       data-lcl-thumb="{{ asset('') }}{{ $albumSetImage->upload->pixels700 }}">
                                         <span style="background-image: url({{ asset('') }}{{ $albumSetImage->upload->pixels1500 }});"></span>
                                     </a>
                                 </figcaption>
@@ -150,7 +150,7 @@
 
             <!-- logo -->
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img src="{{ asset('themes/personal_albums/pixca') }}/images/footer-logo.png" alt="Picxa" title="Picxa"/>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img width="93px" src="src="{{ asset('') }}/tomulumbi.png"" alt="tomulumbi" title="tomulumbi"/>
                 <p class="copy-right">Copyright &copy; <script>document.write(new Date().getFullYear());</script></p>
             </div>
 
@@ -180,7 +180,7 @@
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
                 <ul class="social">
-                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="https://twitter.com/tomulumbi"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                     <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
                     <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                     <li><a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></li>

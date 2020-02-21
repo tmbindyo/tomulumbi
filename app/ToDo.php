@@ -76,6 +76,10 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\Status');
     }
+    public function tudeme()
+    {
+        return $this->belongsTo('App\Tudeme');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');

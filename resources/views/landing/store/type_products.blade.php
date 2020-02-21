@@ -1,6 +1,6 @@
 @extends('landing.store.layouts.app')
 
-@section('title', 'Products')
+@section('title', 'Product Types')
 
 @section('content')
     <div class="shop_sidebar_area">

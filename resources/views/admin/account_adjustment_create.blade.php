@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', ' Transacti Create')
+@section('title', ' Transaction Create')
 
 @section('css')
 

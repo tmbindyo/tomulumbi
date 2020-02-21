@@ -10,7 +10,7 @@ use App\Order;
 use App\Product;
 use App\Project;
 use App\ToDo;
-
+use App\Tudeme;
 
 trait StatusCountTrait
 {
@@ -142,6 +142,25 @@ trait StatusCountTrait
             "previewJournals"=>$previewJournals,
             "hiddenJournals"=>$hiddenJournals,
             "publishedJournals"=>$publishedJournals
+        );
+
+        return $statusCountArray;
+
+    }
+
+    public function tudemeStatusCount()
+    {
+        // Get preview journals
+        $previewTudeme = Tudeme::where('status_id','cad5abf4-ed94-4184-8f7a-fe5084fb7d56')->count();
+        // Get hidden journals
+        $hiddenTudeme = Tudeme::where('status_id','389842b7-a010-40c1-85cf-4f5b5144ccea')->count();
+        // Get published journals
+        $publishedTudeme = Tudeme::where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->count();
+
+        $statusCountArray = array(
+            "previewTudeme"=>$previewTudeme,
+            "hiddenTudeme"=>$hiddenTudeme,
+            "publishedTudeme"=>$publishedTudeme
         );
 
         return $statusCountArray;

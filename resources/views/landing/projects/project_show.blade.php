@@ -32,8 +32,7 @@
 
     <!-- favicons
     ================================================== -->
-    <link rel="shortcut icon" href="{{ asset('themes/project/glint/') }}/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="{{ asset('themes/project/glint/') }}/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
 </head>
 
@@ -45,7 +44,7 @@
 
     <div class="header-logo">
         <a class="site-logo" href="{{route('projects')}}">
-            <img src="{{ asset('themes/project/glint/') }}/images/logo.png" alt="Homepage">
+            <img src="{{ asset('') }}/tomulumbi_logo.ico" alt="Homepage">
         </a>
     </div>
 
@@ -57,21 +56,21 @@
 {{--            <h3>Navigation</h3>--}}
 
             <ul class="header-nav__list">
-                <li class="current"><a class="smoothscroll"  href="{{route('welcome')}}" title="home">Home</a></li>
+                <li class="current"><a class="smoothscroll"  href="{{route('tomulumbi')}}" title="home">Home</a></li>
             </ul>
 
             <ul class="header-nav__social">
                 <li>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="https://twitter.com/tomulumbi"><i class="fa fa-twitter"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/tomulumbi"><i class="fa fa-instagram"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.behance.net/tomulumbi"><i class="fa fa-behance"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                    <a href="https://dribbble.com/tomulumbi"><i class="fa fa-dribbble"></i></a>
                 </li>
             </ul>
 
@@ -128,16 +127,16 @@
 
     <ul class="home-social">
         <li>
-            <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twiiter</span></a>
+            <a href="https://twitter.com/tomulumbi"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twiiter</span></a>
         </li>
         <li>
-            <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+            <a href="https://www.instagram.com/tomulumbi"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
         </li>
         <li>
-            <a href="#0"><i class="fa fa-behance" aria-hidden="true"></i><span>Behance</span></a>
+            <a href="https://www.behance.net/tomulumbi"><i class="fa fa-behance" aria-hidden="true"></i><span>Behance</span></a>
         </li>
         <li>
-            <a href="#0"><i class="fa fa-dribbble" aria-hidden="true"></i><span>Dribbble</span></a>
+            <a href="https://dribbble.com/tomulumbi"><i class="fa fa-dribbble" aria-hidden="true"></i><span>Dribbble</span></a>
         </li>
     </ul>
     <!-- end home-social -->

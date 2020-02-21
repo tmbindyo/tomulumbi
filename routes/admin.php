@@ -426,6 +426,24 @@ Route::get('/journal/delete/{journal_id}', 'Admin\JournalController@journalDelet
 Route::get('/journal/restore/{journal_id}', 'Admin\JournalController@journalRestore')->name('admin.journal.restore');
 
 
+// Tudeme
+Route::get('/tudeme', 'Admin\TudemeController@tudeme')->name('admin.tudeme');
+Route::get('/tudeme/create', 'Admin\TudemeController@tudemeCreate')->name('admin.tudeme.create');
+Route::post('/tudeme/store', 'Admin\TudemeController@tudemeStore')->name('admin.tudeme.store');
+Route::get('/tudeme/show/{tudeme_id}', 'Admin\TudemeController@tudemeShow')->name('admin.tudeme.show');
+Route::post('/tudeme/update/{tudeme_id}', 'Admin\TudemeController@tudemeUpdate')->name('admin.tudeme.update');
+Route::post('/tudeme/cover/image/{tudeme_id}', 'Admin\TudemeController@tudemeCoverImageUpload')->name('admin.tudeme.cover.image');
+Route::post('/tudeme/gallery/image/upload/{tudeme_id}', 'Admin\TudemeController@tudemeGalleryImageUpload')->name('admin.tudeme.gallery.image.upload');
+Route::post('/tudeme/update/design/{tudeme_id}', 'Admin\TudemeController@tudemeUpdateDesign')->name('admin.tudeme.update.design');
+Route::get('/tudeme/delete/{tudeme_id}', 'Admin\TudemeController@tudemeDelete')->name('admin.tudeme.delete');
+Route::get('/tudeme/restore/{tudeme_id}', 'Admin\TudemeController@tudemeRestore')->name('admin.tudeme.restore');
+
+Route::get('/tudeme/meal/{tudeme_id}/create', 'Admin\TudemeController@tudemeMealCreate')->name('admin.tudeme.meal.create');
+Route::post('/tudeme/meal/{tudeme_id}/store', 'Admin\TudemeController@tudemeMealStore')->name('admin.tudeme.meal.store');
+
+// Letters
+Route::get('/letters', 'Admin\TudemeController@letters')->name('admin.letters');
+
 
 // store
 // orders
