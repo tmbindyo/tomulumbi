@@ -237,11 +237,11 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <input type="text" class="form-control input-lg item-quantity" name = "instructions[0][amount]">
+                                                    <input type="text" class="form-control input-lg item-quantity" name = "ingredients[0][amount]">
                                                 </td>
 
                                                 <td>
-                                                    <select onchange = "returnIngredientDetails(this)" name = "instructions[0][measurment]" class="select2_demo_measurment form-control input-lg select-ingredient">
+                                                    <select onchange = "returnIngredientDetails(this)" name = "ingredients[0][measurment]" class="select2_demo_measurment form-control input-lg select-measurement">
                                                         <option>Select Measurment</option>
                                                         @foreach($measurments as $measurment)
                                                             <option value="{{$measurment->id}}">{{$measurment->name}}</option>
@@ -250,7 +250,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <select onchange = "returnIngredientDetails(this)" name = "instructions[0][ingredient]" class="select2_demo_ingredient form-control input-lg select-ingredient">
+                                                    <select onchange = "returnIngredientDetails(this)" name = "ingredients[0][ingredient]" class="select2_demo_ingredient form-control input-lg select-ingredient">
                                                         <option>Select Ingredient</option>
                                                         @foreach($ingredients as $ingredient)
                                                             <option value="{{$ingredient->id}}">{{$ingredient->name}}</option>
@@ -259,7 +259,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <input type="text" class="form-control input-lg item-total-price" name = "instructions[0][extra]">
+                                                    <input type="text" class="form-control input-lg item-total-price" name = "ingredients[0][extra]">
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -280,24 +280,23 @@
                                         <table class="table table-bordered" id = "instructions_table">
                                             <thead>
                                             <tr>
-                                                <th width="50px">Amount</th>
-                                                <th>Ingredient</th>
+                                                <th width="100px">Number</th>
+                                                <th>Instruction</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <input type="number" class="form-control input-lg item-quantity" value="1" name = "instructions[0][number]">
+                                                    <input type="number" class="form-control input-lg instruction-number" value="1" name = "instructions[0][number]">
                                                 </td>
 
                                                 <td>
-                                                    <textarea rows="4" class="form-control input-lg item-total-price" name = "instructions[0][instruction]"></textarea>
+                                                    <textarea rows="5" class="form-control input-lg item-total-price" name = "instructions[0][instruction]"></textarea>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <label class="btn btn-small btn-primary" onclick = "addIngredientTableRow()">+ Add Ingredient</label>
-                                        {{--  <label class="btn btn-small btn-primary" onclick = "addInstructionTableRow()">+ Add Instruction</label>  --}}
+                                        <label class="btn btn-small btn-primary" onclick = "addInstructionTableRow()">+ Add Instruction</label>
                                     </div>
                                 </div>
 
@@ -626,74 +625,6 @@
 
 </script>
 
-<script>
-    function returnInstructionDetails (e) {
-        var selectedParentTd = e.parentElement;
-        var selectedTr = selectedParentTd.parentElement;
-        var quantityInputField = selectedTr.getElementsByClassName("item-quantity");
-        var quantityValue;
-        if (quantityInputField[0].value.isEmpty) {
-            quantityValue = 0;
-        } else {
-            quantityValue = quantityInputField[0].value;
-        }
-        var unitPriceInputField = selectedTr.getElementsByClassName("item-unit-price");
-        unitPriceInputField[0].value = unitPrice;
-        var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
-        totalPriceInputField[0].value = quantityValue * unitPrice;
-    };
-    var tableValueArrayIndex = 1;
-    function addInstructionTableRow () {
-        var table = document.getElementById("instructions_table");
-        var row = table.insertRow();
-        var firstCell = row.insertCell(0);
-        var secondCell = row.insertCell(1);
-        var thirdCell = row.insertCell(2);
-        firstCell.innerHTML = "<input type='number' class='form-control input-lg item-quantity' value = '["tableValueArrayIndex"]' name = 'item_details["+tableValueArrayIndex+"][number]'>";
-        secondCell.innerHTML = "<textarea rows = '5' class='form-control input-lg item-total-price' name = 'item_details["+tableValueArrayIndex+"][extra]'></textarea>";
-        thirdCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
-        thirdCell.setAttribute("style", "width: 1em;");
-        tableValueArrayIndex++;
-    };
-    function removeSelectedRow (e) {
-        var selectedParentTd = e.parentElement.parentElement;
-        var selectedTr = selectedParentTd.parentElement;
-        var selectedTable = selectedTr.parentElement;
-        var removed = selectedTr.getElementsByClassName("select-ingredient")[0].getAttribute("name");
-        adjustTableInputFieldsIndex(removed);
-        selectedTable.removeChild(selectedTr);
-        tableValueArrayIndex--;
-    };
-    function adjustTableInputFieldsIndex (removedFieldName) {
-        // Fields whose values are submitted are:
-        // 1. item_details[][details]
-        // 2. item_details[][quantity]
-        // 3. item_details[][unit_price]
-        // 4. item_details[][total_price]
-        var displacement = 0;
-        var removedIndex;
-        while (displacement < tableValueArrayIndex) {
-            if (removedFieldName == "item_details["+displacement+"][details]"){
-                removedIndex = displacement;
-            } else {
-                var detailsField = document.getElementsByName("item_details["+displacement+"][details]");
-                var quantityField = document.getElementsByName("item_details["+displacement+"][quantity]");
-                var unitPriceField = document.getElementsByName("item_details["+displacement+"][unit_price]");
-                var totalPriceField = document.getElementsByName("item_details["+displacement+"][total_price]");
-                if (removedIndex) {
-                    if (displacement > removedIndex) {
-                        var newIndex = displacement - 1;
-                        detailsField[0].setAttribute("name", "item_details["+newIndex+"][details]");
-                        quantityField[0].setAttribute("name", "item_details["+newIndex+"][quantity]");
-                        unitPriceField[0].setAttribute("name", "item_details["+newIndex+"][unit_price]");
-                        totalPriceField[0].setAttribute("name", "item_details["+newIndex+"][total_price]");
-                    };
-                };
-            };
-            displacement++;
-        };
-    };
-</script>
 
 <script>
     function returnIngredientDetails (e) {
@@ -720,20 +651,20 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<input type='number' class='form-control input-lg item-quantity' name = 'item_details["+tableValueArrayIndex+"][amount]'>";
-        secondCell.innerHTML = "<select onchange = 'returnMeasurmentDetails(this)' name = 'item_details["+tableValueArrayIndex+"][measurment]' class='chosen-select form-control input-lg select-ingredient'>"+
+        firstCell.innerHTML = "<input type='number' class='form-control input-lg item-quantity' name = 'ingredients["+tableValueArrayIndex+"][amount]'>";
+        secondCell.innerHTML = "<select name = 'ingredients["+tableValueArrayIndex+"][measurment]' class='chosen-select form-control input-lg select-measurment'>"+
             "<option>Select Measurment</option>"+
             "@foreach($measurments as $measurment)"+
             "<option value='{{$measurment->id}}' >{{$measurment->name}}</option>"+
             "@endforeach"+
             "</select>";
-        thirdCell.innerHTML = "<select onchange = 'returnIngredientDetails(this)' name = 'item_details["+tableValueArrayIndex+"][ingredient]' class='chosen-select form-control input-lg select-ingredient'>"+
+        thirdCell.innerHTML = "<select name = 'ingredients["+tableValueArrayIndex+"][ingredient]' class='chosen-select form-control input-lg select-ingredient'>"+
                 "<option>Select Ingredient</option>"+
                 "@foreach($ingredients as $ingredient)"+
                 "<option value='{{$ingredient->id}}' >{{$ingredient->name}}</option>"+
                 "@endforeach"+
                 "</select>";
-        fourthCell.innerHTML = "<input type='text' class='form-control input-lg item-total-price' name = 'item_details["+tableValueArrayIndex+"][extra]'>";
+        fourthCell.innerHTML = "<input type='text' class='form-control input-lg item-total-price' name = 'ingredients["+tableValueArrayIndex+"][extra]'>";
         fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         fifthCell.setAttribute("style", "width: 1em;");
         $(".chosen-select").chosen(
@@ -762,20 +693,88 @@
         var displacement = 0;
         var removedIndex;
         while (displacement < tableValueArrayIndex) {
-            if (removedFieldName == "item_details["+displacement+"][details]"){
+            if (removedFieldName == "instructions["+displacement+"][amount]"){
                 removedIndex = displacement;
             } else {
-                var detailsField = document.getElementsByName("item_details["+displacement+"][details]");
-                var quantityField = document.getElementsByName("item_details["+displacement+"][quantity]");
-                var unitPriceField = document.getElementsByName("item_details["+displacement+"][unit_price]");
-                var totalPriceField = document.getElementsByName("item_details["+displacement+"][total_price]");
+                var detailsField = document.getElementsByName("instructions["+displacement+"][amount]");
+                var quantityField = document.getElementsByName("instructions["+displacement+"][measurment]");
+                var unitPriceField = document.getElementsByName("instructions["+displacement+"][ingredient]");
+                var totalPriceField = document.getElementsByName("instructions["+displacement+"][extra]");
                 if (removedIndex) {
                     if (displacement > removedIndex) {
                         var newIndex = displacement - 1;
-                        detailsField[0].setAttribute("name", "item_details["+newIndex+"][details]");
-                        quantityField[0].setAttribute("name", "item_details["+newIndex+"][quantity]");
-                        unitPriceField[0].setAttribute("name", "item_details["+newIndex+"][unit_price]");
-                        totalPriceField[0].setAttribute("name", "item_details["+newIndex+"][total_price]");
+                        detailsField[0].setAttribute("name", "instructions["+newIndex+"][amount]");
+                        quantityField[0].setAttribute("name", "instructions["+newIndex+"][measurment]");
+                        unitPriceField[0].setAttribute("name", "instructions["+newIndex+"][ingredient]");
+                        totalPriceField[0].setAttribute("name", "instructions["+newIndex+"][extra]");
+                    };
+                };
+            };
+            displacement++;
+        };
+    };
+</script>
+
+
+<script>
+    function returnInstructionDetails (e) {
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var quantityInputField = selectedTr.getElementsByClassName("item-quantity");
+        var quantityValue;
+        if (quantityInputField[0].value.isEmpty) {
+            quantityValue = 0;
+        } else {
+            quantityValue = quantityInputField[0].value;
+        }
+        var unitPriceInputField = selectedTr.getElementsByClassName("item-unit-price");
+        unitPriceInputField[0].value = unitPrice;
+        var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
+        totalPriceInputField[0].value = quantityValue * unitPrice;
+    };
+    var tableValueArrayIndex = 1;
+    var numberArrayIndex = 2;
+    function addInstructionTableRow () {
+        var table = document.getElementById("instructions_table");
+        var row = table.insertRow();
+        var firstCell = row.insertCell(0);
+        var secondCell = row.insertCell(1);
+        var thirdCell = row.insertCell(2);
+        firstCell.innerHTML = "<input type='number' class='form-control input-lg instruction-number' name = 'instructions["+tableValueArrayIndex+"][amount]' value = '"+numberArrayIndex+"'>";
+        secondCell.innerHTML = "<textarea rows='5' class='form-control input-lg item-total-price' name = 'instructions["+tableValueArrayIndex+"][instruction]'></textarea>";
+        thirdCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+        thirdCell.setAttribute("style", "width: 1em;");
+        tableValueArrayIndex++;
+        numberArrayIndex++;
+    };
+    function removeSelectedRow (e) {
+        var selectedParentTd = e.parentElement.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var selectedTable = selectedTr.parentElement;
+        var removed = selectedTr.getElementsByClassName("instruction-number")[0].getAttribute("name");
+        adjustTableInputFieldsIndex(removed);
+        selectedTable.removeChild(selectedTr);
+        tableValueArrayIndex--;
+    };
+    function adjustTableInputFieldsIndex (removedFieldName) {
+        // Fields whose values are submitted are:
+        // 1. item_details[][details]
+        // 2. item_details[][quantity]
+        // 3. item_details[][unit_price]
+        // 4. item_details[][total_price]
+        var displacement = 0;
+        var removedIndex;
+        while (displacement < tableValueArrayIndex) {
+            if (removedFieldName == "item_details["+displacement+"][details]"){
+                removedIndex = displacement;
+            } else {
+                var numberField = document.getElementsByName("instruction["+displacement+"][number]");
+                var instructionField = document.getElementsByName("instruction["+displacement+"][instruction]");
+                if (removedIndex) {
+                    if (displacement > removedIndex) {
+                        var newIndex = displacement - 1;
+                        numberField[0].setAttribute("name", "instruction["+newIndex+"][number]");
+                        instructionField[0].setAttribute("name", "instruction["+newIndex+"][instruction]");
                     };
                 };
             };

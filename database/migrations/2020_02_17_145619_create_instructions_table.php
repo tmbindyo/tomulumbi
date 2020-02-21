@@ -17,7 +17,7 @@ class CreateInstructionsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->integer('number');
-            $table->text('description')->nullable();
+            $table->text('instruction')->nullable();
 
             $table->uuid('meal_id');
             $table->integer('user_id')->unsigned();

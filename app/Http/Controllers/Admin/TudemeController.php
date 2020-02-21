@@ -19,6 +19,7 @@ use App\Traits\TudemeTrait;
 use App\Traits\StatusCountTrait;
 use App\Http\Controllers\Controller;
 use App\Ingredient;
+use App\Instruction;
 use App\Meal;
 use App\MealCookingStyle;
 use App\MealCourse;
@@ -687,6 +688,16 @@ class TudemeController extends Controller
             $ingredient = Ingredient::findOrFail($ingredients['ingredient']);
 
             $mealDietaryPreference->details = $ingredients['amount']+' '+$measurment->name+' '+$ingredient->name+$ingredients['extra'];
+
+            $mealDietaryPreference->user_id = Auth::user()->id;
+            $mealDietaryPreference->save();
+        }
+
+        // instructions
+        foreach ($request->instructions as $mealInstruction){
+            $mealDietaryPreference = new Instruction();
+            $mealDietaryPreference->number = $mealInstruction['number'];
+            $mealDietaryPreference->instruction = $mealInstruction['instruction'];
 
             $mealDietaryPreference->user_id = Auth::user()->id;
             $mealDietaryPreference->save();
