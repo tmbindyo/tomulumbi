@@ -276,8 +276,27 @@ ol {
 }
 
 .search-model-form input {
+    width: 40em;
+    font-size: 26px;
+    border: none;
+    border-bottom: 2px solid #333;
+    background: none;
+    color: #999;
+}
+
+.search-model-form button {
+    padding: 12px 55px;
+    border: 1px solid #FFCE00;
+    background: #FFCE00;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+}
+
+.search-model-form select {
     width: 500px;
-    font-size: 40px;
+    font-size: 29px;
     border: none;
     border-bottom: 2px solid #333;
     background: none;

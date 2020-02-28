@@ -1,4 +1,4 @@
-<div class="modal inmodal" id="albumCoverImageRegistration" tabindex="-1" role="dialog" aria-labelledby="tagRegistrationLabel" aria-hidden="true">
+<div class="modal inmodal" id="tudemeCoverImageRegistration" tabindex="-1" role="dialog" aria-labelledby="tagRegistrationLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">

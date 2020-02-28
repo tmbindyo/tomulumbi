@@ -18,6 +18,7 @@ class CreateMealIngredientsTable extends Migration
 
             $table->text('ingredient');
             $table->text('details');
+            $table->text('extra');
 
             $table->uuid('ingredient_id');
             $table->uuid('measurment_id');

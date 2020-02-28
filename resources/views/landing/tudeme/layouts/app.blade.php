@@ -39,19 +39,9 @@
             <div class="nav-menu">
                 <nav class="main-menu mobile-menu">
                     <ul>
-                        <li class="active"><a href="{{route('tudeme')}}">Home</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="{{route('tudeme.about')}}">About Me</a></li>
-                                <li><a href="{{route('tudeme.categories')}}">Categories</a></li>
-                                <li><a href="{{route('tudeme.recipe')}}">Recipe</a></li>
-                                <li><a href="{{route('tudeme.blog')}}">Blog</a></li>
-                                <li><a href="{{route('tudeme.contact')}}">Contact</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="{{route('tudeme.recipe')}}">Recipes</a></li>
-                        <li><a href="{{route('tudeme.categories')}}">Best Of</a></li>
-                        <li><a href="{{route('tudeme.contact')}}">Contact</a></li>
+                        <li class="{{ Route::currentRouteNamed( 'tudeme' ) ?  'active' : '' }}"><a href="{{route('tudeme')}}">Home</a></li>
+                        <li class="{{ Route::currentRouteNamed( 'tudeme.categories' ) ?  'active' : '' }}" ><a href="{{route('tudeme.categories')}}">Categories</a></li>
+                        <li class="{{ Route::currentRouteNamed( 'tudeme.blog' ) ?  'active' : '' }}" ><a href="{{route('tudeme.blog')}}">Blog</a></li>
                     </ul>
                 </nav>
                 <div class="nav-right search-switch">
@@ -110,7 +100,65 @@
 		<div class="h-100 d-flex align-items-center justify-content-center">
 			<div class="search-close-switch">+</div>
 			<form class="search-model-form">
-				<input type="text" id="search-input" placeholder="Search here.....">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="text" id="search-input" placeholder="Recipie">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="tag">
+                            <option value="">Cooking Skill</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select id="tag">
+                            <option value="">Cooking Style</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="tag">
+                            <option value="">Meal Type</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select id="tag">
+                            <option value="">Course</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="tag">
+                            <option value="">Dietary Preference</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select id="tag">
+                            <option value="">Dish Type</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="tag">
+                            <option value="">Food Type</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select id="tag">
+                            <option value="">Cuisine</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <button class="btn-block" type="submit">Search</button>
 			</form>
 		</div>
 	</div>

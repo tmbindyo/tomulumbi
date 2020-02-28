@@ -4,35 +4,16 @@
 
 @section('body')
 
-    <!-- Hero Search Section Begin -->
-    <div class="hero-search set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/search-bg.jpg">
-        <div class="container">
-            <div class="filter-table">
-                <form action="#" class="filter-search">
-                    <input type="text" placeholder="Search recipe">
-                    <select id="category">
-                        <option value="">Category</option>
-                    </select>
-                    <select id="tag">
-                        <option value="">Tags</option>
-                    </select>
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Hero Search Section End -->
-
     <!-- Recipe Section Begin -->
     <section class="recipe-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-sm-6">
                     <div class="recipe-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-1.jpg" alt=""></a>
+                        <a href="{{route('tudeme.recipe')}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-1.jpg" alt=""></a>
                         <div class="ri-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
+                            <a href="{{route('tudeme.recipe')}}">
                                 <h4>One Pot Weeknight Soup</h4>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -42,10 +23,10 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <div class="recipe-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-2.jpg" alt=""></a>
+                        <a href="{{route('tudeme.recipe')}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-2.jpg" alt=""></a>
                         <div class="ri-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
+                            <a href="{{route('tudeme.recipe')}}">
                                 <h4>Blueberries cake</h4>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -55,10 +36,10 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <div class="recipe-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-3.jpg" alt=""></a>
+                        <a href="{{route('tudeme.recipe')}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-3.jpg" alt=""></a>
                         <div class="ri-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
+                            <a href="{{route('tudeme.recipe')}}">
                                 <h4>Pork Steak with Onion</h4>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -68,10 +49,10 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <div class="recipe-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-4.jpg" alt=""></a>
+                        <a href="{{route('tudeme.recipe')}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-4.jpg" alt=""></a>
                         <div class="ri-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
+                            <a href="{{route('tudeme.recipe')}}">
                                 <h4>Pizza with salami</h4>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -81,10 +62,10 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <div class="recipe-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-5.jpg" alt=""></a>
+                        <a href="{{route('tudeme.recipe')}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-5.jpg" alt=""></a>
                         <div class="ri-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
+                            <a href="{{route('tudeme.recipe')}}">
                                 <h4>Pumpkin Chilli Soup</h4>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -94,10 +75,10 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <div class="recipe-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-6.jpg" alt=""></a>
+                        <a href="{{route('tudeme.recipe')}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-6.jpg" alt=""></a>
                         <div class="ri-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
+                            <a href="{{route('tudeme.recipe')}}">
                                 <h4>Salmon with veggies</h4>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -107,10 +88,10 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <div class="recipe-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-7.jpg" alt=""></a>
+                        <a href="{{route('tudeme.recipe')}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-7.jpg" alt=""></a>
                         <div class="ri-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
+                            <a href="{{route('tudeme.recipe')}}">
                                 <h4>Strawberry Chessecake</h4>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -120,10 +101,10 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <div class="recipe-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-8.jpg" alt=""></a>
+                        <a href="{{route('tudeme.recipe')}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-8.jpg" alt=""></a>
                         <div class="ri-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
+                            <a href="{{route('tudeme.recipe')}}">
                                 <h4>Key Lime Pie</h4>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -133,10 +114,10 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <div class="recipe-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-9.jpg" alt=""></a>
+                        <a href="{{route('tudeme.recipe')}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-9.jpg" alt=""></a>
                         <div class="ri-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
+                            <a href="{{route('tudeme.recipe')}}">
                                 <h4>Pizza with cheesse</h4>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt

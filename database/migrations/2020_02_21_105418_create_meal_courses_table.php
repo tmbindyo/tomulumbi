@@ -14,8 +14,15 @@ class CreateMealCoursesTable extends Migration
     public function up()
     {
         Schema::create('meal_courses', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->uuid('meal_id');
+            $table->uuid('course_id');
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -1,168 +1,264 @@
 @extends('landing.tudeme.layouts.app')
 
-@section('title', 'About')
+@section('title', 'Blog')
 
 @section('body')
 
-    <!-- Hero Search Section Begin -->
-    <div class="hero-search set-bg" data-setbg="img/search-bg.jpg">
+    <!-- Recipe Section Begin -->
+    <section class="recipe-section spad">
         <div class="container">
-            <div class="filter-table">
-                <form action="#" class="filter-search">
-                    <input type="text" placeholder="Search recipe">
-                    <select id="category">
-                        <option value="">Category</option>
-                    </select>
-                    <select id="tag">
-                        <option value="">Tags</option>
-                    </select>
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Hero Search Section End -->
-
-    <!-- Blog Section Begin -->
-    <section class="blog-section spad">
-        <div class="blog-pic">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <img src="{{ asset('themes/tudeme/yummy') }}/img/blog-img.jpg" alt="">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="recipe-item">
+                        <a href="{{route('tudeme.blog.show',1)}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-1.jpg" alt=""></a>
+                        <div class="ri-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="{{route('tudeme.blog.show',1)}}">
+                                <h4>One Pot Weeknight Soup</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="recipe-item">
+                        <a href="{{route('tudeme.blog.show',1)}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-2.jpg" alt=""></a>
+                        <div class="ri-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="{{route('tudeme.blog.show',1)}}">
+                                <h4>Blueberries cake</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="recipe-item">
+                        <a href="{{route('tudeme.blog.show',1)}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-3.jpg" alt=""></a>
+                        <div class="ri-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="{{route('tudeme.blog.show',1)}}">
+                                <h4>Pork Steak with Onion</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="recipe-item">
+                        <a href="{{route('tudeme.blog.show',1)}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-4.jpg" alt=""></a>
+                        <div class="ri-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="{{route('tudeme.blog.show',1)}}">
+                                <h4>Pizza with salami</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="recipe-item">
+                        <a href="{{route('tudeme.blog.show',1)}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-5.jpg" alt=""></a>
+                        <div class="ri-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="{{route('tudeme.blog.show',1)}}">
+                                <h4>Pumpkin Chilli Soup</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="recipe-item">
+                        <a href="{{route('tudeme.blog.show',1)}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-6.jpg" alt=""></a>
+                        <div class="ri-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="{{route('tudeme.blog.show',1)}}">
+                                <h4>Salmon with veggies</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="recipe-item">
+                        <a href="{{route('tudeme.blog.show',1)}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-7.jpg" alt=""></a>
+                        <div class="ri-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="{{route('tudeme.blog.show',1)}}">
+                                <h4>Strawberry Chessecake</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="recipe-item">
+                        <a href="{{route('tudeme.blog.show',1)}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-8.jpg" alt=""></a>
+                        <div class="ri-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="{{route('tudeme.blog.show',1)}}">
+                                <h4>Key Lime Pie</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="recipe-item">
+                        <a href="{{route('tudeme.blog.show',1)}}"><img src="{{ asset('themes/tudeme/yummy') }}/img/recipe/recipe-9.jpg" alt=""></a>
+                        <div class="ri-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="{{route('tudeme.blog.show',1)}}">
+                                <h4>Pizza with cheesse</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="blog-text">
-                        <div class="blog-title">
-                            <span>16 January 2019</span>
-                            <h2>5 Tips for e Perfect Steak</h2>
-                            <ul class="tags">
-                                <li>Desert</li>
-                                <li>Asian</li>
-                                <li>Spicy</li>
-                            </ul>
-                        </div>
-                        <div class="blog-desc">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet. Donec in sodales dui, a
-                                blandit nunc. Pellentesque id eros venenatis, sollicitudin neque sodales, vehicula nibh.
-                                Nam massa odio, porttitor vitae efficitur non, ultricies volutpat tellus. Cras egestas
-                                in lacus a finibus. Suspendisse sed urna at elit condimentum viverra. Suspendisse non
-                                lobortis nisi. Maecenas accumsan quam quis porta laoreet. Aliquam felis odio, aliquet
-                                fermentum semper at, porttitor ac mi. Duis vel condimentum risus. Phasellus eu dolor vel
-                                neque commodo accumsan eget et enim. Pellentesque non elit sed risus tincidunt aliquam
-                                eu eget metus.</p>
-                            <p>Donec sit amet enim tortor. Sed egestas nulla nibh, vitae porta velit sagittis eget.
-                                Donec vitae tellus semper, cursus sem id, iaculis purus. Aenean ligula risus, maximus
-                                tristique eros vel, auctor ornare tortor. Aliquam vel augue sapien. Duis non auctor
-                                ante, ac vestibulum tortor. Etiam quis dolor ultricies, dignissim ante a, ornare ipsum.
-                                Phasellus suscipit rhoncus nulla, quis bibendum tortor elementum ac. Nullam viverra
-                                tellus diam, nec accumsan orci aliquam sed. Sed placerat sagittis lacus, non rutrum diam
-                                volutpat id.</p>
-                            <p>Pellentesque tempor lectus nisi, ut consectetur mauris feugiat et. Nam lacinia placerat
-                                sem nec consequat. Praesent tempus eros vitae iaculis sollicitudin. Nulla facilisi.
-                                Aenean sit amet magna in nunc malesuada ornare quis sed libero. Aenean ornare rutrum
-                                vestibulum. Morbi a mi vel nunc bibendum viverra sed ut dui. Proin accumsan, neque quis
-                                fringilla bibendum, lectus neque interdum odio, quis blandit metus nibh sit amet nibh.
-                                Vivamus lobortis libero non tellus imperdiet fringilla. Sed quis enim id odio blandit
-                                maximus ut a mi. Aenean enim ante, rutrum id cursus ac, facilisis at sapien. Vestibulum
-                                facilisis quam sit amet leo elementum, eu tincidunt nibh blandit. Nam sit amet faucibus
-                                nunc, a venenatis dolor. Nulla tempus ornare massa vitae malesuada. Curabitur ultricies
-                                faucibus ipsum id imperdiet. Donec in dolor ex.</p>
-                            <div class="blog-quote">
-                                <i class="fa fa-quote-left"></i>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
-                                    gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                            </div>
-                        </div>
-                        <div class="blog-comment">
-                            <h3>Comments (3)</h3>
-                            <div class="single-comment">
-                                <img src="{{ asset('themes/tudeme/yummy') }}/img/blog-comment.png" alt="">
-                                <ul>
-                                    <li>Maria Smith</li>
-                                    <li>March 29, 2019</li>
-                                    <li>Reply</li>
-                                </ul>
-                                <p>amet magna in nunc malesuada ornare quis sed libero. Aenean ornare rutrum vestibulum.
-                                    Morbi a mi vel nunc bibendum viverra sed ut dui. Proin accumsan, neque quis
-                                    fringilla bibendum, lectus neque interdum odio, quis blandit metus nibh sit amet
-                                    nibh. Vivamus lobortis libero non tellus imperdiet fringilla. Sed quis enim id odio
-                                    blandit maximus ut a mi. Aenean enim ante, rutrum id cursus ac, facilisis at sapien.
-                                    Vestibulum facilisis quam sit amet leo elementum.</p>
-                            </div>
-                        </div>
-                        <form action="#" class="comment-form">
-                            <h3>Leave a Comment</h3>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Your name">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Your email">
-                                </div>
-                                <div class="col-lg-12">
-                                    <textarea placeholder="Comment"></textarea>
-                                </div>
-                            </div>
-                            <button type="submit">Post</button>
-                        </form>
+                    <div class="recipe-pagination">
+                        <a href="#" class="active">01</a>
+                        <a href="#">02</a>
+                        <a href="#">03</a>
+                        <a href="#">04</a>
+                        <a href="#">Next</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Blog Section End -->
+    <!-- Recipe Section End -->
 
-    <!-- Similar Recipe Section Begin -->
-    <section class="similar-recipe spad">
-        <div class="container">
+    <!-- Blog Feature Recipe Section Begin -->
+    <section class="categories-feature-recipe spad">
+        <div class="section-title">
+            <h5>Featured Recipes</h5>
+        </div>
+        <div class="container po-relative">
+            <div class="plus-icon">
+                <i class="fa fa-plus"></i>
+            </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="similar-item">
+                <div class="col-lg-7">
+                    <div class="cfr-item">
+                        <div class="cfr-item-img set-bg" data-setbg="img/cat-feature/big-1.jpg">
+                            <i class="fa fa-plus"></i>
+                        </div>
+                        <div class="cfr-item-text">
+                            <div class="cat-name">Vegan</div>
+                            <a href="#">
+                                <h4>One Pot Weeknight Lasagna Soup Recipe</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                    <div class="cfr-item">
+                        <div class="cfr-item-img set-bg" data-setbg="img/cat-feature/big-2.jpg">
+                            <i class="fa fa-plus"></i>
+                        </div>
+                        <div class="cfr-item-text">
+                            <div class="cat-name">Meat Lover</div>
+                            <a href="#">
+                                <h4>Veggie soup with Mushrooms</h4>
+                            </a>
+                            <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua. Lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                    <div class="cfr-item">
+                        <div class="cfr-item-img set-bg" data-setbg="img/cat-feature/big-3.jpg">
+                            <i class="fa fa-plus"></i>
+                        </div>
+                        <div class="cfr-item-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="#">
+                                <h4>Caramel Ice Cream with Berries</h4>
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </div>
+                    <div class="cfr-item">
+                        <div class="cfr-item-img set-bg" data-setbg="img/cat-feature/big-4.jpg">
+                            <i class="fa fa-plus"></i>
+                        </div>
+                        <div class="cfr-item-text">
+                            <div class="cat-name">Desert</div>
+                            <a href="#">
+                                <h4>Freash Octopuse with lime juice</h4>
+                            </a>
+                            <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit
+                                amet, consectetur adipiscing.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-1">
+                    <div class="cfr-small-item">
+                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-1.jpg" alt=""></a>
+                        <div class="cfr-small-text">
+                            <div class="cat-name">Vegan</div>
+                            <h6>One Pot Weeknight Lasagna Soup Recipe</h6>
+                        </div>
+                    </div>
+                    <div class="cfr-small-item">
+                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-2.jpg" alt=""></a>
+                        <div class="cfr-small-text">
+                            <div class="cat-name">Vegan</div>
+                            <h6>Lava Cake with a Tone of Chocolate</h6>
+                        </div>
+                    </div>
+                    <div class="cfr-small-item">
+                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-3.jpg" alt=""></a>
+                        <div class="cfr-small-text">
+                            <div class="cat-name">Vegan</div>
+                            <h6>One Pot Weeknight Lasagna Soup Recipe</h6>
+                        </div>
+                    </div>
+                    <div class="cfr-small-item">
+                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-4.jpg" alt=""></a>
+                        <div class="cfr-small-text">
+                            <div class="cat-name">Vegan</div>
+                            <h6>Smoked Salmon mini Sandwiches with Onion</h6>
+                        </div>
+                    </div>
+                    <div class="cfr-small-item">
+                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-5.jpg" alt=""></a>
+                        <div class="cfr-small-text">
+                            <div class="cat-name">Vegan</div>
+                            <h6>Asparagus with Pork Loin and Vegetables</h6>
+                        </div>
+                    </div>
+                    <div class="cfr-small-item">
+                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-6.jpg" alt=""></a>
+                        <div class="cfr-small-text">
+                            <div class="cat-name">Vegan</div>
+                            <h6>Dry Cookies with Corn</h6>
+                        </div>
+                    </div>
+                    <div class="cfr-small-item">
                         <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-7.jpg" alt=""></a>
-                        <div class="similar-text">
+                        <div class="cfr-small-text">
                             <div class="cat-name">Vegan</div>
                             <h6>Italian Tiramisu with Coffe</h6>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="similar-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-6.jpg" alt=""></a>
-                        <div class="similar-text">
-                            <div class="cat-name">Vegan</div>
-                            <h6>Dry Cookies with Corn</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="similar-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-5.jpg" alt=""></a>
-                        <div class="similar-text">
-                            <div class="cat-name">Vegan</div>
-                            <h6>Asparagus with Pork Loin and Vegetables</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="similar-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-4.jpg" alt=""></a>
-                        <div class="similar-text">
-                            <div class="cat-name">Vegan</div>
-                            <h6>Smoked Salmon mini Sandwiches with Onion</h6>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
-    <!-- Similar Recipe Section End -->
+    <!-- Blog Feature Recipe Section End -->
 
 @endsection

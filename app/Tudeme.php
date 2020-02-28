@@ -29,6 +29,10 @@ class Tudeme extends Model
     {
         return $this->hasMany('App\ToDo');
     }
+    public function tudeme_tudeme_tags()
+    {
+        return $this->hasMany('App\TudemeTudemeTag');
+    }
     public function tudeme_tudeme_types()
     {
         return $this->hasMany('App\TudemeTudemeType');
@@ -50,6 +54,14 @@ class Tudeme extends Model
     public function cover_image()
     {
         return $this->belongsTo('App\Upload','cover_image_id', 'id');
+    }
+    public function spread()
+    {
+        return $this->belongsTo('App\Upload','spread_id', 'id');
+    }
+    public function icon()
+    {
+        return $this->belongsTo('App\Upload','icon_id', 'id');
     }
     public function status()
     {

@@ -17,9 +17,25 @@ class Meal extends Model
     {
         return $this->hasMany('App\Instruction');
     }
-    public function institution()
+    public function meal_cooking_styles()
     {
-        return $this->hasMany('App\Institution');
+        return $this->hasMany('App\MealCookingStyle');
+    }
+    public function meal_courses()
+    {
+        return $this->hasMany('App\MealCourse');
+    }
+    public function meal_dietary_preferences()
+    {
+        return $this->hasMany('App\MealDietaryPreference');
+    }
+    public function meal_ingredients()
+    {
+        return $this->hasMany('App\MealIngredient');
+    }
+    public function notes()
+    {
+        return $this->hasMany('App\Note');
     }
 
     // Parents
@@ -31,13 +47,17 @@ class Meal extends Model
     {
         return $this->belongsTo('App\CookingSkill');
     }
-    public function course()
+    public function dish_type()
     {
-        return $this->belongsTo('App\Course');
+        return $this->belongsTo('App\DishType');
     }
     public function food_type()
     {
         return $this->belongsTo('App\FoodType');
+    }
+    public function meal_type()
+    {
+        return $this->belongsTo('App\MealType');
     }
     public function status()
     {

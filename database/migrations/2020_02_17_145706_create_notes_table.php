@@ -18,6 +18,9 @@ class CreateNotesTable extends Migration
 
             $table->text('notes');
 
+            $table->boolean('is_meal');
+            $table->uuid('meal_id');
+
             $table->uuid('tudeme_id');
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

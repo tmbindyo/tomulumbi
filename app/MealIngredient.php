@@ -13,6 +13,14 @@ class MealIngredient extends Model
     public $incrementing = false;
 
     // Parents
+    public function ingredient()
+    {
+        return $this->belongsTo('App\Ingredient');
+    }
+    public function measurment()
+    {
+        return $this->belongsTo('App\Measurment');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');

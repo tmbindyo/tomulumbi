@@ -11,6 +11,9 @@
 
     <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
 
+    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
 
     <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
@@ -134,6 +137,31 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <select required="required" name="tudeme_types[]" class="select2_demo_tudeme_types form-control input-lg" multiple>
+                                                    <option></option>
+                                                    @foreach($tudemeTypes as $tudemeType)
+                                                        <option value="{{$tudemeType->id}}">{{$tudemeType->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>tudeme types</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <select required="required" name="tudeme_tags[]" class="select2_demo_tudeme_tags form-control input-lg" multiple>
+                                                    <option></option>
+                                                    @foreach($tudemeTags as $tudemeTag)
+                                                        <option value="{{$tudemeTag->id}}">{{$tudemeTag->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>tudeme tags</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
                                     <div class="has-warning" id="data_1">
                                         <div class="input-group date">
                                             <span class="input-group-addon">
@@ -149,6 +177,20 @@
                                         <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
                                         <i>Give a brief description on what the tudeme is about</i>
                                     </div>
+                                    <br>
+                                    <textarea name="body"  class="summernote">
+                                        <h3>Lorem Ipsum is simply</h3>
+                                        dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
+                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                                        <br/>
+                                        <br/>
+                                        <ul>
+                                            <li>Remaining essentially unchanged</li>
+                                            <li>Make a type specimen book</li>
+                                            <li>Unknown printer</li>
+                                        </ul>
+                                    </textarea>
 
                                     <br>
                                     <hr>
@@ -183,6 +225,9 @@
 <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- SUMMERNOTE -->
+<script src="{{ asset('inspinia') }}/js/plugins/summernote/summernote.min.js"></script>
 
 <!-- Chosen -->
 <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
@@ -246,6 +291,21 @@
         // Set time
     });
 
+</script>
+
+<script>
+    $(document).ready(function(){
+
+        $('.summernote').summernote();
+
+    });
+    var edit = function() {
+        $('.click2edit').summernote({focus: true});
+    };
+    var save = function() {
+        var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+        $('.click2edit').destroy();
+    };
 </script>
 
 <script>
@@ -416,16 +476,12 @@
 
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2();
-        $(".select2_demo_meal_type").select2({
-            placeholder: "Select Meal Type",
+        $(".select2_demo_tudeme_types").select2({
+            placeholder: "Select Tudeme Type",
             allowClear: true
         });
-        $(".select2_demo_cooking_style").select2({
-            placeholder: "Select Cooking Style",
-            allowClear: true
-        });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
+        $(".select2_demo_tudeme_tags").select2({
+            placeholder: "Select Tudeme Tag",
             allowClear: true
         });
 

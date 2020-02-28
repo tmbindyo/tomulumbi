@@ -46,7 +46,7 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.client.proofs')}}">Meal's</a>
+                    <a href="{{route('admin.tudeme.show',$tudeme->id)}}">Tudeme</a>
                 </li>
                 <li class="active">
                     <strong>Meal Create</strong>
@@ -101,8 +101,13 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="has-warning">
-                                            <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
+                                            <input type="text" id="name" value="{{old('name')}}"  name="name" required="required" placeholder="Name" class="form-control input-lg">
                                             <i>name</i>
+                                        </div>
+                                        <br>
+                                        <div class="has-warning">
+                                            <input type="number" id="cook_time" name="cook_time" required="required" placeholder="Cook time" class="form-control input-lg">
+                                            <i>cook time</i>
                                         </div>
                                         <br>
                                         <div class="has-warning">
@@ -297,6 +302,34 @@
                                             </tbody>
                                         </table>
                                         <label class="btn btn-small btn-primary" onclick = "addInstructionTableRow()">+ Add Instruction</label>
+                                    </div>
+                                </div>
+
+
+                                {{--  meal notes  --}}
+                                <br>
+                                <h1 class="text-center">Notes</h1>
+                                <div class="row">
+                                    {{--  <div class="ibox-title">
+                                        <h5>Ingredients</h5>
+                                    </div>  --}}
+                                    <div class="ibox-content">
+
+                                        <table class="table table-bordered" id = "notes_table">
+                                            <thead>
+                                            <tr>
+                                                <th>Note</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <textarea rows="5" class="form-control input-lg meal-notes" name = "notes[0][note]"></textarea>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <label class="btn btn-small btn-primary" onclick = "addNoteTableRow()">+ Add Note</label>
                                     </div>
                                 </div>
 
@@ -651,7 +684,7 @@
         var thirdCell = row.insertCell(2);
         var fourthCell = row.insertCell(3);
         var fifthCell = row.insertCell(4);
-        firstCell.innerHTML = "<input type='number' class='form-control input-lg item-quantity' name = 'ingredients["+tableValueArrayIndex+"][amount]'>";
+        firstCell.innerHTML = "<input type='text' class='form-control input-lg item-quantity' name = 'ingredients["+tableValueArrayIndex+"][amount]'>";
         secondCell.innerHTML = "<select name = 'ingredients["+tableValueArrayIndex+"][measurment]' class='chosen-select form-control input-lg select-measurment'>"+
             "<option>Select Measurment</option>"+
             "@foreach($measurments as $measurment)"+
@@ -665,7 +698,7 @@
                 "@endforeach"+
                 "</select>";
         fourthCell.innerHTML = "<input type='text' class='form-control input-lg item-total-price' name = 'ingredients["+tableValueArrayIndex+"][extra]'>";
-        fifthCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+        fifthCell.innerHTML = "<span><i onclick = 'removeSelectedIngredientRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         fifthCell.setAttribute("style", "width: 1em;");
         $(".chosen-select").chosen(
             {allow_single_deselect:true},
@@ -675,7 +708,7 @@
         );
         tableValueArrayIndex++;
     };
-    function removeSelectedRow (e) {
+    function removeSelectedIngredientRow (e) {
         var selectedParentTd = e.parentElement.parentElement;
         var selectedTr = selectedParentTd.parentElement;
         var selectedTable = selectedTr.parentElement;
@@ -732,29 +765,29 @@
         var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
         totalPriceInputField[0].value = quantityValue * unitPrice;
     };
-    var tableValueArrayIndex = 1;
-    var numberArrayIndex = 2;
+    var notesTableValueArrayIndex = 1;
+    var notesNumberArrayIndex = 2;
     function addInstructionTableRow () {
         var table = document.getElementById("instructions_table");
         var row = table.insertRow();
         var firstCell = row.insertCell(0);
         var secondCell = row.insertCell(1);
         var thirdCell = row.insertCell(2);
-        firstCell.innerHTML = "<input type='number' class='form-control input-lg instruction-number' name = 'instructions["+tableValueArrayIndex+"][amount]' value = '"+numberArrayIndex+"'>";
-        secondCell.innerHTML = "<textarea rows='5' class='form-control input-lg item-total-price' name = 'instructions["+tableValueArrayIndex+"][instruction]'></textarea>";
-        thirdCell.innerHTML = "<span><i onclick = 'removeSelectedRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+        firstCell.innerHTML = "<input type='number' class='form-control input-lg instruction-number' name = 'instructions["+notesTableValueArrayIndex+"][number]' value = '"+notesNumberArrayIndex+"'>";
+        secondCell.innerHTML = "<textarea rows='5' class='form-control input-lg item-total-price' name = 'instructions["+notesTableValueArrayIndex+"][instruction]'></textarea>";
+        thirdCell.innerHTML = "<span><i onclick = 'removeSelectedInstructionRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         thirdCell.setAttribute("style", "width: 1em;");
-        tableValueArrayIndex++;
-        numberArrayIndex++;
+        notesTableValueArrayIndex++;
+        notesNumberArrayIndex++;
     };
-    function removeSelectedRow (e) {
+    function removeSelectedInstructionRow (e) {
         var selectedParentTd = e.parentElement.parentElement;
         var selectedTr = selectedParentTd.parentElement;
         var selectedTable = selectedTr.parentElement;
         var removed = selectedTr.getElementsByClassName("instruction-number")[0].getAttribute("name");
         adjustTableInputFieldsIndex(removed);
         selectedTable.removeChild(selectedTr);
-        tableValueArrayIndex--;
+        notesTableValueArrayIndex--;
     };
     function adjustTableInputFieldsIndex (removedFieldName) {
         // Fields whose values are submitted are:
@@ -764,7 +797,7 @@
         // 4. item_details[][total_price]
         var displacement = 0;
         var removedIndex;
-        while (displacement < tableValueArrayIndex) {
+        while (displacement < notesTableValueArrayIndex) {
             if (removedFieldName == "item_details["+displacement+"][details]"){
                 removedIndex = displacement;
             } else {
@@ -775,6 +808,70 @@
                         var newIndex = displacement - 1;
                         numberField[0].setAttribute("name", "instruction["+newIndex+"][number]");
                         instructionField[0].setAttribute("name", "instruction["+newIndex+"][instruction]");
+                    };
+                };
+            };
+            displacement++;
+        };
+    };
+</script>
+
+
+<script>
+    function returnNoteDetails (e) {
+        var selectedParentTd = e.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var quantityInputField = selectedTr.getElementsByClassName("item-quantity");
+        var quantityValue;
+        if (quantityInputField[0].value.isEmpty) {
+            quantityValue = 0;
+        } else {
+            quantityValue = quantityInputField[0].value;
+        }
+        var unitPriceInputField = selectedTr.getElementsByClassName("item-unit-price");
+        unitPriceInputField[0].value = unitPrice;
+        var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
+        totalPriceInputField[0].value = quantityValue * unitPrice;
+    };
+    var notesTableValueArrayIndex = 1;
+    var notesNumberArrayIndex = 2;
+    function addNoteTableRow () {
+        var table = document.getElementById("notes_table");
+        var row = table.insertRow();
+        var firstCell = row.insertCell(0);
+        var secondCell = row.insertCell(1);
+        firstCell.innerHTML = "<textarea rows='5' class='form-control input-lg meal-notes' name = 'notes["+notesTableValueArrayIndex+"][note]'></textarea>";
+        secondCell.innerHTML = "<span><i onclick = 'removeSelectedNoteRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
+        secondCell.setAttribute("style", "width: 1em;");
+        notesTableValueArrayIndex++;
+        notesNumberArrayIndex++;
+    };
+    function removeSelectedNoteRow (e) {
+        var selectedParentTd = e.parentElement.parentElement;
+        var selectedTr = selectedParentTd.parentElement;
+        var selectedTable = selectedTr.parentElement;
+        var removed = selectedTr.getElementsByClassName("meal-notes")[0].getAttribute("name");
+        adjustTableInputFieldsIndex(removed);
+        selectedTable.removeChild(selectedTr);
+        notesTableValueArrayIndex--;
+    };
+    function adjustTableInputFieldsIndex (removedFieldName) {
+        // Fields whose values are submitted are:
+        // 1. item_details[][details]
+        // 2. item_details[][quantity]
+        // 3. item_details[][unit_price]
+        // 4. item_details[][total_price]
+        var displacement = 0;
+        var removedIndex;
+        while (displacement < notesTableValueArrayIndex) {
+            if (removedFieldName == "item_details["+displacement+"][details]"){
+                removedIndex = displacement;
+            } else {
+                var noteField = document.getElementsByName("note["+displacement+"][note]");
+                if (removedIndex) {
+                    if (displacement > removedIndex) {
+                        var newIndex = displacement - 1;
+                        noteField[0].setAttribute("name", "note["+newIndex+"][note]");
                     };
                 };
             };

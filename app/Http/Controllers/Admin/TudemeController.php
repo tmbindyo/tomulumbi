@@ -27,12 +27,18 @@ use App\MealDietaryPreference;
 use App\MealIngredient;
 use App\MealType;
 use App\Measurment;
+use App\Note;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use App\Traits\DocumentExtensionTrait;
 use App\Traits\DownloadViewNumbersTrait;
 use App\TudemeGallery;
+use App\TudemeTag;
+use App\TudemeTudemeTag;
+use App\TudemeTudemeType;
+use App\TudemeType;
+use App\Upload;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class TudemeController extends Controller
@@ -45,6 +51,11 @@ class TudemeController extends Controller
     use StatusCountTrait;
     use DocumentExtensionTrait;
     use DownloadViewNumbersTrait;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     // tudemes
     public function tudeme()
@@ -67,7 +78,11 @@ class TudemeController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.tudeme_create',compact('user','navbarValues'));
+        // tudeme types
+        $tudemeTypes = TudemeType::all();
+        // tudeme tags
+        $tudemeTags = TudemeTag::all();
+        return view('admin.tudeme_create',compact('user','navbarValues','tudemeTags','tudemeTypes'));
     }
 
     public function tudemeStore(Request $request)
@@ -75,6 +90,8 @@ class TudemeController extends Controller
 
         $tudeme = new Tudeme();
         $tudeme->name = $request->name;
+        $tudeme->description = $request->description;
+        $tudeme->body = $request->body;
         $tudeme->prep_time = $request->prep_time;
         $tudeme->cook_time = $request->cook_time;
         $tudeme->yield = $request->yield;
@@ -83,6 +100,26 @@ class TudemeController extends Controller
         $tudeme->status_id = "cad5abf4-ed94-4184-8f7a-fe5084fb7d56";
         $tudeme->user_id = Auth::user()->id;
         $tudeme->save();
+
+        // tudeme tudeme type
+        foreach ($request->tudeme_types as $tudeme_type){
+            $tudemeTudemeType = new TudemeTudemeType();
+            $tudemeTudemeType->tudeme_id = $tudeme->id;
+            $tudemeTudemeType->tudeme_type_id = $tudeme_type;
+            $tudemeTudemeType->user_id = Auth::user()->id;
+            $tudemeTudemeType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $tudemeTudemeType->save();
+        }
+
+        // tudeme tudeme tag
+        foreach ($request->tudeme_tags as $tudeme_tag){
+            $tudemeTudemeTag = new TudemeTudemeTag();
+            $tudemeTudemeTag->tudeme_id = $tudeme->id;
+            $tudemeTudemeTag->tudeme_tag_id = $tudeme_tag;
+            $tudemeTudemeTag->user_id = Auth::user()->id;
+            $tudemeTudemeTag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $tudemeTudemeTag->save();
+        }
 
         return redirect()->route('admin.tudeme.show',$tudeme->id)->withSuccess('Tudeme '.$tudeme->name.' succesfully created');
     }
@@ -100,7 +137,7 @@ class TudemeController extends Controller
         $tudemeViews = $this->getTudemeViews($tudeme_id);
         // Get tudeme
         $tudeme = Tudeme::findOrFail($tudeme_id);
-        $tudeme = Tudeme::where('id',$tudeme_id)->with('user','status','cover_image')->first();
+        $tudeme = Tudeme::where('id',$tudeme_id)->with('user','status','cover_image','spread','icon')->first();
         // Tudeme status
         $tudemeStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
         // Pending to dos
@@ -111,10 +148,12 @@ class TudemeController extends Controller
         $completedToDos = ToDo::with('user','status','tudeme')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('tudeme_id',$tudeme->id)->get();
         // Overdue to dos
         $overdueToDos = ToDo::with('user','status','tudeme')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('tudeme_id',$tudeme->id)->get();
+        // tudeme meals
+        $meals = Meal::where('tudeme_id',$tudeme_id)->with('user','status')->orderBy('created_at', 'desc')->get();
 
         // tudeme gallery
         $tudemeGallery = TudemeGallery::where('tudeme_id',$tudeme_id)->with('upload')->get();
-        return view('admin.tudeme_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','tudeme','tudemeGallery','tudemeStatuses','navbarValues','tudemeArray','tudemeViews'));
+        return view('admin.tudeme_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','tudeme','tudemeGallery','tudemeStatuses','navbarValues','tudemeArray','tudemeViews','meals'));
     }
 
     public function tudemeUpdate(Request $request, $tudeme_id)
@@ -168,7 +207,6 @@ class TudemeController extends Controller
     public function tudemeCoverImageUpload(Request $request,$tudeme_id)
     {
 
-//        return $request;
         $tudeme = Tudeme::where('id',$tudeme_id)->first();
         $folderName = str_replace(' ', '', $tudeme->name."/Banner/");
         $originalFolderName = str_replace(' ', '', $tudeme->name."/Cover Image/Original/");
@@ -218,12 +256,7 @@ class TudemeController extends Controller
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
 
-//            Image::make( $path )->resize(750, null, function ($constraint) {
-//                $constraint->aspectRatio();
-//            })->save(public_path()."/".$pixel750FolderName.$image_name);
-
-            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
-
+            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
 
             Image::make( $path )->resize(1000, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -252,11 +285,7 @@ class TudemeController extends Controller
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
 
-            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
-
-//            Image::make( $path )->resize(null, 750, function ($constraint) {
-//                $constraint->aspectRatio();
-//            })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
 
             Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
@@ -364,6 +393,397 @@ class TudemeController extends Controller
         // Update tudeme cover image
         $tudeme = Tudeme::findOrFail($tudeme_id);
         $tudeme->cover_image_id = $upload->id;
+        $tudeme->save();
+
+        return back()->withSuccess(__('Tudeme cover image successfully uploaded.'));
+    }
+
+    public function tudemeSpreadUpload(Request $request,$tudeme_id)
+    {
+
+        $tudeme = Tudeme::where('id',$tudeme_id)->first();
+        $folderName = str_replace(' ', '', $tudeme->name."/Banner/");
+        $originalFolderName = str_replace(' ', '', $tudeme->name."/Cover Image/Original/");
+
+        $pixel100FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/100/");
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/300/");
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/500/");
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/750/");
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1000/");
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1500/");
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/2500/");
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/3600/");
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/work/tudeme/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/tudeme/".$originalFolderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+        $image_name = $file_name.'.'.$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        if ($width > $height) { //landscape
+
+            $orientation = "landscape";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+
+            Image::make( $path )->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+
+            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
+
+            Image::make( $path )->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        } else {
+
+            $orientation = "portrait";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(null, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+
+            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
+
+            Image::make( $path )->resize(null, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->orientation = $orientation;
+        $upload->size = $size;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
+
+        $upload->is_restrict_to_specific_email = False;
+        $upload->is_album_set_image = False;
+        $upload->tudeme_id = $tudeme_id;
+        $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update tudeme cover image
+        $tudeme = Tudeme::findOrFail($tudeme_id);
+        $tudeme->spread_id = $upload->id;
+        $tudeme->save();
+
+        return back()->withSuccess(__('Tudeme spread successfully uploaded.'));
+    }
+
+    public function tudemeIconUpload(Request $request,$tudeme_id)
+    {
+
+        $tudeme = Tudeme::where('id',$tudeme_id)->first();
+        $folderName = str_replace(' ', '', $tudeme->name."/Banner/");
+        $originalFolderName = str_replace(' ', '', $tudeme->name."/Cover Image/Original/");
+
+        $pixel100FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/100/");
+        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/300/");
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
+        $pixel500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/500/");
+        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
+        $pixel750FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/750/");
+        File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1000FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1000/");
+        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1500/");
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
+        $pixel2500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/2500/");
+        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
+        $pixel3600FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/3600/");
+        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/work/tudeme/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/work/tudeme/".$originalFolderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+        $image_name = $file_name.'.'.$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        if ($width > $height) { //landscape
+
+            $orientation = "landscape";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+
+            Image::make( $path )->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+
+            Image::make( $path )->resize(750, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+
+            Image::make( $path )->resize(1000, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(2500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(3600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        } else {
+
+            $orientation = "portrait";
+
+            Image::make( $path )->resize(null, 100, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            Image::make( $path )->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            Image::make( $path )->resize(null, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name);
+
+            Image::make( $path )->resize(null, 1000, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1000FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            Image::make( $path )->resize(null, 2500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->resize(null, 3600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->orientation = $orientation;
+        $upload->size = $size;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
+        $upload->pixels100 = $pixel100FolderName.$image_name;
+        $upload->pixels300 = $pixel300FolderName.$image_name;
+        $upload->pixels500 = $pixel500FolderName.$image_name;
+        $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1000 = $pixel1000FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
+        $upload->pixels2500 = $pixel2500FolderName.$image_name;
+        $upload->pixels3600 = $pixel3600FolderName.$image_name;
+        $upload->original = $originalFolderName.$image_name;
+
+        $upload->is_restrict_to_specific_email = False;
+        $upload->is_album_set_image = False;
+        $upload->tudeme_id = $tudeme_id;
+        $upload->upload_type_id = "11bde94f-e686-488e-9051-bc52f37df8cf";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update tudeme cover image
+        $tudeme = Tudeme::findOrFail($tudeme_id);
+        $tudeme->icon_id = $upload->id;
         $tudeme->save();
 
         return back()->withSuccess(__('Tudeme cover image successfully uploaded.'));
@@ -633,17 +1053,20 @@ class TudemeController extends Controller
     public function tudemeMealStore(Request $request, $tudeme_id)
     {
 
-        return $request;
+        // return $request;
 
         $meal = new Meal();
         $meal->name = $request->name;
+        $meal->number = 1;
+        $meal->cook_time = 1;
         $meal->description = $request->description;
+        $meal->body = $request->body;
         $meal->tudeme_id = $tudeme_id;
-        $meal->cuisine_id = $request->cuisine_id;
-        $meal->cooking_skill_id = $request->cooking_skill_id;
-        $meal->meal_type_id = $request->meal_type_id;
-        $meal->dish_type_id = $request->dish_type_id;
-        $meal->food_type_id = $request->food_type_id;
+        $meal->cooking_skill_id = $request->cooking_skill;
+        // $meal->cuisine_id = $request->cuisine;
+        $meal->meal_type_id = $request->meal_type;
+        $meal->dish_type_id = $request->dish_type;
+        $meal->food_type_id = $request->food_type;
         $meal->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $meal->user_id = Auth::user()->id;
         $meal->save();
@@ -652,58 +1075,116 @@ class TudemeController extends Controller
         foreach ($request->cooking_styles as $cookingStyles){
             $mealCookingStyle = new MealCookingStyle();
             $mealCookingStyle->meal_id = $meal->id;
-            $mealCookingStyle->label_id = $cookingStyles;
+            $mealCookingStyle->cooking_style_id = $cookingStyles;
             $mealCookingStyle->user_id = Auth::user()->id;
+            $mealCookingStyle->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $mealCookingStyle->save();
         }
 
         // meal course
-        foreach ($request->course as $courses){
+        foreach ($request->course as $course){
             $mealCourse = new MealCourse();
             $mealCourse->meal_id = $meal->id;
-            $mealCourse->label_id = $courses;
+            $mealCourse->course_id = $course;
             $mealCourse->user_id = Auth::user()->id;
+            $mealCourse->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $mealCourse->save();
         }
 
         // meal dietary preference
-        foreach ($request->dietary_preferences as $dietaryPreferences){
+        foreach ($request->dietary_preferences as $dietaryPreference){
             $mealDietaryPreference = new MealDietaryPreference();
             $mealDietaryPreference->meal_id = $meal->id;
-            $mealDietaryPreference->label_id = $dietaryPreferences;
+            $mealDietaryPreference->dietary_preference_id = $dietaryPreference;
             $mealDietaryPreference->user_id = Auth::user()->id;
+            $mealDietaryPreference->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $mealDietaryPreference->save();
         }
 
         // meal ingredients
-        foreach ($request->item_details as $ingredients){
-            $mealDietaryPreference = new MealIngredient();
-            $mealDietaryPreference->meal_id = $meal->id;
+        foreach ($request->ingredients as $ingredients){
+            $mealIngredient = new MealIngredient();
+            $mealIngredient->meal_id = $meal->id;
 
             // measurment
-            $mealDietaryPreference->measurment_id = $ingredients['measurment'];
+            $mealIngredient->measurment_id = $ingredients['measurment'];
             $measurment = Measurment::findOrFail($ingredients['measurment']);
+
             // ingredient
-            $mealDietaryPreference->ingredient_id = $ingredients['ingredient'];
+            $mealIngredient->ingredient_id = $ingredients['ingredient'];
             $ingredient = Ingredient::findOrFail($ingredients['ingredient']);
 
-            $mealDietaryPreference->details = $ingredients['amount']+' '+$measurment->name+' '+$ingredient->name+$ingredients['extra'];
-
-            $mealDietaryPreference->user_id = Auth::user()->id;
-            $mealDietaryPreference->save();
+            $mealIngredient->ingredient = $ingredients['amount'].' '. $measurment->name.' '.$ingredient->name.''.$ingredients['extra'];
+            $mealIngredient->details = $ingredients['amount'].' '. $measurment->name.' '.$ingredient->name.''.$ingredients['extra'];
+            $mealIngredient->extra = $ingredients['extra'];
+            $mealIngredient->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $mealIngredient->user_id = Auth::user()->id;
+            $mealIngredient->save();
         }
 
         // instructions
         foreach ($request->instructions as $mealInstruction){
-            $mealDietaryPreference = new Instruction();
-            $mealDietaryPreference->number = $mealInstruction['number'];
-            $mealDietaryPreference->instruction = $mealInstruction['instruction'];
-
-            $mealDietaryPreference->user_id = Auth::user()->id;
-            $mealDietaryPreference->save();
+            // return $mealInstruction;
+            $instruction = new Instruction();
+            $instruction->instruction = $mealInstruction['instruction'];
+            $instruction->number = $mealInstruction['number'];
+            $instruction->meal_id = $meal->id;
+            $instruction->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $instruction->user_id = Auth::user()->id;
+            $instruction->save();
         }
 
-        return back()->withSuccess(__('Album set successfully saved.'));
+        // notes
+        foreach ($request->notes as $mealNote){
+            // return $mealInstruction;
+            $note = new Note();
+            $note->notes = $mealNote['note'];
+            $note->tudeme_id = $tudeme_id;
+            $note->is_meal = True;
+            $note->meal_id = $meal->id;
+            $note->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $note->user_id = Auth::user()->id;
+            $note->save();
+        }
+
+        return redirect()->route('admin.tudeme.meal.show',$meal->id)->withSuccess(__('Meal sucessfully saved.'));
+
+    }
+    public function tudemeMealShow($tudeme_meal_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // cuisine
+        $cuisines = Cuisine::all();
+        // cooking skill
+        $cookingSkills = CookingSkill::all();
+        // cooking style
+        $cookingStyles = CookingStyle::all();
+        // course
+        $courses = Course::all();
+        // dietary preference
+        $dietaryPreferences = DietaryPreference::all();
+        // dish type
+        $dishTypes = DishType::all();
+        // food type
+        $foodTypes = FoodType::all();
+        // meal type
+        $mealTypes = MealType::all();
+        // ingredients
+        $ingredients = Ingredient::all();
+        // measurments
+        $measurments = Measurment::all();
+
+        $tudemeMeal = Meal::findOrFail($tudeme_meal_id);
+        $tudemeMeal = Meal::where('id',$tudeme_meal_id)->with('cooking_skill','dish_type','food_type','meal_type','tudeme','meal_cooking_styles','meal_courses','meal_dietary_preferences','meal_ingredients.measurment','meal_ingredients.ingredient','instructions')->withCount('instructions')->first();
+
+        // return $tudemeMeal;
+
+        return view('admin.tudeme_meal_show',compact('measurments','ingredients','user','navbarValues','tudemeMeal','mealTypes','foodTypes','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
+
     }
 
 }

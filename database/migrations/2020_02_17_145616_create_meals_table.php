@@ -17,14 +17,12 @@ class CreateMealsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->integer('number');
+            $table->string('name');
             $table->string('cook_time');
             $table->text('description')->nullable();
+            $table->text('body')->nullable();
 
-            $table->uuid('cuisine_id');
             $table->uuid('cooking_skill_id');
-            $table->uuid('cooking_style_id');
-            $table->uuid('course_id');
-            $table->uuid('dietary_preference_id');
             $table->uuid('dish_type_id');
             $table->uuid('food_type_id');
             $table->uuid('meal_type_id');

@@ -200,6 +200,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
                         <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Tudeme</a></li>
+                        <li class=""><a data-toggle="tab" href="#meals"><i class="fa fa-lemon-o"></i> Meals</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="collection_settings" class="tab-pane active">
@@ -357,19 +358,93 @@
 
                                     </div>
                                     <div class="col-md-6">
-                                        {{--  Cover Image  --}}
-                                        <div class="col-md-12">
-                                            <h2 class="text-center">Cover Image</h2>
-                                            <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
-                                            <hr>
-                                        </div>
-                                        <div class="col-md-10 col-md-offset-1">
+                                        <div class="row">
+                                            {{--  Cover Image  --}}
+                                            <div class="col-md-12">
+                                                <h2 class="text-center">Cover Image</h2>
+                                                <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#tudemeCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
+                                                <hr>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-1">
 
-                                            <div class="center">
-                                                <img alt="image" class="img-responsive" @isset($tudeme->cover_image) src="{{ asset('') }}{{ $tudeme->cover_image->pixels750 }}" @endisset>
+                                                <div class="center">
+                                                    <img alt="image" class="img-responsive" @isset($tudeme->cover_image) src="{{ asset('') }}{{ $tudeme->cover_image->pixels750 }}" @endisset>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            {{--  Cover Image  --}}
+                                            <div class="col-md-12">
+                                                <h2 class="text-center">Spread</h2>
+                                                <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#spreadImageRegistration" aria-expanded="false">Update Spread</button>
+                                                <hr>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-1">
+
+                                                <div class="center">
+                                                    <img alt="image" class="img-responsive" @isset($tudeme->spread) src="{{ asset('') }}{{ $tudeme->spread->pixels750 }}" @endisset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            {{--  Cover Image  --}}
+                                            <div class="col-md-12">
+                                                <h2 class="text-center">Cover Image</h2>
+                                                <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#iconImageRegistration" aria-expanded="false">Update Icon</button>
+                                                <hr>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-1">
+
+                                                <div class="center">
+                                                    <img alt="image" class="img-responsive" @isset($tudeme->icon) src="{{ asset('') }}{{ $tudeme->icon->pixels750 }}" @endisset>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="meals" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Number</th>
+                                            <th>Name</th>
+                                            <th>Cook Time</th>
+                                            <th>Status</th>
+                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($meals as $meal)
+                                            <tr class="gradeA">
+                                                <td>{{$meal->number}}</td>
+                                                <td>{{$meal->name}}</td>
+                                                <td>{{$meal->cook_time}}</td>
+                                                <td>
+                                                    <p><span class="label {{$meal->status->label}}">{{$meal->status->name}}</span></p>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('admin.tudeme.meal.show', $meal->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Number</th>
+                                            <th>Name</th>
+                                            <th>Cook Time</th>
+                                            <th>Status</th>
+                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -495,6 +570,8 @@
 
 @include('admin.layouts.modals.tudeme_to_do')
 @include('admin.layouts.modals.tudeme_cover_image')
+@include('admin.layouts.modals.tudeme_spread')
+@include('admin.layouts.modals.tudeme_icon')
 
 @section('js')
 

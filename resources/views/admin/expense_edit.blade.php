@@ -138,25 +138,25 @@
                                         </thead>
                                         <tbody>
                                         @php
-                                            $product_index = 0
+                                            $expense_index = 0
                                         @endphp
-                                        @foreach($expense->expense_items as $product)
+                                        @foreach($expense->expense_items as $expense)
                                             <tr>
                                                 <td>
-                                                    <input name="item_details[0][item]" type="text" class="form-control input-lg item-detail" value="{{$product->name}}">
+                                                    <input name="item_details[{{expense_index}}][item]" type="text" class="form-control input-lg item-detail" value="{{$expense->name}}">
                                                 </td>
                                                 <td>
-                                                    <input oninput = "changeItemQuantity(this)" name="item_details[0][quantity]" type="number" class="form-control input-lg item-quantity" value = "{{$product->quantity}}" min = "0">
+                                                    <input oninput = "changeItemQuantity(this)" name="item_details[{{expense_index}}][quantity]" type="number" class="form-control input-lg item-quantity" value = "{{$expense->quantity}}" min = "0">
                                                 </td>
                                                 <td>
-                                                    <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "{{$product->rate}}" min = "0">
+                                                    <input oninput = "changeItemRate(this)" name="item_details[{{expense_index}}][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "{{$expense->rate}}" min = "0">
                                                 </td>
                                                 <td>
-                                                    <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "{{$product->amount}}" min = "0">
+                                                    <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[{{expense_index}}][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "{{$expense->amount}}" min = "0">
                                                 </td>
                                             </tr>
                                             @php
-                                                $product_index++
+                                                $expense_index++
                                             @endphp
                                         @endforeach
                                         </tbody>
@@ -641,8 +641,8 @@
         var subTotal = [];
         var adjustedValue;
         function itemSelected (e) {
-            var selectedItemQuantity = e.options[e.selectedIndex].getAttribute("data-product-quantity");
-            var selectItemPrice = e.options[e.selectedIndex].getAttribute("data-product-selling-price");
+            var selectedItemQuantity = e.options[e.selectedIndex].getAttribute("data-expense-quantity");
+            var selectItemPrice = e.options[e.selectedIndex].getAttribute("data-expense-selling-price");
             var selectedParentTd = e.parentElement;
             var selectedTr = selectedParentTd.parentElement;
             var itemQuantity = selectedTr.getElementsByClassName("item-quantity");

@@ -14,8 +14,15 @@ class CreateMealCookingStylesTable extends Migration
     public function up()
     {
         Schema::create('meal_cooking_styles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+
+            $table->uuid('meal_id');
+            $table->uuid('cooking_style_id');
+            $table->integer('user_id')->unsigned();
+            $table->uuid('status_id');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

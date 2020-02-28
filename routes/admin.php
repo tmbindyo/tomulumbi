@@ -433,6 +433,8 @@ Route::post('/tudeme/store', 'Admin\TudemeController@tudemeStore')->name('admin.
 Route::get('/tudeme/show/{tudeme_id}', 'Admin\TudemeController@tudemeShow')->name('admin.tudeme.show');
 Route::post('/tudeme/update/{tudeme_id}', 'Admin\TudemeController@tudemeUpdate')->name('admin.tudeme.update');
 Route::post('/tudeme/cover/image/{tudeme_id}', 'Admin\TudemeController@tudemeCoverImageUpload')->name('admin.tudeme.cover.image');
+Route::post('/tudeme/spread/{tudeme_id}', 'Admin\TudemeController@tudemeSpreadUpload')->name('admin.tudeme.spread.image');
+Route::post('/tudeme/icon/{tudeme_id}', 'Admin\TudemeController@tudemeIconUpload')->name('admin.tudeme.icon.image');
 Route::post('/tudeme/gallery/image/upload/{tudeme_id}', 'Admin\TudemeController@tudemeGalleryImageUpload')->name('admin.tudeme.gallery.image.upload');
 Route::post('/tudeme/update/design/{tudeme_id}', 'Admin\TudemeController@tudemeUpdateDesign')->name('admin.tudeme.update.design');
 Route::get('/tudeme/delete/{tudeme_id}', 'Admin\TudemeController@tudemeDelete')->name('admin.tudeme.delete');
@@ -440,6 +442,8 @@ Route::get('/tudeme/restore/{tudeme_id}', 'Admin\TudemeController@tudemeRestore'
 
 Route::get('/tudeme/meal/{tudeme_id}/create', 'Admin\TudemeController@tudemeMealCreate')->name('admin.tudeme.meal.create');
 Route::post('/tudeme/meal/{tudeme_id}/store', 'Admin\TudemeController@tudemeMealStore')->name('admin.tudeme.meal.store');
+Route::get('/tudeme/meal/{tudeme_id}/show', 'Admin\TudemeController@tudemeMealShow')->name('admin.tudeme.meal.show');
+Route::post('/tudeme/meal/{tudeme_id}/update', 'Admin\TudemeController@tudemeMealUpdate')->name('admin.tudeme.meal.update');
 
 // Letters
 Route::get('/letters', 'Admin\TudemeController@letters')->name('admin.letters');

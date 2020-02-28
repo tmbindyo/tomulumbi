@@ -13,6 +13,10 @@ class Note extends Model
     public $incrementing = false;
 
     // Parents
+    public function meal()
+    {
+        return $this->belongsTo('App\Meal');
+    }
     public function status()
     {
         return $this->belongsTo('App\Status');

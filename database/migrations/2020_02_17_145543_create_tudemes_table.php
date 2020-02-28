@@ -27,9 +27,10 @@ class CreateTudemesTable extends Migration
             $table->integer('serves');
 
             $table->uuid('cover_image_id')->nullable();
+            $table->uuid('spread_id')->nullable();
+            $table->uuid('icon_id')->nullable();
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
-
 
             $table->timestamps();
             $table->softDeletes();
