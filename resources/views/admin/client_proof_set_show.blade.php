@@ -2,51 +2,6 @@
 
 @section('title', $albumSet->name.' Album')
 
-@section('css')
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-
-    <!-- Data picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/basic.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/dropzone.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
-
-@endsection
-
-
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -71,8 +26,8 @@
 
     <div class="wrapper wrapper-content animated fadeIn">
 
-        
-        
+
+
         {{--    Client proof set download restrictions    --}}
         <div class="row">
             <div class="ibox">

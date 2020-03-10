@@ -2,25 +2,6 @@
 
 @section('title', 'Album Types')
 
-@section('css')
-
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/basic.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/dropzone.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-    {{--    TODO Multiple font incllude from table     --}}
-
-@endsection
-
-
-
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">

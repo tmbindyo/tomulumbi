@@ -86,7 +86,8 @@ Route::get('/clear/cart', 'Landing\StoreController@clearCart')->name('clear.cart
 Route::get('/tudeme/about', 'Landing\TudemeController@about')->name('tudeme.about');
 Route::get('/tudeme/blog', 'Landing\TudemeController@blog')->name('tudeme.blog');
 Route::get('/tudeme/blog/show/{blog_id}', 'Landing\TudemeController@blogShow')->name('tudeme.blog.show');
-Route::get('/tudeme/categories', 'Landing\TudemeController@categories')->name('tudeme.categories');
+Route::get('/tudeme/categories/{id}', 'Landing\TudemeController@categories')->name('tudeme.categories');
+Route::get('/tudeme/category/{category_type}/{category}', 'Landing\TudemeController@category')->name('tudeme.category');
 Route::get('/tudeme/contact', 'Landing\TudemeController@contact')->name('tudeme.contact');
 Route::get('/tudeme', 'Landing\TudemeController@index')->name('tudeme');
 Route::get('/tudeme/recipe', 'Landing\TudemeController@recipe')->name('tudeme.recipe');

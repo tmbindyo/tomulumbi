@@ -108,6 +108,12 @@ class AlbumController extends Controller
         }else{
             $album->is_design = False;
         }
+        if($request->is_tudeme){
+            $album->is_tudeme = True;
+            $album->tudeme_id =$request->tudeme;
+        }else{
+            $album->is_tudeme = False;
+        }
 
         $album->is_download = False;
         $album->views = 0;
@@ -162,7 +168,7 @@ class AlbumController extends Controller
         $albumStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
         // Get album
-        $album = Album::with('user','status','cover_image','album_view_restriction_emails','expenses.expense_type')->where('id',$album_id)->first();
+        $album = Album::with('user','status','cover_image','album_view_restriction_emails','expenses.expense_type','tudeme')->where('id',$album_id)->first();
 
         // Get all albums for to do dropdown
         $albums = Album::with('user','status')->get();

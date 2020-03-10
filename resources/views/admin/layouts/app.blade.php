@@ -11,7 +11,9 @@
 
     <link rel="shortcut icon" href="{{ asset('') }}tomulumbi_logo.ico" type="image/x-icon">
 
-    @yield('css')
+    <!-- css -->
+    @include('admin.layouts.header.css')
+    <!-- css -->
 
 </head>
 
@@ -23,10 +25,14 @@
     <!-- nav -->
 
     <div id="page-wrapper" class="gray-bg dashbard-1">
+
         <!-- top navbar -->
         @include('admin.layouts.navbars.navbar')
-        @include('admin.layouts.popover.popover')
         <!-- top navbar -->
+
+        <!-- popover -->
+        @include('admin.layouts.popover.popover')
+        <!-- popover -->
 
         <!-- page content -->
         @yield ('content')
@@ -37,6 +43,7 @@
         <!-- /footer -->
 
     </div>
+
     <!-- chat content -->
     @include('admin.layouts.navbars.chat')
     <!-- /chat content -->
@@ -47,6 +54,11 @@
 
 </div>
 
-@yield('js')
+    <!-- js -->
+    @include('admin.layouts.footers.js')
+    <!-- js -->
+
+
+    @yield('js')
 </body>
 </html>

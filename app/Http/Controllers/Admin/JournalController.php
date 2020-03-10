@@ -179,6 +179,11 @@ class JournalController extends Controller
         }else{
             $journal->is_journal_series = False;
         }
+        if($request->is_tudeme == "on"){
+            $journal->is_tudeme = True;
+        }else{
+            $journal->is_tudeme = False;
+        }
 
         $journal->views = 0;
         $journal->thumbnail_size_id = "36400ca6-68d0-4897-b22f-6bc04bbaa929";
@@ -187,11 +192,11 @@ class JournalController extends Controller
         $journal->save();
 
         foreach ($request->labels as $journalLabelLabel){
-            $journalAlbum = new JournalLabel();
-            $journalAlbum->journal_id = $journal->id;
-            $journalAlbum->label_id = $journalLabelLabel;
-            $journalAlbum->user_id = Auth::user()->id;
-            $journalAlbum->save();
+            $journalLabel = new JournalLabel();
+            $journalLabel->journal_id = $journal->id;
+            $journalLabel->label_id = $journalLabelLabel;
+            $journalLabel->user_id = Auth::user()->id;
+            $journalLabel->save();
         }
 
         return redirect()->route('admin.journal.show',$journal->id)->withSuccess('Journal '.$journal->name.' succesfully created');
@@ -340,6 +345,7 @@ class JournalController extends Controller
 //                $constraint->aspectRatio();
 //            })->save(public_path()."/".$pixel750FolderName.$image_name);
 
+
             Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
 
 
@@ -349,9 +355,13 @@ class JournalController extends Controller
             Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(2500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+
+            // for tudeme journal spread image
+            // Image::make( $path )->resize(2500, null, function ($constraint) {
+            //     $constraint->aspectRatio();
+            // })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel2500FolderName.$image_name);
+
             Image::make( $path )->resize(3600, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
@@ -382,9 +392,12 @@ class JournalController extends Controller
             Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(null, 2500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel2500FolderName.$image_name);
+
+            // Image::make( $path )->resize(null, 2500, function ($constraint) {
+            //     $constraint->aspectRatio();
+            // })->save(public_path()."/".$pixel2500FolderName.$image_name);
+            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel2500FolderName.$image_name);
+
             Image::make( $path )->resize(null, 3600, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel3600FolderName.$image_name);

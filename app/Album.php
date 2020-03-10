@@ -123,6 +123,10 @@ class Album extends Model
     {
         return $this->belongsTo('App\Scheme');
     }
+    public function tudeme()
+    {
+        return $this->belongsTo('App\Tudeme');
+    }
     public function thumbnail_size()
     {
         return $this->belongsTo('App\ThumbnailSize');

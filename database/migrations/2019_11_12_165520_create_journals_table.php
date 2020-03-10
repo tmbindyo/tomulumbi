@@ -38,6 +38,8 @@ class CreateJournalsTable extends Migration
             $table->uuid('album_id')->nullable();
             $table->boolean('is_design');
             $table->uuid('design_id')->nullable();
+            $table->boolean('is_tudeme');
+            $table->uuid('tudeme_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

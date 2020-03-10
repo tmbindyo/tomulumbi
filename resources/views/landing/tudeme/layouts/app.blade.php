@@ -31,137 +31,58 @@
     </div>
 
     <!-- Header Section Begin -->
-    <header class="header-section">
-        <div class="container">
-            <div class="logo">
-                <a href="{{route('tudeme')}}"><img width="93px" src="{{ asset('') }}/tomulumbi.png" alt="tomulumbi"></a>
-            </div>
-            <div class="nav-menu">
-                <nav class="main-menu mobile-menu">
-                    <ul>
-                        <li class="{{ Route::currentRouteNamed( 'tudeme' ) ?  'active' : '' }}"><a href="{{route('tudeme')}}">Home</a></li>
-                        <li class="{{ Route::currentRouteNamed( 'tudeme.categories' ) ?  'active' : '' }}" ><a href="{{route('tudeme.categories')}}">Categories</a></li>
-                        <li class="{{ Route::currentRouteNamed( 'tudeme.blog' ) ?  'active' : '' }}" ><a href="{{route('tudeme.blog')}}">Blog</a></li>
-                    </ul>
-                </nav>
-                <div class="nav-right search-switch">
-                    <i class="fa fa-search"></i>
-                </div>
-            </div>
-            <div id="mobile-menu-wrap"></div>
-        </div>
-    </header>
+        @include('landing.tudeme.layouts.header')
     <!-- Header End -->
-    @yield('body')
+
+    <!-- Popover Section Begin -->
+    <div class="x_content bs-example-popovers">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <strong>Success!</strong> {{ session('success') }}
+            </div>
+        @endif
+    
+        @if (session('info'))
+            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <strong>Info!</strong> {{ session('info') }}
+            </div>
+        @endif
+    
+        @if (session('warning'))
+            <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <strong>Warning!</strong> {{ session('warning') }}
+            </div>
+        @endif
+    
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Danger!</strong> {{ session('danger') }}
+                </div>
+            @endforeach
+        @endif
+    
+    </div>
+    <!-- Popover End -->
+
+    <!-- Body Start -->
+        @yield('body')
+    <!-- Body End -->
 
     <!-- Footer Section Begin -->
-    <footer class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="fs-left">
-                        <div class="logo">
-                            <a href="{{route('tudeme')}}">
-                                <img width="150px" src="{{ asset('') }}/tomulumbi.png" alt="tomulumbi">
-                            </a>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
-                            viverra maecenas accumsan lacus vel facilisis.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 offset-lg-1">
-                    <form action="#" class="subscribe-form">
-                        <h3>Subscribe to our newsletter</h3>
-                        <input type="email" placeholder="Your e-mail">
-                        <button type="submit">Subscribe</button>
-                    </form>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/tomulumbi"><i class="fa fa-instagram"></i><span>Instagram</span></a>
-                        <a href="https://www.facebook.com/tomulumbi"><i class="fa fa-facebook"></i><span>Facebook</span></a>
-                        <a href="https://twitter.com/tomulumbi"><i class="fa fa-twitter"></i><span>Twitter</span></a>
-                        <a href="#"><i class="fa fa-youtube"></i><span>Youtube</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="copyright-text">
-                        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> <a href="https://www.tomulumbi.com">tomulumbi</a>. All Rights Reserved. <br> Designed &amp; Developed by <a href="https://fluidtechglobal.com">Fluidtech Global</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+        @include('landing.tudeme.layouts.footer')
     <!-- Footer Section End -->
 
     <!-- Search model -->
-	<div class="search-model">
-		<div class="h-100 d-flex align-items-center justify-content-center">
-			<div class="search-close-switch">+</div>
-			<form class="search-model-form">
-                <div class="row">
-                    <div class="col-md-12">
-                        <input type="text" id="search-input" placeholder="Recipie">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <select id="tag">
-                            <option value="">Cooking Skill</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <select id="tag">
-                            <option value="">Cooking Style</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <select id="tag">
-                            <option value="">Meal Type</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <select id="tag">
-                            <option value="">Course</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <select id="tag">
-                            <option value="">Dietary Preference</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <select id="tag">
-                            <option value="">Dish Type</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <select id="tag">
-                            <option value="">Food Type</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <select id="tag">
-                            <option value="">Cuisine</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <button class="btn-block" type="submit">Search</button>
-			</form>
-		</div>
-	</div>
+	    @include('landing.tudeme.layouts.search')
 	<!-- Search model end -->
 
     <!-- Js Plugins -->

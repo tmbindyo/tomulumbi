@@ -13,6 +13,14 @@ class Tudeme extends Model
     public $incrementing = false;
 
     // Children
+    public function albums()
+    {
+        return $this->hasMany('App\Album');
+    }
+    public function journals()
+    {
+        return $this->hasMany('App\Journal');
+    }
     public function meals()
     {
         return $this->hasMany('App\Meal');

@@ -2,58 +2,9 @@
 
 @section('title', $tudeme->name)
 
-@section('css')
-    <link href="{{ asset('inspinia') }}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/basic.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/dropzone.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/switchery/switchery.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-    <link href="{{ asset('inspinia') }}/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/select2/select2.min.css" rel="stylesheet">
-
-    <link href="{{ asset('inspinia') }}/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
-
-@endsection
-
-
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-9">
+        <div class="col-lg-8">
             <h2>Tudeme's</h2>
             <ol class="breadcrumb">
                 <li>
@@ -67,8 +18,9 @@
                 </li>
             </ol>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="title-action">
+                <a href="{{route('admin.tudeme.personal.album.create',$tudeme->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Personal Album </a>
                 <a href="{{route('admin.tudeme.meal.create',$tudeme->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Tudeme Meal </a>
                 @if($tudeme->project_id)
                     <a href="{{route('admin.project.show',$tudeme->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Project </a>
@@ -199,6 +151,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
+                        <li class=""><a data-toggle="tab" href="#journals"><i class="fa fa-bookmark"></i> Journal</a></li>
                         <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Tudeme</a></li>
                         <li class=""><a data-toggle="tab" href="#meals"><i class="fa fa-lemon-o"></i> Meals</a></li>
                     </ul>
@@ -316,6 +269,49 @@
                                         </div>
 
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="journals" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Number</th>
+                                            <th>Name</th>
+                                            <th>Cook Time</th>
+                                            <th>Status</th>
+                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($journals as $tudeme)
+                                            <tr class="gradeA">
+                                                <td>{{$tudeme->number}}</td>
+                                                <td>{{$tudeme->name}}</td>
+                                                <td>{{$tudeme->cook_time}}</td>
+                                                <td>
+                                                    <p><span class="label {{$tudeme->status->label}}">{{$tudeme->status->name}}</span></p>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('admin.tudeme.tudeme.show', $tudeme->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Number</th>
+                                            <th>Name</th>
+                                            <th>Cook Time</th>
+                                            <th>Status</th>
+                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
                             </div>
                         </div>

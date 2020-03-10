@@ -22,7 +22,7 @@ class JournalController extends Controller
         $view_id = '';
         $view = $this->trackView($request,$view_type,$view_id);
 
-        $journals = Journal::where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('cover_image')->get();
+        $journals = Journal::where('is_tudeme',False)->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('cover_image')->get();
         return view('landing.journals.journals',compact('journals'));
     }
 
@@ -31,7 +31,7 @@ class JournalController extends Controller
         // Check if journal exists
         $journal = Journal::findOrFail($journal_id);
         // Get journal
-        $journal = Journal::where('id',$journal_id)->with('cover_image','journal_galleries.upload','project','album','design')->first();
+        $journal = Journal::where('is_tudeme',False)->where('id',$journal_id)->with('cover_image','journal_galleries.upload','project','album','design')->first();
         // return $journal;
 
         // journal view

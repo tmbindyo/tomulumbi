@@ -20,6 +20,7 @@ use App\Traits\StatusCountTrait;
 use App\Http\Controllers\Controller;
 use App\Ingredient;
 use App\Instruction;
+use App\Journal;
 use App\Meal;
 use App\MealCookingStyle;
 use App\MealCourse;
@@ -28,6 +29,7 @@ use App\MealIngredient;
 use App\MealType;
 use App\Measurment;
 use App\Note;
+use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
@@ -148,12 +150,29 @@ class TudemeController extends Controller
         $completedToDos = ToDo::with('user','status','tudeme')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('tudeme_id',$tudeme->id)->get();
         // Overdue to dos
         $overdueToDos = ToDo::with('user','status','tudeme')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('tudeme_id',$tudeme->id)->get();
+        // tudeme journals
+        $journals = Journal::where('is_tudeme',True)->where('tudeme_id',$tudeme_id)->with('user','status')->orderBy('created_at', 'desc')->get();
         // tudeme meals
         $meals = Meal::where('tudeme_id',$tudeme_id)->with('user','status')->orderBy('created_at', 'desc')->get();
 
         // tudeme gallery
         $tudemeGallery = TudemeGallery::where('tudeme_id',$tudeme_id)->with('upload')->get();
-        return view('admin.tudeme_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','tudeme','tudemeGallery','tudemeStatuses','navbarValues','tudemeArray','tudemeViews','meals'));
+        return view('admin.tudeme_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','tudeme','tudemeGallery','tudemeStatuses','navbarValues','tudemeArray','tudemeViews','meals','journals'));
+    }
+
+    public function tudemePersonalAlbumCreate($tudeme_id)
+    {
+
+        // get design
+        $tudeme = Tudeme::findOrFail($tudeme_id);
+        // Tags
+        $tags = Tag::all();
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.tudeme_personal_album_create',compact('user','tags','navbarValues','tudeme'));
+
     }
 
     public function tudemeUpdate(Request $request, $tudeme_id)

@@ -89,7 +89,7 @@
 
 <!-- home
 ================================================== -->
-<section id="home" style="background-image: url({{ asset('') }}{{ $journal->cover_image->pixels1000 }});">
+<section id="home" style="background-image: url({{ asset('') }}{{ $journal->cover_image->pixels1500 }});">
 
     <div class="overlay"></div>
 

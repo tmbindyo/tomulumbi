@@ -445,6 +445,8 @@ Route::post('/tudeme/meal/{tudeme_id}/store', 'Admin\TudemeController@tudemeMeal
 Route::get('/tudeme/meal/{tudeme_id}/show', 'Admin\TudemeController@tudemeMealShow')->name('admin.tudeme.meal.show');
 Route::post('/tudeme/meal/{tudeme_id}/update', 'Admin\TudemeController@tudemeMealUpdate')->name('admin.tudeme.meal.update');
 
+Route::get('/tudeme/personal/album/create/{tudeme_id}', 'Admin\TudemeController@tudemePersonalAlbumCreate')->name('admin.tudeme.personal.album.create');
+
 // Letters
 Route::get('/letters', 'Admin\TudemeController@letters')->name('admin.letters');
 

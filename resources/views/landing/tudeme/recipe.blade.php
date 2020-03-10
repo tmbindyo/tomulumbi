@@ -47,7 +47,13 @@
                         <div class="ingredient-list">
                             <div class="recipe-btn">
                                 <a href="javascript:window.print()">Print Recipe</a>
-                                <a href="#" class="black-btn">Pin Recipe</a>
+                                @foreach($tudeme->albums as $album)
+                                    @if($album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
+                                        <a href="{{ route('client.proof', $album->id) }}" class="black-btn">View Album</a>
+                                    @elseif($album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
+                                        <a href="{{ route('personal.album.access', $album->id) }}" class="black-btn">View Album</a>
+                                    @endif
+                                @endforeach
                             </div>
                             <div class="list-item">
                                 <h5>Ingredients</h5>
