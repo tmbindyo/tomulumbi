@@ -12,10 +12,13 @@
                         <a href="{{route('admin.dashboard')}}">Home</a>
                     </li>
                     <li>
-                        <a href="{{route('admin.account.show',$account->id)}}">Account</a>
+                        <strong>Accounting</strong>
                     </li>
                     <li>
-                        <a href="{{route('admin.expenses')}}">Account Adjustments</a>
+                        <strong><a href="{{route('admin.accounts')}}">Accounts</a></strong>
+                    </li>
+                    <li>
+                        <strong><a href="{{route('admin.account.show',$account->id)}}">Account</a></strong>
                     </li>
                     <li class="active">
                         <strong>Account Adjustment Create</strong>
@@ -27,7 +30,7 @@
         <div class="wrapper wrapper-content animated fadeInRight ecommerce">
 
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8 col-md-offset-2">
                     <div class="ibox">
                         <div class="ibox-content">
 
@@ -84,7 +87,7 @@
 
                                         <hr>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('Save') }}</button>
+                                            <button type="submit" class="btn btn-success btn-block btn-outline btn-lg mt-4">{{ __('SAVE') }}</button>
                                         </div>
                                     </div>
 

@@ -12,7 +12,7 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.sub.type.create')}}">Asset Action's</a>
+                    <a href="{{route('admin.action.type.show',$actionType->id)}}">Action Type</a>
                 </li>
                 <li class="active">
                     <strong>Asset Action Create</strong>
@@ -23,28 +23,8 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Asset Action Registration <small>Form</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
 
                     <div class="ibox-content">
 
@@ -63,7 +43,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="">
                                     <br>
                                     <div class="has-warning">
                                         <input type="number" id="amount" name="amount" required="required" value="0" class="form-control input-lg">
@@ -148,11 +128,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('Save') }}</button>
+                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('SAVE') }}</button>
                                     </div>
                                 </div>
 
@@ -217,35 +196,6 @@
 
 <!-- Select2 -->
 <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        // Set date
-        console.log('var');
-        var today = new Date();
-        console.log(today);
-        var dd = today.getDate();
-        var mm = today.getMonth();
-        var yyyy = today.getFullYear();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        mm ++;
-        if (dd < 10){
-            dd = '0'+dd;
-        }
-        if (mm < 10){
-            mm = '0'+mm;
-        }
-        var date_today = mm + '/' + dd + '/' + yyyy;
-        var time_curr = h + ':' + m;
-        console.log(time_curr);
-        document.getElementById("date").value = date_today;
-        document.getElementById("start_date").value = date_today;
-
-        // Set time
-    });
-
-</script>
 
 <script>
     $(document).ready(function(){

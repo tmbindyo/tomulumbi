@@ -74,7 +74,7 @@
                                         <br>
                                         <hr>
                                         <div>
-                                            <button class="btn btn-lg btn-primary btn-block" type="submit"><strong>Update</strong></button>
+                                            <button class="btn btn-lg btn-primary btn-block" type="submit"><strong>UPDATE</strong></button>
                                         </div>
                                     </form>
                                 </div>

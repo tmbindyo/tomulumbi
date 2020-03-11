@@ -81,7 +81,7 @@
                                     </div>
                                     <br>
                                     <div>
-                                        <button class="btn btn-lg btn-block btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                        <button class="btn btn-lg btn-block btn-primary pull-right m-t-n-xs" type="submit"><strong>UPDATE</strong></button>
                                     </div>
                                 </form>
                             </div>

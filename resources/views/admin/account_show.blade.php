@@ -11,14 +11,14 @@
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
-                <li class="active">
-                    <strong>Accounting's</strong>
+                <li>
+                    <strong>Accounting</strong>
                 </li>
-                <li class="active">
+                <li class="">
                    <a href="{{route('admin.accounts')}}"><strong>Account's</strong></a>
                 </li>
                 <li class="active">
-                    <strong>Account</strong>
+                   <a href="{{route('admin.account.show',$account->id)}}"><strong>Account</strong></a>
                 </li>
             </ol>
         </div>
@@ -36,32 +36,13 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-6">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Account <small>edit</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-sm-8 col-md-offset-2">
+                            <div class="col-sm-12">
                                 <form method="post" action="{{ route('admin.account.update',$account->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+
                                     @csrf
 
                                     @if ($errors->any())
@@ -74,51 +55,40 @@
                                         </div>
                                     @endif
 
-
-                                    <div class="row">
+                                    <br>
+                                    <div class="col-md-12">
                                         <div class="has-warning">
                                             <input type="name" name="name" value="{{$account->name}}" class="form-control input-lg">
+                                            <i>name</i>
                                         </div>
-                                        <i>name</i>
-                                    </div>
-                                    <br>
-                                    <div class="row">
+                                        <br>
                                         <div class="has-warning">
                                             <input type="number" name="goal" value="{{$account->goal}}" class="form-control input-lg">
+                                            <i>goal</i>
                                         </div>
-                                        <i>goal</i>
-                                    </div>
-                                    <br>
-                                    <div class="row">
+                                        <br>
                                         <div class="has-warning">
                                             <textarea rows="5" name="notes" class="form-control input-lg" >{{$account->notes}}</textarea>
+                                            <i>notes</i>
                                         </div>
-                                        <i>notes</i>
-                                    </div>
-                                    <br>
-                                    <div class="row">
+                                        <br>
                                         <div class="has-warning">
                                             <input type="number" name="balance" value="{{$account->balance}}" class="form-control input-lg" readonly>
+                                            <i>balance</i>
                                         </div>
-                                        <i>balance</i>
-                                    </div>
-                                    <br>
-
+                                        <hr>
                                     <div>
-                                        <button class="btn btn-primary btn-block btn-lg m-t-n-xs" type="submit"><strong>Update</strong></button>
+                                        <button class="btn btn-primary btn-block btn-lg m-t-n-xs" type="submit"><strong>UPDATE</strong></button>
                                     </div>
+
+                                    </div>
+
+
+
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="wrapper wrapper-content project-manager">
-                    <h4>Acount description</h4>
-                    <p class="small">
-                        {{$account->notes}}
-                    </p>
                 </div>
             </div>
         </div>
@@ -661,73 +631,5 @@
         </div>
     </div>
 
-
-@endsection
-
-@section('js')
-
-
-    <!-- Mainly scripts -->
-    <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-    <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
-
-    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
-
-    <!-- Page-Level Scripts -->
-    <script>
-        $(document).ready(function(){
-            $('.dataTables-example').DataTable({
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
-
-                    {extend: 'print',
-                     customize: function (win){
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
-                    }
-                    }
-                ]
-
-            });
-
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
-
-        });
-
-    </script>
 
 @endsection

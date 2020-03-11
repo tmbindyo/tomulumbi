@@ -50,7 +50,7 @@
                                             <input type="name" name="name" value="{{$typography->name}}" class="form-control input-lg">
                                         </div>
                                         <div>
-{{--                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Update</strong></button>--}}
+{{--                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>UPDATE</strong></button>--}}
                                         </div>
                                     </form>
                                 </div>

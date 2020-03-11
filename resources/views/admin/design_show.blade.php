@@ -182,7 +182,7 @@
                                                     <div class="ln_solid"></div>
 
                                                     <div class="text-center">
-                                                        <button type="submit" class="btn btn-block btn-outline btn-lg btn-warning mt-4">{{ __('Update') }}</button>
+                                                        <button type="submit" class="btn btn-block btn-outline btn-lg btn-warning mt-4">{{ __('UPDATE') }}</button>
                                                     </div>
                                                 </div>
                                             </form>

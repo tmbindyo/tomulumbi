@@ -29,7 +29,7 @@
                     <br>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-success btn-lg btn-block">{{ __('Save') }}</button>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">{{ __('SAVE') }}</button>
                     </div>
 
                 </form>

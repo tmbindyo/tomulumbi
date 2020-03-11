@@ -32,7 +32,7 @@
                     <div class="ln_solid"></div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-block btn-outline btn-lg btn-success mt-4">{{ __('Save') }}</button>
+                        <button type="submit" class="btn btn-block btn-outline btn-lg btn-success mt-4">{{ __('SAVE') }}</button>
                     </div>
 
                 </form>
