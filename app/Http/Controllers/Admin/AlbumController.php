@@ -827,6 +827,12 @@ class AlbumController extends Controller
         }else{
             $album->is_design = False;
         }
+        if($request->is_tudeme){
+            $album->is_tudeme = True;
+            $album->tudeme_id =$request->tudeme;
+        }else{
+            $album->is_tudeme = False;
+        }
         /// download
         // TODO download pin is for whole album
         // TODO check limit of gallery downloads, should have a max by default

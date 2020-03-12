@@ -25,8 +25,9 @@ class CreateOrganizationsTable extends Migration
 
             $table->longText('description');
 
-            $table->string('street');
-            $table->string('city');
+            $table->string('street')->nullable();
+            $table->string('city')->nullable();
+            $table->string('location')->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

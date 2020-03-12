@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-5">
+        <div class="col-lg-3">
             <h2>Deal's</h2>
             <ol class="breadcrumb">
                 <li>
@@ -18,7 +18,7 @@
                 </li>
             </ol>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-9">
             <div class="title-action">
                 <a href="{{route('admin.deal.client.proof.create',$deal->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Client Proof </a>
                 <a href="{{route('admin.deal.design.create',$deal->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Design </a>

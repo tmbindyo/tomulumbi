@@ -88,7 +88,7 @@ class AssetController extends Controller
         $asset = Asset::findOrFail($asset_id);
         // action types
         $kits = Kit::all();
-        return view('admin.asset_kit_create',compact('kits','asset','user','navbarValues'));
+        return view('admin.asset_assign_kit',compact('kits','asset','user','navbarValues'));
     }
 
     public function assetShow($asset_id)

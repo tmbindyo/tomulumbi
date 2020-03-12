@@ -44,42 +44,7 @@
         </div>
         {{--  Uploads  --}}
         <div class="row">
-            <div class="col-lg-3">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                        <div class="file-manager">
-                            <h5>Show:</h5>
-                            <a href="#" class="file-control active">Ale</a>
-                            <a href="#" class="file-control">Documents</a>
-                            <a href="#" class="file-control">Audio</a>
-                            <a href="#" class="file-control">Images</a>
-                            <div class="hr-line-dashed"></div>
-                            <h5>Folders</h5>
-                            <ul class="folder-list" style="padding: 0">
-                                <li><a href=""><i class="fa fa-folder"></i> Files</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Pictures</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Web pages</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Illustrations</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Films</a></li>
-                                <li><a href=""><i class="fa fa-folder"></i> Books</a></li>
-                            </ul>
-                            <h5 class="tag-title">Tags</h5>
-                            <ul class="tag-list" style="padding: 0">
-                                <li><a href="">Family</a></li>
-                                <li><a href="">Work</a></li>
-                                <li><a href="">Home</a></li>
-                                <li><a href="">Children</a></li>
-                                <li><a href="">Holidays</a></li>
-                                <li><a href="">Music</a></li>
-                                <li><a href="">Photography</a></li>
-                                <li><a href="">Film</a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-9 animated fadeInRight">
+            <div class="col-lg-12 animated fadeInRight">
                 <div class="row">
                     <div class="col-lg-12">
 
@@ -122,79 +87,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-@endsection
-
-@section('js')
-
-    <!-- Mainly scripts -->
-    <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-    <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
-
-    <!-- DROPZONE -->
-    <script src="{{ asset('inspinia') }}/js/plugins/dropzone/dropzone.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('.file-box').each(function() {
-                animationHover(this, 'pulse');
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function(){
-
-            Dropzone.options.dropzone =
-                {
-                    maxFilesize: 12,
-                    renameFile: function(file) {
-                        var dt = new Date();
-                        var time = dt.getTime();
-                        return time+file.name;
-                    },
-                    addRemoveLinks: true,
-                    timeout: 50000,
-                    removedfile: function(file)
-                    {
-                        var name = file.upload.filename;
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                            },
-                            type: 'POST',
-                            url: '{{ url("image/delete") }}',
-                            data: {filename: name},
-                            success: function (data){
-                                console.log("File has been successfully removed!!");
-                            },
-                            error: function(e) {
-                                console.log(e);
-                            }});
-                        var fileRef;
-                        return (fileRef = file.previewElement) != null ?
-                            fileRef.parentNode.removeChild(file.previewElement) : void 0;
-                    },
-
-                    success: function(file, response)
-                    {
-                        console.log(response);
-                    },
-                    error: function(file, response)
-                    {
-                        return false;
-                    }
-                };
-        });
-    </script>
-
 @endsection

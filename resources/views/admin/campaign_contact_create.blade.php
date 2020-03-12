@@ -6,7 +6,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Contact's</h2>
+            <h2>Contacts</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -15,7 +15,10 @@
                     <a href="#">Settings</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.contacts')}}">Contact's</a>
+                    <a href="{{route('admin.campaigns')}}">Campaigns</a>
+                </li>
+                <li class="active">
+                    <a href="{{route('admin.campaign.show',$campaign->id)}}">Campaign</a>
                 </li>
                 <li class="active">
                     <strong>Contact Create</strong>
@@ -28,26 +31,6 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Contact Registration <small>Form</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
 
                     <div class="ibox-content">
 
@@ -151,36 +134,23 @@
                                     </div>
                                 </div>
                                 <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <select name="contact_types[]" class="select2_demo_tag form-control input-lg" multiple>
-                                                <option>Select Contact Types</option>
-                                                @foreach($contactTypes as $contactType)
-                                                    <option value="{{$contactType->id}}">{{$contactType->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>contact types</i>
-                                        </div>
-
-                                    </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="has-warning">
-                                            <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required" placeholder="About..."></textarea>
-                                        </div>
-                                    </div>
+                                <div class="has-warning">
+                                    <select name="contact_types[]" class="select2_demo_tag form-control input-lg" multiple>
+                                        <option>Select Contact Types</option>
+                                        @foreach($contactTypes as $contactType)
+                                            <option value="{{$contactType->id}}">{{$contactType->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <i>contact types</i>
                                 </div>
                                 <br>
-                                <div class="col-md-12">
-                                    <br>
-                                    <hr>
-
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('SAVE') }}</button>
-                                    </div>
+                                <div class="has-warning">
+                                    <textarea id="about" rows="5" name="about" class="resizable_textarea form-control input-lg" required="required" placeholder="About..."></textarea>
                                 </div>
-
+                                <hr>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('SAVE') }}</button>
+                                </div>
 
                             </form>
                             </div>

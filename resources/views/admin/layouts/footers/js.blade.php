@@ -9,6 +9,9 @@
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
+    <!-- blueimp gallery -->
+    <script src="{{ asset('inspinia') }}/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+
     <!-- Datatables -->
     <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
 
@@ -63,6 +66,64 @@
     <!-- TouchSpin -->
     <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
+    <!-- DROPZONE -->
+    <script src="{{ asset('inspinia') }}/js/plugins/dropzone/dropzone.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.file-box').each(function() {
+                animationHover(this, 'pulse');
+            });
+        });
+    </script>
+
+    {{--  dropzone  --}}
+    <script>
+        $(document).ready(function(){
+
+            Dropzone.options.dropzone =
+                {
+                    maxFilesize: 12,
+                    renameFile: function(file) {
+                        var dt = new Date();
+                        var time = dt.getTime();
+                        return time+file.name;
+                    },
+                    addRemoveLinks: true,
+                    timeout: 50000,
+                    removedfile: function(file)
+                    {
+                        var name = file.upload.filename;
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            },
+                            type: 'POST',
+                            url: '{{ url("image/delete") }}',
+                            data: {filename: name},
+                            success: function (data){
+                                console.log("File has been successfully removed!!");
+                            },
+                            error: function(e) {
+                                console.log(e);
+                            }});
+                        var fileRef;
+                        return (fileRef = file.previewElement) != null ?
+                            fileRef.parentNode.removeChild(file.previewElement) : void 0;
+                    },
+
+                    success: function(file, response)
+                    {
+                        console.log(response);
+                    },
+                    error: function(file, response)
+                    {
+                        return false;
+                    }
+                };
+        });
+    </script>
+
     {{--  Get due date to populate   --}}
     <script>
         $(document).ready(function() {
@@ -84,6 +145,12 @@
             if(document.getElementById("start_date")){
                 document.getElementById("start_date").value = date;
             }
+            if(document.getElementById("date_acquired")){
+                document.getElementById("date_acquired").value = date;
+            }
+            if(document.getElementById("starting_date")){
+                document.getElementById("starting_date").value = date;
+            }
 
             // Set due date
             var due = new Date();
@@ -103,6 +170,23 @@
             }
             if(document.getElementById("end_date")){
                 document.getElementById("end_date").value = due_date;
+            }
+            if(document.getElementById("closing_date")){
+                document.getElementById("closing_date").value = due_date;
+            }
+            if(document.getElementById("expiry_date")){
+                document.getElementById("expiry_date").value = due_date;
+            }
+
+            // set start time
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var time_curr = h + ':' + m;
+            if(document.getElementById("start_time")){
+                document.getElementById("start_time").value = time_curr;
+            }
+            if(document.getElementById("end_time")){
+                document.getElementById("end_time").value = time_curr;
             }
         });
 
@@ -259,6 +343,12 @@
             var elem_3 = document.querySelector('.js-switch_3');
             var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
 
+            var elem_18 = document.querySelector('.js-switch_18');
+            var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
+
+            var elem_19 = document.querySelector('.js-switch_19');
+            var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
+
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green'
@@ -334,6 +424,26 @@
             });
             $(".select2_demo_contact").select2({
                 placeholder: "Select Contact",
+                allowClear: true
+            });
+            $(".select2_demo_campaign").select2({
+                placeholder: "Select Campaign",
+                allowClear: true
+            });
+            $(".select2_demo_contact_types").select2({
+                placeholder: "Select Contact Types",
+                allowClear: true
+            });
+            $(".select2_demo_campaign_type").select2({
+                placeholder: "Select Campaign Type",
+                allowClear: true
+            });
+            $(".select2_demo_organization_type").select2({
+                placeholder: "Select Organization Type",
+                allowClear: true
+            });
+            $(".select2_demo_parent_organization").select2({
+                placeholder: "Select Parent Organization",
                 allowClear: true
             });
 
