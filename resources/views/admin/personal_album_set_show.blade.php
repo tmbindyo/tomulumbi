@@ -12,7 +12,7 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.personal.albums')}}">Personal Album's</a>
+                    <a href="{{route('admin.personal.albums')}}">Personal Albums</a>
                 </li>
                 <li class="active">
                     <a href="{{route('admin.personal.album.show',$albumSet->album->id)}}">{{$albumSet->album->name}}Personal Album</a>

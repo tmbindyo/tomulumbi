@@ -6,13 +6,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Product's</h2>
+            <h2>Products</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <strong>Product's</strong>
+                    <strong>Products</strong>
                 </li>
             </ol>
         </div>

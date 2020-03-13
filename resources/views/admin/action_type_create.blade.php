@@ -6,7 +6,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Action Type's</h2>
+            <h2>Action Types</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -15,7 +15,7 @@
                     <strong>Settings</strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.action.types')}}">Action Type's</a>
+                    <a href="{{route('admin.action.types')}}">Action Types</a>
                 </li>
                 <li class="active">
                     <strong>Action Type Create</strong>

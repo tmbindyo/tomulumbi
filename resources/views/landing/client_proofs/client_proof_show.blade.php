@@ -76,7 +76,7 @@
                     <div class="main-menu">
                         <ul>
                             <li><a href="{{route('tomulumbi')}}">Home</a></li>
-                            <li><a href="{{route('client.proofs')}}">Client Proof's</a></li>
+                            <li><a href="{{route('client.proofs')}}">Client Proofs</a></li>
                             @if($album->is_download == 1)
                                 @if($album->download_pin)
                                     <li><a href="#" data-toggle="modal" data-target=".contact-modal-md"><span class="fa fa-download"></span> Download Album</a></li>

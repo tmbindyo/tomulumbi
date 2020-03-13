@@ -6,7 +6,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-6">
-            <h2>Organization's</h2>
+            <h2>Organizations</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -15,7 +15,7 @@
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.organizations')}}">Organization's</a>
+                    <a href="{{route('admin.organizations')}}">Organizations</a>
                 </li>
                 <li class="active">
                     <strong>Organization Create</strong>

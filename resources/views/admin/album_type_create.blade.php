@@ -6,13 +6,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Album Type's</h2>
+            <h2>Album Types</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.album.types')}}">Album Type's</a>
+                    <a href="{{route('admin.album.types')}}">Album Types</a>
                 </li>
                 <li class="active">
                     <strong>Album Type Create</strong>

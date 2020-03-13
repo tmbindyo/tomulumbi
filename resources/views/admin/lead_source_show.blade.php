@@ -6,13 +6,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Lead Source's</h2>
+            <h2>Lead Sources</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.lead.sources')}}">Lead Source's</a>
+                    <a href="{{route('admin.lead.sources')}}">Lead Sources</a>
                 </li>
                 <li class="active">
                     <strong>Lead Source Create</strong>

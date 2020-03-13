@@ -12,7 +12,7 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.client.proofs')}}">Client Proof's</a>
+                    <a href="{{route('admin.client.proofs')}}">Client Proofs</a>
                 </li>
                 <li class="active">
                     <a href="{{route('admin.client.proof.show',$albumSet->album->id)}}">{{$albumSet->album->name}} Client Proof</a>

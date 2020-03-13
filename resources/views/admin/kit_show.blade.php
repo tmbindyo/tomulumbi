@@ -6,7 +6,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-5">
-            <h2>Kit's</h2>
+            <h2>Kits</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -15,7 +15,7 @@
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.kits')}}">Kit's</a>
+                    <a href="{{route('admin.kits')}}">Kits</a>
                 </li>
                 <li class="active">
                     <strong>Kit Create</strong>

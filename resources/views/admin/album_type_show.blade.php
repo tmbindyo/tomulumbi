@@ -12,10 +12,10 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <strong>Settings's</strong>
+                    <strong>Settingss</strong>
                 </li>
                 <li class="active">
-                   <a href="{{route('admin.album.types')}}"><strong>Album Type's</strong></a>
+                   <a href="{{route('admin.album.types')}}"><strong>Album Types</strong></a>
                 </li>
                 <li class="active">
                     <strong>Album Type</strong>

@@ -6,13 +6,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Size's</h2>
+            <h2>Sizes</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.sizes')}}">Size's</a>
+                    <a href="{{route('admin.sizes')}}">Sizes</a>
                 </li>
                 <li class="active">
                     <strong>Size Create</strong>

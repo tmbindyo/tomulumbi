@@ -12,7 +12,7 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.client.proofs')}}">Client Proof's</a>
+                    <a href="{{route('admin.client.proofs')}}">Client Proofs</a>
                 </li>
                 <li class="active">
                     <strong>Client Proof</strong>
@@ -54,11 +54,11 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-success m-r-sm">{{$albumArray['albumSets']}}</button>
-                                Album Set's
+                                Album Sets
                             </td>
                             <td>
                                 <button type="button" class="btn btn-warning m-r-sm">{{$albumArray['downloads']}}</button>
-                                Album Download's
+                                Album Downloads
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger m-r-sm">{{$albumArray['downloadLimit']}}</button>
@@ -108,8 +108,7 @@
                             @foreach($albumSets as $albumSet)
                                 <div id="{{$albumSet->id}}" class="tab-pane @if($loop->iteration == 1) active @endif">
                                     <div class="panel-body">
-                                        {{--  Viewing album images --}}
-                                        <a href="{{route('admin.client.proof.set.show',$albumSet->id)}}" class="btn btn-primary btn-outline btn-block btn-lg">View Album Set</a>
+
                                         <br>
 
                                         <div class="lightBoxGallery">
@@ -132,10 +131,16 @@
 
                                         </div>
 
+                                        {{--  Viewing album images --}}
+                                        <br>
+                                        <a href="{{route('admin.client.proof.set.show',$albumSet->id)}}" class="btn btn-primary btn-outline btn-block btn-lg">View Album Set</a>
+                                        <br>
+
                                         <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.client.proof.set.image.upload',$albumSet->id)}}">
                                             @csrf
                                             <div class="dropzone-previews"></div>
                                         </form>
+
 
                                     </div>
                                 </div>
@@ -160,14 +165,17 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
-                        <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Design</a></li>
-                        <li class=""><a data-toggle="tab" href="#download"><i class="fa fa-download"></i> Download</a></li>
+                        <li class=""><a data-toggle="tab" href="#album-image-design"><i class="fa fa-bookmark"></i> Album Image Design</a></li>
+                        <li class=""><a data-toggle="tab" href="#cover-image"><i class="fa fa-bookmark"></i> Cover Iamge</a></li>
+                        <li class=""><a data-toggle="tab" href="#cover-image-design"><i class="fa fa-bookmark"></i> Cover Image Design</a></li>
+                        <li class=""><a data-toggle="tab" href="#album-download"><i class="fa fa-download"></i> Download</a></li>
+                        <li class=""><a data-toggle="tab" href="#restrict-to-specific-email"><i class="fa fa-download"></i> Restrict</a></li>
                         <li class=""><a data-toggle="tab" href="#expenses"><i class="fa fa-dollar"></i> Expenses</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="collection_settings" class="tab-pane active">
                             <div class="panel-body">
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-8 col-md-offset-2">
 
                                     <form method="post" action="{{ route('admin.client.proof.update.collection.settings',$album->id) }}" autocomplete="off">
                                         @csrf
@@ -181,61 +189,62 @@
                                             </div>
                                         @endif
 
-                                        <div class="form-group">
-                                            <label>Collection Name</label>
+                                        <br>
+                                        <div class="has-warning">
                                             <input name="name" type="text" value="{{$album->name}}" class="form-control input-lg">
-                                            <i>Pick something short and sweet. Imagine choosing a title for a photo album cover.</i>
+                                            <i>name.</i>
                                         </div>
-
-                                        <div class="form-group" id="data_1">
-                                            <label>Event Date</label>
-                                            <div class="input-group date">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                <input type="text" name="date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->date))}}">
+                                        <br>
+                                        <div class="has-warning">
+                                            <div class="form-group" id="data_1">
+                                                <div class="input-group date">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                    <input type="text" name="date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->date))}}">
+                                                </div>
+                                                <i>event date.</i>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label">Status</label>
-                                            <select class="form-control m-b input-lg" name="status">
+                                        <br>
+                                        <div class="has-warning">
+                                            <select required="required" name="status" class="select2_demo_status form-control input-lg">
+                                                <option></option>
                                                 @foreach($albumStatuses as $albumStatus)
-                                                    <option value="{{$albumStatus->id}}" @if($albumStatus->id === $album->status_id) selected @endif>{{$albumStatus->name}}</option>
+                                                <option value="{{$albumStatus->id}}" @if($albumStatus->id === $album->status_id) selected @endif>{{$albumStatus->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <i>You can take the collection online/offline quickly. Hidden collections can only be seen by you.</i>
+                                            <i>status.</i>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label>Tags</label>
-                                            <div class="input-group">
-                                                <select name="tags[]" data-placeholder="Choose Tags:" class="chosen-select form-control-lg" multiple="multiple" style="width:650px;" tabindex="4">
-                                                    @foreach($tags as $tag)
-                                                        <option value="{{$tag->id}}" @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach >{{$tag->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                        <br>
+                                        <div class="has-warning">
+                                            <select required="required" name="tags[]" class="select2_demo_tag form-control input-lg" multiple="multiple">
+                                                <option></option>
+                                                @foreach($tags as $tag)
+                                                    <option @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach value="{{$tag->id}}">{{$tag->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <i>tags.</i>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label>Contacts</label>
-                                            <div class="input-group">
-                                                <select name="contacts[]" data-placeholder="Choose Contacts:" class="chosen-select form-control-lg" multiple="multiple" style="width:650px;" tabindex="4">
-                                                    @foreach($contacts as $contact)
-                                                        <option value="{{$contact->id}}" @foreach($albumContacts as $albumContact) @if($contact->id === $albumContact->contact->id) selected @endif @endforeach >{{$contact->first_name}} {{$contact->last_name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                        <br>
+                                        <div class="has-warning">
+                                            <select name="contacts[]" class="select2_demo_contact form-control input-lg" multiple="multiple" required>
+                                                <option></option>
+                                                @foreach($contacts as $contact)
+                                                    <option @foreach($albumContacts as $albumContact) @if($contact->id === $albumContact->contact->id) selected @endif @endforeach value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
+                                                @endforeach
+                                            </select>
+                                            <i>contacts.</i>
                                         </div>
-
-                                        <div class="form-group" id="data_1">
-                                            <label>Expiry Date</label>
-                                            <div class="input-group date">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                <input type="text" name="expiry_date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->expiry_date))}}">
+                                        <br>
+                                        <div class="has-warning">
+                                            <div class="form-group" id="data_1">
+                                                <div class="input-group date">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                    <input type="text" name="expiry_date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->expiry_date))}}">
+                                                </div>
                                             </div>
                                         </div>
 
@@ -249,145 +258,139 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="design" class="tab-pane">
+                        <div id="album-image-design" class="tab-pane">
                             <div class="panel-body">
-                                <div class="row m-t-lg">
-                                    <div class="col-md-6">
-                                        <h2 class="text-center">Album Images Design</h2>
-                                        <hr>
+                                <div class="">
+                                    <div class="col-md-8 col-md-offset-2">
                                         <form method="post" action="{{ route('admin.client.proof.update.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
                                             @csrf
+                                            <br>
                                             {{--  Album typography  --}}
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <h3 class="text-center">Typography</h3>
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="typography">
+                                            <div class="has-warning">
+                                                <div class="">
+                                                    <select name="typography" class="select2_demo_typography_ form-control input-lg">
                                                         @foreach($typographies as $typography)
                                                             <option value="{{$typography->id}}" @if($typography->id === $album->typography_id) selected @endif>{{$typography->name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <i>Choose between different typography styles to best compliment the proof.</i>
                                                 </div>
+                                                <i>Choose between different typography styles to best compliment the proof.</i>
                                             </div>
+                                            <br>
                                             {{--  Album thumbnail size  --}}
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <h4 class="text-center">Thumbnail Size</h4>
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="thumbnail_size" required>
+                                            <div class="has-warning">
+                                                <div class="">
+                                                    <select name="thumbnail_size" class="select2_demo_thumbnail_size_ form-control input-lg" required>
                                                         @foreach($thumbnailSizes as $thumbnailSize)
                                                             <option value="{{$thumbnailSize->id}}" @if($thumbnailSize->id === $album->thumbnail_size_id) selected @endif>{{$thumbnailSize->name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <i>Adjust the display size of photos in the gallery.</i>
                                                 </div>
+                                                <i>Adjust the size of photos in the gallery.</i>
                                             </div>
+                                            <hr>
                                             <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Album Images Design Settings</button>
-                                        </form>
-                                        <hr>
-                                        {{--  Cover Image  --}}
-                                        <div class="col-md-12">
-                                            <h2 class="text-center">Cover Image</h2>
-                                            <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
-                                            <br>
-                                        </div>
-                                        <div class="col-md-10 col-md-offset-1">
-
-                                            <div class="center">
-                                                <img alt="image" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h2 class="text-center">Cover Image Design</h2>
-                                        <hr>
-                                        <form method="post" action="{{ route('admin.client.proof.update.cover.image.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
-                                            @csrf
-                                            {{--  Cover Image Designs  --}}
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <h3 class="text-center">Design</h3>
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="cover_design" required>
-                                                        @foreach($coverDesigns as $coverDesign)
-                                                            <option value="{{$coverDesign->id}}" @if($coverDesign->id === $album->cover_design_id) selected @endif>{{$coverDesign->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>Choose between different typography styles to best compliment the proof.</i>
-                                                </div>
-                                            </div>
-                                            {{--  Cover Image scheme  --}}
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <h3 class="text-center">Scheme</h3>
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="scheme" required>
-                                                        @foreach($schemes as $scheme)
-                                                            <option value="{{$scheme->id}}" @if($scheme->id === $album->scheme_id) selected @endif>{{$scheme->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>Choose between different scheme styles to best compliment the proof.</i>
-                                                </div>
-                                            </div>
-                                            {{--  Cover Image Color  --}}
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <h3 class="text-center">Color</h3>
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="color" required>
-                                                        @foreach($colors as $color)
-                                                            <option value="{{$color->id}}" @if($color->id === $album->color_id) selected @endif>{{$color->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>Choose between different color styles to best compliment the proof.</i>
-                                                </div>
-                                            </div>
-                                            {{--  Cover Image Orientations  --}}
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <h3 class="text-center">Orientation</h3>
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="orientation" required>
-                                                        @foreach($orientations as $orientation)
-                                                            <option value="{{$orientation->id}}" @if($orientation->id === $album->orientation_id) selected @endif>{{$orientation->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>Choose between different orientation styles to best compliment the proof.</i>
-                                                </div>
-                                            </div>
-                                            {{--  Cover Image Content alignment  --}}
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <h3 class="text-center">Content Alignment</h3>
-
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="content_align" required>
-                                                        @foreach($contentAligns as $contentAlign)
-                                                            <option value="{{$contentAlign->id}}" @if($contentAlign->id === $album->content_align_id) selected @endif>{{$contentAlign->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>Choose between different content alignment styles to best compliment the proof.</i>
-                                                </div>
-                                            </div>
-                                            {{--  Cover Image position  --}}
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <h3 class="text-center">Image Position</h3>
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="image_position" required>
-                                                        @foreach($imagePositions as $imagePosition)
-                                                            <option value="{{$imagePosition->id}}" @if($imagePosition->id === $album->image_position_id) selected @endif>{{$imagePosition->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>Choose between different content alignment styles to best compliment the proof.</i>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Design Settings</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="download" class="tab-pane">
+                        <div id="cover-image" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="row m-t-lg">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        {{--  Cover Image  --}}
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
+                                            <br>
+                                        </div>
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="center">
+                                                <img alt="image" width="490em" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="cover-image-design" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="row m-t-lg">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <form method="post" action="{{ route('admin.client.proof.update.cover.image.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
+                                            @csrf
+                                            <br>
+                                            {{--  Cover Image Designs  --}}
+                                            <div class="has-warning">
+                                                <select class="form-control m-b input-lg" name="cover_design" required>
+                                                    @foreach($coverDesigns as $coverDesign)
+                                                        <option value="{{$coverDesign->id}}" @if($coverDesign->id === $album->cover_design_id) selected @endif>{{$coverDesign->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>Choose between different typography styles to best compliment the proof.</i>
+                                            </div>
+                                            <br>
+                                            {{--  Cover Image scheme  --}}
+                                            <div class="has-warning">
+                                                <select class="form-control m-b input-lg" name="scheme" required>
+                                                    @foreach($schemes as $scheme)
+                                                        <option value="{{$scheme->id}}" @if($scheme->id === $album->scheme_id) selected @endif>{{$scheme->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>Choose between different scheme styles to best compliment the proof.</i>
+                                            </div>
+                                            <br>
+                                            {{--  Cover Image Color  --}}
+                                            <div class="has-warning">
+                                                <select class="form-control m-b input-lg" name="color" required>
+                                                    @foreach($colors as $color)
+                                                        <option value="{{$color->id}}" @if($color->id === $album->color_id) selected @endif>{{$color->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>Choose between different color styles to best compliment the proof.</i>
+                                            </div>
+                                            <br>
+                                            {{--  Cover Image Orientations  --}}
+                                            <div class="has-warning">
+                                                <select class="form-control m-b input-lg" name="orientation" required>
+                                                    @foreach($orientations as $orientation)
+                                                        <option value="{{$orientation->id}}" @if($orientation->id === $album->orientation_id) selected @endif>{{$orientation->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>Choose between different orientation styles to best compliment the proof.</i>
+                                            </div>
+                                            <br>
+                                            {{--  Cover Image Content alignment  --}}
+                                            <div class="has-warning">
+                                                <select class="form-control m-b input-lg" name="content_align" required>
+                                                    @foreach($contentAligns as $contentAlign)
+                                                        <option value="{{$contentAlign->id}}" @if($contentAlign->id === $album->content_align_id) selected @endif>{{$contentAlign->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>Choose between different content alignment styles to best compliment the proof.</i>
+                                            </div>
+                                            <br>
+                                            {{--  Cover Image position  --}}
+                                            <div class="has-warning">
+                                                <select class="form-control m-b input-lg" name="image_position" required>
+                                                    @foreach($imagePositions as $imagePosition)
+                                                        <option value="{{$imagePosition->id}}" @if($imagePosition->id === $album->image_position_id) selected @endif>{{$imagePosition->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>Choose between different content alignment styles to best compliment the proof.</i>
+                                            </div>
+                                            <hr>
+                                            <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Cover Image Design</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="album-download" class="tab-pane">
                             <div class="panel-body">
                                 <form method="post" action="{{ route('admin.client.proof.update.download',$album->id) }}" autocomplete="off">
                                     @csrf
-                                    <div class="col-md-10 col-md-offset-1">
+                                    <div class="col-md-8 col-md-offset-2">
                                         <div class="container-fluid">
 
                                             <div class="row">
@@ -447,12 +450,25 @@
                                                 </div>
                                             </div>
 
-                                            <br>
+                                            <hr>
+
                                             <div>
                                                 <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Download Settings</strong></button>
                                             </div>
                                             <br>
-                                            <hr>
+
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="restrict-to-specific-email" class="tab-pane">
+                            <div class="panel-body">
+                                <form method="post" action="{{ route('admin.client.proof.update.download',$album->id) }}" autocomplete="off">
+                                    @csrf
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="container-fluid">
 
                                             <div class="row">
                                                 <div class="form-group">
@@ -467,6 +483,8 @@
                                                 </div>
                                             </div>
 
+
+
                                             <div class="row">
                                                 <div class="ibox-content">
                                                     <div class="table-responsive">
@@ -474,8 +492,8 @@
                                                             <thead>
                                                             <tr>
                                                                 <th>Email</th>
-                                                                <th>Expiry</th>
-                                                                <th class="text-right" data-sort-ignore="true">Action</th>
+                                                                <th width="20em">Expiry</th>
+                                                                <th width="20em" class="text-right" data-sort-ignore="true">Action</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -504,6 +522,8 @@
                                                 </div>
 
                                             </div>
+
+
 
                                             <hr>
 
@@ -603,12 +623,12 @@
             </div>
         </div>
 
-        {{--    To Do's    --}}
+        {{--    To Dos    --}}
         <div class="row m-t-lg">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>To Do's</h5>
+                        <h5>To Dos</h5>
                         <div class="ibox-tools">
                             <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
                         </div>
@@ -694,109 +714,6 @@
 
 @section('js')
 
-    <!-- Mainly scripts -->
-    <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-    <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
-
-    <!-- ChartJS-->
-    <script src="{{ asset('inspinia') }}/js/plugins/chartJs/Chart.min.js"></script>
-
-    <!-- Chosen -->
-    <script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
-
-    <!-- blueimp gallery -->
-    <script src="{{ asset('inspinia') }}/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
-
-    <!-- DROPZONE -->
-    <script src="{{ asset('inspinia') }}/js/plugins/dropzone/dropzone.js"></script>
-
-    <!-- Switchery -->
-    <script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
-
-    <!-- Image cropper -->
-    <script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
-
-    <!-- Data picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-    <!-- Date range use moment.js same as full calendar plugin -->
-    <script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
-
-    <!-- Date range picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
-
-    <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
-
-    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
-
-    <!-- JSKnob -->
-    <script src="{{ asset('inspinia') }}/js/plugins/jsKnob/jquery.knob.js"></script>
-
-    <!-- Input Mask-->
-    <script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
-
-    <!-- NouSlider -->
-    <script src="{{ asset('inspinia') }}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
-
-    <!-- IonRangeSlider -->
-    <script src="{{ asset('inspinia') }}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-
-    <!-- iCheck -->
-    <script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
-
-    <!-- MENU -->
-    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- Clock picker -->
-    <script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
-
-    <!-- Select2 -->
-    <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
-
-    <!-- TouchSpin -->
-    <script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
-
-    <!-- Masonry -->
-    <script src="{{ asset('inspinia') }}/js/plugins/masonary/masonry.pkgd.min.js"></script>
-
-    {{--  Get due date to populate   --}}
-    <script>
-        $(document).ready(function() {
-            // Set date
-            console.log('var');
-            var today = new Date();
-            console.log(today);
-            var dd = today.getDate();
-            var mm = today.getMonth();
-            var yyyy = today.getFullYear();
-            var h = today.getHours();
-            var m = today.getMinutes();
-            mm ++;
-            if (dd < 10){
-                dd = '0'+dd;
-            }
-            if (mm < 10){
-                mm = '0'+mm;
-            }
-            var date_today = mm + '/' + dd + '/' + yyyy;
-            var time_curr = h + ':' + m;
-            console.log(time_curr);
-            document.getElementById("start_date").value = date_today;
-            document.getElementById("end_date").value = date_today;
-            document.getElementById("start_time").value = time_curr;
-            document.getElementById("end_time").value = time_curr;
-
-            // Set time
-        });
-
-    </script>
-
     {{-- download x views line chart  --}}
     <script>
         $(function () {
@@ -874,18 +791,7 @@
         });
     </script>
 
-    <style>
-
-        .grid .ibox {
-            margin-bottom: 0;
-        }
-
-        .grid-item {
-            margin-bottom: 25px;
-            width: 300px;
-        }
-    </style>
-
+    {{--  generate album set visibility  --}}
     <script>
         $('.updateAlbumSetVisibility').on('click',function(){
             var id = $(this).data('fid')
@@ -902,7 +808,7 @@
 
     </script>
 
-
+    {{--  generate album password  --}}
     <script>
         $('.generateAlbumPassword').on('click',function(){
             var id = $(this).data('fid')
@@ -920,6 +826,7 @@
 
     </script>
 
+    {{--  generate album pin  --}}
     <script>
         $('.generateAlbumPin').on('click',function(){
             var id = $(this).data('fid')
@@ -937,6 +844,7 @@
 
     </script>
 
+    {{--  restrict to email  --}}
     <script>
         $('.restrictToEmail').on('click',function(){
             var id = $(this).data('fid')
@@ -953,421 +861,6 @@
             location.reload();
         });
 
-    </script>
-
-
-    <script>
-        $(window).load(function() {
-
-            $('.grid').masonry({
-                // options
-                itemSelector: '.grid-item',
-                columnWidth: 300,
-                gutter: 25
-            });
-
-        });
-    </script>
-
-    <!-- Page-Level Scripts -->
-    <script>
-        $(document).ready(function(){
-            $('.dataTables-example').DataTable({
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
-
-                    {extend: 'print',
-                        customize: function (win){
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                        }
-                    }
-                ]
-
-            });
-
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
-
-        });
-
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData( [
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row" ] );
-
-        }
-    </script>
-
-    <script>
-        $(document).ready(function(){
-
-            var $image = $(".image-crop > img")
-            $($image).cropper({
-                aspectRatio: 1.618,
-                preview: ".img-preview",
-                done: function(data) {
-                    // Output the result data for cropping image.
-                }
-            });
-
-            $("#zoomIn").click(function() {
-                $image.cropper("zoom", 0.1);
-            });
-
-            $("#zoomOut").click(function() {
-                $image.cropper("zoom", -0.1);
-            });
-
-            $("#rotateLeft").click(function() {
-                $image.cropper("rotate", 45);
-            });
-
-            $("#rotateRight").click(function() {
-                $image.cropper("rotate", -45);
-            });
-
-            $("#setDrag").click(function() {
-                $image.cropper("setDragMode", "crop");
-            });
-
-            $('#data_1 .input-group.date').datepicker({
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true
-            });
-
-            $('#data_2 .input-group.date').datepicker({
-                startView: 1,
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true,
-                format: "dd/mm/yyyy"
-            });
-
-            $('#data_3 .input-group.date').datepicker({
-                startView: 2,
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true
-            });
-
-            $('#data_4 .input-group.date').datepicker({
-                minViewMode: 1,
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true,
-                todayHighlight: true
-            });
-
-            $('#data_5 .input-daterange').datepicker({
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true
-            });
-
-            var elem = document.querySelector('.js-switch');
-            var switchery = new Switchery(elem, { color: '#1AB394' });
-
-            var elem_2 = document.querySelector('.js-switch_2');
-            var switchery_2 = new Switchery(elem_2, { color: '#1AB394' });
-
-            var elem_3 = document.querySelector('.js-switch_3');
-            var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
-
-            var elem_4 = document.querySelector('.js-switch_4');
-            var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
-
-            var elem_5 = document.querySelector('.js-switch_5');
-            var switchery_5 = new Switchery(elem_5, { color: '#1AB394' });
-
-            var elem_10 = document.querySelector('.js-switch_10');
-            var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
-
-            var elem_18 = document.querySelector('.js-switch_18');
-            var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
-
-            var elem_19 = document.querySelector('.js-switch_19');
-            var switchery_19 = new Switchery(elem_19, { color: '#1AB394' });
-
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green'
-            });
-
-            $('.demo1').colorpicker();
-
-            var divStyle = $('.back-change')[0].style;
-            $('#demo_apidemo').colorpicker({
-                color: divStyle.backgroundColor
-            }).on('changeColor', function(ev) {
-                divStyle.backgroundColor = ev.color.toHex();
-            });
-
-            $('.clockpicker').clockpicker();
-
-            $('input[name="daterange"]').daterangepicker();
-
-            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-
-            $('#reportrange').daterangepicker({
-                format: 'MM/DD/YYYY',
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2015',
-                dateLimit: { days: 60 },
-                showDropdowns: true,
-                showWeekNumbers: true,
-                timePicker: false,
-                timePickerIncrement: 1,
-                timePicker12Hour: true,
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
-                opens: 'right',
-                drops: 'down',
-                buttonClasses: ['btn', 'btn-sm'],
-                applyClass: 'btn-primary',
-                cancelClass: 'btn-default',
-                separator: ' to ',
-                locale: {
-                    applyLabel: 'Submit',
-                    cancelLabel: 'Cancel',
-                    fromLabel: 'From',
-                    toLabel: 'To',
-                    customRangeLabel: 'Custom',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
-                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    firstDay: 1
-                }
-            }, function(start, end, label) {
-                console.log(start.toISOString(), end.toISOString(), label);
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            });
-
-            $(".select2_demo_1").select2();
-            $(".select2_demo_2").select2();
-            $(".select2_demo_3").select2({
-                placeholder: "Select a state",
-                allowClear: true
-            });
-
-
-            $(".touchspin1").TouchSpin({
-                buttondown_class: 'btn btn-white',
-                buttonup_class: 'btn btn-white'
-            });
-
-            $(".touchspin2").TouchSpin({
-                min: 0,
-                max: 100,
-                step: 0.1,
-                decimals: 2,
-                boostat: 5,
-                maxboostedstep: 10,
-                postfix: '%',
-                buttondown_class: 'btn btn-white',
-                buttonup_class: 'btn btn-white'
-            });
-
-            $(".touchspin3").TouchSpin({
-                verticalbuttons: true,
-                buttondown_class: 'btn btn-white',
-                buttonup_class: 'btn btn-white'
-            });
-
-
-        });
-        var config = {
-            '.chosen-select'           : {},
-            '.chosen-select-deselect'  : {allow_single_deselect:true},
-            '.chosen-select-no-single' : {disable_search_threshold:10},
-            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-            '.chosen-select-width'     : {width:"95%"}
-        }
-        for (var selector in config) {
-            $(selector).chosen(config[selector]);
-        }
-
-        $("#ionrange_1").ionRangeSlider({
-            min: 0,
-            max: 5000,
-            type: 'double',
-            prefix: "$",
-            maxPostfix: "+",
-            prettify: false,
-            hasGrid: true
-        });
-
-        $("#ionrange_2").ionRangeSlider({
-            min: 0,
-            max: 10,
-            type: 'single',
-            step: 0.1,
-            postfix: " carats",
-            prettify: false,
-            hasGrid: true
-        });
-
-        $("#ionrange_3").ionRangeSlider({
-            min: -50,
-            max: 50,
-            from: 0,
-            postfix: "°",
-            prettify: false,
-            hasGrid: true
-        });
-
-        $("#ionrange_4").ionRangeSlider({
-            values: [
-                "January", "February", "March",
-                "April", "May", "June",
-                "July", "August", "September",
-                "October", "November", "December"
-            ],
-            type: 'single',
-            hasGrid: true
-        });
-
-        $("#ionrange_5").ionRangeSlider({
-            min: 10000,
-            max: 100000,
-            step: 100,
-            postfix: " km",
-            from: 55000,
-            hideMinMax: true,
-            hideFromTo: false
-        });
-
-        $(".dial").knob();
-
-        $("#basic_slider").noUiSlider({
-            start: 40,
-            behaviour: 'tap',
-            connect: 'upper',
-            range: {
-                'min':  20,
-                'max':  80
-            }
-        });
-
-        $("#range_slider").noUiSlider({
-            start: [ 40, 60 ],
-            behaviour: 'drag',
-            connect: true,
-            range: {
-                'min':  20,
-                'max':  80
-            }
-        });
-
-        $("#drag-fixed").noUiSlider({
-            start: [ 40, 60 ],
-            behaviour: 'drag-fixed',
-            connect: true,
-            range: {
-                'min':  20,
-                'max':  80
-            }
-        });
-
-
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
-        });
-    </script>
-
-
-    <script>
-        $(document).ready(function(){
-
-            Dropzone.options.dropzone =
-                {
-                    maxFilesize: 12,
-                    renameFile: function(file) {
-                        var dt = new Date();
-                        var time = dt.getTime();
-                        return time+file.name;
-                    },
-                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
-                    addRemoveLinks: true,
-                    timeout: 50000,
-                    removedfile: function(file)
-                    {
-                        var name = file.upload.filename;
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                            },
-                            type: 'POST',
-                            url: '{{ url("image/delete") }}',
-                            data: {filename: name},
-                            success: function (data){
-                                console.log("File has been successfully removed!!");
-                            },
-                            error: function(e) {
-                                console.log(e);
-                            }});
-                        var fileRef;
-                        return (fileRef = file.previewElement) != null ?
-                            fileRef.parentNode.removeChild(file.previewElement) : void 0;
-                    },
-
-                    success: function(file, response)
-                    {
-                        console.log(response);
-                    },
-                    error: function(file, response)
-                    {
-                        return false;
-                    }
-                };
-        });
     </script>
 
 @endsection

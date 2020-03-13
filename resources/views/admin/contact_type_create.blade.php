@@ -6,13 +6,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Contact Type's</h2>
+            <h2>Contact Types</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.contact.types')}}">Contact Type's</a>
+                    <a href="{{route('admin.contact.types')}}">Contact Types</a>
                 </li>
                 <li class="active">
                     <strong>Contact Type Create</strong>

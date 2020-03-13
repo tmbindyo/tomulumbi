@@ -9,6 +9,9 @@
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
+    <!-- ChartJS-->
+    <script src="{{ asset('inspinia') }}/js/plugins/chartJs/Chart.min.js"></script>
+
     <!-- blueimp gallery -->
     <script src="{{ asset('inspinia') }}/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
 
@@ -343,6 +346,15 @@
             var elem_3 = document.querySelector('.js-switch_3');
             var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
 
+            var elem_4 = document.querySelector('.js-switch_4');
+            var switchery_4 = new Switchery(elem_4, { color: '#1AB394' });
+
+            var elem_5 = document.querySelector('.js-switch_5');
+            var switchery_5 = new Switchery(elem_5, { color: '#1AB394' });
+
+            var elem_10 = document.querySelector('.js-switch_10');
+            var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
+
             var elem_18 = document.querySelector('.js-switch_18');
             var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
 
@@ -414,6 +426,10 @@
                 placeholder: "Select Label",
                 allowClear: true
             });
+            $(".select2_demo_status").select2({
+                placeholder: "Select Status",
+                allowClear: true
+            });
             $(".select2_demo_category").select2({
                 placeholder: "Select Categories",
                 allowClear: true
@@ -430,12 +446,24 @@
                 placeholder: "Select Campaign",
                 allowClear: true
             });
+            $(".select2_demo_typography").select2({
+                placeholder: "Select Campaign",
+                allowClear: true
+            });
             $(".select2_demo_contact_types").select2({
                 placeholder: "Select Contact Types",
                 allowClear: true
             });
+            $(".select2_demo_thumbnail_size").select2({
+                placeholder: "Select Campaign",
+                allowClear: true
+            });
             $(".select2_demo_campaign_type").select2({
                 placeholder: "Select Campaign Type",
+                allowClear: true
+            });
+            $(".select2_demo_cover_design").select2({
+                placeholder: "Select Cover Design",
                 allowClear: true
             });
             $(".select2_demo_organization_type").select2({

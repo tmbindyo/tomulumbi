@@ -6,13 +6,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Kit Action's</h2>
+            <h2>Kit Actions</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.sub.type.create')}}">Kit Action's</a>
+                    <a href="{{route('admin.sub.type.create')}}">Kit Actions</a>
                 </li>
                 <li class="active">
                     <strong>Kit Action Create</strong>

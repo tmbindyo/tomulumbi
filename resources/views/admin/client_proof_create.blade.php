@@ -6,13 +6,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Client Proof's</h2>
+            <h2>Client Proofs</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.client.proofs')}}">Client Proof's</a>
+                    <a href="{{route('admin.client.proofs')}}">Client Proofs</a>
                 </li>
                 <li class="active">
                     <strong>Client Proof Create</strong>

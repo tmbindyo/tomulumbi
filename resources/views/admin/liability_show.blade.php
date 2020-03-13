@@ -5,13 +5,13 @@
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Liability's</h2>
+            <h2>Liabilitys</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.liabilities')}}">Liability's</a>
+                    <a href="{{route('admin.liabilities')}}">Liabilitys</a>
                 </li>
                 <li class="active">
                     <strong>Liability</strong>

@@ -6,7 +6,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-5">
-            <h2>Promo Code's</h2>
+            <h2>Promo Codes</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -15,7 +15,7 @@
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.promo.codes')}}">Promo Code's</a>
+                    <a href="{{route('admin.promo.codes')}}">Promo Codes</a>
                 </li>
                 <li class="active">
                     <strong>Promo Code Create</strong>

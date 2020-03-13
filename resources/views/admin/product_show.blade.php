@@ -12,7 +12,7 @@
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.products')}}">Product's</a>
+                    <a href="{{route('admin.products')}}">Products</a>
                 </li>
                 <li class="active">
                     <strong>Product</strong>

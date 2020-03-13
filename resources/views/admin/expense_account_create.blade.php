@@ -6,13 +6,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Expense Account's</h2>
+            <h2>Expense Accounts</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.expense.accounts')}}">Expense Account's</a>
+                    <a href="{{route('admin.expense.accounts')}}">Expense Accounts</a>
                 </li>
                 <li class="active">
                     <strong>Expense Account Create</strong>

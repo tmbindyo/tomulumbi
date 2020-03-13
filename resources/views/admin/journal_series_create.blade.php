@@ -6,13 +6,13 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Journal Series's</h2>
+            <h2>Journal Seriess</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.action.types')}}">Journal Series's</a>
+                    <a href="{{route('admin.action.types')}}">Journal Seriess</a>
                 </li>
                 <li class="active">
                     <strong>Journal Series Create</strong>

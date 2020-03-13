@@ -6,7 +6,7 @@
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Campaign's</h2>
+            <h2>Campaigns</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="{{route('admin.dashboard')}}">Home</a>
@@ -15,7 +15,7 @@
                     CRM
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.campaigns')}}">Campaign's</a>
+                    <a href="{{route('admin.campaigns')}}">Campaigns</a>
                 </li>
                 <li class="active">
                     <strong>Campaign Create</strong>

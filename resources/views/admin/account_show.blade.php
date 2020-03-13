@@ -15,7 +15,7 @@
                     <strong>Accounting</strong>
                 </li>
                 <li class="">
-                   <a href="{{route('admin.accounts')}}"><strong>Account's</strong></a>
+                   <a href="{{route('admin.accounts')}}"><strong>Accounts</strong></a>
                 </li>
                 <li class="active">
                    <a href="{{route('admin.account.show',$account->id)}}"><strong>Account</strong></a>
