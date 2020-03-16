@@ -9,10 +9,10 @@
             <h2>Frequencies</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.frequencies')}}">Frequencies</a>
+                    <strong><a href="{{route('admin.frequencies')}}">Frequencies</a></strong>
                 </li>
                 <li class="active">
                     <strong>Frequency Create</strong>

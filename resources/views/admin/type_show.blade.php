@@ -9,13 +9,13 @@
             <h2>Type</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
                     <strong>Settingss</strong>
                 </li>
                 <li class="active">
-                   <a href="{{route('admin.types')}}"><strong>Types</strong></a>
+                   <strong><a href="{{route('admin.types')}}">Types</a></strong>
                 </li>
                 <li class="active">
                     <strong>Type</strong>

@@ -9,10 +9,10 @@
             <h2>Album Types</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.album.types')}}">Album Types</a>
+                    <strong><a href="{{route('admin.album.types')}}">Album Types</a></strong>
                 </li>
                 <li class="active">
                     <strong>Album Type Create</strong>

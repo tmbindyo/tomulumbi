@@ -9,16 +9,16 @@
             <h2>Payments</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.asset.actions')}}">Asset actions</a>
+                    <strong><a href="{{route('admin.asset.actions')}}">Asset actions</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.asset.action.show',$assetAction->id)}}">Asset action</a>
+                    <strong><a href="{{route('admin.asset.action.show',$assetAction->id)}}">Asset action</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.payments')}}">Payments</a>
+                    <strong><a href="{{route('admin.payments')}}">Payments</a></strong>
                 </li>
                 <li class="active">
                     <strong>Payment Create</strong>
@@ -44,7 +44,7 @@
                                             @foreach ($errors->all() as $error)
                                                 <li>{{ $error }}</li>
                                             @endforeach
-                                        </ul> 
+                                        </ul>
                                     </div>
                                 @endif
 

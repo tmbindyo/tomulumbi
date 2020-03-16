@@ -9,10 +9,10 @@
             <h2>Kit Actions</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.sub.type.create')}}">Kit Actions</a>
+                    <strong><a href="{{route('admin.sub.type.create')}}">Kit Actions</a></strong>
                 </li>
                 <li class="active">
                     <strong>Kit Action Create</strong>

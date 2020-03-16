@@ -9,10 +9,10 @@
             <h2>Products</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.products')}}">Products</a>
+                    <strong><a href="{{route('admin.products')}}">Products</a></strong>
                 </li>
                 <li class="active">
                     <strong>Product Create</strong>

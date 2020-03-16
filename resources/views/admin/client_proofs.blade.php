@@ -9,7 +9,7 @@
             <h2>Client Proofs</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
                     <strong>Client Proofs</strong>

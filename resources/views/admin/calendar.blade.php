@@ -21,26 +21,6 @@
 
 @section('js')
 
-<!-- Mainly scripts -->
-<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
-<script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-<script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<!-- Custom and plugin javascript -->
-<script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
-
-<!-- jQuery UI custom -->
-<script src="{{ asset('inspinia') }}/js/jquery-ui.custom.min.js"></script>
-
-<!-- iCheck -->
-<script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
-
-<!-- Full Calendar -->
-<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/fullcalendar.min.js"></script>
-
 <script>
 
     $(document).ready(function() {

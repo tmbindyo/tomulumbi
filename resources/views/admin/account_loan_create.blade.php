@@ -9,7 +9,7 @@
             <h2>Loans</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
                     <strong>Accounting</strong>

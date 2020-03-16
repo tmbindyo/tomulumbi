@@ -9,10 +9,10 @@
             <h2>Campaign Types</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.campaign.types')}}">Campaign Types</a>
+                    <strong><a href="{{route('admin.campaign.types')}}">Campaign Types</a></strong>
                 </li>
                 <li class="active">
                     <strong>Campaign Type Create</strong>

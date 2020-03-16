@@ -9,10 +9,10 @@
             <h2>Personal Album</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.personal.albums')}}">Personal Albums</a>
+                    <strong><a href="{{route('admin.personal.albums')}}">Personal Albums</a></strong>
                 </li>
                 <li class="active">
                     <strong>Personal Album</strong>

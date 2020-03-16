@@ -9,10 +9,10 @@
             <h2>Journal Series</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.journal.series.show',$journalSeries->id)}}">Journal Series</a>
+                    <strong><a href="{{route('admin.journal.series.show',$journalSeries->id)}}">Journal Series</a></strong>
                 </li>
                 <li class="active">
                     <strong>Journal Create</strong>

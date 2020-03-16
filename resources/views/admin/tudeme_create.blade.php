@@ -9,10 +9,10 @@
             <h2>Tudemes</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.client.proofs')}}">Tudemes</a>
+                    <strong><a href="{{route('admin.client.proofs')}}">Tudemes</a></strong>
                 </li>
                 <li class="active">
                     <strong>Tudeme Create</strong>

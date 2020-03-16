@@ -9,13 +9,13 @@
             <h2>Payments</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    Accounting
+                    <strong>Accounting</strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.payments')}}">Accounts</a>
+                    <strong><a href="{{route('admin.payments')}}">Accounts</a></strong>
                 </li>
                 <li class="active">
                     <strong>Payment Create</strong>

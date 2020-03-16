@@ -9,13 +9,13 @@
             <h2>Action Types</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
                     <strong>Settings</strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.action.types')}}">Action Types</a>
+                    <strong><a href="{{route('admin.action.types')}}">Action Types</a></strong>
                 </li>
                 <li class="active">
                     <strong>Action Type Create</strong>

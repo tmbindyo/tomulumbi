@@ -9,16 +9,16 @@
             <h2>Account</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
                     <strong>Accounting</strong>
                 </li>
                 <li class="">
-                   <a href="{{route('admin.accounts')}}"><strong>Accounts</strong></a>
+                    <strong><a href="{{route('admin.accounts')}}">Accounts</a></strong>
                 </li>
                 <li class="active">
-                   <a href="{{route('admin.account.show',$account->id)}}"><strong>Account</strong></a>
+                    <strong><a href="{{route('admin.account.show',$account->id)}}">Account</a></strong>
                 </li>
             </ol>
         </div>

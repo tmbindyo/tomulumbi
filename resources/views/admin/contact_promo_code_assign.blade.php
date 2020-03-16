@@ -9,13 +9,13 @@
             <h2>Promo Codes</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    Store
+                    strong>Store</strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.contact.show',$contact->id)}}">Contacts</a>
+                    strong><a href="{{route('admin.contact.show',$contact->id)}}">Contacts</a></strong>
                 </li>
                 <li class="active">
                     <strong>Promo Code Create</strong>

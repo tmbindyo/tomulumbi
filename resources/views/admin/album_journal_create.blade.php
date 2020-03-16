@@ -9,13 +9,13 @@
             <h2>Journals</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
                     @if($album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
-                        <a href="{{ route('admin.client.proof.show', $album->id) }}">Album</a>
+                        <strong><a href="{{ route('admin.client.proof.show', $album->id) }}">Album</a></strong>
                     @elseif($album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
-                        <a href="{{ route('admin.personal.album.show', $album->id) }}">Album</a>
+                        <strong><a href="{{ route('admin.personal.album.show', $album->id) }}">Album</a></strong>
                     @endif
                 </li>
                 <li class="active">

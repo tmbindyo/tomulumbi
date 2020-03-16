@@ -9,10 +9,10 @@
             <h2>Asset Actions</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.sub.type.create')}}">Asset Actions</a>
+                    <strong><a href="{{route('admin.sub.type.create')}}">Asset Actions</a></strong>
                 </li>
                 <li class="active">
                     <strong>Asset Action Create</strong>

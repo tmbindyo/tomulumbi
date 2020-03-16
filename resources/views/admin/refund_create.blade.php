@@ -9,16 +9,16 @@
             <h2>Refunds</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    CRM
+                    <strong>CRM</strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.payments')}}">Payments</a>
+                    <strong><a href="{{route('admin.payments')}}">Payments</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.payment.show',$payment->id)}}">Payment</a>
+                    <strong><a href="{{route('admin.payment.show',$payment->id)}}">Payment</a></strong>
                 </li>
                 <li class="active">
                     <strong>Refund Create</strong>

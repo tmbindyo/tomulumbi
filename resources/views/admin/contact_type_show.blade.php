@@ -9,10 +9,10 @@
             <h2>Contact Types</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.contact.types')}}">Contact Types</a>
+                    <strong><a href="{{route('admin.contact.types')}}">Contact Types</a></strong>
                 </li>
                 <li class="active">
                     <strong>Contact Type Create</strong>

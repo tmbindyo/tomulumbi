@@ -9,15 +9,13 @@
             <h2>Tags</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    Settings
+                    <strong>Settings</strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.tags')}}">
-                    <strong>Tags</strong>
-                    </a>
+                    <strong><a href="{{route('admin.tags')}}">Tags</a></strong>
                 </li>
             </ol>
         </div>

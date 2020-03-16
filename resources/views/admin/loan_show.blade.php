@@ -8,10 +8,10 @@
             <h2>Loans</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.loans')}}">Loans</a>
+                    <strong><a href="{{route('admin.loans')}}">Loans</a></strong>
                 </li>
                 <li class="active">
                     <strong>Loan</strong>
@@ -167,7 +167,7 @@
                                 <div class="col-lg-5">
                                     <dl class="dl-horizontal">
                                         <dt>Created by:</dt> <dd>{{$loan->user->name}}</dd>
-                                    </dl> 
+                                    </dl>
                                 </div>
                                 <div class="col-lg-7" id="cluster_info">
                                     <dl class="dl-horizontal" >

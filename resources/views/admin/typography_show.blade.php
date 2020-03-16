@@ -9,13 +9,13 @@
             <h2>Typographys</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    <a href="#">Settings</a>
+                    <strong><a href="#">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.typographies')}}">Typographies</a>
+                    <strong><a href="{{route('admin.typographies')}}">Typographies</a></strong>
                 </li>
                 <li class="active">
                     <strong>Typography Upload</strong>

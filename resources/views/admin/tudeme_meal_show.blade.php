@@ -9,10 +9,10 @@
             <h2>Meals</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.tudeme.show',$tudemeMeal->tudeme_id)}}">Tudeme</a>
+                    <strong><a href="{{route('admin.tudeme.show',$tudemeMeal->tudeme_id)}}">Tudeme</a></strong>
                 </li>
                 <li class="active">
                     <strong>Meal Show</strong>

@@ -9,13 +9,13 @@
                 <h2>Account Adjustments</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('admin.dashboard')}}">Home</a>
+                        <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('admin.orders')}}">Orders</a>
+                        <strong><a href="{{route('admin.orders')}}">Orders</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('admin.expenses')}}">Account Adjustments</a>
+                        <strong><a href="{{route('admin.expenses')}}">Account Adjustments</a></strong>
                     </li>
                     <li class="active">
                         <strong>Account Adjustment Create</strong>

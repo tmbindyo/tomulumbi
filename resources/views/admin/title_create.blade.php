@@ -9,10 +9,10 @@
             <h2>Titles</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.titles')}}">Titles</a>
+                    <strong><a href="{{route('admin.titles')}}">Titles</a></strong>
                 </li>
                 <li class="active">
                     <strong>Title Create</strong>

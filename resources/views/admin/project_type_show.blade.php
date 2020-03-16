@@ -9,16 +9,16 @@
         <h2>Asset Categories</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{{route('admin.dashboard')}}">Home</a>
+                <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
             </li>
             <li>
-                Settings
+                <strong>Settings</strong>
             </li>
             <li class="active">
-                <a href="{{route('admin.project.types')}}">Project Types</a>
+                <strong><a href="{{route('admin.project.types')}}">Project Types</a></strong>
             </li>
             <li class="active">
-                <a href="{{route('admin.project.type.show',$projectType->id)}}">Project Type</a>
+                <strong><a href="{{route('admin.project.type.show',$projectType->id)}}">Project Type</a></strong>
             </li>
         </ol>
     </div>

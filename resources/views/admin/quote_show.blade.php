@@ -9,13 +9,13 @@
             <h2>Quote</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    <a href="#">CRM</a>
+                    <strong><a href="#">CRM</a></strong>
                 </li>
                 <li>
-                    <a href="{{route('admin.quotes')}}">Quotes</a>
+                    <strong><a href="{{route('admin.quotes')}}">Quotes</a></strong>
                 </li>
                 <li class="active">
                     <strong>Quote</strong>

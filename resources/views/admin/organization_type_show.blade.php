@@ -9,10 +9,10 @@
             <h2>Organization Types</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.organization.types')}}">Organization Types</a>
+                    <strong><a href="{{route('admin.organization.types')}}">Organization Types</a></strong>
                 </li>
                 <li class="active">
                     <strong>Organization Type Create</strong>

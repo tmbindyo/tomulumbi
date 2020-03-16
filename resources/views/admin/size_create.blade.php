@@ -9,10 +9,10 @@
             <h2>Sizes</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.sizes')}}">Sizes</a>
+                    <strong><a href="{{route('admin.sizes')}}">Sizes</a></strong>
                 </li>
                 <li class="active">
                     <strong>Size Create</strong>

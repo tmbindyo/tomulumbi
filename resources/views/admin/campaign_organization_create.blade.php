@@ -9,13 +9,13 @@
             <h2>Organizations</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    CRM
+                    <strong>CRM</strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.organizations')}}">Organizations</a>
+                    <strong><a href="{{route('admin.organizations')}}">Organizations</a></strong>
                 </li>
                 <li class="active">
                     <strong>Organization Create</strong>

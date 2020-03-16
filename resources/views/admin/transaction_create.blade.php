@@ -9,13 +9,13 @@
                 <h2>Transactions</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="{{route('admin.dashboard')}}">Home</a>
+                        <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('admin.orders')}}">Orders</a>
+                        <strong><a href="{{route('admin.orders')}}">Orders</a></strong>
                     </li>
                     <li>
-                        <a href="{{route('admin.expenses')}}">Transactions</a>
+                        <strong><a href="{{route('admin.expenses')}}">Transactions</a></strong>
                     </li>
                     <li class="active">
                         <strong>Transaction Create</strong>

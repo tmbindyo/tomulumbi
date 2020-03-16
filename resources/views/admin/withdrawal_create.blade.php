@@ -9,13 +9,13 @@
             <h2>Withdrawals</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    Accounting
+                    <strong>Accounting</strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.account.show',$account->id)}}">Account</a>
+                    <strong><a href="{{route('admin.account.show',$account->id)}}">Account</a></strong>
                 </li>
                 <li class="active">
                     <strong>Withdrawal Create</strong>

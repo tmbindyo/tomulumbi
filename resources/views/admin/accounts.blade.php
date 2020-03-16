@@ -9,10 +9,10 @@
             <h2>Accounts</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    Accounting
+                    <strong>Accounting</strong>
                 </li>
                 <li class="active">
                     <strong>Accounts</strong>

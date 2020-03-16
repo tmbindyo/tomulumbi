@@ -9,13 +9,13 @@
             <h2>Asset Categories</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    Settings
+                    <strong>Settings</strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.asset.categories')}}">Asset Categories</a>
+                    <strong><a href="{{route('admin.asset.categories')}}">Asset Categories</a></strong>
                 </li>
             </ol>
         </div>

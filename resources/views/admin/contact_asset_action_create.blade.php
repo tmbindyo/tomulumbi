@@ -9,13 +9,13 @@
             <h2>Asset Actions</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.contact.show',$contact->id)}}">Contact</a>
+                    <strong><a href="{{route('admin.contact.show',$contact->id)}}">Contact</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.contacts')}}">Contacts</a>
+                    <strong><a href="{{route('admin.contacts')}}">Contacts</a></strong>
                 </li>
                 <li class="active">
                     <strong>Asset Action Create</strong>

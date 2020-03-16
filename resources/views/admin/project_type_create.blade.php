@@ -9,13 +9,13 @@
             <h2>Project Types</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    <a href="#">Settings</a>
+                    <strong><a href="#">Settings</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.contacts')}}">Project Types</a>
+                    <strong><a href="{{route('admin.contacts')}}">Project Types</a></strong>
                 </li>
                 <li class="active">
                     <strong>Project Type Create</strong>

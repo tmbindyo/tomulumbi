@@ -9,13 +9,13 @@
             <h2>Price Lists</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{route('admin.dashboard')}}">Home</a>
+                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.products')}}">Products</a>
+                    <strong><a href="{{route('admin.products')}}">Products</a></strong>
                 </li>
                 <li class="active">
-                    <a href="{{route('admin.product.show',$priceList->product_id)}}">Product</a>
+                    <strong><a href="{{route('admin.product.show',$priceList->product_id)}}">Product</a></strong>
                 </li>
                 <li class="active">
                     <strong>Price List</strong>
