@@ -493,7 +493,6 @@ class SettingsController extends Controller
     {
         $contactType = new ContactType();
         $contactType->name = $request->name;
-        $contactType->description = $request->description;
         $contactType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $contactType->user_id = Auth::user()->id;
         $contactType->save();

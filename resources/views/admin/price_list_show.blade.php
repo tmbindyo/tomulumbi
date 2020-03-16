@@ -46,29 +46,8 @@
 
         {{--  Edit price list  --}}
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Price List Registration <small>Form</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-
                     <div class="ibox-content">
 
                         <div class="row">
@@ -86,7 +65,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="">
                                         <div class="has-warning">
@@ -103,8 +82,9 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <label class="control-label">Sub Types</label>
-                                        <select class="form-control m-b input-lg" name="sub_type">
+                                        <select required="required" name="sub_type" class="select2_demo_sub_types form-control input-lg">
+                                        {{--  <select class="select2_demo_sub_type form-control m-b input-lg" name="sub_type">  --}}
+                                            <option></option>
                                             @foreach($subTypes as $subType)
                                                 <option @if($priceList->sub_type_id = $subType->id)selected @endif value="{{$subType->id}}">[{{$subType->type->name}}]{{$subType->name}}</option>
                                             @endforeach
@@ -113,16 +93,13 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <label class="control-label">Sizes</label>
-                                        <select class="form-control m-b input-lg" name="size">
+                                        <select required="required" name="size" class="select2_demo_size form-control input-lg">
                                             @foreach($sizes as $size)
                                                 <option @if($priceList->size_id = $size->id)selected @endif value="{{$size->id}}">{{$size->size}}</option>
                                             @endforeach
                                         </select>
                                         <i>You can take the collection online/offline quickly. Hidden collections can only be seen by you.</i>
                                     </div>
-                                    <br>
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">
@@ -139,210 +116,136 @@
             </div>
         </div>
 
-        {{--  orders  --}}
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Sales</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
+        {{--    --}}
+        <div class="row m-t-lg">
+            <div class="col-lg-12 col-md-12">
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#orders"> <i class="fa fa-cogs"></i> Orders</a></li>
+                        <li class=""><a data-toggle="tab" href="#sales"><i class="fa fa-bookmark"></i> Sales</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="orders" class="tab-pane active">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Paid</th>
+                                            <th>Reference</th>
+                                            <th>Date</th>
+                                            <th>Due Date</th>
+                                            <th>Contact</th>
+                                            <th>Status</th>
+                                            <th width="13em">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($orders as $order)
+                                            <tr class="gradeX">
+                                                <td>
+                                                @if($order->is_paid == True)
+                                                        <p><span class="badge badge-primary">Paid</span></p>
+                                                    @else
+                                                        <p><span class="badge badge-info">Un Paid</span></p>
+                                                    @endif
+                                                </td>
+                                                <td>{{$order->order->order_number}}</td>
+                                                <td>{{$order->created_at}}</td>
+                                                <td>{{$order->order->due_date}}</td>
+                                                <td>{{$order->order->contact->first_name}} {{$order->order->contact->last_name}}</td>
+                                                <td>
+                                                    <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    {{--                                todo check why route is album but id is album type--}}
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('admin.client.proof.show', $order->id) }}" class="btn-white btn btn-xs">View</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Paid</th>
+                                            <th>Reference</th>
+                                            <th>Date</th>
+                                            <th>Due Date</th>
+                                            <th>Contact</th>
+                                            <th width="17em">Status</th>
+                                            <th width="13em">Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="ibox-content">
-
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>User</th>
-                                    <th>Views</th>
-                                    <th>Status</th>
-                                    <th width="13em">Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($orders as $order)
-                                    <tr class="gradeX">
-{{--                                        <td>{{$order->name}}</td>--}}
-                                        <td>{{$order->date}}</td>
-                                        <td>{{$order->date}}</td>
-                                        <td>{{$order->date}}</td>
-{{--                                        <td>{{$order->user->name}}</td>--}}
-                                        <td>{{$order->album_views_count}}</td>
-                                        <td>
-                                            <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            {{--                                todo check why route is album but id is album type--}}
-                                            <div class="btn-group">
-                                                <a href="{{ route('admin.client.proof.show', $order->id) }}" class="btn-white btn btn-xs">View</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>User</th>
-                                    <th>Views</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </tfoot>
-                            </table>
+                        <div id="sales" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Paid</th>
+                                            <th>Reference</th>
+                                            <th>Date</th>
+                                            <th>Due Date</th>
+                                            <th>Contact</th>
+                                            <th>Status</th>
+                                            <th width="13em">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($sales as $order)
+                                            <tr class="gradeX">
+                                                <td>
+                                                @if($order->is_paid == True)
+                                                        <p><span class="badge badge-primary">Paid</span></p>
+                                                    @else
+                                                        <p><span class="badge badge-info">Un Paid</span></p>
+                                                    @endif
+                                                </td>
+                                                <td>{{$order->order->order_number}}</td>
+                                                <td>{{$order->created_at}}</td>
+                                                <td>{{$order->order->due_date}}</td>
+                                                <td>{{$order->order->contact->first_name}} {{$order->order->contact->last_name}}</td>
+                                                <td>
+                                                    <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    {{--                                todo check why route is album but id is album type--}}
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('admin.client.proof.show', $order->id) }}" class="btn-white btn btn-xs">View</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Paid</th>
+                                            <th>Reference</th>
+                                            <th>Date</th>
+                                            <th>Due Date</th>
+                                            <th>Contact</th>
+                                            <th width="17em">Status</th>
+                                            <th width="13em">Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
-        {{--  sales  --}}
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Sales</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>User</th>
-                                    <th>Views</th>
-                                    <th>Status</th>
-                                    <th width="13em">Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($sales as $sale)
-                                    <tr class="gradeX">
-{{--                                        <td>{{$sale->name}}</td>--}}
-                                        <td>{{$sale->date}}</td>
-                                        <td>{{$sale->date}}</td>
-                                        <td>{{$sale->date}}</td>
-{{--                                        <td>{{$sale->user->name}}</td>--}}
-                                        <td>{{$sale->album_views_count}}</td>
-                                        <td>
-                                            <span class="label {{$sale->status->label}}">{{$sale->status->name}}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            {{--                                todo check why route is album but id is album type--}}
-                                            <div class="btn-group">
-                                                <a href="{{ route('admin.client.proof.show', $sale->id) }}" class="btn-white btn btn-xs">View</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>User</th>
-                                    <th>Views</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 
 @endsection
 
 @section('js')
-
-<!-- Mainly scripts -->
-<script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-<script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-
-<!-- Custom and plugin javascript -->
-<script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<!-- ChartJS-->
-<script src="{{ asset('inspinia') }}/js/plugins/chartJs/Chart.min.js"></script>
-
-<script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
-
-<!-- Chosen -->
-<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
-
-<!-- Input Mask-->
-<script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
-
-<!-- Data picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-<!-- Switchery -->
-<script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
-
-<!-- iCheck -->
-<script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
-
-<!-- MENU -->
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-<!-- Color picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-
-<!-- Clock picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
-
-<!-- Image cropper -->
-<script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
-
-<!-- Date range use moment.js same as full calendar plugin -->
-<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
-
-<!-- Date range picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
-
-<!-- Select2 -->
-<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
 
 {{-- download x views line chart  --}}
 <script>
@@ -420,279 +323,4 @@
         var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
     });
 </script>
-
-<script>
-    $(document).ready(function(){
-        $('.dataTables-example').DataTable({
-            dom: '<"html5buttons"B>lTfgitp',
-            buttons: [
-                { extend: 'copy'},
-                {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
-
-                {extend: 'print',
-                    customize: function (win){
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size', 'inherit');
-                    }
-                }
-            ]
-
-        });
-
-        /* Init DataTables */
-        var oTable = $('#editable').DataTable();
-
-        /* Apply the jEditable handlers to the table */
-        oTable.$('td').editable( '../example_ajax.php', {
-            "callback": function( sValue, y ) {
-                var aPos = oTable.fnGetPosition( this );
-                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-            },
-            "submitdata": function ( value, settings ) {
-                return {
-                    "row_id": this.parentNode.getAttribute('id'),
-                    "column": oTable.fnGetPosition( this )[2]
-                };
-            },
-
-            "width": "90%",
-            "height": "100%"
-        } );
-
-
-    });
-
-</script>
-
-<script>
-    $(document).ready(function(){
-
-        var $image = $(".image-crop > img")
-        $($image).cropper({
-            aspectRatio: 1.618,
-            preview: ".img-preview",
-            done: function(data) {
-                // Output the result data for cropping image.
-            }
-        });
-
-        var $inputImage = $("#inputImage");
-        if (window.FileReader) {
-            $inputImage.change(function() {
-                var fileReader = new FileReader(),
-                    files = this.files,
-                    file;
-
-                if (!files.length) {
-                    return;
-                }
-
-                file = files[0];
-
-                if (/^image\/\w+$/.test(file.type)) {
-                    fileReader.readAsDataURL(file);
-                    fileReader.onload = function () {
-                        $inputImage.val("");
-                        $image.cropper("reset", true).cropper("replace", this.result);
-                    };
-                } else {
-                    showMessage("Please choose an image file.");
-                }
-            });
-        } else {
-            $inputImage.addClass("hide");
-        }
-
-        $("#download").click(function() {
-            window.open($image.cropper("getDataURL"));
-        });
-
-        $("#zoomIn").click(function() {
-            $image.cropper("zoom", 0.1);
-        });
-
-        $("#zoomOut").click(function() {
-            $image.cropper("zoom", -0.1);
-        });
-
-        $("#rotateLeft").click(function() {
-            $image.cropper("rotate", 45);
-        });
-
-        $("#rotateRight").click(function() {
-            $image.cropper("rotate", -45);
-        });
-
-        $("#setDrag").click(function() {
-            $image.cropper("setDragMode", "crop");
-        });
-
-        $('#data_1 .input-group.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
-
-        $('#data_2 .input-group.date').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "dd/mm/yyyy"
-        });
-
-        $('#data_3 .input-group.date').datepicker({
-            startView: 2,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true
-        });
-
-        $('#data_4 .input-group.date').datepicker({
-            minViewMode: 1,
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            todayHighlight: true
-        });
-
-        $('#data_5 .input-daterange').datepicker({
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true
-        });
-
-        var elem = document.querySelector('.js-switch');
-        var switchery = new Switchery(elem, { color: '#1AB394' });
-
-        var elem_2 = document.querySelector('.js-switch_2');
-        var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
-
-        var elem_3 = document.querySelector('.js-switch_3');
-        var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
-
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green'
-        });
-
-        $('.demo1').colorpicker();
-
-
-        $('.clockpicker').clockpicker();
-
-        $('input[name="daterange"]').daterangepicker();
-
-        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-
-        $('#reportrange').daterangepicker({
-            format: 'MM/DD/YYYY',
-            startDate: moment().subtract(29, 'days'),
-            endDate: moment(),
-            minDate: '01/01/2012',
-            maxDate: '12/31/2015',
-            dateLimit: { days: 60 },
-            showDropdowns: true,
-            showWeekNumbers: true,
-            timePicker: false,
-            timePickerIncrement: 1,
-            timePicker12Hour: true,
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            },
-            opens: 'right',
-            drops: 'down',
-            buttonClasses: ['btn', 'btn-sm'],
-            applyClass: 'btn-primary',
-            cancelClass: 'btn-default',
-            separator: ' to ',
-            locale: {
-                applyLabel: 'Submit',
-                cancelLabel: 'Cancel',
-                fromLabel: 'From',
-                toLabel: 'To',
-                customRangeLabel: 'Custom',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
-                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                firstDay: 1
-            }
-        }, function(start, end, label) {
-            console.log(start.toISOString(), end.toISOString(), label);
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        });
-
-        $(".select2_demo_1").select2();
-        $(".select2_demo_2").select2();
-        $(".select2_demo_tag").select2({
-            placeholder: "Select Tags",
-            allowClear: true
-        });
-        $(".select2_demo_category").select2({
-            placeholder: "Select Categories",
-            allowClear: true
-        });
-
-
-    });
-    var config = {
-        '.chosen-select'           : {},
-        '.chosen-select-deselect'  : {allow_single_deselect:true},
-        '.chosen-select-no-single' : {disable_search_threshold:10},
-        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-        '.chosen-select-width'     : {width:"95%"}
-    }
-    for (var selector in config) {
-        $(selector).chosen(config[selector]);
-    }
-
-    $(".dial").knob();
-
-    $("#basic_slider").noUiSlider({
-        start: 40,
-        behaviour: 'tap',
-        connect: 'upper',
-        range: {
-            'min':  20,
-            'max':  80
-        }
-    });
-
-    $("#range_slider").noUiSlider({
-        start: [ 40, 60 ],
-        behaviour: 'drag',
-        connect: true,
-        range: {
-            'min':  20,
-            'max':  80
-        }
-    });
-
-    $("#drag-fixed").noUiSlider({
-        start: [ 40, 60 ],
-        behaviour: 'drag-fixed',
-        connect: true,
-        range: {
-            'min':  20,
-            'max':  80
-        }
-    });
-
-
-</script>
-
 @endsection

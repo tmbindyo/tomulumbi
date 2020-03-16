@@ -166,7 +166,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
                         <li class=""><a data-toggle="tab" href="#album-image-design"><i class="fa fa-bookmark"></i> Album Image Design</a></li>
-                        <li class=""><a data-toggle="tab" href="#cover-image"><i class="fa fa-bookmark"></i> Cover Iamge</a></li>
+                        <li class=""><a data-toggle="tab" href="#cover-image"><i class="fa fa-image"></i> Cover Iamge</a></li>
                         <li class=""><a data-toggle="tab" href="#cover-image-design"><i class="fa fa-bookmark"></i> Cover Image Design</a></li>
                         <li class=""><a data-toggle="tab" href="#album-download"><i class="fa fa-download"></i> Download</a></li>
                         <li class=""><a data-toggle="tab" href="#restrict-to-specific-email"><i class="fa fa-download"></i> Restrict</a></li>
@@ -298,15 +298,15 @@
                         <div id="cover-image" class="tab-pane">
                             <div class="panel-body">
                                 <div class="row m-t-lg">
-                                    <div class="col-md-8 col-md-offset-2">
+                                    <div class="col-md-6 col-md-offset-3">
                                         {{--  Cover Image  --}}
                                         <div class="col-md-12">
                                             <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
                                             <br>
                                         </div>
-                                        <div class="col-md-10 col-md-offset-1">
+                                        <div class="col-md-12">
                                             <div class="center">
-                                                <img alt="image" width="490em" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
+                                                <img alt="image" width="480em" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
                                             </div>
                                         </div>
                                     </div>
@@ -588,7 +588,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

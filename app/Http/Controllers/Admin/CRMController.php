@@ -1304,7 +1304,7 @@ class CRMController extends Controller
 
         // Get quotes
         $quote = Quote::with('user','status','campaign','deal.contact.organization','deal.organization','quote_items','payments.account','payments.status')->withCount('quote_items')->where('id',$quote_id)->first();
-        return $quote;
+        // return $quote;
         // Get contact type
         $payments = Payment::with('user','status','refunds.account','asset_action','loan','order','quote')->where('quote_id',$quote->id)->get();
 
@@ -1342,7 +1342,7 @@ class CRMController extends Controller
         $deals = Deal::all();
 
         // Get quotes
-        $quote = Quote::with('user','status','contact','campaign','deal','quote_items','quote_taxes')->withCount('quote_items')->where('id',$quote_id)->first();
+        $quote = Quote::with('user','status','campaign','deal','quote_items','quote_taxes')->withCount('quote_items')->where('id',$quote_id)->first();
 
         return view('admin.quote_edit',compact('deals','taxes','quote','user','navbarValues'));
     }
@@ -1365,7 +1365,7 @@ class CRMController extends Controller
         $contacts = Contact::with('organization')->get();
 
         // Get quotes
-        $quote = Quote::with('user','status','contact','campaign','deal')->where('id',$quote_id)->first();
+        $quote = Quote::with('user','status','campaign','deal')->where('id',$quote_id)->first();
 
         return view('admin.quote_print',compact('contacts','taxes','quote','user','navbarValues'));
     }

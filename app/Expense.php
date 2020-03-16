@@ -31,6 +31,10 @@ class Expense extends Model
     {
         return $this->belongsTo('App\Asset');
     }
+    public function contact()
+    {
+        return $this->belongsTo('App\Contact');
+    }
     public function design()
     {
         return $this->belongsTo('App\Design');

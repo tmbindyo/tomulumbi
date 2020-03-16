@@ -457,6 +457,9 @@ Route::get('/orders', 'Admin\SaleController@orders')->name('admin.orders');
 Route::get('/order/create', 'Admin\SaleController@orderCreate')->name('admin.order.create');
 Route::post('/order/store', 'Admin\SaleController@orderStore')->name('admin.order.store');
 Route::get('/order/show/{order_id}', 'Admin\SaleController@orderShow')->name('admin.order.show');
+Route::get('/order/edit/{order_id}', 'Admin\SaleController@orderEdit')->name('admin.order.edit');
+Route::post('/order/update/{order_id}', 'Admin\SaleController@orderUpdate')->name('admin.order.update');
+Route::get('/order/print/{order_id}', 'Admin\SaleController@orderPrint')->name('admin.order.print');
 
 Route::get('/order/payment/create/{order_id}', 'Admin\SaleController@orderPaymentCreate')->name('admin.order.payment.create');
 
@@ -553,6 +556,7 @@ Route::get('/expenses', 'Admin\ExpenseController@expenses')->name('admin.expense
 Route::get('/expense/create', 'Admin\ExpenseController@expenseCreate')->name('admin.expense.create');
 Route::post('/expense/store', 'Admin\ExpenseController@expenseStore')->name('admin.expense.store');
 Route::get('/expense/show/{expense_id}', 'Admin\ExpenseController@expenseShow')->name('admin.expense.show');
+Route::get('/expense/print/{expense_id}', 'Admin\ExpenseController@expensePrint')->name('admin.expense.print');
 Route::get('/expense/edit/{expense_id}', 'Admin\ExpenseController@expenseEdit')->name('admin.expense.edit');
 Route::post('/expense/update/{expense_id}', 'Admin\ExpenseController@expenseUpdate')->name('admin.expense.update');
 Route::get('/expense/delete/{expense_id}', 'Admin\ExpenseController@expenseDelete')->name('admin.expense.delete');

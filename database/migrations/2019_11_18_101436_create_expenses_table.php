@@ -25,6 +25,7 @@ class CreateExpensesTable extends Migration
             $table->double('paid',20,2);
 
             $table->date('date');
+            $table->date('end_date');
             $table->date('start_repeat')->nullable();
             $table->date('end_repeat')->nullable();
 
@@ -46,6 +47,8 @@ class CreateExpensesTable extends Migration
             $table->uuid('asset_id')->nullable();
             $table->boolean('is_liability');
             $table->uuid('liability_id')->nullable();
+            $table->boolean('is_contact');
+            $table->uuid('contact_id')->nullable();
 
             $table->boolean('is_draft');
             $table->boolean('is_recurring');

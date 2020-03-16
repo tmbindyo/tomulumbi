@@ -29,29 +29,8 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Refund Registration <small>Form</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-
                     <div class="ibox-content">
 
                         <div class="row">
@@ -69,7 +48,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
                                         <input type="number" id="amount" name="amount" required="required" value="{{$payment->amount}}" class="form-control input-lg">
@@ -103,7 +82,7 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <div class="has-warning">
                                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <input name="is_asset_action" type="checkbox" class="js-switch" checked />
@@ -112,7 +91,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-9">
                                             <div class="has-warning">
                                                 <select name="payment" class="select2_demo_tag form-control input-lg">
                                                     <option value="{{$payment->id}}">{{$payment->reference}} [{{$payment->amount}}]</option>
@@ -122,7 +101,6 @@
                                         </div>
                                     </div>
 
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">

@@ -29,32 +29,11 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Label <small>edit</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-sm-8 col-md-offset-2">
-                                <p>Edit.</p>
+                            <div class="col-sm-12">
                                 <form method="post" action="{{ route('admin.label.update',$label->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
@@ -72,7 +51,7 @@
                                         <input type="name" name="name" value="{{$label->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
-                                    <br>
+                                    <hr>
                                     <div>
                                         <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>UPDATE</strong></button>
                                     </div>
@@ -85,77 +64,60 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Label Journals ({{$label->journal_labels_count}})</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="ibox-content">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
 
-                    <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Views</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach($label->journal_labels as $labelJournal)
-                        <tr class="gradeX">
-                            <td>{{$labelJournal->journal->name}}</td>
-                            <td>{{$labelJournal->journal->date}}</td>
-                            <td>{{$labelJournal->journal->views}}</td>
-                            <td>{{$labelJournal->journal->user->name}}</td>
-                            <td>
-                                <span class="label {{$labelJournal->journal->status->label}}">{{$journal->status->name}}</span>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <a href="{{ route('admin.journal.show', $labelJournal->journal->id) }}" class="btn-white btn btn-xs">View</a>
-                                    @if($labelJournal->journal->status->name == "Deleted")
-                                        <a href="{{ route('admin.journal.restore', $labelJournal->journal->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                    @else
-                                        <a href="{{ route('admin.journal.delete', $labelJournal->journal->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Views</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-                </table>
-                    </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Views</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($label->journal_labels as $labelJournal)
+                                        <tr class="gradeX">
+                                            <td>{{$labelJournal->journal->name}}</td>
+                                            <td>{{$labelJournal->journal->date}}</td>
+                                            <td>{{$labelJournal->journal->views}}</td>
+                                            <td>{{$labelJournal->journal->user->name}}</td>
+                                            <td>
+                                                <span class="label {{$labelJournal->journal->status->label}}">{{$journal->status->name}}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('admin.journal.show', $labelJournal->journal->id) }}" class="btn-white btn btn-xs">View</a>
+                                                    @if($labelJournal->journal->status->name == "Deleted")
+                                                        <a href="{{ route('admin.journal.restore', $labelJournal->journal->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    @else
+                                                        <a href="{{ route('admin.journal.delete', $labelJournal->journal->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Views</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 

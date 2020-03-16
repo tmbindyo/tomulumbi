@@ -23,37 +23,38 @@
             <div class="col-sm-6">
                 <h5>From:</h5>
                 <address>
-                    <strong>{{$institution->name}}</strong><br>
-                    106 Jorg Avenu, 600/10<br>
-                    Chicago, VT 32456<br>
-                    <abbr title="Phone">P:</abbr> {{$institution->phone_number}}
+                    <strong>tomulumbi.</strong>
+                    <br>
+                    General Accident House
+                    <br>
+                    Nairobi, Kenya 52824
+                    <br>
+                    <abbr title="Phone">P:</abbr> + (254) 708 085 128
+                    <br>
+                    <abbr title="Email">E:</abbr> tomulumbi@tomulumbi.com
                 </address>
             </div>
 
             <div class="col-sm-6 text-right">
                 <h4>Expense No.</h4>
-                <h4 class="text-navy">{{$expense->reference}}</h4>
+                <h4 class="text-navy">EXP-{{$expense->reference}}</h4>
+                @if($expense->contact)
                 <span>To:</span>
-                @if($expense->customer->is_business == 1)
-                {{--  if business  --}}
                 <address>
-                    <strong>{{$expense->customer->company_name}}</strong><br>
-                    112 Street Avenu, 1080<br>
-                    Miami, CT 445611<br>
-                    <abbr title="Phone">P:</abbr> {{$expense->customer->phone_number}}
-                </address>
-                @else
-                {{--  if not business  --}}
-                <address>
-                    <strong>{{$expense->customer->first_name}} {{$expense->customer->last_name}}</strong><br>
-                    112 Street Avenu, 1080<br>
-                    Miami, CT 445611<br>
-                    <abbr title="Phone">P:</abbr> {{$expense->customer->phone_number}}
+                    <strong>{{$expense->contact->first_name}} {{$expense->contact->last_name}}  @if($expense->contact->organization) [{{$expense->contact->organization->name}}] @endif </strong>
+                    {{--  <br>
+                    112 Street Avenu, 1080
+                    <br>
+                    Miami, CT 445611  --}}
+                    <br>
+                    <abbr title="Phone">P:</abbr> {{$expense->contact->phone_number}}
+                    <br>
+                    <abbr title="Email">E:</abbr> {{$expense->contact->email}}
                 </address>
                 @endif
                 <p>
-                    <span><strong>Expense Date:</strong> {{$expense->date}} </span><br/>
-                    <span><strong>Due Date:</strong> {{$expense->due_date}}</span>
+                    <span><strong>Expense Date:</strong> {{$expense->date}}</span><br/>
+                    <span><strong>Due Date:</strong> {{$expense->end_date}}</span>
                 </p>
             </div>
         </div>
@@ -63,19 +64,24 @@
                 <thead>
                 <tr>
                     <th>Item List</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Total Price</th>
+                    <th width="100em">Quantity</th>
+                    <th width="100em">Unit Price</th>
+                    <th width="100em">Total Price</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($expense->sale_products as $product)
+                @foreach($expense->expense_items as $expenseItem)
                     <tr>
-                        <td><div><strong>{{$product->product->name}}</strong></div>
-                            <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
-                        <td>{{$product->quantity}}</td>
-                        <td>{{$product->rate}}</td>
-                        <td>{{$product->amount}}</td>
+                        <td>
+                            <div>
+                                <strong>
+                                    {{$expenseItem->name}}
+                                </strong>
+                            </div>
+                        </td>
+                        <td>{{$expenseItem->quantity}}</td>
+                        <td>Ksh. {{$expenseItem->rate}}</td>
+                        <td>Ksh. {{$expenseItem->amount}}</td>
                     </tr>
                 @endforeach
 
@@ -83,19 +89,15 @@
             </table>
         </div><!-- /table-responsive -->
 
-        <table class="table expense-total">
+        <table class="table invoice-total">
             <tbody>
             <tr>
                 <td><strong>Sub Total :</strong></td>
-                <td>{{$expense->subtotal}}</td>
+                <td>{{$expense->sub_total}}</td>
             </tr>
             <tr>
-                <td><strong>TAX :</strong></td>
-                <td>{{$expense->tax}}</td>
-            </tr>
-            <tr>
-                <td><strong>Discount :</strong></td>
-                <td>{{$expense->discount}}</td>
+                <td><strong>Adjustment :</strong></td>
+                <td>{{$expense->adjustment}}</td>
             </tr>
             <tr>
                 <td><strong>TOTAL :</strong></td>
@@ -103,13 +105,11 @@
             </tr>
             </tbody>
         </table>
+
         <div class="well m-t"><strong>Notes</strong>
-            {{$expense->customer_notes}}
+            {{$expense->notes}}
         </div>
 
-        <div class="well m-t"><strong>Terms and Conditions</strong>
-            {{$expense->terms_and_conditions}}
-        </div>
     </div>
 
 </div>

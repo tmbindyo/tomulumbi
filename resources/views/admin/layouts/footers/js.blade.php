@@ -9,6 +9,9 @@
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
+    <!-- SUMMERNOTE -->
+    <script src="{{ asset('inspinia') }}/js/plugins/summernote/summernote.min.js"></script>
+
     <!-- ChartJS-->
     <script src="{{ asset('inspinia') }}/js/plugins/chartJs/Chart.min.js"></script>
 
@@ -181,6 +184,7 @@
                 document.getElementById("expiry_date").value = due_date;
             }
 
+
             // set start time
             var h = today.getHours();
             var m = today.getMinutes();
@@ -193,6 +197,22 @@
             }
         });
 
+    </script>
+
+    {{--  summernote  --}}
+    <script>
+        $(document).ready(function(){
+
+            $('.summernote').summernote();
+
+        });
+        var edit = function() {
+            $('.click2edit').summernote({focus: true});
+        };
+        var save = function() {
+            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+            $('.click2edit').destroy();
+        };
     </script>
 
     {{--  datatables  --}}
@@ -352,8 +372,41 @@
             var elem_5 = document.querySelector('.js-switch_5');
             var switchery_5 = new Switchery(elem_5, { color: '#1AB394' });
 
+            var elem_6 = document.querySelector('.js-switch_6');
+            var switchery_6 = new Switchery(elem_6, { color: '#1AB394' });
+
+            var elem_7 = document.querySelector('.js-switch_7');
+            var switchery_7 = new Switchery(elem_7, { color: '#1AB394' });
+
+            var elem_8 = document.querySelector('.js-switch_8');
+            var switchery_8 = new Switchery(elem_8, { color: '#1AB394' });
+
+            var elem_9 = document.querySelector('.js-switch_9');
+            var switchery_9 = new Switchery(elem_9, { color: '#1AB394' });
+
             var elem_10 = document.querySelector('.js-switch_10');
             var switchery_10 = new Switchery(elem_10, { color: '#1AB394' });
+
+            var elem_11 = document.querySelector('.js-switch_11');
+            var switchery_11 = new Switchery(elem_11, { color: '#1AB394' });
+
+            var elem_12 = document.querySelector('.js-switch_12');
+            var switchery_12 = new Switchery(elem_12, { color: '#1AB394' });
+
+            var elem_13 = document.querySelector('.js-switch_13');
+            var switchery_13 = new Switchery(elem_13, { color: '#1AB394' });
+
+            var elem_14 = document.querySelector('.js-switch_14');
+            var switchery_14 = new Switchery(elem_14, { color: '#1AB394' });
+
+            var elem_15 = document.querySelector('.js-switch_15');
+            var switchery_15 = new Switchery(elem_15, { color: '#1AB394' });
+
+            var elem_16 = document.querySelector('.js-switch_16');
+            var switchery_16 = new Switchery(elem_16, { color: '#1AB394' });
+
+            var elem_17 = document.querySelector('.js-switch_17');
+            var switchery_17 = new Switchery(elem_17, { color: '#1AB394' });
 
             var elem_18 = document.querySelector('.js-switch_18');
             var switchery_18 = new Switchery(elem_18, { color: '#1AB394' });
@@ -418,16 +471,64 @@
 
             $(".select2_demo_1").select2();
             $(".select2_demo_2").select2();
+            $(".select2_demo_type").select2({
+                placeholder: "Select Type",
+                allowClear: true
+            });
+            $(".select2_demo_cuisine").select2({
+                placeholder: "Select Cuisine",
+                allowClear: true
+            });
+            $(".select2_demo_taxes").select2({
+                placeholder: "Select Tax",
+                allowClear: true
+            });
+            $(".select2_demo_album").select2({
+                placeholder: "Select Album",
+                allowClear: true
+            });
+            $(".select2_demo_title").select2({
+                placeholder: "Select Title",
+                allowClear: true
+            });
+            $(".select2_demo_design").select2({
+                placeholder: "Select Design",
+                allowClear: true
+            });
+            $(".select2_demo_project").select2({
+                placeholder: "Select Project",
+                allowClear: true
+            });
+            $(".select2_demo_kit").select2({
+                placeholder: "Select Kit",
+                allowClear: true
+            });
             $(".select2_demo_tag").select2({
                 placeholder: "Select Tags",
+                allowClear: true
+            });
+            $(".select2_demo_deal").select2({
+                placeholder: "Select Deal",
                 allowClear: true
             });
             $(".select2_demo_label").select2({
                 placeholder: "Select Label",
                 allowClear: true
             });
+            $(".select2_demo_size").select2({
+                placeholder: "Select Size",
+                allowClear: true
+            });
+            $(".select2_demo_client").select2({
+                placeholder: "Select Client",
+                allowClear: true
+            });
             $(".select2_demo_status").select2({
                 placeholder: "Select Status",
+                allowClear: true
+            });
+            $(".select2_demo_asset").select2({
+                placeholder: "Select Asset",
                 allowClear: true
             });
             $(".select2_demo_category").select2({
@@ -438,24 +539,112 @@
                 placeholder: "Select Account",
                 allowClear: true
             });
+            $(".select2_demo_email").select2({
+                placeholder: "Select Email",
+                allowClear: true
+            });
+            $(".select2_demo_order").select2({
+                placeholder: "Select Order",
+                allowClear: true
+            });
+            $(".select2_demo_course").select2({
+                placeholder: "Select Course",
+                allowClear: true
+            });
             $(".select2_demo_contact").select2({
                 placeholder: "Select Contact",
+                allowClear: true
+            });
+            $(".select2_demo_journal").select2({
+                placeholder: "Select Journal",
+                allowClear: true
+            });
+            $(".select2_demo_product").select2({
+                placeholder: "Select Product",
+                allowClear: true
+            });
+            $(".select2_demo_tudeme").select2({
+                placeholder: "Select Tudeme",
                 allowClear: true
             });
             $(".select2_demo_campaign").select2({
                 placeholder: "Select Campaign",
                 allowClear: true
             });
+            $(".select2_demo_dish_type").select2({
+                placeholder: "Select Dish Type",
+                allowClear: true
+            });
+            $(".select2_demo_food_type").select2({
+                placeholder: "Select Food Type",
+                allowClear: true
+            });
+            $(".select2_demo_meal_type").select2({
+                placeholder: "Select Meal Type",
+                allowClear: true
+            });
+            $(".select2_demo_ingredient").select2({
+                placeholder: "Select Ingredients",
+                allowClear: true
+            });
+            $(".select2_demo_measurment").select2({
+                placeholder: "Select Measurment",
+                allowClear: true
+            });
+            $(".select2_demo_cooking_style").select2({
+                placeholder: "Select Cooking Style",
+                allowClear: true
+            });
+            $(".select2_demo_cooking_skill").select2({
+                placeholder: "Select Cooking Skill",
+                allowClear: true
+            });
+            $(".select2_demo_journal_series").select2({
+                placeholder: "Select Journal Series",
+                allowClear: true
+            });
+            $(".select2_demo_dietary_preference").select2({
+                placeholder: "Select Dietary Preference",
+                allowClear: true
+            });
             $(".select2_demo_typography").select2({
                 placeholder: "Select Campaign",
+                allowClear: true
+            });
+            $(".select2_demo_organization").select2({
+                placeholder: "Select Organization",
+                allowClear: true
+            });
+            $(".select2_demo_asset_action").select2({
+                placeholder: "Select Asset Action",
+                allowClear: true
+            });
+            $(".select2_demo_deal_types").select2({
+                placeholder: "Select Deal Type",
+                allowClear: true
+            });
+            $(".select2_demo_sub_types").select2({
+                placeholder: "Select Sub Type",
                 allowClear: true
             });
             $(".select2_demo_contact_types").select2({
                 placeholder: "Select Contact Types",
                 allowClear: true
             });
+            $(".select2_demo_project_types").select2({
+                placeholder: "Select Project Type",
+                allowClear: true
+            });
+            $(".select2_demo_deal_stage").select2({
+                placeholder: "Select Deal Stage",
+                allowClear: true
+            });
+            $(".select2_demo_lead_source").select2({
+                placeholder: "Select Lead Source",
+                allowClear: true
+            });
             $(".select2_demo_thumbnail_size").select2({
-                placeholder: "Select Campaign",
+                placeholder: "Select Thumbnail Size",
                 allowClear: true
             });
             $(".select2_demo_campaign_type").select2({

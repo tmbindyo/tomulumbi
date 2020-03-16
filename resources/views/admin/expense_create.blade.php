@@ -45,12 +45,10 @@
                                         </div>
                                     @endif
 
-
                                     <br>
 
                                     <div class="row">
-                                        <div class="col-md-8">
-                                            {{--  expense type  --}}
+                                        <div class="col-md-6">
                                             <div class="has-warning">
                                                 <select name="expense_account" class="select-2 form-control input-lg">
                                                     <option selected disabled>Select Expense Account</option>
@@ -61,93 +59,64 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-
-                                        </div>
-                                    </div>
-                                    {{--  Product  --}}
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="has-warning" id="data_1">
-                                                        <div class="input-group date">
-                                                            <span class="input-group-addon">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </span>
-                                                            <input type="text" name="date" id="date" class="form-control input-lg" required>
-                                                        </div>
-                                                        <i> expense date.</i>
-                                                    </div>
+                                            <div class="has-warning" id="data_1">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                    <input type="text" name="date" id="date" class="form-control input-lg" required>
                                                 </div>
+                                                <i> expense date.</i>
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
                                     <hr>
                                     {{--table--}}
                                     <div class="row">
-                                        <table class="table table-bordered" id = "expense_table">
-                                            <thead>
-                                            <tr>
-                                                <th>Item Details</th>
-                                                <th>Quantity</th>
-                                                <th>Rate</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <input name="item_details[0][item]" type="text" class="form-control input-lg item-detail">
-                                                </td>
-                                                <td>
-                                                    <input oninput = "changeItemQuantity(this)" name="item_details[0][quantity]" type="number" class="form-control input-lg item-quantity" value = "0" min = "0">
-                                                </td>
-                                                <td>
-                                                    <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "0" min = "0">
-                                                </td>
-                                                <td>
-                                                    <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <label class="btn btn-small btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
+                                        <div class="col-md-12">
+                                            <table class="table table-bordered" id = "expense_table">
+                                                <thead>
+                                                <tr>
+                                                    <th>Item Details</th>
+                                                    <th width="150em">Quantity</th>
+                                                    <th width="150em">Rate</th>
+                                                    <th width="150em">Amount</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input name="item_details[0][item]" type="text" class="form-control input-lg item-detail">
+                                                    </td>
+                                                    <td>
+                                                        <input oninput = "changeItemQuantity(this)" name="item_details[0][quantity]" type="number" class="form-control input-lg item-quantity" value = "0" min = "0">
+                                                    </td>
+                                                    <td>
+                                                        <input oninput = "changeItemRate(this)" name="item_details[0][rate]" type="number" class="form-control input-lg item-rate" placeholder="E.g +10, -10" value = "0" min = "0">
+                                                    </td>
+                                                    <td>
+                                                        <input oninput = "itemTotalChange()" onchange = "this.oninput()" name="item_details[0][amount]" type="number" class="form-control input-lg item-total" placeholder="E.g +10, -10" value = "0" min = "0">
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <label class="btn btn-small pull-right btn-primary" onclick = "addTableRow()">+ Add Another Line</label>
+                                        </div>
                                     </div>
-
+                                    <hr>
                                     {{--sub totals--}}
                                     <div class="row">
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <label>Sub Total</label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input name="subtotal" type = "number" class="pull-right input-lg form-control" id = "items-subtotal" readonly value="0">
-                                            </div>
+                                        <div class="col-md-4">
+                                            <input name="subtotal" type = "number" class="pull-right input-lg form-control" id = "items-subtotal" readonly value="0">
+                                            <i>subtotal.</i>
                                         </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-2  col-md-offset-5">
-                                                <label>Adjustment</label>
-                                                <span><i data-toggle="tooltip" data-placement="right" title="Add any other +ve or -ve charges that need to be applied to adjust the total amount of the transaction." class="fa fa-2x fa-question-circle"></i></span>
-                                            </div>
-                                            <div class="col-md-2 col-md-offset-1">
-                                                <input name="adjustment" oninput = "itemTotalChange()" type="number" class="form-control input-lg" id = "adjustment-value" value = "0">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <p class="pull-right" id = "adjustment-text">0</p>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <input name="adjustment" oninput = "itemTotalChange()" type="number" class="form-control input-lg" id = "adjustment-value" value = "0">
+                                            <i>adjustment.</i>
                                         </div>
-                                        <hr>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-3 col-md-offset-5">
-                                                <p>Total</p>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type = "number" name = "grand_total" id = "grand-total" class="pull-right input-lg form-control" value = "0" readonly>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <input type = "number" name = "grand_total" id = "grand-total" class="pull-right input-lg form-control" value = "0" readonly>
+                                            <i>total.</i>
                                         </div>
                                     </div>
                                     <hr>
@@ -390,6 +359,29 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="checkbox checkbox-info">
+                                                        <input id="is_contact" name="is_contact" type="checkbox">
+                                                        <label for="is_contact">
+                                                            Contact
+                                                        </label>
+                                                        <span><i data-toggle="tooltip" data-placement="right" title="Check this option if it is a contact linked expense." class="fa fa-2x fa-question-circle"></i></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="has-warning">
+                                                        <select name="contact" class="select-2 form-control input-lg">
+                                                            <option selected disabled>Select contact</option>
+                                                            @foreach($contacts as $contact)
+                                                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization) [{{$contact->organization->name}}] @endif </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
                                             {{--  Customer  --}}
                                             <div class="has-warning">
                                                 <select name="status" class="select-2 form-control input-lg" required>
@@ -399,6 +391,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <br>
                                             {{--  Customer  --}}
                                             <div class="checkbox checkbox-info">
                                                 <input id="is_draft" name="is_draft" type="checkbox">
@@ -438,153 +431,6 @@
 @section('js')
 
 
-
-<!-- Mainly scripts -->
-<script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-<script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<!-- Custom and plugin javascript -->
-<script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
-
-<!-- Data picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-<!-- Chosen -->
-<script src="{{ asset('inspinia') }}/js/plugins/chosen/chosen.jquery.js"></script>
-
-<!-- JSKnob -->
-<script src="{{ asset('inspinia') }}/js/plugins/jsKnob/jquery.knob.js"></script>
-
-<!-- Input Mask-->
-<script src="{{ asset('inspinia') }}/js/plugins/jasny/jasny-bootstrap.min.js"></script>
-
-<!-- Data picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-<!-- NouSlider -->
-<script src="{{ asset('inspinia') }}/js/plugins/nouslider/jquery.nouislider.min.js"></script>
-
-<!-- Switchery -->
-<script src="{{ asset('inspinia') }}/js/plugins/switchery/switchery.js"></script>
-
-<!-- IonRangeSlider -->
-<script src="{{ asset('inspinia') }}/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-
-<!-- iCheck -->
-<script src="{{ asset('inspinia') }}/js/plugins/iCheck/icheck.min.js"></script>
-
-<!-- MENU -->
-<script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-<!-- Color picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-
-<!-- Clock picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/clockpicker/clockpicker.js"></script>
-
-<!-- Image cropper -->
-<script src="{{ asset('inspinia') }}/js/plugins/cropper/cropper.min.js"></script>
-
-<!-- Date range use moment.js same as full calendar plugin -->
-<script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>
-
-<!-- Date range picker -->
-<script src="{{ asset('inspinia') }}/js/plugins/daterangepicker/daterangepicker.js"></script>
-
-<!-- Select2 -->
-<script src="path/to/select2.min.js"></script>
-<script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
-
-<!-- TouchSpin -->
-<script src="{{ asset('inspinia') }}/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        // Set date
-        console.log('var');
-        var today = new Date();
-        console.log(today);
-        var dd = today.getDate();
-        var mm = today.getMonth();
-        var yyyy = today.getFullYear();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        mm ++;
-        if (dd < 10){
-            dd = '0'+dd;
-        }
-        if (mm < 10){
-            mm = '0'+mm;
-        }
-        var date_today = mm + '/' + dd + '/' + yyyy;
-        var time_curr = h + ':' + m;
-        console.log(time_curr);
-        document.getElementById("date").value = date_today;
-        document.getElementById("start_date").value = date_today;
-        document.getElementById("end_date").value = date_today;
-
-        // Set time
-    });
-
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('.select-2').select2();
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
-
-
-        $('#data_1 .input-group.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true
-        });
-
-        $('#data_2 .input-group.date').datepicker({
-            startView: 1,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "dd/mm/yyyy"
-        });
-
-        $('#data_3 .input-group.date').datepicker({
-            startView: 2,
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true
-        });
-
-        $('#data_4 .input-group.date').datepicker({
-            minViewMode: 1,
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            todayHighlight: true
-        });
-
-        $('#data_5 .input-daterange').datepicker({
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true
-        });
-
-
-
-    });
-
-</script>
 
 
 <script>
@@ -666,7 +512,7 @@
         var selectedParentTd = e.parentElement.parentElement;
         var selectedTr = selectedParentTd.parentElement;
         var selectedTable = selectedTr.parentElement;
-        var removed = selectedTr.getElementsByClassName("item-select")[0].getAttribute("name");
+        var removed = selectedTr.getElementsByClassName("item-detail")[0].getAttribute("name");
         adjustTableInputFieldsIndex(removed);
         selectedTable.removeChild(selectedTr);
         tableValueArrayIndex--;
@@ -716,7 +562,7 @@
         } else {
             adjustedValue = adjustedValueInputValue;
         };
-        document.getElementById("adjustment-text").innerHTML = adjustedValue;
+        document.getElementById("adjustment-value").innerHTML = adjustedValue;
         var adjustedTotal = Number(adjustedValue) + Number(itemSubTotal);
         document.getElementById("grand-total").value = adjustedTotal;
     };

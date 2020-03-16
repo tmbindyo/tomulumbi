@@ -190,7 +190,7 @@
 
                     <li class="nav-item {{ Route::currentRouteNamed( 'admin.transactions' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'admin.transactions')}}">
-                            Transactions <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
+                            Transactions(Exp) <span class="label label-warning pull-right">{{$navbarValues['transactionsCount']}}</span>
                         </a>
                     </li>
 

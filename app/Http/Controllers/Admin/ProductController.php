@@ -816,9 +816,10 @@ class ProductController extends Controller
         // get price list
         $priceList = PriceList::with('user','status','product')->where('id',$price_list_id)->first();
         // orders
-        $orders = OrderProduct::with('product','status','order')->where('is_paid',True)->where("price_list_id",$price_list_id)->get();
+        $orders = OrderProduct::with('product','status','order.contact')->where('is_paid',False)->where("price_list_id",$price_list_id)->get();
+        // return $orders;
         // sales
-        $sales = OrderProduct::with('product')->where('is_paid',True)->where("price_list_id",$price_list_id)->get();
+        $sales = OrderProduct::with('product','status','order.contact')->where('is_paid',True)->where("price_list_id",$price_list_id)->get();
 
 //        return $orders;
         return view('admin.price_list_show',compact('priceList','user','navbarValues','orders','sales','subTypes','sizes','ordersAndSales'));

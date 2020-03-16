@@ -11,6 +11,7 @@ use App\Account;
 use App\Asset;
 use App\AssetAction;
 use App\Campaign;
+use App\Contact;
 use App\Project;
 use App\Expense;
 use App\ExpenseAccount;
@@ -93,13 +94,15 @@ class ExpenseController extends Controller
         $liabilities = Liability::all();
         // get frequencies
         $frequencies = Frequency::all();
+        // get contacts
+        $contacts = Contact::with('organization')->get();
 
-        return view('admin.expense_create',compact('liabilities','assets','campaigns','orders','user','navbarValues','journalsStatusCount','clientProofs','personalAlbums','projects','designs','frequencies','expenseAccounts','transfers','expenseStatuses'));
+        return view('admin.expense_create',compact('liabilities','assets','campaigns','orders','user','navbarValues','journalsStatusCount','clientProofs','personalAlbums','projects','designs','frequencies','expenseAccounts','transfers','expenseStatuses','contacts'));
     }
 
     public function expenseStore(Request $request)
     {
-//        return $request;
+
         // User
         $user = $this->getAdmin();
         // Generate reference
@@ -109,6 +112,7 @@ class ExpenseController extends Controller
         $expense = new Expense();
         $expense->reference = $reference;
         $expense->date = date('Y-m-d', strtotime($request->date));
+        $expense->end_date = date('Y-m-d', strtotime($request->end_date));
 
         if ($request->is_order == "on")
         {
@@ -165,6 +169,13 @@ class ExpenseController extends Controller
             $expense->liability_id = $request->liability;
         }else{
             $expense->is_liability = False;
+        }
+        if ($request->is_contact == "on")
+        {
+            $expense->is_contact = True;
+            $expense->contact_id = $request->contact;
+        }else{
+            $expense->is_contact = False;
         }
         if ($request->is_recurring == "on")
         {
@@ -225,10 +236,25 @@ class ExpenseController extends Controller
         // Get the design status counts
         $journalsStatusCount = $this->expensesStatusCount();
         // get expense
-        $expense = Expense::where('id',$expense_id)->with('transfer','status','expense_items','transactions','design','expense_account','frequency','order','project','user','album')->withCount('expense_items')->first();
+        $expense = Expense::where('id',$expense_id)->with('transfer','status','expense_items','transactions','design','expense_account','frequency','order','project','user','album','contact.organization')->withCount('expense_items')->first();
         $payments = Transaction::where('expense_id',$expense->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense','account','status')->get();
         $pendingPayments = Transaction::where('expense_id',$expense->id)->where('status_id','a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('expense','account','status')->get();
         return view('admin.expense_show',compact('expense','user','navbarValues','journalsStatusCount','payments','pendingPayments'));
+    }
+
+    public function expensePrint($expense_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the design status counts
+        $journalsStatusCount = $this->expensesStatusCount();
+        // get expense
+        $expense = Expense::where('id',$expense_id)->with('transfer','status','expense_items','transactions','design','expense_account','frequency','order','project','user','album','contact.organization')->withCount('expense_items')->first();
+        $payments = Transaction::where('expense_id',$expense->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense','account','status')->get();
+        $pendingPayments = Transaction::where('expense_id',$expense->id)->where('status_id','a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('expense','account','status')->get();
+        return view('admin.expense_print',compact('expense','user','navbarValues','journalsStatusCount','payments','pendingPayments'));
     }
 
     public function expenseEdit($expense_id)

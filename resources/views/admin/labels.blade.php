@@ -30,71 +30,54 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Labels</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="ibox-content">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($labels as $label)
+                                        <tr class="gradeX">
+                                            <td>{{$label->name}}</td>
+                                            <td>{{$label->user->name}}</td>
+                                            <td>
+                                                <span class="label {{$label->status->label}}">{{$label->status->name}}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('admin.label.show', $label->id) }}" class="btn-white btn btn-xs">View</a>
+                                                    @if($label->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                        <a href="{{ route('admin.label.restore', $label->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    @else
+                                                        <a href="{{ route('admin.label.delete', $label->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
 
-                    <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($labels as $label)
-                    <tr class="gradeX">
-                        <td>{{$label->name}}</td>
-                        <td>{{$label->user->name}}</td>
-                        <td>
-                            <span class="label {{$label->status->label}}">{{$label->status->name}}</span>
-                        </td>
-                        <td class="text-right">
-                            <div class="btn-group">
-                                <a href="{{ route('admin.label.show', $label->id) }}" class="btn-white btn btn-xs">View</a>
-                                @if($label->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                    <a href="{{ route('admin.label.restore', $label->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                @else
-                                    <a href="{{ route('admin.label.delete', $label->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </tfoot>
-                </table>
                     </div>
-
                 </div>
             </div>
-        </div>
         </div>
     </div>
 

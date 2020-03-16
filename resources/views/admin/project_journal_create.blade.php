@@ -23,28 +23,8 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Journal Registration <small>Form</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
 
                     <div class="ibox-content">
 
@@ -63,7 +43,7 @@
                                     </div>
                                 @endif
 
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
                                         <input type="text" id="name" name="name" required="required" placeholder="Collection Name" class="form-control input-lg">
@@ -100,12 +80,13 @@
                                         <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
                                         <i>Give a brief description on what the journal is about</i>
                                     </div>
+                                    <br>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-2">
                                             <input type="checkbox" name="is_project" class="js-switch_3" checked/>
                                             <i>is project</i>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-10">
                                             <select required="required" name="project" class="select2_demo_label form-control input-lg">
                                                 <option value="{{$project->id}}">{{$project->name}}</option>
                                             </select>
@@ -113,7 +94,6 @@
                                         </div>
                                     </div>
 
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">

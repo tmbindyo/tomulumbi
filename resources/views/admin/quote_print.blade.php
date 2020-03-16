@@ -23,36 +23,37 @@
             <div class="col-sm-6">
                 <h5>From:</h5>
                 <address>
-                    <strong>{{$institution->name}}</strong><br>
-                    106 Jorg Avenu, 600/10<br>
-                    Chicago, VT 32456<br>
-                    <abbr title="Phone">P:</abbr> {{$institution->phone_number}}
+                    <strong>tomulumbi.</strong>
+                    <br>
+                    General Accident House
+                    <br>
+                    Nairobi, Kenya 52824
+                    <br>
+                    <abbr title="Phone">P:</abbr> + (254) 708 085 128
+                    <br>
+                    <abbr title="Email">E:</abbr> tomulumbi@tomulumbi.com
                 </address>
             </div>
 
             <div class="col-sm-6 text-right">
                 <h4>Quote No.</h4>
-                <h4 class="text-navy">{{$quote->reference}}</h4>
+                <h4 class="text-navy">QUO-{{$quote->reference}}</h4>
+                @if($quote->contact)
                 <span>To:</span>
-                @if($quote->contact->is_business == 1)
-                {{--  if business  --}}
                 <address>
-                    <strong>{{$quote->contact->organization->name}}</strong><br>
-                    112 Street Avenu, 1080<br>
-                    Miami, CT 445611<br>
+                    <strong>{{$quote->contact->first_name}} {{$quote->contact->last_name}}  @if($quote->contact->organization) [{{$quote->contact->organization->name}}] @endif </strong>
+                    {{--  <br>
+                    112 Street Avenu, 1080
+                    <br>
+                    Miami, CT 445611  --}}
+                    <br>
                     <abbr title="Phone">P:</abbr> {{$quote->contact->phone_number}}
-                </address>
-                @else
-                {{--  if not business  --}}
-                <address>
-                    <strong>{{$quote->contact->first_name}} {{$quote->contact->last_name}}</strong><br>
-                    112 Street Avenu, 1080<br>
-                    Miami, CT 445611<br>
-                    <abbr title="Phone">P:</abbr> {{$quote->contact->phone_number}}
+                    <br>
+                    <abbr title="Email">E:</abbr> {{$quote->contact->email}}
                 </address>
                 @endif
                 <p>
-                    <span><strong>Quote Date:</strong> {{$quote->date}} </span><br/>
+                    <span><strong>Quote Date:</strong> {{$quote->date}}</span><br/>
                     <span><strong>Due Date:</strong> {{$quote->due_date}}</span>
                 </p>
             </div>
@@ -63,19 +64,24 @@
                 <thead>
                 <tr>
                     <th>Item List</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Total Price</th>
+                    <th width="100em">Quantity</th>
+                    <th width="100em">Unit Price</th>
+                    <th width="100em">Total Price</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($quote->sale_products as $product)
+                @foreach($quote->quote_items as $quoteItem)
                     <tr>
-                        <td><div><strong>{{$product->product->name}}</strong></div>
-                            <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small></td>
-                        <td>{{$product->quantity}}</td>
-                        <td>{{$product->rate}}</td>
-                        <td>{{$product->amount}}</td>
+                        <td>
+                            <div>
+                                <strong>
+                                    {{$quoteItem->product}}
+                                </strong>
+                            </div>
+                        </td>
+                        <td>{{$quoteItem->quantity}}</td>
+                        <td>Ksh. {{$quoteItem->rate}}</td>
+                        <td>Ksh. {{$quoteItem->amount}}</td>
                     </tr>
                 @endforeach
 
@@ -83,18 +89,14 @@
             </table>
         </div><!-- /table-responsive -->
 
-        <table class="table quote-total">
+        <table class="table invoice-total">
             <tbody>
             <tr>
                 <td><strong>Sub Total :</strong></td>
                 <td>{{$quote->subtotal}}</td>
             </tr>
             <tr>
-                <td><strong>TAX :</strong></td>
-                <td>{{$quote->tax}}</td>
-            </tr>
-            <tr>
-                <td><strong>Discount :</strong></td>
+                <td><strong>Adjustment :</strong></td>
                 <td>{{$quote->discount}}</td>
             </tr>
             <tr>
@@ -103,13 +105,14 @@
             </tr>
             </tbody>
         </table>
+
         <div class="well m-t"><strong>Notes</strong>
             {{$quote->customer_notes}}
         </div>
-
         <div class="well m-t"><strong>Terms and Conditions</strong>
             {{$quote->terms_and_conditions}}
         </div>
+
     </div>
 
 </div>

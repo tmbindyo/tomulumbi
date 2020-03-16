@@ -128,7 +128,6 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    {{--  Tie expense to something  --}}
                                     <br>
                                     {{--attachments--}}
                                     <div class="row">

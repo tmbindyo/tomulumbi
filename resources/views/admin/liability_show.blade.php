@@ -63,28 +63,8 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Liability <small>edit</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-12">
@@ -101,6 +81,7 @@
                                         </div>
                                     @endif
 
+                                    <br>
                                     <div class="has-warning">
                                         <input type="number" id="amount" name="amount" required="required" value="{{$liability->amount}}" class="form-control input-lg">
                                         <i>amount</i>
@@ -147,15 +128,12 @@
                                         <i>Give a brief description on what the project is about</i>
                                     </div>
 
-                                    <br>
-                                    <div class="col-md-12">
-                                        <br>
-                                        <hr>
+                                    <hr>
 
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('SAVE') }}</button>
-                                        </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('SAVE') }}</button>
                                     </div>
+
 
                                 </form>
                             </div>

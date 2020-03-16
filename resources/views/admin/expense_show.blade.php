@@ -25,6 +25,7 @@
         <div class="col-lg-4">
             <div class="title-action">
                 <a href="{{route('admin.expense.edit',$expense->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                <a href="{{route('admin.expense.print',$expense->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-print"></i> Print </a>
             </div>
         </div>
     </div>

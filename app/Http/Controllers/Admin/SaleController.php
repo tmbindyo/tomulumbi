@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Account;
+use DB;
 use Auth;
 use App\ToDo;
 use App\Order;
 use App\Status;
+use App\Account;
 use App\Contact;
 use App\PromoCode;
 use App\Traits\UserTrait;
@@ -110,6 +111,7 @@ class SaleController extends Controller
             $orderProduct = new OrderProduct();
             $orderProduct->rate = $item['rate'];
             $orderProduct->quantity = $item['quantity'];
+            $orderProduct->amount = $item['amount'];
             $orderProduct->refund_amount = 0;
             $orderProduct->status_id = '39c51a73-063f-48d6-b0ce-c86f2a0f7cdd';
             $orderProduct->order_id = $order->id;
@@ -153,6 +155,115 @@ class SaleController extends Controller
         $overdueToDos = ToDo::with('user','status','order')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('order_id',$order->id)->get();
 //        return $order;
         return view('admin.order_show',compact('order','user','navbarValues','ordersStatusCount','orderArray','pendingToDos','inProgressToDos','completedToDos','overdueToDos','orderStatuses'));
+    }
+
+    public function orderEdit($order_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the client proof status counts
+        $ordersStatusCount = $this->ordersStatusCount();
+        // products
+        $priceLists = PriceList::with('product.status','sub_type','size','status')->get();
+        // contacts
+        $contacts = Contact::with('organization')->get();
+        // get project aggregations
+        $orderArray = $this->getOrder($order_id);
+        $orderStatuses = Status::where('status_type_id','6649fd59-0fc2-44e5-b735-032d72ee3b60')->get();
+
+        $orderExists = Order::findOrFail($order_id);
+        $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses.expense_type')->first();
+        // Pending to dos
+        // return $order;
+        return view('admin.order_edit',compact('priceLists','contacts','order','user','navbarValues','ordersStatusCount','orderArray','orderStatuses'));
+    }
+
+    public function orderUpdate(Request $request, $order_id){
+
+        $order = Order::findOrFail($order_id);
+        $order->due_date = date('Y-m-d', strtotime($request->due_date));
+        $order->expiry_date = date('Y-m-d', strtotime($request->due_date));
+
+        $order->customer_notes = $request->customer_notes;
+
+        $order->subtotal = $request->subtotal;
+        $order->discount = $request->discount;
+        $order->total = $request->grand_total;
+        $order->refund = 0;
+        $order->paid = 0;
+
+        if($request->is_draft == "on"){
+            $order->is_draft = True;
+        }else{
+            $order->is_draft = False;
+        }
+
+        $order->is_returned = False;
+        $order->is_refunded = False;
+        $order->is_delivery = False;
+        $order->is_paid = False;
+        $order->is_client = False;
+
+        // get contact
+        $contact = Contact::findOrFail($request->contact);
+        $order->email = $contact->email;
+        $order->contact_id = $request->contact;
+        $order->status_id = "39c51a73-063f-48d6-b0ce-c86f2a0f7cdd";
+        // $order->user_id = Auth::user()->id;
+        $order->save();
+
+        $orderRequestPriceLists =array();
+        // Quote items
+        foreach ($request->item_details as $item) {
+            // Append to array
+            $orderRequestPriceLists[]['id'] = $item['item'];
+
+            // get product
+            $priceList = PriceList::findOrFail($item['item']);
+
+            // Check if journal label exists
+            $orderPriceList = OrderProduct::where('order_id',$order->id)->where('price_list_id',$priceList->id)->first();
+
+            if ($orderPriceList === null) {
+                // order product
+                $orderProduct = new OrderProduct();
+                $orderProduct->rate = $item['rate'];
+                $orderProduct->quantity = $item['quantity'];
+                $orderProduct->amount = $item['amount'];
+                $orderProduct->refund_amount = 0;
+                $orderProduct->status_id = '39c51a73-063f-48d6-b0ce-c86f2a0f7cdd';
+                $orderProduct->order_id = $order->id;
+                $orderProduct->product_id = $priceList->product_id;
+                $orderProduct->price_list_id = $item['item'];
+                $orderProduct->is_returned = False;
+                $orderProduct->is_refunded = False;
+                $orderProduct->is_paid = False;
+                $orderProduct->save();
+            }else{
+                $orderPriceList->rate = $item['rate'];
+                $orderPriceList->quantity = $item['quantity'];
+                $orderPriceList->save();
+            }
+
+        }
+
+        $orderPriceListIds = OrderProduct::where('order_id',$order->id)->whereNotIn('price_list_id',$orderRequestPriceLists)->select('id')->get()->toArray();
+        DB::table('order_products')->whereIn('id', $orderPriceListIds)->delete();
+        return redirect()->route('admin.order.show',$order->id)->withSuccess('Order updated!');
+
+    }
+
+    public function orderPrint($order_id)
+    {
+        // User
+        $user = $this->getAdmin();
+        // get project aggregations
+
+        $orderExists = Order::findOrFail($order_id);
+        $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses.expense_type')->first();
+        return view('admin.order_print',compact('order'));
     }
 
     public function orderPaymentCreate($order_id)
