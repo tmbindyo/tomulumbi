@@ -500,12 +500,12 @@
             </div>
         </div>
 
-        {{--    To Do's    --}}
+        {{--    To Dos    --}}
         <div class="row m-t-lg">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>To Do's</h5>
+                        <h5>To Dos</h5>
                         <div class="ibox-tools">
                             <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
                         </div>

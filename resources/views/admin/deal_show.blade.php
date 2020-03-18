@@ -489,19 +489,19 @@
             </div>
         </div>
 
-        {{--    To Do's    --}}
+        {{--    To Dos    --}}
         <div class="row m-t-lg">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>To Do's</h5>
+                        <h5>To Dos</h5>
                         <div class="ibox-tools">
                             <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
                         </div>
                     </div>
                     <div class="">
                         <ul class="pending-to-do">
-                            @foreach($pendingToDos as $pendingToDo)
+                            @foreach($deal->pending_to_dos as $pendingToDo)
                                 <li>
                                     <div>
                                         <small>{{$pendingToDo->due_date}}</small>
@@ -517,7 +517,7 @@
                         </ul>
 
                         <ul class="in-progress-to-do">
-                            @foreach($inProgressToDos as $inProgressToDo)
+                            @foreach($deal->in_progress_to_dos as $inProgressToDo)
                                 <li>
                                     <div>
                                         <small>{{$inProgressToDo->due_date}}</small>
@@ -532,7 +532,7 @@
                             @endforeach
                         </ul>
                         <ul class="overdue-to-do">
-                            @foreach($overdueToDos as $overdueToDo)
+                            @foreach($deal->overdue_to_dos as $overdueToDo)
                                 <li>
                                     <div>
                                         <small>{{$overdueToDo->due_date}}</small>
@@ -551,7 +551,7 @@
                             @endforeach
                         </ul>
                         <ul class="completed-to-do">
-                            @foreach($completedToDos as $completedToDo)
+                            @foreach($deal->completed_to_dos as $completedToDo)
                                 <li>
                                     <div>
                                         <small>{{$completedToDo->due_date}}</small>

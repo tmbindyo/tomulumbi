@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-10 col-md-offset-1">
+            <div class="col-lg-8 col-md-offset-2">
                 <div class="ibox">
                     <div class="ibox-content">
 
@@ -79,14 +79,34 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class="has-warning">
-                                        <input type="number" id="expected_revenue" name="expected_revenue" required="required" placeholder="Expected Revenue" class="form-control input-lg">
-                                        <i>expected revenue</i>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="expected_revenue" name="expected_revenue" required="required" placeholder="Expected Revenue" class="form-control input-lg">
+                                                <i>expected revenue</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" placeholder="Budgeted Cost" class="form-control input-lg">
+                                                <i>budgeted cost</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="budgeted_cost" name="budgeted_cost" required="required" placeholder="Budgeted Cost" class="form-control input-lg">
-                                        <i>budgeted cost</i>
+                                        <input type="number" id="expected_response" name="expected_response" required="required" placeholder="Expected Response" class="form-control input-lg">
+                                        <i>expected response</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <select name="campaign" class="select2_demo_campaign form-control input-lg">
+                                            <option></option>
+                                            @foreach ($campaigns as $campaign)
+                                                <option value="{{$campaign->id}}">{{$campaign->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>campaign</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
@@ -100,13 +120,18 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
-                                        <i>Give a brief description on what the project is about</i>
+                                        <select name="status" class="select2_demo_status form-control input-lg" required>
+                                            <option></option>
+                                            @foreach ($campaignStatus as $status)
+                                                <option value="{{$status->id}}">{{$status->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>status</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="expected_response" name="expected_response" required="required" placeholder="Expected response" class="form-control input-lg"></textarea>
-                                        <i>Give a the expected response</i>
+                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        <i>Give a brief description on what the project is about</i>
                                     </div>
 
                                     <hr>

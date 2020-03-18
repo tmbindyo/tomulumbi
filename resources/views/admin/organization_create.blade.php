@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Organization Registration <small>Form</small></h5>
@@ -137,6 +137,16 @@
                                                 <i>city</i>
                                             </div>
                                         </div>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <select name="campaign" class="select2_demo_campaign form-control input-lg">
+                                            <option></option>
+                                            @foreach ($campaigns as $campaign)
+                                                <option value="{{$campaign->id}}">{{$campaign->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <i>campaign</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">

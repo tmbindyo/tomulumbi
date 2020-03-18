@@ -23,7 +23,7 @@ class CalendarController extends Controller
         $navbarValues = $this->getNavbarValues();
 
         // Get events
-        $toDos = ToDo::with('user','status','album','project','journal','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->get();
+        $toDos = ToDo::with('user','status','album','project','journal','journal_series','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action')->get();
 
         // Add events table for coming projects(event date, reminder, client, time, cost)
         // Event payment

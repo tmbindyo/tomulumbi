@@ -49,7 +49,7 @@ class EmailController extends Controller
         // email statuses
         $emailStatuses = Status::where('status_type_id','5e230684-dc16-4889-a3d3-9e734726f02a')->get();
 
-        // Email To Do's
+        // Email To Dos
         // Pending to dos
         $pendingToDos = ToDo::with('user','status','email')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('email_id',$email->id)->get();
         // In progress to dos

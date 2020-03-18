@@ -148,14 +148,6 @@ class DesignController extends Controller
         $designJournals = Journal::with('user','status')->where('design_id',$design_id)->get();
         // Design status
         $designStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','design')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('design_id',$design->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','design')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('design_id',$design->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','design')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('design_id',$design->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','design')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('design_id',$design->id)->get();
 
         $designGallery = DesignGallery::where('design_id',$design_id)->with('upload')->get();
         $designWork = DesignWork::where('design_id',$design_id)->with('upload')->get();
@@ -164,7 +156,7 @@ class DesignController extends Controller
         $designCategories = DesignCategory::where('design_id',$design_id)->get();
         // design contacts
         $designContacts = DesignContact::where('design_id',$design_id)->get();
-        return view('admin.design_show',compact('designCategories','designContacts','designJournals','designAlbums','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies','navbarValues','designArray','designViews'));
+        return view('admin.design_show',compact('designCategories','designContacts','designJournals','designAlbums','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies','navbarValues','designArray','designViews'));
     }
 
     public function designPersonalAlbumCreate($design_id)

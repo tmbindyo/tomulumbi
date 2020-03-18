@@ -40,6 +40,9 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Type</th>
+                                        <th>Expected Revenue</th>
+                                        <th>Budgeted Cost</th>
+                                        <th>Actual Cost</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>User</th>
@@ -52,6 +55,9 @@
                                         <tr class="gradeX">
                                             <td>{{$campaign->name}}</td>
                                             <td>{{$campaign->campaign_type->name}}</td>
+                                            <td>{{$campaign->expected_revenue}}</td>
+                                            <td>{{$campaign->budgeted_cost}}</td>
+                                            <td>{{$campaign->actual_cost}}</td>
                                             <td>{{$campaign->start_date}}</td>
                                             <td>{{$campaign->end_date}}</td>
                                             <td>{{$campaign->user->name}}</td>
@@ -76,6 +82,9 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Type</th>
+                                        <th>Expected Revenue</th>
+                                        <th>Budgeted Cost</th>
+                                        <th>Actual Cost</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>User</th>

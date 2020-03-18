@@ -20,6 +20,13 @@ class CampaignTypeTableSeeder extends Seeder
             ]);
 
             DB::table('campaign_types')->insert([
+                'id' => 'e606ef5a-2116-44c4-84aa-18e3b45e3cfe',
+                'name' => 'Social Media',
+                'user_id' => 1,
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            ]);
+
+            DB::table('campaign_types')->insert([
                 'id' => '2efa2729-6438-4397-b06d-ecded822cec3',
                 'name' => 'Conference',
                 'user_id' => 1,

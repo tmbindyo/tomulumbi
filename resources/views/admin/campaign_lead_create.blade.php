@@ -1,18 +1,18 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Contact Create')
+@section('title', 'Lead Create')
 
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Contacts</h2>
+            <h2>Leads</h2>
             <ol class="breadcrumb">
                 <li>
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    <strong><a href="#">Settings</a></strong>
+                    <strong><a href="#">CRM</a></strong>
                 </li>
                 <li class="active">
                     <strong><a href="{{route('admin.campaigns')}}">Campaigns</a></strong>
@@ -21,7 +21,7 @@
                     <strong><a href="{{route('admin.campaign.show',$campaign->id)}}">Campaign</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Contact Create</strong>
+                    <strong>Lead Create</strong>
                 </li>
             </ol>
         </div>
@@ -51,7 +51,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="checkbox" name="is_lead" class="js-switch_3" />
+                                        <input type="checkbox" name="is_lead" class="js-switch_3" checked />
                                         <i>lead</i>
                                     </div>
                                     <div class="col-md-6">

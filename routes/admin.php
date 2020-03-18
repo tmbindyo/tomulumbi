@@ -224,6 +224,7 @@ Route::get('/campaign/show/{campaign_id}', 'Admin\CRMController@campaignShow')->
 Route::get('/campaign/contact/create/{campaign_id}', 'Admin\CRMController@campaignContactCreate')->name('admin.campaign.contact.create');
 Route::get('/campaign/deal/create/{campaign_id}', 'Admin\CRMController@campaignDealCreate')->name('admin.campaign.deal.create');
 Route::get('/campaign/expense/create/{campaign_id}', 'Admin\CRMController@campaignExpenseCreate')->name('admin.campaign.expense.create');
+Route::get('/campaign/lead/create/{campaign_id}', 'Admin\CRMController@campaignLeadCreate')->name('admin.campaign.lead.create');
 Route::get('/campaign/organization/create/{campaign_id}', 'Admin\CRMController@campaignOrganizationCreate')->name('admin.campaign.organization.create');
 
 Route::post('/campaign/update/{campaign_id}', 'Admin\CRMController@campaignUpdate')->name('admin.campaign.update');

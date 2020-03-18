@@ -145,19 +145,10 @@ class ProjectController extends Controller
         // Project status
         $projectStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','project')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('project_id',$project->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','project')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('project_id',$project->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','project')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('project_id',$project->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','project')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('project_id',$project->id)->get();
-
         // project gallery
         $projectGallery = ProjectGallery::where('project_id',$project_id)->with('upload')->get();
 
-        return view('admin.project_show',compact('projectContacts','projectJournals','projectDesigns','projectAlbums','pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','contacts','project','projectGallery','projectStatuses','typographies','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
+        return view('admin.project_show',compact('projectContacts','projectJournals','projectDesigns','projectAlbums','user','contacts','project','projectGallery','projectStatuses','typographies','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
     }
 
     public function projectPersonalAlbumCreate($project_id)

@@ -126,6 +126,7 @@ class CRMController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // campaigns
         $campaigns = Campaign::with('user','status','campaign_type')->get();
         return view('admin.campaigns',compact('campaigns','user','navbarValues'));
 
@@ -140,7 +141,11 @@ class CRMController extends Controller
         $navbarValues = $this->getNavbarValues();
         // campaign types
         $campaignTypes = CampaignType::all();
-        return view('admin.campaign_create',compact('user','navbarValues','campaignTypes'));
+        // campaigns
+        $campaigns = Campaign::with('user','status','campaign_type')->get();
+        // campaign status
+        $campaignStatus = Status::where('status_type_id','4e730295-3dc3-44a4-bff8-149e66a51493')->get();
+        return view('admin.campaign_create',compact('user','navbarValues','campaignTypes','campaigns','campaignStatus'));
 
     }
 
@@ -152,12 +157,13 @@ class CRMController extends Controller
         $campaign->start_date = date('Y-m-d', strtotime($request->start_date));
         $campaign->end_date = date('Y-m-d', strtotime($request->end_date));
         $campaign->campaign_type_id = $request->type;
+        $campaign->campaign_id = $request->campaign;
         $campaign->expected_revenue = $request->expected_revenue;
         $campaign->actual_cost = 0;
         $campaign->budgeted_cost = $request->budgeted_cost;
         $campaign->description = $request->description;
         $campaign->expected_response = $request->expected_response;
-        $campaign->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $campaign->status_id = $request->status;
         $campaign->user_id = Auth::user()->id;
         $campaign->save();
         return redirect()->route('admin.campaign.show',$campaign->id)->withSuccess('Campaign created!');
@@ -174,18 +180,15 @@ class CRMController extends Controller
         $navbarValues = $this->getNavbarValues();
         // get campaign types
         $campaignTypes = CampaignType::all();
+        // campaigns
+        $campaigns = Campaign::with('user','status','campaign_type')->get();
+        // campaign status
+        $campaignStatus = Status::where('status_type_id','4e730295-3dc3-44a4-bff8-149e66a51493')->get();
         // Get campaigns
-        $campaign = Campaign::with('user','status','campaign_type','campaign_uploads','contacts','expenses','organizations','to_dos','deals')->withCount('campaign_uploads','contacts','expenses','organizations','to_dos')->where('id',$campaign_id)->first();
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','campaign')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('campaign_id',$campaign->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','campaign')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('campaign_id',$campaign->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','campaign')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('campaign_id',$campaign->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','campaign')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('campaign_id',$campaign->id)->get();
+        $campaign = Campaign::with('user','status','campaign_type','campaign_uploads','contacts','expenses','leads','organizations','to_dos','deals','campaigns','pending_to_dos','in_progress_to_dos','completed_to_dos','overdue_to_dos')->withCount('campaign_uploads','contacts','expenses','organizations','to_dos','pending_to_dos','in_progress_to_dos','completed_to_dos','overdue_to_dos')->where('id',$campaign_id)->first();
+        // return $campaign;
 
-        return view('admin.campaign_show',compact('campaign','user','navbarValues','campaignTypes','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+        return view('admin.campaign_show',compact('campaign','user','navbarValues','campaignTypes','campaigns','campaignStatus'));
     }
 
     public function campaignContactCreate($campaign_id)
@@ -228,7 +231,9 @@ class CRMController extends Controller
         $leadSources = LeadSource::all();
         // deal stage
         $dealStages = DealStage::all();
-        return view('admin.campaign_deal_create',compact('campaign','dealStages','leadSources','contacts','organizations','user','navbarValues'));
+        // deal status
+        $dealStatus = Status::where('status_type_id','cf5d25dc-dcf1-425c-9fdc-d580a7e0b334')->get();
+        return view('admin.campaign_deal_create',compact('campaign','dealStages','leadSources','contacts','organizations','user','navbarValues','dealStatus'));
 
     }
 
@@ -250,6 +255,29 @@ class CRMController extends Controller
         $frequencies = Frequency::all();
 
         return view('admin.campaign_expense_create',compact('campaign','user','navbarValues','frequencies','expenseAccounts','expenseStatuses'));
+    }
+
+    public function campaignLeadCreate($campaign_id)
+    {
+        // get Campaign
+        $campaign = Campaign::findOrFail($campaign_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // get contacts
+        $contacts = Contact::with('user','status','contact_type')->get();
+        // get contact types
+        $contactTypes = ContactType::all();
+        // get organizations
+        $organizations = Organization::all();
+        // get titles
+        $titles = Title::all();
+        // get lead sources
+        $leadSources = LeadSource::all();
+        // get campaigns
+        $campaigns = Campaign::all();
+        return view('admin.campaign_lead_create',compact('campaign','contacts','user','contactTypes','navbarValues','organizations','titles','leadSources','campaigns'));
     }
 
     public function campaignOrganizationCreate($campaign_id)
@@ -412,6 +440,7 @@ class CRMController extends Controller
         $campaign->expected_revenue = $request->expected_revenue;
         $campaign->budgeted_cost = $request->budgeted_cost;
         $campaign->description = $request->description;
+        $campaign->status_id = $request->status;
         $campaign->user_id = Auth::user()->id;
         $campaign->save();
         return redirect()->route('admin.campaign.show',$campaign->id)->withSuccess('Campaign updated!');
@@ -563,15 +592,7 @@ class CRMController extends Controller
         $contactContactTypes = ContactContactType::with('user','status','contact_type')->where('contact_id',$contact_id)->get();
         // contact deals
         $deals = Deal::with('user','status','deal_stage','lead_source')->where('contact_id',$contact_id)->get();
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','contact')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('contact_id',$contact->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','contact')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('contact_id',$contact->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','contact')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('contact_id',$contact->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','contact')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('contact_id',$contact->id)->get();
-        return view('admin.contact_show',compact('assetActions','loans','overdueToDos','completedToDos','inProgressToDos','pendingToDos','contactContactTypes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount','loans'));
+        return view('admin.contact_show',compact('assetActions','loans','contactContactTypes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount','loans'));
     }
 
     public function contactAssetActionCreate($contact_id)
@@ -821,7 +842,9 @@ class CRMController extends Controller
         $organizationTypes = OrganizationType::all();
         // organizations
         $organizations = Organization::all();
-        return view('admin.organization_create',compact('user','navbarValues','organizationTypes','organizations'));
+        // organizations
+        $campaigns = Campaign::all();
+        return view('admin.organization_create',compact('user','navbarValues','organizationTypes','organizations','campaigns'));
 
     }
 
@@ -863,17 +886,9 @@ class CRMController extends Controller
         // get organization types
         $organizationTypes = OrganizationType::all();
         // Get organizations
-        $organization = Organization::with('user','status','organization_type','contacts','deals')->withCount('contacts','deals')->where('id',$organization_id)->first();
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','organization')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('organization_id',$organization->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','organization')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('organization_id',$organization->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','organization')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('organization_id',$organization->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','organization')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('organization_id',$organization->id)->get();
+        $organization = Organization::with('user','status','organization_type','contacts','deals','pending_to_dos','in_progress_to_dos','completed_to_dos','overdue_to_dos')->withCount('contacts','deals','pending_to_dos','in_progress_to_dos','completed_to_dos','overdue_to_dos')->where('id',$organization_id)->first();
 
-        return view('admin.organization_show',compact('organization','organizations','user','navbarValues','organizationTypes','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+        return view('admin.organization_show',compact('organization','organizations','user','navbarValues','organizationTypes'));
     }
 
     public function organizationContactCreate($organization_id)
@@ -914,7 +929,9 @@ class CRMController extends Controller
         $leadSources = LeadSource::all();
         // deal stage
         $dealStages = DealStage::all();
-        return view('admin.organization_deal_create',compact('campaigns','dealStages','leadSources','contacts','organization','user','navbarValues'));
+        // deal status
+        $dealStatus = Status::where('status_type_id','cf5d25dc-dcf1-425c-9fdc-d580a7e0b334')->get();
+        return view('admin.organization_deal_create',compact('campaigns','dealStages','leadSources','contacts','organization','user','navbarValues','dealStatus'));
 
     }
 
@@ -989,7 +1006,9 @@ class CRMController extends Controller
         $leadSources = LeadSource::all();
         // deal stage
         $dealStages = DealStage::all();
-        return view('admin.deal_create',compact('campaigns','dealStages','leadSources','contacts','organizations','user','navbarValues'));
+        // deal status
+        $dealStatus = Status::where('status_type_id','cf5d25dc-dcf1-425c-9fdc-d580a7e0b334')->get();
+        return view('admin.deal_create',compact('campaigns','dealStages','leadSources','contacts','organizations','user','navbarValues','dealStatus'));
 
     }
 
@@ -1012,7 +1031,7 @@ class CRMController extends Controller
         $deal->deal_stage_id = $request->deal_stage;
         $deal->campaign_id = $request->campaign;
         $deal->about = $request->about;
-        $deal->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $deal->status_id = $request->status;
         $deal->user_id = Auth::user()->id;
         $deal->save();
         return redirect()->route('admin.deal.show',$deal->id)->withSuccess('Deal created!');
@@ -1041,14 +1060,6 @@ class CRMController extends Controller
         $dealStages = DealStage::all();
         // Get deals
         $deal = Deal::with('user','status','organization','contact','lead_source','deal_stage','campaign')->where('id',$deal_id)->first();
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','deal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('deal_id',$deal->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','deal')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('deal_id',$deal->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','deal')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('deal_id',$deal->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','deal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('deal_id',$deal->id)->get();
 
         // deal designs
         $designs = Design::with('user','status')->where('deal_id',$deal_id)->get();
@@ -1059,7 +1070,7 @@ class CRMController extends Controller
         // deal quotes
         $quotes = Quote::with('user','status')->where('deal_id',$deal_id)->get();
 
-        return view('admin.deal_show',compact('quotes','albums','projects','designs','dealStages','leadSources','contacts','campaigns','organizations','deal','user','navbarValues','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+        return view('admin.deal_show',compact('quotes','albums','projects','designs','dealStages','leadSources','contacts','campaigns','organizations','deal','user','navbarValues'));
     }
 
     public function dealClientProofCreate($deal_id)
@@ -1141,6 +1152,7 @@ class CRMController extends Controller
         $deal->deal_stage_id = $request->deal_stage;
         $deal->campaign_id = $request->campaign;
         $deal->about = $request->about;
+        $deal->status_id = $request->status;
         $deal->user_id = Auth::user()->id;
         $deal->save();
         return redirect()->route('admin.deal.show',$deal->id)->withSuccess('Deal updated!');

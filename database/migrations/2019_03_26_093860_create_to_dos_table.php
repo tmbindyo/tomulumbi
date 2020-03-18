@@ -46,9 +46,9 @@ class CreateToDosTable extends Migration
             $table->boolean('is_design');
             $table->uuid('design_id')->nullable();
             $table->boolean('is_journal');
-            $table->uuid('journal_series_id')->nullable();
-            $table->boolean('is_journal_series');
             $table->uuid('journal_id')->nullable();
+            $table->boolean('is_journal_series');
+            $table->uuid('journal_series_id')->nullable();
             $table->boolean('is_project');
             $table->uuid('project_id')->nullable();
             $table->boolean('is_product');

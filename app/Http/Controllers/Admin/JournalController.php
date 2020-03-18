@@ -90,17 +90,7 @@ class JournalController extends Controller
         // project journals
         $journalSeriesJournals = Journal::with('user','status')->where('journal_series_id',$journal_series_id)->get();
 
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','journal_series')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('journal_series_id',$journalSeries->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','journal_series')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('journal_series_id',$journalSeries->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','journal_series')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('journal_series_id',$journalSeries->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','journal_series')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('journal_series_id',$journalSeries->id)->get();
-
-
-        return view('admin.journal_series_show',compact('journalSeriesJournals','journalSeries','overdueToDos','completedToDos','inProgressToDos','pendingToDos','journalSerieses','user','navbarValues'));
+        return view('admin.journal_series_show',compact('journalSeriesJournals','journalSeries','journalSerieses','user','navbarValues'));
     }
 
     public function journalSeriesJournalCreate($journal_series_id)
@@ -224,19 +214,11 @@ class JournalController extends Controller
         $journal = Journal::where('id',$journal_id)->with('user','status','cover_image')->first();
         // Journal status
         $journalStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','journal')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('journal_id',$journal->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','journal')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('journal_id',$journal->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','journal')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('journal_id',$journal->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','journal')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('journal_id',$journal->id)->get();
 
         // journal gallery
         $journalGallery = JournalGallery::where('journal_id',$journal_id)->with('upload')->get();
         $journalLabels = JournalLabel::where('journal_id',$journal_id)->with('journal','label')->get();
-        return view('admin.journal_show',compact('pendingToDos','inProgressToDos','completedToDos','overdueToDos','user','journal','journalGallery','journalStatuses','typographies','thumbnailSizes','labels','journalLabels','navbarValues','journalArray','journalViews'));
+        return view('admin.journal_show',compact('user','journal','journalGallery','journalStatuses','typographies','thumbnailSizes','labels','journalLabels','navbarValues','journalArray','journalViews'));
     }
 
     public function journalUpdate(Request $request, $journal_id)

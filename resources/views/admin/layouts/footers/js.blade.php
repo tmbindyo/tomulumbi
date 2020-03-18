@@ -10,6 +10,13 @@
     <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
     <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
 
+    <!-- Sparkline -->
+    <script src="{{ asset('inspinia') }}/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Peity -->
+    <script src="{{ asset('inspinia') }}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{{ asset('inspinia') }}/js/demo/peity-demo.js"></script>
+
     <!-- jQuery UI custom -->
     <script src="{{ asset('inspinia') }}/js/jquery-ui.custom.min.js"></script>
 

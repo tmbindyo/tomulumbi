@@ -22,11 +22,11 @@ class CreateCampaignsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
 
-            $table->string('expected_revenue');
-            $table->string('budgeted_cost');
-            $table->longText('actual_cost');
+            $table->double('expected_revenue', 20,2);
+            $table->double('budgeted_cost', 20,2);
+            $table->double('actual_cost', 20,2);
 
-            $table->longText('expected_response');
+            $table->integer('expected_response');
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

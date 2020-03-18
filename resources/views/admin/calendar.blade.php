@@ -77,7 +77,40 @@
             events: [
                 @foreach ($toDos as $toDo)
                 {
-                    title: '{{$toDo->name}}',
+                    title: '{{$toDo->name}} [{{$toDo->status->name}}]',
+                    @if($toDo->is_album == True)
+                    color: '#C2F970',
+                    @elseif($toDo->is_design == True)
+                    color: '#2D0320',
+                    @elseif($toDo->is_journal == True)
+                    color: '#564D80',
+                    @elseif($toDo->is_journal_series == True)
+                    color: '#6C969D',
+                    @elseif($toDo->is_project == True)
+                    color: '#D3FCD5',
+                    @elseif($toDo->is_product == True)
+                    color: '#D8CFAF',
+                    @elseif($toDo->is_order == True)
+                    color: '#E6B89C',
+                    @elseif($toDo->is_email == True)
+                    color: '#ED9390',
+                    @elseif($toDo->is_contact == True)
+                    color: '#F374AE',
+                    @elseif($toDo->is_organization == True)
+                    color: '#32533D',
+                    @elseif($toDo->is_deal == True)
+                    color: '#31231E',
+                    @elseif($toDo->is_campaign == True)
+                    color: '#5A3A31',
+                    @elseif($toDo->is_asset == True)
+                    color: '#84714F',
+                    @elseif($toDo->is_kit == True)
+                    color: '#E3D888',
+                    @elseif($toDo->is_asset_action == True)
+                    color: '#E2F1AF',
+                    @elseif($toDo->is_tudeme == True)
+                    color: '#C2F970',
+                    @endif
                     start: new Date({{$toDo->start_year}}, {{$toDo->start_month-1}}, {{$toDo->start_day}}, {{$toDo->start_hour}}, {{$toDo->start_minute}}),
                     @if($toDo->is_end_date == 1)
                         end: new Date({{$toDo->end_year}}, {{$toDo->end_month-1}}, {{$toDo->end_day}} @if($toDo->is_end_time == 1), {{$toDo->end_hour}}, {{$toDo->end_minute}} @endif),

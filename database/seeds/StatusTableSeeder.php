@@ -441,7 +441,7 @@ class StatusTableSeeder extends Seeder
             'name' => 'Attempted to contact',
             'description' => 'Attempted to contact.',
             'label' => 'label-success',
-            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
         ]);
 
@@ -450,7 +450,7 @@ class StatusTableSeeder extends Seeder
             'name' => 'Contact in future',
             'description' => 'Contact in future.',
             'label' => 'label-success',
-            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
         ]);
 
@@ -459,7 +459,7 @@ class StatusTableSeeder extends Seeder
             'name' => 'Contacted',
             'description' => 'Contacted.',
             'label' => 'label-success',
-            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
         ]);
 
@@ -468,7 +468,7 @@ class StatusTableSeeder extends Seeder
             'name' => 'Junk Lead',
             'description' => 'Junk Lead.',
             'label' => 'label-success',
-            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
         ]);
 
@@ -477,7 +477,7 @@ class StatusTableSeeder extends Seeder
             'name' => 'Lost Lead',
             'description' => 'Lost Lead.',
             'label' => 'label-success',
-            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
         ]);
 
@@ -486,7 +486,98 @@ class StatusTableSeeder extends Seeder
             'name' => 'Not Contacted',
             'description' => 'Not Contacted.',
             'label' => 'label-success',
-            'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
+            'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
+            'user_id' => 1,
+        ]);
+        
+        // deal
+        DB::table('statuses')->insert([
+            'id' => '9fffd4af-0789-404d-9739-88fb862b3a43',
+            'name' => 'Prospecting',
+            'description' => 'A very low probability deal. In the prospecting stage, a sales rep has spoken to a contact at the company and is just starting to establish a relationship, but hasn’t set up a formal appointment. At this stage, a new lead has likely just been passed from sales to marketing..',
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
+            'user_id' => 1,
+        ]);
+        
+        DB::table('statuses')->insert([
+            'id' => '06b40963-4c1e-493d-b06f-abb9ce77787c',
+            'name' => 'Appointment Scheduled',
+            'description' => 'Now a contact has “officially” agreed to a meeting with a member of the sales team. What that first appointment will look like will vary greatly depending on your business model, but it will typically be an in-person, video, or phone meeting during which a sales rep starts reviewing the prospect’s needs. The win probability, by default in HubSpot, moves up to 20 percent.',
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
+            'user_id' => 1,
+        ]);
+        
+        DB::table('statuses')->insert([
+            'id' => '2b220c6b-ff6c-443c-81f0-52bf05734bc3',
+            'name' => 'Needs Analysis',
+            'description' => 'Here, based on your needs analysis, your team has determined that your company and the prospect’s could have a great relationship together—which means that the prospect is now “qualified to buy.” This qualification bumps up his or her probability to 40 percent. At this point, reps typically start scheduling the next step: some form of more formalized demo or presentation.',
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
+            'user_id' => 1,
+        ]);
+        
+        DB::table('statuses')->insert([
+            'id' => 'bb0fcaae-4452-4d6f-b651-a08c8f53d88f',
+            'name' => 'Presentation Scheduled',
+            'description' => 'Just as it sounds, at this point, your reps are preparing to talk to the client about your specific solution. Because their contact is more bought in, the probability is upgraded to 60 percent. You’ve now cleared the 50 percent hurdle!',
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
+            'user_id' => 1,
+        ]);
+        
+        DB::table('statuses')->insert([
+            'id' => 'e50488f0-7ebe-4622-a5f0-9084c4672cfb',
+            'name' => 'Decision-Maker Buy-In',
+            'description' => 'Until this point, your team may or may not have been working with a decision-maker. While it’s great to build an internal coach to get you through the sales process, ultimately, the team needs to have buy-in from a decision-maker who can ask for—and sign—a contract. If after your presentation the decision-maker gives a verbal “yes” signal, the deal can move to an 80 percent probability.',
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
+            'user_id' => 1,
+        ]);
+        
+        DB::table('statuses')->insert([
+            'id' => '874c87eb-81dd-447e-8efe-85c560959977',
+            'name' => 'Proposal/Price Quote',
+            'description' => 'The proposal and price quote has been sent.',
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
+            'user_id' => 1,
+        ]);
+        
+        DB::table('statuses')->insert([
+            'id' => '0348b7f0-0fb5-44c1-b1d1-e38ea03f97c7',
+            'name' => 'Negotiation/Review',
+            'description' => "The quote has been sent but the price wasn't agreed on.",
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
+            'user_id' => 1,
+        ]);
+        
+        DB::table('statuses')->insert([
+            'id' => 'dcf56b0a-99fa-4287-8d70-72bbb4843454',
+            'name' => 'Contract Sent',
+            'description' => 'After that verbal signal, it’s essential to send a formal proposal or contract with pricing and terms—this is the only way that sales can really close the deal. You should be sending a contract when you’re about 90 percent certain a deal will actually close.',
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
+            'user_id' => 1,
+        ]);
+        
+        DB::table('statuses')->insert([
+            'id' => '4e389bdf-c8fb-4d01-a6ba-0091231d5cc4',
+            'name' => 'Closed Won',
+            'description' => 'The CEO loves you, you send the contract, and it is signed: Congratulations—you can mark this deal “Closed Won” and start onboarding your new client.',
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
+            'user_id' => 1,
+        ]);
+        
+        DB::table('statuses')->insert([
+            'id' => '60397de4-6096-4efc-bb0b-e2216318b17e',
+            'name' => 'Closed Lost',
+            'description' => 'At any point during the process above, you can lose a deal. Maybe during your needs analysis, you find that your organization isn’t the right fit and refer the prospect elsewhere; perhaps the prospect doesn’t have enough budget left for the year. Whatever the reason, at this point, the deal should be marked “Closed Lost.”',
+            'label' => 'label-success',
+            'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
         ]);
 

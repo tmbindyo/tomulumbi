@@ -104,16 +104,7 @@ class AssetController extends Controller
         // asset
         $asset = Asset::with('user','status','asset_category','expenses','kit_assets','asset_actions.action_type')->where('id',$asset_id)->first();
 
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','asset')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('asset_id',$asset->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','asset')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('asset_id',$asset->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','asset')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('asset_id',$asset->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','asset')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('asset_id',$asset->id)->get();
-
-        return view('admin.asset_show',compact('assetCategories','asset','user','navbarValues','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+        return view('admin.asset_show',compact('assetCategories','asset','user','navbarValues'));
     }
 
     public function assetAssetActionCreate($asset_id)
@@ -247,16 +238,7 @@ class AssetController extends Controller
         // kit
         $assetAction = AssetAction::with('user','status','asset','kit','action_type')->where('id',$asset_action_id)->first();
 
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','kit')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('asset_action_id',$assetAction->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','kit')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('asset_action_id',$assetAction->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','kit')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('asset_action_id',$assetAction->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','kit')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('asset_action_id',$assetAction->id)->get();
-
-        return view('admin.asset_action_show',compact('assetAction','user','navbarValues','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+        return view('admin.asset_action_show',compact('assetAction','user','navbarValues'));
     }
 
     public function assetActionPaymentCreate($asset_action_id)
@@ -361,16 +343,7 @@ class AssetController extends Controller
         // kit
         $kit = Kit::with('user','status','kit_assets.asset','asset_actions')->where('id',$kit_id)->first();
 
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','kit')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('kit_id',$kit->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','kit')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('kit_id',$kit->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','kit')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('kit_id',$kit->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','kit')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('kit_id',$kit->id)->get();
-
-        return view('admin.kit_show',compact('kit','user','navbarValues','pendingToDos','inProgressToDos','completedToDos','overdueToDos'));
+        return view('admin.kit_show',compact('kit','user','navbarValues'));
     }
 
     public function kitActionCreate($kit_id)

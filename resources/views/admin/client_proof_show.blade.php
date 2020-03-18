@@ -634,7 +634,7 @@
                     </div>
                     <div class="">
                         <ul class="pending-to-do">
-                            @foreach($pendingToDos as $pendingToDo)
+                            @foreach($album->pending_to_dos as $pendingToDo)
                                 <li>
                                     <div>
                                         <small>{{$pendingToDo->due_date}}</small>
@@ -650,7 +650,7 @@
                         </ul>
 
                         <ul class="in-progress-to-do">
-                            @foreach($inProgressToDos as $inProgressToDo)
+                            @foreach($album->in_progress_to_dos as $inProgressToDo)
                                 <li>
                                     <div>
                                         <small>{{$inProgressToDo->due_date}}</small>
@@ -665,7 +665,7 @@
                             @endforeach
                         </ul>
                         <ul class="overdue-to-do">
-                            @foreach($overdueToDos as $overdueToDo)
+                            @foreach($album->overdue_to_dos as $overdueToDo)
                                 <li>
                                     <div>
                                         <small>{{$overdueToDo->due_date}}</small>
@@ -684,7 +684,7 @@
                             @endforeach
                         </ul>
                         <ul class="completed-to-do">
-                            @foreach($completedToDos as $completedToDo)
+                            @foreach($album->completed_to_dos as $completedToDo)
                                 <li>
                                     <div>
                                         <small>{{$completedToDo->due_date}}</small>

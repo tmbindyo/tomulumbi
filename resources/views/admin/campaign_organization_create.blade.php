@@ -12,10 +12,13 @@
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li>
-                    <strong>CRM</strong>
+                    <strong><a href="#">CRM</a></strong>
                 </li>
                 <li class="active">
-                    <strong><a href="{{route('admin.organizations')}}">Organizations</a></strong>
+                    <strong><a href="{{route('admin.campaigns')}}">Campaigns</a></strong>
+                </li>
+                <li class="active">
+                    <strong><a href="{{route('admin.campaign.show',$campaign->id)}}">Campaign</a></strong>
                 </li>
                 <li class="active">
                     <strong>Organization Create</strong>
@@ -26,7 +29,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-10 col-lg-offset-1">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
 
                     <div class="ibox-content">
@@ -78,28 +81,33 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class="has-warning">
-                                        <select name="organization_type" class="select2_demo_organization_type form-control input-lg" required>
-                                            <option></option>
-                                            @foreach ($organizationTypes as $organizationType)
-                                                <option value="{{$organizationType->id}}">{{$organizationType->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>organization type</i>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <select name="organization_type" class="select2_demo_organization_type form-control input-lg" required>
+                                                    <option></option>
+                                                    @foreach ($organizationTypes as $organizationType)
+                                                        <option value="{{$organizationType->id}}">{{$organizationType->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>organization type</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg">
+                                                    <option></option>
+                                                    @foreach ($organizations as $organization)
+                                                        <option value="{{$organization->id}}">{{$organization->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>parent organization</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="parent_organization" class="select2_demo_parent_organization form-control input-lg">
-                                            <option></option>
-                                            @foreach ($organizations as $organization)
-                                                <option value="{{$organization->id}}">{{$organization->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>parent organization</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <select name="campaign" class="select2_demo_parent_organization form-control input-lg">
+                                        <select required="required" name="campaign" class="select2_demo_campaign form-control input-lg">
                                             <option value="{{$campaign->id}}">{{$campaign->name}}</option>
                                         </select>
                                         <i>campaign</i>

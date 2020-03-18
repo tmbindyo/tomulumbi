@@ -136,13 +136,14 @@
                                                                                 <div class="has-warning">
                                                                                     <label>Homepage Visibility</label>
                                                                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                                        <input name="is_print" type="checkbox" class="js-switch_6" @if($albumSetImage->is_print==1) checked @endif />
+                                                                                        <input name="is_print" type="checkbox" class="js-switch_16" @if($albumSetImage->is_print==1) checked @endif />
                                                                                         <br>
                                                                                         <i>Whether or not the image can be got as a print, default not enabled.</i>
                                                                                     </div>
                                                                                 </div>
-                                                                                <br>
-                                                                                <br>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
                                                                                 <div class="has-warning">
                                                                                     <div class="form-group">
                                                                                         <label>Print Limit</label>
@@ -151,10 +152,9 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                            <div class="col-md-6">
-                                                                                <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels500 }}">
-                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <img width="490em" src="{{ asset('') }}{{ $albumSetImage->upload->pixels500 }}">
                                                                         </div>
 
                                                                         <hr>
@@ -579,19 +579,19 @@
 
         </div>
 
-        {{--    To Do's    --}}
+        {{--    To Dos    --}}
         <div class="row m-t-lg">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>To Do's</h5>
+                        <h5>To Dos</h5>
                         <div class="ibox-tools">
                             <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
                         </div>
                     </div>
                     <div class="">
                         <ul class="pending-to-do">
-                            @foreach($pendingToDos as $pendingToDo)
+                            @foreach($album->pending_to_dos as $pendingToDo)
                                 <li>
                                     <div>
                                         <small>{{$pendingToDo->due_date}}</small>
@@ -607,7 +607,7 @@
                         </ul>
 
                         <ul class="in-progress-to-do">
-                            @foreach($inProgressToDos as $inProgressToDo)
+                            @foreach($album->in_progress_to_dos as $inProgressToDo)
                                 <li>
                                     <div>
                                         <small>{{$inProgressToDo->due_date}}</small>
@@ -622,7 +622,7 @@
                             @endforeach
                         </ul>
                         <ul class="overdue-to-do">
-                            @foreach($overdueToDos as $overdueToDo)
+                            @foreach($album->overdue_to_dos as $overdueToDo)
                                 <li>
                                     <div>
                                         <small>{{$overdueToDo->due_date}}</small>
@@ -641,7 +641,7 @@
                             @endforeach
                         </ul>
                         <ul class="completed-to-do">
-                            @foreach($completedToDos as $completedToDo)
+                            @foreach($album->completed_to_dos as $completedToDo)
                                 <li>
                                     <div>
                                         <small>{{$completedToDo->due_date}}</small>

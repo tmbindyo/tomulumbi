@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('recurring:payments')
             ->daily();
+        $schedule->command('overdue:todos')
+            ->daily();
         // $schedule->command('inspire')
         //          ->hourly();
     }

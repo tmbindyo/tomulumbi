@@ -145,16 +145,8 @@ class SaleController extends Controller
         // check if exists
         $orderExists = Order::findOrFail($order_id);
         $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses.expense_type')->where('is_paid',False)->first();
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','order')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('order_id',$order->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','order')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('order_id',$order->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','order')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('order_id',$order->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','order')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('order_id',$order->id)->get();
 //        return $order;
-        return view('admin.order_show',compact('order','user','navbarValues','ordersStatusCount','orderArray','pendingToDos','inProgressToDos','completedToDos','overdueToDos','orderStatuses'));
+        return view('admin.order_show',compact('order','user','navbarValues','ordersStatusCount','orderArray','orderStatuses'));
     }
 
     public function orderEdit($order_id)

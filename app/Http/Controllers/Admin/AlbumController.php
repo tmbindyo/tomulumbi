@@ -173,23 +173,13 @@ class AlbumController extends Controller
         // Get all albums for to do dropdown
         $albums = Album::with('user','status')->get();
 
-        // Album To Do's
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','album')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('album_id',$album->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','album')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('album_id',$album->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','album')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('album_id',$album->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','album')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('album_id',$album->id)->get();
-
         // Album Dependencies
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         $albumViewRestrictionEmails = AlbumViewRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
+        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'typographies', 'thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function personalAlbumDelete($album_id)
@@ -924,16 +914,6 @@ class AlbumController extends Controller
         // Get all albums for to do dropdown
         $albums = Album::with('user','status')->get();
 
-        // Album To Do's
-        // Pending to dos
-        $pendingToDos = ToDo::with('user','status','album')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->where('album_id',$album->id)->get();
-        // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','album')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->where('album_id',$album->id)->get();
-        // Completed to dos
-        $completedToDos = ToDo::with('user','status','album')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->where('album_id',$album->id)->get();
-        // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','album')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->where('album_id',$album->id)->get();
-
         // Album Dependencies
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
@@ -944,7 +924,7 @@ class AlbumController extends Controller
         // album restricted emails
         $albumViewRestrictionEmails = AlbumViewRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.client_proof_show',compact('albumContacts','contacts','album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails','pendingToDos', 'inProgressToDos','completedToDos','overdueToDos', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
+        return view('admin.client_proof_show',compact('albumContacts','contacts','album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function clientProofDelete($album_id)
