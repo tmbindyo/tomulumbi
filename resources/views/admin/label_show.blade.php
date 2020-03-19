@@ -64,6 +64,59 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
+                <div class="ibox-title">
+                    <div class="row">
+
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-user fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$label->user->name}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 {{$label->status->label}}">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-ellipsis-v fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$label->status->name}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-plus-square fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$label->created_at}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-scissors fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$label->updated_at}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
 
@@ -87,7 +140,7 @@
                                             <td>{{$labelJournal->journal->views}}</td>
                                             <td>{{$labelJournal->journal->user->name}}</td>
                                             <td>
-                                                <span class="label {{$labelJournal->journal->status->label}}">{{$journal->status->name}}</span>
+                                                <span class="label {{$labelJournal->journal->status->label}}">{{$labelJournal->journal->status->name}}</span>
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
@@ -121,73 +174,5 @@
         </div>
     </div>
 
-
-@endsection
-
-@section('js')
-
-
-    <!-- Mainly scripts -->
-    <script src="{{ asset('inspinia') }}/js/jquery-2.1.1.js"></script>
-    <script src="{{ asset('inspinia') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/jeditable/jquery.jeditable.js"></script>
-
-    <script src="{{ asset('inspinia') }}/js/plugins/dataTables/datatables.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="{{ asset('inspinia') }}/js/inspinia.js"></script>
-    <script src="{{ asset('inspinia') }}/js/plugins/pace/pace.min.js"></script>
-
-    <!-- Page-Level Scripts -->
-    <script>
-        $(document).ready(function(){
-            $('.dataTables-example').DataTable({
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
-
-                    {extend: 'print',
-                     customize: function (win){
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
-                    }
-                    }
-                ]
-
-            });
-
-            /* Init DataTables */
-            var oTable = $('#editable').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
-
-        });
-
-    </script>
 
 @endsection

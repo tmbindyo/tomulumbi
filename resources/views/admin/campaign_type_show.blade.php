@@ -35,7 +35,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-sm-8 col-md-offset-2">
+                                <div class="col-sm-12">
                                     <form method="post" action="{{ route('admin.campaign.type.update',$campaignType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                         @csrf
 
@@ -67,64 +67,117 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                        <br>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>User</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($campaignType->campaigns as $campaign)
-                                        <tr class="gradeX">
-                                            <td>{{$campaign->name}}</td>
-                                            <td>{{$campaign->campaign_type->name}}</td>
-                                            <td>{{$campaign->start_date}}</td>
-                                            <td>{{$campaign->end_date}}</td>
-                                            <td>{{$campaign->user->name}}</td>
-                                            <td>
-                                                <span class="label {{$campaign->status->label}}">{{$campaign->status->name}}</span>
-                                            </td>
+                    <div class="ibox-title">
+                        <div class="row">
 
-                                            <td class="text-right">
-                                                <div class="btn-group">
-                                                    <a href="{{ route('admin.campaign.show', $campaign->id) }}" class="btn-white btn btn-xs">View</a>
-                                                    @if($campaign->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                        <a href="{{ route('admin.campaign.restore', $campaign->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                    @else
-                                                        <a href="{{ route('admin.campaign.delete', $campaign->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>User</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <div class="col-lg-3">
+                                <div class="widget style1 navy-bg">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-user fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$campaignType->user->name}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget style1 {{$campaignType->status->label}}">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-ellipsis-v fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$campaignType->status->name}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget style1 navy-bg">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-plus-square fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$campaignType->created_at}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget style1 navy-bg">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-scissors fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$campaignType->updated_at}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <br>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($campaignType->campaigns as $campaign)
+                                            <tr class="gradeX">
+                                                <td>{{$campaign->name}}</td>
+                                                <td>{{$campaign->campaign_type->name}}</td>
+                                                <td>{{$campaign->start_date}}</td>
+                                                <td>{{$campaign->end_date}}</td>
+                                                <td>{{$campaign->user->name}}</td>
+                                                <td>
+                                                    <span class="label {{$campaign->status->label}}">{{$campaign->status->name}}</span>
+                                                </td>
 
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('admin.campaign.show', $campaign->id) }}" class="btn-white btn btn-xs">View</a>
+                                                        @if($campaign->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                            <a href="{{ route('admin.campaign.restore', $campaign->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                        @else
+                                                            <a href="{{ route('admin.campaign.delete', $campaign->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>User</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
 

@@ -78,72 +78,122 @@
         {{--  actions  --}}
         <div class="row">
             <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <div class="row">
 
-                    <br>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                            <thead>
-                                <tr>
-                                    <th>Reference</th>
-                                    <th>Amount</th>
-                                    <th>Date</th>
-                                    <th>Due Date</th>
-                                    <th>Contact</th>
-                                    <th>Item</th>
-                                    <th>User</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($actionTypeAssetActions as $assetAction)
-                                    <tr class="gradeX">
-                                        <td>{{$assetAction->reference}}</td>
-                                        <td>{{$assetAction->amount}}</td>
-                                        <td>{{$assetAction->date}}</td>
-                                        <td>{{$assetAction->due_date}}</td>
-                                        <td>{{$assetAction->contact->first_name}} {{$assetAction->contact->last_name}}</td>
-                                        <td>{{$assetAction->user->name}}</td>
-                                        <td>
-                                            @if($assetAction->is_asset == 1)
-                                                <span class="label label-primary">{{$assetAction->asset->name}}</span>
-                                            @elseif($assetAction->is_kit == 1)
-                                                <span class="label label-primary">{{$assetAction->kit->name}}</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <span class="label {{$assetAction->status->label}}">{{$assetAction->status->name}}</span>
-                                        </td>
-
-                                        <td class="text-right">
-                                            <div class="btn-group">
-                                                <a href="{{ route('admin.asset.action.show', $assetAction->id) }}" class="btn-white btn btn-xs">View</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Reference</th>
-                                    <th>Amount</th>
-                                    <th>Date</th>
-                                    <th>Due Date</th>
-                                    <th>Contact</th>
-                                    <th>Item</th>
-                                    <th>User</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                            <div class="col-lg-3">
+                                <div class="widget style1 navy-bg">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-user fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$actionType->user->name}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget style1 {{$actionType->status->label}}">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-ellipsis-v fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$actionType->status->name}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget style1 navy-bg">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-plus-square fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$actionType->created_at}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget style1 navy-bg">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-scissors fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$actionType->updated_at}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Due Date</th>
+                                        <th>Contact</th>
+                                        <th>Item</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($actionTypeAssetActions as $assetAction)
+                                        <tr class="gradeX">
+                                            <td>{{$assetAction->reference}}</td>
+                                            <td>{{$assetAction->amount}}</td>
+                                            <td>{{$assetAction->date}}</td>
+                                            <td>{{$assetAction->due_date}}</td>
+                                            <td>{{$assetAction->contact->first_name}} {{$assetAction->contact->last_name}}</td>
+                                            <td>{{$assetAction->user->name}}</td>
+                                            <td>
+                                                @if($assetAction->is_asset == 1)
+                                                    <span class="label label-primary">{{$assetAction->asset->name}}</span>
+                                                @elseif($assetAction->is_kit == 1)
+                                                    <span class="label label-primary">{{$assetAction->kit->name}}</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="label {{$assetAction->status->label}}">{{$assetAction->status->name}}</span>
+                                            </td>
 
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('admin.asset.action.show', $assetAction->id) }}" class="btn-white btn btn-xs">View</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Due Date</th>
+                                        <th>Contact</th>
+                                        <th>Item</th>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 

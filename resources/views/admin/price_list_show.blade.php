@@ -119,121 +119,175 @@
         {{--    --}}
         <div class="row m-t-lg">
             <div class="col-lg-12 col-md-12">
-                <div class="tabs-container">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#orders"> <i class="fa fa-cogs"></i> Orders</a></li>
-                        <li class=""><a data-toggle="tab" href="#sales"><i class="fa fa-bookmark"></i> Sales</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="orders" class="tab-pane active">
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                        <thead>
-                                        <tr>
-                                            <th>Paid</th>
-                                            <th>Reference</th>
-                                            <th>Date</th>
-                                            <th>Due Date</th>
-                                            <th>Contact</th>
-                                            <th>Status</th>
-                                            <th width="13em">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($orders as $order)
-                                            <tr class="gradeX">
-                                                <td>
-                                                @if($order->is_paid == True)
-                                                        <p><span class="badge badge-primary">Paid</span></p>
-                                                    @else
-                                                        <p><span class="badge badge-info">Un Paid</span></p>
-                                                    @endif
-                                                </td>
-                                                <td>{{$order->order->order_number}}</td>
-                                                <td>{{$order->created_at}}</td>
-                                                <td>{{$order->order->due_date}}</td>
-                                                <td>{{$order->order->contact->first_name}} {{$order->order->contact->last_name}}</td>
-                                                <td>
-                                                    <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
-                                                </td>
-                                                <td class="text-right">
-                                                    {{--                                todo check why route is album but id is album type--}}
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('admin.client.proof.show', $order->id) }}" class="btn-white btn btn-xs">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Paid</th>
-                                            <th>Reference</th>
-                                            <th>Date</th>
-                                            <th>Due Date</th>
-                                            <th>Contact</th>
-                                            <th width="17em">Status</th>
-                                            <th width="13em">Action</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
+                <div class="ibox-content">
+                    <div class="row">
+
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-user fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$priceList->user->name}}</h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="sales" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                        <thead>
-                                        <tr>
-                                            <th>Paid</th>
-                                            <th>Reference</th>
-                                            <th>Date</th>
-                                            <th>Due Date</th>
-                                            <th>Contact</th>
-                                            <th>Status</th>
-                                            <th width="13em">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($sales as $order)
-                                            <tr class="gradeX">
-                                                <td>
-                                                @if($order->is_paid == True)
-                                                        <p><span class="badge badge-primary">Paid</span></p>
-                                                    @else
-                                                        <p><span class="badge badge-info">Un Paid</span></p>
-                                                    @endif
-                                                </td>
-                                                <td>{{$order->order->order_number}}</td>
-                                                <td>{{$order->created_at}}</td>
-                                                <td>{{$order->order->due_date}}</td>
-                                                <td>{{$order->order->contact->first_name}} {{$order->order->contact->last_name}}</td>
-                                                <td>
-                                                    <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
-                                                </td>
-                                                <td class="text-right">
-                                                    {{--                                todo check why route is album but id is album type--}}
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('admin.client.proof.show', $order->id) }}" class="btn-white btn btn-xs">View</a>
-                                                    </div>
-                                                </td>
+                        <div class="col-lg-3">
+                            <div class="widget style1 {{$priceList->status->label}}">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-ellipsis-v fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$priceList->status->name}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-plus-square fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$priceList->created_at}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="widget style1 navy-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-scissors fa-3x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <h3 class="font-bold">{{$priceList->updated_at}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#orders"> <i class="fa fa-cogs"></i> Orders</a></li>
+                            <li class=""><a data-toggle="tab" href="#sales"><i class="fa fa-bookmark"></i> Sales</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="orders" class="tab-pane active">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <thead>
+                                            <tr>
+                                                <th>Paid</th>
+                                                <th>Reference</th>
+                                                <th>Date</th>
+                                                <th>Due Date</th>
+                                                <th>Contact</th>
+                                                <th>Status</th>
+                                                <th width="13em">Action</th>
                                             </tr>
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Paid</th>
-                                            <th>Reference</th>
-                                            <th>Date</th>
-                                            <th>Due Date</th>
-                                            <th>Contact</th>
-                                            <th width="17em">Status</th>
-                                            <th width="13em">Action</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($orders as $order)
+                                                <tr class="gradeX">
+                                                    <td>
+                                                    @if($order->is_paid == True)
+                                                            <p><span class="badge badge-primary">Paid</span></p>
+                                                        @else
+                                                            <p><span class="badge badge-info">Un Paid</span></p>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$order->order->order_number}}</td>
+                                                    <td>{{$order->created_at}}</td>
+                                                    <td>{{$order->order->due_date}}</td>
+                                                    <td>{{$order->order->contact->first_name}} {{$order->order->contact->last_name}}</td>
+                                                    <td>
+                                                        <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{--                                todo check why route is album but id is album type--}}
+                                                        <div class="btn-group">
+                                                            <a href="{{ route('admin.client.proof.show', $order->id) }}" class="btn-white btn btn-xs">View</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>Paid</th>
+                                                <th>Reference</th>
+                                                <th>Date</th>
+                                                <th>Due Date</th>
+                                                <th>Contact</th>
+                                                <th width="17em">Status</th>
+                                                <th width="13em">Action</th>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="sales" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <thead>
+                                            <tr>
+                                                <th>Paid</th>
+                                                <th>Reference</th>
+                                                <th>Date</th>
+                                                <th>Due Date</th>
+                                                <th>Contact</th>
+                                                <th>Status</th>
+                                                <th width="13em">Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($sales as $order)
+                                                <tr class="gradeX">
+                                                    <td>
+                                                    @if($order->is_paid == True)
+                                                            <p><span class="badge badge-primary">Paid</span></p>
+                                                        @else
+                                                            <p><span class="badge badge-info">Un Paid</span></p>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$order->order->order_number}}</td>
+                                                    <td>{{$order->created_at}}</td>
+                                                    <td>{{$order->order->due_date}}</td>
+                                                    <td>{{$order->order->contact->first_name}} {{$order->order->contact->last_name}}</td>
+                                                    <td>
+                                                        <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{--                                todo check why route is album but id is album type--}}
+                                                        <div class="btn-group">
+                                                            <a href="{{ route('admin.client.proof.show', $order->id) }}" class="btn-white btn btn-xs">View</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>Paid</th>
+                                                <th>Reference</th>
+                                                <th>Date</th>
+                                                <th>Due Date</th>
+                                                <th>Contact</th>
+                                                <th width="17em">Status</th>
+                                                <th width="13em">Action</th>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -41,6 +41,58 @@
             </div>
         </div>
 
+        <br>
+        <div class="row">
+
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$product->user->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 {{$product->status->label}}">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-ellipsis-v fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$product->status->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plus-square fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$product->created_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-scissors fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$product->updated_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{--    Client proof images    --}}
         <div class="row m-t-lg">
             <div class="col-lg-12 col-md-12">

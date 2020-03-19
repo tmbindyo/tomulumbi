@@ -145,6 +145,57 @@
         </div>
 
         <br>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$tudeme->user->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 {{$tudeme->status->label}}">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-ellipsis-v fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$tudeme->status->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plus-square fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$tudeme->created_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-scissors fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$tudeme->updated_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{--    Client proof settings    --}}
         <div class="row m-t-lg">
             <div class="col-lg-12 col-md-12">
@@ -512,7 +563,7 @@
                     </div>
                     <div class="">
                         <ul class="pending-to-do">
-                            @foreach($pendingToDos as $pendingToDo)
+                            @foreach($tudeme->pending_to_dos as $pendingToDo)
                                 <li>
                                     <div>
                                         <small>{{$pendingToDo->due_date}}</small>
@@ -528,7 +579,7 @@
                         </ul>
 
                         <ul class="in-progress-to-do">
-                            @foreach($inProgressToDos as $inProgressToDo)
+                            @foreach($tudeme->in_progress_to_dos as $inProgressToDo)
                                 <li>
                                     <div>
                                         <small>{{$inProgressToDo->due_date}}</small>
@@ -543,7 +594,7 @@
                             @endforeach
                         </ul>
                         <ul class="overdue-to-do">
-                            @foreach($overdueToDos as $overdueToDo)
+                            @foreach($tudeme->overdue_to_dos as $overdueToDo)
                                 <li>
                                     <div>
                                         <small>{{$overdueToDo->due_date}}</small>
@@ -562,7 +613,7 @@
                             @endforeach
                         </ul>
                         <ul class="completed-to-do">
-                            @foreach($completedToDos as $completedToDo)
+                            @foreach($tudeme->completed_to_dos as $completedToDo)
                                 <li>
                                     <div>
                                         <small>{{$completedToDo->due_date}}</small>

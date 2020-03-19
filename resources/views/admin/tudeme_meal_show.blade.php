@@ -12,6 +12,9 @@
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
+                    <strong><a href="{{route('admin.tudeme')}}">Tudeme</a></strong>
+                </li>
+                <li class="active">
                     <strong><a href="{{route('admin.tudeme.show',$tudemeMeal->tudeme_id)}}">Tudeme</a></strong>
                 </li>
                 <li class="active">
@@ -314,8 +317,56 @@
             </div>
         </div>
 
-
-
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-user fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$tudemeMeal->user->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 {{$tudemeMeal->status->label}}">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-ellipsis-v fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$tudemeMeal->status->name}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plus-square fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$tudemeMeal->created_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-3">
+                            <i class="fa fa-scissors fa-3x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <h3 class="font-bold">{{$tudemeMeal->updated_at}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection

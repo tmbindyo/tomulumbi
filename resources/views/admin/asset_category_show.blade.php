@@ -65,7 +65,57 @@
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Assets ({{$assetCategory->assets_count}})</h5>
+                        <div class="row">
+
+                            <div class="col-lg-3">
+                                <div class="widget style1 navy-bg">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-user fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$assetCategory->user->name}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget style1 {{$assetCategory->status->label}}">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-ellipsis-v fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$assetCategory->status->name}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget style1 navy-bg">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-plus-square fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$assetCategory->created_at}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget style1 navy-bg">
+                                    <div class="row vertical-align">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-scissors fa-3x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <h3 class="font-bold">{{$assetCategory->updated_at}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="ibox-content">
 
