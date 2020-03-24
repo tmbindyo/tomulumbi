@@ -279,48 +279,44 @@
                                                 </button>
                                             </div>
                                         @endif
-
+                                        <br>
                                         <div class="has-warning">
                                             <div class="form-group">
-                                                <label>Collection Name</label>
                                                 <input name="name" type="text" value="{{$album->name}}" class="form-control input-lg">
-                                                <i>Pick something short and sweet. Imagine choosing a title for a photo album cover.</i>
+                                                <i>Collection Name</i>
                                             </div>
                                         </div>
-
+                                        <br>
                                         <div class="has-warning">
                                             <div class="form-group" id="data_1">
-                                                <label>Event Date</label>
                                                 <div class="input-group date">
                                                         <span class="input-group-addon">
                                                             <i class="fa fa-calendar"></i>
                                                         </span>
                                                     <input type="text" name="date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->date))}}">
                                                 </div>
+                                                <i>Event Date</i>
                                             </div>
                                         </div>
-
+                                        <br>
                                         <div class="has-warning">
-                                            <label class="control-label">Status</label>
-                                            <select class="form-control m-b input-lg" name="status">
+                                            <select required="required" name="status" class="select2_demo_status form-control input-lg">
                                                 @foreach($albumStatuses as $albumStatus)
                                                     <option value="{{$albumStatus->id}}" @if($albumStatus->id === $album->status_id) selected @endif>{{$albumStatus->name}}</option>
                                                 @endforeach
                                             </select>
-                                            <i>You can take the collection online/offline quickly. Hidden collections can only be seen by you.</i>
+                                            <i>status.</i>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label>Tags</label>
-                                            <div class="input-group">
-                                                <select name="tags[]" data-placeholder="Choose Tags:" class="chosen-select form-control-lg" multiple="multiple" style="width:450px;" tabindex="4">
+                                        <br>
+                                        <div class="has-warning">
+                                                <select required="required" name="tags[]" class="select2_demo_tag form-control input-lg" multiple="multiple">
                                                     @foreach($tags as $tag)
                                                         <option value="{{$tag->id}}" @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach >{{$tag->name}}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
+                                                <i>Tags</i>
                                         </div>
-
+                                        <br>
                                         <div class="has-warning">
                                             <input type="text" id="location" name="location" required="required" value="{{$album->location}}" class="form-control input-lg">
                                             <i>Give the location that the collection took place</i>
@@ -328,13 +324,14 @@
 
                                         <br>
                                         <div class="form-group" id="data_1">
-                                            <label>Expiry Date</label>
+
                                             <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </span>
                                                 <input type="text" name="expiry_date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($album->expiry_date))}}">
                                             </div>
+                                            <i>Expiry Date</i>
                                         </div>
 
                                         <hr>

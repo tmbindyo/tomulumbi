@@ -25,6 +25,8 @@ class CreateAlbumImagesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 
+            $table->string('date_time')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -743,6 +743,7 @@ class AlbumController extends Controller
         $albumImage->limit = 0;
         $albumImage->album_set_id = $album_set_id;
         $albumImage->upload_id = $upload->id;
+        $albumImage->date_time = $DateTime;
         $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $albumImage->user_id = Auth::user()->id;
         $albumImage->save();
@@ -1626,6 +1627,7 @@ class AlbumController extends Controller
         $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = True;
         $upload->album_set_id = $album_set_id;
+        $upload->album_id = $albumSet->album_id;
         $upload->upload_type_id = "b3399a38-b355-4235-8f93-36baf410eef2";
         $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $upload->user_id = Auth::user()->id;
@@ -1637,6 +1639,7 @@ class AlbumController extends Controller
         $albumImage->limit = 0;
         $albumImage->album_set_id = $album_set_id;
         $albumImage->upload_id = $upload->id;
+        $albumImage->date_time = $DateTime;
         $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $albumImage->user_id = Auth::user()->id;
         $albumImage->save();

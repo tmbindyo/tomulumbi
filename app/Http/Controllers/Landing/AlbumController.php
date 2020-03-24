@@ -174,7 +174,10 @@ class AlbumController extends Controller
 //        return $album;
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
-        return view('landing.client_proofs.client_proof_show',compact('album','albumSets','albumView'));
+        // album images
+        $albumImages = Upload::where('album_id',$album->id)->with('album.thumbnail_size')->orderBy('date_time')->get();
+        // return $albumImages;
+        return view('landing.client_proofs.client_proof_show',compact('album','albumSets','albumView','albumImages'));
     }
 
     function clientProofDownload(Request $request, $album_view_id){
@@ -470,9 +473,14 @@ class AlbumController extends Controller
         $view_id = $albumView->id;
         $view = $this->trackView($request,$view_type,$view_id);
         // Album Sets
-        $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
+        $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->get();
+        // return $albumSets;
+        // all album images
+        $albumImages = Upload::where('album_id',$album->id)->with('album.thumbnail_size')->orderBy('date_time')->get();
+        // ->sortBy('album_images.upload.date_time',SORT_REGULAR,false);
+        // return $albumSets;
 
-        return view('landing.personal_albums.personal_album_show',compact('album','albumSets','albumView','download'));
+        return view('landing.personal_albums.personal_album_show',compact('album','albumSets','albumView','download','albumImages'));
     }
 
     function personalAlbumDownload(Request $request,$album_view_id){

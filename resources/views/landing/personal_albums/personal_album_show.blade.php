@@ -103,8 +103,8 @@
                         <li class="masonry-item grid">
                             <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" alt="" />
                                 <figcaption>
-                                    <h2>{{$album->name}}</h2>
-{{--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
+                                    {{--  <h2>{{$album->name}}</h2>  --}}
+                                    {{--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>  --}}
                                     <a class="elem"
                                        href="{{ asset('') }}{{ $albumSetImage->upload->pixels1500 }}"
                                        title="View"
@@ -120,6 +120,9 @@
                 @endforeach
             </ul>
         </div>
+        <br>
+        
+        <br>
     </div>
 </main>
 

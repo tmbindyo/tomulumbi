@@ -8,6 +8,9 @@
     <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
     <title>tomulumbi | {{$album->name}}</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+
     <!-- Gallery Popup Plugin With jQuery - LC Lightbox -->
     <link rel="stylesheet" href="{{ asset('inspinia') }}/css/plugins/lc-lightbox/css/lc_lightbox.css">
     <!-- dark -->
@@ -111,7 +114,7 @@
                 <strong>Warning!</strong> {{ session('warning') }}
             </div>
         @endif
-        <div class="">
+        {{--  <div class="">
             <ul class="{{$album->thumbnail_size->reference}} masonry">
                 @foreach($albumSets as $albumSet)
                     @foreach($albumSet->album_images as $albumSetImage)
@@ -119,7 +122,6 @@
                             <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels1000 }}" alt="" />
                                 <figcaption>
                                     <h2>{{$album->name}}</h2>
-{{--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
                                     <a class="elem"
                                        href="{{ asset('') }}{{ $albumSetImage->upload->pixels1500 }}"
                                        title="View"
@@ -134,6 +136,80 @@
                     @endforeach
                 @endforeach
             </ul>
+        </div>  --}}
+        <br>
+        <div class="">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#all"> All</a></li>
+                    @foreach($albumSets as $albumSet)
+                        <li class=""><a data-toggle="tab" href="#{{$albumSet->id}}">{{$albumSet->name}}</a></li>
+                    @endforeach
+                </ul>
+                <div class="tab-content">
+                    <div id="all" class="tab-pane active">
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <ul class="{{$album->thumbnail_size->reference}} masonry">
+                                    @foreach($albumImages as $albumSetImage)
+                                        <li class="masonry-item grid">
+                                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->pixels750 }}" alt="" />
+                                                <figcaption>
+                                                    <a class="elem"
+                                                        href="{{ asset('') }}{{ $albumSetImage->pixels1000 }}"
+                                                        title="View"
+                                                        data-lcl-txt="Description 1"
+                                                        data-lcl-author="tomulumbi"
+                                                        data-lcl-thumb="{{ asset('') }}{{ $albumSetImage->pixels750 }}">
+                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->pixels1000 }});"></span>
+                                                    </a>
+                                                </figcaption>
+                                            </figure>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @foreach($albumSets as $albumSet)
+                        <div id="{{$albumSet->id}}" class="tab-pane">
+                            <div class="panel-body">
+
+                                <ul class="{{$album->thumbnail_size->reference}} masonry">
+
+                                    @foreach($albumSet->album_images as $albumSetImage)
+                                        <li class="masonry-item grid">
+                                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" alt="" />
+                                                <figcaption>
+                                                    {{--  <h2>{{$album->name}}</h2>  --}}
+                                                    {{--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>  --}}
+                                                    <a class="elem"
+                                                        href="{{ asset('') }}{{ $albumSetImage->upload->pixels1000 }}"
+                                                        title="View"
+                                                        data-lcl-txt="Description 1"
+                                                        data-lcl-author="tomulumbi"
+                                                        data-lcl-thumb="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}">
+                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->upload->pixels1000 }});"></span>
+                                                    </a>
+                                                </figcaption>
+                                            </figure>
+                                        </li>
+                                    @endforeach
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    @endforeach
+
+
+
+                </div>
+
+
+            </div>
         </div>
     </div>
 
@@ -181,11 +257,10 @@
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
                 <ul class="social">
                     <li><a href="https://twitter.com/tomulumbi"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="fa fa-delicious" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.instagram.com/tomulumbi/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.facebook.com/tomulumbi"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.behance.net/tomulumbi"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                    <li><a href="https://dribbble.com/tomulumbi/collections"><i class="fa fa-dribble" aria-hidden="true"></i></a></li>
                 </ul>
                 <p class="made-by">Made with by <i class="fa fa-heart" aria-hidden="true"></i> <a href="http://www.fluidtechglobal.com/" target="_blank">Fluidtech Global</a>
                 <p>
@@ -254,8 +329,8 @@
 <script src="{{ asset('inspinia') }}/js/plugins/lc-lightbox/lib/AlloyFinger/alloy_finger.min.js"></script>
 <script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/plugins.js" type="text/javascript"></script>
 <script src="{{ asset('themes/personal_albums/pixca') }}/js/assets/bootstrap.min.js" type="text/javascript"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script src="{{ asset('themes/personal_albums/pixca') }}/js/maps.js" type="text/javascript"></script>
+{{--  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>  --}}
+{{--  <script src="{{ asset('themes/personal_albums/pixca') }}/js/maps.js" type="text/javascript"></script>  --}}
 <script src="{{ asset('themes/personal_albums/pixca') }}/js/custom.js" type="text/javascript"></script>
 <script src="{{ asset('themes/personal_albums/pixca') }}/js/jquery.contact.js" type="text/javascript"></script>
 <script src="{{ asset('themes/personal_albums/pixca') }}/js/main.js" type="text/javascript"></script>

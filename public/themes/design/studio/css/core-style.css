@@ -1,5 +1,6 @@
 /* [Master Stylesheet] */
 
+
 /* ------------- Index of Stylesheet -------------
 :: 1.0 Import Web Fonts
 :: 2.0 Import All CSS
@@ -15,9 +16,12 @@
 :: 12.0 Elements Area CSS
 ------------------------------------------------ */
 
+
 /* :: 1.0 Import Web Fonts */
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+@import 'https://fonts.googleapis.com/css?family=Karla:400,700';
+@import 'https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700';
 
 /* :: 2.0 Import All CSS */
 
@@ -36,7 +40,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Karla", Arial, sans-serif;
     font-weight: 400;
     overflow-x: hidden;
 }
@@ -49,7 +53,7 @@ h5,
 h6 {
     color: #1d1d1d;
     line-height: 1.2;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Karla", Arial, sans-serif;
     font-weight: 500;
 }
 
@@ -57,7 +61,7 @@ p {
     color: #838383;
     font-size: 15px;
     line-height: 2;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Karla", Arial, sans-serif;
     font-weight: 400;
 }
 
@@ -74,7 +78,7 @@ a:focus {
     outline: none;
     font-size: 14px;
     color: #000;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Karla", Arial, sans-serif;
     font-weight: 400;
 }
 
@@ -443,7 +447,7 @@ img {
     min-width: 140px;
 }
 
-.studio-btn > img {
+.studio-btn>img {
     padding-right: 5px;
 }
 
@@ -452,6 +456,7 @@ img {
     color: #fff;
     font-size: 16px;
 }
+
 
 /* :: 4.0 Header Area CSS */
 
@@ -550,6 +555,7 @@ img {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.01) 90%, rgba(0, 0, 0, 0) 100%);
 }
 
+
 /* :: 5.0 Sidebar Area CSS */
 
 .social-sidebar-area {
@@ -601,7 +607,7 @@ img {
     margin-right: 5px;
 }
 
-.message-box > a {
+.message-box>a {
     width: 120px;
     height: 100px;
     position: absolute;
@@ -625,9 +631,10 @@ img {
     justify-content: center;
 }
 
-.message-box > a > img {
+.message-box>a>img {
     max-width: 40px;
 }
+
 
 /* :: 6.0 Welcome Area CSS */
 
@@ -725,6 +732,7 @@ img {
     font-weight: 100;
 }
 
+
 /* :: 7.0 About Me Area CSS */
 
 .about-content span {
@@ -752,6 +760,7 @@ img {
     margin-top: 15px;
     margin-bottom: 0;
 }
+
 
 /* :: 8.0 Follow Instagram Area CSS */
 
@@ -793,6 +802,7 @@ img {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
+
 /* :: 9.0 Footer Area CSS */
 
 .footer-area {
@@ -815,13 +825,14 @@ img {
     align-items: center
 }
 
-.single-footer-content > a {
+.single-footer-content>a {
     font-size: 14px;
     font-weight: 600;
     color: #fff;
     margin-left: 5px;
     line-height: 1;
 }
+
 
 /* :: 10.0 Portfolio Area CSS */
 
@@ -898,6 +909,7 @@ img {
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
+
 
 /* :: 11.0 Blog & Contact Area CSS */
 
@@ -1043,7 +1055,9 @@ img {
     background-color: rgba(255, 255, 255, 0.9);
 }
 
+
 /* :: 12.0 Elements Area CSS */
+
 
 /* Accordians */
 
@@ -1123,6 +1137,7 @@ span.accor-open {
     margin-bottom: 0;
 }
 
+
 /* barfiller */
 
 .single_progress_bar {
@@ -1176,6 +1191,7 @@ span.accor-open {
     margin-top: 10px;
 }
 
+
 /* Cool Facts */
 
 .counter-area h2 {
@@ -1199,6 +1215,7 @@ span.accor-open {
     color: #aeaeae;
 }
 
+
 /* Sonar CSS */
 
 .carousel-indicators li.active:before {
@@ -1215,7 +1232,6 @@ span.accor-open {
     z-index: 1;
     background-color: #fff;
 }
-
 
 @-webkit-keyframes sonar-effect {
     0% {
@@ -1235,7 +1251,6 @@ span.accor-open {
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     }
 }
-
 
 @keyframes sonar-effect {
     0% {

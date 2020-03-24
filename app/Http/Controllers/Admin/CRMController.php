@@ -128,6 +128,7 @@ class CRMController extends Controller
         $navbarValues = $this->getNavbarValues();
         // campaigns
         $campaigns = Campaign::with('user','status','campaign_type')->get();
+
         return view('admin.campaigns',compact('campaigns','user','navbarValues'));
 
     }
@@ -145,6 +146,7 @@ class CRMController extends Controller
         $campaigns = Campaign::with('user','status','campaign_type')->get();
         // campaign status
         $campaignStatus = Status::where('status_type_id','4e730295-3dc3-44a4-bff8-149e66a51493')->get();
+
         return view('admin.campaign_create',compact('user','navbarValues','campaignTypes','campaigns','campaignStatus'));
 
     }

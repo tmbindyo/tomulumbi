@@ -14,7 +14,7 @@ class AlbumSet extends Model
     // Children
     public function album_images()
     {
-        return $this->hasMany('App\AlbumImage');
+        return $this->hasMany('App\AlbumImage')->orderBy('date_time');
     }
     public function album_set_downloads()
     {
