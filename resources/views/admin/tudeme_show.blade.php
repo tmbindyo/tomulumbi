@@ -248,7 +248,7 @@
 
                                         <div class="has-warning">
                                             <label class="control-label">Status</label>
-                                            <select class="form-control m-b input-lg" name="status">
+                                            <select required="required" name="status" class="select2_demo_status form-control input-lg">
                                                 @foreach($tudemeStatuses as $tudemeStatus)
                                                     <option value="{{$tudemeStatus->id}}" @if($tudemeStatus->id == $tudeme->status_id) selected @endif>{{$tudemeStatus->name}}</option>
                                                 @endforeach
@@ -282,6 +282,31 @@
                                                 <div class="has-warning">
                                                     <input type="number" id="serves" name="serves" required="required" value="{{$tudeme->serves}}" class="form-control input-lg">
                                                     <i>serves</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="has-warning">
+                                                    <select required="required" name="tudeme_types[]" class="select2_demo_tudeme_types form-control input-lg" multiple>
+                                                        <option></option>
+                                                        @foreach($tudemeTypes as $tudemeType)
+                                                            <option @foreach ($tudemeTudemeTypes as $tudemeTudemeType) @if($tudemeTudemeType->tudeme_type_id == $tudemeType->id) selected @endif @endforeach value="{{$tudemeType->id}}">{{$tudemeType->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>tudeme types</i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="has-warning">
+                                                    <select required="required" name="tudeme_tags[]" class="select2_demo_tudeme_tags form-control input-lg" multiple>
+                                                        <option></option>
+                                                        @foreach($tudemeTags as $tudemeTag)
+                                                            <option @foreach ($tudemeTudemeTags as $tudemeTudemeTag) @if($tudemeTudemeTag->tudeme_tag_id == $tudemeTag->id) selected @endif @endforeach value="{{$tudemeTag->id}}">{{$tudemeTag->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i>tudeme tags</i>
                                                 </div>
                                             </div>
                                         </div>

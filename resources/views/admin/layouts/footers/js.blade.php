@@ -497,6 +497,18 @@
                 placeholder: "Select Tax",
                 allowClear: true
             });
+            $(".select2_demo_liability").select2({
+                placeholder: "Select Liability",
+                allowClear: true
+            });
+            $(".select2_demo_transfer").select2({
+                placeholder: "Select Transfer",
+                allowClear: true
+            });
+            $(".select2_demo_frequency").select2({
+                placeholder: "Select Frequency",
+                allowClear: true
+            });
             $(".select2_demo_album").select2({
                 placeholder: "Select Album",
                 allowClear: true
@@ -515,6 +527,14 @@
             });
             $(".select2_demo_kit").select2({
                 placeholder: "Select Kit",
+                allowClear: true
+            });
+            $(".select2_demo_tudeme_types").select2({
+                placeholder: "Select Tudeme Type",
+                allowClear: true
+            });
+            $(".select2_demo_tudeme_tags").select2({
+                placeholder: "Select Tudeme Tag",
                 allowClear: true
             });
             $(".select2_demo_tag").select2({

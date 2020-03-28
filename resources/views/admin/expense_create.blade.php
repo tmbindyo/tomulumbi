@@ -156,7 +156,7 @@
                                         <div class="col-md-4">
                                             <div class="has-warning">
                                                 <div class="has-warning">
-                                                    <select name="album" class="select-2 form-control input-lg">
+                                                    <select name="album" class="select2_demo_album form-control input-lg">
                                                         <option selected disabled>Select Album</option>
                                                         <optgroup label="Personal">
                                                             @foreach($personalAlbums as $album)
@@ -187,7 +187,7 @@
                                         <div class="col-md-4">
                                             <div class="has-warning">
                                                 <div class="has-warning">
-                                                    <select name="project" class="select-2 form-control input-lg">
+                                                    <select name="project" class="select2_demo_project form-control input-lg">
                                                         <option selected disabled>Select Project</option>
                                                         @foreach($projects as $project)
                                                             <option value="{{$project->id}}" >{{$project->name}}</option>
@@ -208,7 +208,7 @@
                                         <div class="col-md-4">
                                             <div class="has-warning">
                                                 <div class="has-warning">
-                                                    <select name="design" class="select-2 form-control input-lg">
+                                                    <select name="design" class="select2_demo_design form-control input-lg">
                                                         <option selected disabled>Select Design</option>
                                                         @foreach($designs as $design)
                                                             <option value="{{$design->id}}" >{{$design->name}}</option>
@@ -232,7 +232,7 @@
                                         <div class="col-md-4">
                                             <div class="has-warning">
                                                 <div class="has-warning">
-                                                    <select name="transfer" class="select-2 form-control input-lg">
+                                                    <select name="transfer" class="select2_demo_transfer form-control input-lg">
                                                         <option selected disabled>Select Transfer</option>
                                                         @foreach($transfers as $transfer)
                                                             <option value="{{$transfer->id}}" >{{$transfer->reference}} [{{$transfer->amount}}] ({{$transfer->date}})</option>
@@ -253,7 +253,7 @@
                                         <div class="col-md-4">
                                             <div class="has-warning">
                                                 <div class="has-warning">
-                                                    <select name="campaign" class="select-2 form-control input-lg">
+                                                    <select name="campaign" class="select2_demo_campaign form-control input-lg">
                                                         <option selected disabled>Select Campaign</option>
                                                         @foreach($campaigns as $campaign)
                                                             <option value="{{$campaign->id}}" >{{$campaign->name}}</option>
@@ -277,7 +277,7 @@
                                         <div class="col-md-4">
                                             <div class="has-warning">
                                                 <div class="has-warning">
-                                                    <select name="asset" class="select-2 form-control input-lg">
+                                                    <select name="asset" class="select2_demo_asset form-control input-lg">
                                                         <option selected disabled>Select Asset</option>
                                                         @foreach($assets as $asset)
                                                             <option value="{{$asset->id}}" >{{$asset->name}} [{{$asset->reference}}]</option>
@@ -298,7 +298,7 @@
                                         <div class="col-md-4">
                                             <div class="has-warning">
                                                 <div class="has-warning">
-                                                    <select name="liability" class="select-2 form-control input-lg">
+                                                    <select name="liability" class="select2_demo_liability form-control input-lg">
                                                         <option selected disabled>Select Liability</option>
                                                         @foreach($liabilities as $liability)
                                                             <option value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
@@ -325,7 +325,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="has-warning">
-                                                <select name="frequency" class="select-2 form-control input-lg">
+                                                <select name="frequency" class="select2_demo_frequency form-control input-lg">
                                                     <option selected disabled>Select frequency</option>
                                                     @foreach($frequencies as $frequency)
                                                         <option value="{{$frequency->id}}" >{{$frequency->name}}</option>
@@ -356,7 +356,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="row">
@@ -371,7 +371,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="has-warning">
-                                                        <select name="contact" class="select-2 form-control input-lg">
+                                                        <select name="contact" class="select2_demo_contact form-control input-lg">
                                                             <option selected disabled>Select contact</option>
                                                             @foreach($contacts as $contact)
                                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization) [{{$contact->organization->name}}] @endif </option>
@@ -384,7 +384,7 @@
                                             <br>
                                             {{--  Customer  --}}
                                             <div class="has-warning">
-                                                <select name="status" class="select-2 form-control input-lg" required>
+                                                <select name="status" class="select2_demo_status form-control input-lg" required>
                                                     <option selected disabled>Select status</option>
                                                     @foreach($expenseStatuses as $status)
                                                         <option value="{{$status->id}}" >{{$status->name}}</option>

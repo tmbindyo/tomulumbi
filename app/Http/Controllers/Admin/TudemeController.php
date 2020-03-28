@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use App\CookingSkill;
 use App\CookingStyle;
 use App\Course;
@@ -304,9 +305,19 @@ class TudemeController extends Controller
         // tudeme meals
         $meals = Meal::where('tudeme_id',$tudeme_id)->with('user','status')->orderBy('created_at', 'desc')->get();
 
+        // tudeme types
+        $tudemeTypes = TudemeType::all();
+        // tudeme tags
+        $tudemeTags = TudemeTag::all();
+
+        // tudeme tudeme types
+        $tudemeTudemeTypes = TudemeTudemeType::where('tudeme_id',$tudeme->id)->get();
+        // tudeme tudeme tags
+        $tudemeTudemeTags = TudemeTudemeTag::where('tudeme_id',$tudeme->id)->get();
+
         // tudeme gallery
         $tudemeGallery = TudemeGallery::where('tudeme_id',$tudeme_id)->with('upload')->get();
-        return view('admin.tudeme_show',compact('user','tudeme','tudemeGallery','tudemeStatuses','navbarValues','tudemeArray','tudemeViews','meals','journals'));
+        return view('admin.tudeme_show',compact('user','tudeme','tudemeGallery','tudemeStatuses','navbarValues','tudemeArray','tudemeViews','meals','journals','tudemeTypes','tudemeTags','tudemeTudemeTypes','tudemeTudemeTags'));
     }
 
     public function tudemePersonalAlbumCreate($tudeme_id)
@@ -344,6 +355,51 @@ class TudemeController extends Controller
         $tudeme->status_id = $request->status;
         $tudeme->date = date('Y-m-d', strtotime($request->date));
         $tudeme->save();
+
+        // tudeme types update
+        $tudemeRequestTypes =array();
+        foreach ($request->tudeme_types as $tudemeTudemeType){
+            // Append to array
+            $tudemeRequestTypes[]['id'] = $tudemeTudemeType;
+
+            // Check if tudeme type exists
+            $tudemeType = TudemeTudemeType::where('tudeme_id',$tudeme->id)->where('tudeme_type_id',$tudemeTudemeType)->first();
+
+            if($tudemeType === null) {
+                $tudemeType = new TudemeTudemeType();
+                $tudemeType->tudeme_id = $tudeme->id;
+                $tudemeType->tudeme_type_id = $tudemeTudemeType;
+                $tudemeType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $tudemeType->user_id = Auth::user()->id;
+                $tudemeType->save();
+            }
+        }
+
+        $tudemeTypesIds = TudemeTudemeType::where('tudeme_id',$tudeme_id)->whereNotIn('tudeme_type_id',$tudemeRequestTypes)->select('id')->get()->toArray();
+        DB::table('tudeme_tudeme_types')->whereIn('id', $tudemeTypesIds)->delete();
+        
+        
+        // tudeme tags update
+        $tudemeRequestTags =array();
+        foreach ($request->tudeme_tags as $tudemeTudemeTag){
+            // Append to array
+            $tudemeRequestTags[]['id'] = $tudemeTudemeTag;
+
+            // Check if tudeme tag exists
+            $tudemeTag = TudemeTudemeTag::where('tudeme_id',$tudeme->id)->where('tudeme_tag_id',$tudemeTudemeTag)->first();
+
+            if($tudemeTag === null) {
+                $tudemeTag = new TudemeTudemeTag();
+                $tudemeTag->tudeme_id = $tudeme->id;
+                $tudemeTag->tudeme_tag_id = $tudemeTudemeTag;
+                $tudemeTag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $tudemeTag->user_id = Auth::user()->id;
+                $tudemeTag->save();
+            }
+        }
+
+        $tudemeTagsIds = TudemeTudemeTag::where('tudeme_id',$tudeme_id)->whereNotIn('tudeme_tag_id',$tudemeRequestTags)->select('id')->get()->toArray();
+        DB::table('tudeme_tudeme_tags')->whereIn('id', $tudemeTagsIds)->delete();
 
 
         return back()->withSuccess(__('Tudeme successfully uploaded.'));
@@ -1326,6 +1382,158 @@ class TudemeController extends Controller
         // return $tudemeMeal;
 
         return view('admin.tudeme_meal_show',compact('measurments','ingredients','user','navbarValues','tudemeMeal','mealTypes','foodTypes','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
+
+    }
+
+    public function tudemeMealUpdate(Request $request, $meal_id)
+    {
+
+        // return $request;
+
+        $mealExists = Meal::findOrFail($meal_id);
+        $meal = Meal::where('id',$meal_id)->first();
+
+        $meal->name = $request->name;
+        $meal->number = 1;
+        $meal->cook_time = 1;
+        $meal->description = $request->description;
+        $meal->body = $request->body;
+        $meal->cooking_skill_id = $request->cooking_skill;
+        $meal->cuisine_id = $request->cuisine;
+        $meal->meal_type_id = $request->meal_type;
+        $meal->dish_type_id = $request->dish_type;
+        $meal->food_type_id = $request->food_type;
+        $meal->save();
+
+        // meal cooking style update
+        $mealCookingStyleRequestIds =array();
+        foreach ($request->cooking_styles as $mealCookingStyleId){
+            // Append to array
+            $mealCookingStyleRequestIds[]['id'] = $mealCookingStyleId;
+
+            // Check if tudeme type exists
+            $tudemeType = MealCookingStyle::where('meal_id',$meal->id)->where('cooking_style_id',$mealCookingStyleId)->first();
+
+            if($tudemeType === null) {
+                $mealCookingStyle = new MealCookingStyle();
+                $mealCookingStyle->meal_id = $meal->id;
+                $mealCookingStyle->cooking_style_id = $mealCookingStyleId;
+                $mealCookingStyle->user_id = Auth::user()->id;
+                $mealCookingStyle->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $mealCookingStyle->save();
+            }
+
+        }
+        // delete removed cooking styles
+        $mealCookingStyleIds = MealCookingStyle::where('meal_id',$meal_id)->whereNotIn('cooking_style_id',$mealCookingStyleRequestIds)->select('id')->get()->toArray();
+        DB::table('meal_cooking_styles')->whereIn('id', $mealCookingStyleIds)->delete();
+        
+        
+        // course update
+        $mealCourseRequestIds =array();
+        foreach ($request->course as $mealCourseId){
+            // Append to array
+            $mealCourseRequestIds[]['id'] = $mealCourseId;
+
+            // Check if tudeme type exists
+            $tudemeType = MealCourse::where('meal_id',$meal->id)->where('course_id',$mealCourseId)->first();
+
+            if($tudemeType === null) {
+                $mealCourse = new MealCourse();
+                $mealCourse->meal_id = $meal->id;
+                $mealCourse->course_id = $mealCourseId;
+                $mealCourse->user_id = Auth::user()->id;
+                $mealCourse->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $mealCourse->save();
+            }
+
+        }
+        // delete removed cooking styles
+        $mealCourseIds = MealCourse::where('meal_id',$meal_id)->whereNotIn('course_id',$mealCourseRequestIds)->select('id')->get()->toArray();
+        DB::table('meal_courses')->whereIn('id', $mealCourseIds)->delete();
+        
+        
+        // dietary preference update
+        $mealDietaryPreferenceRequestIds =array();
+        foreach ($request->dietary_preferences as $mealDietaryPreferenceId){
+            // Append to array
+            $mealDietaryPreferenceRequestIds[]['id'] = $mealDietaryPreferenceId;
+
+            // Check if tudeme type exists
+            $tudemeType = MealDietaryPreference::where('meal_id',$meal->id)->where('dietary_preference_id',$mealDietaryPreferenceId)->first();
+
+            if($tudemeType === null) {
+                $mealDietaryPreference = new MealDietaryPreference();
+                $mealDietaryPreference->meal_id = $meal->id;
+                $mealDietaryPreference->dietary_preference_id = $mealDietaryPreferenceId;
+                $mealDietaryPreference->user_id = Auth::user()->id;
+                $mealDietaryPreference->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+                $mealDietaryPreference->save();
+            }
+
+        }
+        // delete removed cooking styles
+        $mealDietaryPreferenceIds = MealDietaryPreference::where('meal_id',$meal_id)->whereNotIn('dietary_preference_id',$mealDietaryPreferenceRequestIds)->select('id')->get()->toArray();
+        DB::table('meal_dietary_preferences')->whereIn('id', $mealDietaryPreferenceIds)->delete();
+
+
+
+        // delete all meal ingredients
+        DB::table('meal_ingredients')->where('meal_id', $meal_id)->delete();
+
+        // meal ingredients
+        foreach ($request->ingredients as $ingredients){
+            $mealIngredient = new MealIngredient();
+            $mealIngredient->meal_id = $meal->id;
+
+            // measurment
+            $mealIngredient->measurment_id = $ingredients['measurment'];
+            $measurment = Measurment::findOrFail($ingredients['measurment']);
+
+            // ingredient
+            $mealIngredient->ingredient_id = $ingredients['ingredient'];
+            $ingredient = Ingredient::findOrFail($ingredients['ingredient']);
+
+            $mealIngredient->ingredient = $ingredients['amount'].' '. $measurment->name.' '.$ingredient->name.''.$ingredients['extra'];
+            $mealIngredient->details = $ingredients['amount'].' '. $measurment->name.' '.$ingredient->name.''.$ingredients['extra'];
+            $mealIngredient->extra = $ingredients['extra'];
+            $mealIngredient->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $mealIngredient->user_id = Auth::user()->id;
+            $mealIngredient->save();
+        }
+
+        // delete meal instructions
+        DB::table('instructions')->where('meal_id', $meal_id)->delete();
+
+        // instructions
+        foreach ($request->instructions as $mealInstruction){
+            // return $mealInstruction;
+            $instruction = new Instruction();
+            $instruction->instruction = $mealInstruction['instruction'];
+            $instruction->number = $mealInstruction['number'];
+            $instruction->meal_id = $meal->id;
+            $instruction->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $instruction->user_id = Auth::user()->id;
+            $instruction->save();
+        }
+
+        // delete meal notes
+        DB::table('notes')->where('meal_id', $meal_id)->delete();
+
+        // notes
+        foreach ($request->notes as $mealNote){
+            // return $mealInstruction;
+            $note = new Note();
+            $note->notes = $mealNote['note'];
+            $note->tudeme_id = $meal->tudeme_id;
+            $note->is_meal = True;
+            $note->meal_id = $meal->id;
+            $note->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+            $note->user_id = Auth::user()->id;
+            $note->save();
+        }
+
+        return redirect()->route('admin.tudeme.meal.show',$meal->id)->withSuccess(__('Meal sucessfully saved.'));
 
     }
 

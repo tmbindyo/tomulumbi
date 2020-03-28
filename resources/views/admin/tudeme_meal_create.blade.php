@@ -236,13 +236,16 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @php
+                                                $instruction_index = 1
+                                            @endphp
                                             <tr>
                                                 <td>
-                                                    <input type="number" class="form-control input-lg instruction-number" value="1" name = "instructions[0][number]">
+                                                    <input type="number" class="form-control input-lg instruction-number" value="{{$instruction_index}}" name = "instructions[{{$instruction_index}}][number]">
                                                 </td>
 
                                                 <td>
-                                                    <textarea rows="5" class="form-control input-lg item-total-price" name = "instructions[0][instruction]"></textarea>
+                                                    <textarea rows="5" class="form-control input-lg item-total-price" name = "instructions[{{$instruction_index}}][instruction]"></textarea>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -399,20 +402,18 @@
         var totalPriceInputField = selectedTr.getElementsByClassName("item-total-price");
         totalPriceInputField[0].value = quantityValue * unitPrice;
     };
-    var notesTableValueArrayIndex = 1;
-    var notesNumberArrayIndex = 2;
+    var instructionTableValueArrayIndex = {{$instruction_index}} + 1;
     function addInstructionTableRow () {
         var table = document.getElementById("instructions_table");
         var row = table.insertRow();
         var firstCell = row.insertCell(0);
         var secondCell = row.insertCell(1);
         var thirdCell = row.insertCell(2);
-        firstCell.innerHTML = "<input type='number' class='form-control input-lg instruction-number' name = 'instructions["+notesTableValueArrayIndex+"][number]' value = '"+notesNumberArrayIndex+"'>";
-        secondCell.innerHTML = "<textarea rows='5' class='form-control input-lg item-total-price' name = 'instructions["+notesTableValueArrayIndex+"][instruction]'></textarea>";
+        firstCell.innerHTML = "<input type='number' class='form-control input-lg instruction-number' name = 'instructions["+instructionTableValueArrayIndex+"][number]' value = '"+instructionTableValueArrayIndex+"'>";
+        secondCell.innerHTML = "<textarea rows='5' class='form-control input-lg item-total-price' name = 'instructions["+instructionTableValueArrayIndex+"][instruction]'></textarea>";
         thirdCell.innerHTML = "<span><i onclick = 'removeSelectedInstructionRow(this)' class = 'fa fa-minus-circle btn btn-danger'></i></span>";
         thirdCell.setAttribute("style", "width: 1em;");
-        notesTableValueArrayIndex++;
-        notesNumberArrayIndex++;
+        instructionTableValueArrayIndex++;
     };
     function removeSelectedInstructionRow (e) {
         var selectedParentTd = e.parentElement.parentElement;

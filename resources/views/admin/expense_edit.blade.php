@@ -302,7 +302,7 @@
                                     <div class="col-md-4">
                                         <div class="has-warning">
                                             <div class="has-warning">
-                                                <select name="asset" class="select-2 form-control input-lg">
+                                                <select name="asset" class="select2_demo_status form-control input-lg">
                                                     <option selected disabled>Select Asset</option>
                                                     @foreach($assets as $asset)
                                                         <option @if($asset->id == $expense->asset_id) selected @endif value="{{$asset->id}}" >{{$asset->name}} [{{$asset->reference}}]</option>

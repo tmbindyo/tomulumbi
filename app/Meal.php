@@ -15,7 +15,7 @@ class Meal extends Model
     // Children
     public function instructions()
     {
-        return $this->hasMany('App\Instruction');
+        return $this->hasMany('App\Instruction')->orderBy('number');
     }
     public function meal_cooking_styles()
     {
