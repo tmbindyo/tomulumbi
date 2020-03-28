@@ -5,59 +5,77 @@
 @section('body')
 
     <!-- Page Top Recipe Section Begin -->
-    <section class="page-top-recipe">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 order-lg-2">
-                    <div class="pt-recipe-item large-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/recipe-3.jpg">
-                            <i class="fa fa-plus"></i>
-                        </div>
-                        <div class="pt-recipe-text">
-                            <span>March 10, 2019</span>
-                            <h3>Cannellini Aglio e Olio with Salmon</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 order-lg-1">
-                    <div class="pt-recipe-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/recipe-1.jpg">
-                            <i class="fa fa-plus"></i>
-                        </div>
-                        <div class="pt-recipe-text">
-                            <h4>Raw Vegan Carrot Cake Bites with Avocado</h4>
+    @if($tudemeTopSections == 5)
+        <section class="page-top-recipe">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="pt-recipe-item large-item">
+                            <a href="{{route('tudeme.recipe',$tudemeCenterTopSection->tudeme->id)}}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeCenterTopSection->tudeme->cover_image->pixels500 }}">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </a>
+                            <div class="pt-recipe-text">
+                                <span>March 10, 2019</span>
+                                <a href="{{route('tudeme.recipe',$tudemeCenterTopSection->tudeme->id)}}"><h4>{{$tudemeCenterTopSection->tudeme->name}}</h4></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="pt-recipe-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/recipe-2.jpg">
-                            <i class="fa fa-plus"></i>
+                    <div class="col-lg-3 col-md-6 order-lg-1">
+                        <div class="pt-recipe-item">
+                            <a href="{{route('tudeme.recipe',$tudemeTopLeftTopSection->tudeme->id)}}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopLeftTopSection->tudeme->cover_image->pixels500 }}">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </a>
+                            <div class="pt-recipe-text">
+                                <a href="{{route('tudeme.recipe',$tudemeTopLeftTopSection->tudeme->id)}}"><h4>{{$tudemeTopLeftTopSection->tudeme->name}}</h4></a>
+                            </div>
                         </div>
-                        <div class="pt-recipe-text">
-                            <h4>One Pot Weeknight Lasagna Soup Recipe</h4>
+                        <div class="pt-recipe-item">
+                            <a href="{{route('tudeme.recipe',$tudemeBottomLeftTopSection->tudeme->id)}}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeBottomLeftTopSection->tudeme->cover_image->pixels500 }}">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </a>
+                            <div class="pt-recipe-text">
+                                <a href="{{route('tudeme.recipe',$tudemeBottomLeftTopSection->tudeme->id)}}"><h4>{{$tudemeBottomLeftTopSection->tudeme->name}}</h4></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 order-lg-3">
-                    <div class="pt-recipe-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/recipe-4.jpg">
-                            <i class="fa fa-plus"></i>
+                    <div class="col-lg-3 col-md-6 order-lg-3">
+                        <div class="pt-recipe-item">
+                            <a href="{{route('tudeme.recipe',$tudemeTopRightTopSection->tudeme->id)}}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopRightTopSection->tudeme->cover_image->pixels500 }}">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </a>
+                            <div class="pt-recipe-text">
+                                <a href="{{route('tudeme.recipe',$tudemeTopRightTopSection->tudeme->id)}}"><h4>{{$tudemeTopRightTopSection->tudeme->name}}</h4></a>
+                            </div>
                         </div>
-                        <div class="pt-recipe-text">
-                            <h4>Beef Burger with French Fries and Salad</h4>
-                        </div>
-                    </div>
-                    <div class="pt-recipe-item">
-                        <div class="pt-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/recipe-5.jpg">
-                            <i class="fa fa-plus"></i>
-                        </div>
-                        <div class="pt-recipe-text">
-                            <h4>Raspberry Pancakes with Honey and Butter</h4>
+                        <div class="pt-recipe-item">
+                            <a href="{{route('tudeme.recipe',$tudemeBottomRightTopSection->tudeme->id)}}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeBottomRightTopSection->tudeme->cover_image->pixels500 }}">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </a>
+                            <div class="pt-recipe-text">
+                                <a href="{{route('tudeme.recipe',$tudemeBottomRightTopSection->tudeme->id)}}"><h4>{{$tudemeBottomRightTopSection->tudeme->name}}</h4></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @else
+    <br>
+    <br>
+    <br>
+    <br>
+    @endif
+
     <!-- Page Top Recipe Section End -->
 
     <!-- Top Recipe Section Begin -->
@@ -72,97 +90,43 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="top-recipe-item large-item">
-                        <div class="top-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/top-recipe/recipe-1.jpg">
-                            <i class="fa fa-plus"></i>
-                        </div>
+                        <a href="{{route('tudeme.recipe',$tudemeTopFeaturedRecipie->tudeme->id)}}">
+                            <div class="top-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopFeaturedRecipie->tudeme->cover_image->pixels500 }}">
+                                <i class="fa fa-plus"></i>
+                            </div>
+                        </a>
                         <div class="top-recipe-text">
                             <div class="cat-name">Desert</div>
-                            <a href="#">
-                                <h4>One Pot Weeknight Lasagna Soup Recipe</h4>
+                            <a href="{{route('tudeme.recipe',$tudemeTopFeaturedRecipie->tudeme->id)}}">
+                                <h4>{{$tudemeTopFeaturedRecipie->tudeme->name}}</h4>
                             </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing
-                                elit, sed do eiusmod tempor incididunt ut labore.</p>
+                            <p>{{$tudemeTopFeaturedRecipie->tudeme->description}}.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="top-recipe-item">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="top-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/top-recipe/recipe-2.jpg">
-                                    <i class="fa fa-plus"></i>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="top-recipe-text">
-                                    <div class="cat-name">Vegan</div>
-                                    <a href="#">
-                                        <h4>One Pot Weeknight Lasagna Soup Recipe</h4>
+                    @foreach($tudemeTopRecipies as $tudemeTopRecipie)
+                        <div class="top-recipe-item">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <a href="{{route('tudeme.recipe',$tudemeTopRecipie->tudeme->id)}}">
+                                        <div class="top-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopRecipie->tudeme->cover_image->pixels500 }}">
+                                            <i class="fa fa-plus"></i>
+                                        </div>
                                     </a>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="top-recipe-text">
+                                        <div class="cat-name">Vegan</div>
+                                        <a href="{{route('tudeme.recipe',$tudemeTopRecipie->tudeme->id)}}">
+                                            <h4>{{$tudemeTopRecipie->tudeme->name}}</h4>
+                                        </a>
+                                        <p>{{$tudemeTopRecipie->tudeme->description}}.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="top-recipe-item">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="top-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/top-recipe/recipe-3.jpg">
-                                    <i class="fa fa-plus"></i>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="top-recipe-text">
-                                    <div class="cat-name">Meat lover</div>
-                                    <a href="#">
-                                        <h4>Veggie soup with Mushrooms</h4>
-                                    </a>
-                                    <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                        magna aliqua. Lorem ipsum dolor sit amet, consectetur.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="top-recipe-item">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="top-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/top-recipe/recipe-4.jpg">
-                                    <i class="fa fa-plus"></i>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="top-recipe-text">
-                                    <div class="cat-name">Desert</div>
-                                    <a href="#">
-                                        <h4>Caramel Ice Cream with Berries</h4>
-                                    </a>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="top-recipe-item">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="top-recipe-img set-bg" data-setbg="{{ asset('themes/tudeme/yummy') }}/img/top-recipe/recipe-5.jpg">
-                                    <i class="fa fa-plus"></i>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="top-recipe-text">
-                                    <div class="cat-name">Desert</div>
-                                    <a href="#">
-                                        <h4>Freash Octopuse with lime juice</h4>
-                                    </a>
-                                    <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                        magna aliqua. Lorem ipsum dolor sit amet, consectetur.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -240,30 +204,23 @@
                 <i class="fa fa-plus"></i>
             </div>
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="fr-item">
-                        <div class="fr-item-img">
-                            <img src="{{ asset('themes/tudeme/yummy') }}/img/feature-1.jpg" alt="">
-                        </div>
-                        <div class="fr-item-text">
-                            <h4>Sunday Brunch: Spaghetti and Eggs Recipe</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="fr-item">
-                        <div class="fr-item-img">
-                            <img src="{{ asset('themes/tudeme/yummy') }}/img/feature-2.jpg" alt="">
-                        </div>
-                        <div class="fr-item-text">
-                            <h4>Sunday Brunch: Spaghetti and Eggs Recipe</h4>
-                            <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+
+                @foreach ($tudemeFeaturedRecipies as $tudemeFeaturedRecipie)
+                    <div class="col-lg-6">
+                        <div class="fr-item">
+                            <a href="{{route('tudeme.recipe',$tudemeFeaturedRecipie->tudeme->id)}}">
+                                <div class="fr-item-img">
+                                    <img src="{{ asset('') }}{{ $tudemeFeaturedRecipie->tudeme->icon->pixels500 }}" alt="">
+                                </div>
+                            </a>
+                            <div class="fr-item-text">
+                                <a href="{{route('tudeme.recipe',$tudemeFeaturedRecipie->tudeme->id)}}"><h4>{{$tudemeFeaturedRecipie->tudeme->name}}</h4></a>
+                                <p>{{$tudemeFeaturedRecipie->tudeme->name}}.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </section>

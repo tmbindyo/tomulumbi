@@ -35,8 +35,12 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use App\Traits\DocumentExtensionTrait;
 use App\Traits\DownloadViewNumbersTrait;
+use App\TudemeFeaturedRecipie;
 use App\TudemeGallery;
 use App\TudemeTag;
+use App\TudemeTopLocation;
+use App\TudemeTopRecipie;
+use App\TudemeTopSection;
 use App\TudemeTudemeTag;
 use App\TudemeTudemeType;
 use App\TudemeType;
@@ -57,6 +61,159 @@ class TudemeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    // tudemes
+    public function tudemeHomePage()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the design status counts
+        $tudemeStatusCount = $this->tudemeStatusCount();
+        // tudeme top location
+        $tudemeTopLocations = TudemeTopLocation::with('active_tudeme_top_section')->get();
+        // Get tudemes
+        $tudemes = Tudeme::with('user','status','active_tudeme_top_section.tudeme_top_location')->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->get();
+        // tudeme top section
+        $tudemeTopSections = TudemeTopSection::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('tudeme','tudeme_top_location')->get();
+        // tudeme top recipies
+        $tudemeTopRecipies = TudemeTopRecipie::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('tudeme')->get();
+
+        // tudeme top recipies tudeme ids
+        $tudemeTopRecipieTudemeIds = TudemeTopRecipie::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->select('tudeme_id')->get()->toArray();
+        // get tudeme which arent part of the top recipies
+        $unassignedTopRecipieTudeme = Tudeme::whereNotIn('id',$tudemeTopRecipieTudemeIds)->get();
+
+        // tudeme featured recipies
+        $tudemeFeaturedRecipies = TudemeFeaturedRecipie::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('tudeme')->get();
+
+        // tudeme featured recipies tudeme ids
+        $tudemeFeaturedRecipieTudemeIds = TudemeFeaturedRecipie::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->select('tudeme_id')->get()->toArray();
+        // get tudeme which arent part of the featured recipies
+        $unassignedFeaturedRecipieTudeme = Tudeme::whereNotIn('id',$tudemeFeaturedRecipieTudemeIds)->get();
+
+
+
+
+        return view('admin.tudeme_homepage',compact('user','navbarValues','tudemeStatusCount','tudemeTopLocations','tudemes','tudemeTopSections','tudemeTopRecipies','tudemeFeaturedRecipies','unassignedTopRecipieTudeme','unassignedFeaturedRecipieTudeme'));
+    }
+
+    public function tudemeTopSectionStore(Request $request)
+    {
+
+        // make inactive
+        TudemeTopSection::where('tudeme_top_location_id', '=', $request->tudeme_top_location)->update(['status_id' => 'b810f2f1-91c2-4fc9-b8e1-acc068caa03a']);
+
+        // get tudeme
+        $tudeme = Tudeme::with('user','status')->where('id',$request->tudeme)->first();
+        // get tudeme top location
+        $tudemeTopLocation = TudemeTopLocation::with('active_tudeme_top_section')->where('id',$request->tudeme_top_location)->first();
+        // check if the tudeme is already assigned to a location
+        $tudemeAllocated = TudemeTopSection::with('tudeme_top_location')->where('tudeme_id',$request->tudeme)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
+        if($tudemeAllocated){
+            return redirect()->route('admin.tudeme.homepage')->withWarning('Tudeme '.$tudeme->name.' has already been assigned to the '.$tudemeAllocated->tudeme_top_location->location);
+        }
+
+        // Create
+        $user = $this->getAdmin();
+        $tudemeTopSection = new TudemeTopSection();
+        $tudemeTopSection->tudeme_id = $request->tudeme;
+        $tudemeTopSection->tudeme_top_location_id = $request->tudeme_top_location;
+        $tudemeTopSection->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $tudemeTopSection->user_id = Auth::user()->id;
+        $tudemeTopSection->save();
+
+        return redirect()->route('admin.tudeme.homepage')->withSuccess('Tudeme homepage location '.$tudemeTopLocation->location.' has been assigned to '.$tudeme->name);
+    }
+
+    public function tudemeTopRecipieStore(Request $request)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the design status counts
+        $tudemeStatusCount = $this->tudemeStatusCount();
+
+        // get tudeme
+        $tudeme = Tudeme::with('user','status')->where('id',$request->tudeme)->first();
+
+        // check if allready assigned
+        $tudemeAllocated = TudemeTopRecipie::where('tudeme_id',$request->tudeme)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
+        if($tudemeAllocated){
+            return redirect()->route('admin.tudeme.homepage')->withWarning('Tudeme '.$tudeme->name.' has already been assigned');
+        }
+
+        // get count of assigned
+        $tudemeTopRecipiesCount = TudemeTopRecipie::where('is_featured',False)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('tudeme')->count();
+        if ($tudemeTopRecipiesCount >= 4){
+            // get the last one created
+            $oldestActiveTopRecipie = TudemeTopRecipie::with('tudeme')->where('is_featured',False)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->orderBy('created_at')->first()->update(['status_id' => 'b810f2f1-91c2-4fc9-b8e1-acc068caa03a']);
+            // return $oldestActiveTopRecipie;
+            // update it to deleted
+            // TudemeTopRecipie::where('id', $oldestActiveTopRecipie)->update(['status_id' => 'b810f2f1-91c2-4fc9-b8e1-acc068caa03a']);
+        }
+
+        //store
+        $tudemeTopRecipie = new TudemeTopRecipie();
+        $tudemeTopRecipie->tudeme_id = $request->tudeme;
+
+        if($request->is_featured == "on"){
+            $tudemeTopRecipie->is_featured = True;
+
+            // set rest of featured to deleted
+            TudemeTopRecipie::where('is_featured', True)->update(['is_featured' => False,'status_id' => 'b810f2f1-91c2-4fc9-b8e1-acc068caa03a']);
+            $featured = "featured";
+        }else{
+            $tudemeTopRecipie->is_featured = False;
+            $featured = "";
+        }
+
+        $tudemeTopRecipie->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $tudemeTopRecipie->user_id = Auth::user()->id;
+        $tudemeTopRecipie->save();
+
+        return redirect()->route('admin.tudeme.homepage')->withSuccess('Tudeme '.$tudeme->name.' has been assigned as a '.$featured.' top recipie');
+    }
+
+    public function tudemeFeaturedRecipieStore(Request $request)
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the design status counts
+        $tudemeStatusCount = $this->tudemeStatusCount();
+
+        // get tudeme
+        $tudeme = Tudeme::with('user','status')->where('id',$request->tudeme)->first();
+
+        // check if allready assigned
+        $tudemeAllocated = TudemeFeaturedRecipie::where('tudeme_id',$request->tudeme)->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->first();
+        if($tudemeAllocated){
+            return redirect()->route('admin.tudeme.homepage')->withWarning('Tudeme '.$tudeme->name.' has already been assigned');
+        }
+
+        // get count of assigned
+        $tudemeFeaturedRecipiesCount = TudemeFeaturedRecipie::where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->with('tudeme')->count();
+        if ($tudemeFeaturedRecipiesCount >= 2){
+            // get the last one created
+            $oldestActiveFeaturedRecipie = TudemeFeaturedRecipie::with('tudeme')->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e')->orderBy('created_at')->first()->update(['status_id' => 'b810f2f1-91c2-4fc9-b8e1-acc068caa03a']);
+            // return $oldestActiveTopRecipie;
+            // update it to deleted
+            // TudemeTopRecipie::where('id', $oldestActiveTopRecipie)->update(['status_id' => 'b810f2f1-91c2-4fc9-b8e1-acc068caa03a']);
+        }
+
+        //store
+        $tudemeFeaturedRecipie = new TudemeFeaturedRecipie();
+        $tudemeFeaturedRecipie->tudeme_id = $request->tudeme;
+        $tudemeFeaturedRecipie->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $tudemeFeaturedRecipie->user_id = Auth::user()->id;
+        $tudemeFeaturedRecipie->save();
+
+        return redirect()->route('admin.tudeme.homepage')->withSuccess('Tudeme '.$tudeme->name.' has been assigned as a featured recipie');
     }
 
     // tudemes
@@ -181,32 +338,9 @@ class TudemeController extends Controller
             return back()->withWarning(__('Please set a cover image before making the tudeme to published.'));
         }
 
-        // Tudeme labels update
-        $tudemeRequestLabels =array();
-        foreach ($request->labels as $tudemeAlbumLabel){
-            // Append to array
-            $tudemeRequestLabels[]['id'] = $tudemeAlbumLabel;
-
-            // Check if tudeme label exists
-            $tudemeLabel = TudemeLabel::where('tudeme_id',$tudeme->id)->where('label_id',$tudemeAlbumLabel)->first();
-
-            if($tudemeLabel === null) {
-                $tudemeLabel = new TudemeLabel();
-                $tudemeLabel->tudeme_id = $tudeme->id;
-                $tudemeLabel->label_id = $tudemeAlbumLabel;
-                $tudemeLabel->user_id = Auth::user()->id;
-                $tudemeLabel->save();
-            }
-        }
-
-        $tudemeLabelsIds = TudemeLabel::where('tudeme_id',$tudeme_id)->whereNotIn('label_id',$tudemeRequestLabels)->select('id')->get()->toArray();
-        DB::table('tudeme_labels')->whereIn('id', $tudemeLabelsIds)->delete();
-
         $tudeme->name = $request->name;
         $tudeme->description = $request->description;
         $tudeme->body = $request->body;
-        $tudeme->thumbnail_size_id = $request->thumbnail_size;
-        $tudeme->typography_id = $request->typography;
         $tudeme->status_id = $request->status;
         $tudeme->date = date('Y-m-d', strtotime($request->date));
         $tudeme->save();
@@ -263,9 +397,7 @@ class TudemeController extends Controller
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
 
-            Image::make( $path )->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->fit(750, 730)->save(public_path()."/".$pixel500FolderName.$image_name);
 
             Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
 
@@ -292,9 +424,8 @@ class TudemeController extends Controller
             Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
-            Image::make( $path )->resize(null, 500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel500FolderName.$image_name);
+
+            Image::make( $path )->fit(750, 730)->save(public_path()."/".$pixel500FolderName.$image_name);
 
             Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
 
@@ -1074,7 +1205,7 @@ class TudemeController extends Controller
         $meal->body = $request->body;
         $meal->tudeme_id = $tudeme_id;
         $meal->cooking_skill_id = $request->cooking_skill;
-        // $meal->cuisine_id = $request->cuisine;
+        $meal->cuisine_id = $request->cuisine;
         $meal->meal_type_id = $request->meal_type;
         $meal->dish_type_id = $request->dish_type;
         $meal->food_type_id = $request->food_type;

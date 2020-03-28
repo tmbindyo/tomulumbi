@@ -12,6 +12,14 @@ class CookingStyle extends Model
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
+
+    // Children
+    public function meal_cooking_styles()
+    {
+        return $this->hasMany('App\MealCookingStyle');
+    }
+    
+    
     // Parents
     public function status()
     {

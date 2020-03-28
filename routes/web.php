@@ -90,7 +90,7 @@ Route::get('/tudeme/categories/{id}', 'Landing\TudemeController@categories')->na
 Route::get('/tudeme/category/{category_type}/{category}', 'Landing\TudemeController@category')->name('tudeme.category');
 Route::get('/tudeme/contact', 'Landing\TudemeController@contact')->name('tudeme.contact');
 Route::get('/tudeme', 'Landing\TudemeController@index')->name('tudeme');
-Route::get('/tudeme/recipe', 'Landing\TudemeController@recipe')->name('tudeme.recipe');
+Route::get('/tudeme/recipe/{recipie_id}', 'Landing\TudemeController@recipe')->name('tudeme.recipe');
 
 
 // Projects

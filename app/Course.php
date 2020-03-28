@@ -13,9 +13,9 @@ class Course extends Model
     public $incrementing = false;
 
     // Children
-    public function meals()
+    public function meal_courses()
     {
-        return $this->hasMany('App\Meal');
+        return $this->hasMany('App\MealCourse');
     }
     public function tudemes()
     {

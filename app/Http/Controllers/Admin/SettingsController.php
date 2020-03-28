@@ -37,9 +37,21 @@ use App\OrganizationType;
 use Illuminate\Http\File;
 use App\Traits\NavbarTrait;
 use App\ContactContactType;
+use App\CookingSkill;
+use App\CookingStyle;
+use App\Course;
+use App\Cuisine;
+use App\DietaryPreference;
+use App\DishType;
+use App\FoodType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Kit;
+use App\Meal;
+use App\MealCookingStyle;
+use App\MealCourse;
+use App\MealDietaryPreference;
+use App\MealType;
 use Illuminate\Support\Facades\Input;
 use App\Traits\DocumentExtensionTrait;
 use Illuminate\Support\Facades\Storage;
@@ -157,7 +169,7 @@ class SettingsController extends Controller
     }
 
 
-    // action type functions
+    // album type functions
     public function albumTypes()
     {
         // User
@@ -1721,6 +1733,675 @@ class SettingsController extends Controller
         $typography->save();
 
         return back()->withSuccess(__('Typography '.$typography->name.' successfully restored.'));
+    }
+
+
+    // cooking skill functions
+    public function cookingSkills()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $cookingSkills = CookingSkill::with('user','status')->get();
+
+        return view('admin.cooking_skills',compact('cookingSkills','user','navbarValues'));
+    }
+
+    public function cookingSkillCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.cooking_skill_create',compact('user','navbarValues'));
+    }
+
+    public function cookingSkillStore(Request $request)
+    {
+
+        $cookingSkill = new CookingSkill();
+        $cookingSkill->name = $request->name;
+        $cookingSkill->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $cookingSkill->user_id = Auth::user()->id;
+        $cookingSkill->save();
+
+        return redirect()->route('admin.cooking.skill.show',$cookingSkill->id)->withSuccess('Cooking skill updated!');
+    }
+
+    public function cookingSkillShow($cooking_skill_id)
+    {
+        // Check if album type exists
+        $cookingSkillExists = CookingSkill::findOrFail($cooking_skill_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // cooking skill
+        $cookingSkill = CookingSkill::with('user','status')->where('id',$cooking_skill_id)->withCount('meals')->first();
+        // cooking skill meal
+        $cookingSkillMeals = Meal::with('user','status','tudeme')->where('cooking_skill_id',$cooking_skill_id)->get();
+        return view('admin.cooking_skill_show',compact('cookingSkill','user','cookingSkillMeals','navbarValues'));
+    }
+
+    public function cookingSkillUpdate(Request $request, $cooking_skill_id)
+    {
+
+        $cookingSkill = CookingSkill::findOrFail($cooking_skill_id);
+        $cookingSkill->name = $request->name;
+        $cookingSkill->user_id = Auth::user()->id;
+        $cookingSkill->save();
+
+        return redirect()->route('admin.cooking.skill.show',$cooking_skill_id)->withSuccess('Cooking skill '. $cookingSkill->name .' updated!');
+    }
+
+    public function cookingSkillDelete($cooking_skill_id)
+    {
+
+        $cookingSkill = CookingSkill::findOrFail($cooking_skill_id);
+        $cookingSkill->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $cookingSkill->user_id = Auth::user()->id;
+        $cookingSkill->save();
+
+        return back()->withSuccess(__('Cooking skill '.$cookingSkill->name.' successfully deleted.'));
+    }
+
+    public function cookingSkillRestore($cooking_skill_id)
+    {
+
+        $cookingSkill = CookingSkill::findOrFail($cooking_skill_id);
+        $cookingSkill->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $cookingSkill->user_id = Auth::user()->id;
+        $cookingSkill->save();
+
+        return back()->withSuccess(__('Cooking skill '.$cookingSkill->name.' successfully restored.'));
+    }
+
+
+    // cooking style functions
+    public function cookingStyles()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $cookingStyles = CookingStyle::with('user','status')->get();
+
+        return view('admin.cooking_styles',compact('cookingStyles','user','navbarValues'));
+    }
+
+    public function cookingStyleCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.cooking_style_creat        $mealType->description = $request->description;e',compact('user','navbarValues'));
+    }
+
+    public function cookingStyleStore(Request $request)
+    {
+
+        $cookingStyle = new CookingStyle();
+        $cookingStyle->name = $request->name;
+        $cookingStyle->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $cookingStyle->user_id = Auth::user()->id;
+        $cookingStyle->save();
+
+        return redirect()->route('admin.cooking.style.show',$cookingStyle->id)->withSuccess('Cooking style updated!');
+    }
+
+    public function cookingStyleShow($cooking_style_id)
+    {
+        // Check if album type exists
+        $cookingStyleExists = CookingStyle::findOrFail($cooking_style_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // cooking style
+        $cookingStyle = CookingStyle::with('user','status')->where('id',$cooking_style_id)->withCount('meal_cooking_styles')->first();
+        // cooking style meals
+        $cookingStyleMeals = MealCookingStyle::with('user','status','meal.tudeme')->where('cooking_style_id',$cooking_style_id)->with('meal.tudeme')->get();
+        return view('admin.cooking_style_show',compact('cookingStyle','user','cookingStyleMeals','navbarValues'));
+    }
+
+    public function cookingStyleUpdate(Request $request, $cooking_style_id)
+    {
+
+        $cookingStyle = CookingStyle::findOrFail($cooking_style_id);
+        $cookingStyle->name = $request->name;
+        $cookingStyle->user_id = Auth::user()->id;
+        $cookingStyle->save();
+
+        return redirect()->route('admin.cooking.style.show',$cooking_style_id)->withSuccess('Cooking style '. $cookingStyle->name .' updated!');
+    }
+
+    public function cookingStyleDelete($cooking_style_id)
+    {
+
+        $cookingStyle = CookingStyle::findOrFail($cooking_style_id);
+        $cookingStyle->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $cookingStyle->user_id = Auth::user()->id;
+        $cookingStyle->save();
+
+        return back()->withSuccess(__('Cooking style '.$cookingStyle->name.' successfully deleted.'));
+    }
+
+    public function cookingStyleRestore($cooking_style_id)
+    {
+
+        $cookingStyle = CookingStyle::findOrFail($cooking_style_id);
+        $cookingStyle->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $cookingStyle->user_id = Auth::user()->id;
+        $cookingStyle->save();
+
+        return back()->withSuccess(__('Cooking style '.$cookingStyle->name.' successfully restored.'));
+    }
+
+
+    // meal type functions
+    public function mealTypes()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $mealTypes = MealType::with('user','status')->get();
+
+        return view('admin.meal_types',compact('mealTypes','user','navbarValues'));
+    }
+
+    public function mealTypeCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.meal_type_create',compact('user','navbarValues'));
+    }
+
+    public function mealTypeStore(Request $request)
+    {
+
+        $mealType = new MealType();
+        $mealType->name = $request->name;
+        $mealType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $mealType->user_id = Auth::user()->id;
+        $mealType->save();
+
+        return redirect()->route('admin.meal.type.show',$mealType->id)->withSuccess('Meal type updated!');
+    }
+
+    public function mealTypeShow($meal_type_id)
+    {
+        // Check if meal type exists
+        $mealTypeExists = MealType::findOrFail($meal_type_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        
+        // meal type
+        $mealType = MealType::with('user','status')->where('id',$meal_type_id)->withCount('meals')->first();
+        // meal type meal
+        $mealTypeMeals = Meal::with('user','status','tudeme')->where('meal_type_id',$meal_type_id)->get();
+
+        return view('admin.meal_type_show',compact('mealType','user','mealTypeMeals','navbarValues'));
+    }
+
+    public function mealTypeUpdate(Request $request, $meal_type_id)
+    {
+
+        $mealType = MealType::findOrFail($meal_type_id);
+        $mealType->name = $request->name;
+        $mealType->user_id = Auth::user()->id;
+        $mealType->save();
+
+        return redirect()->route('admin.meal.type.show',$meal_type_id)->withSuccess('Meal type '. $mealType->name .' updated!');
+    }
+
+    public function mealTypeDelete($meal_type_id)
+    {
+
+        $mealType = MealType::findOrFail($meal_type_id);
+        $mealType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $mealType->user_id = Auth::user()->id;
+        $mealType->save();
+
+        return back()->withSuccess(__('Meal type '.$mealType->name.' successfully deleted.'));
+    }
+
+    public function mealTypeRestore($meal_type_id)
+    {
+
+        $mealType = MealType::findOrFail($meal_type_id);
+        $mealType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $mealType->user_id = Auth::user()->id;
+        $mealType->save();
+
+        return back()->withSuccess(__('Meal type '.$mealType->name.' successfully restored.'));
+    }
+
+
+    // course functions
+    public function courses()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $courses = Course::with('user','status')->get();
+
+        return view('admin.courses',compact('courses','user','navbarValues'));
+    }
+
+    public function courseCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.course_create',compact('user','navbarValues'));
+    }
+
+    public function courseStore(Request $request)
+    {
+
+        $course = new Course();
+        $course->name = $request->name;
+        $course->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $course->user_id = Auth::user()->id;
+        $course->save();
+
+        return redirect()->route('admin.course.show',$course->id)->withSuccess('Course updated!');
+    }
+
+    public function courseShow($course_id)
+    {
+        // Check if meal type exists
+        $courseExists = Course::findOrFail($course_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        // meal type
+        $course = Course::with('user','status')->where('id',$course_id)->withCount('meal_courses')->first();
+        // meal type meal
+        $courseMeals = MealCourse::with('user','status','meal.tudeme')->where('course_id',$course_id)->get();
+
+        return view('admin.course_show',compact('course','user','courseMeals','navbarValues'));
+    }
+
+    public function courseUpdate(Request $request, $course_id)
+    {
+
+        $course = Course::findOrFail($course_id);
+        $course->name = $request->name;
+        $course->user_id = Auth::user()->id;
+        $course->save();
+
+        return redirect()->route('admin.course.show',$course_id)->withSuccess('Course '. $course->name .' updated!');
+    }
+
+    public function courseDelete($course_id)
+    {
+
+        $course = Course::findOrFail($course_id);
+        $course->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $course->user_id = Auth::user()->id;
+        $course->save();
+
+        return back()->withSuccess(__('Course '.$course->name.' successfully deleted.'));
+    }
+
+    public function courseRestore($course_id)
+    {
+
+        $course = Course::findOrFail($course_id);
+        $course->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $course->user_id = Auth::user()->id;
+        $course->save();
+
+        return back()->withSuccess(__('Course '.$course->name.' successfully restored.'));
+    }
+
+
+
+    // dietary preference functions
+    public function dietaryPreferences()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $dietaryPreferences = DietaryPreference::with('user','status')->get();
+
+        return view('admin.dietary_preferences',compact('dietaryPreferences','user','navbarValues'));
+    }
+
+    public function dietaryPreferenceCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.dietary_preference_create',compact('user','navbarValues'));
+    }
+
+    public function dietaryPreferenceStore(Request $request)
+    {
+
+        $dietaryPreference = new DietaryPreference();
+        $dietaryPreference->name = $request->name;
+        $dietaryPreference->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $dietaryPreference->user_id = Auth::user()->id;
+        $dietaryPreference->save();
+
+        return redirect()->route('admin.dietary.preference.show',$dietaryPreference->id)->withSuccess('Dietary preference updated!');
+    }
+
+    public function dietaryPreferenceShow($dietary_preference_id)
+    {
+        // Check if meal type exists
+        $dietaryPreferenceExists = DietaryPreference::findOrFail($dietary_preference_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        // dietary preference
+        $dietaryPreference = DietaryPreference::with('user','status')->where('id',$dietary_preference_id)->withCount('meal_dietary_preferences')->first();
+        // dietary preference meals
+        $dietaryPreferenceMeals = MealDietaryPreference::with('user','status','meal.tudeme')->where('dietary_preference_id',$dietary_preference_id)->get();
+
+        return view('admin.dietary_preference_show',compact('dietaryPreference','user','dietaryPreferenceMeals','navbarValues'));
+    }
+
+    public function dietaryPreferenceUpdate(Request $request, $dietary_preference_id)
+    {
+
+        $dietaryPreference = DietaryPreference::findOrFail($dietary_preference_id);
+        $dietaryPreference->name = $request->name;
+        $dietaryPreference->user_id = Auth::user()->id;
+        $dietaryPreference->save();
+
+        return redirect()->route('admin.dietary.preference.show',$dietary_preference_id)->withSuccess('Dietary preference '. $dietaryPreference->name .' updated!');
+    }
+
+    public function dietaryPreferenceDelete($dietary_preference_id)
+    {
+
+        $dietaryPreference = DietaryPreference::findOrFail($dietary_preference_id);
+        $dietaryPreference->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $dietaryPreference->user_id = Auth::user()->id;
+        $dietaryPreference->save();
+
+        return back()->withSuccess(__('Dietary preference '.$dietaryPreference->name.' successfully deleted.'));
+    }
+
+    public function dietaryPreferenceRestore($dietary_preference_id)
+    {
+
+        $dietaryPreference = DietaryPreference::findOrFail($dietary_preference_id);
+        $dietaryPreference->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $dietaryPreference->user_id = Auth::user()->id;
+        $dietaryPreference->save();
+
+        return back()->withSuccess(__('Dietary preference '.$dietaryPreference->name.' successfully restored.'));
+    }
+
+
+    // dish type functions
+    public function dishTypes()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $dishTypes = DishType::with('user','status')->get();
+
+        return view('admin.dish_types',compact('dishTypes','user','navbarValues'));
+    }
+
+    public function dishTypeCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.dish_type_create',compact('user','navbarValues'));
+    }
+
+    public function dishTypeStore(Request $request)
+    {
+
+        $dishType = new DishType();
+        $dishType->name = $request->name;
+        $dishType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $dishType->user_id = Auth::user()->id;
+        $dishType->save();
+
+        return redirect()->route('admin.dish.type.show',$dishType->id)->withSuccess('Dish type updated!');
+    }
+
+    public function dishTypeShow($dish_type_id)
+    {
+        // Check if meal type exists
+        $dishTypeExists = DishType::findOrFail($dish_type_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        // dish type
+        $dishType = DishType::with('user','status')->where('id',$dish_type_id)->withCount('meals')->first();
+        // dish type meals
+        $dishTypeMeals = Meal::with('user','status','tudeme')->where('dish_type_id',$dish_type_id)->get();
+
+        return view('admin.dish_type_show',compact('dishType','user','dishTypeMeals','navbarValues'));
+    }
+
+    public function dishTypeUpdate(Request $request, $dish_type_id)
+    {
+
+        $dishType = DishType::findOrFail($dish_type_id);
+        $dishType->name = $request->name;
+        $dishType->user_id = Auth::user()->id;
+        $dishType->save();
+
+        return redirect()->route('admin.dish.type.show',$dish_type_id)->withSuccess('Dish type '. $dishType->name .' updated!');
+    }
+
+    public function dishTypeDelete($dish_type_id)
+    {
+
+        $dishType = DishType::findOrFail($dish_type_id);
+        $dishType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $dishType->user_id = Auth::user()->id;
+        $dishType->save();
+
+        return back()->withSuccess(__('Dish type '.$dishType->name.' successfully deleted.'));
+    }
+
+    public function dishTypeRestore($dish_type_id)
+    {
+
+        $dishType = DishType::findOrFail($dish_type_id);
+        $dishType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $dishType->user_id = Auth::user()->id;
+        $dishType->save();
+
+        return back()->withSuccess(__('Dish type '.$dishType->name.' successfully restored.'));
+    }
+
+
+    // food type functions
+    public function foodTypes()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $foodTypes = FoodType::with('user','status')->get();
+
+        return view('admin.food_types',compact('foodTypes','user','navbarValues'));
+    }
+
+    public function foodTypeCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.food_type_create',compact('user','navbarValues'));
+    }
+
+    public function foodTypeStore(Request $request)
+    {
+
+        $foodType = new FoodType();
+        $foodType->name = $request->name;
+        $foodType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $foodType->user_id = Auth::user()->id;
+        $foodType->save();
+
+        return redirect()->route('admin.food.type.show',$foodType->id)->withSuccess('Food type updated!');
+    }
+
+    public function foodTypeShow($food_type_id)
+    {
+        // Check if meal type exists
+        $foodTypeExists = FoodType::findOrFail($food_type_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        
+        // food type
+        $foodType = FoodType::with('user','status')->where('id',$food_type_id)->withCount('meals')->first();
+        // food type meals
+        $foodTypeMeals = Meal::with('user','status','tudeme')->where('food_type_id',$food_type_id)->get();
+
+        return view('admin.food_type_show',compact('foodType','user','foodTypeMeals','navbarValues'));
+    }
+
+    public function foodTypeUpdate(Request $request, $food_type_id)
+    {
+
+        $foodType = FoodType::findOrFail($food_type_id);
+        $foodType->name = $request->name;
+        $foodType->user_id = Auth::user()->id;
+        $foodType->save();
+
+        return redirect()->route('admin.food.type.show',$food_type_id)->withSuccess('Food type '. $foodType->name .' updated!');
+    }
+
+    public function foodTypeDelete($food_type_id)
+    {
+
+        $foodType = FoodType::findOrFail($food_type_id);
+        $foodType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $foodType->user_id = Auth::user()->id;
+        $foodType->save();
+
+        return back()->withSuccess(__('Food type '.$foodType->name.' successfully deleted.'));
+    }
+
+    public function foodTypeRestore($food_type_id)
+    {
+
+        $foodType = FoodType::findOrFail($food_type_id);
+        $foodType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $foodType->user_id = Auth::user()->id;
+        $foodType->save();
+
+        return back()->withSuccess(__('Food type '.$foodType->name.' successfully restored.'));
+    }
+
+
+    // cuisine functions
+    public function cuisines()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $cuisines = Cuisine::with('user','status')->get();
+
+        return view('admin.cuisines',compact('cuisines','user','navbarValues'));
+    }
+
+    public function cuisineCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.cuisine_create',compact('user','navbarValues'));
+    }
+
+    public function cuisineStore(Request $request)
+    {
+
+        $cuisine = new Cuisine();
+        $cuisine->name = $request->name;
+        $cuisine->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $cuisine->user_id = Auth::user()->id;
+        $cuisine->save();
+
+        return redirect()->route('admin.cuisine.show',$cuisine->id)->withSuccess('Cuisine updated!');
+    }
+
+    public function cuisineShow($cuisine_id)
+    {
+        // Check if meal type exists
+        $cuisineExists = Cuisine::findOrFail($cuisine_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        // cuisine
+        $cuisine = Cuisine::with('user','status')->where('id',$cuisine_id)->withCount('meals')->first();
+        // cuisine meals
+        $cuisineMeals = Meal::with('user','status','tudeme')->where('cuisine_id',$cuisine_id)->get();
+
+        return view('admin.cuisine_show',compact('cuisine','user','cuisineMeals','navbarValues'));
+    }
+
+    public function cuisineUpdate(Request $request, $cuisine_id)
+    {
+
+        $cuisine = Cuisine::findOrFail($cuisine_id);
+        $cuisine->name = $request->name;
+        $cuisine->user_id = Auth::user()->id;
+        $cuisine->save();
+
+        return redirect()->route('admin.cuisine.show',$cuisine_id)->withSuccess('Cuisine '. $cuisine->name .' updated!');
+    }
+
+    public function cuisineDelete($cuisine_id)
+    {
+
+        $cuisine = Cuisine::findOrFail($cuisine_id);
+        $cuisine->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $cuisine->user_id = Auth::user()->id;
+        $cuisine->save();
+
+        return back()->withSuccess(__('Cuisine '.$cuisine->name.' successfully deleted.'));
+    }
+
+    public function cuisineRestore($cuisine_id)
+    {
+
+        $cuisine = Cuisine::findOrFail($cuisine_id);
+        $cuisine->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $cuisine->user_id = Auth::user()->id;
+        $cuisine->save();
+
+        return back()->withSuccess(__('Cuisine '.$cuisine->name.' successfully restored.'));
     }
 
 }

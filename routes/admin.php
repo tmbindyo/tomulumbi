@@ -202,6 +202,91 @@ Route::get('/typography/delete/{typography_id}', 'Admin\SettingsController@typog
 Route::get('/typography/restore/{typography_id}', 'Admin\SettingsController@typographyRestore')->name('admin.typography.restore');
 
 
+// cooking skill
+Route::get('/cooking/skills', 'Admin\SettingsController@cookingSkills')->name('admin.cooking.skills');
+Route::get('/cooking/skill/create', 'Admin\SettingsController@cookingSkillCreate')->name('admin.cooking.skill.create');
+Route::post('/cooking/skill/store', 'Admin\SettingsController@cookingSkillStore')->name('admin.cooking.skill.store');
+Route::get('/cooking/skill/show/{sub_type_id}', 'Admin\SettingsController@cookingSkillShow')->name('admin.cooking.skill.show');
+Route::post('/cooking/skill/update/{sub_type_id}', 'Admin\SettingsController@cookingSkillUpdate')->name('admin.cooking.skill.update');
+Route::get('/cooking/skill/delete/{sub_type_id}', 'Admin\SettingsController@cookingSkillDelete')->name('admin.cooking.skill.delete');
+Route::get('/cooking/skill/restore/{sub_type_id}', 'Admin\SettingsController@cookingSkillRestore')->name('admin.cooking.skill.restore');
+
+
+// cooking style
+Route::get('/cooking/styles', 'Admin\SettingsController@cookingStyles')->name('admin.cooking.styles');
+Route::get('/cooking/style/create', 'Admin\SettingsController@cookingStyleCreate')->name('admin.cooking.style.create');
+Route::post('/cooking/style/store', 'Admin\SettingsController@cookingStyleStore')->name('admin.cooking.style.store');
+Route::get('/cooking/style/show/{sub_type_id}', 'Admin\SettingsController@cookingStyleShow')->name('admin.cooking.style.show');
+Route::post('/cooking/style/update/{sub_type_id}', 'Admin\SettingsController@cookingStyleUpdate')->name('admin.cooking.style.update');
+Route::get('/cooking/style/delete/{sub_type_id}', 'Admin\SettingsController@cookingStyleDelete')->name('admin.cooking.style.delete');
+Route::get('/cooking/style/restore/{sub_type_id}', 'Admin\SettingsController@cookingStyleRestore')->name('admin.cooking.style.restore');
+
+
+// meal type
+Route::get('/meal/types', 'Admin\SettingsController@mealTypes')->name('admin.meal.types');
+Route::get('/meal/type/create', 'Admin\SettingsController@mealTypeCreate')->name('admin.meal.type.create');
+Route::post('/meal/type/store', 'Admin\SettingsController@mealTypeStore')->name('admin.meal.type.store');
+Route::get('/meal/type/show/{sub_type_id}', 'Admin\SettingsController@mealTypeShow')->name('admin.meal.type.show');
+Route::post('/meal/type/update/{sub_type_id}', 'Admin\SettingsController@mealTypeUpdate')->name('admin.meal.type.update');
+Route::get('/meal/type/delete/{sub_type_id}', 'Admin\SettingsController@mealTypeDelete')->name('admin.meal.type.delete');
+Route::get('/meal/type/restore/{sub_type_id}', 'Admin\SettingsController@mealTypeRestore')->name('admin.meal.type.restore');
+
+
+// course
+Route::get('/courses', 'Admin\SettingsController@courses')->name('admin.courses');
+Route::get('/course/create', 'Admin\SettingsController@courseCreate')->name('admin.course.create');
+Route::post('/course/store', 'Admin\SettingsController@courseStore')->name('admin.course.store');
+Route::get('/course/show/{sub_type_id}', 'Admin\SettingsController@courseShow')->name('admin.course.show');
+Route::post('/course/update/{sub_type_id}', 'Admin\SettingsController@courseUpdate')->name('admin.course.update');
+Route::get('/course/delete/{sub_type_id}', 'Admin\SettingsController@courseDelete')->name('admin.course.delete');
+Route::get('/course/restore/{sub_type_id}', 'Admin\SettingsController@courseRestore')->name('admin.course.restore');
+
+
+// dietary preference
+Route::get('/dietary/preferences', 'Admin\SettingsController@dietaryPreferences')->name('admin.dietary.preferences');
+Route::get('/dietary/preference/create', 'Admin\SettingsController@dietaryPreferenceCreate')->name('admin.dietary.preference.create');
+Route::post('/dietary/preference/store', 'Admin\SettingsController@dietaryPreferenceStore')->name('admin.dietary.preference.store');
+Route::get('/dietary/preference/show/{sub_type_id}', 'Admin\SettingsController@dietaryPreferenceShow')->name('admin.dietary.preference.show');
+Route::post('/dietary/preference/update/{sub_type_id}', 'Admin\SettingsController@dietaryPreferenceUpdate')->name('admin.dietary.preference.update');
+Route::get('/dietary/preference/delete/{sub_type_id}', 'Admin\SettingsController@dietaryPreferenceDelete')->name('admin.dietary.preference.delete');
+Route::get('/dietary/preference/restore/{sub_type_id}', 'Admin\SettingsController@dietaryPreferenceRestore')->name('admin.dietary.preference.restore');
+
+
+// dish type
+Route::get('/dish/types', 'Admin\SettingsController@dishTypes')->name('admin.dish.types');
+Route::get('/dish/type/create', 'Admin\SettingsController@dishTypeCreate')->name('admin.dish.type.create');
+Route::post('/dish/type/store', 'Admin\SettingsController@dishTypeStore')->name('admin.dish.type.store');
+Route::get('/dish/type/show/{sub_type_id}', 'Admin\SettingsController@dishTypeShow')->name('admin.dish.type.show');
+Route::post('/dish/type/update/{sub_type_id}', 'Admin\SettingsController@dishTypeUpdate')->name('admin.dish.type.update');
+Route::get('/dish/type/delete/{sub_type_id}', 'Admin\SettingsController@dishTypeDelete')->name('admin.dish.type.delete');
+Route::get('/dish/type/restore/{sub_type_id}', 'Admin\SettingsController@dishTypeRestore')->name('admin.dish.type.restore');
+
+
+// food type
+Route::get('/food/types', 'Admin\SettingsController@foodTypes')->name('admin.food.types');
+Route::get('/food/type/create', 'Admin\SettingsController@foodTypeCreate')->name('admin.food.type.create');
+Route::post('/food/type/store', 'Admin\SettingsController@foodTypeStore')->name('admin.food.type.store');
+Route::get('/food/type/show/{sub_type_id}', 'Admin\SettingsController@foodTypeShow')->name('admin.food.type.show');
+Route::post('/food/type/update/{sub_type_id}', 'Admin\SettingsController@foodTypeUpdate')->name('admin.food.type.update');
+Route::get('/food/type/delete/{sub_type_id}', 'Admin\SettingsController@foodTypeDelete')->name('admin.food.type.delete');
+Route::get('/food/type/restore/{sub_type_id}', 'Admin\SettingsController@foodTypeRestore')->name('admin.food.type.restore');
+
+
+// cuisine
+Route::get('/cuisines', 'Admin\SettingsController@cuisines')->name('admin.cuisines');
+Route::get('/cuisine/create', 'Admin\SettingsController@cuisineCreate')->name('admin.cuisine.create');
+Route::post('/cuisine/store', 'Admin\SettingsController@cuisineStore')->name('admin.cuisine.store');
+Route::get('/cuisine/show/{sub_type_id}', 'Admin\SettingsController@cuisineShow')->name('admin.cuisine.show');
+Route::post('/cuisine/update/{sub_type_id}', 'Admin\SettingsController@cuisineUpdate')->name('admin.cuisine.update');
+Route::get('/cuisine/delete/{sub_type_id}', 'Admin\SettingsController@cuisineDelete')->name('admin.cuisine.delete');
+Route::get('/cuisine/restore/{sub_type_id}', 'Admin\SettingsController@cuisineRestore')->name('admin.cuisine.restore');
+
+
+
+
+
+
+
 
 // To Dos
 Route::get('/to/dos', 'Admin\ToDoController@toDos')->name('admin.to.dos');
@@ -447,6 +532,12 @@ Route::get('/tudeme/meal/{tudeme_id}/show', 'Admin\TudemeController@tudemeMealSh
 Route::post('/tudeme/meal/{tudeme_id}/update', 'Admin\TudemeController@tudemeMealUpdate')->name('admin.tudeme.meal.update');
 
 Route::get('/tudeme/personal/album/create/{tudeme_id}', 'Admin\TudemeController@tudemePersonalAlbumCreate')->name('admin.tudeme.personal.album.create');
+
+// tudeme homepage
+Route::get('/tudeme/homepage', 'Admin\TudemeController@tudemeHomepage')->name('admin.tudeme.homepage');
+Route::post('/tudeme/top/section/store', 'Admin\TudemeController@tudemeTopSectionStore')->name('admin.tudeme.top.section.store');
+Route::post('/tudeme/top/recipie/store', 'Admin\TudemeController@tudemeTopRecipieStore')->name('admin.tudeme.top.recipie.store');
+Route::post('/tudeme/featured/recipie/store', 'Admin\TudemeController@tudemeFeaturedRecipieStore')->name('admin.tudeme.featured.recipie.store');
 
 // Letters
 Route::get('/letters', 'Admin\TudemeController@letters')->name('admin.letters');

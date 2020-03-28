@@ -22,6 +22,7 @@ class CreateMealsTable extends Migration
             $table->text('description')->nullable();
             $table->text('body')->nullable();
 
+            $table->uuid('cuisine_id');
             $table->uuid('cooking_skill_id');
             $table->uuid('dish_type_id');
             $table->uuid('food_type_id');

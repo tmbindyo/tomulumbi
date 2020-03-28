@@ -9,26 +9,26 @@
         <div class="container">
             <div class="row">
 
-                @foreach ($journals as $journal)
+                @foreach ($tudemes as $tudeme)
                     <div class="col-lg-4 col-sm-6">
                         <div class="recipe-item">
-                            <a href="{{route('tudeme.blog.show',$journal->id)}}"><img src="{{ asset('') }}{{ $journal->cover_image->pixels750 }}" alt=""></a>
+                            <a href="{{route('tudeme.blog.show',$tudeme->id)}}"><img src="{{ asset('') }}{{ $tudeme->cover_image->pixels500 }}" alt=""></a>
                             <div class="ri-text">
                                 <div class="cat-name">Desert</div>
-                                <a href="{{route('tudeme.blog.show',$journal->id)}}">
-                                    <h4>{{$journal->name}}</h4>
+                                <a href="{{route('tudeme.blog.show',$tudeme->id)}}">
+                                    <h4>{{$tudeme->name}}</h4>
                                 </a>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.</p>
+                                <p>{{$tudeme->description}}.</p>
                             </div>
                         </div>
                     </div>
                 @endforeach
 
             </div>
-            <div class="row">
+            {{--  <div class="row">
                 <div class="col-lg-12">
                     <div class="recipe-pagination">
+                        <a href="#">Prev</a>
                         <a href="#" class="active">01</a>
                         <a href="#">02</a>
                         <a href="#">03</a>
@@ -36,6 +36,9 @@
                         <a href="#">Next</a>
                     </div>
                 </div>
+            </div>  --}}
+            <div class="row">
+                {{ $tudemes->links() }}
             </div>
         </div>
     </section>

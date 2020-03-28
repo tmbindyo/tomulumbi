@@ -581,6 +581,10 @@
                 placeholder: "Select Tudeme",
                 allowClear: true
             });
+            $(".select2_demo_tudeme_top_location").select2({
+                placeholder: "Select Tudeme Top Location",
+                allowClear: true
+            });
             $(".select2_demo_campaign").select2({
                 placeholder: "Select Campaign",
                 allowClear: true

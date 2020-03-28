@@ -13,9 +13,9 @@ class DietaryPreference extends Model
     public $incrementing = false;
 
     // Children
-    public function tudemes()
+    public function meal_dietary_preferences()
     {
-        return $this->hasMany('App\Tudeme');
+        return $this->hasMany('App\MealDietaryPreference');
     }
 
     // Parents

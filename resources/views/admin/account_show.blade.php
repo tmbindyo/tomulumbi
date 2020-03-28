@@ -100,7 +100,6 @@
                         <div class="ibox-content">
 
                             <div class="row">
-
                                 <div class="col-lg-3">
                                     <div class="widget style1 navy-bg">
                                         <div class="row vertical-align">

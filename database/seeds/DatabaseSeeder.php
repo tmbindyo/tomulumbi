@@ -50,8 +50,9 @@ class DatabaseSeeder extends Seeder
         $this->call([TaxesTableSeeder::class]);
         $this->call([TitleTableSeeder::class]);
         $this->call([ThumbnailSizeTableSeeder::class]);
-        $this->call([TudemeTypeTableSeeder::class]);
         $this->call([TudemeTagTableSeeder::class]);
+        $this->call([TudemeTopLocationTableSeeder::class]);
+        $this->call([TudemeTypeTableSeeder::class]);
         $this->call([TypeTableSeeder::class]);
         $this->call([UploadTypeTableSeeder::class]);
         $this->call([UserTableSeeder::class]);

@@ -37,6 +37,22 @@ class Tudeme extends Model
     {
         return $this->hasMany('App\ToDo');
     }
+    public function tudeme_featured_recipie()
+    {
+        return $this->hasMany('App\TudemeFeaturedRecipie');
+    }
+    public function tudeme_top_recipie()
+    {
+        return $this->hasMany('App\TudemeTopRecipie');
+    }
+    public function tudeme_top_section()
+    {
+        return $this->hasMany('App\TudemeTopSection');
+    }
+    public function active_tudeme_top_section()
+    {
+        return $this->hasOne('App\TudemeTopSection')->where('status_id','c670f7a2-b6d1-4669-8ab5-9c764a1e403e');
+    }
     public function tudeme_tudeme_tags()
     {
         return $this->hasMany('App\TudemeTudemeTag');

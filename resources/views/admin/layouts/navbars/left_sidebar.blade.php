@@ -231,91 +231,187 @@
             <li>
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.action.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.action.types')}}">
-                            Action Types <span class="label label-warning pull-right">{{$navbarValues['actionTypesCount']}}</span>
-                        </a>
+                    <li>
+                        <a href="#"> Album <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.album.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.album.types')}}">
+                                    Album Types <span class="label label-warning pull-right">{{$navbarValues['albumTypesCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.tags' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.tags')}}">
+                                    Tags <span class="label label-warning pull-right">{{$navbarValues['tagsCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.album.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.album.types')}}">
-                            Album Types <span class="label label-warning pull-right">{{$navbarValues['albumTypesCount']}}</span>
-                        </a>
+
+                    <li>
+                        <a href="#"> Asset <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.action.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.action.types')}}">
+                                    Action Types <span class="label label-warning pull-right">{{$navbarValues['actionTypesCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.asset.categories' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.asset.categories')}}">
+                                    Asset Categories <span class="label label-warning pull-right">{{$navbarValues['assetCategoriesCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.asset.categories' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.asset.categories')}}">
-                            Asset Categories <span class="label label-warning pull-right">{{$navbarValues['assetCategoriesCount']}}</span>
-                        </a>
+
+                    <li>
+                        <a href="#"> Design <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.categories' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.categories')}}">
+                                    Categories <span class="label label-warning pull-right">{{$navbarValues['categoriesCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.categories' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.categories')}}">
-                            Categories <span class="label label-warning pull-right">{{$navbarValues['categoriesCount']}}</span>
-                        </a>
+
+                    <li>
+                        <a href="#"> CRM <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.contact.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.contact.types')}}">
+                                    Contact Types <span class="label label-warning pull-right">{{$navbarValues['contactTypesCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.lead.sources' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.lead.sources')}}">
+                                    Lead Source <span class="label label-warning pull-right">{{$navbarValues['leadSourcseCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.campaign.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.campaign.types')}}">
+                                    Campaign Types <span class="label label-warning pull-right">{{$navbarValues['campaignTypesCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.organization.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.organization.types')}}">
+                                    Organization Types <span class="label label-warning pull-right">{{$navbarValues['organizationTypesCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.titles' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.titles')}}">
+                                    Title <span class="label label-warning pull-right">{{$navbarValues['titlesCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.campaign.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.campaign.types')}}">
-                            Campaign Types <span class="label label-warning pull-right">{{$navbarValues['campaignTypesCount']}}</span>
-                        </a>
+
+                    <li>
+                        <a href="#"> Accounting <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.expense.accounts' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.expense.accounts')}}">
+                                    Expense Accounts <span class="label label-warning pull-right">{{$navbarValues['expenseAccountsCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.frequencies' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.frequencies')}}">
+                                    Frequencies <span class="label label-warning pull-right">{{$navbarValues['frequenciesCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.contact.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.contact.types')}}">
-                            Contact Types <span class="label label-warning pull-right">{{$navbarValues['contactTypesCount']}}</span>
-                        </a>
+
+                    <li>
+                        <a href="#"> Journal <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.labels' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.labels')}}">
+                                    Label <span class="label label-warning pull-right">{{$navbarValues['labelsCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.expense.accounts' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.expense.accounts')}}">
-                            Expense Accounts <span class="label label-warning pull-right">{{$navbarValues['expenseAccountsCount']}}</span>
-                        </a>
+
+                    <li>
+                        <a href="#"> Project <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.project.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.project.types')}}">
+                                    Project Types <span class="label label-warning pull-right">{{$navbarValues['projectTypesCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.frequencies' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.frequencies')}}">
-                            Frequencies <span class="label label-warning pull-right">{{$navbarValues['frequenciesCount']}}</span>
-                        </a>
+
+                    <li>
+                        <a href="#"> Store <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.sizes' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.sizes')}}">
+                                    Sizes <span class="label label-warning pull-right">{{$navbarValues['sizesCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.sub.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.sub.types')}}">
+                                    Sub Types <span class="label label-warning pull-right">{{$navbarValues['subTypesCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.types')}}">
+                                    Types <span class="label label-warning pull-right">{{$navbarValues['typesCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.labels' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.labels')}}">
-                            Label <span class="label label-warning pull-right">{{$navbarValues['labelsCount']}}</span>
-                        </a>
+
+
+                    <li>
+                        <a href="#"> Tudeme <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.cooking.skills' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.cooking.skills')}}">
+                                    Cooking Skill <span class="label label-warning pull-right">{{$navbarValues['cookingSkillCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.cooking.styles' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.cooking.styles')}}">
+                                    Cooking Style <span class="label label-warning pull-right">{{$navbarValues['cookingStyleCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.meal.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.meal.types')}}">
+                                    Meal Type <span class="label label-warning pull-right">{{$navbarValues['mealTyleCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.courses' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.courses')}}">
+                                    Course <span class="label label-warning pull-right">{{$navbarValues['courseCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.dietary.preferences' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.dietary.preferences')}}">
+                                    Dietary Pref <span class="label label-warning pull-right">{{$navbarValues['dietaryPreferenceCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.dish.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.dish.types')}}">
+                                    Dish Type <span class="label label-warning pull-right">{{$navbarValues['dishTypeCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.food.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.food.types')}}">
+                                    Food Type <span class="label label-warning pull-right">{{$navbarValues['foodTypeCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.cuisines' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.cuisines')}}">
+                                    Cuisine <span class="label label-warning pull-right">{{$navbarValues['cuisineCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.lead.sources' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.lead.sources')}}">
-                            Lead Source <span class="label label-warning pull-right">{{$navbarValues['leadSourcseCount']}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.organization.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.organization.types')}}">
-                            Organization Types <span class="label label-warning pull-right">{{$navbarValues['organizationTypesCount']}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.project.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.project.types')}}">
-                            Project Types <span class="label label-warning pull-right">{{$navbarValues['projectTypesCount']}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.sizes' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.sizes')}}">
-                            Sizes <span class="label label-warning pull-right">{{$navbarValues['sizesCount']}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.sub.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.sub.types')}}">
-                            Sub Types <span class="label label-warning pull-right">{{$navbarValues['subTypesCount']}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.tags' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.tags')}}">
-                            Tags <span class="label label-warning pull-right">{{$navbarValues['tagsCount']}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.titles' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.titles')}}">
-                            Title <span class="label label-warning pull-right">{{$navbarValues['titlesCount']}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.types' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.types')}}">
-                            Types <span class="label label-warning pull-right">{{$navbarValues['typesCount']}}</span>
-                        </a>
-                    </li>
+
+
                     <li class="nav-item {{ Route::currentRouteNamed( 'admin.typographies' ) ?  'active' : '' }}">
                         <a itemprop="url" class="nav-link" href="{{route( 'admin.typographies')}}">
                             Typographies <span class="label label-warning pull-right">{{$navbarValues['typographiesCount']}}</span>

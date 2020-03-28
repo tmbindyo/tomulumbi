@@ -12,7 +12,7 @@
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <strong><a href="{{route('admin.client.proofs')}}">Tudemes</a></strong>
+                    <strong><a href="{{route('admin.tudeme')}}">Tudemes</a></strong>
                 </li>
                 <li class="active">
                     <strong>Tudeme Create</strong>

@@ -14,11 +14,18 @@ use App\CampaignType;
 use App\Category;
 use App\Contact;
 use App\ContactType;
+use App\CookingSkill;
+use App\CookingStyle;
+use App\Course;
+use App\Cuisine;
 use App\Deal;
 use App\Design;
+use App\DietaryPreference;
+use App\DishType;
 use App\Email;
 use App\Expense;
 use App\ExpenseAccount;
+use App\FoodType;
 use App\Frequency;
 use App\Invoice;
 use App\Journal;
@@ -33,6 +40,7 @@ use App\Kit;
 use App\Label;
 use App\LeadSource;
 use App\Liability;
+use App\MealType;
 use App\Organization;
 use App\OrganizationType;
 use App\Payment;
@@ -99,6 +107,23 @@ trait NavbarTrait
         $typesCount = Type::count();
         // Get typographies count
         $typographiesCount = Typography::count();
+
+        // Get cooking skill count
+        $cookingSkillCount = CookingSkill::count();
+        // Get cooking style count
+        $cookingStyleCount = CookingStyle::count();
+        // Get meal types count
+        $mealTyleCount = MealType::count();
+        // Get courses count
+        $courseCount = Course::count();
+        // Get dietary preference count
+        $dietaryPreferenceCount = DietaryPreference::count();
+        // Get dish type count
+        $dishTypeCount = DishType::count();
+        // Get food type count
+        $foodTypeCount = FoodType::count();
+        // Get cuisine count
+        $cuisineCount = Cuisine::count();
 
 
 
@@ -192,6 +217,14 @@ trait NavbarTrait
             "titlesCount"=>$titlesCount,
             "typesCount"=>$typesCount,
             "typographiesCount"=>$typographiesCount,
+            "cookingSkillCount"=>$cookingSkillCount,
+            "cookingStyleCount"=>$cookingStyleCount,
+            "mealTyleCount"=>$mealTyleCount,
+            "courseCount"=>$courseCount,
+            "dietaryPreferenceCount"=>$dietaryPreferenceCount,
+            "dishTypeCount"=>$dishTypeCount,
+            "foodTypeCount"=>$foodTypeCount,
+            "cuisineCount"=>$cuisineCount,
 
             "campaignsCount"=>$campaignsCount,
             "leadsCount"=>$leadsCount,

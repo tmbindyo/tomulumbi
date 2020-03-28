@@ -12,6 +12,12 @@ class DishType extends Model
     use SoftDeletes, UuidTrait;
     public $incrementing = false;
 
+    // children
+    public function meals()
+    {
+        return $this->hasMany('App\Meal');
+    }
+
     // Parents
     public function status()
     {

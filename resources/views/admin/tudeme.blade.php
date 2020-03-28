@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-9">
+        <div class="col-lg-5">
             <h2>Tudemes</h2>
             <ol class="breadcrumb">
                 <li>
@@ -16,8 +16,9 @@
                 </li>
             </ol>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-7">
             <div class="title-action">
+                <a href="{{route('admin.tudeme.homepage')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Homepage </a>
                 <a href="{{route('admin.tudeme.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Tudeme </a>
             </div>
         </div>
