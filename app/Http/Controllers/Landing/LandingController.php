@@ -7,6 +7,7 @@ use App\Mail\TestEmail;
 use App\Traits\ViewTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\CustomerEmail;
 use Illuminate\Support\Facades\Mail;
 
 class LandingController extends Controller
@@ -36,6 +37,12 @@ class LandingController extends Controller
         $email->message = $request->message;
         $email->status_id = "9c267c79-162e-4ae1-9340-57a4c5ca5e81";
         $email->save();
+
+        $findEmail = Email::findOrFail($email->id);
+
+        // send email notification
+        Mail::to('tmbindyo@fluidtechglobal.com')->send(new CustomerEmail($findEmail));
+
         // Send email to client saying they shall be contacted
         return back()->withSuccess(__('Thank you for reaching out, please wait for us to get back to you.'));
 

@@ -92,6 +92,10 @@ Route::get('/tudeme/contact', 'Landing\TudemeController@contact')->name('tudeme.
 Route::get('/tudeme', 'Landing\TudemeController@index')->name('tudeme');
 Route::get('/tudeme/recipe/{recipie_id}', 'Landing\TudemeController@recipe')->name('tudeme.recipe');
 
+Route::post('/tudeme/search', 'Landing\TudemeController@search')->name('tudeme.search');
+
+Route::post('/tudeme/about', 'Landing\TudemeController@about')->name('tudeme.about');
+
 
 // Projects
 Route::get('/letters', 'Landing\LetterController@letters')->name('letters');

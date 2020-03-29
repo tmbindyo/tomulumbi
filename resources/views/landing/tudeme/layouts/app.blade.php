@@ -13,15 +13,10 @@
     ================================================== -->
     <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap" rel="stylesheet">
+    <!-- css Section Begin -->
+        @include('landing.tudeme.layouts.css')
+    <!-- css End -->
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="{{ asset('themes/tudeme/yummy') }}/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('themes/tudeme/yummy') }}/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('themes/tudeme/yummy') }}/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('themes/tudeme/yummy') }}/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset('themes/tudeme/yummy') }}/css/style.css" type="text/css">
 </head>
 
 <body>
@@ -43,7 +38,7 @@
                 <strong>Success!</strong> {{ session('success') }}
             </div>
         @endif
-    
+
         @if (session('info'))
             <div class="alert alert-info alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
@@ -51,7 +46,7 @@
                 <strong>Info!</strong> {{ session('info') }}
             </div>
         @endif
-    
+
         @if (session('warning'))
             <div class="alert alert-warning alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
@@ -59,7 +54,7 @@
                 <strong>Warning!</strong> {{ session('warning') }}
             </div>
         @endif
-    
+
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -69,7 +64,7 @@
                 </div>
             @endforeach
         @endif
-    
+
     </div>
     <!-- Popover End -->
 
@@ -83,15 +78,12 @@
 
     <!-- Search model -->
 	    @include('landing.tudeme.layouts.search')
-	<!-- Search model end -->
+    <!-- Search model end -->
 
-    <!-- Js Plugins -->
-    <script src="{{ asset('themes/tudeme/yummy') }}/js/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('themes/tudeme/yummy') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('themes/tudeme/yummy') }}/js/jquery.slicknav.js"></script>
-    <script src="{{ asset('themes/tudeme/yummy') }}/js/jquery.nice-select.min.js"></script>
-    <script src="{{ asset('themes/tudeme/yummy') }}/js/mixitup.min.js"></script>
-    <script src="{{ asset('themes/tudeme/yummy') }}/js/main.js"></script>
+    <!-- js model -->
+	    @include('landing.tudeme.layouts.js')
+	<!-- js model end -->
+
 </body>
 
 </html>

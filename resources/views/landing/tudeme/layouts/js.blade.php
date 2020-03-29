@@ -1,3 +1,16 @@
+<!-- Js Plugins -->
+    <script src="{{ asset('themes/tudeme/yummy') }}/js/jquery-3.3.1.min.js"></script>
+    <script src="{{ asset('themes/tudeme/yummy') }}/js/bootstrap.min.js"></script>
+    <script src="{{ asset('themes/tudeme/yummy') }}/js/jquery.slicknav.js"></script>
+    <script src="{{ asset('themes/tudeme/yummy') }}/js/jquery.nice-select.min.js"></script>
+    <script src="{{ asset('themes/tudeme/yummy') }}/js/mixitup.min.js"></script>
+    <script src="{{ asset('themes/tudeme/yummy') }}/js/main.js"></script>
+
+    <!-- Select2 -->
+    <script src="{{ asset('inspinia') }}/js/plugins/select2/select2.full.min.js"></script>
+
+
+
 
     <!-- Mainly scripts -->
     <script src="{{ asset('inspinia') }}/js/plugins/fullcalendar/moment.min.js"></script>

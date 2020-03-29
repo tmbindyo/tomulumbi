@@ -269,7 +269,7 @@ ol {
     height: 100%;
     left: 0;
     top: 0;
-    background: #000;
+    background: #fffff2;
     z-index: 99999;
 }
 
@@ -2618,4 +2618,7 @@ ol {
     .map .map-content {
         right: calc(50% - 131px);
     }
+}
+
+
 }

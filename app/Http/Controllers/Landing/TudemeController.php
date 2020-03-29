@@ -267,8 +267,18 @@ class TudemeController extends Controller
         $tudeme = Tudeme::where('id',$recipie_id)->with('user','status','cover_image','spread','icon','notes.meal','tudeme_tudeme_types.tudeme_type','tudeme_tudeme_tags.tudeme_tag','albums')->first();
         $tudemeMeals = Meal::where('tudeme_id',$tudeme->id)->with('cooking_skill','dish_type','food_type','meal_type','notes','tudeme','meal_cooking_styles','meal_courses','meal_dietary_preferences','meal_ingredients.measurment','meal_ingredients.ingredient','instructions')->withCount('instructions')->get();
 
+        $cookingSkills = CookingSkill::all();
         // return $tudeme;
-        return view('landing.tudeme.recipe',compact('tudeme','tudemeMeals','cuisines'));
+        return view('landing.tudeme.recipe',compact('tudeme','tudemeMeals','cuisines','cookingSkills'));
+    }
+
+    public function search(Request $request)
+    {
+
+        return $request;
+        $journals = Journal::where('is_tudeme',True)->with('user','status')->orderBy('created_at', 'desc')->get();
+        return view('landing.tudeme.blog',compact('journals'));
+
     }
 
 }
