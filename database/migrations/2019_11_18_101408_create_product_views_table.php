@@ -18,7 +18,7 @@ class CreateProductViewsTable extends Migration
 
             $table->longText('request')->nullable();
             $table->integer('number');
-            $table->string('cookie');
+            $table->string('cookie')->nullable();
 
             $table->uuid('product_id')->nullable();
             $table->uuid('product_gallery_id')->nullable();

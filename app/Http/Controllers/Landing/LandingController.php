@@ -8,6 +8,7 @@ use App\Traits\ViewTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\CustomerEmail;
+use App\Mail\DailyToDos;
 use Illuminate\Support\Facades\Mail;
 
 class LandingController extends Controller
@@ -53,6 +54,13 @@ class LandingController extends Controller
 
         $data = ['message' => 'This is a test!'];
         Mail::to('tmbindyo@fluidtechglobal.com')->send(new TestEmail($data));
+
+    }
+
+    public function test()
+    {
+
+        Mail::to('tmbindyo@fluidtechglobal.com')->send(new DailyToDos());
 
     }
 

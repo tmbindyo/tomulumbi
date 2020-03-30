@@ -19,7 +19,19 @@
                             </ul>
                         </div>
                     @endif
-
+                    <br>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_event" type="checkbox" class="js-switch_2" />
+                                    <br>
+                                    <i>event.</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="has-warning">

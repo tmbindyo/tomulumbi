@@ -1,6 +1,7 @@
 <?php
 
 
+Route::get('/test', 'Landing\LandingController@test')->name('test');
 
 // Removed for coming soon
 Route::get('/pending', 'Landing\LandingController@index')->name('index');
@@ -15,6 +16,7 @@ Auth::routes();
 
 // Welcome
 Route::get('/welcome', 'Landing\LandingController@welcome')->name('welcome');
+
 Route::get('/test/email', 'Landing\LandingController@testEmail')->name('test.email');
 
 

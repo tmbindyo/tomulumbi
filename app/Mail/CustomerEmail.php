@@ -34,7 +34,6 @@ class CustomerEmail extends Mailable
     public function build()
     {
         return $this->view('email_templates.customer_email')
-        // return $this->view('email_templates.app')
         ->with(['email' => $this->email]);
     }
 }

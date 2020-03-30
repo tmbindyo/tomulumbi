@@ -18,7 +18,7 @@ class CreateTudemeViewsTable extends Migration
 
             $table->longText('request')->nullable();
             $table->integer('number');
-            $table->string('cookie');
+            $table->string('cookie')->nullable();
 
             $table->boolean('is_tudeme')->nullable();
             $table->uuid('tudeme_id')->nullable();

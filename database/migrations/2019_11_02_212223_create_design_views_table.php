@@ -18,7 +18,7 @@ class CreateDesignViewsTable extends Migration
 
             $table->longText('request')->nullable();
             $table->integer('number');
-            $table->string('cookie');
+            $table->string('cookie')->nullable();
 
             $table->uuid('design_id')->nullable();
             $table->uuid('design_work_id')->nullable();

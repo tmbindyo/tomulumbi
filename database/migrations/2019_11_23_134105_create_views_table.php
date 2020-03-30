@@ -17,7 +17,7 @@ class CreateViewsTable extends Migration
             $table->uuid('id')->primary();
 
             $table->string('ip');
-            $table->string('cookie');
+            $table->string('cookie')->nullable();
             $table->text('route');
 
             $table->uuid('view_type_id');

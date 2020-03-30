@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-6 col-lg-offset-3">
+            <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox">
 
                     <div class="ibox-content">
@@ -49,8 +49,29 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" placeholder="Amount" class="form-control input-lg">
-                                        <i>amount</i>
+                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="0" class="form-control input-lg">
+                                        <i>principal</i>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="has-warning">
+                                                <input type="number" id="interest" name="interest" oninput="getPercentAmount();" required="required" value="0" max="100" step="0.00001" class="form-control input-lg">
+                                                <i>key in interest in percentage</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="has-warning">
+                                                <input type="number" id="interest_amount" name="interest_amount" oninput="getPercentFromAmount();" required="required" value="0" class="form-control input-lg">
+                                                <i>key in interest amount</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="total" name="total" required="required" readonly value="0" class="form-control input-lg">
+                                                <i>total</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">

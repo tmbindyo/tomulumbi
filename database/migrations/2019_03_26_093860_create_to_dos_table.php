@@ -74,6 +74,8 @@ class CreateToDosTable extends Migration
             $table->boolean('is_tudeme');
             $table->uuid('tudeme_id')->nullable();
 
+            $table->boolean('is_event');
+
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 

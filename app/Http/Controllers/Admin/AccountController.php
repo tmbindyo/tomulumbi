@@ -650,14 +650,18 @@ class AccountController extends Controller
 
         // calculations
         $account = Account::findOrFail($request->account);
-        $accountBalance = doubleval($account->balance) + doubleval($request->amount);
+        $accountBalance = doubleval($account->balance) + doubleval($request->total);
 
         // store liability record
         $liability = new Liability();
         $liability->reference = $reference;
         $liability->about = $request->about;
 
-        $liability->amount = $request->amount;
+        $liability->total = $request->total;
+        $liability->principal = $request->principal;
+        $liability->interest = $request->interest;
+        $liability->interest_amount = $request->interest_amount;
+        $liability->balance = $request->total;
         $liability->paid = 0;
 
         $liability->date = date('Y-m-d', strtotime($request->date));
@@ -673,6 +677,7 @@ class AccountController extends Controller
         // update accounts balance
         $account->balance = $accountBalance;
         $account->save();
+
 
         return redirect()->route('admin.liability.show',$liability->id)->withSuccess('Liability created!');
     }
@@ -786,14 +791,18 @@ class AccountController extends Controller
         if($request->amount > $account->balance){
             return back()->withWarning(__('This loan will overdraft the account.'));
         }
-        $accountBalance = doubleval($account->balance) - doubleval($request->amount);
+        $accountBalance = doubleval($account->balance) - doubleval($request->total);
 
         // store loan record
         $loan = new Loan();
         $loan->reference = $reference;
         $loan->about = $request->about;
 
-        $loan->amount = $request->amount;
+        $loan->total = $request->total;
+        $loan->principal = $request->principal;
+        $loan->interest = $request->interest;
+        $loan->interest_amount = $request->interest_amount;
+        $loan->balance = $request->total;
         $loan->paid = 0;
 
         $loan->date = date('Y-m-d', strtotime($request->date));

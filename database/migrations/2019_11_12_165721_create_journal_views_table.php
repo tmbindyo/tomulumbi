@@ -18,7 +18,7 @@ class CreateJournalViewsTable extends Migration
 
             $table->longText('request')->nullable();
             $table->integer('number');
-            $table->string('cookie');
+            $table->string('cookie')->nullable();
 
             $table->uuid('journal_id')->nullable();
             $table->uuid('journal_gallery_id')->nullable();

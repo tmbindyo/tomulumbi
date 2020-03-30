@@ -16,7 +16,7 @@ class CreateAlbumDownloadsTable extends Migration
         Schema::create('album_downloads', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('cookie');
+            $table->string('cookie')->nullable();
             $table->uuid('album_view_id');
             $table->uuid('album_id');
 

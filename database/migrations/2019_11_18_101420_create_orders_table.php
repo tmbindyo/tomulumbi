@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('cookie');
+            $table->string('cookie')->nullable();
             $table->string('email');
 
             $table->string('order_number');

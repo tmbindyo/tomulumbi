@@ -238,6 +238,12 @@ class ToDoController extends Controller
             $todo->is_tudeme = False;
         }
 
+        if($request->is_event){
+            $todo->is_event = True;
+        }else{
+            $todo->is_event = False;
+        }
+
         $today = date('Y-m-d');
         if(date('Y-m-d', strtotime($request->start_date))<$today){
             $todo->status_id = "99372fdc-9ca0-4bca-b483-3a6c95a73782";

@@ -320,7 +320,7 @@
                                                                 <td width="100%" height="44" style="line-height:1px;"></td>
                                                             </tr>
                                                             <tr>
-                                                                <td width="100%" align="center" valign="middle" style="margin:0px; padding:0px; font-size:24px; color:#FFFFFF; font-family: 'Open Sans', Helvetica, Arial, Verdana, sans-serif; font-weight:bold; text-transform:uppercase;">Email Notification</td>
+                                                                <td width="100%" align="center" valign="middle" style="margin:0px; padding:0px; font-size:24px; color:#FFFFFF; font-family: 'Open Sans', Helvetica, Arial, Verdana, sans-serif; font-weight:bold; text-transform:uppercase;">@yield('title')</td>
                                                             </tr>
                                                             <tr>
                                                                 <td width="100%" height="48" style="line-height:1px;"></td>
@@ -343,7 +343,7 @@
                                                             {{--  email template body begin  --}}
                                                             @yield ('body')
                                                             {{--  email template body end  --}}
-                                                            
+
 
 
 

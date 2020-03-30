@@ -18,7 +18,7 @@ class CreateProjectViewsTable extends Migration
 
             $table->longText('request')->nullable();
             $table->integer('number');
-            $table->string('cookie');
+            $table->string('cookie')->nullable();
 
             $table->uuid('project_id')->nullable();
             $table->uuid('project_gallery_id')->nullable();
