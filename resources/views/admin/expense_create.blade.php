@@ -50,7 +50,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <select name="expense_account" class="select-2 form-control input-lg">
+                                                <select name="expense_account" class="select-2 form-control input-lg" required>
                                                     <option selected disabled>Select Expense Account</option>
                                                     @foreach($expenseAccounts as $expenseAccount)
                                                         <option value="{{$expenseAccount->id}}">{{$expenseAccount->name}}</option>
@@ -403,7 +403,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="has-warning">
-                                                <textarea name="notes" placeholder="Notes" class="form-control" rows="7"></textarea>
+                                                <textarea required name="notes" placeholder="Notes" class="form-control" rows="7"></textarea>
                                             </div>
                                         </div>
                                     </div>
