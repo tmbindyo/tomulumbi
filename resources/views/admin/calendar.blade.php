@@ -110,6 +110,8 @@
                     color: '#E2F1AF',
                     @elseif($toDo->is_tudeme == True)
                     color: '#C2F970',
+                    @elseif($toDo->is_account == True)
+                    color: '#560176',
                     @endif
                     start: new Date({{$toDo->start_year}}, {{$toDo->start_month-1}}, {{$toDo->start_day}}, {{$toDo->start_hour}}, {{$toDo->start_minute}}),
                     @if($toDo->is_end_date == 1)

@@ -1,5 +1,5 @@
 <div class="modal inmodal" id="toDoRegistration" tabindex="-1" role="dialog" aria-labelledby="tagRegistrationLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -19,18 +19,9 @@
                             </ul>
                         </div>
                     @endif
-                    <br>
+
                     <div class="row">
-                        <div class="col-md-2">
-                            <div class="has-warning">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <input name="is_event" type="checkbox" class="js-switch_2" />
-                                    <br>
-                                    <i>event.</i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <div class="has-warning">
                                 <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
                                 <i>Give your to do a name</i>
@@ -112,11 +103,35 @@
                         <div class="col-md-12">
                             <div class="has-warning">
                                 <textarea id="notes" rows="6" name="notes" class="resizable_textarea form-control input-lg" required="required" placeholder="Notes..."></textarea>
-                                <i>notes.</i>
+                                <i>Due date.</i>
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="has-warning">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <input name="is_account" type="checkbox" class="js-switch_2" checked />
+                                    <br>
+                                    <i>Check if it belongs to a account.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="has-warning">
+                                <select name="account" class="select2_demo_2 form-control input-lg">
+                                    <option>Select account</option>
+
+                                    <option value="{{$account->id}}" selected>{{$account->name}}</option>
+                                </select>
+                                <i>What account does the to do belong to</i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="ln_solid"></div>
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-block btn-outline btn-lg btn-success mt-4">{{ __('SAVE') }}</button>

@@ -97,7 +97,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
-                                        <i>Give a brief description on what the project is about</i>
+                                        <i>description</i>
                                     </div>
 
                                     <hr>

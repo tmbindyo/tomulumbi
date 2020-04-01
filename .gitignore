@@ -10,10 +10,5 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /.idea
-/public/work/client/proof/
-/public/work/design/
-/public/work/journal/
-/public/work/personal/album/
-/public/work/product/
-/public/work/project/
+/public/work/
 

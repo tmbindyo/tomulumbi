@@ -12,6 +12,10 @@ class ToDo extends Model
     public $incrementing = false;
 
     // Parents
+    public function account()
+    {
+        return $this->belongsTo('App\Account');
+    }
     public function album()
     {
         return $this->belongsTo('App\Album');

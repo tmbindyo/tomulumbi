@@ -345,7 +345,7 @@
                                             <div class="form-group">
                                                 <label>Description</label>
                                                 <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$design->description}}</textarea>
-                                                <i>Give a brief description on what the project is about</i>
+                                                <i>description</i>
                                             </div>
                                         </div>
 

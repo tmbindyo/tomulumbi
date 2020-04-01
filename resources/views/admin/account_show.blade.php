@@ -63,11 +63,6 @@
                                         </div>
                                         <br>
                                         <div class="has-warning">
-                                            <input type="number" name="goal" value="{{$account->goal}}" class="form-control input-lg">
-                                            <i>goal</i>
-                                        </div>
-                                        <br>
-                                        <div class="has-warning">
                                             <textarea rows="5" name="notes" class="form-control input-lg" >{{$account->notes}}</textarea>
                                             <i>notes</i>
                                         </div>
@@ -654,7 +649,118 @@
                 </div>
             </div>
         </div>
+
+
+
+        {{--    To Dos    --}}
+        <div class="row m-t-lg">
+            <div class="col-lg-12">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <button type="button" class="btn btn-danger m-r-sm">{{$account->pending_to_dos_count}}</button>
+                            Pending
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary m-r-sm">{{$account->in_progress_to_dos_count}}</button>
+                            In Progress
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-info m-r-sm">{{$account->completed_to_dos_count}}</button>
+                           Overdue
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-info m-r-sm">{{$account->overdue_to_dos_count}}</button>
+                            Completed
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>To Dos</h5>
+                        <div class="ibox-tools">
+                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <ul class="pending-to-do">
+                            @foreach($account->pending_to_dos as $pendingToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$pendingToDo->due_date}}</small>
+                                        <h4>{{$pendingToDo->name}}</h4>
+                                        <p>{{$pendingToDo->notes}}.</p>
+                                        @if($pendingToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('admin.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <ul class="in-progress-to-do">
+                            @foreach($account->in_progress_to_dos as $inProgressToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$inProgressToDo->due_date}}</small>
+                                        <h4>{{$inProgressToDo->name}}</h4>
+                                        <p>{{$inProgressToDo->notes}}.</p>
+                                        @if($inProgressToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('admin.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="overdue-to-do">
+                            @foreach($account->completed_to_dos as $overdueToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$overdueToDo->due_date}}</small>
+                                        <h4>{{$overdueToDo->name}}</h4>
+                                        <p>{{$overdueToDo->notes}}.</p>
+                                        @if($overdueToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
+                                        @endif
+                                        @if($overdueToDo->status->name === "Pending")
+                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                        @elseif($overdueToDo->status->name === "In progress")
+                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <ul class="completed-to-do">
+                            @foreach($account->overdue_to_dos as $completedToDo)
+                                <li>
+                                    <div>
+                                        <small>{{$completedToDo->due_date}}</small>
+                                        <h4>{{$completedToDo->name}}</h4>
+                                        <p>{{$completedToDo->notes}}.</p>
+                                        @if($completedToDo->is_design === 1)
+                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
+                                        @endif
+                                        <a href="{{route('admin.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
 
 @endsection
+
+@include('admin.layouts.modals.account_to_do')

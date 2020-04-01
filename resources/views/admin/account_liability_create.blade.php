@@ -100,14 +100,14 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_account form-control input-lg">
+                                        <select name="account" class="select2_demo_account form-control input-lg" required="required">
                                             <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
                                         </select>
                                         <i>account</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="contact" class="select2_demo_contact form-control input-lg">
+                                        <select name="contact" class="select2_demo_contact form-control input-lg" required="required">
                                             <option selected disabled >Select Contact</option>
                                             @foreach ($contacts as $contact)
                                                 <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
@@ -118,7 +118,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <textarea rows="5" id="about" name="about" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
-                                        <i>Give a brief description on what the project is about</i>
+                                        <i>description</i>
                                     </div>
 
 

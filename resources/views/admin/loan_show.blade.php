@@ -82,9 +82,19 @@
                                         </div>
                                     @endif
                                     <br>
-                                    <div class="has-warning">
-                                        <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="{{$loan->principal}}" class="form-control input-lg">
-                                        <i>principal</i>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="principal" name="principal" oninput="getPercentAmount();" required="required" value="{{$loan->principal}}" class="form-control input-lg">
+                                                <i>principal</i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <input type="number" id="paid" name="paid" readonly value="{{$loan->paid}}" class="form-control input-lg">
+                                                <i>paid</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="row">
@@ -151,7 +161,7 @@
                                     <br>
                                     <div class="has-warning">
                                         <textarea rows="5" id="about" name="about" required="required" class="form-control input-lg">{{$loan->about}}</textarea>
-                                        <i>Give a brief description on what the project is about</i>
+                                        <i>description</i>
                                     </div>
 
                                     <hr>

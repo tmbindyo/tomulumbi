@@ -127,6 +127,13 @@ class ToDoController extends Controller
             $todo->is_end_time = False;
         }
 
+        // account
+        if($request->is_account){
+            $todo->is_account = True;
+            $todo->account_id = $request->account;
+        }else{
+            $todo->is_album = False;
+        }
         // album
         if($request->is_album){
             $todo->is_album = True;

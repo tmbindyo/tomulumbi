@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
+            <div class="col-lg-6 col-lg-offset-3">
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
@@ -46,14 +46,21 @@
 
                                 <div class="col-md-12">
                                     <br>
+                                    <!-- name -->
                                     <div class="has-warning">
                                         <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
                                         <i> name</i>
                                     </div>
                                     <br>
+                                    <!-- balance -->
                                     <div class="has-warning">
                                         <input type="number" id="balance" name="balance" value="0" required="required" placeholder="Balance" class="form-control input-lg">
                                         <i>balance</i>
+                                    </div>
+                                    <br>
+                                    <!-- notes -->
+                                    <div class="has-warning">
+                                        <textarea name="notes" required placeholder="Reason" class="form-control" rows="7"></textarea>
                                     </div>
 
                                     <hr>

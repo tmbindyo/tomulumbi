@@ -26,7 +26,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-8 col-md-offset-2">
+            <div class="col-lg-6 col-md-offset-3">
                 <div class="ibox">
 
                     <div class="ibox-content">

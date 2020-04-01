@@ -71,6 +71,7 @@ class AccountController extends Controller
         $account = new Account();
         $account->reference = $reference;
         $account->name = $request->name;
+        $account->notes = $request->notes;
         $account->balance = $request->balance;
         $account->user_id = Auth::user()->id;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -153,7 +154,6 @@ class AccountController extends Controller
         $accountExists = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->first();
         $account->name = $request->name;
-        $account->goal = $request->goal;
         $account->notes = $request->notes;
         $account->user_id = Auth::user()->id;
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
@@ -652,6 +652,10 @@ class AccountController extends Controller
         $account = Account::findOrFail($request->account);
         $accountBalance = doubleval($account->balance) + doubleval($request->total);
 
+        // check if principal amount is 0
+        if ($request->principal == 0){
+            return redirect()->route('admin.account.liability.create',$account->id)->withWarning('Principal can not be 0!');
+        }
         // store liability record
         $liability = new Liability();
         $liability->reference = $reference;

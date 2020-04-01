@@ -270,7 +270,7 @@
                                         <div class="has-warning">
                                             <div class="form-group">
                                                 <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$project->description}}</textarea>
-                                                <i>Give a brief description on what the project is about</i>
+                                                <i>description</i>
                                             </div>
                                         </div>
 

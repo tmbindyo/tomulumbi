@@ -82,7 +82,7 @@
 
                                         {{-- notes --}}
                                         <div class="has-warning">
-                                            <textarea name="notes" placeholder="Reason" class="form-control" rows="7"></textarea>
+                                            <textarea name="notes" required placeholder="Reason" class="form-control" rows="7"></textarea>
                                         </div>
 
                                         <hr>

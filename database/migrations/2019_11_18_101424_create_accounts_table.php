@@ -20,7 +20,6 @@ class CreateAccountsTable extends Migration
             $table->string('reference', 200);
             $table->string('name', 200);
             $table->decimal('balance',20,2);
-            $table->decimal('goal',20,2);
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');

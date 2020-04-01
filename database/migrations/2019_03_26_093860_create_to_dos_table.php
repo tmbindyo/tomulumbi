@@ -73,6 +73,8 @@ class CreateToDosTable extends Migration
             $table->uuid('asset_action_id')->nullable();
             $table->boolean('is_tudeme');
             $table->uuid('tudeme_id')->nullable();
+            $table->boolean('is_account');
+            $table->uuid('account_id')->nullable();
 
             $table->boolean('is_event');
 
