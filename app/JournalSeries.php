@@ -34,6 +34,10 @@ class JournalSeries extends Model
     {
         return $this->hasMany('App\ToDo');
     }
+    public function tudeme()
+    {
+        return $this->belongsTo('App\Tudeme');
+    }
 
     // to dos
     public function pending_to_dos()

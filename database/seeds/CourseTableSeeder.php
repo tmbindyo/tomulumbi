@@ -19,61 +19,19 @@ class CourseTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Main Dish',
+                'name' => "Hors d'oeuvres",
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Breakfast',
+                'name' => 'Amuse-bouche',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Dressing',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Sauce',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Ice Cream',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Paratha',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Cupcake',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Casserole',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Salad',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Sandwich',
+                'name' => 'Entree',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
@@ -85,103 +43,19 @@ class CourseTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Stew',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Lunch',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Kids',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Brunch',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Kebab',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Cookies',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
                 'name' => 'Appetizer',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Chocolate',
+                'name' => 'Salad',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Side',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Curry',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Dinner',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Dip',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Wrap',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Marinade',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Condiment',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Smoothie',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Milk Shake',
+                'name' => 'Fish',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
@@ -193,29 +67,10 @@ class CourseTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Cake',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Beverage',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Cocktail',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Pancake',
+                'name' => 'Mignardise',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ]
-
         ];
 
         foreach ($data as $entry) {

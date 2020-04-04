@@ -12,7 +12,7 @@
                     <div class="col-lg-6 order-lg-2">
                         <div class="pt-recipe-item large-item">
                             <a href="{{route('tudeme.recipe',$tudemeCenterTopSection->tudeme->id)}}">
-                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeCenterTopSection->tudeme->cover_image->pixels500 }}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeCenterTopSection->tudeme->cover_image->pixels1000 }}">
                                     <i class="fa fa-plus"></i>
                                 </div>
                             </a>
@@ -25,7 +25,7 @@
                     <div class="col-lg-3 col-md-6 order-lg-1">
                         <div class="pt-recipe-item">
                             <a href="{{route('tudeme.recipe',$tudemeTopLeftTopSection->tudeme->id)}}">
-                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopLeftTopSection->tudeme->cover_image->pixels500 }}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopLeftTopSection->tudeme->cover_image->pixels1000 }}">
                                     <i class="fa fa-plus"></i>
                                 </div>
                             </a>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="pt-recipe-item">
                             <a href="{{route('tudeme.recipe',$tudemeBottomLeftTopSection->tudeme->id)}}">
-                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeBottomLeftTopSection->tudeme->cover_image->pixels500 }}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeBottomLeftTopSection->tudeme->cover_image->pixels1000 }}">
                                     <i class="fa fa-plus"></i>
                                 </div>
                             </a>
@@ -47,7 +47,7 @@
                     <div class="col-lg-3 col-md-6 order-lg-3">
                         <div class="pt-recipe-item">
                             <a href="{{route('tudeme.recipe',$tudemeTopRightTopSection->tudeme->id)}}">
-                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopRightTopSection->tudeme->cover_image->pixels500 }}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopRightTopSection->tudeme->cover_image->pixels1000 }}">
                                     <i class="fa fa-plus"></i>
                                 </div>
                             </a>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="pt-recipe-item">
                             <a href="{{route('tudeme.recipe',$tudemeBottomRightTopSection->tudeme->id)}}">
-                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeBottomRightTopSection->tudeme->cover_image->pixels500 }}">
+                                <div class="pt-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeBottomRightTopSection->tudeme->cover_image->pixels1000 }}">
                                     <i class="fa fa-plus"></i>
                                 </div>
                             </a>
@@ -89,44 +89,52 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="top-recipe-item large-item">
-                        <a href="{{route('tudeme.recipe',$tudemeTopFeaturedRecipie->tudeme->id)}}">
-                            <div class="top-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopFeaturedRecipie->tudeme->cover_image->pixels500 }}">
-                                <i class="fa fa-plus"></i>
-                            </div>
-                        </a>
-                        <div class="top-recipe-text">
-                            <div class="cat-name">Desert</div>
+                    @if($tudemeTopFeaturedRecipie)
+                        <div class="top-recipe-item large-item">
                             <a href="{{route('tudeme.recipe',$tudemeTopFeaturedRecipie->tudeme->id)}}">
-                                <h4>{{$tudemeTopFeaturedRecipie->tudeme->name}}</h4>
+                                <div class="top-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopFeaturedRecipie->tudeme->cover_image->pixels1000 }}">
+                                    <i class="fa fa-plus"></i>
+                                </div>
                             </a>
-                            <p>{{$tudemeTopFeaturedRecipie->tudeme->description}}.</p>
+                            <div class="top-recipe-text">
+                                @foreach($tudemeTopFeaturedRecipie->tudeme->tudeme_tudeme_types->slice(0, 3) as $tudeme_tudeme_type)
+                                    <div class="cat-name">{{$tudeme_tudeme_type->tudeme_type->name}}</div>
+                                @endforeach
+                                <a href="{{route('tudeme.recipe',$tudemeTopFeaturedRecipie->tudeme->id)}}">
+                                    <h4>{{$tudemeTopFeaturedRecipie->tudeme->name}}</h4>
+                                </a>
+                                <p>{{$tudemeTopFeaturedRecipie->tudeme->description}}.</p>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 <div class="col-lg-6">
-                    @foreach($tudemeTopRecipies as $tudemeTopRecipie)
-                        <div class="top-recipe-item">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <a href="{{route('tudeme.recipe',$tudemeTopRecipie->tudeme->id)}}">
-                                        <div class="top-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopRecipie->tudeme->cover_image->pixels500 }}">
-                                            <i class="fa fa-plus"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-sm-8">
-                                    <div class="top-recipe-text">
-                                        <div class="cat-name">Vegan</div>
+                    @if($tudemeTopRecipies)
+                        @foreach($tudemeTopRecipies as $tudemeTopRecipie)
+                            <div class="top-recipe-item">
+                                <div class="row">
+                                    <div class="col-sm-4">
                                         <a href="{{route('tudeme.recipe',$tudemeTopRecipie->tudeme->id)}}">
-                                            <h4>{{$tudemeTopRecipie->tudeme->name}}</h4>
+                                            <div class="top-recipe-img set-bg" data-setbg="{{ asset('') }}{{ $tudemeTopRecipie->tudeme->cover_image->pixels500 }}">
+                                                <i class="fa fa-plus"></i>
+                                            </div>
                                         </a>
-                                        <p>{{$tudemeTopRecipie->tudeme->description}}.</p>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="top-recipe-text">
+                                            @foreach($tudemeTopRecipie->tudeme->tudeme_tudeme_types->slice(0, 3) as $tudeme_tudeme_type)
+                                                <div class="cat-name">{{$tudeme_tudeme_type->tudeme_type->name}}</div>
+                                            @endforeach
+                                            <a href="{{route('tudeme.recipe',$tudemeTopRecipie->tudeme->id)}}">
+                                                <h4>{{$tudemeTopRecipie->tudeme->name}}</h4>
+                                            </a>
+                                            <p>{{$tudemeTopRecipie->tudeme->description}}.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -140,55 +148,31 @@
                 <div class="col-lg-12 text-center">
                     <div class="filter-item">
                         <ul>
-                            <li class="active" data-filter="*">Vegetarian</li>
-                            <li data-filter=".mostpopular">Most popular</li>
-                            <li data-filter=".meatlover">Meat Lover</li>
-                            <li data-filter=".glutenfree">Gluten Free</li>
+                            <li class="active" data-filter="*">All</li>
+                            @foreach($tudemeTypes as $tudemeType)
+                                <li data-filter=".{{$tudemeType->name}}">{{$tudemeType->name}}</li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="cf-filter" id="category-filter">
-                <div class="cf-item mix all mostpopular">
-                    <div class="cf-item-pic">
-                        <img src="{{ asset('themes/tudeme/yummy') }}/img/cate-filter/cate-filter-1.jpg" alt="">
+                @foreach ($tudemes as $tudeme)
+                    <div class="cf-item mix all @foreach($tudeme->tudeme_tudeme_types as $tudeme_type) {{$tudeme_type->tudeme_type->name}} @endforeach">
+                        <div class="cf-item-pic">
+                            <a href="{{route('tudeme.recipe',$tudeme->id)}}">
+                                <img src="{{ asset('') }}{{ $tudeme->icon->pixels500 }}" alt="">
+                            </a>
+                        </div>
+                        <div class="cf-item-text">
+                            <a href="{{route('tudeme.recipe',$tudeme->id)}}">
+                                <h5>{{$tudeme->name}}</h5>
+                            </a>
+                        </div>
                     </div>
-                    <div class="cf-item-text">
-                        <h5>Sunday Brunch: Spaghetti and Eggs Recipe</h5>
-                    </div>
-                </div>
-                <div class="cf-item mix all mostpopular">
-                    <div class="cf-item-pic">
-                        <img src="{{ asset('themes/tudeme/yummy') }}/img/cate-filter/cate-filter-2.jpg" alt="">
-                    </div>
-                    <div class="cf-item-text">
-                        <h5>Sunday Brunch: Spaghetti and Eggs Recipe</h5>
-                    </div>
-                </div>
-                <div class="cf-item mix all meatlover mostpopular">
-                    <div class="cf-item-pic">
-                        <img src="{{ asset('themes/tudeme/yummy') }}/img/cate-filter/cate-filter-3.jpg" alt="">
-                    </div>
-                    <div class="cf-item-text">
-                        <h5>Sunday Brunch: Spaghetti and Eggs Recipe</h5>
-                    </div>
-                </div>
-                <div class="cf-item mix all meatlover">
-                    <div class="cf-item-pic glutenfree">
-                        <img src="{{ asset('themes/tudeme/yummy') }}/img/cate-filter/cate-filter-4.jpg" alt="">
-                    </div>
-                    <div class="cf-item-text">
-                        <h5>Sunday Brunch: Spaghetti and Eggs Recipe</h5>
-                    </div>
-                </div>
-                <div class="cf-item mix all meatlover glutenfree">
-                    <div class="cf-item-pic">
-                        <img src="{{ asset('themes/tudeme/yummy') }}/img/cate-filter/cate-filter-5.jpg" alt="">
-                    </div>
-                    <div class="cf-item-text">
-                        <h5>Sunday Brunch: Spaghetti and Eggs Recipe</h5>
-                    </div>
-                </div>
+                @endforeach
+
+
             </div>
         </div>
     </div>
@@ -204,23 +188,23 @@
                 <i class="fa fa-plus"></i>
             </div>
             <div class="row">
-
-                @foreach ($tudemeFeaturedRecipies as $tudemeFeaturedRecipie)
-                    <div class="col-lg-6">
-                        <div class="fr-item">
-                            <a href="{{route('tudeme.recipe',$tudemeFeaturedRecipie->tudeme->id)}}">
-                                <div class="fr-item-img">
-                                    <img src="{{ asset('') }}{{ $tudemeFeaturedRecipie->tudeme->icon->pixels500 }}" alt="">
+                @if($tudemeFeaturedRecipies)
+                    @foreach ($tudemeFeaturedRecipies as $tudemeFeaturedRecipie)
+                        <div class="col-lg-6">
+                            <div class="fr-item">
+                                <a href="{{route('tudeme.recipe',$tudemeFeaturedRecipie->tudeme->id)}}">
+                                    <div class="fr-item-img">
+                                        <img src="{{ asset('') }}{{ $tudemeFeaturedRecipie->tudeme->icon->pixels500 }}" alt="">
+                                    </div>
+                                </a>
+                                <div class="fr-item-text">
+                                    <a href="{{route('tudeme.recipe',$tudemeFeaturedRecipie->tudeme->id)}}"><h4>{{$tudemeFeaturedRecipie->tudeme->name}}</h4></a>
+                                    <p>{{$tudemeFeaturedRecipie->tudeme->name}}.</p>
                                 </div>
-                            </a>
-                            <div class="fr-item-text">
-                                <a href="{{route('tudeme.recipe',$tudemeFeaturedRecipie->tudeme->id)}}"><h4>{{$tudemeFeaturedRecipie->tudeme->name}}</h4></a>
-                                <p>{{$tudemeFeaturedRecipie->tudeme->name}}.</p>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-
+                    @endforeach
+                @endif
             </div>
         </div>
     </section>

@@ -22,6 +22,9 @@ class CreateLabelsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
 
+            $table->boolean('is_tudeme');
+
+
             $table->timestamps();
             $table->softDeletes();
         });

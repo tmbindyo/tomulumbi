@@ -49,6 +49,13 @@
                                         <input type="text" id="name" name="name" required="required" placeholder="Name" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="checkbox" name="is_tudeme" class="js-switch_3"/>
+                                            <i>is tudeme</i>
+                                        </div>
+                                    </div>
 
                                     <hr>
 

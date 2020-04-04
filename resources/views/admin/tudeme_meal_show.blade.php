@@ -103,13 +103,13 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="has-warning">
-                                                    <select required="required" name="meal_type" class="select2_demo_meal_type form-control input-lg">
+                                                    <select required="required" name="dish_type" class="select2_demo_dish_type form-control input-lg">
                                                         <option></option>
-                                                        @foreach($mealTypes as $mealType)
-                                                            <option @if($tudemeMeal->meal_type_id == $mealType->id) selected @endif value="{{$mealType->id}}">{{$mealType->name}}</option>
+                                                        @foreach($dishTypes as $dishType)
+                                                            <option @if($tudemeMeal->dish_type_id == $dishType->id) selected @endif value="{{$dishType->id}}">{{$dishType->name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <i>meal type</i>
+                                                    <i>dish type</i>
                                                 </div>
                                             </div>
                                         </div>
@@ -138,32 +138,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="has-warning">
-                                                    <select required="required" name="dish_type" class="select2_demo_dish_type form-control input-lg">
-                                                        <option></option>
-                                                        @foreach($dishTypes as $dishType)
-                                                            <option @if($tudemeMeal->dish_type_id == $dishType->id) selected @endif value="{{$dishType->id}}">{{$dishType->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>dish type</i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="has-warning">
-                                                    <select required="required" name="food_type" class="select2_demo_food_type form-control input-lg">
-                                                        <option></option>
-                                                        @foreach($foodTypes as $foodType)
-                                                            <option @if($tudemeMeal->food_type_id == $foodType->id) selected @endif value="{{$foodType->id}}">{{$foodType->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>food type</i>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <br>
 
 

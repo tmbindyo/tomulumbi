@@ -9,7 +9,6 @@ use App\Course;
 use App\Cuisine;
 use App\DietaryPreference;
 use App\DishType;
-use App\FoodType;
 use App\ToDo;
 use App\Status;
 use App\Tudeme;
@@ -22,12 +21,13 @@ use App\Http\Controllers\Controller;
 use App\Ingredient;
 use App\Instruction;
 use App\Journal;
+use App\JournalSeries;
+use App\Label;
 use App\Meal;
 use App\MealCookingStyle;
 use App\MealCourse;
 use App\MealDietaryPreference;
 use App\MealIngredient;
-use App\MealType;
 use App\Measurment;
 use App\Note;
 use App\Tag;
@@ -335,6 +335,35 @@ class TudemeController extends Controller
 
     }
 
+    // journals
+    public function tudemeJournals()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get the design status counts
+        $journalsStatusCount = $this->journalsStatusCount();
+        // Get journals
+        $journals = Journal::with('user','status')->where('is_tudeme',True)->get();
+        // get journal series
+        $journalSeries = JournalSeries::with('user','status')->where('is_tudeme',True)->withCount('journals')->get();
+
+
+        return view('admin.journals',compact('journalSeries','journals','user','navbarValues','journalsStatusCount'));
+    }
+
+    public function tudemeJournalCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Labels
+        $labels = Label::all();
+        return view('admin.tudeme_journal_create',compact('user','labels','navbarValues'));
+    }
+
     public function tudemeUpdate(Request $request, $tudeme_id)
     {
 
@@ -345,8 +374,12 @@ class TudemeController extends Controller
         $tudeme = Tudeme::findOrFail($tudeme_id);
 
         // Check if the cover image has been uploaded if the status is being updated to published
-        if ($request->status == "be8843ac-07ab-4373-83d9-0a3e02cd4ff5" && $tudeme->cover_image_id == ""){
+        if ($request->status == "be8843ac-07ab-4373-83d9-0a3e02cd4ff5" && $tudeme->cover_image_id == "" ){
             return back()->withWarning(__('Please set a cover image before making the tudeme to published.'));
+        }elseif ($request->status == "be8843ac-07ab-4373-83d9-0a3e02cd4ff5" && $tudeme->spread_id == "" ){
+            return back()->withWarning(__('Please set a spread image before making the tudeme to published.'));
+        }elseif ($request->status == "be8843ac-07ab-4373-83d9-0a3e02cd4ff5" && $tudeme->icon_id == ""){
+            return back()->withWarning(__('Please set the icon before making the tudeme to published.'));
         }
 
         $tudeme->name = $request->name;
@@ -377,8 +410,8 @@ class TudemeController extends Controller
 
         $tudemeTypesIds = TudemeTudemeType::where('tudeme_id',$tudeme_id)->whereNotIn('tudeme_type_id',$tudemeRequestTypes)->select('id')->get()->toArray();
         DB::table('tudeme_tudeme_types')->whereIn('id', $tudemeTypesIds)->delete();
-        
-        
+
+
         // tudeme tags update
         $tudemeRequestTags =array();
         foreach ($request->tudeme_tags as $tudemeTudemeTag){
@@ -1235,16 +1268,12 @@ class TudemeController extends Controller
         $dietaryPreferences = DietaryPreference::all();
         // dish type
         $dishTypes = DishType::all();
-        // food type
-        $foodTypes = FoodType::all();
-        // meal type
-        $mealTypes = MealType::all();
         // ingredients
         $ingredients = Ingredient::all();
         // measurments
         $measurments = Measurment::all();
 
-        return view('admin.tudeme_meal_create',compact('measurments','ingredients','user','navbarValues','tudeme','mealTypes','foodTypes','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
+        return view('admin.tudeme_meal_create',compact('measurments','ingredients','user','navbarValues','tudeme','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
 
     }
 
@@ -1262,9 +1291,7 @@ class TudemeController extends Controller
         $meal->tudeme_id = $tudeme_id;
         $meal->cooking_skill_id = $request->cooking_skill;
         $meal->cuisine_id = $request->cuisine;
-        $meal->meal_type_id = $request->meal_type;
         $meal->dish_type_id = $request->dish_type;
-        $meal->food_type_id = $request->food_type;
         $meal->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $meal->user_id = Auth::user()->id;
         $meal->save();
@@ -1367,21 +1394,17 @@ class TudemeController extends Controller
         $dietaryPreferences = DietaryPreference::all();
         // dish type
         $dishTypes = DishType::all();
-        // food type
-        $foodTypes = FoodType::all();
-        // meal type
-        $mealTypes = MealType::all();
         // ingredients
         $ingredients = Ingredient::all();
         // measurments
         $measurments = Measurment::all();
 
         $tudemeMeal = Meal::findOrFail($tudeme_meal_id);
-        $tudemeMeal = Meal::where('id',$tudeme_meal_id)->with('cooking_skill','dish_type','food_type','meal_type','tudeme','meal_cooking_styles','meal_courses','meal_dietary_preferences','meal_ingredients.measurment','meal_ingredients.ingredient','instructions')->withCount('instructions')->first();
+        $tudemeMeal = Meal::where('id',$tudeme_meal_id)->with('cooking_skill','dish_type','tudeme','meal_cooking_styles','meal_courses','meal_dietary_preferences','meal_ingredients.measurment','meal_ingredients.ingredient','instructions')->withCount('instructions')->first();
 
         // return $tudemeMeal;
 
-        return view('admin.tudeme_meal_show',compact('measurments','ingredients','user','navbarValues','tudemeMeal','mealTypes','foodTypes','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
+        return view('admin.tudeme_meal_show',compact('measurments','ingredients','user','navbarValues','tudemeMeal','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
 
     }
 
@@ -1400,9 +1423,7 @@ class TudemeController extends Controller
         $meal->body = $request->body;
         $meal->cooking_skill_id = $request->cooking_skill;
         $meal->cuisine_id = $request->cuisine;
-        $meal->meal_type_id = $request->meal_type;
         $meal->dish_type_id = $request->dish_type;
-        $meal->food_type_id = $request->food_type;
         $meal->save();
 
         // meal cooking style update
@@ -1427,8 +1448,8 @@ class TudemeController extends Controller
         // delete removed cooking styles
         $mealCookingStyleIds = MealCookingStyle::where('meal_id',$meal_id)->whereNotIn('cooking_style_id',$mealCookingStyleRequestIds)->select('id')->get()->toArray();
         DB::table('meal_cooking_styles')->whereIn('id', $mealCookingStyleIds)->delete();
-        
-        
+
+
         // course update
         $mealCourseRequestIds =array();
         foreach ($request->course as $mealCourseId){
@@ -1451,8 +1472,8 @@ class TudemeController extends Controller
         // delete removed cooking styles
         $mealCourseIds = MealCourse::where('meal_id',$meal_id)->whereNotIn('course_id',$mealCourseRequestIds)->select('id')->get()->toArray();
         DB::table('meal_courses')->whereIn('id', $mealCourseIds)->delete();
-        
-        
+
+
         // dietary preference update
         $mealDietaryPreferenceRequestIds =array();
         foreach ($request->dietary_preferences as $mealDietaryPreferenceId){

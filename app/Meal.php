@@ -51,14 +51,6 @@ class Meal extends Model
     {
         return $this->belongsTo('App\DishType');
     }
-    public function food_type()
-    {
-        return $this->belongsTo('App\FoodType');
-    }
-    public function meal_type()
-    {
-        return $this->belongsTo('App\MealType');
-    }
     public function status()
     {
         return $this->belongsTo('App\Status');

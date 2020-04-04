@@ -15,12 +15,21 @@ class LabelTableSeeder extends Seeder
             [
                 'name' => 'Story',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'is_tudeme' => 0,
                 'user_id' => 1,
             ],
 
             [
                 'name' => 'Rambling',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'is_tudeme' => 0,
+                'user_id' => 1,
+            ],
+
+            [
+                'name' => 'Cooking Technique',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'is_tudeme' => 1,
                 'user_id' => 1,
             ]
 

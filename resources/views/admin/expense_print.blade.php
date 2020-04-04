@@ -31,7 +31,7 @@
                     <br>
                     <abbr title="Phone">P:</abbr> + (254) 708 085 128
                     <br>
-                    <abbr title="Email">E:</abbr> tomulumbi@tomulumbi.com
+                    <abbr title="Email">E:</abbr> info@tomulumbi.com
                 </address>
             </div>
 

@@ -182,6 +182,27 @@ Route::get('/title/delete/{title_id}', 'Admin\SettingsController@titleDelete')->
 Route::get('/title/restore/{title_id}', 'Admin\SettingsController@titleRestore')->name('admin.title.restore');
 
 
+// Tudeme Tags
+Route::get('/tudeme/tags', 'Admin\SettingsController@tudemeTags')->name('admin.tudeme.tags');
+Route::get('/tudeme/tag/create', 'Admin\SettingsController@tudemeTagCreate')->name('admin.tudeme.tag.create');
+Route::post('/tudeme/tag/store', 'Admin\SettingsController@tudemeTagStore')->name('admin.tudeme.tag.store');
+Route::get('/tudeme/tag/show/{tudeme_tag_id}', 'Admin\SettingsController@tudemeTagShow')->name('admin.tudeme.tag.show');
+Route::post('/tudeme/tag/update/{tudeme_tag_id}', 'Admin\SettingsController@tudemeTagUpdate')->name('admin.tudeme.tag.update');
+Route::post('/tudeme/tag/cover/image/{album_id}', 'Admin\SettingsController@tudemeTagCoverImageUpload')->name('admin.tudeme.tag.cover.image');
+Route::get('/tudeme/tag/delete/{tudeme_tag_id}', 'Admin\SettingsController@tudemeTagDelete')->name('admin.tudeme.tag.delete');
+Route::get('/tudeme/tag/restore/{tudeme_tag_id}', 'Admin\SettingsController@tudemeTagRestore')->name('admin.tudeme.tag.restore');
+
+
+// tudeme types
+Route::get('/tudeme/types', 'Admin\SettingsController@tudemeTypes')->name('admin.tudeme.types');
+Route::get('/tudeme/type/create', 'Admin\SettingsController@tudemeTypeCreate')->name('admin.tudeme.type.create');
+Route::post('/tudeme/type/store', 'Admin\SettingsController@tudemeTypeStore')->name('admin.tudeme.type.store');
+Route::get('/tudeme/type/show/{type_id}', 'Admin\SettingsController@tudemeTypeShow')->name('admin.tudeme.type.show');
+Route::post('/tudeme/type/update/{type_id}', 'Admin\SettingsController@tudemeTypeUpdate')->name('admin.tudeme.type.update');
+Route::get('/tudeme/type/delete/{type_id}', 'Admin\SettingsController@tudemeTypeDelete')->name('admin.tudeme.type.delete');
+Route::get('/tudeme/type/restore/{type_id}', 'Admin\SettingsController@tudemeTypeRestore')->name('admin.tudeme.type.restore');
+
+
 // types
 Route::get('/types', 'Admin\SettingsController@types')->name('admin.types');
 Route::get('/type/create', 'Admin\SettingsController@typeCreate')->name('admin.type.create');
@@ -190,6 +211,9 @@ Route::get('/type/show/{type_id}', 'Admin\SettingsController@typeShow')->name('a
 Route::post('/type/update/{type_id}', 'Admin\SettingsController@typeUpdate')->name('admin.type.update');
 Route::get('/type/delete/{type_id}', 'Admin\SettingsController@typeDelete')->name('admin.type.delete');
 Route::get('/type/restore/{type_id}', 'Admin\SettingsController@typeRestore')->name('admin.type.restore');
+
+
+
 
 
 // typography
@@ -222,16 +246,6 @@ Route::get('/cooking/style/delete/{sub_type_id}', 'Admin\SettingsController@cook
 Route::get('/cooking/style/restore/{sub_type_id}', 'Admin\SettingsController@cookingStyleRestore')->name('admin.cooking.style.restore');
 
 
-// meal type
-Route::get('/meal/types', 'Admin\SettingsController@mealTypes')->name('admin.meal.types');
-Route::get('/meal/type/create', 'Admin\SettingsController@mealTypeCreate')->name('admin.meal.type.create');
-Route::post('/meal/type/store', 'Admin\SettingsController@mealTypeStore')->name('admin.meal.type.store');
-Route::get('/meal/type/show/{sub_type_id}', 'Admin\SettingsController@mealTypeShow')->name('admin.meal.type.show');
-Route::post('/meal/type/update/{sub_type_id}', 'Admin\SettingsController@mealTypeUpdate')->name('admin.meal.type.update');
-Route::get('/meal/type/delete/{sub_type_id}', 'Admin\SettingsController@mealTypeDelete')->name('admin.meal.type.delete');
-Route::get('/meal/type/restore/{sub_type_id}', 'Admin\SettingsController@mealTypeRestore')->name('admin.meal.type.restore');
-
-
 // course
 Route::get('/courses', 'Admin\SettingsController@courses')->name('admin.courses');
 Route::get('/course/create', 'Admin\SettingsController@courseCreate')->name('admin.course.create');
@@ -260,16 +274,6 @@ Route::get('/dish/type/show/{sub_type_id}', 'Admin\SettingsController@dishTypeSh
 Route::post('/dish/type/update/{sub_type_id}', 'Admin\SettingsController@dishTypeUpdate')->name('admin.dish.type.update');
 Route::get('/dish/type/delete/{sub_type_id}', 'Admin\SettingsController@dishTypeDelete')->name('admin.dish.type.delete');
 Route::get('/dish/type/restore/{sub_type_id}', 'Admin\SettingsController@dishTypeRestore')->name('admin.dish.type.restore');
-
-
-// food type
-Route::get('/food/types', 'Admin\SettingsController@foodTypes')->name('admin.food.types');
-Route::get('/food/type/create', 'Admin\SettingsController@foodTypeCreate')->name('admin.food.type.create');
-Route::post('/food/type/store', 'Admin\SettingsController@foodTypeStore')->name('admin.food.type.store');
-Route::get('/food/type/show/{sub_type_id}', 'Admin\SettingsController@foodTypeShow')->name('admin.food.type.show');
-Route::post('/food/type/update/{sub_type_id}', 'Admin\SettingsController@foodTypeUpdate')->name('admin.food.type.update');
-Route::get('/food/type/delete/{sub_type_id}', 'Admin\SettingsController@foodTypeDelete')->name('admin.food.type.delete');
-Route::get('/food/type/restore/{sub_type_id}', 'Admin\SettingsController@foodTypeRestore')->name('admin.food.type.restore');
 
 
 // cuisine
@@ -532,6 +536,8 @@ Route::get('/tudeme/meal/{tudeme_id}/show', 'Admin\TudemeController@tudemeMealSh
 Route::post('/tudeme/meal/{tudeme_id}/update', 'Admin\TudemeController@tudemeMealUpdate')->name('admin.tudeme.meal.update');
 
 Route::get('/tudeme/personal/album/create/{tudeme_id}', 'Admin\TudemeController@tudemePersonalAlbumCreate')->name('admin.tudeme.personal.album.create');
+Route::get('/tudeme/journals', 'Admin\TudemeController@tudemeJournals')->name('admin.tudeme.journals');
+Route::get('/tudeme/journal/create', 'Admin\TudemeController@tudemeJournalCreate')->name('admin.tudeme.journal.create');
 
 // tudeme homepage
 Route::get('/tudeme/homepage', 'Admin\TudemeController@tudemeHomepage')->name('admin.tudeme.homepage');

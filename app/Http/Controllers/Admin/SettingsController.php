@@ -43,7 +43,6 @@ use App\Course;
 use App\Cuisine;
 use App\DietaryPreference;
 use App\DishType;
-use App\FoodType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Kit;
@@ -51,9 +50,12 @@ use App\Meal;
 use App\MealCookingStyle;
 use App\MealCourse;
 use App\MealDietaryPreference;
-use App\MealType;
 use Illuminate\Support\Facades\Input;
 use App\Traits\DocumentExtensionTrait;
+use App\TudemeTag;
+use App\TudemeTudemeTag;
+use App\TudemeTudemeType;
+use App\TudemeType;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -743,6 +745,13 @@ class SettingsController extends Controller
     {
         $label = new Label();
         $label->name = $request->name;
+
+        if($request->is_tudeme == "on"){
+            $label->is_tudeme = True;
+        }else{
+            $label->is_tudeme = False;
+        }
+
         $label->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $label->user_id = Auth::user()->id;
         $label->save();
@@ -768,6 +777,11 @@ class SettingsController extends Controller
 
         $label = Label::findOrFail($label_id);
         $label->name = $request->name;
+        if($request->is_tudeme == "on"){
+            $label->is_tudeme = True;
+        }else{
+            $label->is_tudeme = False;
+        }
         $label->save();
 
         return redirect()->route('admin.label.show',$label->id)->withSuccess('Contact type updated!');
@@ -1836,7 +1850,7 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.cooking_style_creat        $mealType->description = $request->description;e',compact('user','navbarValues'));
+        return view('admin.cooking_style_create',compact('user','navbarValues'));
     }
 
     public function cookingStyleStore(Request $request)
@@ -1897,90 +1911,6 @@ class SettingsController extends Controller
         $cookingStyle->save();
 
         return back()->withSuccess(__('Cooking style '.$cookingStyle->name.' successfully restored.'));
-    }
-
-
-    // meal type functions
-    public function mealTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $mealTypes = MealType::with('user','status')->get();
-
-        return view('admin.meal_types',compact('mealTypes','user','navbarValues'));
-    }
-
-    public function mealTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.meal_type_create',compact('user','navbarValues'));
-    }
-
-    public function mealTypeStore(Request $request)
-    {
-
-        $mealType = new MealType();
-        $mealType->name = $request->name;
-        $mealType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $mealType->user_id = Auth::user()->id;
-        $mealType->save();
-
-        return redirect()->route('admin.meal.type.show',$mealType->id)->withSuccess('Meal type updated!');
-    }
-
-    public function mealTypeShow($meal_type_id)
-    {
-        // Check if meal type exists
-        $mealTypeExists = MealType::findOrFail($meal_type_id);
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        
-        // meal type
-        $mealType = MealType::with('user','status')->where('id',$meal_type_id)->withCount('meals')->first();
-        // meal type meal
-        $mealTypeMeals = Meal::with('user','status','tudeme')->where('meal_type_id',$meal_type_id)->get();
-
-        return view('admin.meal_type_show',compact('mealType','user','mealTypeMeals','navbarValues'));
-    }
-
-    public function mealTypeUpdate(Request $request, $meal_type_id)
-    {
-
-        $mealType = MealType::findOrFail($meal_type_id);
-        $mealType->name = $request->name;
-        $mealType->user_id = Auth::user()->id;
-        $mealType->save();
-
-        return redirect()->route('admin.meal.type.show',$meal_type_id)->withSuccess('Meal type '. $mealType->name .' updated!');
-    }
-
-    public function mealTypeDelete($meal_type_id)
-    {
-
-        $mealType = MealType::findOrFail($meal_type_id);
-        $mealType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
-        $mealType->user_id = Auth::user()->id;
-        $mealType->save();
-
-        return back()->withSuccess(__('Meal type '.$mealType->name.' successfully deleted.'));
-    }
-
-    public function mealTypeRestore($meal_type_id)
-    {
-
-        $mealType = MealType::findOrFail($meal_type_id);
-        $mealType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $mealType->user_id = Auth::user()->id;
-        $mealType->save();
-
-        return back()->withSuccess(__('Meal type '.$mealType->name.' successfully restored.'));
     }
 
 
@@ -2237,87 +2167,171 @@ class SettingsController extends Controller
     }
 
 
-    // food type functions
-    public function foodTypes()
+    // tudeme tag functions
+    public function tudemeTags()
     {
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        $foodTypes = FoodType::with('user','status')->get();
+        $tudemeTags = TudemeTag::with('user','status')->get();
 
-        return view('admin.food_types',compact('foodTypes','user','navbarValues'));
+        return view('admin.tudeme_tags',compact('tudemeTags','user','navbarValues'));
     }
 
-    public function foodTypeCreate()
+    public function tudemeTagCreate()
     {
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.food_type_create',compact('user','navbarValues'));
+        return view('admin.tudeme_tag_create',compact('user','navbarValues'));
     }
 
-    public function foodTypeStore(Request $request)
+    public function tudemeTagStore(Request $request)
     {
 
-        $foodType = new FoodType();
-        $foodType->name = $request->name;
-        $foodType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $foodType->user_id = Auth::user()->id;
-        $foodType->save();
+        $tudemeTag = new TudemeTag();
+        $tudemeTag->name = $request->name;
+        $tudemeTag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $tudemeTag->user_id = Auth::user()->id;
+        $tudemeTag->save();
 
-        return redirect()->route('admin.food.type.show',$foodType->id)->withSuccess('Food type updated!');
+        return redirect()->route('admin.tudeme.tag.show',$tudemeTag->id)->withSuccess('Tudeme tag updated!');
     }
 
-    public function foodTypeShow($food_type_id)
+    public function tudemeTagShow($tudeme_tag_id)
+    {
+        // Check if meal tag exists
+        $tudemeTagExists = TudemeTag::findOrFail($tudeme_tag_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        // tudeme tag
+        $tudemeTag = TudemeTag::with('user','status')->where('id',$tudeme_tag_id)->withCount('tudeme_tudeme_tags')->first();
+        // tudeme tag meals
+        $tudemeTudemeTags = TudemeTudemeTag::with('user','status','tudeme')->where('tudeme_tag_id',$tudeme_tag_id)->get();
+
+        return view('admin.tudeme_tag_show',compact('tudemeTag','user','tudemeTudemeTags','navbarValues'));
+    }
+
+    public function tudemeTagUpdate(Request $request, $tudeme_tag_id)
+    {
+
+        $tudemeTag = TudemeTag::findOrFail($tudeme_tag_id);
+        $tudemeTag->name = $request->name;
+        $tudemeTag->user_id = Auth::user()->id;
+        $tudemeTag->save();
+
+        return redirect()->route('admin.tudeme.tag.show',$tudeme_tag_id)->withSuccess('Tudeme tag '. $tudemeTag->name .' updated!');
+    }
+
+    public function tudemeTagDelete($tudeme_tag_id)
+    {
+
+        $tudemeTag = TudemeTag::findOrFail($tudeme_tag_id);
+        $tudemeTag->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $tudemeTag->user_id = Auth::user()->id;
+        $tudemeTag->save();
+
+        return back()->withSuccess(__('Tudeme tag '.$tudemeTag->name.' successfully deleted.'));
+    }
+
+    public function tudemeTagRestore($tudeme_tag_id)
+    {
+
+        $tudemeTag = TudemeTag::findOrFail($tudeme_tag_id);
+        $tudemeTag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $tudemeTag->user_id = Auth::user()->id;
+        $tudemeTag->save();
+
+        return back()->withSuccess(__('Tudeme tag '.$tudemeTag->name.' successfully restored.'));
+    }
+
+
+    // tudeme type functions
+    public function tudemeTypes()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $tudemeTypes = TudemeType::with('user','status')->get();
+
+        return view('admin.tudeme_types',compact('tudemeTypes','user','navbarValues'));
+    }
+
+    public function tudemeTypeCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.tudeme_type_create',compact('user','navbarValues'));
+    }
+
+    public function tudemeTypeStore(Request $request)
+    {
+
+        $tudemeType = new TudemeType();
+        $tudemeType->name = $request->name;
+        $tudemeType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $tudemeType->user_id = Auth::user()->id;
+        $tudemeType->save();
+
+        return redirect()->route('admin.tudeme.type.show',$tudemeType->id)->withSuccess('Tudeme type updated!');
+    }
+
+    public function tudemeTypeShow($tudeme_type_id)
     {
         // Check if meal type exists
-        $foodTypeExists = FoodType::findOrFail($food_type_id);
+        $tudemeTypeExists = TudemeType::findOrFail($tudeme_type_id);
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        
-        // food type
-        $foodType = FoodType::with('user','status')->where('id',$food_type_id)->withCount('meals')->first();
-        // food type meals
-        $foodTypeMeals = Meal::with('user','status','tudeme')->where('food_type_id',$food_type_id)->get();
 
-        return view('admin.food_type_show',compact('foodType','user','foodTypeMeals','navbarValues'));
+        // tudeme type
+        $tudemeType = TudemeType::with('user','status')->where('id',$tudeme_type_id)->withCount('tudeme_tudeme_types')->first();
+        // tudeme type meals
+        $tudemeTudemeTypes = TudemeTudemeType::with('user','status','tudeme')->where('tudeme_type_id',$tudeme_type_id)->get();
+
+        return view('admin.tudeme_type_show',compact('tudemeType','user','tudemeTudemeTypes','navbarValues'));
     }
 
-    public function foodTypeUpdate(Request $request, $food_type_id)
+    public function tudemeTypeUpdate(Request $request, $tudeme_type_id)
     {
 
-        $foodType = FoodType::findOrFail($food_type_id);
-        $foodType->name = $request->name;
-        $foodType->user_id = Auth::user()->id;
-        $foodType->save();
+        $tudemeType = TudemeType::findOrFail($tudeme_type_id);
+        $tudemeType->name = $request->name;
+        $tudemeType->user_id = Auth::user()->id;
+        $tudemeType->save();
 
-        return redirect()->route('admin.food.type.show',$food_type_id)->withSuccess('Food type '. $foodType->name .' updated!');
+        return redirect()->route('admin.tudeme.type.show',$tudeme_type_id)->withSuccess('Tudeme type '. $tudemeType->name .' updated!');
     }
 
-    public function foodTypeDelete($food_type_id)
+    public function tudemeTypeDelete($tudeme_type_id)
     {
 
-        $foodType = FoodType::findOrFail($food_type_id);
-        $foodType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
-        $foodType->user_id = Auth::user()->id;
-        $foodType->save();
+        $tudemeType = TudemeType::findOrFail($tudeme_type_id);
+        $tudemeType->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $tudemeType->user_id = Auth::user()->id;
+        $tudemeType->save();
 
-        return back()->withSuccess(__('Food type '.$foodType->name.' successfully deleted.'));
+        return back()->withSuccess(__('Tudeme type '.$tudemeType->name.' successfully deleted.'));
     }
 
-    public function foodTypeRestore($food_type_id)
+    public function tudemeTypeRestore($tudeme_type_id)
     {
 
-        $foodType = FoodType::findOrFail($food_type_id);
-        $foodType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $foodType->user_id = Auth::user()->id;
-        $foodType->save();
+        $tudemeType = TudemeType::findOrFail($tudeme_type_id);
+        $tudemeType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $tudemeType->user_id = Auth::user()->id;
+        $tudemeType->save();
 
-        return back()->withSuccess(__('Food type '.$foodType->name.' successfully restored.'));
+        return back()->withSuccess(__('Tudeme type '.$tudemeType->name.' successfully restored.'));
     }
 
 

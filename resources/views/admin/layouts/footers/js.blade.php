@@ -645,14 +645,6 @@
                 placeholder: "Select Dish Type",
                 allowClear: true
             });
-            $(".select2_demo_food_type").select2({
-                placeholder: "Select Food Type",
-                allowClear: true
-            });
-            $(".select2_demo_meal_type").select2({
-                placeholder: "Select Meal Type",
-                allowClear: true
-            });
             $(".select2_demo_ingredient").select2({
                 placeholder: "Select Ingredients",
                 allowClear: true

@@ -13,43 +13,91 @@ class CookingStyleTableSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'BBQ and Grilling',
+                'name' => 'Boiling',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Budget Cooking',
+                'name' => 'Broiling',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Clean-Eating',
+                'name' => 'Deep Frying',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Cooking for Kids',
+                'name' => 'Grilling',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Cooking for Two',
+                'name' => 'Roasting',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Gourmet',
+                'name' => 'Baking',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Paleo',
+                'name' => 'Sauteing',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+            ],
+
+            [
+                'name' => 'Poaching',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+            ],
+
+            [
+                'name' => 'Simmering',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+            ],
+
+            [
+                'name' => 'Smoking',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+            ],
+
+            [
+                'name' => 'Sous Vide',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+            ],
+
+            [
+                'name' => 'Steaming',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+            ],
+
+            [
+                'name' => 'Stir Frying',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+            ],
+
+            [
+                'name' => 'Braising',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+            ],
+
+            [
+                'name' => 'Stewing',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
@@ -61,25 +109,7 @@ class CookingStyleTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Quick and Easy',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
                 'name' => 'Slow Cooker',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Vegan',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Vegetarian',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ]

@@ -368,26 +368,6 @@
                     <li>
                         <a href="#"> Tudeme <span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
-                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.cooking.skills' ) ?  'active' : '' }}">
-                                <a itemprop="url" class="nav-link" href="{{route( 'admin.cooking.skills')}}">
-                                    Cooking Skill <span class="label label-warning pull-right">{{$navbarValues['cookingSkillCount']}}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.cooking.styles' ) ?  'active' : '' }}">
-                                <a itemprop="url" class="nav-link" href="{{route( 'admin.cooking.styles')}}">
-                                    Cooking Style <span class="label label-warning pull-right">{{$navbarValues['cookingStyleCount']}}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.meal.types' ) ?  'active' : '' }}">
-                                <a itemprop="url" class="nav-link" href="{{route( 'admin.meal.types')}}">
-                                    Meal Type <span class="label label-warning pull-right">{{$navbarValues['mealTyleCount']}}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.courses' ) ?  'active' : '' }}">
-                                <a itemprop="url" class="nav-link" href="{{route( 'admin.courses')}}">
-                                    Course <span class="label label-warning pull-right">{{$navbarValues['courseCount']}}</span>
-                                </a>
-                            </li>
                             <li class="nav-item {{ Route::currentRouteNamed( 'admin.dietary.preferences' ) ?  'active' : '' }}">
                                 <a itemprop="url" class="nav-link" href="{{route( 'admin.dietary.preferences')}}">
                                     Dietary Pref <span class="label label-warning pull-right">{{$navbarValues['dietaryPreferenceCount']}}</span>
@@ -398,14 +378,34 @@
                                     Dish Type <span class="label label-warning pull-right">{{$navbarValues['dishTypeCount']}}</span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.food.types' ) ?  'active' : '' }}">
-                                <a itemprop="url" class="nav-link" href="{{route( 'admin.food.types')}}">
-                                    Food Type <span class="label label-warning pull-right">{{$navbarValues['foodTypeCount']}}</span>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.cooking.skills' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.cooking.skills')}}">
+                                    Cooking Skill <span class="label label-warning pull-right">{{$navbarValues['cookingSkillCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.cooking.styles' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.cooking.styles')}}">
+                                    Cooking Style <span class="label label-warning pull-right">{{$navbarValues['cookingStyleCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.courses' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.courses')}}">
+                                    Course <span class="label label-warning pull-right">{{$navbarValues['courseCount']}}</span>
                                 </a>
                             </li>
                             <li class="nav-item {{ Route::currentRouteNamed( 'admin.cuisines' ) ?  'active' : '' }}">
                                 <a itemprop="url" class="nav-link" href="{{route( 'admin.cuisines')}}">
                                     Cuisine <span class="label label-warning pull-right">{{$navbarValues['cuisineCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.tudeme.types' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.tudeme.types')}}">
+                                    Tudeme Types <span class="label label-warning pull-right">{{$navbarValues['tudemeTypeCount']}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.tudeme.tags' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.tudeme.tags')}}">
+                                    Tudeme Tags <span class="label label-warning pull-right">{{$navbarValues['tudemeTagCount']}}</span>
                                 </a>
                             </li>
                         </ul>

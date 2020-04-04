@@ -8,7 +8,6 @@
     <div class="hero-search set-bg" @if($tudeme->spread)  data-setbg="{{ asset('') }}{{ $tudeme->spread->pixels750 }}" @else data-setbg="{{ asset('themes/tudeme/yummy') }}/img/search-bg.jpg" @endif>
     </div>
     <!-- Hero Search Section End -->
-
     <!-- Single Recipe Section Begin -->
     <section class="single-page-recipe spad">
         <div class="recipe-top">
@@ -41,6 +40,7 @@
                                     <li>Prep time: <span>{{$tudeme->prep_time}}</span></li>
                                     <li>Cook time: <span>{{$tudeme->cook_time}}</span></li>
                                     <li>Yield: <span>{{$tudeme->yield}}</span></li>
+                                    <li>Serves: <span>{{$tudeme->serves}}</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="nutrition-fact">
+                    {{-- <div class="nutrition-fact">
                         <div class="nutri-title">
                             <h6>Nutrition Facts</h6>
                             <span>Serves {{$tudeme->serves}}</span>
@@ -82,7 +82,7 @@
                             <li>Cholesterol : 2%</li>
                             <li>Chalories: 345</li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-lg-7">
                     <div class="recipe-right">
@@ -130,42 +130,19 @@
     <section class="similar-recipe spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="similar-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-7.jpg" alt=""></a>
-                        <div class="similar-text">
-                            <div class="cat-name">Vegan</div>
-                            <h6>Italian Tiramisu with Coffe</h6>
+                @foreach($similarRecipies as $similarRecipie)
+                    <div class="col-lg-3 col-md-6">
+                        <div class="similar-item">
+                            <a href="#"><img src="{{ asset('') }}{{ $similarRecipie->cover_image->pixels100 }}" alt=""></a>
+                            <div class="similar-text">
+                                @foreach($similarRecipie->tudeme_tudeme_types->slice(0, 1) as $tudeme_tudeme_type)
+                                    <div class="cat-name">{{$tudeme_tudeme_type->tudeme_type->name}}</div>
+                                @endforeach
+                                <h6>{{$similarRecipie->name}}</h6>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="similar-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-6.jpg" alt=""></a>
-                        <div class="similar-text">
-                            <div class="cat-name">Vegan</div>
-                            <h6>Dry Cookies with Corn</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="similar-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-5.jpg" alt=""></a>
-                        <div class="similar-text">
-                            <div class="cat-name">Vegan</div>
-                            <h6>Asparagus with Pork Loin and Vegetables</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="similar-item">
-                        <a href="#"><img src="{{ asset('themes/tudeme/yummy') }}/img/cat-feature/small-4.jpg" alt=""></a>
-                        <div class="similar-text">
-                            <div class="cat-name">Vegan</div>
-                            <h6>Smoked Salmon mini Sandwiches with Onion</h6>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

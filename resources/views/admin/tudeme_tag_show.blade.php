@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Food Type')
+@section('title', 'Tudeme Tag')
 
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Food Type</h2>
+            <h2>Tudeme Tag</h2>
             <ol class="breadcrumb">
                 <li>
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
@@ -15,10 +15,10 @@
                     <strong>Settings</strong>
                 </li>
                 <li class="active">
-                   <strong><a href="{{route('admin.food.types')}}">Food Types</a></strong>
+                   <strong><a href="{{route('admin.tudeme.tags')}}">Tudeme Tags</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Food Type</strong>
+                    <strong>Tudeme Tag</strong>
                 </li>
             </ol>
         </div>
@@ -32,7 +32,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-12">
-                                <form method="post" action="{{ route('admin.food.type.update',$foodType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.tudeme.tag.update',$tudemeTag->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                     @csrf
 
                                     @if ($errors->any())
@@ -48,7 +48,7 @@
 
                                     <div class="">
                                         <div class="has-warning">
-                                            <input type="name" name="name" value="{{$foodType->name}}" class="form-control input-lg">
+                                            <input type="name" name="name" value="{{$tudemeTag->name}}" class="form-control input-lg">
                                         </div>
                                         <i>name</i>
                                     </div>
@@ -78,19 +78,19 @@
                                             <i class="fa fa-user fa-3x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <h3 class="font-bold">{{$foodType->user->name}}</h3>
+                                            <h3 class="font-bold">{{$tudemeTag->user->name}}</h3>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
-                                <div class="widget style1 {{$foodType->status->label}}">
+                                <div class="widget style1 {{$tudemeTag->status->label}}">
                                     <div class="row vertical-align">
                                         <div class="col-xs-3">
                                             <i class="fa fa-ellipsis-v fa-3x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <h3 class="font-bold">{{$foodType->status->name}}</h3>
+                                            <h3 class="font-bold">{{$tudemeTag->status->name}}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                             <i class="fa fa-plus-square fa-3x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <h3 class="font-bold">{{$foodType->created_at}}</h3>
+                                            <h3 class="font-bold">{{$tudemeTag->created_at}}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +114,7 @@
                                             <i class="fa fa-scissors fa-3x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <h3 class="font-bold">{{$foodType->updated_at}}</h3>
+                                            <h3 class="font-bold">{{$tudemeTag->updated_at}}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -136,18 +136,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($foodTypeMeals as $meal)
+                                    @foreach($tudemeTudemeTags as $tudeme)
                                         <tr class="gradeX">
-                                            <td>{{$meal->name}}</td>
-                                            <td>{{$meal->tudeme->name}}</td>
-                                            <td>{{$meal->description}}</td>
-                                            <td>{{$meal->user->name}}</td>
+                                            <td>{{$tudeme->name}}</td>
+                                            <td>{{$tudeme->tudeme->name}}</td>
+                                            <td>{{$tudeme->description}}</td>
+                                            <td>{{$tudeme->user->name}}</td>
                                             <td>
-                                                <span class="label {{$meal->status->label}}">{{$meal->status->name}}</span>
+                                                <span class="label {{$tudeme->status->label}}">{{$tudeme->status->name}}</span>
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('admin.food.type.show', $meal->id) }}" class="btn-white btn btn-xs">View</a>
+                                                    <a href="{{ route('admin.tudeme.show', $tudeme->id) }}" class="btn-white btn btn-xs">View</a>
                                                 </div>
                                             </td>
                                         </tr>

@@ -1,21 +1,21 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Meal Type Create')
+@section('title', 'Tudeme Type Create')
 
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Meal Types</h2>
+            <h2>Tudeme Types</h2>
             <ol class="breadcrumb">
                 <li>
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <strong><a href="{{route('admin.meal.types')}}">Meal Types</a></strong>
+                    <strong><a href="{{route('admin.tudeme.types')}}">Tudeme Types</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Meal Type Create</strong>
+                    <strong>Tudeme Type Create</strong>
                 </li>
             </ol>
         </div>
@@ -29,7 +29,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.meal.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.tudeme.type.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())

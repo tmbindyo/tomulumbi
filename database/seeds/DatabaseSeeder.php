@@ -30,13 +30,11 @@ class DatabaseSeeder extends Seeder
         $this->call([DishTypeTableSeeder::class]);
         $this->call([DownloadResolutionTableSeeder::class]);
         $this->call([ExpenseAccountTableSeeder::class]);
-        $this->call([FoodTypeTableSeeder::class]);
         $this->call([FrequencyTableSeeder::class]);
         $this->call([ImagePositionTableSeeder::class]);
         $this->call([IngredientTableSeeder::class]);
         $this->call([LabelTableSeeder::class]);
         $this->call([LeadSourceTableSeeder::class]);
-        $this->call([MealTypeTableSeeder::class]);
         $this->call([MeasurmentTableSeeder::class]);
         $this->call([OrganizationTypeTableSeeder::class]);
         $this->call([OrientationTableSeeder::class]);

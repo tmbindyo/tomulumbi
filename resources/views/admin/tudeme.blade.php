@@ -20,6 +20,8 @@
             <div class="title-action">
                 <a href="{{route('admin.tudeme.homepage')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Homepage </a>
                 <a href="{{route('admin.tudeme.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Tudeme </a>
+                <a href="{{route('admin.tudeme.journal.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
+                <a href="{{route('admin.tudeme.journals')}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Journals </a>
             </div>
         </div>
     </div>

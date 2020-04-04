@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Food Types')
+@section('title', 'Tudeme Types')
 
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Food Types</h2>
+            <h2>Tudeme Types</h2>
             <ol class="breadcrumb">
                 <li>
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
@@ -15,13 +15,13 @@
                     <strong>Settings</strong>
                 </li>
                 <li class="active">
-                    <strong>Food Types</strong>
+                    <strong>Tudeme Types</strong>
                 </li>
             </ol>
         </div>
         <div class="col-md-3">
             <div class="title-action">
-                <a href="{{route('admin.food.type.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Food Type </a>
+                <a href="{{route('admin.tudeme.type.create')}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Tudeme Type </a>
             </div>
         </div>
     </div>
@@ -44,20 +44,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($foodTypes as $foodType)
+                                    @foreach($tudemeTypes as $tudemeType)
                                         <tr class="gradeX">
-                                            <td>{{$foodType->name}}</td>
-                                            <td>{{$foodType->user->name}}</td>
+                                            <td>{{$tudemeType->name}}</td>
+                                            <td>{{$tudemeType->user->name}}</td>
                                             <td>
-                                                <span class="label {{$foodType->status->label}}">{{$foodType->status->name}}</span>
+                                                <span class="label {{$tudemeType->status->label}}">{{$tudemeType->status->name}}</span>
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('admin.food.type.show', $foodType->id) }}" class="btn-white btn btn-xs">View</a>
-                                                    @if($foodType->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                        <a href="{{ route('admin.food.type.restore', $foodType->id) }}" class="btn-warning btn btn-xs">Restore</a>
+                                                    <a href="{{ route('admin.tudeme.type.show', $tudemeType->id) }}" class="btn-white btn btn-xs">View</a>
+                                                    @if($tudemeType->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                        <a href="{{ route('admin.tudeme.type.restore', $tudemeType->id) }}" class="btn-warning btn btn-xs">Restore</a>
                                                     @else
-                                                        <a href="{{ route('admin.food.type.delete', $foodType->id) }}" class="btn-danger btn btn-xs">Delete</a>
+                                                        <a href="{{ route('admin.tudeme.type.delete', $tudemeType->id) }}" class="btn-danger btn btn-xs">Delete</a>
                                                     @endif
                                                 </div>
                                             </td>

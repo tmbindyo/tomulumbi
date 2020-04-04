@@ -68,6 +68,11 @@ class JournalController extends Controller
         }else{
             $journalSeries->is_journal_series = False;
         }
+        if($request->is_tudeme == "on"){
+            $journalSeries->is_tudeme = True;
+        }else{
+            $journalSeries->is_tudeme = False;
+        }
         $journalSeries->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $journalSeries->user_id = Auth::user()->id;
         $journalSeries->save();

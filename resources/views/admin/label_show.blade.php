@@ -51,6 +51,13 @@
                                         <input type="name" name="name" value="{{$label->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="checkbox" name="is_tudeme" class="js-switch_3" @if($label->is_tudeme) checked @endif/>
+                                            <i>is tudeme</i>
+                                        </div>
+                                    </div>
                                     <hr>
                                     <div>
                                         <button class="btn btn-lg btn-primary btn-block btn-outline m-t-n-xs" type="submit"><strong>UPDATE</strong></button>

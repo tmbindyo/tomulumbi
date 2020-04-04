@@ -119,10 +119,9 @@
                                 <h2 class="number">01/06</h2>
                                 <div class="text-inner">
                                     <div class="desc">
-                                        <span class="tag">Photography</span>
-                                        <h2 class="right">Personal albums.</h2>
-                                        {{--  <p>The first idea was to have something that sounds profound like, the world throught my eyes, but oooh well. This is basically me and dabbling with a camera in hand trying to capture art.</p>  --}}
-                                        <p><a href="{{route('personal.albums')}}" class="btn-view">View Galleries <i class="icon-arrow-right3"></i></a></p>
+                                        <span class="tag">Gallaries</span>
+                                        <br>
+                                        <p><a href="{{route('personal.albums')}}" class="btn-view"> View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -142,9 +141,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Client Proofs</span>
-                                        <h2>Work Work Work <br> Work Work Work</h2>
-                                        {{--  <p>This is home to client proofs, so basically paid work, might be password secured but who knows, you might find an open proof.</p>  --}}
-                                        <p><a href="{{route('client.proofs')}}" class="btn-view">View Client Proofs <i class="icon-arrow-right3"></i></a></p>
+                                        <br>
+                                        <p><a href="{{route('client.proofs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -164,9 +162,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Design Work</span>
-                                        <h2>Random designs.</h2>
-                                        {{--  <p>Things I hope I could do, this is design, so I try design. I guess that is it.</p>  --}}
-                                        <p><a href="{{route('designs')}}" class="btn-view">View Designs <i class="icon-arrow-right3"></i></a></p>
+                                        <br>
+                                        <p><a href="{{route('designs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -186,9 +183,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Journals</span>
-                                        <h2>Random thoughts and stories</h2>
-                                        {{--  <p>Random scribles of thoughts going through my mind, they may take various forms, I honestly don't know if I'll keep up with actively positng. I hope I do but...</p>  --}}
-                                        <p><a href="{{route('journals')}}" class="btn-view">View Journals <i class="icon-arrow-right3"></i></a></p>
+                                        <br>
+                                        <p><a href="{{route('journals')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -208,9 +204,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Projects</span>
-                                        <h2>Discover New Things</h2>
-                                        {{--  <p>Projects, projects, projects, projects, projects, projects, projects, all I honestly have to say about here is that you shall see projects that I have undertaken I guess?.</p>  --}}
-                                        <p><a href="{{route('projects')}}" class="btn-view">View Projects <i class="icon-arrow-right3"></i></a></p>
+                                        <br>
+                                        <p><a href="{{route('projects')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -230,9 +225,8 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Tudeme</span>
-                                        <h2>Bringing together my love for photography and food.</h2>
-                                        {{--  <p>I happen to love food, so on the off chance I cook and/or experiment, I shall write about it :)".</p>  --}}
-                                        <p><a href="{{route('tudeme')}}" class="btn-view">View Projects <i class="icon-arrow-right3"></i></a></p>
+                                        <br>
+                                        <p><a href="{{route('tudeme')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -252,8 +246,7 @@
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Store</span>
-                                        <h2>Discover New Things, <br> maybe buy some?</h2>
-                                        {{--  <p>Random things that I hope are worth you spending your money on, so please spend money.</p>  --}}
+                                        <br>
                                         <p><a href="#" class="btn-view">Coming Soon</a></p>
                                         {{--  <p><a href="{{route('store')}}" class="btn-view">View Store <i class="icon-arrow-right3"></i></a></p>  --}}
                                     </div>

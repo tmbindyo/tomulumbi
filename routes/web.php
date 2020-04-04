@@ -94,7 +94,9 @@ Route::get('/tudeme/contact', 'Landing\TudemeController@contact')->name('tudeme.
 Route::get('/tudeme', 'Landing\TudemeController@index')->name('tudeme');
 Route::get('/tudeme/recipe/{recipie_id}', 'Landing\TudemeController@recipe')->name('tudeme.recipe');
 
-Route::post('/tudeme/search', 'Landing\TudemeController@search')->name('tudeme.search');
+Route::get('/tudeme/search', 'Landing\TudemeController@search')->name('tudeme.search');
+Route::post('/tudeme/basic/search', 'Landing\TudemeController@basicSearch')->name('tudeme.basic.search');
+Route::post('/tudeme/advanced/search', 'Landing\TudemeController@advancedSearch')->name('tudeme.advanced.search');
 
 Route::post('/tudeme/about', 'Landing\TudemeController@about')->name('tudeme.about');
 

@@ -1,24 +1,21 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Payment Create')
+@section('title', 'Journal Create')
 
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-9">
-            <h2>Payments</h2>
+            <h2>Journals</h2>
             <ol class="breadcrumb">
                 <li>
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <strong><a href="{{route('admin.asset.actions')}}">Asset actions</a></strong>
+                    <strong><a href="{{route('admin.tudeme')}}">Tudeme</a></strong>
                 </li>
                 <li class="active">
-                    <strong><a href="{{route('admin.asset.action.show',$assetAction->id)}}">Asset action</a></strong>
-                </li>
-                <li class="active">
-                    <strong>Payment Create</strong>
+                    <strong>Tudeme Journal Create</strong>
                 </li>
             </ol>
         </div>
@@ -32,7 +29,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.payment.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.journal.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -48,8 +45,8 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="number" id="amount" name="amount" required="required" value="{{$assetAction->amount}}" class="form-control input-lg">
-                                        <i>amount</i>
+                                        <input type="text" id="name" name="name" required="required" placeholder="Collection Name" class="form-control input-lg">
+                                        <i>Give your collection a name</i>
                                     </div>
                                     <br>
                                     <div class="has-warning" id="data_1">
@@ -59,54 +56,41 @@
                                             </span>
                                             <input type="text" required="required" name="date" id="date" class="form-control input-lg">
                                         </div>
-                                        <i>Date paid</i>
+                                        <i>What is the date of the event?</i>
                                         <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <select name="account" class="select2_demo_account form-control input-lg">
-                                            <option selected disabled >Select Account</option>
-                                            @foreach ($accounts as $account)
-                                                <option value="{{$account->id}}">{{$account->name}} [{{$account->balance}}]</option>
+                                        <select required="required" name="labels[]" class="select2_demo_label form-control input-lg" multiple="multiple">
+                                            <option></option>
+                                            @foreach($labels as $label)
+                                                <option value="{{$label->id}}">{{$label->name}}</option>
                                             @endforeach
                                         </select>
-                                        <i>account</i>
+                                        <i>Labels: What kind of collection is this? Separate your tags with a comma. e.g. wedding, outdoor, summer</i>
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
-                                        <i>notes</i>
+                                        <input type="text" name="color" class="form-control demo1  input-lg" value="#5367ce" />
+                                        <i>Background color of text</i>
+                                    </div>
+                                    <br>
+                                    <div class="has-warning">
+                                        <textarea rows="5" id="description" name="description" required="required" placeholder="Brief description" class="form-control input-lg"></textarea>
+                                        <i>Give a brief description on what the journal is about</i>
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="has-warning">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <input name="is_asset_action" type="checkbox" class="js-switch" checked />
-                                                    <br>
-                                                    <i>check if asset action.</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="has-warning">
-                                                <select name="asset_action" class="select2_demo_tag form-control input-lg">
-                                                    <option value="{{$assetAction->id}}">{{$assetAction->reference}} [{{$assetAction->amount}}]</option>
-                                                </select>
-                                                <i>asset action</i>
-                                            </div>
+                                        <div class="col-md-6">
+                                            <input type="checkbox" name="is_tudeme" class="js-switch_3" checked/>
+                                            <i>is tudeme</i>
                                         </div>
                                     </div>
-
-
-                                    <br>
                                     <hr>
-
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('SAVE') }}</button>
                                     </div>
                                 </div>
-
 
                             </form>
                             </div>
@@ -115,9 +99,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
 @endsection

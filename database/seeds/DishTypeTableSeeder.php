@@ -31,7 +31,7 @@ class DishTypeTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Candy and Fudge',
+                'name' => 'Candy',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
@@ -43,31 +43,19 @@ class DishTypeTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Cookie',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
                 'name' => 'Cocktail',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Mac and Cheese',
+                'name' => 'Cookie',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
 
             [
-                'name' => 'Main Dish',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Pasta Salad',
+                'name' => 'Condiment',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
@@ -91,6 +79,12 @@ class DishTypeTableSeeder extends Seeder
             ],
 
             [
+                'name' => 'Salad',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'user_id' => 1,
+            ],
+
+            [
                 'name' => 'Sandwich',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
@@ -98,12 +92,6 @@ class DishTypeTableSeeder extends Seeder
 
             [
                 'name' => 'Sauce',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Condiment',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ],
@@ -122,12 +110,6 @@ class DishTypeTableSeeder extends Seeder
 
             [
                 'name' => 'Stew',
-                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-                'user_id' => 1,
-            ],
-
-            [
-                'name' => 'Chilli',
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'user_id' => 1,
             ]

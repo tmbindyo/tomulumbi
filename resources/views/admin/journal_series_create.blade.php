@@ -12,7 +12,7 @@
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <strong><a href="{{route('admin.action.types')}}">Journal Seriess</a></strong>
+                    <strong><a href="{{route('admin.journals')}}">Journal Series</a></strong>
                 </li>
                 <li class="active">
                     <strong>Journal Series Create</strong>
@@ -71,6 +71,12 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="checkbox" name="is_tudeme" class="js-switch_4"/>
+                                            <i>is tudeme</i>
+                                        </div>
+                                    </div>
                                     <hr>
 
                                     <div class="text-center">

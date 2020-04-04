@@ -24,7 +24,9 @@ class CreateJournalSeriesTable extends Migration
 
             $table->boolean('is_journal_series');
             $table->uuid('journal_series_id')->nullable();
-            
+            $table->boolean('is_tudeme');
+            $table->uuid('tudeme_id')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -12,7 +12,7 @@
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
                 </li>
                 <li class="active">
-                    <strong><a href="{{route('admin.client.proofs')}}">Journals</a></strong>
+                    <strong><a href="{{route('admin.journals')}}">Journals</a></strong>
                 </li>
                 <li class="active">
                     <strong>Journal Create</strong>
