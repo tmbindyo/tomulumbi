@@ -78,7 +78,7 @@ class Album extends Model
     }
     public function upload()
     {
-        return $this->hasMany('App\Upload');
+        return $this->hasMany('App\Upload')->order_by('date_time');
     }
 
 

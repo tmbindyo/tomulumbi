@@ -5,6 +5,9 @@
             <!-- Single Widget Area -->
             <div class="col-12 col-lg-4">
                 <div class="single_widget_area">
+                    <br>
+                    <br>
+                    <br>
                     <!-- Logo -->
                     <div class="footer-logo mr-50">
                         <a href="{{route('tomulumbi')}}"><img width="150em" src="{{ asset('') }}/tomulumbi.png" alt=""></a>
@@ -23,17 +26,29 @@
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavContent" aria-controls="footerNavContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
                             <div class="collapse navbar-collapse" id="footerNavContent">
                                 <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('welcome')}}">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('personal.albums')}}">Personal Albums</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('client.proofs')}}">Client Proofs</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('designs')}}">Designs</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('journals')}}">Journals</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('projects')}}">Projects</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('tudeme')}}">Tudeme</a>
+                                    </li>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="{{route('store')}}">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{route('store.products')}}">Shop</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{route('store.cart')}}">Cart</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{route('store.checkout')}}">Checkout</a>
+                                        <a class="nav-link" href="{{route('store')}}">Store</a>
                                     </li>
                                 </ul>
                             </div>

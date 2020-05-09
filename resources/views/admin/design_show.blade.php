@@ -114,7 +114,7 @@
 
                                         @isset($designGallery)
                                             @foreach($designGallery as $designGalleryImage)
-                                                <a href="{{ asset('') }}{{ $designGalleryImage->upload->pixels500 }}" title="{{ $designGalleryImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $designGalleryImage->upload->pixels100 }}"></a>
+                                                <a href="{{ asset('') }}{{ $designGalleryImage->upload->pixels750 }}" title="{{ $designGalleryImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $designGalleryImage->upload->pixels100 }}"></a>
                                             @endforeach
                                         @endisset
                                         <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
@@ -156,7 +156,7 @@
                                                         </ul>
                                                     </div>
                                                 @endif
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="">
                                                         <div class="has-success">
                                                             <input type="text" placeholder="Set Name" id="name" name="name" value="{{$work->name}}" required="required" class="form-control col-md-7 col-xs-12 input-lg">
@@ -186,8 +186,8 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                            <div class="col-md-8">
-                                                <img class="img-fluid" src="{{ asset('') }}{{ $work->upload->pixels500 }}">
+                                            <div class="col-md-6">
+                                                <img width="550em" class="img-fluid" src="{{ asset('') }}{{ $work->upload->pixels750 }}">
                                             </div>
                                         </div>
 
@@ -266,8 +266,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
-                        <li class=""><a data-toggle="tab" href="#album-image-design"><i class="fa fa-bookmark"></i> Album Image Design</a></li>
-                        <li class=""><a data-toggle="tab" href="#cover-image"><i class="fa fa-bookmark"></i> Cover Image</a></li>
                         <li class=""><a data-toggle="tab" href="#expenses"><i class="fa fa-dollar"></i> Expenses</a></li>
                         <li class=""><a data-toggle="tab" href="#albums"><i class="fa fa-dollar"></i> Albums</a></li>
                         <li class=""><a data-toggle="tab" href="#journals"><i class="fa fa-dollar"></i> Journals</a></li>
@@ -275,7 +273,7 @@
                     <div class="tab-content">
                         <div id="collection_settings" class="tab-pane active">
                             <div class="panel-body">
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-6">
 
                                     <form method="post" action="{{ route('admin.design.update',$design->id) }}" autocomplete="off">
                                         @csrf
@@ -357,46 +355,28 @@
 
                                     </form>
                                 </div>
-                            </div>
-                        </div>
-                        <div id="album-image-design" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="row m-t-lg">
-                                    <div class="col-md-8 col-md-offset-2">
-                                        <form method="post" action="{{ route('admin.design.update.design',$design->id) }}" autocomplete="off" enctype = "multipart/form-data">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <form method="post" action="{{ route('admin.design.cover.image',$design->id) }}" autocomplete="off" enctype = "multipart/form-data">
                                             @csrf
-                                            {{--  Album typography  --}}
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <h3 class="text-center">Typography</h3>
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="typography">
-                                                        @foreach($typographies as $typography)
-                                                            <option value="{{$typography->id}}" @if($typography->id === $design->typography_id) selected @endif>{{$typography->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>Choose between different typography styles to best compliment the proof.</i>
-                                                </div>
+                                            <div class="col-md-5">
+                                                <input type="file" required name="cover_image" class="custom-file-input btn" id="inputGroupFile04">
+                                                {{-- <div class="input-group">
+                                                    <input type="file" name="cover_image" class="form-control btn col-md-12 col-xs-12 input-lg">
+                                                </div> --}}
                                             </div>
-                                            <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Album Images Design Settings</button>
+                                            <div class="col-md-7">
+
+                                                <button type="submit" class="btn btn-primary btn-lg btn-outline btn-block">Update</button>
+
+                                            </div>
                                         </form>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="cover-image" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="row m-t-lg">
-                                    <div class="col-md-8 col-md-offset-2">
-                                        {{--  Cover Image  --}}
+                                    <br>
+                                    <div class="row">
                                         <div class="col-md-12">
-                                            <h2 class="text-center">Cover Image</h2>
-                                            <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
-                                            <hr>
-                                        </div>
-                                        <div class="col-md-10 col-md-offset-1">
-
                                             <div class="center">
-                                                <img alt="image" width="450em" class="img-responsive" @isset($design->cover_image) src="{{ asset('') }}{{ $design->cover_image->pixels750 }}" @endisset>
+                                                <img alt="image" width="550em" class="img-responsive" @isset($design->cover_image) src="{{ asset('') }}{{ $design->cover_image->pixels750 }}" @endisset>
                                             </div>
                                         </div>
                                     </div>

@@ -71,7 +71,7 @@
                                     </div>
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" name="color" class="form-control demo1  input-lg" value="#5367ce" />
+                                        <input type="text" name="color" class="form-control demo1  input-lg" value="#fffef4" />
                                         <i>Background color of text</i>
                                     </div>
                                     <br>

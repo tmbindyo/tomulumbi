@@ -20,6 +20,7 @@ class CreateDishTypesTable extends Migration
 
             $table->integer('user_id')->unsigned();
             $table->uuid('status_id');
+            $table->uuid('cover_image_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

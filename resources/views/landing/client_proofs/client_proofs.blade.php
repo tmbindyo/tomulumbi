@@ -45,31 +45,17 @@
     <!-- Menu -->
     <!-- nav -->
     <nav id="menu">
-        <div class="row">
-            <section>
-                <h2>Get in touch</h2>
-                <form method="post" action="{{ route('email.store') }}" autocomplete="off" class="form-horizontal form-label-left">
-                    @csrf
-                    <div class="field">
-                        <input type="text" name="name" id="name" placeholder="Name" required />
-                    </div>
-                    <div class="field">
-                        <input type="email" name="email" id="email" placeholder="Email" required />
-                    </div>
-                    <div class="field">
-                        <input type="text" name="subject" id="subject" placeholder="Subject" required />
-                    </div>
-                    <div class="field">
-                        <textarea name="message" id="message" placeholder="Message" required></textarea>
-                    </div>
-                    <ul class="actions">
-                        <li><input type="submit" value="Send" class="special" /></li>
-                    </ul>
-                </form>
-            </section>
-        </div>
-
-
+        <h2>Menu</h2>
+            <ul>
+                <li><a href="{{route('tomulumbi')}}">Home</a></li>
+                <li><a href="{{route('personal.albums')}}">Galleries</a></li>
+                <li><a href="{{route('client.proofs')}}">Client Proof</a></li>
+                <li><a href="{{route('designs')}}">Designs</a></li>
+                <li><a href="{{route('journals')}}">Journals</a></li>
+                <li><a href="{{route('projects')}}">Projects</a></li>
+                <li><a href="{{route('tudeme')}}">Tudeme</a></li>
+                <li><a href="{{route('store')}}">Store</a></li>
+            </ul>
     </nav>
     <!-- nav -->
 
@@ -77,24 +63,15 @@
     <div id="main">
         <div class="inner">
 
-
-            <!-- page header -->
-            <header>
-{{--                        <h1><!--[-->This is Phantom, a free, fully responsive site<!--]--><br />--}}
-                {{--            <!--[-->template designed by <a href="http://html5up.net">HTML5 UP</a>.<!--]--></h1>--}}
-                {{--        <p>Etiam quis viverra lorem, in semper lorem. Sed nisl arcu euismod sit amet nisi euismod sed cursus arcu elementum ipsum arcu vivamus quis venenatis orci lorem ipsum et magna feugiat veroeros aliquam. Lorem ipsum dolor sit amet nullam dolore.</p>--}}
-            </header>
-        <!-- /page header -->
-
             <!-- page content -->
             <section class="tiles">
                 @foreach($albums as $album)
                     <article class="style1">
                 <span class="image">
-                    @if(empty($album->cover_image->original))
+                    @if(empty($album->cover_image->pixels1500))
                         <img src="{{ asset('themes/client_proof/phantom') }}/images/background.jpg" alt="" />
-                    @elseif(isset($album->cover_image->original))
-                        <img src="{{ asset('') }}{{ $album->cover_image->pixels500 }}" alt="" />
+                    @elseif(isset($album->cover_image->pixels1500))
+                        <img src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" alt="" />
                     @endif
                 </span>
                         <a href="{{route('client.proof', $album->id)}}">
@@ -110,6 +87,47 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <section>
+                <h2>Get in touch</h2>
+                <form method="post" action="{{ route('email.store') }}">
+                    @csrf
+                    <div class="field half first">
+                        <input type="text" name="name" id="name" placeholder="Name" required />
+                    </div>
+                    <div class="field half">
+                        <input type="email" name="email" id="email" placeholder="Email" required />
+                    </div>
+                    <div class="field">
+                        <input type="text" name="subject" id="subject" placeholder="Subject" required />
+                    </div>
+                    <div class="field">
+                        <textarea name="message" id="message" placeholder="Message" required></textarea>
+                    </div>
+                    <ul class="actions">
+                        <li><input type="submit" value="Send" class="special" /></li>
+                    </ul>
+                </form>
+            </section>
+            <section>
+                <h2>Follow</h2>
+                <ul class="icons">
+                    <li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon style2 fa-dribbble"><span class="label">Behance</span></a></li>
+                    <li><a href="#" class="icon style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+                    <li><a href="#" class="icon style2 fa-phone"><span class="label">Phone</span></a></li>
+                    <li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+                </ul>
+            </section>
+            <ul class="copyright">
+                <li>&copy; tomulumbi. All rights reserved</li><li>Design: <a href="http://fluidtechglobal.com">Fluidtech Global</a></li>
+            </ul>
+        </div>
+    </footer>
 </div>
 
 <!-- Scripts -->

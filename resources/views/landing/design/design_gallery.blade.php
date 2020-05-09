@@ -76,7 +76,7 @@
         <div class="carousel-inner h-100">
 
             @foreach($designGallery as $image)
-                <div class="carousel-item h-100 bg-img @if($loop->index == 0) active @endif" style="background-image: url({{ asset('') }}{{ $image->upload->pixels2500 }});">
+                <div class="carousel-item h-100 bg-img @if($loop->index == 0) active @endif" style="background-image: url({{ asset('') }}{{ $image->upload->pixels1500 }});">
                     <div class="carousel-content h-100">
                         <div class="slide-text">
                             <span>{{$loop->iteration}}.</span>
@@ -92,7 +92,7 @@
         <!-- Carousel Indicators -->
         <ol class="carousel-indicators">
             @foreach($designGallery as $image)
-                <li data-target="#welcomeSlider" data-slide-to="{{$loop->index}}" class="@if($loop->index == 0) active @endif bg-img" style="background-image: url({{ asset('') }}{{ $image->upload->pixels300 }});"></li>
+                <li data-target="#welcomeSlider" data-slide-to="{{$loop->index}}" class="@if($loop->index == 0) active @endif bg-img" style="background-image: url({{ asset('') }}{{ $image->upload->pixels100 }});"></li>
             @endforeach
         </ol>
     </div>

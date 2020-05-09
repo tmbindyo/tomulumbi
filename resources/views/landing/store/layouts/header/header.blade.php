@@ -19,8 +19,8 @@
     </nav>
     <!-- Button Group -->
     <div class="amado-btn-group mt-30 mb-100">
-        <a href="#" class="btn amado-btn mb-15">%Discount%</a>
-        <a href="#" class="btn amado-btn active">New this week</a>
+        {{-- <a href="#" class="btn amado-btn mb-15">%Discount%</a> --}}
+        {{-- <a href="#" class="btn amado-btn active">New this week</a> --}}
     </div>
     <!-- Cart Menu -->
     <div class="cart-fav-search mb-100">
@@ -30,10 +30,10 @@
     </div>
     <!-- Social Button -->
     <div class="social-info d-flex justify-content-between">
-        <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        <a href="https://www.facebook.com/tomulumbi"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+        <a href="https://www.instagram.com/tomulumbi/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+        <a href="https://www.behance.net/tomulumbi"><i class="fa fa-behance" aria-hidden="true"></i></a>
+        <a href="https://dribbble.com/tomulumbi"><i class="fa fa-dribble" aria-hidden="true"></i></a>
     </div>
 </header>
 <!-- Header Area End -->

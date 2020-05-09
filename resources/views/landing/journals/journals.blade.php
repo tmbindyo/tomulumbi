@@ -55,16 +55,21 @@
     <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
     <div class="js-fullheight colorlib-table">
         <div class="colorlib-table-cell js-fullheight">
-
-            <div class="row  text-center">
-                <h3><a href="{{route('tomulumbi')}}">Home</a></h3>
+            <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li></li>
-                        <li class="active"></li>
+                        <li><a href="{{route('welcome')}}">Home</a></li>
+                        <li><a href="{{route('personal.albums')}}">Personal Albums</a></li>
+                        <li><a href="{{route('client.proofs')}}">Client Proofs</a></li>
+                        <li><a href="{{route('designs')}}">Designs</a></li>
+                        <li class="active"><a href="{{route('journals')}}">Journals</a></li>
+                        <li><a href="{{route('projects')}}">Projects</a></li>
+                        <li><a href="{{route('tudeme')}}">Tudeme</a></li>
+                        <li><a href="{{route('store')}}">Store</a></li>
                     </ul>
                 </div>
             </div>
+
 
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -76,8 +81,6 @@
                     </p>
                 </div>
             </div>
-
-
         </div>
     </div>
 </nav>

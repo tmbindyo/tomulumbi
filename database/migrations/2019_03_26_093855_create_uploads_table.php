@@ -51,7 +51,7 @@ class CreateUploadsTable extends Migration
             $table->text('pixels1500')->nullable();
             $table->text('pixels2500')->nullable();
             $table->text('pixels3600')->nullable();
-            $table->text('original');
+            $table->text('original')->nullable();
 
             // Cover images
             $table->text('small_thumbnail')->nullable();

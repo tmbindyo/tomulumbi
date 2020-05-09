@@ -17,6 +17,10 @@ class DietaryPreference extends Model
     {
         return $this->hasMany('App\MealDietaryPreference');
     }
+    public function cover_image()
+    {
+        return $this->hasOne('App\Upload','id', 'cover_image_id');
+    }
 
     // Parents
     public function status()
@@ -27,5 +31,5 @@ class DietaryPreference extends Model
     {
         return $this->belongsTo('App\User');
     }
-    
+
 }

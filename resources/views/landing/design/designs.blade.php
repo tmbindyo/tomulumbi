@@ -44,7 +44,14 @@
         <!-- nav -->
         <nav role="header-nav" class="navy">
             <ul>
-                <li class="nav-active"><a href="{{route('tomulumbi')}}" title="Work">Home</a></li>
+                <li class="nav-active"><a href="{{route('tomulumbi')}}" title="home">Home</a></li>
+                <li class=""><a href="{{route('personal.albums')}}" title="Work">Personal Albums</a></li>
+                <li class=""><a href="{{route('client.proofs')}}" title="Work">Client Proofs</a></li>
+                <li class=""><a href="{{route('designs')}}" title="Work">Designs</a></li>
+                <li class=""><a href="{{route('journals')}}" title="Work">Journals</a></li>
+                <li class=""><a href="{{route('projects')}}" title="Work">Projects</a></li>
+                <li class=""><a href="{{route('tudeme')}}" title="Work">Tudeme</a></li>
+                <li class=""><a href="{{route('store')}}" title="Work">Store</a></li>
             </ul>
         </nav>
         <!-- nav -->
@@ -56,12 +63,12 @@
 <main role="main-home-wrapper" class="container">
     <div class="row">
         <section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 grid">
-            <ul class="grid-lod effect-2" id="grid">
+            <ul class="grid-lod effect-1" id="grid">
                 @foreach($designs as $design)
                     @if($loop->iteration % 2 == 1)
                         <li>
                             <figure class="effect-oscar">
-                                <img src="{{ asset('') }}{{ $design->cover_image->pixels1000 }}" alt="" class="img-responsive"/>
+                                <img src="{{ asset('') }}{{ $design->cover_image->pixels750 }}" alt="" class="img-responsive"/>
                                 <figcaption>
                                     <h2>{{ $design->name }}</h2>
                                     <p>{{ $design->description }}</p>
@@ -81,7 +88,7 @@
                     @if($loop->iteration % 2 == 0)
                         <li>
                             <figure class="effect-oscar">
-                                <img src="{{ asset('') }}{{ $design->cover_image->pixels1000 }}" alt="" class="img-responsive"/>
+                                <img src="{{ asset('') }}{{ $design->cover_image->pixels750 }}" alt="" class="img-responsive"/>
                                 <figcaption>
                                     <h2>{{ $design->name }} </h2>
                                     <p>{{ $design->description }}</p>

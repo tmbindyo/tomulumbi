@@ -57,6 +57,12 @@
 
             <ul class="header-nav__list">
                 <li class="current"><a class="smoothscroll"  href="{{route('tomulumbi')}}" title="home">Home</a></li>
+                <li><a href="{{route('client.proofs')}}">Client Proofs</a></li>
+                <li><a href="{{route('designs')}}">Designs</a></li>
+                <li class="active"><a href="{{route('journals')}}">Journals</a></li>
+                <li><a href="{{route('projects')}}">Projects</a></li>
+                <li><a href="{{route('tudeme')}}">Tudeme</a></li>
+                <li><a href="{{route('store')}}">Store</a></li>
             </ul>
 
             <ul class="header-nav__social">
@@ -92,7 +98,7 @@
 
 <!-- home
 ================================================== -->
-<section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="{{ asset('') }}{{ $project->cover_image->pixels1000 }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+<section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="{{ asset('') }}{{ $project->cover_image->pixels1500 }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
     <div class="overlay"></div>
     <div class="shadow-overlay"></div>
@@ -198,52 +204,6 @@
 
 </section> <!-- end s-services -->
 
-
-<!-- works
-================================================== -->
-<section id='works' class="s-works">
-
-    <div class="intro-wrap">
-
-        <div class="row section-header has-bottom-sep light-sep" data-aos="fade-up">
-            <div class="col-full">
-                <h3 class="subhead">Gallery</h3>
-{{--                <h1 class="display-2 display-2--light">We love what we do, check out some of our latest works</h1>--}}
-            </div>
-        </div> <!-- end section-header -->
-
-    </div> <!-- end intro-wrap -->
-
-    <div class="row works-content">
-        <div class="col-full masonry-wrap">
-            <div class="masonry">
-                @foreach($projectGallery as $gallery)
-                    <div class="masonry__brick" data-aos="fade-up">
-                        <div class="item-folio">
-
-                            <div class="item-folio__thumb">
-                                <a href="{{ asset('') }}{{ $gallery->upload->pixels750 }}" class="thumb-link" title="{{$gallery->upload->name}}" data-size="1050x700">
-                                    <img src="{{ asset('') }}{{ $gallery->upload->pixels750 }}"
-                                         srcset="{{ asset('') }}{{ $gallery->upload->pixels1500 }}" alt="">
-                                </a>
-                            </div>
-
-                            <a href="https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                                <i class="icon-link"></i>
-                            </a>
-
-                            <div class="item-folio__caption">
-{{--                                <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>--}}
-                            </div>
-
-                        </div>
-                    </div> <!-- end masonry__brick -->
-                @endforeach
-            </div> <!-- end masonry -->
-        </div> <!-- end col-full -->
-    </div> <!-- end works-content -->
-
-</section> <!-- end s-works -->
 
 <!-- clients
     ================================================== -->
@@ -382,7 +342,7 @@
                 <div class="cinfo">
                     <h5>Email Us At</h5>
                     <p>
-                        contact@tomulumbi.com
+                        tomulumbi@tomulumbi.com
                     </p>
                 </div>
 
@@ -395,16 +355,16 @@
 
                 <ul class="contact-social">
                     <li>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/tomulumbi"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/tomulumbi/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
+                        <a href="https://www.behance.net/tomulumbi"><i class="fa fa-behance" aria-hidden="true"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                        <a href="https://dribbble.com/tomulumbi"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
                     </li>
                 </ul> <!-- end contact-social -->
 

@@ -1303,10 +1303,6 @@ class SettingsController extends Controller
         $large_thumbnail = $file_name."_large_thumbnail.".$extension;
         $banner = $file_name."_banner.".$extension;
 
-//        Image::make( $path )->fit(300, 291)->save(public_path()."/tag/".$folderName.$small_thumbnail);
-//        Image::make( $path )->fit(900, 874)->save(public_path()."/tag/".$folderName.$medium_thumbnail);
-//        Image::make( $path )->fit(1200, 1165)->save(public_path()."/tag/".$folderName.$large_thumbnail);
-
         if ($width > $height) { //landscape
 
             //Small image
@@ -1798,6 +1794,157 @@ class SettingsController extends Controller
         return view('admin.cooking_skill_show',compact('cookingSkill','user','cookingSkillMeals','navbarValues'));
     }
 
+    public function cookingSkillCoverImageUpload(Request $request,$cooking_skill_id)
+    {
+        // todo If already image delete
+        // todo hash the folder name
+        $cookingSkill = CookingSkill::where('id',$cooking_skill_id)->first();
+        $folderName = str_replace(' ', '', $cookingSkill->name."/");
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/cooking_skill/".$folderName, $file_name_extension);
+        $path = public_path()."/cooking_skill/".$folderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+
+        $cover_image = $file_name.".".$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
+        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
+        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
+        $banner = $file_name."_banner.".$extension;
+
+        if ($width > $height) { //landscape
+
+            //Small image
+            Image::make( $path )->fit(300, 150)->save(public_path()."/cooking_skill/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_skill/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(900, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_skill/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_skill/".$folderName.$large_thumbnail);
+
+        } else {
+
+
+            Image::make( $path )->resize(null, 291, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_skill/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(null, 874, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_skill/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(null, 1165, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_skill/".$folderName.$large_thumbnail);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->original = "cooking_skill/".$folderName.$file_name;
+        $upload->small_thumbnail = "cooking_skill/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "cooking_skill/".$folderName.$large_thumbnail;
+        $upload->banner = "cooking_skill/".$folderName.$banner;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
+        $upload->size = $size;
+        $upload->is_restrict_to_specific_email = False;
+        $upload->is_album_set_image = False;
+        $upload->upload_type_id = "b2877336-2866-47f6-9b44-094b4d414d1b";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update tag cover image
+        $cookingSkill = CookingSkill::findOrFail($cooking_skill_id);
+        $cookingSkill->cover_image_id = $upload->id;
+        $cookingSkill->user_id = Auth::user()->id;
+        $cookingSkill->save();
+
+
+        return back()->withSuccess(__('Tag cover image successfully uploaded.'));
+    }
+
     public function cookingSkillUpdate(Request $request, $cooking_skill_id)
     {
 
@@ -1878,6 +2025,157 @@ class SettingsController extends Controller
         // cooking style meals
         $cookingStyleMeals = MealCookingStyle::with('user','status','meal.tudeme')->where('cooking_style_id',$cooking_style_id)->with('meal.tudeme')->get();
         return view('admin.cooking_style_show',compact('cookingStyle','user','cookingStyleMeals','navbarValues'));
+    }
+
+    public function cookingStyleCoverImageUpload(Request $request,$cooking_style_id)
+    {
+        // todo If already image delete
+        // todo hash the folder name
+        $cookingStyle = CookingStyle::where('id',$cooking_style_id)->first();
+        $folderName = str_replace(' ', '', $cookingStyle->name."/");
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/cooking_style/".$folderName, $file_name_extension);
+        $path = public_path()."/cooking_style/".$folderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+
+        $cover_image = $file_name.".".$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
+        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
+        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
+        $banner = $file_name."_banner.".$extension;
+
+        if ($width > $height) { //landscape
+
+            //Small image
+            Image::make( $path )->fit(300, 150)->save(public_path()."/cooking_style/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_style/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(900, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_style/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_style/".$folderName.$large_thumbnail);
+
+        } else {
+
+
+            Image::make( $path )->resize(null, 291, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_style/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(null, 874, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_style/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(null, 1165, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cooking_style/".$folderName.$large_thumbnail);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->original = "cooking_style/".$folderName.$file_name;
+        $upload->small_thumbnail = "cooking_style/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "cooking_style/".$folderName.$large_thumbnail;
+        $upload->banner = "cooking_style/".$folderName.$banner;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
+        $upload->size = $size;
+        $upload->is_restrict_to_specific_email = False;
+        $upload->is_album_set_image = False;
+        $upload->upload_type_id = "b2877336-2866-47f6-9b44-094b4d414d1b";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update tag cover image
+        $cookingStyle = CookingStyle::findOrFail($cooking_style_id);
+        $cookingStyle->cover_image_id = $upload->id;
+        $cookingStyle->user_id = Auth::user()->id;
+        $cookingStyle->save();
+
+
+        return back()->withSuccess(__('Tag cover image successfully uploaded.'));
     }
 
     public function cookingStyleUpdate(Request $request, $cooking_style_id)
@@ -1962,6 +2260,157 @@ class SettingsController extends Controller
         $courseMeals = MealCourse::with('user','status','meal.tudeme')->where('course_id',$course_id)->get();
 
         return view('admin.course_show',compact('course','user','courseMeals','navbarValues'));
+    }
+
+    public function courseCoverImageUpload(Request $request,$course_id)
+    {
+        // todo If already image delete
+        // todo hash the folder name
+        $course = Course::where('id',$course_id)->first();
+        $folderName = str_replace(' ', '', $course->name."/");
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/course/".$folderName, $file_name_extension);
+        $path = public_path()."/course/".$folderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+
+        $cover_image = $file_name.".".$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
+        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
+        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
+        $banner = $file_name."_banner.".$extension;
+
+        if ($width > $height) { //landscape
+
+            //Small image
+            Image::make( $path )->fit(300, 150)->save(public_path()."/course/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/course/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(900, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/course/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/course/".$folderName.$large_thumbnail);
+
+        } else {
+
+
+            Image::make( $path )->resize(null, 291, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/course/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(null, 874, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/course/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(null, 1165, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/course/".$folderName.$large_thumbnail);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->original = "course/".$folderName.$file_name;
+        $upload->small_thumbnail = "course/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "course/".$folderName.$large_thumbnail;
+        $upload->banner = "course/".$folderName.$banner;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
+        $upload->size = $size;
+        $upload->is_restrict_to_specific_email = False;
+        $upload->is_album_set_image = False;
+        $upload->upload_type_id = "b2877336-2866-47f6-9b44-094b4d414d1b";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update tag cover image
+        $course = Course::findOrFail($course_id);
+        $course->cover_image_id = $upload->id;
+        $course->user_id = Auth::user()->id;
+        $course->save();
+
+
+        return back()->withSuccess(__('Tag cover image successfully uploaded.'));
     }
 
     public function courseUpdate(Request $request, $course_id)
@@ -2049,6 +2498,157 @@ class SettingsController extends Controller
         return view('admin.dietary_preference_show',compact('dietaryPreference','user','dietaryPreferenceMeals','navbarValues'));
     }
 
+    public function dietaryPreferenceCoverImageUpload(Request $request,$dietary_preference_id)
+    {
+        // todo If already image delete
+        // todo hash the folder name
+        $dietaryPreference = DietaryPreference::where('id',$dietary_preference_id)->first();
+        $folderName = str_replace(' ', '', $dietaryPreference->name."/");
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/dietary_preference/".$folderName, $file_name_extension);
+        $path = public_path()."/dietary_preference/".$folderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+
+        $cover_image = $file_name.".".$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
+        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
+        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
+        $banner = $file_name."_banner.".$extension;
+
+        if ($width > $height) { //landscape
+
+            //Small image
+            Image::make( $path )->fit(300, 150)->save(public_path()."/dietary_preference/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dietary_preference/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(900, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dietary_preference/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dietary_preference/".$folderName.$large_thumbnail);
+
+        } else {
+
+
+            Image::make( $path )->resize(null, 291, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dietary_preference/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(null, 874, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dietary_preference/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(null, 1165, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dietary_preference/".$folderName.$large_thumbnail);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->original = "dietary_preference/".$folderName.$file_name;
+        $upload->small_thumbnail = "dietary_preference/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "dietary_preference/".$folderName.$large_thumbnail;
+        $upload->banner = "dietary_preference/".$folderName.$banner;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
+        $upload->size = $size;
+        $upload->is_restrict_to_specific_email = False;
+        $upload->is_album_set_image = False;
+        $upload->upload_type_id = "b2877336-2866-47f6-9b44-094b4d414d1b";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update tag cover image
+        $dietaryPreference = DietaryPreference::findOrFail($dietary_preference_id);
+        $dietaryPreference->cover_image_id = $upload->id;
+        $dietaryPreference->user_id = Auth::user()->id;
+        $dietaryPreference->save();
+
+
+        return back()->withSuccess(__('Tag cover image successfully uploaded.'));
+    }
+
     public function dietaryPreferenceUpdate(Request $request, $dietary_preference_id)
     {
 
@@ -2131,6 +2731,157 @@ class SettingsController extends Controller
         $dishTypeMeals = Meal::with('user','status','tudeme')->where('dish_type_id',$dish_type_id)->get();
 
         return view('admin.dish_type_show',compact('dishType','user','dishTypeMeals','navbarValues'));
+    }
+
+    public function dishTypeCoverImageUpload(Request $request,$dish_type_id)
+    {
+        // todo If already image delete
+        // todo hash the folder name
+        $dishType = DishType::where('id',$dish_type_id)->first();
+        $folderName = str_replace(' ', '', $dishType->name."/");
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/dish_type/".$folderName, $file_name_extension);
+        $path = public_path()."/dish_type/".$folderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+
+        $cover_image = $file_name.".".$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
+        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
+        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
+        $banner = $file_name."_banner.".$extension;
+
+        if ($width > $height) { //landscape
+
+            //Small image
+            Image::make( $path )->fit(300, 150)->save(public_path()."/dish_type/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dish_type/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(900, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dish_type/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dish_type/".$folderName.$large_thumbnail);
+
+        } else {
+
+
+            Image::make( $path )->resize(null, 291, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dish_type/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(null, 874, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dish_type/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(null, 1165, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/dish_type/".$folderName.$large_thumbnail);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->original = "dish_type/".$folderName.$file_name;
+        $upload->small_thumbnail = "dish_type/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "dish_type/".$folderName.$large_thumbnail;
+        $upload->banner = "dish_type/".$folderName.$banner;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
+        $upload->size = $size;
+        $upload->is_restrict_to_specific_email = False;
+        $upload->is_album_set_image = False;
+        $upload->upload_type_id = "b2877336-2866-47f6-9b44-094b4d414d1b";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update tag cover image
+        $dishType = DishType::findOrFail($dish_type_id);
+        $dishType->cover_image_id = $upload->id;
+        $dishType->user_id = Auth::user()->id;
+        $dishType->save();
+
+
+        return back()->withSuccess(__('Tag cover image successfully uploaded.'));
     }
 
     public function dishTypeUpdate(Request $request, $dish_type_id)
@@ -2383,6 +3134,157 @@ class SettingsController extends Controller
         $cuisineMeals = Meal::with('user','status','tudeme')->where('cuisine_id',$cuisine_id)->get();
 
         return view('admin.cuisine_show',compact('cuisine','user','cuisineMeals','navbarValues'));
+    }
+
+    public function cuisineCoverImageUpload(Request $request,$cuisine_id)
+    {
+        // todo If already image delete
+        // todo hash the folder name
+        $cuisine = Cuisine::where('id',$cuisine_id)->first();
+        $folderName = str_replace(' ', '', $cuisine->name."/");
+
+        $file = Input::file("cover_image");
+        $file_name_extension = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+
+        $file->move(public_path()."/cuisine/".$folderName, $file_name_extension);
+        $path = public_path()."/cuisine/".$folderName.$file_name_extension;
+
+        $file_name = pathinfo($path, PATHINFO_FILENAME);
+
+        $cover_image = $file_name.".".$extension;
+
+        $width = Image::make( $path )->width();
+        $height = Image::make( $path )->height();
+
+        $small_thumbnail = $file_name."_small_thumbnail.".$extension;
+        $medium_thumbnail = $file_name."_medium_thumbnail.".$extension;
+        $large_thumbnail = $file_name."_large_thumbnail.".$extension;
+        $banner = $file_name."_banner.".$extension;
+
+        if ($width > $height) { //landscape
+
+            //Small image
+            Image::make( $path )->fit(300, 150)->save(public_path()."/cuisine/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cuisine/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(900, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cuisine/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cuisine/".$folderName.$large_thumbnail);
+
+        } else {
+
+
+            Image::make( $path )->resize(null, 291, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cuisine/".$folderName.$small_thumbnail);
+
+            Image::make( $path )->resize(null, 874, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cuisine/".$folderName.$medium_thumbnail);
+
+            Image::make( $path )->resize(null, 1165, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/cuisine/".$folderName.$large_thumbnail);
+
+        }
+
+        $img = Image::make($path);
+        $size = $img->filesize();
+
+        if ($img->exif()) {
+            $Artist = $img->exif('Artist');
+            $ApertureFNumber = $img->exif('COMPUTED->ApertureFNumber');
+            $Copyright = $img->exif('COMPUTED->Copyright');
+            $Height = $img->exif('COMPUTED->Height');
+            $Width = $img->exif('COMPUTED->Width');
+            $DateTime = $img->exif('DateTime');
+            $ShutterSpeed = $img->exif('ExposureTime');
+            $FileName = $img->exif('FileName');
+            $FileSize = $img->exif('FileSize');
+            $ISOSpeedRatings = $img->exif('ISOSpeedRatings');
+            $FocalLength = $img->exif('FocalLength');
+            $LightSource = $img->exif('LightSource');
+            $MaxApertureValue = $img->exif('MaxApertureValue');
+            $MimeType = $img->exif('MimeType');
+            $Make = $img->exif('Make');
+            $Model = $img->exif('Model');
+            $Software = $img->exif('Software');
+
+        }else{
+            $Artist = "Pending";
+            $ApertureFNumber = "Pending";
+            $Copyright = "Pending";
+            $Height = "Pending";
+            $Width = "Pending";
+            $DateTime = "Pending";
+            $ShutterSpeed = "Pending";
+            $FileName = "Pending";
+            $FileSize = "Pending";
+            $ISOSpeedRatings = "Pending";
+            $FocalLength = "Pending";
+            $LightSource = "Pending";
+            $MaxApertureValue = "Pending";
+            $MimeType = "Pending";
+            $Make = "Pending";
+            $Model = "Pending";
+            $Software = "Pending";
+        }
+
+
+        $upload = new Upload();
+        $upload->artist = $Artist;
+        $upload->aperture_f_number = $ApertureFNumber;
+        $upload->copyright = $Copyright;
+        $upload->height = $Height;
+        $upload->width = $Width;
+        $upload->date_time = $DateTime;
+        $upload->file_name = $FileName;
+        $upload->file_size = $FileSize;
+        $upload->iso = $ISOSpeedRatings;
+        $upload->focal_length = $FocalLength;
+        $upload->light_source = $LightSource;
+        $upload->max_aperture_value = $MaxApertureValue;
+        $upload->mime_type = $MimeType;
+        $upload->make = $Make;
+        $upload->model = $Model;
+        $upload->software = $Software;
+        $upload->shutter_speed = $ShutterSpeed;
+
+        $upload->name = $file_name;
+        $upload->extension = $extension;
+        $upload->original = "cuisine/".$folderName.$file_name;
+        $upload->small_thumbnail = "cuisine/".$folderName.$small_thumbnail;
+        $upload->large_thumbnail = "cuisine/".$folderName.$large_thumbnail;
+        $upload->banner = "cuisine/".$folderName.$banner;
+
+        // Get the extension type
+        $extensionType = $this->uploadExtension($extension);
+        $upload->file_type = $extensionType;
+
+        $upload->size = $size;
+        $upload->is_restrict_to_specific_email = False;
+        $upload->is_album_set_image = False;
+        $upload->upload_type_id = "b2877336-2866-47f6-9b44-094b4d414d1b";
+        $upload->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $upload->user_id = Auth::user()->id;
+        $upload->save();
+
+        // Update tag cover image
+        $cuisine = Cuisine::findOrFail($cuisine_id);
+        $cuisine->cover_image_id = $upload->id;
+        $cuisine->user_id = Auth::user()->id;
+        $cuisine->save();
+
+
+        return back()->withSuccess(__('Tag cover image successfully uploaded.'));
     }
 
     public function cuisineUpdate(Request $request, $cuisine_id)

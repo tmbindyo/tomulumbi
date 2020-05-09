@@ -61,10 +61,6 @@
                                 <button type="button" class="btn btn-primary m-r-sm">{{$journalArray['journalViews']}}</button>
                                 Journal Views
                             </td>
-                            <td>
-                                <button type="button" class="btn btn-success m-r-sm">{{$journalArray['journalGalleryViews']}}</button>
-                                Gallery Views
-                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -78,78 +74,13 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>
-                            Views x Gallery Views
+                            Views
                         </h5>
                     </div>
                     <div class="ibox-content">
                         <div>
                             <canvas id="lineChart" height="100"></canvas>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{--    Client proof images    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12 col-md-12">
-                <div class="tabs-container">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab-3"> <i class="fa fa-image"> Album Sets</i></a></li>
-                        <li class=""><a data-toggle="tab" href="#{{$journal->id}}"><i class="fa fa-desktop"> Journal Gallery</i></a></li>
-                    </ul>
-                    <div class="row">
-                        <div class="tab-content">
-                            <div id="tab-3" class="tab-pane active">
-                                <div class="panel-body">
-                                    <strong>Album sets</strong>
-
-                                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
-                                        existence in this spot, which was created for the bliss of souls like mine.</p>
-
-                                    <p>I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-                                        the present moment; and yet I feel that I never was a greater artist than now. When.</p>
-                                </div>
-                            </div>
-
-                            <div id="{{$journal->id}}" class="tab-pane">
-                                <div class="panel-body">
-
-                                    <div class="lightBoxGallery">
-
-                                        @isset($journalGallery)
-                                            @foreach($journalGallery as $journalGalleryImage)
-                                                <a href="{{ asset('') }}{{ $journalGalleryImage->upload->pixels500 }}" title="{{ $journalGalleryImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $journalGalleryImage->upload->pixels100 }}"></a>
-                                            @endforeach
-                                        @endisset
-                                        <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-                                        <div id="blueimp-gallery" class="blueimp-gallery">
-                                            <div class="slides"></div>
-                                            <h3 class="title"></h3>
-                                            <a class="prev">‹</a>
-                                            <a class="next">›</a>
-                                            <a class="close">×</a>
-                                            <a class="play-pause"></a>
-                                            <ol class="indicator"></ol>
-                                        </div>
-
-                                    </div>
-
-                                    <br>
-                                    <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.journal.gallery.image.upload',$journal->id)}}">
-                                        @csrf
-                                        <div class="dropzone-previews"></div>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-
-
                     </div>
                 </div>
             </div>
@@ -214,13 +145,12 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
-                        <li class=""><a data-toggle="tab" href="#gallery-image-design"><i class="fa fa-bookmark"></i> Gallery</a></li>
                         <li class=""><a data-toggle="tab" href="#cover-image"><i class="fa fa-image"></i> Cover Image</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="collection_settings" class="tab-pane active">
                             <div class="panel-body">
-                                <div class="col-md-8 col-md-offset-2">
+                                <div class="col-md-12">
 
                                     <form method="post" action="{{ route('admin.journal.update',$journal->id) }}" autocomplete="off">
                                         @csrf
@@ -235,41 +165,46 @@
                                         @endif
 
                                         <br>
-
-                                        <div class="has-warning">
-                                            <div class="form-group">
-                                                <label>Journal Name</label>
-                                                <input name="name" type="text" value="{{$journal->name}}" class="form-control input-lg">
-                                                <i>Pick something short and sweet. Imagine choosing a title for a photo journal cover.</i>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <div class="form-group">
+                                                    <input name="name" type="text" value="{{$journal->name}}" class="form-control input-lg">
+                                                    <i>name.</i>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="has-warning">
-                                            <div class="form-group" id="data_1">
-                                                <label>Event Date</label>
-                                                <div class="input-group date">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-calendar"></i>
-                                                        </span>
-                                                    <input type="text" name="date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($journal->date))}}">
+                                            <br>
+                                            <div class="has-warning">
+                                                <div class="form-group" id="data_1">
+                                                    <div class="input-group date">
+                                                            <span class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </span>
+                                                        <input type="text" name="date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($journal->date))}}">
+                                                    </div>
+                                                    <i>date.</i>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="has-warning">
+                                                <select required="required" name="status" class="select2_demo_status form-control input-lg" >
+                                                    @foreach($journalStatuses as $journalStatus)
+                                                        <option value="{{$journalStatus->id}}" @if($journalStatus->id == $journal->status_id) selected @endif>{{$journalStatus->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>status.</i>
+                                            </div>
+                                            <br>
+                                            <div class="has-warning">
+                                                <input type="text" name="color" class="form-control demo1  input-lg" value="{{$journal->color}}" />
+                                                <i>Background color of text</i>
+                                            </div>
+                                        </div>
 
-                                        <div class="has-warning">
-                                            <label class="control-label">Status</label>
-                                            <select required="required" name="status" class="select2_demo_status form-control input-lg" >
-                                                @foreach($journalStatuses as $journalStatus)
-                                                    <option value="{{$journalStatus->id}}" @if($journalStatus->id == $journal->status_id) selected @endif>{{$journalStatus->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>You can take the collection online/offline quickly. Hidden collections can only be seen by you.</i>
-                                        </div>
-                                        <br>
-                                        <div class="has-warning">
-                                            <input type="text" name="color" class="form-control demo1  input-lg" value="{{$journal->color}}" />
-                                            <i>Background color of text</i>
-                                        </div>
+
+
+
+
                                         <br>
                                         <div class="has-warning">
                                             <select required="required" name="labels[]" class="select2_demo_label form-control input-lg" multiple="multiple">
@@ -528,29 +463,6 @@
                             {{$journalViews['views']['10']}},
                             {{$journalViews['views']['11']}},
                             {{$journalViews['views']['12']}}
-                        ]
-                    },
-                    {
-                        label: "Example dataset",
-                        fillColor: "rgba(26,179,148,0.5)",
-                        strokeColor: "rgba(26,179,148,0.7)",
-                        pointColor: "rgba(26,179,148,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(26,179,148,1)",
-                        data: [
-                            {{$journalViews['galleryViews']['1']}},
-                            {{$journalViews['galleryViews']['2']}},
-                            {{$journalViews['galleryViews']['3']}},
-                            {{$journalViews['galleryViews']['4']}},
-                            {{$journalViews['galleryViews']['5']}},
-                            {{$journalViews['galleryViews']['6']}},
-                            {{$journalViews['galleryViews']['7']}},
-                            {{$journalViews['galleryViews']['8']}},
-                            {{$journalViews['galleryViews']['9']}},
-                            {{$journalViews['galleryViews']['10']}},
-                            {{$journalViews['galleryViews']['11']}},
-                            {{$journalViews['galleryViews']['12']}}
                         ]
                     }
                 ]

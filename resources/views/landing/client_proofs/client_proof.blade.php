@@ -29,9 +29,9 @@
 
                         </div><!-- p-grid -->
 						<div class="image">
-                            @if(empty($album->cover_image->original))
+                            @if(empty($album->cover_image->pixels1500))
                                 <img src="{{ asset('themes/client_proof/story') }}/images/banner.jpg" alt="" />
-                            @elseif(isset($album->cover_image->original))
+                            @elseif(isset($album->cover_image->pixels1500))
 							    <img src="{{ asset('') }}{{ $album->cover_image->pixels1500 }}" alt="" />
                             @endif
 						</div>

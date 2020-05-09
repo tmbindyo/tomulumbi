@@ -482,26 +482,12 @@ class TudemeController extends Controller
             Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel300FolderName.$image_name);
 
-            Image::make( $path )->fit(750, 730)->save(public_path()."/".$pixel500FolderName.$image_name);
+            Image::make( $path )->fit(750, 730)->save(public_path()."/".$pixel750FolderName.$image_name);
 
-            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
-
-            Image::make( $path )->resize(1000, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
+            Image::make( $path )->resize(1766, 698, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(2500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->resize(3600, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
 

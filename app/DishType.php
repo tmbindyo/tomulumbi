@@ -17,6 +17,10 @@ class DishType extends Model
     {
         return $this->hasMany('App\Meal');
     }
+    public function cover_image()
+    {
+        return $this->hasOne('App\Upload','id', 'cover_image_id');
+    }
 
     // Parents
     public function status()

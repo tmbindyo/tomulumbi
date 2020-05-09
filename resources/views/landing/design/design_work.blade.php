@@ -55,37 +55,21 @@
     <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
     <div class="js-fullheight colorlib-table">
         <div class="colorlib-table-cell js-fullheight">
-
-            <div class="row  text-center">
-                <h3><a href="{{route('tomulumbi')}}">Home</a></h3>
-                <h3><a class="active" href="{{route('designs')}}">Designs</a></h3>
-                <h3><a class="active" href="{{route('design.show',$designWork->design_id)}}">Back To {{$designWork->design->name}}</a></h3>
+            <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li></li>
-                        <li class="active"></li>
+                        <li><a href="{{route('welcome')}}">Home</a></li>
+                        <li><a href="{{route('personal.albums')}}">Personal Albums</a></li>
+                        <li><a href="{{route('client.proofs')}}">Client Proofs</a></li>
+                        <li class="active"><a href="{{route('designs')}}">Designs</a></li>
+                        <li><a href="{{route('journals')}}">Journals</a></li>
+                        <li><a href="{{route('projects')}}">Projects</a></li>
+                        <li><a href="{{route('tudeme')}}">Tudeme</a></li>
+                        <li><a href="{{route('store')}}">Store</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="row text-center">
-                <h2>Get in Touch</h2>
-                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
-            </div>
-
-            <div class="row text-center">
-                <h2>Social</h2>
-                <p class="colorlib-social-icons">
-                    <a href="#"><i class="icon-twitter3"></i></a>
-                    <a href="#"><i class="icon-instagram"></i></a>
-                    <a href="#"><i class="icon-behance"></i></a>
-                </p>
-            </div>
-
-            <div class="row text-center">
-                <h2>Office</h2>
-                <p>General Accident House, <br> Ralph bunche Rd, Nairobi.</p>
-            </div>
 
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -116,7 +100,7 @@
     </header>
 
     <div class="work-single-flex js-fullheight">
-        <div class="col-half js-full-height work-img" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1000 }});"></div>
+        <div class="col-half js-full-height work-img" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1500 }});"></div>
         <div class="col-half js-fullheight">
             <div class="display-t js-fullheight">
                 <div class="display-tc js-fullheight">

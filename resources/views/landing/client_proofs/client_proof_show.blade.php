@@ -79,7 +79,13 @@
                     <div class="main-menu">
                         <ul>
                             <li><a href="{{route('tomulumbi')}}">Home</a></li>
-                            <li><a href="{{route('client.proofs')}}">Client Proofs</a></li>
+                            <li class=""><a href="{{route('personal.albums')}}">Gallery</a></li>
+                            <li class="active"><a href="{{route('client.proofs')}}">Client Proof</a></li>
+                            <li class=""><a href="{{route('designs')}}">Design</a></li>
+                            <li class=""><a href="{{route('journals')}}">Journals</a></li>
+                            <li class=""><a href="{{route('projects')}}">Projects</a></li>
+                            <li class=""><a href="{{route('tudeme')}}">Tudeme</a></li>
+                            <li class=""><a href="{{route('store')}}">Store</a></li>
                             @if($album->is_download == 1)
                                 @if($album->download_pin)
                                     <li><a href="#" data-toggle="modal" data-target=".contact-modal-md"><span class="fa fa-download"></span> Download Album</a></li>
@@ -156,12 +162,12 @@
                                             <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->pixels750 }}" alt="" />
                                                 <figcaption>
                                                     <a class="elem"
-                                                        href="{{ asset('') }}{{ $albumSetImage->pixels1000 }}"
+                                                        href="{{ asset('') }}{{ $albumSetImage->pixels1500 }}"
                                                         title="View"
                                                         data-lcl-txt="Description 1"
                                                         data-lcl-author="tomulumbi"
                                                         data-lcl-thumb="{{ asset('') }}{{ $albumSetImage->pixels750 }}">
-                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->pixels1000 }});"></span>
+                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->pixels1500 }});"></span>
                                                     </a>
                                                 </figcaption>
                                             </figure>
@@ -186,12 +192,12 @@
                                                     {{--  <h2>{{$album->name}}</h2>  --}}
                                                     {{--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>  --}}
                                                     <a class="elem"
-                                                        href="{{ asset('') }}{{ $albumSetImage->upload->pixels1000 }}"
+                                                        href="{{ asset('') }}{{ $albumSetImage->upload->pixels1500 }}"
                                                         title="View"
                                                         data-lcl-txt="Description 1"
                                                         data-lcl-author="tomulumbi"
                                                         data-lcl-thumb="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}">
-                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->upload->pixels1000 }});"></span>
+                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->upload->pixels1500 }});"></span>
                                                     </a>
                                                 </figcaption>
                                             </figure>

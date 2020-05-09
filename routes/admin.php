@@ -232,6 +232,7 @@ Route::get('/cooking/skill/create', 'Admin\SettingsController@cookingSkillCreate
 Route::post('/cooking/skill/store', 'Admin\SettingsController@cookingSkillStore')->name('admin.cooking.skill.store');
 Route::get('/cooking/skill/show/{sub_type_id}', 'Admin\SettingsController@cookingSkillShow')->name('admin.cooking.skill.show');
 Route::post('/cooking/skill/update/{sub_type_id}', 'Admin\SettingsController@cookingSkillUpdate')->name('admin.cooking.skill.update');
+Route::post('/cooking/skill/cover/image/{album_id}', 'Admin\SettingsController@cookingSkillCoverImageUpload')->name('admin.cooking.skill.cover.image');
 Route::get('/cooking/skill/delete/{sub_type_id}', 'Admin\SettingsController@cookingSkillDelete')->name('admin.cooking.skill.delete');
 Route::get('/cooking/skill/restore/{sub_type_id}', 'Admin\SettingsController@cookingSkillRestore')->name('admin.cooking.skill.restore');
 
@@ -242,6 +243,7 @@ Route::get('/cooking/style/create', 'Admin\SettingsController@cookingStyleCreate
 Route::post('/cooking/style/store', 'Admin\SettingsController@cookingStyleStore')->name('admin.cooking.style.store');
 Route::get('/cooking/style/show/{sub_type_id}', 'Admin\SettingsController@cookingStyleShow')->name('admin.cooking.style.show');
 Route::post('/cooking/style/update/{sub_type_id}', 'Admin\SettingsController@cookingStyleUpdate')->name('admin.cooking.style.update');
+Route::post('/cooking/style/cover/image/{album_id}', 'Admin\SettingsController@cookingStyleCoverImageUpload')->name('admin.cooking.style.cover.image');
 Route::get('/cooking/style/delete/{sub_type_id}', 'Admin\SettingsController@cookingStyleDelete')->name('admin.cooking.style.delete');
 Route::get('/cooking/style/restore/{sub_type_id}', 'Admin\SettingsController@cookingStyleRestore')->name('admin.cooking.style.restore');
 
@@ -252,6 +254,7 @@ Route::get('/course/create', 'Admin\SettingsController@courseCreate')->name('adm
 Route::post('/course/store', 'Admin\SettingsController@courseStore')->name('admin.course.store');
 Route::get('/course/show/{sub_type_id}', 'Admin\SettingsController@courseShow')->name('admin.course.show');
 Route::post('/course/update/{sub_type_id}', 'Admin\SettingsController@courseUpdate')->name('admin.course.update');
+Route::post('/course/cover/image/{album_id}', 'Admin\SettingsController@courseCoverImageUpload')->name('admin.course.cover.image');
 Route::get('/course/delete/{sub_type_id}', 'Admin\SettingsController@courseDelete')->name('admin.course.delete');
 Route::get('/course/restore/{sub_type_id}', 'Admin\SettingsController@courseRestore')->name('admin.course.restore');
 
@@ -262,6 +265,7 @@ Route::get('/dietary/preference/create', 'Admin\SettingsController@dietaryPrefer
 Route::post('/dietary/preference/store', 'Admin\SettingsController@dietaryPreferenceStore')->name('admin.dietary.preference.store');
 Route::get('/dietary/preference/show/{sub_type_id}', 'Admin\SettingsController@dietaryPreferenceShow')->name('admin.dietary.preference.show');
 Route::post('/dietary/preference/update/{sub_type_id}', 'Admin\SettingsController@dietaryPreferenceUpdate')->name('admin.dietary.preference.update');
+Route::post('/dietary/preference/cover/image/{album_id}', 'Admin\SettingsController@dietarypreferenceCoverImageUpload')->name('admin.dietary.preference.cover.image');
 Route::get('/dietary/preference/delete/{sub_type_id}', 'Admin\SettingsController@dietaryPreferenceDelete')->name('admin.dietary.preference.delete');
 Route::get('/dietary/preference/restore/{sub_type_id}', 'Admin\SettingsController@dietaryPreferenceRestore')->name('admin.dietary.preference.restore');
 
@@ -272,6 +276,7 @@ Route::get('/dish/type/create', 'Admin\SettingsController@dishTypeCreate')->name
 Route::post('/dish/type/store', 'Admin\SettingsController@dishTypeStore')->name('admin.dish.type.store');
 Route::get('/dish/type/show/{sub_type_id}', 'Admin\SettingsController@dishTypeShow')->name('admin.dish.type.show');
 Route::post('/dish/type/update/{sub_type_id}', 'Admin\SettingsController@dishTypeUpdate')->name('admin.dish.type.update');
+Route::post('/dish/type/cover/image/{album_id}', 'Admin\SettingsController@dishTypeCoverImageUpload')->name('admin.dish.type.cover.image');
 Route::get('/dish/type/delete/{sub_type_id}', 'Admin\SettingsController@dishTypeDelete')->name('admin.dish.type.delete');
 Route::get('/dish/type/restore/{sub_type_id}', 'Admin\SettingsController@dishTypeRestore')->name('admin.dish.type.restore');
 
@@ -282,6 +287,7 @@ Route::get('/cuisine/create', 'Admin\SettingsController@cuisineCreate')->name('a
 Route::post('/cuisine/store', 'Admin\SettingsController@cuisineStore')->name('admin.cuisine.store');
 Route::get('/cuisine/show/{sub_type_id}', 'Admin\SettingsController@cuisineShow')->name('admin.cuisine.show');
 Route::post('/cuisine/update/{sub_type_id}', 'Admin\SettingsController@cuisineUpdate')->name('admin.cuisine.update');
+Route::post('/cuisine/cover/image/{album_id}', 'Admin\SettingsController@cuisineCoverImageUpload')->name('admin.cuisine.cover.image');
 Route::get('/cuisine/delete/{sub_type_id}', 'Admin\SettingsController@cuisineDelete')->name('admin.cuisine.delete');
 Route::get('/cuisine/restore/{sub_type_id}', 'Admin\SettingsController@cuisineRestore')->name('admin.cuisine.restore');
 
@@ -412,6 +418,7 @@ Route::get('/personal/album/create', 'Admin\AlbumController@personalAlbumCreate'
 Route::post('/personal/album/store', 'Admin\AlbumController@personalAlbumStore')->name('admin.personal.album.store');
 Route::get('/personal/album/show/{album_id}', 'Admin\AlbumController@personalAlbumShow')->name('admin.personal.album.show');
 
+Route::get('/personal/album/show/images/{album_id}', 'Admin\AlbumController@personalAlbumShowImages')->name('admin.personal.album.show.images');
 Route::get('/personal/album/create/journal/{album_id}', 'Admin\AlbumController@personalAlbumCreateJournal')->name('admin.personal.album.create.journal');
 
 Route::post('/personal/album/update/{album_id}', 'Admin\AlbumController@personalAlbumUpdate')->name('admin.personal.album.update');
@@ -430,6 +437,7 @@ Route::get('/client/proofs', 'Admin\AlbumController@clientProofs')->name('admin.
 Route::get('/client/proof/create', 'Admin\AlbumController@clientProofCreate')->name('admin.client.proof.create');
 Route::post('/client/proof/store', 'Admin\AlbumController@clientProofStore')->name('admin.client.proof.store');
 Route::get('/client/proof/show/{album_id}', 'Admin\AlbumController@clientProofShow')->name('admin.client.proof.show');
+Route::get('/client/proof/show/images/{album_id}', 'Admin\AlbumController@clientProofShowImages')->name('admin.client.proof.show.images');
 Route::get('/client/proof/delete/{album_id}', 'Admin\AlbumController@clientProofDelete')->name('admin.client.proof.delete');
 Route::get('/client/proof/restore/{album_id}', 'Admin\AlbumController@clientProofRestore')->name('admin.client.proof.delete');
 Route::post('/client/proof/update/collection/settings/{album_id}', 'Admin\AlbumController@albumUpdateCollectionSettings')->name('admin.client.proof.update.collection.settings');
@@ -486,7 +494,6 @@ Route::get('/project/journal/create/{project_id}', 'Admin\ProjectController@proj
 
 Route::post('/project/update/{project_id}', 'Admin\ProjectController@projectUpdate')->name('admin.project.update');
 Route::post('/project/cover/image/{project_id}', 'Admin\ProjectController@projectCoverImageUpload')->name('admin.project.cover.image');
-Route::post('/project/gallery/image/upload/{project_id}', 'Admin\ProjectController@projectGalleryImageUpload')->name('admin.project.gallery.image.upload');
 Route::post('/project/update/design/{project_id}', 'Admin\ProjectController@projectUpdateDesign')->name('admin.project.update.design');
 Route::get('/project/delete/{project_id}', 'Admin\ProjectController@projectDelete')->name('admin.project.delete');
 Route::get('/project/restore/{project_id}', 'Admin\ProjectController@projectRestore')->name('admin.project.restore');
@@ -510,7 +517,6 @@ Route::post('/journal/store', 'Admin\JournalController@journalStore')->name('adm
 Route::get('/journal/show/{journal_id}', 'Admin\JournalController@journalShow')->name('admin.journal.show');
 Route::post('/journal/update/{journal_id}', 'Admin\JournalController@journalUpdate')->name('admin.journal.update');
 Route::post('/journal/cover/image/{journal_id}', 'Admin\JournalController@journalCoverImageUpload')->name('admin.journal.cover.image');
-Route::post('/journal/gallery/image/upload/{journal_id}', 'Admin\JournalController@journalGalleryImageUpload')->name('admin.journal.gallery.image.upload');
 Route::post('/journal/update/design/{journal_id}', 'Admin\JournalController@journalUpdateDesign')->name('admin.journal.update.design');
 Route::get('/journal/delete/{journal_id}', 'Admin\JournalController@journalDelete')->name('admin.journal.delete');
 Route::get('/journal/restore/{journal_id}', 'Admin\JournalController@journalRestore')->name('admin.journal.restore');

@@ -62,7 +62,6 @@
             <!-- logo -->
 
             <!-- nav -->
-
             <nav>
                 <div class="menu-expanded">
                     <div class="nav-icon">
@@ -76,8 +75,14 @@
                     <div class="main-menu">
                         <ul>
                             <li><a href="{{route('tomulumbi')}}">Home</a></li>
-                            <li class="active"><a href="{{route('personal.albums')}}">Album View</a></li>
-                            <li><a href="{{route('tags')}}">Tag View</a></li>
+                            <li class="active"><a href="{{route('personal.albums')}}">Gallery</a></li>
+                            <li><a href="{{route('tags')}}">Gallery Tag View</a></li>
+                            <li class=""><a href="{{route('client.proofs')}}">Client Proof</a></li>
+                            <li class=""><a href="{{route('designs')}}">Design</a></li>
+                            <li class=""><a href="{{route('journals')}}">Journals</a></li>
+                            <li class=""><a href="{{route('projects')}}">Projects</a></li>
+                            <li class=""><a href="{{route('tudeme')}}">Tudeme</a></li>
+                            <li class=""><a href="{{route('store')}}">Store</a></li>
                         </ul>
                     </div>
                 </div>
@@ -103,7 +108,7 @@
                         <li class="masonry-item grid">
                             <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" alt="" />
                                 <figcaption>
-                                    {{--  <h2>{{$album->name}}</h2>  --}}
+                                     {{-- <h2>{{ $albumSetImage->upload->large }}</h2> --}}
                                     {{--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>  --}}
                                     <a class="elem"
                                        href="{{ asset('') }}{{ $albumSetImage->upload->pixels1500 }}"
@@ -121,7 +126,7 @@
             </ul>
         </div>
         <br>
-        
+
         <br>
     </div>
 </main>
@@ -134,7 +139,6 @@
     <h3>Stay connected with us</h3>
     <div class="container footer-bot">
         <div class="row">
-
             <!-- logo -->
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img width="93px" src="{{ asset('') }}/tomulumbi.png" alt="tomulumbi" title="tomulumbi"/>
@@ -187,7 +191,6 @@
     <div class="modal fade contact-modal-md" tabindex="-1" role="dialog" aria-labelledby="contact-modal-md" aria-hidden="true">
         <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <i class="center fa fa-4x fa-download"></i>
@@ -256,7 +259,7 @@
         touchswipe    :true,
         mousewheel    :true,
         rclick_prevent  :true,
-        @if($download == 'True' )
+        @if($album->is_download == 1 )
         download    :true,
         @endif
         // more options here

@@ -54,36 +54,21 @@
     <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
     <div class="js-fullheight colorlib-table">
         <div class="colorlib-table-cell js-fullheight">
-
-            <div class="row  text-center">
-                <h3><a href="{{route('tomulumbi')}}">Home</a></h3>
-                <h3><a class="active" href="{{route('designs')}}">Designs</a></h3>
+            <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li></li>
-                        <li class="active"></li>
+                        <li><a href="{{route('welcome')}}">Home</a></li>
+                        <li><a href="{{route('personal.albums')}}">Personal Albums</a></li>
+                        <li><a href="{{route('client.proofs')}}">Client Proofs</a></li>
+                        <li class="active"><a href="{{route('designs')}}">Designs</a></li>
+                        <li><a href="{{route('journals')}}">Journals</a></li>
+                        <li><a href="{{route('projects')}}">Projects</a></li>
+                        <li><a href="{{route('tudeme')}}">Tudeme</a></li>
+                        <li><a href="{{route('store')}}">Store</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="row text-center">
-                <h2>Get in Touch</h2>
-                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
-            </div>
-
-            <div class="row text-center">
-                <h2>Social</h2>
-                <p class="colorlib-social-icons">
-                    <a href="#"><i class="icon-twitter3"></i></a>
-                    <a href="#"><i class="icon-instagram"></i></a>
-                    <a href="#"><i class="icon-behance"></i></a>
-                </p>
-            </div>
-
-            <div class="row text-center">
-                <h2>Office</h2>
-                <p>General Accident House, <br> Ralph bunche Rd, Nairobi.</p>
-            </div>
 
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -127,7 +112,7 @@
                                 <div class="col-three-forth js-fullheight">
                                     <div class="row no-gutters">
                                         <div class="col-md-12 no-gutters">
-                                            <div class="work-img js-fullheight" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1000 }});">
+                                            <div class="work-img js-fullheight" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1500 }});">
                                             </div>
                                         </div>
                                     </div>
@@ -155,7 +140,7 @@
                                 <div class="col-three-forth js-fullheight">
                                     <div class="row no-gutters">
                                         <div class="col-md-12 col-md-push-10 no-gutters">
-                                            <div class="work-img js-fullheight" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1000 }});">
+                                            <div class="work-img js-fullheight" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1500 }});">
                                             </div>
                                         </div>
                                     </div>
@@ -191,12 +176,6 @@
     <div id="colorlib-subscribe">
         <div class="overlay"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center colorlib-heading animate-box">
-                    <h2>Subscribe Newsletter</h2>
-                    <p>Subscribe our newsletter and get latest update</p>
-                </div>
-            </div>
             <div class="row animate-box">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="row">

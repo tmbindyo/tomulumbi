@@ -601,6 +601,10 @@
                 placeholder: "Select Categories",
                 allowClear: true
             });
+            $(".select2_demo_thumbnail_size").select2({
+                placeholder: "Select Thumbnail Size",
+                allowClear: true
+            });
             $(".select2_demo_account").select2({
                 placeholder: "Select Account",
                 allowClear: true

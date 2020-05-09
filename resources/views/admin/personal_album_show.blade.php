@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-9">
+        <div class="col-lg-6">
             <h2>Personal Album</h2>
             <ol class="breadcrumb">
                 <li>
@@ -19,8 +19,9 @@
                 </li>
             </ol>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-6">
             <div class="title-action">
+                <a href="{{route('admin.personal.album.show.images',$album->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Images </a>
                 <a href="{{route('admin.personal.album.create.journal',$album->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Journal </a>
                 @if($album->project_id)
                     <a href="{{route('admin.project.show',$album->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> View Project </a>
@@ -88,116 +89,6 @@
             </div>
         </div>
 
-        {{--    Personal album images    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12 col-md-12">
-                <div class="tabs-container">
-                    <ul class="nav nav-tabs">
-                        @foreach($albumSets as $albumSet)
-                            <li @if($loop->iteration == 1) class="active" @endif><a data-toggle="tab" href="#{{$albumSet->id}}"><i class="fa fa-desktop"> {{$albumSet->name}}</i></a></li>
-                        @endforeach
-                    </ul>
-                    <div class="row">
-                        <div class="tab-content">
-
-                            @foreach($albumSets as $albumSet)
-                                <div id="{{$albumSet->id}}" class="tab-pane @if($loop->iteration == 1) active @endif">
-                                    <div class="panel-body">
-                                        <a href="{{route('admin.personal.album.set.show',$albumSet->id)}}" class="btn btn-primary btn-outline btn-block btn-lg">View Album Set</a>
-                                        <br>
-
-                                        <div class="lightBoxGallery">
-
-                                            @isset($albumSet->album_images)
-                                                @foreach($albumSet->album_images as $albumSetImage)
-                                                    <a data-toggle="modal" data-target="#{{$albumSetImage->upload->id}}"><img src="{{ asset('') }}{{ $albumSetImage->upload->pixels100 }}"></a>
-                                                    <div class="modal inmodal" id="{{$albumSetImage->upload->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <div class="modal-content animated bounceInRight">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                                    <h4 class="modal-title">{{$albumSetImage->upload->file_name}} Print <i class="fa fa-cogs"></i></h4>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form method="post" action="{{ route('admin.personal.album.image.update.print.status',$albumSetImage->id) }}" autocomplete="off" class="form-horizontal form-label-left">
-                                                                        @csrf
-
-                                                                        @if ($errors->any())
-                                                                            <div class="alert alert-danger">
-                                                                                <ul>
-                                                                                    @foreach ($errors->all() as $error)
-                                                                                        <li>{{ $error }}</li>
-                                                                                    @endforeach
-                                                                                </ul>
-                                                                            </div>
-                                                                        @endif
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <div class="has-warning">
-                                                                                    <label>Homepage Visibility</label>
-                                                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                                        <input name="is_print" type="checkbox" class="js-switch_16" @if($albumSetImage->is_print==1) checked @endif />
-                                                                                        <br>
-                                                                                        <i>Whether or not the image can be got as a print, default not enabled.</i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="col-md-6">
-                                                                                <div class="has-warning">
-                                                                                    <div class="form-group">
-                                                                                        <label>Print Limit</label>
-                                                                                        <input name="limit" type="text" value="{{$albumSetImage->limit}}" class="form-control input-lg">
-                                                                                        <i>This value determines the limit of times it can be printed.</i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <img width="490em" src="{{ asset('') }}{{ $albumSetImage->upload->pixels500 }}">
-                                                                        </div>
-
-                                                                        <hr>
-
-                                                                        <div>
-                                                                            <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Collection Settings</strong></button>
-                                                                        </div>
-
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            @endisset
-                                        </div>
-
-                                        <br>
-
-                                        <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.personal.album.set.image.upload',$albumSet->id)}}">
-                                            @csrf
-                                            <div class="dropzone-previews"></div>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <br>
         <div class="row">
 
@@ -257,8 +148,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
-                        <li class=""><a data-toggle="tab" href="#album-image-design"><i class="fa fa-bookmark"></i> Album Image Design</a></li>
-                        <li class=""><a data-toggle="tab" href="#cover-image"><i class="fa fa-bookmark"></i> Cover Image</a></li>
                         <li class=""><a data-toggle="tab" href="#download-status"><i class="fa fa-download"></i> Download</a></li>
                         <li class=""><a data-toggle="tab" href="#restrict"><i class="fa fa-download"></i> Restrict</a></li>
                         <li class=""><a data-toggle="tab" href="#expenses"><i class="fa fa-dollar"></i> Expenses</a></li>
@@ -266,7 +155,7 @@
                     <div class="tab-content">
                         <div id="collection_settings" class="tab-pane active">
                             <div class="panel-body">
-                                <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-6">
 
                                     <form method="post" action="{{ route('admin.personal.album.update.collection.settings',$album->id) }}" autocomplete="off">
                                         @csrf
@@ -281,14 +170,12 @@
                                         @endif
                                         <br>
                                         <div class="has-warning">
-                                            <div class="form-group">
-                                                <input name="name" type="text" value="{{$album->name}}" class="form-control input-lg">
-                                                <i>Collection Name</i>
-                                            </div>
+                                            <input name="name" type="text" value="{{$album->name}}" class="form-control input-lg">
+                                            <i>Collection Name</i>
                                         </div>
                                         <br>
                                         <div class="has-warning">
-                                            <div class="form-group" id="data_1">
+                                            <div id="data_1">
                                                 <div class="input-group date">
                                                         <span class="input-group-addon">
                                                             <i class="fa fa-calendar"></i>
@@ -342,67 +229,60 @@
 
                                     </form>
                                 </div>
-                            </div>
-                        </div>
-                        <div id="album-image-design" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="row m-t-lg">
-                                    <div class="col-md-6 col-md-offset-3">
+                                <div class="col-md-6">
+                                    <div class="row">
                                         <form method="post" action="{{ route('admin.personal.album.update.design',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
                                             @csrf
-                                            {{--  Album typography  --}}
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="typography">
-                                                        @foreach($typographies as $typography)
-                                                            <option value="{{$typography->id}}" @if($typography->id === $album->typography_id) selected @endif>{{$typography->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>Choose between different typography styles to best compliment the proof.</i>
-                                                </div>
-                                            </div>
                                             {{--  Album thumbnail size  --}}
                                             <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="thumbnail_size" required>
-                                                        @foreach($thumbnailSizes as $thumbnailSize)
-                                                            <option value="{{$thumbnailSize->id}}" @if($thumbnailSize->id === $album->thumbnail_size_id) selected @endif>{{$thumbnailSize->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>Adjust the display size of photos in the gallery.</i>
-                                                </div>
+                                                <select required="required" name="thumbnail_size" class="select2_demo_thumbnail_size form-control input-lg">
+                                                    @foreach($thumbnailSizes as $thumbnailSize)
+                                                        <option value="{{$thumbnailSize->id}}" @if($thumbnailSize->id === $album->thumbnail_size_id) selected @endif>{{$thumbnailSize->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i>Adjust the display size of photos in the gallery.</i>
                                             </div>
 
+                                            <br>
                                             <hr>
+                                            <br>
 
                                             <div class="col-md-12">
                                                 <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Album Images Design Settings</button>
                                             </div>
                                         </form>
-
-
-
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="cover-image" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="row m-t-lg">
-                                    <div class="col-md-6 col-md-offset-3">
+                                    {{-- <h2 class="text-center">Cover Image</h2> --}}
+                                    <hr>
+                                    <div class="row">
                                         {{--  Cover Image  --}}
-                                        <div class="col-md-12">
-                                            <h2 class="text-center">Cover Image</h2>
-                                            <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#albumCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
-                                            <hr>
-                                        </div>
+                                        <form method="post" action="{{ route('admin.personal.album.set.cover.image',$album->id) }}" autocomplete="off" enctype = "multipart/form-data">
+                                            @csrf
+                                            <div class="col-md-5">
+                                                <input type="file" required name="cover_image" class="custom-file-input btn" id="inputGroupFile04">
+                                                {{-- <div class="input-group">
+                                                    <input type="file" name="cover_image" class="form-control btn col-md-12 col-xs-12 input-lg">
+                                                </div> --}}
+                                            </div>
+                                            <div class="col-md-7">
+
+                                                <button type="submit" class="btn btn-primary btn-lg btn-outline btn-block">Update</button>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <br>
+
+                                    <div class="row">
                                         <div class="col-md-12">
 
                                             <div class="center">
-                                                <img alt="image" width="490em" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
+                                                <img alt="image" width="550em" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
                                             </div>
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>

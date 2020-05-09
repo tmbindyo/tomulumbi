@@ -72,8 +72,14 @@
                     <div class="main-menu">
                         <ul>
                             <li><a href="{{route('tomulumbi')}}">Home</a></li>
-                            <li class="active"><a href="{{route('personal.albums')}}">Album View</a></li>
-                            <li><a href="{{route('tags')}}">Tag View</a></li>
+                            <li class="active"><a href="{{route('personal.albums')}}">Gallery</a></li>
+                            <li><a href="{{route('tags')}}">Gallery Tag View</a></li>
+                            <li class=""><a href="{{route('client.proofs')}}">Client Proof</a></li>
+                            <li class=""><a href="{{route('designs')}}">Design</a></li>
+                            <li class=""><a href="{{route('journals')}}">Journals</a></li>
+                            <li class=""><a href="{{route('projects')}}">Projects</a></li>
+                            <li class=""><a href="{{route('tudeme')}}">Tudeme</a></li>
+                            <li class=""><a href="{{route('store')}}">Store</a></li>
                         </ul>
                     </div>
                 </div>
@@ -96,9 +102,9 @@
             <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-3 masonry">
                 @foreach($albums as $album)
                     <li class="masonry-item grid">
-                        @if(empty($album->cover_image->original))
+                        @if(empty($album->cover_image->pixels750))
                             <figure class="effect-sarah"> <img src="{{ asset('client_proof/phantom') }}/images/pic01.jpg" alt="" />
-                        @elseif(isset($album->cover_image->original))
+                        @elseif(isset($album->cover_image->pixels750))
                             <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" alt="" />
                         @endif
                             <figcaption>

@@ -33,6 +33,7 @@ class StoreController extends Controller
     public function store(Request $request)
     {
 
+        return redirect()-> back();
         // save that user visited
 
         $view_type = "382da08a-1149-4178-9e7a-92539705f436";

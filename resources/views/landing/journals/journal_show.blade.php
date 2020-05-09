@@ -64,7 +64,12 @@
 
         <ul class="nav-list">
             <li class="current"><a href="{{route('tomulumbi')}}" title="">Home</a></li>
-            <li><a href="{{route('journals')}}" title="">Journals</a></li>
+            <li><a href="{{route('client.proofs')}}">Client Proofs</a></li>
+            <li><a href="{{route('designs')}}">Designs</a></li>
+            <li class="active"><a href="{{route('journals')}}">Journals</a></li>
+            <li><a href="{{route('projects')}}">Projects</a></li>
+            <li><a href="{{route('tudeme')}}">Tudeme</a></li>
+            <li><a href="{{route('store')}}">Store</a></li>
         </ul>
 
         <ul class="header-social-list">
@@ -162,7 +167,7 @@
 
         <div class="row narrow section-intro with-bottom-sep animate-this">
             <div class="col-twelve">
-                <h3>Gallery</h3>
+                <h3>Related</h3>
 {{--                <a class="button full-width" href="{{route('journal.gallery.show',1)}}">View</a>--}}
             </div>
         </div> <!-- end row section-intro -->

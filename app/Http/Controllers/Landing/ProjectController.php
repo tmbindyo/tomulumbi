@@ -25,7 +25,7 @@ class ProjectController extends Controller
         $view = $this->trackView($request,$view_type,$view_id);
         // Get projects
         $projects = Project::where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('cover_image')->get();
-        return view('landing.projects.projects',compact('projects'));
+        return view('landing.projects.projects2',compact('projects'));
     }
 
     public function projectShow(Request $request, $project_id)

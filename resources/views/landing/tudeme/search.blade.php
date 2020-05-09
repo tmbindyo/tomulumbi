@@ -90,10 +90,10 @@
                 @foreach ($tudemes as $tudeme)
                     <div class="col-lg-4 col-sm-6">
                         <div class="recipe-item">
-                            <a href="{{route('tudeme.blog.show',$tudeme->id)}}"><img src="{{ asset('') }}{{ $tudeme->cover_image->pixels500 }}" alt=""></a>
+                            <a href="{{route('tudeme.recipe',$tudeme->id)}}"><img src="{{ asset('') }}{{ $tudeme->cover_image->pixels500 }}" alt=""></a>
                             <div class="ri-text">
                                 <div class="cat-name">Desert</div>
-                                <a href="{{route('tudeme.blog.show',$tudeme->id)}}">
+                                <a href="{{route('tudeme.recipe',$tudeme->id)}}">
                                     <h4>{{$tudeme->name}}</h4>
                                 </a>
                                 <p>{{$tudeme->description}}.</p>

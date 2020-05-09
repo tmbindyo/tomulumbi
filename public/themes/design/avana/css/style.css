@@ -215,13 +215,13 @@ button:focus,
 }
 
 ::-moz-selection {
-    background-color: #fb5353;
+    background-color: #ffce00;
     color: #fff;
     text-shadow: none;
 }
 
 ::selection {
-    background-color: #fb5353;
+    background-color: #ffce00;
     color: #fff;
     text-shadow: none;
 }
@@ -274,8 +274,8 @@ header[role="header"] nav ul {
 }
 
 header[role="header"] nav ul>li {
-    font-weight: 800;
-    font-size: 42px;
+    font-weight: 400;
+    font-size: 32px;
     display: block
 }
 
@@ -288,7 +288,7 @@ header[role="header"] nav ul>li>a {
 header[role="header"] nav ul>li:hover a,
 header[role="header"] nav ul>li.nav-active a {
     text-decoration: none;
-    color: #fb5353
+    color: #ffce00
 }
 
 header[role="header"] nav #menu-button {
@@ -396,7 +396,7 @@ main[role="main-home-wrapper"] article[role="pge-title-content"] header h2 span,
 main[role="main-inner-wrapper"] article[role="pge-title-content"] header h2 span {
     display: block;
     font-size: 80px;
-    color: #fb5353;
+    color: #ffce00;
     padding-bottom: 15px
 }
 
@@ -446,7 +446,7 @@ footer[role="footer"] nav>ul>li>a {
 
 footer[role="footer"] nav>ul>li:hover a {
     text-decoration: none;
-    color: #fb5353
+    color: #ffce00
 }
 
 footer[role="footer"] ul[role="social-icons"] {
@@ -474,7 +474,7 @@ footer[role="footer"] ul[role="social-icons"]>li>a {
 }
 
 footer[role="footer"] ul[role="social-icons"]>li:hover a {
-    background-color: #fb5353
+    background-color: #ffce00
 }
 
 footer[role="footer"] .copy-right {
@@ -489,7 +489,7 @@ footer[role="footer"] .copy-right {
 /*===== About ===*/
 
 main[role="main-inner-wrapper"] .about-content {
-    background-color: #fb5353;
+    background-color: #ffce00;
     padding-top: 57px;
     padding-left: 70px;
     padding-right: 67px;
@@ -532,7 +532,7 @@ main[role="main-inner-wrapper"] .thumbnails-pan section figure figcaption {
     bottom: -50%;
     left: 0;
     right: 0;
-    background-color: #fb5353;
+    background-color: #ffce00;
     margin: 0 69px;
     text-align: center;
     color: #FFF;
@@ -555,7 +555,7 @@ main[role="main-inner-wrapper"] .thumbnails-pan section figure figcaption h5 {
 
 main[role="main-inner-wrapper"] .thumbnails-pan section figure:hover,
 section.blog-content:hover article {
-    background-color: #fb5353;
+    background-color: #ffce00;
     color: #FFF
 }
 
@@ -596,7 +596,7 @@ section.blog-content figure .post-date {
     line-height: 18px;
     text-transform: uppercase;
     display: block;
-    background-color: #fb5353;
+    background-color: #ffce00;
     width: 130px;
     height: 130px;
     position: absolute;
@@ -640,7 +640,7 @@ article[role="pge-title-content"].contact-header p a {
 }
 
 article[role="pge-title-content"].contact-header p a:hover {
-    color: #fb5353;
+    color: #ffce00;
     text-decoration: none
 }
 
@@ -656,7 +656,7 @@ article[role="pge-title-content"].contact-header p a:hover {
 }
 
 .error_message {
-    color: #e84d49
+    color: #ffce00
 }
 
 #success_page h3,
@@ -731,13 +731,13 @@ article[role="pge-title-content"].contact-header p a:hover {
     color: #FFF;
     font-weight: 800;
     letter-spacing: 2px;
-    background-color: #e84d49;
+    background-color: #ffce00;
     margin: 41px auto;
     margin-bottom: 0
 }
 
 .contat-from-wrapper input[type="submit"]:hover {
-    background-color: #f8524e
+    background-color: #ffce00
 }
 
 
@@ -757,7 +757,7 @@ article[role="pge-title-content"].contact-header p a:hover {
 
 .work-details header a {
     display: inline-block;
-    color: #fb5353;
+    color: #ffce00;
     font-size: 18px;
     font-weight: 800;
     padding-top: 3px
@@ -774,7 +774,7 @@ article[role="pge-title-content"].contact-header p a:hover {
 }
 
 .work-details header a:hover i {
-    color: #fb5353
+    color: #ffce00
 }
 
 .work-details p {
@@ -814,7 +814,7 @@ article[role="pge-title-content"].contact-header p a:hover {
 }
 
 .bog-header h3 span {
-    color: #fb5353
+    color: #ffce00
 }
 
 .bog-header h2 {
@@ -891,7 +891,7 @@ article[role="pge-title-content"].contact-header p a:hover {
 
 .comments-reply li section h4 a {
     font-size: 16px;
-    color: #fb5353;
+    color: #ffce00;
     font-weight: 400;
     display: inline-block;
     padding-left: 20px
@@ -960,10 +960,10 @@ article[role="pge-title-content"].contact-header p a:hover {
     text-align: center;
     border: none;
     outline: none;
-    background-color: #fb5353;
+    background-color: #ffce00;
     margin-top: 50px
 }
 
 .commentys-form input[type="button"]:hover {
-    background-color: #ff5c5c
+    background-color: #ffce00
 }
