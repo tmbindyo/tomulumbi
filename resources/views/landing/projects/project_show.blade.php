@@ -56,7 +56,7 @@
 {{--            <h3>Navigation</h3>--}}
 
             <ul class="header-nav__list">
-                <li class="current"><a class="smoothscroll"  href="{{route('tomulumbi')}}" title="home">Home</a></li>
+                <li class="current"><a href="{{route('welcome')}}" title="home">Home</a></li>
                 <li><a href="{{route('client.proofs')}}">Client Proofs</a></li>
                 <li><a href="{{route('designs')}}">Designs</a></li>
                 <li class="active"><a href="{{route('journals')}}">Journals</a></li>
@@ -342,7 +342,7 @@
                 <div class="cinfo">
                     <h5>Email Us At</h5>
                     <p>
-                        tomulumbi@tomulumbi.com
+                        info@tomulumbi.com
                     </p>
                 </div>
 

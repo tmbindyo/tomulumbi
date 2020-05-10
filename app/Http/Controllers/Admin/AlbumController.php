@@ -231,6 +231,8 @@ class AlbumController extends Controller
 
         $pixel750FolderName = str_replace(' ', '', "work/personal_album/".$album->name."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
+        $pixel1500FolderName = str_replace(' ', '', "work/personal_album/".$album->name."/Cover Image"."/1500/");
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
@@ -254,6 +256,9 @@ class AlbumController extends Controller
             Image::make( $path )->resize(1000, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(1500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
 
         } else {
 
@@ -262,6 +267,9 @@ class AlbumController extends Controller
             Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name);
+            Image::make( $path )->resize(null, 1500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel1500FolderName.$image_name);
 
         }
 
@@ -336,6 +344,7 @@ class AlbumController extends Controller
         $upload->file_type = $extensionType;
 
         $upload->pixels750 = $pixel750FolderName.$image_name;
+        $upload->pixels1500 = $pixel1500FolderName.$image_name;
 
 
         $upload->is_restrict_to_specific_email = False;

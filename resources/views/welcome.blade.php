@@ -98,7 +98,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="colorlib-navbar-brand">
-                        <a class="colorlib-logo" href="{{route('tomulumbi')}}" title="tomulumbi"><img width="20em" src="{{ asset('') }}/tomulumbi logos.png" alt="tomulumbi" title="tomulumbi"/></a>
+                        <a class="colorlib-logo" href="{{route('tomulumbi')}}" title="tomulumbi"><img width="20em" src="{{ asset('') }}tomulumbi/symbol/solid/500px/1.png" alt="tomulumbi" title="tomulumbi"/></a>
                         {{--  <a class="colorlib-logo" href="{{route('tomulumbi')}}">tomulumbi</a>  --}}
                     </div>
                     <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>

@@ -57,7 +57,7 @@
 
             <!-- logo -->
 
-            <h1> <a href="{{route('personal.albums')}}" title="tomulumbi"><img src="{{ asset('') }}/tomulumbi.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
+            <h1> <a href="{{route('personal.albums')}}" title="tomulumbi"><img src="{{ asset('') }}tomulumbi/logotype/solid/2000px/1.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
 
             <!-- logo -->
 
@@ -141,7 +141,7 @@
         <div class="row">
             <!-- logo -->
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img width="93px" src="{{ asset('') }}/tomulumbi.png" alt="tomulumbi" title="tomulumbi"/>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img width="93px" src="{{ asset('') }}tomulumbi/logotype/solid/2000px/1.png" alt="tomulumbi" title="tomulumbi"/>
                 <p class="copy-right">Copyright &copy; <script>document.write(new Date().getFullYear());</script></p>
             </div>
 

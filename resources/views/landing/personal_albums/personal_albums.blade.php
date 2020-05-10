@@ -56,7 +56,7 @@
 
             <!-- logo -->
 
-            <h1> <a href="{{route('tomulumbi')}}" title="tomulumbi"><img src="{{ asset('') }}/tomulumbi.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
+            <h1> <a href="{{route('tomulumbi')}}" title="tomulumbi"><img src="{{ asset('') }}tomulumbi/logotype/solid/2000px/1.png" alt="tomulumbi" title="tomulumbi"/></a> </h1>
 
             <!-- logo -->
 

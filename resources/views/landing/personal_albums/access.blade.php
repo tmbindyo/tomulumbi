@@ -35,9 +35,7 @@
     </style>
 </head>
 
-<body class="gray-bg" background=" @if(empty($album->cover_image->original)) {{ asset('client_proof/story') }}/images/banner.jpg @elseif(isset($album->cover_image->original)) {{ asset('') }}{{ $album->cover_image->pixels1500 }}@endif">
-
-
+<body class="gray-bg" background=" @if(empty($album->cover_image->pixels1500)) {{ asset('client_proof/story') }}/images/banner.jpg @elseif(isset($album->cover_image->pixels1500)) {{ asset('') }}{{ $album->cover_image->pixels1500 }}@endif">
 
 <div class="middle-box text-center loginscreen animated fadeInDown">
     <div>

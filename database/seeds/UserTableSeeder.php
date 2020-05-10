@@ -22,7 +22,7 @@ class UserTableSeeder extends Seeder
             ],
             [
                 'name' => 'Thomas Mulumbi',
-                'email' => 'tomulumbi@tomulumbi.com',
+                'email' => 'info@tomulumbi.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('zC^2$m@45QycTUNO'),
                 'user_type_id' => '0c31d2c0-8cd9-4c0e-8f67-d313d8e482c6',
