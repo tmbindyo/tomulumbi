@@ -6,7 +6,7 @@
     </div>
     <!-- Logo -->
     <div class="logo">
-        <a href="{{route('tomulumbi')}}"><img  src="{{ asset('') }}/tomulumbi.png" alt=""></a>
+        <a href="{{route('tomulumbi')}}"><img  src="{{ asset('') }}tomulumbi/logotype/solid/2000px/1.png" alt=""></a>
     </div>
     <!-- Amado Nav -->
     <nav class="amado-nav">

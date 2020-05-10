@@ -140,7 +140,6 @@
     <div class="container footer-bot">
         <div class="row">
             <!-- logo -->
-
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img width="93px" src="{{ asset('') }}tomulumbi/logotype/solid/2000px/1.png" alt="tomulumbi" title="tomulumbi"/>
                 <p class="copy-right">Copyright &copy; <script>document.write(new Date().getFullYear());</script></p>
             </div>

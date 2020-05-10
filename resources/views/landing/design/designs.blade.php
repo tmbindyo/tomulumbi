@@ -37,21 +37,21 @@
     <div class="container">
         <!-- logo -->
         <h1>
-            <a href="{{route('tomulumbi')}}" title="tomulumbi"><img width="93px" src="{{ asset('') }}/tomulumbi.png" title="tomulumbi" alt="tomulumbi"/></a>
+            <a href="{{route('tomulumbi')}}" title="tomulumbi"><img width="93px" src="{{ asset('') }}tomulumbi/logotype/solid/2000px/1.png" title="tomulumbi" alt="tomulumbi"/></a>
         </h1>
         <!-- logo -->
 
         <!-- nav -->
         <nav role="header-nav" class="navy">
             <ul>
-                <li class="nav-active"><a href="{{route('tomulumbi')}}" title="home">Home</a></li>
-                <li class=""><a href="{{route('personal.albums')}}" title="Work">Personal Albums</a></li>
-                <li class=""><a href="{{route('client.proofs')}}" title="Work">Client Proofs</a></li>
-                <li class=""><a href="{{route('designs')}}" title="Work">Designs</a></li>
-                <li class=""><a href="{{route('journals')}}" title="Work">Journals</a></li>
-                <li class=""><a href="{{route('projects')}}" title="Work">Projects</a></li>
-                <li class=""><a href="{{route('tudeme')}}" title="Work">Tudeme</a></li>
-                <li class=""><a href="{{route('store')}}" title="Work">Store</a></li>
+                <li class=""><a href="{{route('tomulumbi')}}" title="home">Home</a></li>
+                <li class=""><a href="{{route('personal.albums')}}" title="Gallaries">Gallaries</a></li>
+                <li class=""><a href="{{route('client.proofs')}}" title="Client Proofs">Client Proofs</a></li>
+                <li class="nav-active"><a href="{{route('designs')}}" title="Designa">Designs</a></li>
+                <li class=""><a href="{{route('journals')}}" title="Journals">Journals</a></li>
+                <li class=""><a href="{{route('projects')}}" title="Projects">Projects</a></li>
+                <li class=""><a href="{{route('tudeme')}}" title="Tudeme">Tudeme</a></li>
+                <li class=""><a href="{{route('store')}}" title="Store">Store</a></li>
             </ul>
         </nav>
         <!-- nav -->

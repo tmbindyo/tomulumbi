@@ -49,7 +49,7 @@
                 <div class="main-menu h-100">
                     <nav class="navbar h-100 navbar-expand-lg">
                         <!-- Logo Area  -->
-                        <a class="navbar-brand" href="{{route('designs')}}"><img src="{{ asset('') }}/tomulumbi_logo.ico" alt="tomulumbi"></a>
+                        <a class="navbar-brand" href="{{route('designs')}}"><img width="40px" src="{{ asset('') }}tomulumbi/symbol/solid/500px/1.png" alt="tomulumbi"></a>
 
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studioMenu" aria-controls="studioMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
 

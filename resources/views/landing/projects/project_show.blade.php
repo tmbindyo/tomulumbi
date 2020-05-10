@@ -44,7 +44,7 @@
 
     <div class="header-logo">
         <a class="site-logo" href="{{route('projects')}}">
-            <img src="{{ asset('') }}/tomulumbi_logo.ico" alt="Homepage">
+            <img width="35px" src="{{ asset('') }}tomulumbi/symbol/solid/500px/1.png" alt="Homepage">
         </a>
     </div>
 

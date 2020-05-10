@@ -28,7 +28,7 @@
 
             <!-- Logo -->
             <a href="{{ route('tomulumbi') }}" class="logo">
-                <span class="symbol"><img src="{{ asset('') }}/tomulumbi_logo.ico" alt="" /></span><span class="title">tomulumbi</span>
+                <span class="symbol"><img src="{{ asset('') }}tomulumbi/symbol/solid/500px/1.png" alt="" /></span><span class="title">tomulumbi</span>
             </a>
 
             <!-- Nav -->

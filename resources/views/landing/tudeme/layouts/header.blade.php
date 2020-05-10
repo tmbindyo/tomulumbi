@@ -2,7 +2,7 @@
     <header class="header-section">
         <div class="container">
             <div class="logo">
-                <a href="{{route('welcome')}}"><img width="93px" src="{{ asset('') }}/tomulumbi.png" alt="tomulumbi"></a>
+                <a href="{{route('welcome')}}"><img width="93px" src="{{ asset('') }}tomulumbi/logotype/solid/2000px/1.png" alt="tomulumbi"></a>
             </div>
             <div class="nav-menu">
                 <nav class="main-menu mobile-menu">
