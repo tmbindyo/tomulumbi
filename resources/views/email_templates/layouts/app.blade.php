@@ -162,7 +162,7 @@
                             </tr>
                             <tr>
                                 <td width="100%" align="center" valign="middle" style="line-height:1px;">
-                                    <a href="https://www.tomulumbi.com/" target="_blank" style="display:inline-block;"><img src="{{ $message->embed(public_path() . '/tomulumbi_sm.png') }}" width="164" height="29" alt="Logo" border="0" style="display:block;"></a>
+                                    <a href="https://www.tomulumbi.com/" target="_blank" style="display:inline-block;"><img src="{{ $message->embed(public_path() . '/tomulumbi/symbol/solid/500px/1.png') }}" width="164" height="29" alt="Logo" border="0" style="display:block;"></a>
                                 </td>
                             </tr>
                             <tr>
@@ -251,7 +251,7 @@
                                                                                     </table>
                                                                                 </td>
                                                                                 <td width="133" align="center" valign="middle" style="line-height:1px;">
-                                                                                    <img src="{{ $message->embed(public_path() . '/tomulumbi.png') }}" width="133" height="133" alt="Icon" border="0" style="display:block;">
+                                                                                    <img src="{{ $message->embed(public_path() . '/tomulumbi/logotype/solid/2000px/1.png') }}" width="133" height="133" alt="Icon" border="0" style="display:block;">
                                                                                 </td>
                                                                                 <td width="133" align="center" valign="middle">
                                                                                     <table align="center" border="0" cellpadding="0" width="100%" cellspacing="0" style="border-collapse: collapse;">

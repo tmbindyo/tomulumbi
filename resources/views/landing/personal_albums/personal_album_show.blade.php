@@ -258,7 +258,7 @@
         touchswipe    :true,
         mousewheel    :true,
         rclick_prevent  :true,
-        @if($album->is_download == 1 )
+        @if($album->is_download == 1 && now()<$album->expiry_date )
         download    :true,
         @endif
         // more options here

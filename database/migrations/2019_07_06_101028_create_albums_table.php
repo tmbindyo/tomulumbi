@@ -21,6 +21,7 @@ class CreateAlbumsTable extends Migration
             $table->string('location')->nullable();
             $table->integer('views');
             $table->date('date');
+            $table->date('expiry_date');
             $table->uuid('album_type_id');
             $table->uuid('cover_image_id')->nullable();
 

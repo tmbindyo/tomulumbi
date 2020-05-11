@@ -42,7 +42,7 @@ class LandingController extends Controller
         $findEmail = Email::findOrFail($email->id);
 
         // send email notification
-        Mail::to('tmbindyo@fluidtechglobal.com')->send(new CustomerEmail($findEmail));
+        Mail::to('info@tomulumbi.com')->send(new CustomerEmail($findEmail));
 
         // Send email to client saying they shall be contacted
         return back()->withSuccess(__('Thank you for reaching out, please wait for us to get back to you.'));
@@ -53,14 +53,14 @@ class LandingController extends Controller
     {
 
         $data = ['message' => 'This is a test!'];
-        Mail::to('tmbindyo@fluidtechglobal.com')->send(new TestEmail($data));
+        Mail::to('info@tomulumbi.com')->send(new TestEmail($data));
 
     }
 
     public function test()
     {
 
-        Mail::to('tmbindyo@fluidtechglobal.com')->send(new DailyToDos());
+        Mail::to('info@tomulumbi.com')->send(new DailyToDos());
 
     }
 

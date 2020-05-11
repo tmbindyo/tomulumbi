@@ -89,6 +89,7 @@ class AlbumController extends Controller
         $album->name = $request->name;
         $album->location = $request->location;
         $album->date = date('Y-m-d', strtotime($request->date));
+        $album->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
 
         if($request->is_project){
             $album->is_project = True;
@@ -725,6 +726,7 @@ class AlbumController extends Controller
         $album = new Album();
         $album->name = $request->name;
         $album->date = date('Y-m-d', strtotime($request->date));
+        $album->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
 
         if($request->is_project){
             $album->is_project = True;
@@ -904,6 +906,7 @@ class AlbumController extends Controller
         $album = Album::findOrFail($album_id);
         $album->name = $request->name;
         $album->date = date('Y-m-d', strtotime($request->date));
+        $album->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
         $album->status_id = $request->status;
         $album->save();
 
@@ -1356,20 +1359,11 @@ class AlbumController extends Controller
 
         $pixel100FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/100/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/300/" .$albumSet->name.'/');
-        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/500/" .$albumSet->name.'/');
-        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
         $pixel750FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/750/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/1000/" .$albumSet->name.'/');
-        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
         $pixel1500FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/1500/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/2500/" .$albumSet->name.'/');
-        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/3600/" .$albumSet->name.'/');
-        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
+
 
         $file = Input::file("file");
         $file_name_extension = $file->getClientOriginalName();
@@ -1391,27 +1385,12 @@ class AlbumController extends Controller
             Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel300FolderName.$image_name);
-            Image::make( $path )->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel500FolderName.$image_name);
             Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1000, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
+            Image::make( $path )->resize(1920, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(2500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->resize(3600, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
 
@@ -1420,27 +1399,12 @@ class AlbumController extends Controller
             Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 300, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel300FolderName.$image_name);
-            Image::make( $path )->resize(null, 500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel500FolderName.$image_name);
             Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1000, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
+            Image::make( $path )->resize(null, 1080, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(null, 2500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->resize(null, 3600, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
 
@@ -1516,13 +1480,8 @@ class AlbumController extends Controller
         $upload->file_type = $extensionType;
 
         $upload->pixels100 = $pixel100FolderName.$image_name;
-        $upload->pixels300 = $pixel300FolderName.$image_name;
-        $upload->pixels500 = $pixel500FolderName.$image_name;
         $upload->pixels750 = $pixel750FolderName.$image_name;
-        $upload->pixels1000 = $pixel1000FolderName.$image_name;
         $upload->pixels1500 = $pixel1500FolderName.$image_name;
-        $upload->pixels2500 = $pixel2500FolderName.$image_name;
-        $upload->pixels3600 = $pixel3600FolderName.$image_name;
         $upload->original = $originalFolderName.$image_name;
 
         $upload->is_restrict_to_specific_email = False;
