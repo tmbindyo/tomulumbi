@@ -26,6 +26,8 @@ trait ViewTrait
         }else{
             // set cookie
             return $request->cookie('tomulumbi_session');
+            $value = $this->generateString();
+            return $request->cookie()->forever($value);
         }
     }
 
