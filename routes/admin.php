@@ -5,6 +5,34 @@ Route::get('/emails', 'Admin\EmailController@emails')->name('admin.emails');
 Route::get('/email/show/{email_id}', 'Admin\EmailController@emailShow')->name('admin.email.show');
 Route::post('/email/update/{email_id}', 'Admin\EmailController@emailUpdate')->name('admin.email.update');
 
+// Digital Ocean
+Route::get('/digital/ocean/account', 'Admin\DigitalOcean@account')->name('admin.digital.ocean.account');
+Route::get('/digital/ocean/actions', 'Admin\DigitalOcean@actions')->name('admin.digital.ocean.actions');
+Route::get('/digital/ocean/action/show/{action_id}', 'Admin\DigitalOcean@actionShow')->name('admin.digital.ocean.show.action.show');
+Route::get('/digital/ocean/balance', 'Admin\DigitalOcean@balance')->name('admin.digital.ocean.balance');
+Route::get('/digital/ocean/billing/history', 'Admin\DigitalOcean@billingHistory')->name('admin.digital.ocean.billing.history');
+Route::get('/digital/ocean/volumes', 'Admin\DigitalOcean@volumes')->name('admin.digital.ocean.volumes');
+Route::get('/digital/ocean/volumes/search/{name}', 'Admin\DigitalOcean@volumeNameSearch')->name('admin.digital.ocean.volume.name.search');
+Route::get('/digital/ocean/volume/create', 'Admin\DigitalOcean@volumeCreate')->name('admin.digital.ocean.volume.create');
+Route::get('/digital/ocean/volume/show/{volume_id}', 'Admin\DigitalOcean@volumeShow')->name('admin.digital.ocean.show.volume.show');
+Route::get('/digital/ocean/volume/show/{volume_id}/snapshots', 'Admin\DigitalOcean@volumeShowSnapshots')->name('admin.digital.ocean.show.volume.snapshots');
+Route::get('/digital/ocean/droplets', 'Admin\DigitalOcean@droplets')->name('admin.digital.ocean.droplets');
+Route::get('/digital/ocean/droplet/show/{droplet_id}', 'Admin\DigitalOcean@dropletShow')->name('admin.digital.ocean.show.droplet.show');
+Route::get('/digital/ocean/droplet/show/{droplet_id}/snapshots', 'Admin\DigitalOcean@dropletShowSnapshots')->name('admin.digital.ocean.show.droplet.snapshots');
+Route::get('/digital/ocean/droplet/show/{droplet_id}/backups', 'Admin\DigitalOcean@dropletShowBackups')->name('admin.digital.ocean.show.droplet.backups');
+Route::get('/digital/ocean/droplet/show/{droplet_id}/actions', 'Admin\DigitalOcean@dropletShowActions')->name('admin.digital.ocean.show.droplet.actions');
+Route::get('/digital/ocean/droplet/show/{droplet_id}/reboot', 'Admin\DigitalOcean@dropletReboot')->name('admin.digital.ocean.show.droplet.reboot');
+Route::get('/digital/ocean/droplet/show/{droplet_id}/power/cycle', 'Admin\DigitalOcean@dropletPowerCycle')->name('admin.digital.ocean.show.droplet.power.cycle');
+Route::get('/digital/ocean/droplet/show/{droplet_id}/shutdown', 'Admin\DigitalOcean@dropletShutdown')->name('admin.digital.ocean.show.droplet.shutdown');
+Route::get('/digital/ocean/droplet/show/{droplet_id}/power/off', 'Admin\DigitalOcean@dropletPowerOff')->name('admin.digital.ocean.show.droplet.power.off');
+Route::get('/digital/ocean/droplet/show/{droplet_id}/power/on', 'Admin\DigitalOcean@dropletPowerOn')->name('admin.digital.ocean.show.droplet.power.on');
+Route::get('/digital/ocean/firewalls', 'Admin\DigitalOcean@firewalls')->name('admin.digital.ocean.firewalls');
+Route::get('/digital/ocean/invoices', 'Admin\DigitalOcean@invoices')->name('admin.digital.ocean.invoices');
+Route::get('/digital/ocean/invoice/show/{invoice_id}/summary', 'Admin\DigitalOcean@invoiceShowSummary')->name('admin.digital.ocean.invoice.show.summary');
+Route::get('/digital/ocean/projects', 'Admin\DigitalOcean@projects')->name('admin.digital.ocean.projects');
+Route::get('/digital/ocean/project/show/{project_id}', 'Admin\DigitalOcean@projectShow')->name('admin.digital.ocean.project.show');
+Route::get('/digital/ocean/project/show/{project_id}/resources', 'Admin\DigitalOcean@projectShowResources')->name('admin.digital.ocean.project.show.resources');
+Route::get('/digital/ocean/sizes', 'Admin\DigitalOcean@sizes')->name('admin.digital.ocean.sizes');
 
 
 // Dashboard
