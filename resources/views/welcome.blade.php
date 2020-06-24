@@ -111,7 +111,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/DSC_4799_small.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/DSC_4799_1.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
@@ -132,7 +132,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/DSC_9317.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/DSC_9317_1.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
@@ -153,7 +153,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/kicoo.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/kicoo_1.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">

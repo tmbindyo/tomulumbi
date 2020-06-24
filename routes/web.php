@@ -1,5 +1,8 @@
 <?php
 
+Route::get('storage', function(){
+    return Storage::disk('minio')->files();
+});
 
 Route::get('/test', 'Landing\LandingController@test')->name('test');
 
