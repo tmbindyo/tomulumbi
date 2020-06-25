@@ -23,6 +23,7 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "nesbot/carbon": "^2.27",
         "select2/select2": "^4.0",
+        "sentry/sentry-laravel": "1.8.0",
         "spatie/laravel-cookie-consent": "^2.12",
         "srmklive/paypal": "~1.0",
         "symfony/psr-http-message-bridge": "^2.0",
