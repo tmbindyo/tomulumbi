@@ -284,7 +284,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="center">
-                                                <img alt="image" width="550em" class="img-responsive" @isset($album->cover_image) src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" @endisset>
+                                                <img alt="image" width="550em" class="img-responsive" @isset($album->cover_image) src="{{Minio::getAdminFileUrl( $album->cover_image->pixels750 )}}" @endisset>
                                             </div>
                                         </div>
                                     </div>

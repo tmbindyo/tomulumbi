@@ -112,7 +112,7 @@
                                 <div class="col-three-forth js-fullheight">
                                     <div class="row no-gutters">
                                         <div class="col-md-12 no-gutters">
-                                            <div class="work-img js-fullheight" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1500 }});">
+                                            <div class="work-img js-fullheight" style="background-image: url({{Minio::getUserMediumFileUrl( $designWork->upload->pixels1500 )}});">
                                             </div>
                                         </div>
                                     </div>
@@ -140,7 +140,7 @@
                                 <div class="col-three-forth js-fullheight">
                                     <div class="row no-gutters">
                                         <div class="col-md-12 col-md-push-10 no-gutters">
-                                            <div class="work-img js-fullheight" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1500 }});">
+                                            <div class="work-img js-fullheight" style="background-image: url({{Minio::getUserMediumFileUrl( $designWork->upload->pixels1500 )}});">
                                             </div>
                                         </div>
                                     </div>
@@ -228,7 +228,7 @@
                     </div>
                     <div class="col-md-4 col-pb-sm text-center">
                         <h2>Get in Touch</h2>
-                        <p><a href="#">contact@tomulumbi.com</a></p>
+                        <p><a href="#">info@tomulumbi.com</a></p>
                     </div>
                     <div class="col-md-4 col-pb-sm text-center">
                         <h2>Social</h2>

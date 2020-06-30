@@ -114,7 +114,7 @@
 
                                         @isset($designGallery)
                                             @foreach($designGallery as $designGalleryImage)
-                                                <a href="{{ asset('') }}{{ $designGalleryImage->upload->pixels750 }}" title="{{ $designGalleryImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $designGalleryImage->upload->pixels100 }}"></a>
+                                                <a href="{{Minio::getAdminFileUrl( $designGalleryImage->upload->pixels750 )}}" title="{{ $designGalleryImage->upload->name }}" data-gallery=""><img src="{{Minio::getAdminFileUrl( $designGalleryImage->upload->pixels100 )}}"></a>
                                             @endforeach
                                         @endisset
                                         <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
@@ -187,7 +187,7 @@
                                                 </div>
                                             </form>
                                             <div class="col-md-6">
-                                                <img width="550em" class="img-fluid" src="{{ asset('') }}{{ $work->upload->pixels750 }}">
+                                                <img width="550em" class="img-fluid" src="{{Minio::getAdminFileUrl( $work->upload->pixels750 )}}">
                                             </div>
                                         </div>
 
@@ -376,7 +376,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="center">
-                                                <img alt="image" width="550em" class="img-responsive" @isset($design->cover_image) src="{{ asset('') }}{{ $design->cover_image->pixels750 }}" @endisset>
+                                                <img alt="image" width="550em" class="img-responsive" @isset($design->cover_image) src="{{Minio::getAdminFileUrl( $design->cover_image->pixels750 )}}" @endisset>
                                             </div>
                                         </div>
                                     </div>

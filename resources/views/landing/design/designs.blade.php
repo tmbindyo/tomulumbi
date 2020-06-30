@@ -68,7 +68,7 @@
                     @if($loop->iteration % 2 == 1)
                         <li>
                             <figure class="effect-oscar">
-                                <img src="{{ asset('') }}{{ $design->cover_image->pixels750 }}" alt="" class="img-responsive"/>
+                                <img src="{{Minio::getUserMediumFileUrl( $design->cover_image->pixels750 )}}" alt="" class="img-responsive"/>
                                 <figcaption>
                                     <h2>{{ $design->name }}</h2>
                                     <p>{{ $design->description }}</p>
@@ -88,7 +88,7 @@
                     @if($loop->iteration % 2 == 0)
                         <li>
                             <figure class="effect-oscar">
-                                <img src="{{ asset('') }}{{ $design->cover_image->pixels750 }}" alt="" class="img-responsive"/>
+                                <img src="{{Minio::getUserMediumFileUrl( $design->cover_image->pixels750 )}}" alt="" class="img-responsive"/>
                                 <figcaption>
                                     <h2>{{ $design->name }} </h2>
                                     <p>{{ $design->description }}</p>

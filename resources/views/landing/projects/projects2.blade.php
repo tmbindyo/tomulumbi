@@ -75,7 +75,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> <a hr
                 <div class="col-12 col-xl-6 no-padding">
                     <div class="blog-content flex">
                         <figure>
-                        <a href="{{route('project.show',$project->id)}}"><img src="{{ asset('') }}{{ $project->cover_image->pixels750 }}" alt=""></a>
+                        <a href="{{route('project.show',$project->id)}}"><img src="{{Minio::getUserMediumFileUrl( $project->cover_image->pixels750 )}}" alt=""></a>
                         </figure>
 
                         <div class="entry-content flex flex-column justify-content-between align-items-start">

@@ -303,7 +303,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="center">
-                                                <img alt="image" width="480em" class="img-responsive" @isset($journal->cover_image) src="{{ asset('') }}{{ $journal->cover_image->pixels750 }}" @endisset>
+                                                <img alt="image" width="480em" class="img-responsive" @isset($journal->cover_image) src="{{Minio::getAdminFileUrl( $journal->cover_image->pixels750 )}}" @endisset>
                                             </div>
                                         </div>
                                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Tag;
+use Storage;
 use App\ToDo;
 use App\Album;
 use App\Label;
@@ -262,21 +263,21 @@ class ProjectController extends Controller
 
 //        return $request;
         $project = Project::where('id',$project_id)->first();
-        $folderName = str_replace(' ', '', $project->name."/Banner/");
-        $originalFolderName = str_replace(' ', '', $project->name."/Cover Image/Original/");
+        $folderName = str_replace(' ', '', "work/project/".$project->name);
 
-        $pixel100FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/100/");
-        File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/750/");
+        $originalFolderName = str_replace(' ', '', $folderName."/Cover Image/Original/");
+
+        $pixel750FolderName = str_replace(' ', '', $folderName."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/project/".$project->name."/Cover Image"."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/Cover Image"."/1500/");
+        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/project/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/project/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -288,37 +289,33 @@ class ProjectController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $mediumImage = Image::make( $path )->fit(460, 460, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
 
-            Image::make( $path )->fit(460, 460, function ($constraint) {
+            $largeImage = Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-
-            Image::make( $path )->resize(1500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
 
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $mediumImage = Image::make( $path )->fit(460, 460, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
 
-            Image::make( $path )->fit(460, 460, function ($constraint) {
+            $largeImage = Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
 
         }
+
+        // upload image
+        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();

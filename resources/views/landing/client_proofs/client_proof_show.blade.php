@@ -159,15 +159,15 @@
                                 <ul class="{{$album->thumbnail_size->reference}} masonry">
                                     @foreach($albumImages as $albumSetImage)
                                         <li class="masonry-item grid">
-                                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->pixels750 }}" alt="" />
+                                            <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $albumSetImage->pixels750 )}}" alt="" />
                                                 <figcaption>
                                                     <a class="elem"
-                                                        href="{{ asset('') }}{{ $albumSetImage->pixels1500 }}"
+                                                       src="{{Minio::getUserLargeFileUrl( $albumSetImage->pixels1500 )}}"
                                                         title="View"
                                                         data-lcl-txt="Description 1"
                                                         data-lcl-author="tomulumbi"
-                                                        data-lcl-thumb="{{ asset('') }}{{ $albumSetImage->pixels750 }}">
-                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->pixels1500 }});"></span>
+                                                       data-lcl-thumb="{{Minio::getUserShortFileUrl( $albumSetImage->pixels100 )}}">
+{{--                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->pixels1500 }});"></span>--}}
                                                     </a>
                                                 </figcaption>
                                             </figure>
@@ -187,16 +187,16 @@
 
                                     @foreach($albumSet->album_images as $albumSetImage)
                                         <li class="masonry-item grid">
-                                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" alt="" />
+                                            <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $albumSetImage->upload->pixels750 )}}" alt="" />
                                                 <figcaption>
                                                     {{--  <h2>{{$album->name}}</h2>  --}}
                                                     {{--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>  --}}
                                                     <a class="elem"
-                                                        href="{{ asset('') }}{{ $albumSetImage->upload->pixels1500 }}"
+                                                        src="{{Minio::getUserLargeFileUrl( $albumSetImage->upload->pixels1500 )}}"
                                                         title="View"
                                                         data-lcl-txt="Description 1"
                                                         data-lcl-author="tomulumbi"
-                                                        data-lcl-thumb="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}">
+                                                        data-lcl-thumb="{{Minio::getUserShortFileUrl( $albumSetImage->upload->pixels100 )}}">
                                                         <span style="background-image: url({{ asset('') }}{{ $albumSetImage->upload->pixels1500 }});"></span>
                                                     </a>
                                                 </figcaption>
@@ -252,7 +252,7 @@
             <!-- email -->
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
-                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
+                <p><a href="mailto:info@tomulumbi.com">info@tomulumbi.com</a></p>
                 <p>+254 739 459 370</p>
             </div>
 
@@ -348,20 +348,6 @@
 <script>
     lc_lightbox('.elem', {
         wrap_class: 'lcl_fade_oc',
-        gallery : true,
-        thumb_attr: 'data-lcl-thumb',
-        skin: 'dark',
-        preload_all   :false,
-        ol_time_diff  : 100,
-        fading_time   : 50,
-        animation_time  : 300,
-        fullscreen    :true,
-        show_author   :false,
-        show_descr    :false,
-        show_title    :false,
-        touchswipe    :true,
-        mousewheel    :true,
-        rclick_prevent  :true,
         @if($album->is_download == 1 && now()<$album->expiry_date && $album->client_access_password == '')
         download    :true,
         @endif

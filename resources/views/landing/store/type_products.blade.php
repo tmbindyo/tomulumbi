@@ -87,9 +87,9 @@
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="{{ asset('') }}{{ $product->cover_image->pixels1000 }}" alt="">
+                                <img src="{{ asset('') }}{{ $product->cover_image->pixels750 }}" alt="">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="{{ asset('') }}{{ $product->second_cover_image->pixels1000 }}" alt="">
+                                <img class="hover-img" src="{{ asset('') }}{{ $product->second_cover_image->pixels750 }}" alt="">
                             </div>
 
                             <!-- Product Description -->

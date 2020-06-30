@@ -8,9 +8,10 @@ use App\Http\Controllers\Controller;
 class DigitalOcean extends Controller
 {
 
+
     public function account(){
 
-        $api_key = "c81e57c94b3dcf84ae72344b40184519c59775cc817bfbaf2f0a4b4902c01155";
+        $api_key = env('DIGITAL_OCEAN_API_KEY');
 
         $endpoint = "https://api.digitalocean.com/v2/account";
         $client = new \GuzzleHttp\Client();
@@ -24,9 +25,7 @@ class DigitalOcean extends Controller
 
         $statusCode = $response->getStatusCode();
         $content = $response->getBody();
-
         return $content;
-
     }
 
 }

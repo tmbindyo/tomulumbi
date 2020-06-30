@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Auth;
 use App\Tag;
+use Storage;
 use App\ToDo;
 use App\Album;
 use App\Label;
@@ -273,13 +274,15 @@ class DesignController extends Controller
 
 //        return $request;
         $design = Design::where('id',$design_id)->first();
-        $folderName = str_replace(' ', '', $design->name."/Banner/");
-        $originalFolderName = str_replace(' ', '', $design->name."/Cover Image/Original/");
-        $pixel100FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/100/");
+        $folderName = str_replace(' ', '', "work/design/".$design->name);
+
+        $originalFolderName = str_replace(' ', '', $folderName."/Cover Image/Original/");
+
+        $pixel100FolderName = str_replace(' ', '', $folderName."/Cover Image"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/750/");
+        $pixel750FolderName = str_replace(' ', '', $folderName."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/design/".$design->name."/Cover Image"."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/Cover Image"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
 
 
@@ -287,8 +290,9 @@ class DesignController extends Controller
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/design/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/design/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
+
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -300,31 +304,36 @@ class DesignController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(750, null, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage =Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 750, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage =Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         }
+
+        // upload image
+        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -413,8 +422,8 @@ class DesignController extends Controller
         $design->cover_image_id = $upload->id;
         $design->save();
 
-        // delete original file
-        File::delete($path);
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Design cover image successfully uploaded.'));
     }
@@ -436,21 +445,23 @@ class DesignController extends Controller
 
         // todo If already image delete
         // todo hash the folder name
-        $folderName = str_replace(' ', '', $designWork->design->name."/" .$designWork->name.'/');
-        $originalFolderName = str_replace(' ', '', $designWork->design->name."/Original/" .$designWork->name.'/');
-        $pixel100FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/100/" .$designWork->name.'/');
+        $folderName = str_replace(' ', '', "work/design/".$designWork->design->name);
+        $originalFolderName = str_replace(' ', '', $folderName."/Original/" .$designWork->name.'/');
+
+
+        $pixel100FolderName = str_replace(' ', '', $folderName."/100/" .$designWork->name.'/');
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/750/" .$designWork->name.'/');
+        $pixel750FolderName = str_replace(' ', '', $folderName."/750/" .$designWork->name.'/');
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/1500/" .$designWork->name.'/');
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/1500/" .$designWork->name.'/');
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
 
         $file = Input::file("design_work");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/design/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/design/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -462,31 +473,36 @@ class DesignController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(750, null, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 750, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         }
+
+        // upload image
+        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -586,8 +602,8 @@ class DesignController extends Controller
         $designGallery->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $designGallery->save();
 
-        // delete original file
-        File::delete($path);
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Design work successfully uploaded.'));
     }
@@ -603,25 +619,22 @@ class DesignController extends Controller
         // todo hash the folder name
         // todo if name changed delete old folder
         // todo change description and name without having to upload image
-        $folderName = str_replace(' ', '', $designWork->design->name."/" .$designWork->name.'/');
-        $originalFolderName = str_replace(' ', '', $designWork->design->name."/Original/" .$designWork->name.'/');
+        $folderName = str_replace(' ', '', "work/design/".$designWork->design->name);
+        $originalFolderName = str_replace(' ', '', $folderName."/Original/" .$designWork->name.'/');
 
-        $pixel100FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/100/" .$designWork->name.'/');
+        $pixel100FolderName = str_replace(' ', '', $folderName."/100/" .$designWork->name.'/');
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/750/" .$designWork->name.'/');
+        $pixel750FolderName = str_replace(' ', '', $folderName."/750/" .$designWork->name.'/');
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/design/".$designWork->design->name."/1500/" .$designWork->name.'/');
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/1500/" .$designWork->name.'/');
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-
 
         $file = Input::file("design_work");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/design/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/design/".$originalFolderName.$file_name_extension;
-
-        $file_name = pathinfo($path, PATHINFO_FILENAME);
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -633,31 +646,36 @@ class DesignController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(750, null, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 750, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         }
+
+        // upload image
+        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -766,8 +784,8 @@ class DesignController extends Controller
         $designGallery->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $designGallery->save();
 
-        // delete original file
-        File::delete($path);
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Design work successfully updated.'));
     }
@@ -777,14 +795,14 @@ class DesignController extends Controller
         // todo If already image delete
         // todo hash the folder name
         $design = Design::where('id',$design_id)->first();
-        $folderName = str_replace(' ', '', $design->name.'/');
-        $originalFolderName = str_replace(' ', '', $design->name."/Original/");
+        $folderName = str_replace(' ', '', "work/design/".$design->name);
+        $originalFolderName = str_replace(' ', '', $folderName."/Original/");
 
-        $pixel100FolderName = str_replace(' ', '', "work/design/".$design->name."/100/");
+        $pixel100FolderName = str_replace(' ', '', "/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/design/".$design->name."/750/");
+        $pixel750FolderName = str_replace(' ', '', "/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/design/".$design->name."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', "/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
 
 
@@ -792,8 +810,8 @@ class DesignController extends Controller
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/design/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/design/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -805,32 +823,36 @@ class DesignController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(750, null, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 750, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
-
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         }
+
+        // upload image
+        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -922,8 +944,8 @@ class DesignController extends Controller
         $designGallery->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $designGallery->save();
 
-        // delete original file
-        File::delete($path);
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Design gallery image successfully uploaded.'));
     }

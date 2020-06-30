@@ -96,71 +96,71 @@
                     <div class="ibox-content">
                         <div class="lightBoxGallery">
                             @isset($albumSet->album_images)
-                                                @foreach($albumSet->album_images as $albumSetImage)
-                                                    <a data-toggle="modal" data-target="#{{$albumSetImage->upload->id}}"><img src="{{ asset('') }}{{ $albumSetImage->upload->pixels100 }}"></a>
-                                                    <div class="modal inmodal" id="{{$albumSetImage->upload->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <div class="modal-content animated bounceInRight">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                                    <h4 class="modal-title">{{$albumSetImage->upload->file_name}} Print <i class="fa fa-cogs"></i></h4>
+                                @foreach($albumSet->album_images as $albumSetImage)
+                                    <a data-toggle="modal" data-target="#{{$albumSetImage->upload->id}}"><img src="{{Minio::getAdminFileUrl( $albumSetImage->upload->pixels750 )}}"></a>
+                                    <div class="modal inmodal" id="{{$albumSetImage->upload->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content animated bounceInRight">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">{{$albumSetImage->upload->file_name}} Print <i class="fa fa-cogs"></i></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" action="{{ route('admin.personal.album.image.update.print.status',$albumSetImage->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                                        @csrf
+
+                                                        @if ($errors->any())
+                                                            <div class="alert alert-danger">
+                                                                <ul>
+                                                                    @foreach ($errors->all() as $error)
+                                                                        <li>{{ $error }}</li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        @endif
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="has-warning">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                        <input type="checkbox" name="is_download" class="js-switch_12" @if($albumSetImage->is_print === 1) checked @endif />
+                                                                        {{--  <input name="is_print" type="checkbox" class="js-switch_16" @if($albumSetImage->is_print==1) checked @endif />  --}}
+                                                                        <br>
+                                                                        <i>whether or not the image can be downloaded.</i>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="modal-body">
-                                                                    <form method="post" action="{{ route('admin.personal.album.image.update.print.status',$albumSetImage->id) }}" autocomplete="off" class="form-horizontal form-label-left">
-                                                                        @csrf
+                                                            </div>
 
-                                                                        @if ($errors->any())
-                                                                            <div class="alert alert-danger">
-                                                                                <ul>
-                                                                                    @foreach ($errors->all() as $error)
-                                                                                        <li>{{ $error }}</li>
-                                                                                    @endforeach
-                                                                                </ul>
-                                                                            </div>
-                                                                        @endif
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <div class="has-warning">
-                                                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                                        <input type="checkbox" name="is_download" class="js-switch_12" @if($albumSetImage->is_print === 1) checked @endif />
-                                                                                        {{--  <input name="is_print" type="checkbox" class="js-switch_16" @if($albumSetImage->is_print==1) checked @endif />  --}}
-                                                                                        <br>
-                                                                                        <i>whether or not the image can be downloaded.</i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="col-md-6">
-                                                                                <div class="has-warning">
-                                                                                    <div class="form-group">
-                                                                                        <input name="limit" type="text" value="{{$albumSetImage->limit}}" class="form-control input-lg">
-                                                                                        <i>download limit.</i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <img width="530em" src="{{ asset('') }}{{ $albumSetImage->upload->pixels500 }}">
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <hr>
-
-                                                                        <div>
-                                                                            <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Download Settings</strong></button>
-                                                                        </div>
-
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                            <div class="col-md-6">
+                                                                <div class="has-warning">
+                                                                    <div class="form-group">
+                                                                        <input name="limit" type="text" value="{{$albumSetImage->limit}}" class="form-control input-lg">
+                                                                        <i>download limit.</i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                @endforeach
-                                            @endisset
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <img width="530em" src="{{ asset('') }}{{ $albumSetImage->upload->pixels500 }}">
+                                                            </div>
+                                                        </div>
+
+                                                        <hr>
+
+                                                        <div>
+                                                            <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Download Settings</strong></button>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endisset
                             <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
                             <div id="blueimp-gallery" class="blueimp-gallery">
                                 <div class="slides"></div>

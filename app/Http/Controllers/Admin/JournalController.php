@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use DB;
+use Storage;
 use App\ToDo;
 use App\Label;
 use App\Upload;
@@ -278,32 +279,22 @@ class JournalController extends Controller
 
 //        return $request;
         $journal = Journal::where('id',$journal_id)->first();
-        $folderName = str_replace(' ', '', $journal->name."/Banner/");
+        $folderName = str_replace(' ', '', "work/journal/".$journal->name);
         $originalFolderName = str_replace(' ', '', $journal->name."/Cover Image/Original/");
 
-        $pixel100FolderName = str_replace(' ', '', "work/journal/".$journal->name."/Cover Image"."/100/");
+        $pixel100FolderName = str_replace(' ', '', $folderName."/Cover Image"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "work/journal/".$journal->name."/Cover Image"."/300/");
-        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "work/journal/".$journal->name."/Cover Image"."/500/");
-        File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/journal/".$journal->name."/Cover Image"."/750/");
+        $pixel750FolderName = str_replace(' ', '', $folderName."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "work/journal/".$journal->name."/Cover Image"."/1000/");
-        File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/journal/".$journal->name."/Cover Image"."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/Cover Image"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "work/journal/".$journal->name."/Cover Image"."/2500/");
-        File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "work/journal/".$journal->name."/Cover Image"."/3600/");
-        File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/journal/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/journal/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -315,79 +306,39 @@ class JournalController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(300, null, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+
+            $mediumImage = Image::make( $path )->fit(563, 750)
+                ->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+
+            $largeImage = Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel300FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
-            Image::make( $path )->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel500FolderName.$image_name);
-
-//            Image::make( $path )->resize(750, null, function ($constraint) {
-//                $constraint->aspectRatio();
-//            })->save(public_path()."/".$pixel750FolderName.$image_name);
-
-
-            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
-
-
-            Image::make( $path )->resize(1000, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
-
-            // for tudeme journal spread image
-            // Image::make( $path )->resize(2500, null, function ($constraint) {
-            //     $constraint->aspectRatio();
-            // })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel2500FolderName.$image_name);
-
-            Image::make( $path )->resize(3600, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 300, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel300FolderName.$image_name);
-            Image::make( $path )->resize(null, 500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel500FolderName.$image_name);
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
 
-            Image::make( $path )->fit(563, 750)->save(public_path()."/".$pixel750FolderName.$image_name);
+            $mediumImage = Image::make( $path )->fit(563, 750)
+                ->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
 
-//            Image::make( $path )->resize(null, 750, function ($constraint) {
-//                $constraint->aspectRatio();
-//            })->save(public_path()."/".$pixel750FolderName.$image_name);
-
-            Image::make( $path )->resize(null, 1000, function ($constraint) {
+            $largeImage = Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
-
-            // Image::make( $path )->resize(null, 2500, function ($constraint) {
-            //     $constraint->aspectRatio();
-            // })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel2500FolderName.$image_name);
-
-            Image::make( $path )->resize(null, 3600, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel3600FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         }
+
+        // upload image
+        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -459,15 +410,8 @@ class JournalController extends Controller
         $extensionType = $this->uploadExtension($extension);
         $upload->file_type = $extensionType;
 
-        $upload->pixels100 = $pixel100FolderName.$image_name;
-        $upload->pixels300 = $pixel300FolderName.$image_name;
-        $upload->pixels500 = $pixel500FolderName.$image_name;
         $upload->pixels750 = $pixel750FolderName.$image_name;
-        $upload->pixels1000 = $pixel1000FolderName.$image_name;
         $upload->pixels1500 = $pixel1500FolderName.$image_name;
-        $upload->pixels2500 = $pixel2500FolderName.$image_name;
-        $upload->pixels3600 = $pixel3600FolderName.$image_name;
-        $upload->original = $originalFolderName.$image_name;
 
         $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
@@ -481,6 +425,9 @@ class JournalController extends Controller
         $journal = Journal::findOrFail($journal_id);
         $journal->cover_image_id = $upload->id;
         $journal->save();
+
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Journal cover image successfully uploaded.'));
     }

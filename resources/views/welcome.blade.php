@@ -59,7 +59,7 @@
 
             <div class="row text-center">
                 <h2>Get in Touch</h2>
-                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
+                <p><a href="mailto:info@tomulumbi.com">info@tomulumbi.com</a></p>
             </div>
 
             <div class="row text-center">

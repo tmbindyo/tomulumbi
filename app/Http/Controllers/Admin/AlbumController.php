@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use DB;
 use Auth;
 use App\Tag;
+use Storage;
 use App\ToDo;
 use App\Album;
 use App\Color;
@@ -222,25 +223,29 @@ class AlbumController extends Controller
         return back()->withSuccess(__('Personal album successfully restored.'));
     }
 
-    public function personalAlbumCoverImageUpload(Request $request,$album_id)
+    public function personalAlbumCoverImageUpload(Request $request, $album_id)
     {
         // todo If already image delete
+
         // todo hash the folder name
-        $album = Album::where('id',$album_id)->first();
-        $folderName = str_replace(' ', '', $album->name."/Banner/");
-        $originalFolderName = str_replace(' ', '', $album->name."/Cover Image/Original/");
+        $album = Album::where('id',$album_id)->with('cover_image')->first();
+        if ($album->cover_image){
+            // delete file
+            Storage::disk('minio')->delete($album->cover_image->pixels750);
 
-        $pixel750FolderName = str_replace(' ', '', "work/personal_album/".$album->name."/Cover Image"."/750/");
+        }
+        $folderName = str_replace(' ', '', "work/PersonalAlbums/".$album->name);
+
+        $originalFolderName = str_replace(' ', '', $folderName."/Cover Image/");
+
+        $pixel750FolderName = str_replace(' ', '', $folderName."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/personal_album/".$album->name."/Cover Image"."/1500/");
-        File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/personal_album/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/personal_album/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -248,31 +253,28 @@ class AlbumController extends Controller
         $width = Image::make( $path )->width();
         $height = Image::make( $path )->height();
 
-        // return "width ".$width ."height ". $height;
+//         return "width ".$width ."height ". $height;
 
         if ($width > $height) { //landscape
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(1000, null, function ($constraint) {
+            $image = Image::make( $path )->resize(1000, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
-
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 1000, function ($constraint) {
+            $image = Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
-
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
         }
+
+
+        // upload image
+        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $image);
+
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -345,8 +347,6 @@ class AlbumController extends Controller
         $upload->file_type = $extensionType;
 
         $upload->pixels750 = $pixel750FolderName.$image_name;
-        $upload->pixels1500 = $pixel1500FolderName.$image_name;
-
 
         $upload->is_restrict_to_specific_email = False;
         $upload->is_album_set_image = False;
@@ -361,8 +361,8 @@ class AlbumController extends Controller
         $album->cover_image_id = $upload->id;
         $album->save();
 
-        // delete original file
-        File::delete($path);
+        // delete local files
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Personal album cover image successfully uploaded.'));
     }
@@ -514,25 +514,26 @@ class AlbumController extends Controller
 
         $albumSet = AlbumSet::where('id',$album_set_id)->with('album')->first();
         $tag = Tag::where('name',$albumSet->name)->first();
-        $folderName = str_replace(' ', '', $albumSet->album->name."/" .$albumSet->name.'/');
-        $originalFolderName = str_replace(' ', '', $albumSet->album->name."/Original/" .$albumSet->name.'/');
+        $folderName = str_replace(' ', '', "/work/PersonalAlbums/".$albumSet->album->name);
+
+        $originalFolderName = str_replace(' ', '', $folderName."/Original/" .$albumSet->name.'/');
 
         $album = Album::where('id',$albumSet->album_id)->first();
 
         // todo Check if image exists
-        $pixel100FolderName = str_replace(' ', '', "work/personal_album/".$albumSet->album->name."/100/" .$albumSet->name.'/');
+        $pixel100FolderName = str_replace(' ', '', $folderName."/100/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/personal_album/".$albumSet->album->name."/750/" .$albumSet->name.'/');
+        $pixel750FolderName = str_replace(' ', '', $folderName."/750/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/personal_album/".$albumSet->album->name."/1500/" .$albumSet->name.'/');
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/1500/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
 
         $file = Input::file("file");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/personal_album/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/personal_album/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -544,33 +545,37 @@ class AlbumController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(750, null, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1920, null, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(1920, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
 
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 750, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1080, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(null, 1080, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
-
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         }
+
+        // upload image
+        $small = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $medium = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $large = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -675,6 +680,8 @@ class AlbumController extends Controller
         $albumImage->user_id = Auth::user()->id;
         $albumImage->save();
 
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Album set image successfully uploaded.'));
     }
@@ -990,14 +997,15 @@ class AlbumController extends Controller
         // todo If already image delete
         // todo hash the folder name
         $album = Album::where('id',$album_id)->first();
-        $folderName = str_replace(' ', '', $album->name."/Banner/");
-        $originalFolderName = str_replace(' ', '', $album->name."/Cover Image/Original/");
+        $folderName = str_replace(' ', '', "work/ClientProofs/".$album->name);
 
-        $pixel100FolderName = str_replace(' ', '', "work/client_proof/".$album->name."/Cover Image"."/100/");
+        $originalFolderName = str_replace(' ', '', $folderName."/Cover Image/Original/");
+
+        $pixel100FolderName = str_replace(' ', '', $folderName."/Cover Image"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/client_proof/".$album->name."/Cover Image"."/750/");
+        $pixel750FolderName = str_replace(' ', '', $folderName."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/client_proof/".$album->name."/Cover Image"."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/Cover Image"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
 
 
@@ -1005,8 +1013,8 @@ class AlbumController extends Controller
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/client_proof/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/client_proof/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -1018,31 +1026,36 @@ class AlbumController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(750, null, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1920, null, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(1920, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 750, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1080, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(null, 1080, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         }
+
+        // upload image
+        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -1131,8 +1144,8 @@ class AlbumController extends Controller
         $album->cover_image_id = $upload->id;
         $album->save();
 
-        // delete original file
-        File::delete($path);
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Client proof cover image successfully uploaded.'));
     }
@@ -1353,15 +1366,14 @@ class AlbumController extends Controller
         // todo If already image delete
         // todo hash the folder name
         $albumSet = AlbumSet::where('id',$album_set_id)->with('album')->first();
-        $folderName = str_replace(' ', '', $albumSet->album->name."/" .$albumSet->name.'/');
-        $originalFolderName = str_replace(' ', '', $albumSet->album->name."/Original/" .$albumSet->name.'/');
-        $smallFolderName = str_replace(' ', '', $albumSet->album->name."/Small/" .$albumSet->name.'/');
+        $folderName = str_replace(' ', '', "work/ClientProofs/".$albumSet->album->name);
+        $originalFolderName = str_replace(' ', '', $folderName."/Original/" .$albumSet->name.'/');
 
-        $pixel100FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/100/" .$albumSet->name.'/');
+        $pixel100FolderName = str_replace(' ', '', $folderName."/100/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/750/" .$albumSet->name.'/');
+        $pixel750FolderName = str_replace(' ', '', $folderName."/750/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/client_proof/".$albumSet->album->name."/1500/" .$albumSet->name.'/');
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/1500/" .$albumSet->name.'/');
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
 
 
@@ -1369,8 +1381,8 @@ class AlbumController extends Controller
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/client_proof/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/client_proof/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -1382,31 +1394,36 @@ class AlbumController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(750, null, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1920, null, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(1920, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         } else {
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 750, function ($constraint) {
+            })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $mediumImage = Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1080, function ($constraint) {
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
+            $largeImage = Image::make( $path )->resize(null, 1080, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save(public_path()."/".$pixel1500FolderName.$image_name);
+            })->save(public_path()."/".$pixel1500FolderName.$image_name)->encode();
 
         }
+
+        // upload image
+        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -1504,6 +1521,8 @@ class AlbumController extends Controller
         $albumImage->user_id = Auth::user()->id;
         $albumImage->save();
 
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Album set image successfully uploaded.'));
     }

@@ -94,7 +94,7 @@
 
 <!-- home
 ================================================== -->
-<section id="home" style="background-image: url({{ asset('') }}{{ $journal->cover_image->pixels1500 }});">
+<section id="home" style="background-image: url({{Minio::getUserMediumFileUrl( $journal->cover_image->pixels1500 )}});">
 
     <div class="overlay"></div>
 
@@ -179,9 +179,9 @@
             <div id="folio-wrap" class="bricks-wrapper">
                 @foreach($journal->journal_galleries as $gallery)
                     <div class="brick folio-item">
-                        <div class="item-wrap animate-this" data-src="{{ asset('') }}{{$gallery->upload->pixels1000}}" data-sub-html="#01" >
+                        <div class="item-wrap animate-this" data-src="{{Minio::getUserMediumFileUrl( $gallery->upload->pixels1000 )}}" data-sub-html="#01" >
                             <a href="#" class="overlay">
-                                <img src="{{ asset('') }}{{$gallery->upload->pixels1000}}" alt="Skaterboy">
+                                <img src="{{Minio::getUserMediumFileUrl( $gallery->upload->pixels1000 )}}" alt="Skaterboy">
                                 <div class="item-text">
 {{--                                <span class="folio-types">--}}
 {{--                                          Web Development--}}

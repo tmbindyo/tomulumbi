@@ -56,7 +56,7 @@
     @foreach($projects as $project)
         @if($loop->iteration % 2 == 0)
             <section class="probootstrap-section-half">
-                <div class="probootstrap-image probootstrap-animate" data-animate-effect="fadeIn" style="background-image: url({{ asset('') }}{{ $project->cover_image->pixels1000 }})"></div>
+                <div class="probootstrap-image probootstrap-animate" data-animate-effect="fadeIn" style="background-image: url({{Minio::getUserMediumFileUrl( $project->cover_image->pixels1000 )}})"></div>
                 <div class="probootstrap-text">
                     <div class="probootstrap-inner probootstrap-animate">
                         <h1 class="heading">{{$project->name}}</h1>
@@ -67,7 +67,7 @@
             </section>
         @else
             <section class="probootstrap-section-half probootstrap-reverse">
-                <div class="probootstrap-image probootstrap-animate"  data-animate-effect="fadeIn" style="background-image: url({{ asset('') }}{{ $project->cover_image->pixels1000 }})"></div>
+                <div class="probootstrap-image probootstrap-animate"  data-animate-effect="fadeIn" style="background-image: url({{Minio::getUserMediumFileUrl( $project->cover_image->pixels1000 )}})"></div>
                 <div class="probootstrap-text">
                     <div class="probootstrap-inner probootstrap-animate">
                         <h1 class="heading">{{$project->name}}</h1>
