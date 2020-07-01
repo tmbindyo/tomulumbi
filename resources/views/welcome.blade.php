@@ -121,7 +121,8 @@
                                     <div class="desc">
                                         <span class="tag">Gallaries</span>
                                         <br>
-                                        <p><a href="{{route('personal.albums')}}" class="btn-view"> View <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
+{{--                                        <p><a href="{{route('personal.albums')}}" class="btn-view"> View <i class="icon-arrow-right3"></i></a></p>--}}
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +143,8 @@
                                     <div class="desc">
                                         <span class="tag">Client Proofs</span>
                                         <br>
-                                        <p><a href="{{route('client.proofs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
+{{--                                        <p><a href="{{route('client.proofs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +165,8 @@
                                     <div class="desc">
                                         <span class="tag">Design Work</span>
                                         <br>
-                                        <p><a href="{{route('designs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
+{{--                                        <p><a href="{{route('designs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +187,8 @@
                                     <div class="desc">
                                         <span class="tag">Journals</span>
                                         <br>
-                                        <p><a href="{{route('journals')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
+{{--                                        <p><a href="{{route('journals')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +209,8 @@
                                     <div class="desc">
                                         <span class="tag">Projects</span>
                                         <br>
-                                        <p><a href="{{route('projects')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
+{{--                                        <p><a href="{{route('projects')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
                                     </div>
                                 </div>
                             </div>
@@ -226,7 +231,8 @@
                                     <div class="desc">
                                         <span class="tag">Tudeme</span>
                                         <br>
-                                        <p><a href="{{route('tudeme')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
+                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
+{{--                                        <p><a href="{{route('tudeme')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +243,7 @@
             <div class="item">
                 <div class="hero-flex js-fullheight">
                     <div class="col-three-forth">
-                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/img_bg_3.jpg);"></div>
+                        <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/store.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
                         <h2 class="number">06/06</h2>
