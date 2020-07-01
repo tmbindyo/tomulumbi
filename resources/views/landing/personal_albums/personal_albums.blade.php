@@ -103,15 +103,15 @@
                 @foreach($albums as $album)
                     <li class="masonry-item grid">
                         @if(empty($album->cover_image->pixels750))
-                            <figure class="effect-sarah"> <img src="{{ asset('client_proof/phantom') }}/images/pic01.jpg" alt="" />
+                            <figure class="effect-sarah"> <img src="{{ asset('client_proof/phantom') }}/images/pic01.jpg" alt="" /> </figure>
                         @elseif(isset($album->cover_image->pixels750))
-                            <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" alt="" />
+                            <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $album->cover_image->pixels750 )}}" alt="" /> </figure>
                         @endif
                             <figcaption>
                                 <h2>{{$album->name}}</h2>
 {{--                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
-                                <a href="{{route('personal.album.access',$album->id)}}">View more</a> </figcaption>
-                        </figure>
+                                <a href="{{route('personal.album.access',$album->id)}}">View more</a>
+                            </figcaption>
                     </li>
                 @endforeach
             </ul>

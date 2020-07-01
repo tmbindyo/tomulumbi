@@ -101,17 +101,17 @@
                 @foreach($tag->uploads as $image)
 
                     <li class="masonry-item grid">
-                        <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $image->pixels750 }}" alt="" />
+                        <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $image->pixels750 )}}" alt="" />
                             <figcaption>
                                 <h2>{{$image->album_image->album_set->album->name}}</h2>
                                 {{--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
                                 <a class="elem"
-                                   href="{{ asset('') }}{{ $image->pixels1500 }}"
+                                   href="{{Minio::getUserMediumFileUrl( $image->pixels1500 )}}"
                                    title="View"
                                    data-lcl-txt="Description 1"
                                    data-lcl-author="tomulumbi"
-                                   data-lcl-thumb="{{ asset('') }}{{ $image->pixels750 }}">
-                                    <span style="background-image: url({{ asset('') }}{{ $image->large }});"></span>
+                                   data-lcl-thumb="{{Minio::getUserMediumFileUrl( $image->pixels750 )}}">
+                                    <span style="background-image: url({{Minio::getUserMediumFileUrl( $image->large )}});"></span>
                                 </a>
                             </figcaption>
                         </figure>

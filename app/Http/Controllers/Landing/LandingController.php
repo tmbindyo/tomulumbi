@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Landing;
 
+use AWS;
+use Storage;
 use App\Email;
+use Tests\TestCase;
 use App\Mail\TestEmail;
+use App\Mail\DailyToDos;
 use App\Traits\ViewTrait;
+use App\Mail\CustomerEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Mail\CustomerEmail;
-use App\Mail\DailyToDos;
 use Illuminate\Support\Facades\Mail;
+use Aws\StorageGateway\StorageGatewayClient;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LandingController extends Controller
 {
@@ -51,18 +56,50 @@ class LandingController extends Controller
 
     public function testEmail()
     {
-
         $data = ['message' => 'This is a test!'];
         Mail::to('info@tomulumbi.com')->send(new TestEmail($data));
+    }
 
+    public function javascriptNotEnabled()
+    {
+        return view('landing.javascript');
     }
 
     public function test()
     {
-
         Mail::to('info@tomulumbi.com')->send(new DailyToDos());
-
     }
+
+    public function addFile()
+    {
+        $created = Storage::disk('minio')->put('new/test2.txt','Hello World 2!');
+        $this->assertTrue($created);
+    }
+
+    public function getFile()
+    {
+        $readedFile = Storage::disk('minio')->url('new/DSC_0589.jpg');
+        return $readedFile;
+    }
+
+    public function jsonFile()
+    {
+        $readedFile = Storage::cloud()->put('hello.json', '{"hello": "world"}');
+        return $readedFile;
+    }
+
+    public function jsonFileGet()
+    {
+        $readedFile = Storage::cloud()->get('hello.json');
+        return $readedFile;
+    }
+
+    public function jsonFileGetTemp()
+    {
+        $readedFile = Storage::cloud()->temporaryUrl("ClaireShelton/CoverImage/750/DSC_0589.jpg", \Carbon\Carbon::now()->addSecond(10));
+        return $readedFile;
+    }
+
 
 
 }

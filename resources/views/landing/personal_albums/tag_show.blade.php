@@ -102,17 +102,17 @@
                 @foreach($uploads as $image)
 
                     <li class="masonry-item grid">
-                        <figure class="effect-sarah"> <img src="{{ asset('') }}{{ $image->pixels750 }}" alt="" />
+                        <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $image->pixels750 )}}" alt="" />
                             <figcaption>
                                 <h2>{{$image->album->name}}</h2>
                                 {{--                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>--}}
-                                <a class="elem"
-                                   href="{{ asset('') }}{{ $image->pixels1500 }}"
+                                <a class="elem lazy"
+                                   src="{{Minio::getUserLargeFileUrl( $image->pixels1500 )}}"
                                    title="View"
                                    data-lcl-txt="Description 1"
                                    data-lcl-author="tomulumbi"
-                                   data-lcl-thumb="{{ asset('') }}{{ $image->pixels750 }}">
-                                    <span style="background-image: url({{ asset('') }}{{ $image->large }});"></span>
+                                   data-lcl-thumb="{{Minio::getUserShortFileUrl( $image->pixels100 )}}">
+{{--                                    <span style="background-image: url({{ asset('') }}{{ $image->large }});"></span>--}}
                                 </a>
                             </figcaption>
                         </figure>
@@ -155,7 +155,7 @@
             <!-- email -->
 
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 padding-top">
-                <p><a href="mailto:contact@tomulumbi.com">contact@tomulumbi.com</a></p>
+                <p><a href="mailto:info@tomulumbi.com">info@tomulumbi.com</a></p>
                 <p>+(254) 739 459 370</p>
             </div>
 
@@ -207,22 +207,7 @@
 <script src="{{ asset('themes/personal_albums/pixca') }}/js/jquery.nicescroll.min.js" type="text/javascript"></script>
 <script>
     lc_lightbox('.elem', {
-        wrap_class: 'lcl_fade_oc',
-        gallery : true,
-        thumb_attr: 'data-lcl-thumb',
-        skin: 'dark',
-        preload_all   :false,
-        ol_time_diff  : 100,
-        fading_time   : 50,
-        animation_time  : 300,
-        fullscreen    :true,
-        show_author   :false,
-        show_descr    :false,
-        show_title    :false,
-        touchswipe    :true,
-        mousewheel    :true,
-        rclick_prevent  :true,
-        download    :false,
+
         // more options here
     });
 </script>

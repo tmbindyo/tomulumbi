@@ -324,7 +324,7 @@ class AlbumController extends Controller
         $view = $this->trackView($request,$view_type,$view_id);
 
         // Get albums
-        $albums = Album::where('album_type_id','6fdf4858-01ce-43ff-bbe6-827f09fa1cef')->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('user','status')->get();
+        $albums = Album::where('album_type_id','6fdf4858-01ce-43ff-bbe6-827f09fa1cef')->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('user','status','cover_image')->get();
 
 //        return $albums;
         return view('landing.personal_albums.personal_albums',compact('albums'));
@@ -418,6 +418,17 @@ class AlbumController extends Controller
 
         // Check if the ablum exists
         $album = Album::where('id',$album_view_id)->first();
+
+        if ($album->status_id == 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5'){
+            // published
+//            pass;
+        }elseif ($album->status_id == 'cad5abf4-ed94-4184-8f7a-fe5084fb7d56'){
+            // preview
+            return redirect()->route('personal.albums');
+        }elseif ($album->status_id == '389842b7-a010-40c1-85cf-4f5b5144ccea'){
+            // hidden
+//            pass;
+        }
 
         if ($album === null) {
             // get album view id (access token)

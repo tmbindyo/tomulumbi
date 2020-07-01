@@ -98,7 +98,7 @@
 
 <!-- home
 ================================================== -->
-<section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="{{ asset('') }}{{ $project->cover_image->pixels1500 }}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+<section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="{{Minio::getUserMediumFileUrl( $project->cover_image->pixels1500 )}}" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
     <div class="overlay"></div>
     <div class="shadow-overlay"></div>

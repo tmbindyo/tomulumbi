@@ -4,6 +4,9 @@
     <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 
+    <!-- Morris -->
+    <link href="{{ asset('inspinia') }}/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
     <link href="{{ asset('inspinia') }}/css/plugins/dropzone/basic.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/plugins/dropzone/dropzone.css" rel="stylesheet">
 

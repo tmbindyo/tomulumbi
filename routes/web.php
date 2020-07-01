@@ -9,6 +9,11 @@ Route::get('storage', function(){
 });
 
 Route::get('/test', 'Landing\LandingController@test')->name('test');
+Route::get('/add/file', 'Landing\LandingController@addFile')->name('add.file');
+Route::get('/get/file', 'Landing\LandingController@getFile')->name('get.bucket');
+Route::get('/json/file', 'Landing\LandingController@jsonFile')->name('get.bucket');
+Route::get('/json/file/get', 'Landing\LandingController@jsonFileGet')->name('get.bucket');
+Route::get('/json/file/get/temp', 'Landing\LandingController@jsonFileGetTemp')->name('get.bucket');
 
 // Removed for coming soon
 Route::get('/pending', 'Landing\LandingController@index')->name('index');
@@ -23,6 +28,8 @@ Auth::routes();
 
 // Welcome
 Route::get('/welcome', 'Landing\LandingController@welcome')->name('welcome');
+
+Route::get('/javascript', 'Landing\LandingController@javascriptNotEnabled')->name('javascript.not.enabled');
 
 Route::get('/test/email', 'Landing\LandingController@testEmail')->name('test.email');
 

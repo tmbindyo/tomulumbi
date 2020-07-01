@@ -1,60 +1,367 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb9ccff-c356-4b2b-a00b-ae851ff28f1f" name="Default Changelist" comment="Working on displaying client list, currently want to do client proof image">
-      <change afterPath="$PROJECT_DIR$/app/AlbumSetViewRestrictionEmail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/AlbumViewRestrictionEmail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/AlbumSetViewRestrictionEmailController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/AlbumViewRestrictionEmailController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/I.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Album.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Album.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Design.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Design.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AccountController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/MinioController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/aws.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/debugbar.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/100/577A7275.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/100/577A7276.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/100/577A7277.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/100/577A7376.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/100/577A7377.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/100/577A7379.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/1500/577A7275.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/1500/577A7276.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/1500/577A7277.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/1500/577A7376.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/1500/577A7377.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/1500/577A7379.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/750/577A7275.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/750/577A7276.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/750/577A7277.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/750/577A7376.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/750/577A7377.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/750/577A7379.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4618.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4620.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4621.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4622.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4623.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4624.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4625.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4626.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4627.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4628.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4629.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4630.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4631.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4632.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4633.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4634.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4646.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4648.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4650.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4651.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4655.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4656.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4657.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4658.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4659.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4660.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4661.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4662.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4663.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4665.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4666.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4670.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4673.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4675.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4680.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4682.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4687.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4688.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4701.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4705.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4708.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4709.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4710.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4712.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4715.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4716.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4718.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4719.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4720.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4721.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4722.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4723.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4727.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4733.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4734.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4736.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4738.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4743.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4745.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4746.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4747.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4748.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4750.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4753.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4756.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4760.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4761.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4764.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4766.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4767.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4768.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4770.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4771.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4772.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4773.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4774.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/100/candid/577A4777.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4618.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4620.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4621.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4622.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4623.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4624.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4625.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4626.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4627.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4628.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4629.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4630.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4631.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4632.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4633.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4634.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4646.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4648.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4650.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4651.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4655.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4656.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4657.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4658.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4659.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4660.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4661.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4662.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4663.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4665.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4666.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4670.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4673.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4675.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4680.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4682.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4687.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4688.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4701.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4705.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4708.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4709.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4710.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4712.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4715.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4716.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4718.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4719.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4720.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4721.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4722.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4723.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4727.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4733.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4734.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4736.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4738.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4743.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4745.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4746.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4747.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4748.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4750.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4753.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4756.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4760.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4761.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4764.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4766.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4767.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4768.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4770.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4771.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4772.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4773.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4774.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/1500/candid/577A4777.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4618.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4620.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4621.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4622.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4623.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4624.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4625.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4626.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4627.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4628.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4629.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4630.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4631.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4632.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4633.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4634.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4646.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4648.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4650.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4651.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4655.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4656.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4657.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4658.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4659.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4660.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4661.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4662.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4663.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4665.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4666.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4670.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4673.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4675.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4680.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4682.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4687.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4688.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4701.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4705.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4708.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4709.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4710.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4712.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4715.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4716.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4718.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4719.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4720.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4721.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4722.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4723.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4727.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4733.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4734.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4736.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4738.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4743.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4745.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4746.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4747.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4748.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4750.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4753.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4756.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4760.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4761.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4764.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4766.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4767.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4768.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4770.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4771.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4772.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4773.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4774.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/AimeeCameron/750/candid/577A4777.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/BuckminsterKelley/CoverImage/750/DSC_0585.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/BuckminsterKelley/CoverImage/750/DSC_0589.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/100/timelapsephotography/DSC_0582.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/100/timelapsephotography/DSC_0583.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/100/timelapsephotography/DSC_0585.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/100/timelapsephotography/DSC_0589.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/1500/timelapsephotography/DSC_0582.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/1500/timelapsephotography/DSC_0583.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/1500/timelapsephotography/DSC_0585.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/1500/timelapsephotography/DSC_0589.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/750/timelapsephotography/DSC_0582.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/750/timelapsephotography/DSC_0583.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/750/timelapsephotography/DSC_0585.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/750/timelapsephotography/DSC_0589.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/ClaireShelton/CoverImage/750/DSC_0589.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/GarthFisher/CoverImage/Original/577A7372.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/MiraRoth/CoverImage/Original/577A7371.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/MiraRoth/CoverImage/Original/577A7372.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/bower.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/gulpfile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/jquery.lazy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/jquery.lazy.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/jquery.lazy.plugins.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/jquery.lazy.plugins.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.ajax.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.ajax.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.av.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.av.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.iframe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.iframe.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.noop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.noop.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.picture.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.picture.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.script.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.vimeo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.vimeo.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.youtube.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lazy_load/plugins/jquery.lazy.youtube.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/debugbar/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bank_investment_project.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlbumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlbumController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CRMController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CRMController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DesignController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DesignController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ExpenseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ExpenseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DigitalOcean.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DigitalOcean.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/JournalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/JournalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ProjectController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Landing/AlbumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/AlbumController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Landing/DesignController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/DesignController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Landing/JournalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/JournalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Landing/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/ProjectController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_03_26_093855_create_uploads_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_03_26_093855_create_uploads_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_06_101028_create_albums_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_06_101028_create_albums_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_06_101030_create_album_views_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_06_101070_create_album_sets_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_06_101070_create_album_sets_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/themes/journal/Infinity10/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/themes/journal/Infinity10/js/plugins.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/themes/journal/Infinity10/js/plugins.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/client_proof_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/client_proof_create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/client_proof_set_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/client_proof_set_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Landing/LandingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Landing/LandingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/inspinia/js/plugins/lc-lightbox/js/lc_lightbox.lite.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/inspinia/js/plugins/lc-lightbox/js/lc_lightbox.lite.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/client_proof_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/client_proof_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/contact_client_proof_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/contact_client_proof_create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/contact_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/contact_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/deal_client_proof_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/deal_client_proof_create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/design_client_proof_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/design_client_proof_create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/client_proof_show_images.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/client_proof_show_images.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/design_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/design_show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/journal_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/journal_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/modals/order_to_do.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/modals/order_to_do.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/modals/project_to_do.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/modals/project_to_do.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/payment_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/payment_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/payments.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/payments.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/personal_album_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/personal_album_create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/header/css.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/header/css.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/personal_album_set_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/personal_album_set_show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/personal_album_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/personal_album_show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/project_client_proof_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/project_client_proof_create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/project_design_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/project_design_create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/quote_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/quote_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/personal_album_show_images.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/personal_album_show_images.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/access.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/access.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proof_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proofs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/client_proofs/client_proofs.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/design/design_gallery.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/design_gallery.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/landing/design/design_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/design_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/design/design_work.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/design_work.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/landing/design/designs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/design/designs.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/landing/journals/journal_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/journals/journal_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/journals/journals.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/journals/journals.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/access.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/access.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_album_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_album_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_albums.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/personal_albums.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/personal_albums/tag_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/personal_albums/tag_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/projects/project_gallery.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/projects/project_gallery.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/landing/projects/project_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/projects/project_show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/projects/projects.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/projects/projects.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/projects/projects2.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/projects/projects2.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/landing/store/type_products.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/landing/store/type_products.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +372,7 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
-      <executable />
+      <executable path="composer" />
     </execution>
   </component>
   <component name="DatabaseView">
@@ -98,9 +405,6 @@
     </expand>
     <select />
   </component>
-  <component name="FavoritesManager">
-    <favorites_list name="tomulumbi_photography" />
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -109,6 +413,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
@@ -211,6 +520,33 @@
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
       <path value="$PROJECT_DIR$/vendor/select2/select2" />
+      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/mtdowling/jmespath.php" />
+      <path value="$PROJECT_DIR$/vendor/aws/aws-sdk-php" />
+      <path value="$PROJECT_DIR$/vendor/coraxster/flysystem-aws-s3-v3-minio" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem-aws-s3-v3" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-cookie-consent" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
+      <path value="$PROJECT_DIR$/vendor/php-http/guzzle6-adapter" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message" />
+      <path value="$PROJECT_DIR$/vendor/php-http/httplug" />
+      <path value="$PROJECT_DIR$/vendor/php-http/client-common" />
+      <path value="$PROJECT_DIR$/vendor/php-http/discovery" />
+      <path value="$PROJECT_DIR$/vendor/sentry/sentry-laravel" />
+      <path value="$PROJECT_DIR$/vendor/sentry/sentry" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
+      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-uuid" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/http-interop/http-factory-guzzle" />
+      <path value="$PROJECT_DIR$/vendor/jean85/pretty-package-versions" />
+      <path value="$PROJECT_DIR$/vendor/php-http/promise" />
+      <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
+      <path value="$PROJECT_DIR$/vendor/aws/aws-sdk-php-laravel" />
     </include_path>
   </component>
   <component name="ProjectId" id="1OgaG96T7F9nRAUIon57Q3vrKbJ" />
@@ -219,17 +555,18 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -239,9 +576,16 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.smarty" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Admin" />
+      <recent name="$PROJECT_DIR$/resources/views/landing/store/layout" />
+      <recent name="$PROJECT_DIR$/resources/views/landing/client_proofs" />
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Landing" />
+      <recent name="$PROJECT_DIR$/resources/views/visitor" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/admin" />
       <recent name="$PROJECT_DIR$/database/seeds" />
@@ -249,31 +593,12 @@
       <recent name="$PROJECT_DIR$/app/Traits" />
       <recent name="$PROJECT_DIR$/resources/views/email_templates/Abandoned-Cart/HTML" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/landing/store/layout" />
-      <recent name="$PROJECT_DIR$/resources/views/landing/client_proofs" />
-      <recent name="$PROJECT_DIR$/app/Http/Controllers/Landing" />
-      <recent name="$PROJECT_DIR$/resources/views/visitor" />
-      <recent name="$PROJECT_DIR$/resources/views/client_proof/album" />
-    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -401,6 +726,33 @@
       <workItem from="1575965574601" duration="24878000" />
       <workItem from="1575994891292" duration="493000" />
       <workItem from="1579004459798" duration="22000" />
+      <workItem from="1590419463031" duration="541000" />
+      <workItem from="1590420303463" duration="126000" />
+      <workItem from="1590850816856" duration="9660000" />
+      <workItem from="1590878359180" duration="4710000" />
+      <workItem from="1590913937592" duration="112000" />
+      <workItem from="1590916189168" duration="925000" />
+      <workItem from="1592573832618" duration="401000" />
+      <workItem from="1592581945576" duration="377000" />
+      <workItem from="1592660357109" duration="1279000" />
+      <workItem from="1592760821452" duration="124000" />
+      <workItem from="1592761106892" duration="471000" />
+      <workItem from="1592764030799" duration="3015000" />
+      <workItem from="1592829637689" duration="222000" />
+      <workItem from="1592926186261" duration="44000" />
+      <workItem from="1592926614570" duration="5441000" />
+      <workItem from="1592937779230" duration="295000" />
+      <workItem from="1593005604624" duration="1306000" />
+      <workItem from="1593015984713" duration="1539000" />
+      <workItem from="1593065958868" duration="82000" />
+      <workItem from="1593073428704" duration="20000" />
+      <workItem from="1593105266368" duration="492000" />
+      <workItem from="1593107486437" duration="1919000" />
+      <workItem from="1593110625222" duration="7264000" />
+      <workItem from="1593173492430" duration="4403000" />
+      <workItem from="1593244717606" duration="4643000" />
+      <workItem from="1593336573287" duration="23731000" />
+      <workItem from="1593441249665" duration="16666000" />
     </task>
     <task id="LOCAL-00001" summary="remove auto incrementing id">
       <created>1559412316833</created>
@@ -472,24 +824,58 @@
       <option name="project" value="LOCAL" />
       <updated>1559420336112</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="updating composer.json">
+      <created>1592927545751</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1592927545751</updated>
+    </task>
+    <task id="LOCAL-00012" summary="updating cookies">
+      <created>1592930620564</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1592930620564</updated>
+    </task>
+    <task id="LOCAL-00013" summary="test installing">
+      <created>1593011178591</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1593011178591</updated>
+    </task>
+    <task id="LOCAL-00014" summary="minio">
+      <created>1593107578506</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1593107578506</updated>
+    </task>
+    <task id="LOCAL-00015" summary="setting up sentry">
+      <created>1593111389588</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1593111389588</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -505,44 +891,38 @@
     <MESSAGE value="use usertype checker function" />
     <MESSAGE value="implement DRY" />
     <MESSAGE value="Working on displaying client list, currently want to do client proof image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on displaying client list, currently want to do client proof image" />
+    <MESSAGE value="updating composer.json" />
+    <MESSAGE value="updating cookies" />
+    <MESSAGE value="test installing" />
+    <MESSAGE value="minio" />
+    <MESSAGE value="setting up sentry" />
+    <MESSAGE value="minio integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="minio integration" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="416" y="123" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1575968441836">
-      <screen x="0" y="27" width="1366" height="741" />
+    <state x="0" y="138" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1590852020637">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="416" y="123" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.27.1366.741/1366.341.1280.1024@0.27.1366.741" timestamp="1575968441836" />
-    <state x="416" y="123" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.27.1366.741@0.27.1366.741" timestamp="1575836276391" />
-    <state x="1366" y="341" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.27.2646.1338@0.27.2646.1338" timestamp="1575899767125" />
-    <state x="466" y="123" width="424" height="491" key="FileChooserDialogImpl" timestamp="1575533484044">
-      <screen x="0" y="27" width="1366" height="741" />
+    <state x="0" y="138" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1440.900@0.0.1440.900" timestamp="1590852020637" />
+    <state x="474" y="369" key="ComposerInitDialogKey" timestamp="1592926879275">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="466" y="123" width="424" height="491" key="FileChooserDialogImpl/0.27.1366.741/1366.341.1280.1024@0.27.1366.741" timestamp="1575533484044" />
-    <state width="903" height="172" key="GridCell.Tab.0.bottom" timestamp="1575965845168">
-      <screen x="0" y="27" width="1366" height="741" />
+    <state x="474" y="369" key="ComposerInitDialogKey/0.0.1440.900@0.0.1440.900" timestamp="1592926879275" />
+    <state x="221" y="89" key="SettingsEditor" timestamp="1593354491336">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="903" height="172" key="GridCell.Tab.0.bottom/0.27.1366.741/1366.341.1280.1024@0.27.1366.741" timestamp="1575965845168" />
-    <state width="903" height="172" key="GridCell.Tab.0.center" timestamp="1575965845168">
-      <screen x="0" y="27" width="1366" height="741" />
+    <state x="221" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593354491336" />
+    <state x="320" y="190" key="Vcs.Push.Dialog.v2" timestamp="1593111391916">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="903" height="172" key="GridCell.Tab.0.center/0.27.1366.741/1366.341.1280.1024@0.27.1366.741" timestamp="1575965845168" />
-    <state width="903" height="172" key="GridCell.Tab.0.left" timestamp="1575965845167">
-      <screen x="0" y="27" width="1366" height="741" />
+    <state x="320" y="190" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1593111391916" />
+    <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1593349634262">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="903" height="172" key="GridCell.Tab.0.left/0.27.1366.741/1366.341.1280.1024@0.27.1366.741" timestamp="1575965845167" />
-    <state width="903" height="172" key="GridCell.Tab.0.right" timestamp="1575965845168">
-      <screen x="0" y="27" width="1366" height="741" />
+    <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1440.900@0.0.1440.900" timestamp="1593349634262" />
+    <state x="421" y="176" width="598" height="548" key="find.popup" timestamp="1593453400684">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="903" height="172" key="GridCell.Tab.0.right/0.27.1366.741/1366.341.1280.1024@0.27.1366.741" timestamp="1575965845168" />
-    <state x="328" y="101" width="868" height="596" key="find.popup" timestamp="1575992758885">
-      <screen x="0" y="27" width="1366" height="741" />
-    </state>
-    <state x="328" y="101" width="868" height="596" key="find.popup/0.27.1366.741/1366.341.1280.1024@0.27.1366.741" timestamp="1575992758885" />
-    <state x="328" y="101" width="868" height="596" key="find.popup/0.27.1366.741@0.27.1366.741" timestamp="1575836236560" />
-    <state x="635" y="161" width="1682" height="1077" key="find.popup/0.27.2646.1338@0.27.2646.1338" timestamp="1575915452720" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1575049946824">
-      <screen x="0" y="27" width="1366" height="741" />
-    </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.27.1366.741/1366.341.1280.1024@0.27.1366.741" timestamp="1575049946824" />
+    <state x="421" y="176" width="598" height="548" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1593453400684" />
   </component>
 </project>

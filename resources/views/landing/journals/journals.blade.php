@@ -109,7 +109,7 @@
                     <div class="col-md-4">
                         <div class="article animate-box">
                             <a href="{{route('journal.show',$journal->id)}}" class="blog-img">
-                                <img class="img-responsive" src="{{ asset('') }}{{$journal->cover_image->pixels750}}" alt="html5 bootstrap by colorlib.com">
+                                <img class="img-responsive" src="{{Minio::getUserMediumFileUrl( $journal->cover_image->pixels750 )}}" alt="html5 bootstrap by colorlib.com">
                                 <div class="overlay"></div>
                                 <div class="link">
                                         <span class="read"><h2>Read more</h2></span>

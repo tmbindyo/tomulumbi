@@ -64,7 +64,7 @@
 
                                             @isset($albumSet->album_images)
                                                 @foreach($albumSet->album_images as $albumSetImage)
-                                                    <a href="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" title="{{ $albumSetImage->upload->name }}" data-fid="{{$albumSetImage->id}}" data-gallery="" ><img src="{{ asset('') }}{{ $albumSetImage->upload->pixels100 }}"></a>
+                                                    <a href="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}" title="{{ $albumSetImage->upload->name }}" data-fid="{{$albumSetImage->id}}" data-gallery="" ><img src="{{Minio::getAdminFileUrl( $albumSetImage->upload->pixels100 )}}"></a>
                                                 @endforeach
                                             @endisset
                                             <!-- The Gallery as lightbox dialog, should be a child element of the document body -->

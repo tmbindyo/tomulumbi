@@ -71,7 +71,7 @@
                     @if(empty($album->cover_image->pixels1500))
                         <img src="{{ asset('themes/client_proof/phantom') }}/images/background.jpg" alt="" />
                     @elseif(isset($album->cover_image->pixels1500))
-                        <img src="{{ asset('') }}{{ $album->cover_image->pixels750 }}" alt="" />
+                        <img src="{{Minio::getUserMediumFileUrl( $album->cover_image->pixels750 )}}" alt="" />
                     @endif
                 </span>
                         <a href="{{route('client.proof', $album->id)}}">

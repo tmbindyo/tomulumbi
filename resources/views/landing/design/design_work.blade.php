@@ -100,7 +100,7 @@
     </header>
 
     <div class="work-single-flex js-fullheight">
-        <div class="col-half js-full-height work-img" style="background-image: url({{ asset('') }}{{ $designWork->upload->pixels1500 }});"></div>
+        <div class="col-half js-full-height work-img" style="background-image: url({{Minio::getUserMediumFileUrl( $designWork->upload->pixels1500 )}});"></div>
         <div class="col-half js-fullheight">
             <div class="display-t js-fullheight">
                 <div class="display-tc js-fullheight">

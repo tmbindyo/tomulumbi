@@ -55,7 +55,7 @@
 
                                             @isset($albumSet->album_images)
                                                 @foreach($albumSet->album_images as $albumSetImage)
-                                                    <a data-toggle="modal" data-target="#{{$albumSetImage->upload->id}}"><img class="img-lg" src="{{ asset('') }}{{ $albumSetImage->upload->pixels100 }}"></a>
+                                                    <a data-toggle="modal" data-target="#{{$albumSetImage->upload->id}}"><img class="img-lg" src="{{Minio::getAdminFileUrl( $albumSetImage->upload->pixels100 )}}"></a>
                                                     <div class="modal inmodal" id="{{$albumSetImage->upload->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                                                         <div class="modal-dialog modal-lg">
                                                             <div class="modal-content animated bounceInRight">
@@ -77,7 +77,11 @@
                                                                         <br>
 
                                                                         <div class="row">
-                                                                            <img width="550em" src="{{ asset('') }}{{ $albumSetImage->upload->pixels750 }}">
+                                                                            <img width="550em" src="{{Minio::getAdminFileUrl( $albumSetImage->upload->pixels750 )}}">
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            div
                                                                         </div>
 
                                                                     </form>
