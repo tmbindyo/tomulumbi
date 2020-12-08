@@ -121,8 +121,8 @@
                                     <div class="desc">
                                         <span class="tag">Gallaries</span>
                                         <br>
-                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
-{{--                                        <p><a href="{{route('personal.albums')}}" class="btn-view"> View <i class="icon-arrow-right3"></i></a></p>--}}
+{{--                                        <p><a href="#" class="btn-view">Coming Soon</a></p>--}}
+                                        <p><a href="{{route('personal.albums')}}" class="btn-view"> View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -143,8 +143,8 @@
                                     <div class="desc">
                                         <span class="tag">Client Proofs</span>
                                         <br>
-                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
-{{--                                        <p><a href="{{route('client.proofs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
+{{--                                        <p><a href="#" class="btn-view">Coming Soon</a></p>--}}
+                                        <p><a href="{{route('client.proofs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -165,8 +165,8 @@
                                     <div class="desc">
                                         <span class="tag">Design Work</span>
                                         <br>
-                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
-{{--                                        <p><a href="{{route('designs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
+{{--                                        <p><a href="#" class="btn-view">Coming Soon</a></p>--}}
+                                        <p><a href="{{route('designs')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -187,8 +187,8 @@
                                     <div class="desc">
                                         <span class="tag">Journals</span>
                                         <br>
-                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
-{{--                                        <p><a href="{{route('journals')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
+{{--                                        <p><a href="#" class="btn-view">Coming Soon</a></p>--}}
+                                        <p><a href="{{route('journals')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -209,8 +209,8 @@
                                     <div class="desc">
                                         <span class="tag">Projects</span>
                                         <br>
-                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
-{{--                                        <p><a href="{{route('projects')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
+{{--                                        <p><a href="#" class="btn-view">Coming Soon</a></p>--}}
+                                        <p><a href="{{route('projects')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -231,8 +231,8 @@
                                     <div class="desc">
                                         <span class="tag">Tudeme</span>
                                         <br>
-                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
-{{--                                        <p><a href="{{route('tudeme')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>--}}
+{{--                                        <p><a href="#" class="btn-view">Coming Soon</a></p>--}}
+                                        <p><a href="{{route('tudeme')}}" class="btn-view">View <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -253,8 +253,8 @@
                                     <div class="desc">
                                         <span class="tag">Store</span>
                                         <br>
-                                        <p><a href="#" class="btn-view">Coming Soon</a></p>
-                                        {{--  <p><a href="{{route('store')}}" class="btn-view">View Store <i class="icon-arrow-right3"></i></a></p>  --}}
+{{--                                        <p><a href="#" class="btn-view">Coming Soon</a></p>--}}
+                                          <p><a href="{{route('store')}}" class="btn-view">View Store <i class="icon-arrow-right3"></i></a></p>
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 @extends('landing.tudeme.layouts.app')
 
-@section('title', 'Home')
+@section('title', 'Tudeme')
 
 @section('body')
 

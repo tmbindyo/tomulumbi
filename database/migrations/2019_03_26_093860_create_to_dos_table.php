@@ -59,6 +59,8 @@ class CreateToDosTable extends Migration
             $table->uuid('email_id')->nullable();
             $table->boolean('is_contact');
             $table->uuid('contact_id')->nullable();
+            $table->boolean('is_letter');
+            $table->uuid('letter_id')->nullable();
             $table->boolean('is_organization');
             $table->uuid('organization_id')->nullable();
             $table->boolean('is_deal');

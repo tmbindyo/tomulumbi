@@ -322,6 +322,17 @@
                     </li>
 
                     <li>
+                        <a href="#"> Letter <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li class="nav-item {{ Route::currentRouteNamed( 'admin.letter.tags' ) ?  'active' : '' }}">
+                                <a itemprop="url" class="nav-link" href="{{route( 'admin.letter.tags')}}">
+                                    Letter Tags <span class="label label-warning pull-right">{{$navbarValues['letterTagCount']}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
                         <a href="#"> Journal <span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
                             <li class="nav-item {{ Route::currentRouteNamed( 'admin.labels' ) ?  'active' : '' }}">

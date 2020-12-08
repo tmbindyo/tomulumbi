@@ -6,6 +6,7 @@ use App\Album;
 use App\Design;
 use App\Email;
 use App\Journal;
+use App\Letter;
 use App\Order;
 use App\Product;
 use App\Project;
@@ -123,6 +124,26 @@ trait StatusCountTrait
             "previewProjects"=>$previewProjects,
             "hiddenProjects"=>$hiddenProjects,
             "publishedProjects"=>$publishedProjects
+        );
+
+        return $statusCountArray;
+
+    }
+
+    public function lettersStatusCount()
+    {
+
+        // Get preview designs
+        $previewLetters = Letter::where('status_id','cad5abf4-ed94-4184-8f7a-fe5084fb7d56')->count();
+        // Get hidden designs
+        $hiddenLetters = Letter::where('status_id','389842b7-a010-40c1-85cf-4f5b5144ccea')->count();
+        // Get published designs
+        $publishedLetters = Letter::where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->count();
+
+        $statusCountArray = array(
+            "previewLetters"=>$previewLetters,
+            "hiddenLetters"=>$hiddenLetters,
+            "publishedLetters"=>$publishedLetters
         );
 
         return $statusCountArray;

@@ -27,6 +27,10 @@ use App\Expense;
 use App\ExpenseAccount;
 use App\Frequency;
 use App\Invoice;
+use App\Letter;
+use App\LetterTag;
+use App\LetterTags;
+use App\LetterType;
 use App\Journal;
 use App\Order;
 use App\Product;
@@ -95,6 +99,8 @@ trait NavbarTrait
         $organizationTypesCount = OrganizationType::count();
         // Get project types count
         $projectTypesCount = ProjectType::count();
+        // Get letter types count
+        $letterTagCount = LetterTag::count();
         // Get sizes count
         $sizesCount = Size::count();
         // Get sub types count
@@ -157,7 +163,7 @@ trait NavbarTrait
         // Get tudeme count
         $tudemeCount = Tudeme::count();
         // Get letter count
-        $letterCount = Journal::count();
+        $letterCount = Letter::count();
 
 
         // store
@@ -211,6 +217,7 @@ trait NavbarTrait
             "leadSourcseCount"=>$leadSourcseCount,
             "organizationTypesCount"=>$organizationTypesCount,
             "projectTypesCount"=>$projectTypesCount,
+            "letterTagCount"=>$letterTagCount,
             "sizesCount"=>$sizesCount,
             "subTypesCount"=>$subTypesCount,
             "tagsCount"=>$tagsCount,

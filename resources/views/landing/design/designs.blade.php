@@ -8,7 +8,7 @@
     <!-- Description, Keywords and Author -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>tomulumbi | designs</title>
+    <title>tomulumbi | Designs</title>
     <link rel="shortcut icon" href="{{ asset('') }}/tomulumbi_logo.ico" type="image/x-icon">
 
     <!-- style -->

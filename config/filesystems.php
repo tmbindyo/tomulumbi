@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 'minio'),
+    'cloud' => env('FILESYSTEM_CLOUD', 'linode'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,14 +65,18 @@ return [
             'bucket' => env('MINIO_BUCKET'),
         ],
 
-        'minio' => [
-            'driver' => 'minio',
-            'key' => env('MINIO_KEY'),
-            'secret' => env('MINIO_SECRET'),
-            'region' => 'us-east-1',
-            'bucket' => env('MINIO_BUCKET'),
-            'endpoint' => env('MINIO_ENDPOINT')
-        ]
+
+        'linode' => [
+            'driver' => 's3',
+            'key' => env('LINODE_ACCESS_KEY'),
+            'use_path_style_endpoint' => true,
+            'secret' => env('LINODE_SECRET_KEY'),
+            'endpoint' => env('LINODE_ENDPOINT'),
+            'region' => env('LINODE_REGION'),
+            'bucket' => env('LINODE_BUCKET'),
+        ],
+
+
 
     ],
 

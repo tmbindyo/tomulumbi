@@ -56,6 +56,10 @@ class ToDo extends Model
     {
         return $this->belongsTo('App\JournalSeries');
     }
+    public function letter()
+    {
+        return $this->belongsTo('App\Letter');
+    }
     public function kit()
     {
         return $this->belongsTo('App\Kit');

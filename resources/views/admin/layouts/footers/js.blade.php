@@ -565,6 +565,10 @@
                 placeholder: "Select Tudeme Type",
                 allowClear: true
             });
+            $(".select2_demo_letter_tags").select2({
+                placeholder: "Select Letter Tag",
+                allowClear: true
+            });
             $(".select2_demo_tudeme_tags").select2({
                 placeholder: "Select Tudeme Tag",
                 allowClear: true

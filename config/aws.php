@@ -17,10 +17,10 @@ return [
     |
     */
     'credentials' => [
-        'key'    => env('MINIO_KEY', ''),
-        'secret' => env('MINIO_SECRET', ''),
+        'key'    => env('AWS_ACCESS_KEY_ID', ''),
+        'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
     ],
-    'endpoint' => env('MINIO_ENDPOINT'),
+    'endpoint' => env('AWS_BUCKET'),
     'region' => env('AWS_REGION', 'us-east-1'),
     'version' => 'latest',
     'ua_append' => [

@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>letters | home</title>
+    <title>tomulumbi | Letters</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
@@ -102,9 +102,9 @@
 			   			<div class="col-md-8 col-md-offset-2 col-md-push-4 js-fullheight slider-text">
 			   				<div class="slider-text-inner">
 			   					<div class="desc">
-			   						<span>Read My Letters</span>
-			   						<h2>Our Blog</h2>
-			   						<p class="fh5co-lead">Designed with <i class="icon-heart3"></i> by the fine folks at <a href="http://freehtml5.co" target="_blank">FreeHTML5.co</a></p>
+			   						<span>Read My Letters To You</span>
+			   						<h2>My Thoughts, My Fears</h2>
+			   						<p class="fh5co-lead">With <i class="icon-heart3"></i></p>
 			   					</div>
 			   				</div>
 			   			</div>
@@ -117,84 +117,25 @@
 		<div id="fh5co-blog" class="fh5co-bg-section">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-4">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="fh5co-blog animate-box">
-									<a href="{{route('letter.show',1)}}"><img class="img-responsive" src="{{ asset('themes/letters/words') }}/images/img-4.jpg" alt=""></a>
-									<div class="blog-text">
-										<span class="posted_on">Nov. 15th</span>
-										<span class="comment"><a href="">21<i class="icon-bubble"></i></a></span>
-										<h3><a href="{{route('letter.show',1)}}">Get Free Template</a></h3>
-										<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="fh5co-blog animate-box">
-									<a href="{{route('letter.show',1)}}"><img class="img-responsive" src="{{ asset('themes/letters/words') }}/images/img-2.jpg" alt=""></a>
-									<div class="blog-text">
-										<span class="posted_on">Nov. 15th</span>
-										<span class="comment"><a href="">21<i class="icon-bubble"></i></a></span>
-										<h3><a href="{{route('letter.show',1)}}">Download Bundle Templates 2017</a></h3>
-										<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="fh5co-blog animate-box">
-									<a href="{{route('letter.show',1)}}"><img class="img-responsive" src="{{ asset('themes/letters/words') }}/images/img-2.jpg" alt=""></a>
-									<div class="blog-text">
-										<span class="posted_on">Nov. 15th</span>
-										<span class="comment"><a href="">21<i class="icon-bubble"></i></a></span>
-										<h3><a href="{{route('letter.show',1)}}">Download Bundle Templates 2017</a></h3>
-										<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="fh5co-blog animate-box">
-									<a href="{{route('letter.show',1)}}"><img class="img-responsive" src="{{ asset('themes/letters/words') }}/images/img-5.jpg" alt=""></a>
-									<div class="blog-text">
-										<span class="posted_on">Nov. 15th</span>
-										<span class="comment"><a href="">21<i class="icon-bubble"></i></a></span>
-										<h3><a href="{{route('letter.show',1)}}">Inspirational Website</a></h3>
-										<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="fh5co-blog animate-box">
-									<a href="{{route('letter.show',1)}}"><img class="img-responsive" src="{{ asset('themes/letters/words') }}/images/img-3.jpg" alt=""></a>
-									<div class="blog-text">
-										<span class="posted_on">Nov. 15th</span>
-										<span class="comment"><a href="">21<i class="icon-bubble"></i></a></span>
-										<h3><a href="{{route('letter.show',1)}}">Inspirational Website</a></h3>
-										<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="fh5co-blog animate-box">
-									<a href="{{route('letter.show',1)}}"><img class="img-responsive" src="{{ asset('themes/letters/words') }}/images/img-6.jpg" alt=""></a>
-									<div class="blog-text">
-										<span class="posted_on">Nov. 15th</span>
-										<span class="comment"><a href="">21<i class="icon-bubble"></i></a></span>
-										<h3><a href="{{route('letter.show',1)}}">Get Free Template</a></h3>
-										<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+                    @foreach($letters as $letter)
+                        <div class="col-md-4">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="fh5co-blog animate-box">
+                                        <a href="{{route('letter.show', $letter->id)}}"><img class="img-responsive" src="{{ asset('themes/letters/words') }}/images/img-4.jpg" alt=""></a>
+                                        <div class="blog-text">
+                                            <span class="posted_on">{{$letter->created_at}}</span>
+                                            <span class="comment"><a href="">{{$letter->views}}<i class="icon-bubble"></i></a></span>
+                                            <h3><a href="{{route('letter.show', $letter->id)}}">{{$letter->name}}</a></h3>
+                                            <p>{{str_limit($letter->description, 200, '...')}}.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    @endforeach()
 				</div>
 			</div>
 		</div>

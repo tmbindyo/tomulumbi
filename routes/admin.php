@@ -137,6 +137,14 @@ Route::post('/label/update/{project_type_id}', 'Admin\SettingsController@labelUp
 Route::get('/label/delete/{project_type_id}', 'Admin\SettingsController@labelDelete')->name('admin.label.delete');
 Route::get('/label/restore/{project_type_id}', 'Admin\SettingsController@labelRestore')->name('admin.label.restore');
 
+// Letter types
+Route::get('/letter/tags', 'Admin\SettingsController@letterTags')->name('admin.letter.tags');
+Route::get('/letter/tag/create', 'Admin\SettingsController@letterTagCreate')->name('admin.letter.tag.create');
+Route::post('/letter/tag/store', 'Admin\SettingsController@letterTagStore')->name('admin.letter.tag.store');
+Route::get('/letter/tag/show/{project_type_id}', 'Admin\SettingsController@letterTagShow')->name('admin.letter.tag.show');
+Route::post('/letter/tag/update/{project_type_id}', 'Admin\SettingsController@letterTagUpdate')->name('admin.letter.tag.update');
+Route::get('/letter/tag/delete/{project_type_id}', 'Admin\SettingsController@letterTagDelete')->name('admin.letter.tag.delete');
+Route::get('/letter/tag/restore/{project_type_id}', 'Admin\SettingsController@letterTagRestore')->name('admin.letter.tag.restore');
 
 // Lead sources
 Route::get('/lead/sources', 'Admin\SettingsController@leadSources')->name('admin.lead.sources');
@@ -526,6 +534,21 @@ Route::get('/project/delete/{project_id}', 'Admin\ProjectController@projectDelet
 Route::get('/project/restore/{project_id}', 'Admin\ProjectController@projectRestore')->name('admin.project.restore');
 
 
+
+// Letters
+Route::get('/letters', 'Admin\LetterController@letters')->name('admin.letters');
+Route::get('/letter/create', 'Admin\LetterController@letterCreate')->name('admin.letter.create');
+Route::post('/letter/store', 'Admin\LetterController@letterStore')->name('admin.letter.store');
+Route::get('/letter/show/{letter_id}', 'Admin\LetterController@letterShow')->name('admin.letter.show');
+
+Route::post('/letter/update/{letter_id}', 'Admin\LetterController@letterUpdate')->name('admin.letter.update');
+Route::post('/letter/cover/image/{letter_id}', 'Admin\LetterController@letterCoverImageUpload')->name('admin.letter.cover.image');
+Route::post('/letter/update/design/{letter_id}', 'Admin\LetterController@letterUpdateDesign')->name('admin.letter.update.design');
+Route::get('/letter/delete/{letter_id}', 'Admin\LetterController@letterDelete')->name('admin.letter.delete');
+Route::get('/letter/restore/{letter_id}', 'Admin\LetterController@letterRestore')->name('admin.letter.restore');
+
+
+
 // Journal series
 Route::get('/journal/series/create', 'Admin\JournalController@journalSeriesCreate')->name('admin.journal.series.create');
 Route::post('/journal/series/store', 'Admin\JournalController@journalSeriesStore')->name('admin.journal.series.store');
@@ -577,9 +600,6 @@ Route::get('/tudeme/homepage', 'Admin\TudemeController@tudemeHomepage')->name('a
 Route::post('/tudeme/top/section/store', 'Admin\TudemeController@tudemeTopSectionStore')->name('admin.tudeme.top.section.store');
 Route::post('/tudeme/top/recipie/store', 'Admin\TudemeController@tudemeTopRecipieStore')->name('admin.tudeme.top.recipie.store');
 Route::post('/tudeme/featured/recipie/store', 'Admin\TudemeController@tudemeFeaturedRecipieStore')->name('admin.tudeme.featured.recipie.store');
-
-// Letters
-Route::get('/letters', 'Admin\TudemeController@letters')->name('admin.letters');
 
 
 // store

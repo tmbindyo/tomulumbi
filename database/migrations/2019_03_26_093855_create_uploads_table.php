@@ -72,6 +72,7 @@ class CreateUploadsTable extends Migration
             $table->uuid('campaign_id')->nullable();
             $table->uuid('quote_id')->nullable();
             $table->uuid('tudeme_id')->nullable();
+            $table->uuid('letter_id')->nullable();
 
             $table->uuid('upload_type_id');
             $table->integer('user_id')->unsigned();

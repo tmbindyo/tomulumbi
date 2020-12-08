@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+
+use App\LetterLetterTag;
 use Auth;
 use App\Tag;
 use App\Size;
@@ -18,6 +20,7 @@ use App\Journal;
 use App\Category;
 use App\AlbumSet;
 use App\AlbumTag;
+use App\LetterTag;
 use App\Frequency;
 use App\AlbumType;
 use App\Typography;
@@ -3318,6 +3321,106 @@ class SettingsController extends Controller
         $cuisine->save();
 
         return back()->withSuccess(__('Cuisine '.$cuisine->name.' successfully restored.'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // letter tag functions
+    public function letterTags()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        $letterTags = LetterTag::with('user','status')->get();
+
+        return view('admin.letter_tags',compact('letterTags','user','navbarValues'));
+    }
+
+    public function letterTagCreate()
+    {
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        return view('admin.letter_tag_create',compact('user','navbarValues'));
+    }
+
+    public function letterTagStore(Request $request)
+    {
+
+        $letterTag = new LetterTag();
+        $letterTag->name = $request->name;
+        $letterTag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $letterTag->user_id = Auth::user()->id;
+        $letterTag->save();
+
+        return redirect()->route('admin.letter.tag.show',$letterTag->id)->withSuccess('Letter tag updated!');
+    }
+
+    public function letterTagShow($letter_tag_id)
+    {
+        // Check if letter tag exists
+        $letterTagExists = LetterTag::findOrFail($letter_tag_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // letter tag
+        $letterTag = LetterTag::with('user','status')->where('id',$letter_tag_id)->withCount('letterLetterTags')->first();
+        // letter tag letters
+        $letterLetterTags = LetterLetterTag::with('user','status')->where('letter_tag_id',$letter_tag_id)->with('letter')->get();
+        return view('admin.letter_tag_show',compact('letterTag','user','letterLetterTags','navbarValues'));
+    }
+
+    public function letterTagUpdate(Request $request, $letter_tag_id)
+    {
+
+        $letterTag = LetterTag::findOrFail($letter_tag_id);
+        $letterTag->name = $request->name;
+        $letterTag->user_id = Auth::user()->id;
+        $letterTag->save();
+
+        return redirect()->route('admin.letter.tag.show',$letter_tag_id)->withSuccess('Letter tag '. $letterTag->name .' updated!');
+    }
+
+    public function letterTagDelete($letter_tag_id)
+    {
+
+        $letterTag = LetterTag::findOrFail($letter_tag_id);
+        $letterTag->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
+        $letterTag->user_id = Auth::user()->id;
+        $letterTag->save();
+
+        return back()->withSuccess(__('Letter tag '.$letterTag->name.' successfully deleted.'));
+    }
+
+    public function letterTagRestore($letter_tag_id)
+    {
+
+        $letterTag = LetterTag::findOrFail($letter_tag_id);
+        $letterTag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $letterTag->user_id = Auth::user()->id;
+        $letterTag->save();
+
+        return back()->withSuccess(__('Letter tag '.$letterTag->name.' successfully restored.'));
     }
 
 }

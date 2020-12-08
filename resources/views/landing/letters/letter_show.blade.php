@@ -2,7 +2,7 @@
 <html lang="en-US">
     <head>
 
-        <title>letters - letter name</title>
+        <title>letters - {{$letter->name}}</title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="description" content="Template by Dry Themes" />
@@ -34,7 +34,7 @@
             <tbody>
                 <tr>
                     <td>
-                        <img src="{{ asset('themes/letters/sun') }}/images/ajax-document-loader.gif" alt="Loading...">
+                        <img src="{{ asset('') }}tomulumbi/symbol/transparent/500*500px/1.png" alt="Loading...">
                     </td>
                 </tr>
             </tbody>
@@ -56,8 +56,7 @@
                 <div class="header-logo left">
 
                     <h1 class="site-title">
-                        <a href="index.html">
-
+                        <a href="{{route('welcome')}}">
                             <img width="128px" src="{{ asset('') }}/tomulumbi_sm.png" alt="Sun-">
                         </a>
                     </h1>
@@ -87,51 +86,46 @@
 
             <div id="content" class="site-content content-1330 center-relative">
                 <article>
-                    <h1 class="entry-title">Drank it in a speechless rapture</h1>
+                    <h1 class="entry-title">{{$letter->name}}</h1>
                     <div class="center-relative clear">
 
                         <div class="post-info">
                             <div class="cat-links">
                                 <ul>
                                     <li>
-                                        <a href="#">OS X</a>
+                                        @foreach($letter->letterLetterTags as $letterLetterTag)
+                                            <a href="#">{{$letterLetterTag->letterTag->name}}</a>
+                                        @endforeach
                                     </li>
                                 </ul>
                             </div>
                             <div class="post-author">
-                                Author: <a href="#">David Wilson</a>
+                                Author: <a href="#">Your's Truly</a>
                             </div>
-                            <div class="post-date">Date: 14/08/15</div>
-                            <div class="post-read-time">Read time: 1/2 h</div>
+                            <div class="post-date">Date: {{$letter->created_at}}</div>
                         </div>
 
                         <div class="entry-content">
                             <div class="content-wrap">
-                                <p>Now when I had mastered the language of this water and had come to know every trifling feature that bordered the great river as familiarly as I knew the letters of the alphabet, I had made a valuable acquisition.</p>
-                                <p>&nbsp;</p>
-                                <p>I still keep in mind a certain wonderful sunset which I witnessed when and steamboating was new to me. A broad expanse of the river was turned too blood in the middle distance the red hue brightened into gold, through which a solitary log came floating, black and conspicuous in one place a long calm slanting mark lay sparkling upon the water in another the surface was broken by boiling, tumbling rings, that were as many-tinted as an opal where the ruddy flush was faintest, was a smooth spot that was covered with graceful circles and radiating lines.</p>
-                                <p>&nbsp;</p>
-                                <p>Ever so delicately traced the shore on our left was densely wooded, and the som ber shadow that fell from this forest was broken in one place by a long, ruffled trail that shone like silver and high above the forest wall.</p>
-
-                                <blockquote class="inline-blockquote">
-                                    <p>There were graceful curves, reflected images, woody on the heights, soft distances and over the whole scene, far and near, the dissolving lights drifted steadily now dissolving lights. There were graceful curves, reflected images. It suddenly struck me that that tiny pea, pretty and blue, was the Earth.</p>
-                                </blockquote>
-
-                                <p>But as I have said, a day came when I began to cease from noting the glories and the charms which the moon and the sun and the twilight wrought upon the river’s face another day came when I ceased altogether to note them. Then, if that sunset scene had been repeated, I should have looked upon it without rapture, and should have commented upon it, inwardly, after this fashion. But as I have said, a day came when I began to cease from noting the glories and the charms which the moon and the sun and the twilight wrought upon the one graceful curves, reflected images, woody heights, soft distances and over the whole sun scene, far and near, the dissolving lights drifted steadily, enriching it, every passing the moment, with new marvels of coloring. The world was new to me, and I had never seen anything like this at home. But as I have said, a day came when I began to cease from noting the glories and the charms which the moon and the sun and the twilight wrought upon the river’s face another day came when I ceased altogether to note them. Then, if that sunset scene had been repeated, I should have looked upon it without rapture, and should have commented upon it, inwardly, after this fashion.</p>
-                                <p>&nbsp;</p>
-                                <p>&nbsp;</p>
-                                <div class="clear"></div>
+                                {!! $letter->description !!}
                             </div>
-                            <div class="post-full-width ">
-                                <iframe src="https://player.vimeo.com/video/150685211" width="640" height="360" allowfullscreen="allowfullscreen"></iframe>
-                            </div>
+                            <br>
+                            <div class="clear"></div>
+                            <br>
+
+
                             <div class="content-wrap">
-                                <p>&nbsp;</p>
-                                <p>&nbsp;</p>
-                                <p>Duis iaculis mattis rutrum. Sed iaculis magna sit amet suscipit ornare. Nulla ornare leo a tortor aliquam, quis interdum ex tempor. Quisque ultricies consequat suscipit. Donec tincidunt tempor ornare. Praesent a enim vel augue suscipit auctor in gravida augue. Suspendisse ut libero sit amet augue molestie fringilla. Fusce molestie, velit a finibus eleifend, nibh odio sagittis est, id aliquet turpis orci quis nibh.</p>
-                                <p>&nbsp;</p>
-                                <p>Duis iaculis mattis rutrum. Sed iaculis magna sit amet suscipit ornare. Nulla ornare leo a tortor aliquam, quis interdum ex tempor. Quisque ultricies consequat suscipit. Donec tincidunt tempor ornare. Praesent a enim vel augue suscipit auctor in gravida augue. Suspendisse ut libero sit amet augue molestie fringilla. Fusce molestie, velit a finibus eleifend, nibh odio sagittis est, id aliquet turpis orci quis nibh.</p>
+                                {!! $letter->body !!}
                             </div>
+
+                            <br>
+                            <div class="clear"></div>
+                            <br>
+
+{{--                            <div class="post-full-width ">--}}
+{{--                                <iframe src="https://player.vimeo.com/video/150685211" width="640" height="360" allowfullscreen="allowfullscreen"></iframe>--}}
+{{--                            </div>--}}
+
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -140,11 +134,15 @@
                 <div class="nav-links">
                     <div class="nav-previous">
                         <p class="nav-previous-text">PREVIOUS STORY</p>
-                        <a href="#" rel="prev">Two ghostly white figures in coveralls</a>
+                        @if($previous)
+                            <a href="{{route('letter.show', $previous->id)}}" rel="prev">{{$previous->name}}</a>
+                        @endif
                     </div>
                     <div class="nav-next">
                         <p class="nav-next-text">NEXT STORY</p>
-                        <a href="#" rel="next">I had made a valuable acquisition</a>
+                        @if($next)
+                            <a href="{{route('letter.show', $next->id)}}" rel="next">{{$next->name}}</a>
+                        @endif
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -159,7 +157,7 @@
                             <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> <a href="https://www.tomulumbi.com">tomulumbi</a>. All Rights Reserved. <br> Designed &amp; Developed by <a href="https://fluidtechglobal.com">Fluidtech Global</a></p>
                         </li>
                         <li class="center-footer-content">
-                            <a href="index.html">
+                            <a href="{{route('welcome')}}">
                                 <img width="72px" src="{{ asset('') }}/tomulumbi_sm.png" alt="Sun-">
                             </a>
                         </li>

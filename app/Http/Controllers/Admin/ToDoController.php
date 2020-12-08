@@ -44,13 +44,13 @@ class ToDoController extends Controller
         // Get to do status count
         $toDoStatusCount = $this->toDoStatusCount();
         // Pending to dos
-        $pendingToDos = ToDo::with('user','status','album','project','journal','journal_series','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
+        $pendingToDos = ToDo::with('user','status','album','project','journal','journal_series','design','product','letter','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','f3df38e3-c854-4a06-be26-43dff410a3bc')->get();
         // In progress to dos
-        $inProgressToDos = ToDo::with('user','status','album','project','journal','journal_series','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
+        $inProgressToDos = ToDo::with('user','status','album','project','journal','journal_series','design','product','letter','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','2a2d7a53-0abd-4624-b7a1-a123bfe6e568')->get();
         // Completed to dos
-        $completedToDos = ToDo::with('user','status','album','project','journal','journal_series','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
+        $completedToDos = ToDo::with('user','status','album','project','journal','journal_series','design','product','letter','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','facb3c47-1e2c-46e9-9709-ca479cc6e77f')->get();
         // Overdue to dos
-        $overdueToDos = ToDo::with('user','status','album','project','journal','journal_series','design','product','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
+        $overdueToDos = ToDo::with('user','status','album','project','journal','journal_series','design','product','letter','email','order','contact','organization','deal','campaign','asset','kit','asset_action','tudeme')->where('status_id','99372fdc-9ca0-4bca-b483-3a6c95a73782')->get();
         // Albums
         $albums = Album::get();
         // Designs
@@ -140,6 +140,13 @@ class ToDoController extends Controller
             $todo->album_id = $request->album;
         }else{
             $todo->is_album = False;
+        }
+        // album
+        if($request->is_letter){
+            $todo->is_letter = True;
+            $todo->letter_id = $request->letter;
+        }else{
+            $todo->is_letter = False;
         }
         // design
         if($request->is_design){
@@ -284,6 +291,13 @@ class ToDoController extends Controller
             $todo->design_id = $request->design;
         }else{
             $todo->is_design = False;
+        }
+        // letter
+        if($request->is_letter){
+            $todo->is_letter = True;
+            $todo->letter_id = $request->letter;
+        }else{
+            $todo->is_letter = False;
         }
         // journal
         if($request->is_journal){
