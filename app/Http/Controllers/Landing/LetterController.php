@@ -31,6 +31,13 @@ class LetterController extends Controller
     public function letterShow(Request $request, $letter_id)
     {
 
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
+
         // Check if letter exists
         $letter = Letter::findOrFail($letter_id);
         // Get letter
@@ -45,7 +52,7 @@ class LetterController extends Controller
         // create view record
         $letterView = new LetterView();
 //        $letterView->is_letter = True;
-        $letterView->cookie = $request->cookie()['tomulumbi_session'];
+        $letterView->cookie = $tomulumbi_session;
         $letterView->letter_id = $letter_id;
         $letterView->number = $letterExists->views;
         $letterView->save();

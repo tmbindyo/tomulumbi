@@ -39,6 +39,34 @@
 
     <!-- Responsive Style -->
     <link href="{{ asset('themes/personal_albums/pixca') }}/css/responsive.css" rel="stylesheet" type="text/css">
+
+    <style>
+        a {
+            text-decoration: none;
+            display: inline-block;
+            padding: 8px 16px;
+        }
+
+        a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .previous {
+            background-color: #ff0;
+            color: black;
+        }
+
+        .next {
+            background-color: #ff0;
+            color: white;
+        }
+
+        .round {
+            border-radius: 50%;
+        }
+    </style>
+
     <style>
         .outer {
             position:relative;
@@ -129,28 +157,59 @@
     <!-- image Gallery -->
 
     <div class="wrapper">
-        <div class="outer">
+        <div class="">
             <ul class="{{$album->thumbnail_size->reference}} masonry">
                 @foreach($albumSets as $albumSet)
                     @foreach($albumSet->album_images as $albumSetImage)
-                        <li class="masonry-item grid">
-                            <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $albumSetImage->upload->pixels750 )}}" alt="" />
-                                <figcaption>
-                                    <a class="elem lazy"
-                                       src="{{Minio::getUserLargeFileUrl( $albumSetImage->upload->pixels1500 )}}"
-                                       title="View"
-                                       data-lcl-txt="Description 1"
-                                       data-lcl-author="tomulumbi"
-                                       data-lcl-thumb="{{Minio::getUserShortFileUrl( $albumSetImage->upload->pixels100 )}}">
-                                        <div class="overlay">
-                                            <p class="text">x</p>
-                                        </div>
-{{--                                        <span style="background-image: url({{Minio::getUserFileUrl( $albumSetImage->upload->pixels1500 )}});"></span>--}}
 
-                                    </a>
-                                </figcaption>
-                            </figure>
-                        </li>
+                        @guest
+                            @if($albumSetImage->status_id=='be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
+                                <li class="masonry-item grid">
+                                    <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $albumSetImage->upload->pixels750 )}}" alt="" />
+                                        <figcaption>
+                                            <a class="elem lazy"
+                                               src="{{Minio::getUserLargeFileUrl( $albumSetImage->upload->pixels1500 )}}"
+                                               title="View"
+                                               data-lcl-txt="Description 1"
+                                               data-lcl-author="tomulumbi"
+                                               data-lcl-img="{{Minio::getUserLargeFileUrl( $albumSetImage->upload->pixels1500 )}}"
+                                               data-lcl-thumb="{{Minio::getUserShortFileUrl( $albumSetImage->upload->pixels100 )}}">
+                                                <div class="overlay">
+                                                    <p class="text">x</p>
+                                                </div>
+        {{--                                        <span style="background-image: url({{Minio::getUserFileUrl( $albumSetImage->upload->pixels1500 )}});"></span>--}}
+
+                                            </a>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                            @endif
+                        @endguest
+
+                        @auth
+                            @if($albumSetImage->status_id == '389842b7-a010-40c1-85cf-4f5b5144ccea' or $albumSetImage->status_id=='be8843ac-07ab-4373-83d9-0a3e02cd4ff5')
+                                <li class="masonry-item grid">
+                                    <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $albumSetImage->upload->pixels750 )}}" alt="" />
+                                        <figcaption>
+                                            <a class="elem lazy"
+                                               src="{{Minio::getUserLargeFileUrl( $albumSetImage->upload->pixels1500 )}}"
+                                               title="View"
+                                               data-lcl-txt="Description 1"
+                                               data-lcl-author="tomulumbi"
+                                               data-lcl-img="{{Minio::getUserLargeFileUrl( $albumSetImage->upload->pixels1500 )}}"
+                                               data-lcl-thumb="{{Minio::getUserShortFileUrl( $albumSetImage->upload->pixels100 )}}">
+                                                <div class="overlay">
+                                                    <p class="text">x</p>
+                                                </div>
+                                                {{-- <span style="background-image: url({{Minio::getUserFileUrl( $albumSetImage->upload->pixels1500 )}});"></span> --}}
+
+                                            </a>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                            @endif
+                        @endauth
+
                     @endforeach
                 @endforeach
             </ul>
@@ -168,6 +227,26 @@
 <footer class="footer">
     <h3>Stay connected with us</h3>
     <div class="container footer-bot">
+
+        <div class="row">
+            <ul class="pager">
+                @if($previousAlbum)
+                   <li><a href="{{route('personal.album.access',$previousAlbum->id)}}">Previous</a></li>
+                @endif
+                @if($nextAlbum)
+                    <li><a href="{{route('personal.album.access',$nextAlbum->id)}}">Next</a></li>
+                @endif
+            </ul>
+        </div>
+
+{{--        <div class="row">--}}
+{{--            <a href="#" class="previous">&laquo; Previous</a>--}}
+{{--            <a href="#" class="next">Next &raquo;</a>--}}
+
+{{--            <a href="#" class="previous round">&#8249;</a>--}}
+{{--            <a href="#" class="next round">&#8250;</a>--}}
+{{--        </div>--}}
+
         <div class="row">
             <!-- logo -->
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> <img width="93px" src="{{ asset('') }}tomulumbi/logotype/solid/2000px/1.png" alt="tomulumbi" title="tomulumbi"/>

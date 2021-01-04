@@ -81,7 +81,15 @@
                                                                         </div>
 
                                                                         <div class="row">
-                                                                            div
+                                                                            <div class="col-sm-2">
+                                                                                <div class="checkbox checkbox-primary">
+                                                                                    {{$albumSetImage->status_id}}
+                                                                                    <input class="updateImageStatus" data-id="{{$albumSetImage->id}}" id="{{$albumSetImage->id}}" type="checkbox" @if($albumSetImage->status_id=='be8843ac-07ab-4373-83d9-0a3e02cd4ff5') checked="true" @endif >
+                                                                                    <label for="{{$albumSetImage->id}}">
+                                                                                        Status
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
 
                                                                     </form>
@@ -119,4 +127,41 @@
 
 @include('admin.layouts.modals.client_proof_set')
 
+@section('js')
 
+    <script>
+        $('.generateAlbumPin').on('click',function(){
+            var id = $(this).data('fid')
+
+            //send value by ajax to server
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '{{url('admin/personal/album/image/status')}}'+'/'+id);
+            xhr.setRequestHeader('Content-Type', '');
+            xhr.send();
+            xhr.onload = function() {
+                document.getElementById("download_pin").value = this.responseText;
+                alert("Album Pin Generated");
+            }
+        });
+
+    </script>
+
+    {{--  generate album set visibility  --}}
+    <script>
+        $('.updateImageStatus').on('click',function(){
+            var id = $(this).data('id')
+
+            //send value by ajax to server
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", '{{url('admin/personal/album/image/status')}}'+'/'+id);
+            {{--xhr.open("GET", '{{url('business')}}'+'/'+portal+'/role/update/'+role_id+'/permission/'+permission_id);--}}
+            xhr.setRequestHeader('Content-Type', '');
+            xhr.send();
+            xhr.onload = function() {
+                alert("Image status updated!");
+            }
+        });
+
+    </script>
+
+@endsection

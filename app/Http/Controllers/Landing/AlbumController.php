@@ -16,11 +16,14 @@ use App\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use PhpOption\None;
 use function GuzzleHttp\Psr7\str;
 
 class AlbumController extends Controller
 {
+
     use ViewTrait;
+
     public function clientProofs(Request $request)
     {
         // save that user visited
@@ -29,7 +32,7 @@ class AlbumController extends Controller
         $view = $this->trackView($request,$view_type,$view_id);
 
         // Get albums
-        $albums = Album::where('album_type_id','ca64a5e0-d39b-4f2c-a136-9c523d935ea4')->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('user','status')->get();
+        $albums = Album::where('album_type_id','ca64a5e0-d39b-4f2c-a136-9c523d935ea4')->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('user','status')->orderBy('date')->get();
         return view('landing.client_proofs.client_proofs',compact('albums'));
     }
 
@@ -65,7 +68,12 @@ class AlbumController extends Controller
 
     function clientProofAccessCheck(Request $request,$album_id){
 
-
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
         // https://medium.com/@panjeh/laravel-detector-mobile-browser-name-version-platform-device-robot-crawler-user-language-8499bee7607c
 
         $albumExists = Album::findOrFail($album_id);
@@ -86,7 +94,7 @@ class AlbumController extends Controller
 
                 // Register album view
                 $albumView = new AlbumView();
-                $albumView->cookie = $request->cookie()['tomulumbi_session'];
+                $albumView->cookie = $tomulumbi_session;
                 $albumView->expiry = $expiry;
                 $albumView->email = $request->email;
                 $albumView->album_id = $albumExists->id;
@@ -116,7 +124,7 @@ class AlbumController extends Controller
 
         // Register album view
         $albumView = new AlbumView();
-        $albumView->cookie = $request->cookie()['tomulumbi_session'];
+        $albumView->cookie = $tomulumbi_session;
         $albumView->expiry = $expiry;
         $albumView->email = $request->email;
         $albumView->album_id = $albumExists->id;
@@ -182,6 +190,12 @@ class AlbumController extends Controller
 
     function clientProofDownload(Request $request, $album_view_id){
 
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
 
         // todo Limit Total Number of Gallery Downloads
         $albumView = AlbumView::findOrFail($album_view_id);
@@ -206,7 +220,7 @@ class AlbumController extends Controller
 
         // track download
         $albumDownload = new AlbumDownload();
-        $albumDownload->cookie = $request->cookie()['tomulumbi_session'];
+        $albumDownload->cookie = $tomulumbi_session;
         $albumDownload->album_view_id = $albumView->id;
         $albumDownload->album_id = $album->id;
         $albumDownload->save();
@@ -244,6 +258,13 @@ class AlbumController extends Controller
 
     function clientProofDownloadPin(Request $request, $album_view_id){
 
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
+
         // check if the download pin is correct
         // todo Limit Total Number of Gallery Downloads
 
@@ -280,7 +301,7 @@ class AlbumController extends Controller
         }
         // track download
         $albumDownload = new AlbumDownload();
-        $albumDownload->cookie = $request->cookie()['tomulumbi_session'];
+        $albumDownload->cookie = $tomulumbi_session;
         $albumDownload->album_view_id = $albumView->id;
         $albumDownload->album_id = $album->id;
         $albumDownload->save();
@@ -323,8 +344,15 @@ class AlbumController extends Controller
         $view_id = '';
         $view = $this->trackView($request,$view_type,$view_id);
 
+        $statuses = array();
+        if(\Auth::check()){
+            array_push($statuses, "be8843ac-07ab-4373-83d9-0a3e02cd4ff5", "389842b7-a010-40c1-85cf-4f5b5144ccea");
+        }else{
+            array_push($statuses, "be8843ac-07ab-4373-83d9-0a3e02cd4ff5");
+        }
+
         // Get albums
-        $albums = Album::where('album_type_id','6fdf4858-01ce-43ff-bbe6-827f09fa1cef')->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->with('user','status','cover_image')->get();
+        $albums = Album::where('album_type_id','6fdf4858-01ce-43ff-bbe6-827f09fa1cef')->whereIn('status_id',$statuses)->with('user','status','cover_image')->orderBy('date')->get();
 
 //        return $albums;
         return view('landing.personal_albums.personal_albums',compact('albums'));
@@ -343,6 +371,13 @@ class AlbumController extends Controller
         if($album->status_id != 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5'){
             return back()->withWarning("I'm sorry but the album isn't currently live.");
         }
+        if(\Auth::check()){
+
+        }else{
+            if($album->status_id != '389842b7-a010-40c1-85cf-4f5b5144ccea'){
+                return back()->withWarning("You don't have access to this album..");
+            }
+        }
         // check the password
         if ($album->password){
             return view('landing.personal_albums.access',compact('album'));
@@ -353,6 +388,13 @@ class AlbumController extends Controller
     }
 
     function personalAlbumAccessCheck(Request $request,$album_id){
+
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
 
         // https://medium.com/@panjeh/laravel-detector-mobile-browser-name-version-platform-device-robot-crawler-user-language-8499bee7607c
         $albumExists = Album::findOrFail($album_id);
@@ -373,7 +415,7 @@ class AlbumController extends Controller
 
                 // Register album view
                 $albumView = new AlbumView();
-                $albumView->cookie = $request->cookie()['tomulumbi_session'];
+                $albumView->cookie = $tomulumbi_session;
                 $albumView->expiry = $expiry;
                 $albumView->email = $request->email;
                 $albumView->album_id = $albumExists->id;
@@ -397,7 +439,7 @@ class AlbumController extends Controller
 
         // Register album view
         $albumView = new AlbumView();
-        $albumView->cookie = $request->cookie()['tomulumbi_session'];
+        $albumView->cookie = $tomulumbi_session;
         $albumView->expiry = $expiry;
         $albumView->email = $request->email;
         $albumView->album_id = $albumExists->id;
@@ -415,6 +457,12 @@ class AlbumController extends Controller
 
     function personalAlbumShow(Request $request,$album_view_id){
 
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
 
         // Check if the ablum exists
         $album = Album::where('id',$album_view_id)->first();
@@ -471,7 +519,7 @@ class AlbumController extends Controller
             $expiry->modify('+ 1 hour');
             // Register album view
             $albumView = new AlbumView();
-            $albumView->cookie = $request->cookie()['tomulumbi_session'];
+            $albumView->cookie = $tomulumbi_session;
             $albumView->album_id = $album->id;
             $albumView->expiry = $expiry;
             $albumView->number = $albumExists->views;
@@ -489,9 +537,19 @@ class AlbumController extends Controller
         // all album images
         $albumImages = Upload::where('album_id',$album->id)->with('album.thumbnail_size')->orderBy('date_time')->get();
         // ->sortBy('album_images.upload.date_time',SORT_REGULAR,false);
+
+
+        // next album
+        $date = $album->date;
+        $nextAlbum = Album::whereDate('date', '>=', $date)->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->whereNotIn('id',[$album->id])->first();
+        // previous album
+        $previousAlbum = Album::whereDate('date', '<=', $date)->where('status_id','be8843ac-07ab-4373-83d9-0a3e02cd4ff5')->whereNotIn('id',[$album->id])->first();
+//        return $previousAlbum;
+
+
         // return $albumSets;
 
-        return view('landing.personal_albums.personal_album_show',compact('album','albumSets','albumView','download','albumImages'));
+        return view('landing.personal_albums.personal_album_show',compact('album','albumSets','albumView','download','albumImages', 'nextAlbum', 'previousAlbum'));
     }
 
     function personalAlbumDownload(Request $request,$album_view_id){

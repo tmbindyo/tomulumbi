@@ -30,4 +30,10 @@ class MinioController extends Controller
         $file_url = Storage::cloud()->temporaryUrl($path, \Carbon\Carbon::now()->addSecond(60));
         return $file_url;
     }
+
+    public static function getClientProofFileUrl($path)
+    {
+        $file_url = Storage::cloud()->temporaryUrl($path, \Carbon\Carbon::now()->addSecond(180));
+        return $file_url;
+    }
 }

@@ -123,7 +123,7 @@
 
                                 <div class="col-md-12">
                                     <div class="fh5co-blog animate-box">
-                                        <a href="{{route('letter.show', $letter->id)}}"><img class="img-responsive" src="{{ asset('themes/letters/words') }}/images/img-4.jpg" alt=""></a>
+                                        <a href="{{route('letter.show', $letter->id)}}"><img class="img-responsive" @if($letter->cover_image) src="{{Minio::getUserMediumFileUrl( $letter->cover_image->pixels1500 )}}" @else src="{{ asset('themes/letters/words') }}/images/img-4.jpg" @endif alt=""></a>
                                         <div class="blog-text">
                                             <span class="posted_on">{{$letter->created_at}}</span>
                                             <span class="comment"><a href="">{{$letter->views}}<i class="icon-bubble"></i></a></span>

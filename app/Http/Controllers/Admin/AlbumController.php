@@ -231,7 +231,7 @@ class AlbumController extends Controller
         $album = Album::where('id',$album_id)->with('cover_image')->first();
         if ($album->cover_image){
             // delete file
-            Storage::disk('minio')->delete($album->cover_image->pixels750);
+            Storage::disk('linode')->delete($album->cover_image->pixels750);
 
         }
         $folderName = str_replace(' ', '', "work/PersonalAlbums/".$album->name);
@@ -273,7 +273,7 @@ class AlbumController extends Controller
 
 
         // upload image
-        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $image);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $image);
 
 
         $img = Image::make($path);
@@ -362,7 +362,7 @@ class AlbumController extends Controller
         $album->save();
 
         // delete local files
-        File::deleteDirectory(public_path()."/".$folderName);
+        File::deleteDirectory(public_path()."/work/PersonalAlbums/");
 
         return back()->withSuccess(__('Personal album cover image successfully uploaded.'));
     }
@@ -514,7 +514,7 @@ class AlbumController extends Controller
 
         $albumSet = AlbumSet::where('id',$album_set_id)->with('album')->first();
         $tag = Tag::where('name',$albumSet->name)->first();
-        $folderName = str_replace(' ', '', "/work/PersonalAlbums/".$albumSet->album->name);
+        $folderName = str_replace(' ', '', "work/PersonalAlbums/".$albumSet->album->name);
 
         $originalFolderName = str_replace(' ', '', $folderName."/Original/" .$albumSet->name.'/');
 
@@ -572,10 +572,14 @@ class AlbumController extends Controller
 
         }
 
+//        $small = Storage::disk('local')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+//        $medium = Storage::disk('local')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+//        $large = Storage::disk('local')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+
         // upload image
-        $small = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
-        $medium = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
-        $large = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+        $small = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $medium = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $large = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -676,7 +680,7 @@ class AlbumController extends Controller
         $albumImage->album_set_id = $album_set_id;
         $albumImage->upload_id = $upload->id;
         $albumImage->date_time = $DateTime;
-        $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $albumImage->status_id = "be8843ac-07ab-4373-83d9-0a3e02cd4ff5";
         $albumImage->user_id = Auth::user()->id;
         $albumImage->save();
 
@@ -684,6 +688,18 @@ class AlbumController extends Controller
         File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Album set image successfully uploaded.'));
+    }
+
+    public function personalAlbumImageStatus($album_image_id)
+    {
+        $albumImage = AlbumImage::where('id',$album_image_id)->first();
+        if($albumImage->status_id == '389842b7-a010-40c1-85cf-4f5b5144ccea'){
+            $albumImage->status_id = 'be8843ac-07ab-4373-83d9-0a3e02cd4ff5';
+            $albumImage->save();
+        }else{
+            $albumImage->status_id = '389842b7-a010-40c1-85cf-4f5b5144ccea';
+            $albumImage->save();
+        }
     }
 
     public function personalAlbumSetShow($album_set_id)
@@ -1053,9 +1069,9 @@ class AlbumController extends Controller
         }
 
         // upload image
-        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
-        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
-        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -1144,8 +1160,8 @@ class AlbumController extends Controller
         $album->cover_image_id = $upload->id;
         $album->save();
 
-        // delete the local folder
-        File::deleteDirectory(public_path()."/".$folderName);
+        // delete local files
+        File::deleteDirectory(public_path()."/work/ClientProofs/");
 
         return back()->withSuccess(__('Client proof cover image successfully uploaded.'));
     }
@@ -1421,9 +1437,9 @@ class AlbumController extends Controller
         }
 
         // upload image
-        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
-        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
-        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -1517,12 +1533,12 @@ class AlbumController extends Controller
         $albumImage->album_set_id = $album_set_id;
         $albumImage->upload_id = $upload->id;
         $albumImage->date_time = $DateTime;
-        $albumImage->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
+        $albumImage->status_id = "be8843ac-07ab-4373-83d9-0a3e02cd4ff5";
         $albumImage->user_id = Auth::user()->id;
         $albumImage->save();
 
-        // delete the local folder
-        File::deleteDirectory(public_path()."/".$folderName);
+        // delete local files
+        File::deleteDirectory(public_path()."/work/ClientProofs/");
 
         return back()->withSuccess(__('Album set image successfully uploaded.'));
     }

@@ -116,7 +116,7 @@
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
-                                <h2 class="number">01/06</h2>
+                                <h2 class="number">01/07</h2>
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Gallaries</span>
@@ -138,7 +138,7 @@
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
-                                <h2 class="number">02/06</h2>
+                                <h2 class="number">02/07</h2>
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Client Proofs</span>
@@ -160,7 +160,7 @@
                     <div class="col-one-forth js-fullheight">
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
-                                <h2 class="number">03/06</h2>
+                                <h2 class="number">03/07</h2>
                                 <div class="text-inner">
                                     <div class="desc">
                                         <span class="tag">Design Work</span>
@@ -180,7 +180,7 @@
                         <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/journals_2.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
-                        <h2 class="number">04/06</h2>
+                        <h2 class="number">04/07</h2>
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
                                 <div class="text-inner">
@@ -202,7 +202,7 @@
                         <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/photo_2020-03-19_17-56-31.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
-                        <h2 class="number">05/06</h2>
+                        <h2 class="number">05/07</h2>
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
                                 <div class="text-inner">
@@ -224,7 +224,7 @@
                         <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/DSC_1000.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
-                        <h2 class="number">05/06</h2>
+                        <h2 class="number">06/07</h2>
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
                                 <div class="text-inner">
@@ -246,7 +246,7 @@
                         <div class="hero-img js-fullheight" style="background-image: url({{ asset('themes/design/bato') }}/images/store.jpg);"></div>
                     </div>
                     <div class="col-one-forth js-fullheight">
-                        <h2 class="number">06/06</h2>
+                        <h2 class="number">07/07</h2>
                         <div class="display-t js-fullheight">
                             <div class="display-tc js-fullheight">
                                 <div class="text-inner">

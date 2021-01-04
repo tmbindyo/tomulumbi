@@ -57,6 +57,16 @@ return [
 
         's3' => [
             'driver' => 's3',
+            'endpoint' => env('AWS_ENDPOINT'),
+            'use_path_style_endpoint' => true,
+            'key' => env('AWS_KEY'),
+            'secret' => env('AWS_SECRET'),
+            'region' => env('AWS_REGION'),
+            'bucket' => env('AWS_BUCKET'),
+        ],
+
+        'minio' => [
+            'driver' => 's3',
             'endpoint' => env('MINIO_ENDPOINT'),
             'use_path_style_endpoint' => true,
             'key' => env('MINIO_KEY'),
@@ -64,7 +74,6 @@ return [
             'region' => env('MINIO_REGION'),
             'bucket' => env('MINIO_BUCKET'),
         ],
-
 
         'linode' => [
             'driver' => 's3',

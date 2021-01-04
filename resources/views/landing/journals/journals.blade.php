@@ -115,7 +115,10 @@
                                         <span class="read"><h2>Read more</h2></span>
                                 </div>
                             </a>
-                            <div class="desc">
+                            <div class="desc">to
+                                @foreach($journal->journal_labels as $journal_label)
+                                    <span class="fh5co-meta"><a href="single.html">{{$journal_label->label->name}}</a></span>
+                                @endforeach
                                 <span class="meta">{{$journal->date}}</span>
                                 <h2><a href="{{route('journal.show',$journal->id)}}">{{$journal->name}}</a></h2>
                                 <p>{{str_limit($journal->description,100)}}</p>

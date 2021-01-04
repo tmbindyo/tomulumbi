@@ -464,13 +464,13 @@ button:focus,
 
 .footer {
     background-color: #222222;
-    position: fixed;
+    position: relative;
     z-index: 1;
     width: 100%;
     bottom: 0;
     left: 0;
     right: 0;
-    padding-top: 104px;
+    padding-top: 5em;
     padding-bottom: 115px;
     text-align: center;
     color: #999999;

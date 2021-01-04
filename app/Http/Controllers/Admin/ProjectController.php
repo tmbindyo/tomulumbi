@@ -314,8 +314,8 @@ class ProjectController extends Controller
         }
 
         // upload image
-        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
-        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -403,8 +403,8 @@ class ProjectController extends Controller
         $project->cover_image_id = $upload->id;
         $project->save();
 
-        // delete original file
-        File::delete($path);
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Project cover image successfully uploaded.'));
     }

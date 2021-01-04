@@ -331,9 +331,9 @@ class DesignController extends Controller
         }
 
         // upload image
-        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
-        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
-        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -500,9 +500,9 @@ class DesignController extends Controller
         }
 
         // upload image
-        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
-        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
-        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -673,9 +673,9 @@ class DesignController extends Controller
         }
 
         // upload image
-        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
-        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
-        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -798,11 +798,11 @@ class DesignController extends Controller
         $folderName = str_replace(' ', '', "work/design/".$design->name);
         $originalFolderName = str_replace(' ', '', $folderName."/Original/");
 
-        $pixel100FolderName = str_replace(' ', '', "/100/");
+        $pixel100FolderName = str_replace(' ', '', $folderName."/100/".$design->name.'/');
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "/750/");
+        $pixel750FolderName = str_replace(' ', '', $folderName."/750/".$design->name.'/');
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "/1500/");
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/1500/".$design->name.'/');
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
 
 
@@ -850,9 +850,9 @@ class DesignController extends Controller
         }
 
         // upload image
-        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
-        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
-        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();

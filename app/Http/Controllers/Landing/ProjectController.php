@@ -30,6 +30,14 @@ class ProjectController extends Controller
 
     public function projectShow(Request $request, $project_id)
     {
+
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
+
         // Check if project exists
         $project = Project::findOrFail($project_id);
         // Get project
@@ -47,12 +55,12 @@ class ProjectController extends Controller
         // create view record
         $projectView = new ProjectView();
         $projectView->is_project = True;
-        $projectView->cookie = $request->cookie()['tomulumbi_session'];
+        $projectView->cookie = $tomulumbi_session;
         $projectView->project_id = $project_id;
         $projectView->number = $projectExists->views;
         $projectView->save();
         // save that user visited
-        $cookie = $request->cookie()['tomulumbi_session'];
+        $cookie = $tomulumbi_session;
         $view_type = "0d7740e6-8e3c-4f25-9448-3ecf92543436";
         $view_id = $projectView->id;
         $view = $this->trackView($request,$view_type,$view_id);

@@ -612,6 +612,9 @@ class TudemeController extends Controller
         $tudeme->cover_image_id = $upload->id;
         $tudeme->save();
 
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
+
         return back()->withSuccess(__('Tudeme cover image successfully uploaded.'));
     }
 
@@ -805,6 +808,9 @@ class TudemeController extends Controller
         $tudeme = Tudeme::findOrFail($tudeme_id);
         $tudeme->spread_id = $upload->id;
         $tudeme->save();
+
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Tudeme spread successfully uploaded.'));
     }
@@ -1003,6 +1009,9 @@ class TudemeController extends Controller
         $tudeme->icon_id = $upload->id;
         $tudeme->save();
 
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
+
         return back()->withSuccess(__('Tudeme cover image successfully uploaded.'));
     }
 
@@ -1198,6 +1207,9 @@ class TudemeController extends Controller
         $tudemeGallery->user_id = Auth::user()->id;
         $tudemeGallery->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $tudemeGallery->save();
+
+        // delete the local folder
+        File::deleteDirectory(public_path()."/".$folderName);
 
         return back()->withSuccess(__('Tudeme gallery image successfully uploaded.'));
     }

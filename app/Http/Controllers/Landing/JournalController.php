@@ -28,6 +28,14 @@ class JournalController extends Controller
 
     public function journalShow(Request $request, $journal_id)
     {
+
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
+
         // Check if journal exists
         $journal = Journal::findOrFail($journal_id);
         // Get journal
@@ -42,7 +50,7 @@ class JournalController extends Controller
         // create view record
         $journalView = new JournalView();
         $journalView->is_journal = True;
-        $journalView->cookie = $request->cookie()['tomulumbi_session'];
+        $journalView->cookie = $tomulumbi_session;
         $journalView->journal_id = $journal_id;
         $journalView->number = $journalExists->views;
         $journalView->save();

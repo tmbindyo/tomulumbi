@@ -455,6 +455,7 @@ Route::get('/personal/album/show/{album_id}', 'Admin\AlbumController@personalAlb
 
 Route::get('/personal/album/show/images/{album_id}', 'Admin\AlbumController@personalAlbumShowImages')->name('admin.personal.album.show.images');
 Route::get('/personal/album/create/journal/{album_id}', 'Admin\AlbumController@personalAlbumCreateJournal')->name('admin.personal.album.create.journal');
+Route::get('/personal/album/image/status/{image_id}', 'Admin\AlbumController@personalAlbumImageStatus')->name('admin.personal.album.image.status');
 
 Route::post('/personal/album/update/{album_id}', 'Admin\AlbumController@personalAlbumUpdate')->name('admin.personal.album.update');
 Route::get('/personal/album/delete/{album_id}', 'Admin\AlbumController@personalAlbumDelete')->name('admin.personal.album.delete');

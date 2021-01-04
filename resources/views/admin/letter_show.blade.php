@@ -87,7 +87,6 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
-                        <li class=""><a data-toggle="tab" href="#album-image-letter"><i class="fa fa-bookmark"></i> Album Image Letter</a></li>
                         <li class=""><a data-toggle="tab" href="#cover-image"><i class="fa fa-bookmark"></i> Cover Image</a></li>
                     </ul>
                     <div class="tab-content">
@@ -189,9 +188,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="album-image-letter" class="tab-pane">
-
-                        </div>
                         <div id="cover-image" class="tab-pane">
                             <div class="panel-body">
                                 <div class="row m-t-lg">
@@ -205,7 +201,7 @@
                                         <div class="col-md-12">
 
                                             <div class="center">
-                                                <img alt="image" width="470em" class="img-responsive" @isset($letter->cover_image) src="{{ asset('') }}{{ $letter->cover_image->pixels750 }}" @endisset>
+                                                <img alt="image" width="470em" class="img-responsive" @isset($letter->cover_image) src="{{Minio::getUserMediumFileUrl( $letter->cover_image->pixels750 )}}" @endisset>
                                             </div>
                                         </div>
                                     </div>

@@ -37,6 +37,13 @@ class DesignController extends Controller
     public function designShow(Request $request, $design_id)
     {
 
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
+
         // Get designs
         $design = Design::findOrFail($design_id);
         $design = Design::where('id',$design_id)->with('design_works.upload','design_contacts.contact','albums','journals')->first();
@@ -50,7 +57,7 @@ class DesignController extends Controller
         $designExists->save();
         // create view record
         $designView = new DesignView();
-        $designView->cookie = $request->cookie()['tomulumbi_session'];
+        $designView->cookie = $tomulumbi_session;
         $designView->is_design = True;
         $designView->design_id = $design_id;
         $designView->number = $designExists->views;
@@ -67,6 +74,14 @@ class DesignController extends Controller
 
     public function designWork(Request $request, $design_work_id)
     {
+
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
+
         // save that user visited
         $cookie = $request->cookie();
         $view_type = "3e5302a7-3ed6-4bfe-a7b4-1875228ade42";
@@ -84,7 +99,7 @@ class DesignController extends Controller
         // create view record
         $designView = new DesignView();
         $designView->is_design_work = True;
-        $designView->cookie = $request->cookie()['tomulumbi_session'];
+        $designView->cookie = $tomulumbi_session;
         $designView->design_work_id = $design_work_id;
         $designView->number = $designWorkExists->views;
         $designView->save();
@@ -95,6 +110,14 @@ class DesignController extends Controller
 
     public function designGallery(Request $request, $design_id)
     {
+
+        if ($request->cookie()['tomulumbi_session']){
+            $tomulumbi_session = $request->cookie()['tomulumbi_session'];
+        }
+        else{
+            $tomulumbi_session = '';
+        }
+
         // save that user visited
         $cookie = $request->cookie();
         $view_type = "3e5302a7-3ed6-4bfe-a7b4-1875228ade42";
@@ -112,7 +135,7 @@ class DesignController extends Controller
         // create view record
         $designView = new DesignView();
         $designView->is_design_gallery = True;
-        $designView->cookie = $request->cookie()['tomulumbi_session'];
+        $designView->cookie = $tomulumbi_session;
         $designView->design_id = $design_id;
         $designView->number = $designExists->gallery_views;
         $designView->save();

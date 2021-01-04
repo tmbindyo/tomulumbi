@@ -307,6 +307,7 @@ class LetterController extends Controller
 
         // delete original file
         File::delete($path);
+        File::deleteDirectory(public_path()."/work/letter/");
 
         return back()->withSuccess(__('Letter cover image successfully uploaded.'));
     }
@@ -332,33 +333,3 @@ class LetterController extends Controller
     }
 
 }
-
-
-
-
-//$table->uuid('id')->primary();
-//
-//$table->string('name');
-//
-//$table->integer('user_id')->unsigned();
-//$table->uuid('status_id');
-//
-//$table->timestamps();
-//$table->softDeletes();
-//
-//
-//// Parents
-//public function status()
-//{
-//    return $this->belongsTo('App\Status');
-//}
-//public function user()
-//{
-//    return $this->belongsTo('App\User');
-//}
-//
-//// Children
-//public function letterLetterTags()
-//{
-//    return $this->hasMany('App\LetterLetterTag');
-//}

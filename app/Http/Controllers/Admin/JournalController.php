@@ -336,9 +336,9 @@ class JournalController extends Controller
         }
 
         // upload image
-        $created = Storage::disk('minio')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
-        $created = Storage::disk('minio')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
-        $created = Storage::disk('minio')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
         $img = Image::make($path);
         $size = $img->filesize();

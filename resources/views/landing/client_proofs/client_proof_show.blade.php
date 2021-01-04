@@ -145,77 +145,112 @@
         </div>  --}}
         <br>
         <div class="">
-            <div class="tabs-container">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#all"> All</a></li>
-                    @foreach($albumSets as $albumSet)
-                        <li class=""><a data-toggle="tab" href="#{{$albumSet->id}}">{{$albumSet->name}}</a></li>
-                    @endforeach
-                </ul>
-                <div class="tab-content">
-                    <div id="all" class="tab-pane active">
-                        <div class="panel-body">
-                            <div class="col-md-12">
-                                <ul class="{{$album->thumbnail_size->reference}} masonry">
-                                    @foreach($albumImages as $albumSetImage)
-                                        <li class="masonry-item grid">
-                                            <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $albumSetImage->pixels750 )}}" alt="" />
-                                                <figcaption>
-                                                    <a class="elem"
-                                                       src="{{Minio::getUserLargeFileUrl( $albumSetImage->pixels1500 )}}"
-                                                        title="View"
-                                                        data-lcl-txt="Description 1"
-                                                        data-lcl-author="tomulumbi"
-                                                       data-lcl-thumb="{{Minio::getUserShortFileUrl( $albumSetImage->pixels100 )}}">
-{{--                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->pixels1500 }});"></span>--}}
-                                                    </a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
+
+
+            @foreach($albumSets as $albumSet)
+                <div id="{{$albumSet->id}}" class="tab-pane">
+                    <div class="panel-body">
+
+                        <ul class="{{$album->thumbnail_size->reference}} masonry">
+
+                            @foreach($albumSet->album_images as $albumSetImage)
+                                <li class="masonry-item grid">
+                                    <figure class="effect-sarah"> <img src="{{Minio::getClientProofFileUrl( $albumSetImage->upload->pixels750 )}}" alt="" />
+                                        <figcaption>
+                                            {{--  <h2>{{$album->name}}</h2>  --}}
+                                            {{--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>  --}}
+                                            <a class="elem"
+                                               src="{{Minio::getUserLargeFileUrl( $albumSetImage->upload->pixels1500 )}}"
+                                               title="View"
+                                               data-lcl-txt="Description 1"
+                                               data-lcl-author="tomulumbi"
+                                               data-lcl-thumb="{{Minio::getClientProofFileUrl( $albumSetImage->upload->pixels100 )}}">
+                                                <span style="background-image: url({{ asset('') }}{{ $albumSetImage->upload->pixels1500 }});"></span>
+                                            </a>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                            @endforeach
+
+                        </ul>
+
                     </div>
-
-
-                    @foreach($albumSets as $albumSet)
-                        <div id="{{$albumSet->id}}" class="tab-pane">
-                            <div class="panel-body">
-
-                                <ul class="{{$album->thumbnail_size->reference}} masonry">
-
-                                    @foreach($albumSet->album_images as $albumSetImage)
-                                        <li class="masonry-item grid">
-                                            <figure class="effect-sarah"> <img src="{{Minio::getUserMediumFileUrl( $albumSetImage->upload->pixels750 )}}" alt="" />
-                                                <figcaption>
-                                                    {{--  <h2>{{$album->name}}</h2>  --}}
-                                                    {{--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>  --}}
-                                                    <a class="elem"
-                                                        src="{{Minio::getUserLargeFileUrl( $albumSetImage->upload->pixels1500 )}}"
-                                                        title="View"
-                                                        data-lcl-txt="Description 1"
-                                                        data-lcl-author="tomulumbi"
-                                                        data-lcl-thumb="{{Minio::getUserShortFileUrl( $albumSetImage->upload->pixels100 )}}">
-                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->upload->pixels1500 }});"></span>
-                                                    </a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                    @endforeach
-
-                                </ul>
-
-                            </div>
-                        </div>
-                    @endforeach
-
-
-
                 </div>
+            @endforeach
 
 
-            </div>
+
+{{--            <div class="tabs-container">--}}
+{{--                <ul class="nav nav-tabs">--}}
+{{--                    <li class="active"><a data-toggle="tab" href="#all"> All</a></li>--}}
+{{--                    @foreach($albumSets as $albumSet)--}}
+{{--                        <li class=""><a data-toggle="tab" href="#{{$albumSet->id}}">{{$albumSet->name}}</a></li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--                <div class="tab-content">--}}
+{{--                    <div id="all" class="tab-pane active">--}}
+{{--                        <div class="panel-body">--}}
+{{--                            <div class="col-md-12">--}}
+{{--                                <ul class="{{$album->thumbnail_size->reference}} masonry">--}}
+{{--                                    @foreach($albumImages as $albumSetImage)--}}
+{{--                                        <li class="masonry-item grid">--}}
+{{--                                            <figure class="effect-sarah"> <img src="{{Minio::getClientProofFileUrl( $albumSetImage->pixels750 )}}" alt="" />--}}
+{{--                                                <figcaption>--}}
+{{--                                                    <a class="elem"--}}
+{{--                                                       src="{{Minio::getClientProofFileUrl( $albumSetImage->pixels1500 )}}"--}}
+{{--                                                        title="View"--}}
+{{--                                                        data-lcl-txt="Description 1"--}}
+{{--                                                        data-lcl-author="tomulumbi"--}}
+{{--                                                       data-lcl-thumb="{{Minio::getClientProofFileUrl( $albumSetImage->pixels100 )}}">--}}
+{{--                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->pixels1500 }});"></span>--}}
+{{--                                                    </a>--}}
+{{--                                                </figcaption>--}}
+{{--                                            </figure>--}}
+{{--                                        </li>--}}
+{{--                                    @endforeach--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+
+{{--                    @foreach($albumSets as $albumSet)--}}
+{{--                        <div id="{{$albumSet->id}}" class="tab-pane">--}}
+{{--                            <div class="panel-body">--}}
+
+{{--                                <ul class="{{$album->thumbnail_size->reference}} masonry">--}}
+
+{{--                                    @foreach($albumSet->album_images as $albumSetImage)--}}
+{{--                                        <li class="masonry-item grid">--}}
+{{--                                            <figure class="effect-sarah"> <img src="{{Minio::getClientProofFileUrl( $albumSetImage->upload->pixels750 )}}" alt="" />--}}
+{{--                                                <figcaption>--}}
+{{--                                                    --}}{{--  <h2>{{$album->name}}</h2>  --}}
+{{--                                                    --}}{{--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>  --}}
+{{--                                                    <a class="elem"--}}
+{{--                                                        src="{{Minio::getUserLargeFileUrl( $albumSetImage->upload->pixels1500 )}}"--}}
+{{--                                                        title="View"--}}
+{{--                                                        data-lcl-txt="Description 1"--}}
+{{--                                                        data-lcl-author="tomulumbi"--}}
+{{--                                                        data-lcl-thumb="{{Minio::getClientProofFileUrl( $albumSetImage->upload->pixels100 )}}">--}}
+{{--                                                        <span style="background-image: url({{ asset('') }}{{ $albumSetImage->upload->pixels1500 }});"></span>--}}
+{{--                                                    </a>--}}
+{{--                                                </figcaption>--}}
+{{--                                            </figure>--}}
+{{--                                        </li>--}}
+{{--                                    @endforeach--}}
+
+{{--                                </ul>--}}
+
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @endforeach--}}
+
+
+
+{{--                </div>--}}
+
+
+{{--            </div>--}}
         </div>
     </div>
 

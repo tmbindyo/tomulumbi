@@ -133,7 +133,7 @@
                 @foreach($similarRecipies as $similarRecipie)
                     <div class="col-lg-3 col-md-6">
                         <div class="similar-item">
-                            <a href="#"><img src="{{ asset('') }}{{ $similarRecipie->cover_image->pixels100 }}" alt=""></a>
+                            <a href="{{route('tudeme.recipe',$similarRecipie->id)}}"><img src="{{ asset('') }}{{ $similarRecipie->cover_image->pixels100 }}" alt=""></a>
                             <div class="similar-text">
                                 @foreach($similarRecipie->tudeme_tudeme_types->slice(0, 1) as $tudeme_tudeme_type)
                                     <div class="cat-name">{{$tudeme_tudeme_type->tudeme_type->name}}</div>
