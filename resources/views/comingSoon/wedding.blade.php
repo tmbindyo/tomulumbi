@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <title>
-            tomulumbi | Coming Soon
+            Thomas Weds Anne
         </title><!-- Behavioral Meta Data -->
         <meta content="yes" name="apple-mobile-web-app-capable">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"><!-- Core Meta Data -->
