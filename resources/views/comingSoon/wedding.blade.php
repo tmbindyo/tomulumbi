@@ -165,8 +165,8 @@
                                 <a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a>
                             </li>
                         </ul>
-                        Site by <a href="https://www.fluidtechglobal.com/" target="_blank">Fluidtech Global </a>
-                        <a class="mail" href="mailto:info@fluidtechglobal.com?subject=Hi%20Fluidtech Global!">| info@fluidtechglobal.com</a>
+{{--                        Site by <a href="https://www.fluidtechglobal.com/" target="_blank">Fluidtech Global </a>--}}
+{{--                        <a class="mail" href="mailto:info@fluidtechglobal.com?subject=Hi%20Fluidtech Global!">| info@fluidtechglobal.com</a>--}}
                     </div>
                 </li>
             </ul>
