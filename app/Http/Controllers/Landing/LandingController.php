@@ -33,6 +33,18 @@ class LandingController extends Controller
 
     }
 
+    public function wedding(Request $request)
+    {
+
+        // save that user visited
+        $view_type = "81e702ff-08ee-49eb-9900-d2f9703a4bbf";
+        $view_id = '';
+        $view = $this->trackView($request,$view_type,$view_id);
+        // return $view;
+        return view('comingSoon.wedding');
+
+    }
+
     public function EmailStore(Request $request)
     {
 

@@ -57,7 +57,7 @@
                 <!-- BG -->
 
                 <li class="layer" data-depth="0.10">
-                    <div class="background">
+                    <div class="wedding-background">
                     </div>
                 </li>
 
@@ -66,7 +66,7 @@
                 <li class="layer" data-depth="0.20">
                     <div class="title">
                         <h2>
-                            tomulumbi
+                            Thomas Weds Anne
                         </h2>
                         <span class="line"></span>
                     </div>
@@ -85,7 +85,7 @@
                         </h1>
 
                         <p class="sub-title">
-                            Coming Soon!
+                            and counting :)
                         </p>
                     </div>
                 </li>
@@ -175,7 +175,7 @@
         <!-- Javascript -->
         <script>
             // Set the date we're counting down to
-            var countDownDate = new Date("November 27, 2019 24:00:00").getTime();
+            var countDownDate = new Date("December 31, 2021 11:00:00").getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function() {

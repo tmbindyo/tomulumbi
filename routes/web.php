@@ -26,6 +26,9 @@ Route::get('/', 'Landing\LandingController@welcome')->name('tomulumbi');
 
 Auth::routes();
 
+// Wedding
+Route::get('/wedding', 'Landing\LandingController@wedding')->name('wedding');
+
 // Welcome
 Route::get('/welcome', 'Landing\LandingController@welcome')->name('welcome');
 
