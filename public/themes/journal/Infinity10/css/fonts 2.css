@@ -1,0 +1,10 @@
+/* ===================================================================
+ * fonts.scss)
+ *
+ * ------------------------------------------------------------------- */
+
+@import 'https://fonts.googleapis.com/css?family=Karla:400,700';
+@import 'https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700';
+@font-face {
+    font-family: "Karla", Arial, sans-serif;
+}

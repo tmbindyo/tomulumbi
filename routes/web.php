@@ -5,7 +5,7 @@ Route::get('/debug-sentry', function () {
 });
 
 Route::get('storage', function(){
-    return Storage::disk('minio')->files();
+    return Storage::disk('linode')->files();
 });
 
 Route::get('/test', 'Landing\LandingController@test')->name('test');
