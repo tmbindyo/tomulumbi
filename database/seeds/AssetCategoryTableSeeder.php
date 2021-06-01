@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class AssetCategoryTableSeeder extends Seeder
@@ -17,6 +18,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Camera',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('asset_categories')->insert([
@@ -24,6 +27,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Lens',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('asset_categories')->insert([
@@ -31,6 +36,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Gadget',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('asset_categories')->insert([
@@ -38,6 +45,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Computer',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('asset_categories')->insert([
@@ -45,6 +54,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Data Storage',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('asset_categories')->insert([
@@ -52,6 +63,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Lighting/Flash',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('asset_categories')->insert([
@@ -59,6 +72,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Bags and Cases',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('asset_categories')->insert([
@@ -66,6 +81,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Tripods and Supports',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('asset_categories')->insert([
@@ -73,6 +90,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Acessories',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('asset_categories')->insert([
@@ -80,6 +99,8 @@ class AssetCategoryTableSeeder extends Seeder
                 'name' => 'Audio',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
     }

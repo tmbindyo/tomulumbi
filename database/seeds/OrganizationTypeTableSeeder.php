@@ -16,6 +16,8 @@ class OrganizationTypeTableSeeder extends Seeder
                 'id' => '7c3d68ed-354c-4d66-b881-7725626c03f4',
                 'name' => 'Family',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
 
@@ -23,6 +25,8 @@ class OrganizationTypeTableSeeder extends Seeder
                 'id' => '2efa2729-6438-4397-b06d-ecded822cec3',
                 'name' => 'Organization',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
 

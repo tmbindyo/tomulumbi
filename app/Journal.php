@@ -40,10 +40,6 @@ class Journal extends Model
     {
         return $this->belongsTo('App\ThumbnailSize');
     }
-    public function typography()
-    {
-        return $this->belongsTo('App\Typography');
-    }
     public function user()
     {
         return $this->belongsTo('App\User');

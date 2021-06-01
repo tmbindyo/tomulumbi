@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class CoverDesignTableSeeder extends Seeder
@@ -18,6 +19,8 @@ class CoverDesignTableSeeder extends Seeder
             'reference' => 'style1',
             'user_id' => 1,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
         DB::table('cover_designs')->insert([
             'id' => '54aa3f5c-a52e-4f68-902a-f8c45a51c948',
@@ -25,6 +28,8 @@ class CoverDesignTableSeeder extends Seeder
             'reference' => 'style2',
             'user_id' => 1,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
         DB::table('cover_designs')->insert([
             'id' => 'c05a7d97-c81b-40f8-bb8d-c39df0e78e96',
@@ -32,6 +37,8 @@ class CoverDesignTableSeeder extends Seeder
             'reference' => 'style3',
             'user_id' => 1,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
         DB::table('cover_designs')->insert([
             'id' => '46e7dcc8-d0bd-46bb-966e-79c700604b7f',
@@ -39,6 +46,8 @@ class CoverDesignTableSeeder extends Seeder
             'reference' => 'style4',
             'user_id' => 1,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
         DB::table('cover_designs')->insert([
             'id' => '4d5ce771-f358-4c73-a912-411a7a33163b',
@@ -46,6 +55,8 @@ class CoverDesignTableSeeder extends Seeder
             'reference' => 'style5',
             'user_id' => 1,
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
     }

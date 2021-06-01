@@ -2,24 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Expense;
-use App\Account;
-use App\Transaction;
-use App\Traits\UserTrait;
-use App\AccountAdjustment;
+use App\Loan;
+use App\Quote;
+use App\Order;
+use App\Status;
+use App\Payment;
 use App\Contact;
 use App\Deposit;
+use App\Account;
+use App\Expense;
+use App\Transfer;
+use App\Liability;
+use App\Withdrawal;
+use App\Transaction;
+use App\AssetAction;
 use App\ExpenseAccount;
+use App\Traits\UserTrait;
+use App\AccountAdjustment;
 use App\Traits\NavbarTrait;
 use Illuminate\Http\Request;
 use App\Traits\StatusCountTrait;
 use App\Traits\ReferenceNumberTrait;
 use App\Http\Controllers\Controller;
-use App\Liability;
-use App\Loan;
-use App\Status;
-use App\Transfer;
-use App\Withdrawal;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -35,6 +39,15 @@ class AccountController extends Controller
         $this->middleware('auth');
     }
 
+    public function dashboard()
+    {
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        return view('admin.accounting.dashboard',compact('navbarValues','user'));
+    }
+
     public function accounts()
     {
         // User
@@ -45,7 +58,7 @@ class AccountController extends Controller
         // Get albums
         $accounts = Account::with('user','status')->get();
 
-        return view('admin.accounts',compact('accounts','user','navbarValues'));
+        return view('admin.accounting.accounts',compact('accounts','user','navbarValues'));
     }
 
     public function accountCreate()
@@ -55,7 +68,7 @@ class AccountController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
 
-        return view('admin.account_create',compact('user','navbarValues'));
+        return view('admin.accounting.account_create',compact('user','navbarValues'));
     }
 
     public function accountStore(Request $request)
@@ -77,17 +90,37 @@ class AccountController extends Controller
         $account->status_id = 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e';
         $account->save();
 
-        return redirect()->route('admin.account.show',$account->id)->withSuccess('Expense '.$account->reference.' successfully created!');
+        return redirect()->route('admin.account.show',$account->id)->withSuccess('Account '.$account->reference.' successfully created!');
     }
 
     public function accountShow($account_id)
     {
+        // check if account exists
+        $accountExists = Account::findOrFail($account_id);
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         // get account
         $account = Account::where('id',$account_id)->with('status','user','loans','account_adjustments','destination_account.source_account','transactions.account','transactions.expense','payments','source_account.destination_account','deposits','withdrawals','liabilities.contact','refunds','transactions')->first();
+        // accounts
+        $accounts = Account::all();
+        // asset actions
+        $assetActions = AssetAction::all();
+        // loans
+        $loans = Loan::all();
+        // orders
+        $orders = Order::all();
+        // quotes
+        $quotes = Quote::all();
+        // get contacts
+        $contacts = Contact::all();
+        // get payments
+        $payments = Payment::where('is_order',True)->orWhere('is_quote',True)->get();
+        // get expenses
+        $expenses = Expense::all();
+        // transaction statuses
+        $transactionStatuses = Status::where('status_type_id','8f56fc70-6cd8-496f-9aec-89e5748968db')->get();
         $goal = $account->goal;
         $balance = $account->balance;
         if ($balance == 0){
@@ -95,7 +128,7 @@ class AccountController extends Controller
         }else{
             $percentage = doubleval($goal)/$balance/100;
         }
-        return view('admin.account_show',compact('account','user','navbarValues','percentage'));
+        return view('admin.accounting.account_show',compact('account','user','navbarValues','percentage', 'contacts', 'accounts', 'assetActions', 'loans', 'orders', 'quotes', 'payments', 'expenses', 'transactionStatuses', 'accountExists'));
     }
 
     public function accountDepositCreate($account_id)
@@ -106,7 +139,7 @@ class AccountController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.deposit_create',compact('account','user','navbarValues'));
+        return view('admin.accounting.deposit_create',compact('account','user','navbarValues'));
     }
 
     public function accountLiabilityCreate($account_id)
@@ -119,7 +152,7 @@ class AccountController extends Controller
         $account = Account::findOrFail($account_id);
         // get contacts
         $contacts = Contact::with('organization')->get();
-        return view('admin.account_liability_create',compact('user','navbarValues','account','contacts'));
+        return view('admin.accounting.account_liability_create',compact('user','navbarValues','account','contacts'));
     }
 
     public function accountLoanCreate($account_id)
@@ -132,7 +165,7 @@ class AccountController extends Controller
         $account = Account::findOrFail($account_id);
         // get contacts
         $contacts = Contact::with('organization')->get();
-        return view('admin.account_loan_create',compact('user','navbarValues','account','contacts'));
+        return view('admin.accounting.account_loan_create',compact('user','navbarValues','account','contacts'));
     }
 
     public function accountWithdrawalCreate($account_id)
@@ -143,7 +176,7 @@ class AccountController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.withdrawal_create',compact('account','user','navbarValues'));
+        return view('admin.accounting.withdrawal_create',compact('account','user','navbarValues'));
     }
 
     public function accountUpdate(Request $request, $account_id)
@@ -203,7 +236,7 @@ class AccountController extends Controller
         $accountExists = Account::findOrFail($account_id);
         $account = Account::where('id',$account_id)->first();
 
-        return view('admin.account_adjustment_create',compact('account','user','navbarValues','accounts'));
+        return view('admin.accounting.account_adjustment_create',compact('account','user','navbarValues','accounts'));
 
     }
 
@@ -386,7 +419,7 @@ class AccountController extends Controller
         $deposit->date = date('Y-m-d', strtotime($request->date));
         $deposit->initial_amount = $initial_amount;
         $deposit->amount = $request->amount;
-        $deposit->subsequent_amount = doubleval($account->balance) + doubleval($request->amount);
+        $deposit->subsequent_amount = $new;
         $deposit->account_id = $account->id;
         $deposit->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $deposit->user_id = Auth::user()->id;
@@ -622,10 +655,14 @@ class AccountController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // get accounts
+        $accounts = Account::all();
+        // get contacts
+        $contacts = Contact::all();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $liabilities = Liability::with('user','status','account','account')->get();
-        return view('admin.liabilities',compact('liabilities','user','navbarValues'));
+        return view('admin.accounting/liabilities',compact('liabilities','user','navbarValues', 'accounts', 'contacts'));
     }
 
     public function liabilityCreate()
@@ -638,7 +675,7 @@ class AccountController extends Controller
         $accounts = Account::all();
         // get contacts
         $contacts = Contact::with('organization')->get();
-        return view('admin.liability_create',compact('user','navbarValues','accounts','contacts'));
+        return view('admin.accounting.liability_create',compact('user','navbarValues','accounts','contacts'));
     }
 
     public function liabilityStore(Request $request)
@@ -700,7 +737,9 @@ class AccountController extends Controller
         $contacts = Contact::with('organization')->get();
         // Get contact type
         $liability = Liability::with('user','status','account','contact.organization','expenses.transactions')->where('id',$liability_id)->first();
-        return view('admin.liability_show',compact('accounts','contacts','liability','user','navbarValues'));
+        // get liability
+        $transactions = Transaction::whereNotNull('expense_id')->get();
+        return view('admin.accounting.liability_show',compact('accounts','contacts','liability','user','navbarValues', 'transactions'));
     }
 
     // TODO expense for liability
@@ -763,10 +802,14 @@ class AccountController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // get accounts
+        $accounts = Account::all();
+        // get contacts
+        $contacts = Contact::with('organization')->get();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $loans = Loan::with('user','status','account')->get();
-        return view('admin.loans',compact('loans','user','navbarValues'));
+        return view('admin.accounting.loans',compact('loans','user','navbarValues', 'accounts', 'contacts'));
     }
 
     public function loanCreate()
@@ -840,7 +883,7 @@ class AccountController extends Controller
         $contacts = Contact::with('organization')->get();
         // Get contact type
         $loan = Loan::with('user','status','account','contact.organization','payments')->where('id',$loan_id)->first();
-        return view('admin.loan_show',compact('accounts','contacts','loan','user','navbarValues'));
+        return view('admin.accounting.loan_show',compact('accounts','contacts','loan','user','navbarValues'));
     }
 
     public function loanPaymentCreate($loan_id)
@@ -853,7 +896,7 @@ class AccountController extends Controller
         $accounts = Account::all();
         // loans
         $loan = Loan::findOrFail($loan_id);
-        return view('admin.loan_payment_create',compact('user','navbarValues','accounts','loan'));
+        return view('admin.accounting.loan_payment_create',compact('user','navbarValues','accounts','loan'));
     }
 
     public function loanUpdate(Request $request, $loan_id)
@@ -891,10 +934,12 @@ class AccountController extends Controller
     {
         // User
         $user = $this->getAdmin();
+        // get accounts
+        $accounts = Account::all();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $transfers = Transfer::with('user','status','source_account','destination_account')->get();
-        return view('admin.transfers',compact('transfers','user','navbarValues'));
+        return view('admin.accounting.transfers',compact('transfers','user','navbarValues', 'accounts'));
     }
 
     public function transferCreate()
@@ -905,7 +950,7 @@ class AccountController extends Controller
         $navbarValues = $this->getNavbarValues();
         // get accounts
         $accounts = Account::all();
-        return view('admin.transfer_create',compact('user','navbarValues','accounts'));
+        return view('admin.accounting.transfer_create',compact('user','navbarValues','accounts'));
     }
 
     public function transferStore(Request $request)
@@ -960,7 +1005,7 @@ class AccountController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get contact type
         $transfer = Transfer::with('user','status','source_account','destination_account','expenses')->where('id',$transfer_id)->first();
-        return view('admin.transfer_show',compact('transfer','user','navbarValues'));
+        return view('admin.accounting.transfer_show',compact('transfer','user','navbarValues'));
     }
 
     public function transferExpenseCreate($transfer_id)

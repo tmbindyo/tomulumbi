@@ -19,7 +19,6 @@ use App\AlbumSet;
 use App\AlbumTag;
 use App\Category;
 use App\AlbumImage;
-use App\Typography;
 use App\Orientation;
 use App\CoverDesign;
 use App\ContentAlign;
@@ -56,6 +55,15 @@ class AlbumController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function dashboard()
+    {
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        return view('admin.work.dashboard',compact('navbarValues','user'));
     }
 
     public function personalAlbums()
@@ -163,7 +171,6 @@ class AlbumController extends Controller
         $tags = Tag::all();
 
         // Personal album Design
-        $typographies = Typography::all();
         $thumbnailSizes = ThumbnailSize::all();
 
         // Album & Image status
@@ -181,7 +188,7 @@ class AlbumController extends Controller
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         $albumViewRestrictionEmails = AlbumViewRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'typographies', 'thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
+        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function personalAlbumShowImages($album_id)
@@ -850,8 +857,6 @@ class AlbumController extends Controller
         $contacts = Contact::all();
         // Tags
         $tags = Tag::all();
-        // Client Proof Design
-        $typographies = Typography::all();
         // Cover Image
         $coverDesigns = CoverDesign::all();
         $schemes = Scheme::all();
@@ -876,7 +881,7 @@ class AlbumController extends Controller
         // album restricted emails
         $albumViewRestrictionEmails = AlbumViewRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.client_proof_show',compact('albumContacts','contacts','album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'typographies', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
+        return view('admin.client_proof_show',compact('albumContacts','contacts','album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function clientProofShowImages($album_id)

@@ -45,6 +45,9 @@ Route::get('/calendar', 'Admin\CalendarController@viewCalender')->name('admin.ca
 
 
 // Settings
+Route::get('/settings', 'Admin\SettingsController@settings')->name('admin.settings');
+
+
 // Action types
 Route::get('/action/types', 'Admin\SettingsController@actionTypes')->name('admin.action.types');
 Route::get('/action/type/create', 'Admin\SettingsController@actionTypeCreate')->name('admin.action.type.create');
@@ -250,17 +253,6 @@ Route::get('/type/restore/{type_id}', 'Admin\SettingsController@typeRestore')->n
 
 
 
-
-// typography
-Route::get('/typographies', 'Admin\SettingsController@typographies')->name('admin.typographies');
-Route::get('/typography/create', 'Admin\SettingsController@typographyCreate')->name('admin.typography.create');
-Route::post('/typography/store', 'Admin\SettingsController@typographyStore')->name('admin.typography.store');
-Route::get('/typography/show/{typography_id}', 'Admin\SettingsController@typographyShow')->name('admin.typography.show');
-Route::post('/typography/update/{typography_id}', 'Admin\SettingsController@typographyUpdate')->name('admin.typography.update');
-Route::get('/typography/delete/{typography_id}', 'Admin\SettingsController@typographyDelete')->name('admin.typography.delete');
-Route::get('/typography/restore/{typography_id}', 'Admin\SettingsController@typographyRestore')->name('admin.typography.restore');
-
-
 // cooking skill
 Route::get('/cooking/skills', 'Admin\SettingsController@cookingSkills')->name('admin.cooking.skills');
 Route::get('/cooking/skill/create', 'Admin\SettingsController@cookingSkillCreate')->name('admin.cooking.skill.create');
@@ -345,6 +337,7 @@ Route::get('/to/do/delete/{todo_id}', 'Admin\ToDoController@toDoDelete')->name('
 
 
 /// CRM
+Route::get('/crm/dashboard', 'Admin\CRMController@dashboard')->name('admin.crm.dashboard');
 // Campaign
 Route::get('/campaigns', 'Admin\CRMController@campaigns')->name('admin.campaigns');
 Route::get('/campaign/create', 'Admin\CRMController@campaignCreate')->name('admin.campaign.create');
@@ -447,6 +440,7 @@ Route::get('/quote/restore/{quote_id}', 'Admin\CRMController@quoteRestore')->nam
 
 
 // Work
+Route::get('/work/dashboard', 'Admin\AlbumController@dashboard')->name('admin.work.dashboard');
 // Album
 Route::get('/personal/albums', 'Admin\AlbumController@personalAlbums')->name('admin.personal.albums');
 Route::get('/personal/album/create', 'Admin\AlbumController@personalAlbumCreate')->name('admin.personal.album.create');
@@ -604,6 +598,7 @@ Route::post('/tudeme/featured/recipie/store', 'Admin\TudemeController@tudemeFeat
 
 
 // store
+Route::get('/store/dashboard', 'Admin\SaleController@dashboard')->name('admin.store.dashboard');
 // orders
 Route::get('/orders', 'Admin\SaleController@orders')->name('admin.orders');
 Route::get('/order/create', 'Admin\SaleController@orderCreate')->name('admin.order.create');
@@ -656,6 +651,7 @@ Route::get('/promo/code/restore/{promo_code_id}', 'Admin\ProductController@promo
 
 
 // Accounting
+Route::get('/accounting/dashboard', 'Admin\AccountController@dashboard')->name('admin.accounting.dashboard');
 // accounts
 Route::get('/accounts', 'Admin\AccountController@accounts')->name('admin.accounts');
 Route::get('/account/create', 'Admin\AccountController@accountCreate')->name('admin.account.create');
@@ -791,6 +787,7 @@ Route::get('/transfer/restore/{transfer_id}', 'Admin\AccountController@transferR
 
 
 // Assets
+Route::get('/asset/dashboard', 'Admin\AssetController@dashboard')->name('admin.asset.dashboard');
 // assets
 Route::get('/assets', 'Admin\AssetController@assets')->name('admin.assets');
 Route::get('/asset/create', 'Admin\AssetController@assetCreate')->name('admin.asset.create');

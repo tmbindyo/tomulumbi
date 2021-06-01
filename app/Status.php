@@ -161,10 +161,6 @@ class Status extends Model
     {
         return $this->hasMany('App\ThumbnailSize');
     }
-    public function typographyies()
-    {
-        return $this->hasMany('App\Typography');
-    }
     public function uploads()
     {
         return $this->hasMany('App\Upload');

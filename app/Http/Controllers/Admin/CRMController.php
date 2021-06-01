@@ -73,6 +73,15 @@ class CRMController extends Controller
         $this->middleware('auth');
     }
 
+    public function dashboard()
+    {
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        return view('admin.crm.dashboard',compact('navbarValues','user'));
+    }
+
     public function feed()
     {
         // Get the navbar values
@@ -129,7 +138,7 @@ class CRMController extends Controller
         // campaigns
         $campaigns = Campaign::with('user','status','campaign_type')->get();
 
-        return view('admin.campaigns',compact('campaigns','user','navbarValues'));
+        return view('admin.crm.campaigns',compact('campaigns','user','navbarValues'));
 
     }
 
@@ -147,7 +156,7 @@ class CRMController extends Controller
         // campaign status
         $campaignStatus = Status::where('status_type_id','4e730295-3dc3-44a4-bff8-149e66a51493')->get();
 
-        return view('admin.campaign_create',compact('user','navbarValues','campaignTypes','campaigns','campaignStatus'));
+        return view('admin.crm.campaign_create',compact('user','navbarValues','campaignTypes','campaigns','campaignStatus'));
 
     }
 

@@ -8,6 +8,9 @@ Route::get('storage', function(){
     return Storage::disk('linode')->files();
 });
 
+Route::get('/invoice', 'Landing\LandingController@invoice')->name('invoice');
+
+
 Route::get('/test', 'Landing\LandingController@test')->name('test');
 Route::get('/add/file', 'Landing\LandingController@addFile')->name('add.file');
 Route::get('/get/file', 'Landing\LandingController@getFile')->name('get.bucket');

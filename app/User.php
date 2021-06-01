@@ -159,10 +159,6 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\ThumbnailSize');
     }
-    public function typographys()
-    {
-        return $this->hasMany('App\Typography');
-    }
     public function uploads()
     {
         return $this->hasMany('App\Upload');

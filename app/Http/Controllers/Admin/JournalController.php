@@ -12,7 +12,6 @@ use App\Project;
 use App\Contact;
 use App\Journal;
 use App\AlbumTag;
-use App\Typography;
 use App\ProjectType;
 use App\JournalLabel;
 use App\JournalSeries;
@@ -208,8 +207,6 @@ class JournalController extends Controller
         $journalArray = $this->getJournal($journal_id);
         // Get views and downloads
         $journalViews = $this->getJournalViews($journal_id);
-        // Get typography
-        $typographies = Typography::all();
         // Get thumbnail sizes
         $thumbnailSizes = ThumbnailSize::all();
         // Labels
@@ -221,7 +218,7 @@ class JournalController extends Controller
         $journalStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
         $journalLabels = JournalLabel::where('journal_id',$journal_id)->with('journal','label')->get();
-        return view('admin.journal_show',compact('user','journal','journalStatuses','typographies','thumbnailSizes','labels','journalLabels','navbarValues','journalArray','journalViews'));
+        return view('admin.journal_show',compact('user','journal','journalStatuses','thumbnailSizes','labels','journalLabels','navbarValues','journalArray','journalViews'));
     }
 
     public function journalUpdate(Request $request, $journal_id)

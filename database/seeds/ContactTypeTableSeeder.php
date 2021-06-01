@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class ContactTypeTableSeeder extends Seeder
@@ -17,6 +18,8 @@ class ContactTypeTableSeeder extends Seeder
                 'name' => 'Client',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('contact_types')->insert([
@@ -24,6 +27,8 @@ class ContactTypeTableSeeder extends Seeder
                 'name' => 'Partner',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('contact_types')->insert([
@@ -31,6 +36,8 @@ class ContactTypeTableSeeder extends Seeder
                 'name' => 'Supplier',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
     }

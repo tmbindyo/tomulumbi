@@ -21,6 +21,14 @@ class LandingController extends Controller
 
     use ViewTrait;
 
+    public function invoice(Request $request)
+    {
+
+        // return $view;
+        return view('admin.accounting.invoice');
+
+    }
+
     public function welcome(Request $request)
     {
 

@@ -60,7 +60,6 @@ use App\Tudeme;
 use App\TudemeTag;
 use App\TudemeType;
 use App\Type;
-use App\Typography;
 
 trait NavbarTrait
 {
@@ -111,8 +110,6 @@ trait NavbarTrait
         $titlesCount = Title::count();
         // Get types count
         $typesCount = Type::count();
-        // Get typographies count
-        $typographiesCount = Typography::count();
 
         // Get cooking skill count
         $cookingSkillCount = CookingSkill::count();
@@ -223,7 +220,6 @@ trait NavbarTrait
             "tagsCount"=>$tagsCount,
             "titlesCount"=>$titlesCount,
             "typesCount"=>$typesCount,
-            "typographiesCount"=>$typographiesCount,
             "cookingSkillCount"=>$cookingSkillCount,
             "cookingStyleCount"=>$cookingStyleCount,
             "courseCount"=>$courseCount,

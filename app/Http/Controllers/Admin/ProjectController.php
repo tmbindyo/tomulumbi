@@ -14,7 +14,6 @@ use App\Journal;
 use App\Contact;
 use App\Project;
 use App\Category;
-use App\Typography;
 use App\DesignWork;
 use App\ProjectType;
 use App\DesignContact;
@@ -125,8 +124,6 @@ class ProjectController extends Controller
         $projectViews = $this->getProjectViews($project_id);
         // Clients
         $contacts = Contact::all();
-        // Get typography
-        $typographies = Typography::all();
         // Get thumbnail sizes
         $thumbnailSizes = ThumbnailSize::all();
         // project types
@@ -145,7 +142,7 @@ class ProjectController extends Controller
         // Project status
         $projectStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
-        return view('admin.project_show',compact('projectContacts','projectJournals','projectDesigns','projectAlbums','user','contacts','project','projectStatuses','typographies','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
+        return view('admin.project_show',compact('projectContacts','projectJournals','projectDesigns','projectAlbums','user','contacts','project','projectStatuses','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
     }
 
     public function projectPersonalAlbumCreate($project_id)

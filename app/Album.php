@@ -131,10 +131,6 @@ class Album extends Model
     {
         return $this->belongsTo('App\ThumbnailSize');
     }
-    public function typography()
-    {
-        return $this->belongsTo('App\Typography');
-    }
     public function status()
     {
         return $this->belongsTo('App\Status');

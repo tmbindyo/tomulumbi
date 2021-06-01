@@ -18,6 +18,8 @@ class FrequencyTableSeeder extends Seeder
             'type' => 'day',
             'frequency' => '1',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('frequencies')->insert([
@@ -26,6 +28,8 @@ class FrequencyTableSeeder extends Seeder
             'type' => 'week',
             'frequency' => '1',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('frequencies')->insert([
@@ -34,6 +38,8 @@ class FrequencyTableSeeder extends Seeder
             'type' => 'week',
             'frequency' => '2',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('frequencies')->insert([
@@ -42,6 +48,8 @@ class FrequencyTableSeeder extends Seeder
             'type' => 'month',
             'frequency' => '1',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('frequencies')->insert([
@@ -50,6 +58,8 @@ class FrequencyTableSeeder extends Seeder
             'type' => 'month',
             'frequency' => '3',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('frequencies')->insert([
@@ -58,6 +68,8 @@ class FrequencyTableSeeder extends Seeder
             'type' => 'month',
             'frequency' => '6',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('frequencies')->insert([
@@ -66,6 +78,8 @@ class FrequencyTableSeeder extends Seeder
             'type' => 'year',
             'frequency' => '1',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         DB::table('frequencies')->insert([
@@ -74,6 +88,8 @@ class FrequencyTableSeeder extends Seeder
             'type' => 'year',
             'frequency' => '2',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
     }

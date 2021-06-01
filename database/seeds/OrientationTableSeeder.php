@@ -17,6 +17,8 @@ class OrientationTableSeeder extends Seeder
             'name' => 'Right',
             'reference' => 'orient-right',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('orientations')->insert([
@@ -24,6 +26,8 @@ class OrientationTableSeeder extends Seeder
             'name' => 'Left',
             'reference' => 'orient-left',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
 

@@ -18,6 +18,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -25,6 +27,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -32,6 +36,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -39,6 +45,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -46,6 +54,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -53,6 +63,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -60,6 +72,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -67,6 +81,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -74,6 +90,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -81,6 +99,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
 
             ],
 
@@ -89,6 +109,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -96,6 +118,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -103,6 +127,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -110,6 +136,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -117,6 +145,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -124,6 +154,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -131,6 +163,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -138,6 +172,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -145,6 +181,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -152,6 +190,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -159,6 +199,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -166,6 +208,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -173,6 +217,8 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
             [
@@ -180,114 +226,40 @@ class TagTableSeeder extends Seeder
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
                 'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
-//            [
-//                'name' => 'cityscape photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-//
-//            [
-//                'name' => 'aerial',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
+           [
+                'name' => 'drone photography',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
+                'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+           ],
 
-//            [
-//                'name' => 'abstract',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
 
-//            [
-//                'name' => 'sports',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
+           [
+                'name' => 'commercial photography',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
+                'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+           ],
 
-//            [
-//                'name' => 'action photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
 
-//            [
-//                'name' => 'adventure photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-//            [
-//                'name' => 'drone photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
 
-//            [
-//                'name' => 'editorial photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-//
-//            [
-//                'name' => 'beauty photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
+           [
+                'name' => 'real estate photography',
+                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'thumbnail_size_id' => '36400ca6-68d0-4897-b22f-6bc04bbaa929',
+                'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+           ],
 
-//            [
-//                'name' => 'bodyscape photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-
-//            [
-//                'name' => 'commercial photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-
-//            [
-//                'name' => 'firework photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-
-//            [
-//                'name' => 'documentary photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-
-//            [
-//                'name' => 'long exposure',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-
-//            [
-//                'name' => 'lifestyle photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-
-//            [
-//                'name' => 'real estate photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
-
-//            [
-//                'name' => 'vintage photography',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ]
-
-//            [
-//                'name' => 'newborn',
-//                'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
-//                'user_id' => 1,
-//            ],
 
 
         ];

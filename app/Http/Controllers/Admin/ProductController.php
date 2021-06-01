@@ -11,7 +11,6 @@ use App\Upload;
 use App\Product;
 use App\SubType;
 use App\PriceList;
-use App\Typography;
 use App\OrderProduct;
 use App\ThumbnailSize;
 use App\ProductGallery;
@@ -95,8 +94,6 @@ class ProductController extends Controller
         $productArray = $this->getProduct($product_id);
         // Get views and downloads
         $productViews = $this->getProductViews($product_id);
-        // Get typography
-        $typographies = Typography::all();
         // Get thumbnail sizes
         $thumbnailSizes = ThumbnailSize::all();
         // Types
@@ -114,7 +111,7 @@ class ProductController extends Controller
         $sizes = Size::where('type_id', $product->type_id)->get();
         // product gallery
         $productGallery = ProductGallery::where('product_id',$product_id)->with('upload')->get();
-        return view('admin.product_show',compact('user','product','productGallery','productStatuses','typographies','thumbnailSizes','types','priceLists','subTypes','sizes','navbarValues','productViews','productArray'));
+        return view('admin.product_show',compact('user','product','productGallery','productStatuses','thumbnailSizes','types','priceLists','subTypes','sizes','navbarValues','productViews','productArray'));
     }
 
     public function productUpdate(Request $request, $product_id)

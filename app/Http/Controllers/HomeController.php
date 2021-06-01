@@ -13,12 +13,13 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index() {
         $user_type_id = Auth::user()->user_type_id;
 
         if ($user_type_id == UserType::all()[0]['id']) {
 
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.calendar');
 
         } elseif ($user_type_id == UserType::all()[1]['id']) {
             return 'user';

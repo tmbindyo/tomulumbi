@@ -132,7 +132,7 @@ class ToDoController extends Controller
             $todo->is_account = True;
             $todo->account_id = $request->account;
         }else{
-            $todo->is_album = False;
+            $todo->is_account = False;
         }
         // album
         if($request->is_album){

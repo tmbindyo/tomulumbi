@@ -30,6 +30,15 @@ class AssetController extends Controller
         $this->middleware('auth');
     }
 
+    public function dashboard()
+    {
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        return view('admin.assets.dashboard',compact('navbarValues','user'));
+    }
+
     // asset functions
     public function assets()
     {
@@ -37,9 +46,11 @@ class AssetController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // get assets
         $assets = Asset::with('user','status','asset_category')->get();
-
-        return view('admin.assets',compact('assets','user','navbarValues'));
+        // asset categories
+        $assetCategories = AssetCategory::all();
+        return view('admin.assets.assets',compact('assets','user','navbarValues', 'assetCategories'));
     }
 
     public function assetCreate()
@@ -50,7 +61,7 @@ class AssetController extends Controller
         $navbarValues = $this->getNavbarValues();
         // asset categories
         $assetCategories = AssetCategory::all();
-        return view('admin.asset_create',compact('user','navbarValues','assetCategories'));
+        return view('admin.assets.asset_create',compact('user','navbarValues','assetCategories'));
     }
 
     public function assetStore(Request $request)
@@ -88,7 +99,7 @@ class AssetController extends Controller
         $asset = Asset::findOrFail($asset_id);
         // action types
         $kits = Kit::all();
-        return view('admin.asset_assign_kit',compact('kits','asset','user','navbarValues'));
+        return view('admin.assets.asset_assign_kit',compact('kits','asset','user','navbarValues'));
     }
 
     public function assetShow($asset_id)
@@ -103,8 +114,14 @@ class AssetController extends Controller
         $assetCategories = AssetCategory::all();
         // asset
         $asset = Asset::with('user','status','asset_category','expenses','kit_assets','asset_actions.action_type')->where('id',$asset_id)->first();
+        // kits
+        $kits = Kit::all();
+        // action types
+        $actionTypes = ActionType::all();
+        // contacts
+        $contacts = Contact::with('organization')->get();
 
-        return view('admin.asset_show',compact('assetCategories','asset','user','navbarValues'));
+        return view('admin.assets.asset_show',compact('assetCategories','asset','user','navbarValues', 'actionTypes', 'contacts', 'kits'));
     }
 
     public function assetAssetActionCreate($asset_id)
@@ -119,7 +136,7 @@ class AssetController extends Controller
         $actionTypes = ActionType::all();
         // contacts
         $contacts = Contact::with('organization')->get();
-        return view('admin.asset_asset_action_create',compact('contacts','actionTypes','asset','user','navbarValues'));
+        return view('admin.assets.asset_asset_action_create',compact('contacts','actionTypes','asset','user','navbarValues'));
     }
 
     public function assetUpdate(Request $request, $asset_id)

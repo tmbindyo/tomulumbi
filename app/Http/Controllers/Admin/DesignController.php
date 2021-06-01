@@ -15,7 +15,6 @@ use App\Status;
 use App\Journal;
 use App\Contact;
 use App\Category;
-use App\Typography;
 use App\DesignWork;
 use App\DesignContact;
 use App\DesignGallery;
@@ -138,8 +137,6 @@ class DesignController extends Controller
         $contacts = Contact::all();
         // Categories
         $categories = Category::all();
-        // Get typography
-        $typographies = Typography::all();
         // Get design
         $design = Design::findOrFail($design_id);
         $design = Design::where('id',$design_id)->with('design_categories','user','status','cover_image','expenses.expense_type')->first();
@@ -157,7 +154,7 @@ class DesignController extends Controller
         $designCategories = DesignCategory::where('design_id',$design_id)->get();
         // design contacts
         $designContacts = DesignContact::where('design_id',$design_id)->get();
-        return view('admin.design_show',compact('designCategories','designContacts','designJournals','designAlbums','user','contacts','categories','design','designGallery','designWork','designStatuses','typographies','navbarValues','designArray','designViews'));
+        return view('admin.design_show',compact('designCategories','designContacts','designJournals','designAlbums','user','contacts','categories','design','designGallery','designWork','designStatuses','navbarValues','designArray','designViews'));
     }
 
     public function designPersonalAlbumCreate($design_id)

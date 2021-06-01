@@ -19,6 +19,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Ongoing',
             'status_type_id' => 'e6dc4713-612f-455e-a30c-3e29ebdddf70',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -28,6 +30,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Preview',
             'status_type_id' => 'e6dc4713-612f-455e-a30c-3e29ebdddf70',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -37,6 +41,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Completed',
             'status_type_id' => 'e6dc4713-612f-455e-a30c-3e29ebdddf70',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
 
@@ -48,6 +54,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Active record',
             'status_type_id' => 'a558001b-69ae-4872-ba0f-ecadd154a70a',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -57,6 +65,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Inactive record',
             'status_type_id' => 'a558001b-69ae-4872-ba0f-ecadd154a70a',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -66,6 +76,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Deleted record',
             'status_type_id' => 'a558001b-69ae-4872-ba0f-ecadd154a70a',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
 
@@ -77,6 +89,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Preview album or image',
             'status_type_id' => '12a49330-14a5-41d2-b62d-87cdf8b252f8',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -86,6 +100,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Hidden album or image',
             'status_type_id' => '12a49330-14a5-41d2-b62d-87cdf8b252f8',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -95,6 +111,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Published album or image',
             'status_type_id' => '12a49330-14a5-41d2-b62d-87cdf8b252f8',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
 
@@ -105,6 +123,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Pending',
             'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -113,6 +133,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'In progress',
             'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -122,6 +144,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Completed',
             'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -130,6 +154,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Overdue',
             'status_type_id' => '1a252cab-df69-44f4-8cea-1d9d9e388a99',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
 
@@ -141,6 +167,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Unread',
             'status_type_id' => '5e230684-dc16-4889-a3d3-9e734726f02a',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -150,6 +178,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Seen',
             'status_type_id' => '5e230684-dc16-4889-a3d3-9e734726f02a',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -159,6 +189,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Read',
             'status_type_id' => '5e230684-dc16-4889-a3d3-9e734726f02a',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -168,6 +200,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Replied',
             'status_type_id' => '5e230684-dc16-4889-a3d3-9e734726f02a',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -177,6 +211,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Flagged',
             'status_type_id' => '5e230684-dc16-4889-a3d3-9e734726f02a',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
 
@@ -188,6 +224,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Product cannot be ordered when set to this status but will be shown still. ',
             'status_type_id' => 'b7870001-b1f1-442d-8b7a-a9551b1fc239',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -197,6 +235,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Product cannot be ordered when set to this status but will be shown still. ',
             'status_type_id' => 'b7870001-b1f1-442d-8b7a-a9551b1fc239',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -206,6 +246,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Products with this flag are able to be back ordered, which means their current stock count can go negative.',
             'status_type_id' => 'b7870001-b1f1-442d-8b7a-a9551b1fc239',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -215,6 +257,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Products with this flag will not be shown in the catalog.',
             'status_type_id' => 'b7870001-b1f1-442d-8b7a-a9551b1fc239',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -224,6 +268,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Viewed',
             'status_type_id' => 'b7870001-b1f1-442d-8b7a-a9551b1fc239',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -233,6 +279,8 @@ class StatusTableSeeder extends Seeder
             'description' => 'Live',
             'status_type_id' => 'b7870001-b1f1-442d-8b7a-a9551b1fc239',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
 
@@ -244,6 +292,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-warning',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -253,6 +303,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-warning',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -262,6 +314,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-warning',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -271,6 +325,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-warning',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -280,6 +336,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-warning',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -289,6 +347,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-warning',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -298,6 +358,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -307,6 +369,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -316,6 +380,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-danger',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -325,6 +391,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-warning',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -334,6 +402,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-info',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -343,6 +413,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-danger',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -352,6 +424,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-plain',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -361,6 +435,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-warning',
             'status_type_id' => '6649fd59-0fc2-44e5-b735-032d72ee3b60',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         // Expense statuses
@@ -371,6 +447,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-primary',
             'status_type_id' => '7805a9f3-c7ca-4a09-b021-cc9b253e2810',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -380,6 +458,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '7805a9f3-c7ca-4a09-b021-cc9b253e2810',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
 
@@ -391,6 +471,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '8f56fc70-6cd8-496f-9aec-89e5748968db',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('statuses')->insert([
             'id' => 'a40b5983-3c6b-4563-ab7c-20deefc1992b',
@@ -399,6 +481,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '8f56fc70-6cd8-496f-9aec-89e5748968db',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         // campaign statuses
@@ -409,6 +493,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-info',
             'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('statuses')->insert([
             'id' => '2b734324-55a9-4731-b036-102a59b2ecb9',
@@ -417,6 +503,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-primary',
             'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('statuses')->insert([
             'id' => 'aa2efe40-1d5c-4f7a-bc65-76b56a1ac11a',
@@ -425,6 +513,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-warning',
             'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('statuses')->insert([
             'id' => '57f2e96e-3c02-4382-8623-67fe6e1de9a0',
@@ -433,6 +523,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '4e730295-3dc3-44a4-bff8-149e66a51493',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         // lead statuses
@@ -443,6 +535,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -452,6 +546,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -461,6 +557,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -470,6 +568,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -479,6 +579,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('statuses')->insert([
@@ -488,8 +590,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => '67dda04f-e6ab-4374-a969-76e29f500f52',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         // deal
         DB::table('statuses')->insert([
             'id' => '9fffd4af-0789-404d-9739-88fb862b3a43',
@@ -498,8 +602,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         DB::table('statuses')->insert([
             'id' => '06b40963-4c1e-493d-b06f-abb9ce77787c',
             'name' => 'Appointment Scheduled',
@@ -507,8 +613,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         DB::table('statuses')->insert([
             'id' => '2b220c6b-ff6c-443c-81f0-52bf05734bc3',
             'name' => 'Needs Analysis',
@@ -516,8 +624,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         DB::table('statuses')->insert([
             'id' => 'bb0fcaae-4452-4d6f-b651-a08c8f53d88f',
             'name' => 'Presentation Scheduled',
@@ -525,8 +635,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         DB::table('statuses')->insert([
             'id' => 'e50488f0-7ebe-4622-a5f0-9084c4672cfb',
             'name' => 'Decision-Maker Buy-In',
@@ -534,8 +646,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         DB::table('statuses')->insert([
             'id' => '874c87eb-81dd-447e-8efe-85c560959977',
             'name' => 'Proposal/Price Quote',
@@ -543,8 +657,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         DB::table('statuses')->insert([
             'id' => '0348b7f0-0fb5-44c1-b1d1-e38ea03f97c7',
             'name' => 'Negotiation/Review',
@@ -552,8 +668,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         DB::table('statuses')->insert([
             'id' => 'dcf56b0a-99fa-4287-8d70-72bbb4843454',
             'name' => 'Contract Sent',
@@ -561,8 +679,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         DB::table('statuses')->insert([
             'id' => '4e389bdf-c8fb-4d01-a6ba-0091231d5cc4',
             'name' => 'Closed Won',
@@ -570,8 +690,10 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        
+
         DB::table('statuses')->insert([
             'id' => '60397de4-6096-4efc-bb0b-e2216318b17e',
             'name' => 'Closed Lost',
@@ -579,6 +701,8 @@ class StatusTableSeeder extends Seeder
             'label' => 'label-success',
             'status_type_id' => 'cf5d25dc-dcf1-425c-9fdc-d580a7e0b334',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
 

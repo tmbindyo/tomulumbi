@@ -16,6 +16,8 @@ class SchemeTableSeeder extends Seeder
             'id' => '5e664dd9-8fe4-4f08-82de-80b0f41c592b',
             'name' => 'Normal',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('schemes')->insert([
@@ -23,6 +25,8 @@ class SchemeTableSeeder extends Seeder
             'name' => 'Invert',
             'reference' => 'invert',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
 

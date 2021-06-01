@@ -23,7 +23,6 @@ use App\AlbumTag;
 use App\LetterTag;
 use App\Frequency;
 use App\AlbumType;
-use App\Typography;
 use App\LeadSource;
 use App\ActionType;
 use App\ContactType;
@@ -73,27 +72,77 @@ class SettingsController extends Controller
         $this->middleware('auth');
     }
 
-    // action type functions
-    public function actionTypes()
+    // settings
+    public function settings()
     {
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // get album types
+        $albumTypes = AlbumType::with('user','status')->get();
+        // get action types
         $actionTypes = ActionType::with('user','status')->get();
+        // get album types
+        $albumTags = Tag::with('user','status','thumbnail_size')->get();
+        // get asset categories
+        $assetCategories = AssetCategory::with('user','status')->get();
+        // get design categories
+        $categories = Category::with('user','status')->get();
+        // get dietary preferences
+        $dietaryPreferences = DietaryPreference::with('user','status')->get();
+        // get campaign types
+        $campaignTypes = CampaignType::with('user','status')->get();
+        // get contact types
+        $contactTypes = ContactType::with('user','status')->get();
+        // get cooking skills
+        $cookingSkills = CookingSkill::with('user','status')->get();
+        // get cooking style
+        $cookingStyles = CookingStyle::with('user','status')->get();
+        // get cuisines
+        $cuisines = Cuisine::with('user','status')->get();
+        // get courses
+        $courses = Course::with('user','status')->get();
+        // get dish types
+        $dishTypes = DishType::with('user','status')->get();
+        // get expense accounts
+        $expenseAccounts = ExpenseAccount::with('user','status')->get();
+        // get frequencies
+        $frequencies = Frequency::with('user')->get();
+        // get labels
+        $labels = Label::with('user','status')->get();
+        // get lead sources
+        $leadSources = LeadSource::with('user','status')->get();
+        // get letter tags
+        $letterTags = LetterTag::with('user','status')->get();
+        // get organization types
+        $organizationTypes = OrganizationType::with('user','status')->get();
+        // get project types
+        $projectTypes = ProjectType::with('user','status')->get();
+        // get sizes
+        $sizes = Size::with('user','status','type')->get();
+        // get sub types
+        $subTypes = SubType::with('user','status','type')->get();
+        // get types
+        $types = Type::all();
+        // get titles
+        $titles = Title::with('user','status')->get();
+        // get tudeme types
+        $tudemeTypes = TudemeType::with('user','status')->get();
+        // get tudeme tags
+        $tudemeTags = TudemeTag::with('user','status')->get();
+        // thumbnail sizes
+        $thumbnailSizes = ThumbnailSize::all();
 
-        return view('admin.action_types',compact('actionTypes','user','navbarValues'));
+
+        return view('admin.settings.settings',compact('user','navbarValues', 'albumTypes', 'albumTags', 'actionTypes', 'assetCategories', 'categories', 'dietaryPreferences', 'campaignTypes', 'contactTypes', 'cookingSkills', 'cookingStyles', 'cuisines', 'courses', 'dishTypes', 'expenseAccounts', 'frequencies', 'labels', 'leadSources', 'letterTags', 'organizationTypes', 'projectTypes', 'sizes', 'subTypes', 'types', 'titles', 'tudemeTypes', 'tudemeTags', 'thumbnailSizes'));
     }
 
-    public function actionTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.action_type_create',compact('user','navbarValues'));
-    }
 
+
+
+
+    // action type functions
     public function actionTypeStore(Request $request)
     {
 
@@ -119,7 +168,7 @@ class SettingsController extends Controller
         $actionType = ActionType::with('user','status')->withCount('asset_actions')->where('id',$action_type_id)->first();
         // action type actions
         $actionTypeAssetActions = AssetAction::with('contact','user','status','asset','kit')->where('action_type_id',$action_type_id)->get();
-        return view('admin.action_type_show',compact('actionType','user','actionTypeAssetActions','navbarValues'));
+        return view('admin.settings.action_type_show',compact('actionType','user','actionTypeAssetActions','navbarValues'));
     }
 
     public function actionTypeAssetActionCreate($action_type_id)
@@ -136,7 +185,7 @@ class SettingsController extends Controller
         $actionType = ActionType::findOrFail($action_type_id);
         // contacts
         $contacts = Contact::with('organization')->get();
-        return view('admin.action_type_asset_action_create',compact('kits','contacts','actionType','assets','user','navbarValues'));
+        return view('admin.settings.action_type_asset_action_create',compact('kits','contacts','actionType','assets','user','navbarValues'));
     }
 
     public function actionTypeUpdate(Request $request, $action_type_id)
@@ -175,32 +224,11 @@ class SettingsController extends Controller
 
 
     // album type functions
-    public function albumTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $albumTypes = AlbumType::with('user','status')->get();
-
-        return view('admin.album_types',compact('albumTypes','user','navbarValues'));
-    }
-
-    public function albumTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.album_type_create',compact('user','navbarValues'));
-    }
-
     public function albumTypeStore(Request $request)
     {
 
         $albumType = new AlbumType();
         $albumType->name = $request->name;
-        $albumType->description = $request->description;
         $albumType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $albumType->user_id = Auth::user()->id;
         $albumType->save();
@@ -220,7 +248,7 @@ class SettingsController extends Controller
         $albumType = AlbumType::with('user','status','albums.status')->where('id',$album_type_id)->withCount('albums')->first();
         // album type albums
         $albumTypeAlbums = Album::with('user','status')->where('album_type_id',$album_type_id)->withCount('album_views')->get();
-        return view('admin.album_type_show',compact('albumType','user','albumTypeAlbums','navbarValues'));
+        return view('admin.settings.album_type_show',compact('albumType','user','albumTypeAlbums','navbarValues'));
     }
 
     public function albumTypeUpdate(Request $request, $album_type_id)
@@ -228,7 +256,6 @@ class SettingsController extends Controller
 
         $albumType = AlbumType::findOrFail($album_type_id);
         $albumType->name = $request->name;
-        $albumType->description = $request->description;
         $albumType->user_id = Auth::user()->id;
         $albumType->save();
 
@@ -259,25 +286,6 @@ class SettingsController extends Controller
 
 
     // asset categories
-    public function assetCategories()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $assetCategories = AssetCategory::with('user','status')->get();
-        return view('admin.asset_categories',compact('assetCategories','user','navbarValues'));
-    }
-
-    public function assetCategoryCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.asset_category_create',compact('user','navbarValues'));
-    }
-
     public function assetCategoryStore(Request $request)
     {
         $category = new AssetCategory();
@@ -297,7 +305,7 @@ class SettingsController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $assetCategory = AssetCategory::with('user','status','assets.asset_category')->where('id',$asset_category_id)->withCount('assets')->first();
-        return view('admin.asset_category_show',compact('assetCategory','user','navbarValues'));
+        return view('admin.settings.asset_category_show',compact('assetCategory','user','navbarValues'));
     }
 
     public function assetCategoryUpdate(Request $request, $asset_category_id)
@@ -335,25 +343,6 @@ class SettingsController extends Controller
 
 
     // categories
-    public function categories()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $categories = Category::with('user','status')->get();
-        return view('admin.categories',compact('categories','user','navbarValues'));
-    }
-
-    public function categoryCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.category_create',compact('user','navbarValues'));
-    }
-
     public function categoryStore(Request $request)
     {
         $category = new Category();
@@ -373,7 +362,7 @@ class SettingsController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $category = Category::with('user','status','design_categories.design.status')->where('id',$category_id)->withCount('design_categories')->first();
-        return view('admin.category_show',compact('category','user','navbarValues'));
+        return view('admin.settings.category_show',compact('category','user','navbarValues'));
     }
 
     public function categoryUpdate(Request $request, $category_id)
@@ -411,25 +400,6 @@ class SettingsController extends Controller
 
 
     // campaign types
-    public function campaignTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $campaignTypes = CampaignType::with('user','status')->get();
-        return view('admin.campaign_types',compact('campaignTypes','user','navbarValues'));
-    }
-
-    public function campaignTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.campaign_type_create',compact('user','navbarValues'));
-    }
-
     public function campaignTypeStore(Request $request)
     {
         $campaignType = new CampaignType();
@@ -451,7 +421,7 @@ class SettingsController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get campaign type
         $campaignType = CampaignType::with('user','status','campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
-        return view('admin.campaign_type_show',compact('campaignType','user','navbarValues'));
+        return view('admin.settings.campaign_type_show',compact('campaignType','user','navbarValues'));
     }
 
     public function campaignTypeUpdate(Request $request, $campaign_type_id)
@@ -487,25 +457,6 @@ class SettingsController extends Controller
 
 
     // contact types
-    public function contactTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $contactTypes = ContactType::with('user','status')->get();
-        return view('admin.contact_types',compact('contactTypes','user','navbarValues'));
-    }
-
-    public function contactTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.contact_type_create',compact('user','navbarValues'));
-    }
-
     public function contactTypeStore(Request $request)
     {
         $contactType = new ContactType();
@@ -528,7 +479,7 @@ class SettingsController extends Controller
         // Get contact type
         $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contact_type_contacts')->first();
         $contactContactTypes = ContactContactType::with('user','status','contact')->where('contact_type_id',$contact_type_id)->get();
-        return view('admin.contact_type_show',compact('contactType','user','contactContactTypes','navbarValues'));
+        return view('admin.settings.contact_type_show',compact('contactType','user','contactContactTypes','navbarValues'));
     }
 
     public function contactTypeUpdate(Request $request, $contact_type_id)
@@ -536,7 +487,6 @@ class SettingsController extends Controller
 
         $contactType = ContactType::findOrFail($contact_type_id);
         $contactType->name = $request->name;
-        $contactType->description = $request->description;
         $contactType->save();
 
         return redirect()->route('admin.contact.type.show',$contactType->id)->withSuccess('Contact type updated!');
@@ -565,25 +515,6 @@ class SettingsController extends Controller
 
 
     // expense accounts
-    public function expenseAccounts()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $expenseAccounts = ExpenseAccount::with('user','status')->get();
-        return view('admin.expense_accounts',compact('expenseAccounts','user','navbarValues'));
-    }
-
-    public function expenseAccountCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.expense_account_create',compact('user','navbarValues'));
-    }
-
     public function expenseAccountStore(Request $request)
     {
         $expenseAccount = new ExpenseAccount();
@@ -607,7 +538,7 @@ class SettingsController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get contact type
         $expenseAccount = ExpenseAccount::with('user','status','expenses')->where('id',$expense_account_id)->withCount('expenses')->first();
-        return view('admin.expense_account_show',compact('expenseAccount','user','navbarValues'));
+        return view('admin.settings.expense_account_show',compact('expenseAccount','user','navbarValues'));
     }
 
     public function expenseAccountUpdate(Request $request, $expense_account_id)
@@ -645,25 +576,6 @@ class SettingsController extends Controller
 
 
     // frequency
-    public function Frequencies()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $frequencies = Frequency::with('user')->get();
-        return view('admin.frequencies',compact('frequencies','user','navbarValues'));
-    }
-
-    public function frequencyCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.frequency_create',compact('user','navbarValues'));
-    }
-
     public function frequencyStore(Request $request)
     {
         $frequency = new Frequency();
@@ -686,7 +598,7 @@ class SettingsController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get contact type
         $frequency = Frequency::with('user','expenses')->where('id',$Frequency_id)->withCount('expenses')->first();
-        return view('admin.frequency_show',compact('frequency','user','navbarValues'));
+        return view('admin.settings.frequency_show',compact('frequency','user','navbarValues'));
     }
 
     public function frequencyUpdate(Request $request, $Frequency_id)
@@ -725,25 +637,6 @@ class SettingsController extends Controller
 
 
     // labels
-    public function labels()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $labels = Label::with('user','status')->get();
-        return view('admin.labels',compact('labels','user','navbarValues'));
-    }
-
-    public function labelCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.label_create',compact('user','navbarValues'));
-    }
-
     public function labelStore(Request $request)
     {
         $label = new Label();
@@ -772,7 +665,7 @@ class SettingsController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get contact type
         $label = Label::with('user','status','journal_labels.journal')->where('id',$label_id)->withCount('journal_labels')->first();
-        return view('admin.label_show',compact('label','user','navbarValues'));
+        return view('admin.settings.label_show',compact('label','user','navbarValues'));
     }
 
     public function labelUpdate(Request $request, $label_id)
@@ -787,7 +680,7 @@ class SettingsController extends Controller
         }
         $label->save();
 
-        return redirect()->route('admin.label.show',$label->id)->withSuccess('Contact type updated!');
+        return redirect()->route('admin.label.show',$label->id)->withSuccess('Label updated!');
     }
 
     public function labelDelete($label_id)
@@ -813,25 +706,6 @@ class SettingsController extends Controller
 
 
     // lead sources
-    public function leadSources()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $leadSources = LeadSource::with('user','status')->get();
-        return view('admin.lead_sources',compact('leadSources','user','navbarValues'));
-    }
-
-    public function leadSourceCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.lead_source_create',compact('user','navbarValues'));
-    }
-
     public function leadSourceStore(Request $request)
     {
         $leadSource = new LeadSource();
@@ -853,7 +727,7 @@ class SettingsController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get contact type
         $leadSource = LeadSource::with('user','status','contacts','deals')->where('id',$lead_source_id)->withCount('contacts','deals')->first();
-        return view('admin.lead_source_show',compact('leadSource','user','navbarValues'));
+        return view('admin.settings.lead_source_show',compact('leadSource','user','navbarValues'));
     }
 
     public function leadSourceUpdate(Request $request, $lead_source_id)
@@ -888,26 +762,6 @@ class SettingsController extends Controller
 
 
     // organization types
-    public function organizationTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $organizationTypes = OrganizationType::with('user','status')->get();
-
-        return view('admin.organization_types',compact('organizationTypes','user','navbarValues'));
-    }
-
-    public function organizationTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.organization_type_create',compact('user','navbarValues'));
-    }
-
     public function organizationTypeStore(Request $request)
     {
 
@@ -928,7 +782,7 @@ class SettingsController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $organizationType = OrganizationType::with('user','status','organizations')->withCount('organizations')->where('id',$organization_type_id)->first();
-        return view('admin.organization_type_show',compact('organizationType','user','navbarValues'));
+        return view('admin.settings.organization_type_show',compact('organizationType','user','navbarValues'));
     }
 
     public function organizationTypeUpdate(Request $request, $organization_type_id)
@@ -967,32 +821,11 @@ class SettingsController extends Controller
 
 
     // project types
-    public function projectTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $projectTypes = ProjectType::with('user','status')->get();
-
-        return view('admin.project_types',compact('projectTypes','user','navbarValues'));
-    }
-
-    public function projectTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.project_type_create',compact('user','navbarValues'));
-    }
-
     public function projectTypeStore(Request $request)
     {
 
         $projectType = new ProjectType();
         $projectType->name = $request->name;
-        $projectType->description = $request->description;
         $projectType->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $projectType->user_id = Auth::user()->id;
         $projectType->save();
@@ -1009,7 +842,7 @@ class SettingsController extends Controller
         $navbarValues = $this->getNavbarValues();
         $projectType = ProjectType::with('user','status')->where('id',$project_type_id)->first();
         $projectTypeProjects = Project::with('user','status')->where('project_type_id',$project_type_id)->get();
-        return view('admin.project_type_show',compact('projectType','user','projectTypeProjects','navbarValues'));
+        return view('admin.settings.project_type_show',compact('projectType','user','projectTypeProjects','navbarValues'));
     }
 
     public function projectTypeUpdate(Request $request, $project_type_id)
@@ -1048,27 +881,6 @@ class SettingsController extends Controller
 
 
     // sizes
-    public function sizes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $sizes = Size::with('user','status','type')->get();
-        return view('admin.sizes',compact('sizes','user','navbarValues'));
-    }
-
-    public function sizeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // get types
-        $types = Type::all();
-        return view('admin.size_create',compact('types','user','navbarValues'));
-    }
-
     public function sizeStore(Request $request)
     {
         $size = new Size();
@@ -1077,7 +889,7 @@ class SettingsController extends Controller
         $size->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $size->user_id = Auth::user()->id;
         $size->save();
-        return redirect()->route('admin.sizes')->withSuccess(__('Size '.$size->name.' successfully created.'));
+        return redirect()->route('admin.settings')->withSuccess(__('Size '.$size->name.' successfully created.'));
     }
 
     public function sizeShow($size_id)
@@ -1092,7 +904,7 @@ class SettingsController extends Controller
         // get types
         $types = Type::all();
 
-        return view('admin.size_show',compact('types','size','user','navbarValues'));
+        return view('admin.settings.size_show',compact('types','size','user','navbarValues'));
     }
 
     public function sizeUpdate(Request $request, $size_id)
@@ -1132,28 +944,6 @@ class SettingsController extends Controller
 
 
     // Sub types
-    public function subTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // sub types
-        $subTypes = SubType::with('user','status','type')->get();
-        return view('admin.sub_types',compact('subTypes','user','navbarValues'));
-    }
-
-    public function subTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // types
-        $types = Type::all();
-        return view('admin.sub_type_create',compact('user','types','navbarValues'));
-    }
-
     public function subTypeStore(Request $request)
     {
         $subType = new SubType();
@@ -1177,7 +967,7 @@ class SettingsController extends Controller
         // User
         $user = $this->getAdmin();
         $subType = SubType::with('user','status')->where('id',$sub_type_id)->with('type','price_lists.product')->withCount('price_lists')->first();
-        return view('admin.sub_type_show',compact('subType','user','types','navbarValues'));
+        return view('admin.settings.sub_type_show',compact('subType','user','types','navbarValues'));
     }
 
     public function subTypeUpdate(Request $request, $sub_type_id)
@@ -1218,25 +1008,6 @@ class SettingsController extends Controller
 
 
     // tags
-    public function tags()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $tags = Tag::with('user','status','thumbnail_size')->get();
-        return view('admin.tags',compact('tags','user','navbarValues'));
-    }
-    public function tagCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $thumbnailSizes = ThumbnailSize::all();
-        return view('admin.tag_create',compact('user','thumbnailSizes','navbarValues'));
-    }
-
     public function tagStore(Request $request)
     {
         $tag = new Tag();
@@ -1245,7 +1016,7 @@ class SettingsController extends Controller
         $tag->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $tag->user_id = Auth::user()->id;
         $tag->save();
-        return redirect()->route('admin.tags')->withSuccess(__('Tag successfully created.'));
+        return redirect()->route('admin.settings')->withSuccess(__('Tag successfully created.'));
     }
 
     public function tagShow($tag_id)
@@ -1265,8 +1036,9 @@ class SettingsController extends Controller
         // Get albums
         $tagAlbums = Album::whereIn('id', $albums)->with('user','status','album_type')->get();
 
-        return view('admin.tag_show',compact('tag','user','tagAlbums','thumbnailSizes','navbarValues'));
+        return view('admin.settings.tag_show',compact('tag','user','tagAlbums','thumbnailSizes','navbarValues'));
     }
+
     public function tagUpdate(Request $request, $album_type_id)
     {
 
@@ -1277,7 +1049,7 @@ class SettingsController extends Controller
         $tag->user_id = Auth::user()->id;
         $tag->save();
 
-        return redirect()->route('admin.tags')->withSuccess('Tag updated!');
+        return back()->withSuccess(__('Tag cover image successfully uploaded.'));
     }
 
     public function tagCoverImageUpload(Request $request,$tag_id)
@@ -1455,24 +1227,6 @@ class SettingsController extends Controller
 
 
     // titles
-    public function titles()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $titles = Title::with('user','status')->get();
-        return view('admin.titles',compact('titles','user','navbarValues'));
-    }
-    public function titleCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.title_create',compact('user','navbarValues'));
-    }
-
     public function titleStore(Request $request)
     {
         $title = new Title();
@@ -1493,7 +1247,7 @@ class SettingsController extends Controller
         $titleExists = Title::findOrFail($title_id);
         $title = Title::with('user','status','contacts')->withCount('contacts')->where('id',$title_id)->first();
 
-        return view('admin.title_show',compact('title','user','navbarValues'));
+        return view('admin.settings.title_show',compact('title','user','navbarValues'));
     }
 
     public function titleUpdate(Request $request, $title_id)
@@ -1532,30 +1286,10 @@ class SettingsController extends Controller
 
 
 
-    public function types()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $types = Type::with('user','status')->get();
-        return view('admin.types',compact('types','user','navbarValues'));
-    }
-
-    public function typeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.type_create',compact('user','navbarValues'));
-    }
-
     public function typeStore(Request $request)
     {
         $type = new Type();
         $type->name = mb_strtolower($request->name);
-        $type->description = $request->description;
         $type->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $type->user_id = Auth::user()->id;
         $type->save();
@@ -1572,7 +1306,7 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         $type = Type::with('user','status')->where('id',$type_id)->with('sub_types')->first();
 
-        return view('admin.type_show',compact('type','user','navbarValues'));
+        return view('admin.settings.type_show',compact('type','user','navbarValues'));
     }
 
     public function typeUpdate(Request $request, $type_id)
@@ -1580,8 +1314,6 @@ class SettingsController extends Controller
 
         $type = Type::findOrFail($type_id);
         $type->name = mb_strtolower($request->name);
-        $type->description = $request->description;
-        $type->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
         $type->user_id = Auth::user()->id;
         $type->save();
 
@@ -1611,165 +1343,8 @@ class SettingsController extends Controller
     }
 
 
-    // typographies
-    public function typographies()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $typographies = Typography::with('user','status')->get();
-        return view('admin.typographies',compact('typographies','user','navbarValues'));
-    }
-
-    public function typographyCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.typography_create',compact('user','navbarValues'));
-    }
-
-    public function typographyStore(Request $request)
-    {
-
-        $file = Input::file("file");
-        $file_name = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
-        $extension = $file->getClientOriginalExtension();
-        $file_name_extension = $file->getClientOriginalName();
-
-        // Folder name
-        $folder_name = str_replace([' ','-'], '', mb_strtolower($file_name));
-
-        // Font name
-        $font_name = ucwords(str_replace('-', ' ', mb_strtolower($file_name)));
-
-        // Check if already exists
-        if (Typography::where('name', '=', $font_name)->count() > 0) {
-            return "Typography exists";
-        }
-
-        // TODO move impmimentation to storage::
-        $file->move(public_path()."/typography/".$folder_name, $file_name_extension);
-        $path = public_path()."/typography/".$folder_name.'/'.$file_name_extension;
-        \Zipper::make($path)->extractTo('typography/'.$folder_name);
-
-        // rename font file
-        $files = glob(public_path()."/typography/".$folder_name.'/*.{ttf,otf}', GLOB_BRACE);
-        if ($files) {
-
-            // Get file name
-
-            //return $files[0];
-            $search = public_path() . "/typography/" . $folder_name . '/';
-            $trimmed = str_replace($search, '', $files);
-
-            // Get file extension
-            $ext = pathinfo($files[0], PATHINFO_EXTENSION);
-
-            // Remove file extension
-            $removeFullStop = str_replace('.', '', $trimmed);
-            $newFontName = str_replace($ext, '', $removeFullStop);
-
-            // Replace caps with small
-            $new_font_name = str_replace([' ','-'], '', mb_strtolower($newFontName[0]));
-            $font_family = str_replace([' ','-'], '', lcfirst($newFontName[0]));
-
-            // Move file(rename)
-            rename($files[0], public_path()."/typography/".$folder_name.'/'.$new_font_name);
-
-            $typography = new Typography();
-            $typography->name = $font_name;
-            $typography->font_family = $font_family;
-            $typography->url = public_path()."/typography/".$folder_name.'/'.$new_font_name;
-            $typography->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-            $typography->user_id = Auth::user()->id;
-            $typography->save();
-
-        }
-
-        // Delete zip
-        unlink($path);
-
-        return 'Typography '.$typography->name.' successfully created.';
-    }
-
-    public function typographyShow($typography_id)
-    {
-        // Check if typography exists
-        $typographyExists = Typography::findOrFail($typography_id);
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $typography = Typography::with('user','status')->where('id',$typography_id)->first();
-
-        // journals
-        $journals = Journal::where('typography_id',$typography_id)->with('status','user')->get();
-        // projects
-        $projects = Project::where('typography_id',$typography_id)->with('status','user')->get();
-        // designs
-        $designs = Design::where('typography_id',$typography_id)->with('status','user')->get();
-        // albums
-        $albums = Album::where('typography_id',$typography_id)->with('status','user','album_type')->get();
-
-        return view('admin.typography_show',compact('user','journals','projects','designs','albums','typography','navbarValues'));
-    }
-
-    public function typographyUpdate(Request $request, $album_type_id)
-    {
-
-        $typography = Typography::findOrFail($album_type_id);
-        $typography->name = mb_strtolower($request->name);
-        $typography->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $typography->save();
-
-        return redirect()->route('admin.typographies')->withSuccess('Typography updated!');
-    }
-
-    public function typographyDelete($album_type_id)
-    {
-
-        $typography = Typography::findOrFail($album_type_id);
-        $typography->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
-        $typography->save();
-
-        return back()->withSuccess(__('Typography '.$typography->name.' successfully deleted.'));
-    }
-
-    public function typographyRestore($album_type_id)
-    {
-
-        $typography = Typography::findOrFail($album_type_id);
-        $typography->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
-        $typography->save();
-
-        return back()->withSuccess(__('Typography '.$typography->name.' successfully restored.'));
-    }
-
 
     // cooking skill functions
-    public function cookingSkills()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $cookingSkills = CookingSkill::with('user','status')->get();
-
-        return view('admin.cooking_skills',compact('cookingSkills','user','navbarValues'));
-    }
-
-    public function cookingSkillCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.cooking_skill_create',compact('user','navbarValues'));
-    }
-
     public function cookingSkillStore(Request $request)
     {
 
@@ -1794,7 +1369,7 @@ class SettingsController extends Controller
         $cookingSkill = CookingSkill::with('user','status')->where('id',$cooking_skill_id)->withCount('meals')->first();
         // cooking skill meal
         $cookingSkillMeals = Meal::with('user','status','tudeme')->where('cooking_skill_id',$cooking_skill_id)->get();
-        return view('admin.cooking_skill_show',compact('cookingSkill','user','cookingSkillMeals','navbarValues'));
+        return view('admin.settings.cooking_skill_show',compact('cookingSkill','user','cookingSkillMeals','navbarValues'));
     }
 
     public function cookingSkillCoverImageUpload(Request $request,$cooking_skill_id)
@@ -1983,26 +1558,6 @@ class SettingsController extends Controller
 
 
     // cooking style functions
-    public function cookingStyles()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $cookingStyles = CookingStyle::with('user','status')->get();
-
-        return view('admin.cooking_styles',compact('cookingStyles','user','navbarValues'));
-    }
-
-    public function cookingStyleCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.cooking_style_create',compact('user','navbarValues'));
-    }
-
     public function cookingStyleStore(Request $request)
     {
 
@@ -2027,7 +1582,7 @@ class SettingsController extends Controller
         $cookingStyle = CookingStyle::with('user','status')->where('id',$cooking_style_id)->withCount('meal_cooking_styles')->first();
         // cooking style meals
         $cookingStyleMeals = MealCookingStyle::with('user','status','meal.tudeme')->where('cooking_style_id',$cooking_style_id)->with('meal.tudeme')->get();
-        return view('admin.cooking_style_show',compact('cookingStyle','user','cookingStyleMeals','navbarValues'));
+        return view('admin.settings.cooking_style_show',compact('cookingStyle','user','cookingStyleMeals','navbarValues'));
     }
 
     public function cookingStyleCoverImageUpload(Request $request,$cooking_style_id)
@@ -2216,26 +1771,6 @@ class SettingsController extends Controller
 
 
     // course functions
-    public function courses()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $courses = Course::with('user','status')->get();
-
-        return view('admin.courses',compact('courses','user','navbarValues'));
-    }
-
-    public function courseCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.course_create',compact('user','navbarValues'));
-    }
-
     public function courseStore(Request $request)
     {
 
@@ -2262,7 +1797,7 @@ class SettingsController extends Controller
         // meal type meal
         $courseMeals = MealCourse::with('user','status','meal.tudeme')->where('course_id',$course_id)->get();
 
-        return view('admin.course_show',compact('course','user','courseMeals','navbarValues'));
+        return view('admin.settings.course_show',compact('course','user','courseMeals','navbarValues'));
     }
 
     public function courseCoverImageUpload(Request $request,$course_id)
@@ -2452,26 +1987,6 @@ class SettingsController extends Controller
 
 
     // dietary preference functions
-    public function dietaryPreferences()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $dietaryPreferences = DietaryPreference::with('user','status')->get();
-
-        return view('admin.dietary_preferences',compact('dietaryPreferences','user','navbarValues'));
-    }
-
-    public function dietaryPreferenceCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.dietary_preference_create',compact('user','navbarValues'));
-    }
-
     public function dietaryPreferenceStore(Request $request)
     {
 
@@ -2498,7 +2013,7 @@ class SettingsController extends Controller
         // dietary preference meals
         $dietaryPreferenceMeals = MealDietaryPreference::with('user','status','meal.tudeme')->where('dietary_preference_id',$dietary_preference_id)->get();
 
-        return view('admin.dietary_preference_show',compact('dietaryPreference','user','dietaryPreferenceMeals','navbarValues'));
+        return view('admin.settings.dietary_preference_show',compact('dietaryPreference','user','dietaryPreferenceMeals','navbarValues'));
     }
 
     public function dietaryPreferenceCoverImageUpload(Request $request,$dietary_preference_id)
@@ -2687,26 +2202,6 @@ class SettingsController extends Controller
 
 
     // dish type functions
-    public function dishTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $dishTypes = DishType::with('user','status')->get();
-
-        return view('admin.dish_types',compact('dishTypes','user','navbarValues'));
-    }
-
-    public function dishTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.dish_type_create',compact('user','navbarValues'));
-    }
-
     public function dishTypeStore(Request $request)
     {
 
@@ -2733,7 +2228,7 @@ class SettingsController extends Controller
         // dish type meals
         $dishTypeMeals = Meal::with('user','status','tudeme')->where('dish_type_id',$dish_type_id)->get();
 
-        return view('admin.dish_type_show',compact('dishType','user','dishTypeMeals','navbarValues'));
+        return view('admin.settings.dish_type_show',compact('dishType','user','dishTypeMeals','navbarValues'));
     }
 
     public function dishTypeCoverImageUpload(Request $request,$dish_type_id)
@@ -2922,26 +2417,6 @@ class SettingsController extends Controller
 
 
     // tudeme tag functions
-    public function tudemeTags()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $tudemeTags = TudemeTag::with('user','status')->get();
-
-        return view('admin.tudeme_tags',compact('tudemeTags','user','navbarValues'));
-    }
-
-    public function tudemeTagCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.tudeme_tag_create',compact('user','navbarValues'));
-    }
-
     public function tudemeTagStore(Request $request)
     {
 
@@ -2968,7 +2443,7 @@ class SettingsController extends Controller
         // tudeme tag meals
         $tudemeTudemeTags = TudemeTudemeTag::with('user','status','tudeme')->where('tudeme_tag_id',$tudeme_tag_id)->get();
 
-        return view('admin.tudeme_tag_show',compact('tudemeTag','user','tudemeTudemeTags','navbarValues'));
+        return view('admin.settings.tudeme_tag_show',compact('tudemeTag','user','tudemeTudemeTags','navbarValues'));
     }
 
     public function tudemeTagUpdate(Request $request, $tudeme_tag_id)
@@ -3006,26 +2481,6 @@ class SettingsController extends Controller
 
 
     // tudeme type functions
-    public function tudemeTypes()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $tudemeTypes = TudemeType::with('user','status')->get();
-
-        return view('admin.tudeme_types',compact('tudemeTypes','user','navbarValues'));
-    }
-
-    public function tudemeTypeCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.tudeme_type_create',compact('user','navbarValues'));
-    }
-
     public function tudemeTypeStore(Request $request)
     {
 
@@ -3052,7 +2507,7 @@ class SettingsController extends Controller
         // tudeme type meals
         $tudemeTudemeTypes = TudemeTudemeType::with('user','status','tudeme')->where('tudeme_type_id',$tudeme_type_id)->get();
 
-        return view('admin.tudeme_type_show',compact('tudemeType','user','tudemeTudemeTypes','navbarValues'));
+        return view('admin.settings.tudeme_type_show',compact('tudemeType','user','tudemeTudemeTypes','navbarValues'));
     }
 
     public function tudemeTypeUpdate(Request $request, $tudeme_type_id)
@@ -3090,26 +2545,6 @@ class SettingsController extends Controller
 
 
     // cuisine functions
-    public function cuisines()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $cuisines = Cuisine::with('user','status')->get();
-
-        return view('admin.cuisines',compact('cuisines','user','navbarValues'));
-    }
-
-    public function cuisineCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.cuisine_create',compact('user','navbarValues'));
-    }
-
     public function cuisineStore(Request $request)
     {
 
@@ -3136,7 +2571,7 @@ class SettingsController extends Controller
         // cuisine meals
         $cuisineMeals = Meal::with('user','status','tudeme')->where('cuisine_id',$cuisine_id)->get();
 
-        return view('admin.cuisine_show',compact('cuisine','user','cuisineMeals','navbarValues'));
+        return view('admin.settings.cuisine_show',compact('cuisine','user','cuisineMeals','navbarValues'));
     }
 
     public function cuisineCoverImageUpload(Request $request,$cuisine_id)
@@ -3328,41 +2763,7 @@ class SettingsController extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // letter tag functions
-    public function letterTags()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        $letterTags = LetterTag::with('user','status')->get();
-
-        return view('admin.letter_tags',compact('letterTags','user','navbarValues'));
-    }
-
-    public function letterTagCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        return view('admin.letter_tag_create',compact('user','navbarValues'));
-    }
-
     public function letterTagStore(Request $request)
     {
 
@@ -3387,7 +2788,7 @@ class SettingsController extends Controller
         $letterTag = LetterTag::with('user','status')->where('id',$letter_tag_id)->withCount('letterLetterTags')->first();
         // letter tag letters
         $letterLetterTags = LetterLetterTag::with('user','status')->where('letter_tag_id',$letter_tag_id)->with('letter')->get();
-        return view('admin.letter_tag_show',compact('letterTag','user','letterLetterTags','navbarValues'));
+        return view('admin.settings.letter_tag_show',compact('letterTag','user','letterLetterTags','navbarValues'));
     }
 
     public function letterTagUpdate(Request $request, $letter_tag_id)

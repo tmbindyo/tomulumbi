@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class CampaignTypeTableSeeder extends Seeder
@@ -17,6 +18,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Sell',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -24,6 +27,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Social Media',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -31,6 +36,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Conference',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -38,6 +45,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Webniar',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -45,6 +54,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Trade Show',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -52,6 +63,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Public Relations',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -59,6 +72,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Partners',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -66,6 +81,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Referral Program',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -73,6 +90,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Advertisment',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -80,6 +99,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Banner Ad',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -87,6 +108,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Email',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -94,6 +117,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Telemarketing',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
             DB::table('campaign_types')->insert([
@@ -101,6 +126,8 @@ class CampaignTypeTableSeeder extends Seeder
                 'name' => 'Other',
                 'user_id' => 1,
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
 
     }

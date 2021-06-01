@@ -17,6 +17,8 @@ class UploadTypeTableSeeder extends Seeder
                 'name' => 'Client Proof Cover Image',
                 'description' => 'Personal album',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
             DB::table('upload_types')->insert([
@@ -24,6 +26,8 @@ class UploadTypeTableSeeder extends Seeder
                 'name' => 'Client Proof Album Set Image',
                 'description' => 'Client Proof Album Set Image',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
             DB::table('upload_types')->insert([
@@ -31,6 +35,8 @@ class UploadTypeTableSeeder extends Seeder
                 'name' => 'Personal Album Cover Image',
                 'description' => 'Personal album cover image',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
             DB::table('upload_types')->insert([
@@ -38,6 +44,8 @@ class UploadTypeTableSeeder extends Seeder
                 'name' => 'Personal Album Image',
                 'description' => 'Personal album image',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
             DB::table('upload_types')->insert([
@@ -45,6 +53,8 @@ class UploadTypeTableSeeder extends Seeder
                 'name' => 'Design Cover Image',
                 'description' => 'Design cover image',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
             DB::table('upload_types')->insert([
@@ -52,6 +62,8 @@ class UploadTypeTableSeeder extends Seeder
                 'name' => 'Design Work Image',
                 'description' => 'Design work image',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
             DB::table('upload_types')->insert([
@@ -59,6 +71,8 @@ class UploadTypeTableSeeder extends Seeder
                 'name' => 'Design Gallery Image',
                 'description' => 'Design gallery image',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
             DB::table('upload_types')->insert([
@@ -66,6 +80,8 @@ class UploadTypeTableSeeder extends Seeder
                 'name' => 'DIY',
                 'description' => 'Random DIY items made',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
             DB::table('upload_types')->insert([
@@ -73,6 +89,8 @@ class UploadTypeTableSeeder extends Seeder
                 'name' => 'Tag Cover Image',
                 'description' => 'Tag Cover Image',
                 'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
             ]);
 

@@ -422,12 +422,6 @@
                         </ul>
                     </li>
 
-
-                    <li class="nav-item {{ Route::currentRouteNamed( 'admin.typographies' ) ?  'active' : '' }}">
-                        <a itemprop="url" class="nav-link" href="{{route( 'admin.typographies')}}">
-                            Typographies <span class="label label-warning pull-right">{{$navbarValues['typographiesCount']}}</span>
-                        </a>
-                    </li>
                 </ul>
             </li>
 

@@ -17,6 +17,8 @@ class ThumbnailSizeTableSeeder extends Seeder
             'name' => 'Extra Small',
             'reference' => 'small-block-grid-2 medium-block-grid-3 large-block-grid-6',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('thumbnail_sizes')->insert([
@@ -24,6 +26,8 @@ class ThumbnailSizeTableSeeder extends Seeder
             'name' => 'Small',
             'reference' => 'small-block-grid-2 medium-block-grid-3 large-block-grid-5',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('thumbnail_sizes')->insert([
@@ -31,6 +35,8 @@ class ThumbnailSizeTableSeeder extends Seeder
             'name' => 'Medium',
             'reference' => 'small-block-grid-2 medium-block-grid-3 large-block-grid-4',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('thumbnail_sizes')->insert([
@@ -38,6 +44,8 @@ class ThumbnailSizeTableSeeder extends Seeder
             'name' => 'Large',
             'reference' => 'small-block-grid-2 medium-block-grid-3 large-block-grid-3',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
         DB::table('thumbnail_sizes')->insert([
@@ -45,6 +53,8 @@ class ThumbnailSizeTableSeeder extends Seeder
             'name' => 'Extra Large',
             'reference' => 'small-block-grid-2 medium-block-grid-3 large-block-grid-2',
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
             'status_id' => 'c670f7a2-b6d1-4669-8ab5-9c764a1e403e',
         ]);
 

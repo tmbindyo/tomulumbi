@@ -36,6 +36,15 @@ class SaleController extends Controller
         $this->middleware('auth');
     }
 
+    public function dashboard()
+    {
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // User
+        $user = $this->getAdmin();
+        return view('admin.store.dashboard',compact('navbarValues','user'));
+    }
+
     public function orders()
     {
         // User
@@ -47,7 +56,7 @@ class SaleController extends Controller
 
         // Get albums
         $orders = Order::with('status','order_products','promo_code_uses','contact.organization')->withCount('order_products')->where('is_paid',False)->get();
-        return view('admin.orders',compact('orders','user','navbarValues','ordersStatusCount'));
+        return view('admin.store.orders',compact('orders','user','navbarValues','ordersStatusCount'));
     }
 
     public function orderCreate()
@@ -61,7 +70,7 @@ class SaleController extends Controller
         // contacts
         $contacts = Contact::with('organization')->get();
 
-        return view('admin.order_create',compact('contacts','priceLists','user','navbarValues'));
+        return view('admin.store.order_create',compact('contacts','priceLists','user','navbarValues'));
     }
 
     public function orderStore(Request $request)
@@ -146,7 +155,7 @@ class SaleController extends Controller
         $orderExists = Order::findOrFail($order_id);
         $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses.expense_type')->where('is_paid',False)->first();
 //        return $order;
-        return view('admin.order_show',compact('order','user','navbarValues','ordersStatusCount','orderArray','orderStatuses'));
+        return view('admin.store.order_show',compact('order','user','navbarValues','ordersStatusCount','orderArray','orderStatuses'));
     }
 
     public function orderEdit($order_id)
@@ -268,7 +277,7 @@ class SaleController extends Controller
         $accounts = Account::all();
         // loans
         $order = Order::findOrFail($order_id);
-        return view('admin.order_payment_create',compact('user','navbarValues','accounts','order'));
+        return view('admin.store.order_payment_create',compact('user','navbarValues','accounts','order'));
     }
 
     public function orderUpdateStatus(Request $request, $order_id)
