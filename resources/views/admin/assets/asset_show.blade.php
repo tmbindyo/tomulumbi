@@ -327,21 +327,16 @@
                                                                         <td>
                                                                             <span class="label {{$kitAsset->status->label}}">{{$kitAsset->status->name}}</span>
                                                                         </td>
-
-                                                                        @if($transaction->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
-                                                                            <td class="text-right">
-                                                                                @if($transaction->is_billed == False)
-                                                                                    <div class="btn-group">
-                                                                                        <a href="{{ route('admin.expense.show', $expense->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
-                                                                                    </div>
+                                                                        <td class="text-right">
+                                                                            <div class="btn-group">
+                                                                                @if($kitAsset->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                                                    <a href="{{ route('admin.kit.asset.restore', $kitAsset->id) }}" class="mb-2 mr-2 btn btn-success">Restore</a>
                                                                                 @else
-                                                                                    <label class="label label-primary">Marked Billed</label>
+                                                                                    <a href="{{ route('admin.kit.asset.delete', $kitAsset->id) }}" class="mb-2 mr-2 btn btn-danger">Delete</a>
                                                                                 @endif
-                                                                            </td>
-                                                                        @else
-                                                                            <td class="text-right">
-                                                                            </td>
-                                                                        @endif
+                                                                            </div>
+                                                                        </td>
+
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -368,7 +363,7 @@
                                             <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                                             Payments
                                             <div class="btn-actions-pane-right">
-                                                <a href="{{route('admin.asset.show',$asset->id)}}" type="button" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Expense</a>
+                                                <a href="{{route('admin.expense.create')}}" type="button" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Expense</a>
                                             </div>
                                         </div>
 
@@ -403,7 +398,7 @@
                                                                         <td>{{$expense->reference}}</td>
                                                                         <td>{{$expense->date}}</td>
                                                                         <td>{{$expense->created_at}}</td>
-                                                                        <td>{{$expense->expense_type->name}}</td>
+                                                                        <td>{{$expense->expense_account->name}}</td>
                                                                         <td>{{$expense->total}}</td>
                                                                         <td>{{$expense->paid}}</td>
                                                                         <td>
@@ -420,12 +415,15 @@
                                                             </tbody>
                                                             <tfoot>
                                                                 <tr>
+                                                                    <th>Recurring</th>
+                                                                    <th>Expense #</th>
                                                                     <th>Date</th>
-                                                                    <th>Reference #</th>
-                                                                    <th>Account</th>
-                                                                    <th>Amount</th>
+                                                                    <th>Created</th>
+                                                                    <th>Expense Type</th>
+                                                                    <th>Total</th>
+                                                                    <th>Paid</th>
                                                                     <th>Status</th>
-                                                                    <th>Action</th>
+                                                                    <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                                                 </tr>
                                                             </tfoot>
                                                         </table>

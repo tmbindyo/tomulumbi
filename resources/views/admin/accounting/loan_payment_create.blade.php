@@ -92,7 +92,7 @@
                                         <div class="col-md-8">
                                             <div class="has-warning">
                                                 <select name="loan" class="select2_demo_tag form-control input-lg">
-                                                    <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->total}}] | [{{$loan->paid}}]</option>
+                                                    <option selected value="{{$loan->id}}">{{$loan->reference}} [{{$loan->total}}] | [{{$loan->paid}}]</option>
                                                 </select>
                                                 <i>loan</i>
                                             </div>

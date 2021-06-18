@@ -1,78 +1,170 @@
-@extends('admin.layouts.app')
+@extends('admin.components.main')
 
-@section('title', 'Kit Create')
+@section('title', 'Kit '.$kit->reference)
 
 @section('content')
 
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-5">
-            <h2>Kits</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
-                </li>
-                <li>
-                    <strong>CRM</strong>
-                </li>
-                <li class="active">
-                    <strong><a href="{{route('admin.kits')}}">Kits</a></strong>
-                </li>
-                <li class="active">
-                    <strong>Kit Create</strong>
-                </li>
-            </ol>
-        </div>
-        <div class="col-md-7">
-            <div class="title-action">
-                <a href="{{route('admin.kit.action.create',$kit->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Kit Action </a>
-                <a href="{{route('admin.kit.asset.create',$kit->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Kit Assign Asset </a>
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+                        </i>
+                    </div>
+                    <div>
+                        <a href="#">
+                            Kits
+                        </a>
+                    </div>
+                </div>
+                <div class="page-title-actions">
+                    <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+                        <i class="fa fa-star"></i>
+                    </button>
+                    <div class="d-inline-block dropdown">
+                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+                            <span class="btn-icon-wrapper pr-2 opacity-7">
+                                <i class="fa fa-business-time fa-w-20"></i>
+                            </span>
+                            Buttons
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        <i class="nav-link-icon lnr-inbox"></i>
+                                        <span>
+                                            Inbox
+                                        </span>
+                                        <div class="ml-auto badge badge-pill badge-secondary">86</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        <i class="nav-link-icon lnr-book"></i>
+                                        <span>
+                                            Book
+                                        </span>
+                                        <div class="ml-auto badge badge-pill badge-danger">5</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        <i class="nav-link-icon lnr-picture"></i>
+                                        <span>
+                                            Picture
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a disabled href="javascript:void(0);" class="nav-link disabled">
+                                        <i class="nav-link-icon lnr-file-empty"></i>
+                                        <span>
+                                            File Disabled
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        {{-- action types --}}
         <div class="row">
-            <div class="col-lg-6">
-                <div class="ibox">
-
-                    <div class="ibox-content">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.kit.update',$kit->id) }}" autocomplete="off" class="form-horizontal form-label-left">
-                                @csrf
-
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
-                                <div class="col-md-12">
-                                    <br>
-                                    <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" value="{{$kit->name}}" class="form-control input-lg">
-                                        <i>name</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg">{{$kit->notes}}</textarea>
-                                        <i>notes</i>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-block btn-lg btn-outline btn-success mt-4">{{ __('SAVE') }}</button>
-                                    </div>
+            <div class="col-md-6">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <h5 class="card-title">Kit</h5>
+                        <form method="post" action="{{ route('admin.kit.update',$kit->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                            @csrf
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
+                            @endif
 
+                            <div class="position-relative form-group">
+                                <label for="name" class="">
+                                    Name
+                                </label>
+                                <input required name="name" id="name" type="text" class="form-control" required="required" value="{{$kit->name}}"/>
+                                <i>name.</i>
+                            </div>
 
-                            </form>
+                            <div class="position-relative form-group">
+                                <label for="notes" class="">
+                                    Notes
+                                </label>
+                                <textarea name="notes" id="notes" class="form-control" required="required">{{$kit->notes}}</textarea>
+                                <i>notes.</i>
+                            </div>
+
+                            <hr>
+                            <button type="submit" class="mt-1 btn btn-success btn-lg btn-block">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6 col-xl-6">
+                        <div class="card mb-3 widget-content bg-midnight-bloom">
+                            <div class="widget-content-wrapper text-white">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">Creator</div>
+                                    <div class="widget-subheading">{{$kit->user->name}}</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-white"><span><i class="fa fa-user fa-3x"></i></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6">
+                        <div class="card mb-3 widget-content bg-arielle-smile">
+                            <div class="widget-content-wrapper text-white">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">Status</div>
+                                    <div class="widget-subheading">{{$kit->status->name}}</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-white"><span><i class="fa fa-ellipsis-v fa-3x"></i></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6">
+                        <div class="card mb-3 widget-content bg-grow-early">
+                            <div class="widget-content-wrapper text-white">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">Created</div>
+                                    <div class="widget-subheading">{{$kit->created_at}}</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-white"><span><i class="fa fa-plus-square fa-3x"></i></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-6">
+                        <div class="card mb-3 widget-content bg-premium-dark">
+                            <div class="widget-content-wrapper text-white">
+                                <div class="widget-content-left">
+                                    <div class="widget-heading">Last Updated</div>
+                                    <div class="widget-subheading">{{$kit->updated_at}}</div>
+                                </div>
+                                <div class="widget-content-right">
+                                    <div class="widget-numbers text-warning"><span><i class="fa fa-edit fa-3x"></i></span></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,270 +172,222 @@
             </div>
         </div>
 
-        {{--  details  --}}
+
         <div class="row">
-            <div class="col-lg-12">
-                <div class="wrapper wrapper-content animated fadeInUp">
-                    <div class="ibox">
-                        <div class="ibox-content">
-                            <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
 
-                                <div class="col-lg-3">
-                                    <div class="widget style1 navy-bg">
-                                        <div class="row vertical-align">
-                                            <div class="col-xs-3">
-                                                <i class="fa fa-user fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$kit->user->name}}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="widget style1 {{$kit->status->label}}">
-                                        <div class="row vertical-align">
-                                            <div class="col-xs-3">
-                                                <i class="fa fa-ellipsis-v fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$kit->status->name}}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="widget style1 navy-bg">
-                                        <div class="row vertical-align">
-                                            <div class="col-xs-3">
-                                                <i class="fa fa-plus-square fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$kit->created_at}}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="widget style1 navy-bg">
-                                        <div class="row vertical-align">
-                                            <div class="col-xs-3">
-                                                <i class="fa fa-scissors fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$kit->updated_at}}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row m-t-sm">
-                                <div class="col-lg-12">
-                                <div class="panel blank-panel">
-                                <div class="panel-heading">
-                                    <div class="panel-options">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#asset-actions" data-toggle="tab">Asset Actions</a></li>
-                                            <li class=""><a href="#kit-assets" data-toggle="tab">Kit Assets</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="panel-body">
-
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="asset-actions">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Reference</th>
-                                                            <th>Amount</th>
-                                                            <th>Date</th>
-                                                            <th>Due Date</th>
-                                                            <th>Action</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($kit->asset_actions as $assetAction)
-                                                            <tr class="gradeX">
-                                                                <td>{{$assetAction->reference}}</td>
-                                                                <td>{{$assetAction->amount}}</td>
-                                                                <td>{{$assetAction->date}}</td>
-                                                                <td>{{$assetAction->due_date}}</td>
-                                                                <td>{{$assetAction->action_type->name}}</td>
-                                                                <td>{{$assetAction->user->name}}</td>
-                                                                <td>
-                                                                    <span class="label {{$assetAction->status->label}}">{{$assetAction->status->name}}</span>
-                                                                </td>
-                                                                <td class="text-right">
-                                                                    <div class="btn-group">
-                                                                        <a href="{{ route('admin.asset.action.show', $assetAction->id) }}" class="btn-white btn btn-xs">View</a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Reference</th>
-                                                            <th>Amount</th>
-                                                            <th>Date</th>
-                                                            <th>Due Date</th>
-                                                            <th>Action</th>
-                                                            <th>User</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="kit-assets">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Name</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($kit->kit_assets as $kitAsset)
-                                                        <tr class="gradeX">
-                                                            <td>{{$kitAsset->asset->reference}}</td>
-                                                            <td>{{$kitAsset->asset->name}}</td>
-                                                            <td>
-                                                                <span class="label {{$kitAsset->status->label}}">{{$kitAsset->status->name}}</span>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    @if($kitAsset->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('admin.kit.asset.restore', $kitAsset->id) }}" class="btn-warning btn btn-xs">Restore</a>
-                                                                    @else
-                                                                        <a href="{{ route('admin.kit.asset.delete', $kitAsset->id) }}" class="btn-danger btn btn-xs">Delete</a>
-                                                                    @endif
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Name</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card-header">
+                        <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                        Children Records
                     </div>
+
+                        <div class="card-body">
+                            {{-- <h5 class="card-title">Records</h5> --}}
+                            <ul class="tabs-animated-shadow tabs-animated nav">
+                                <li class="nav-item">
+                                    <a role="tab" class="nav-link active" id="tab-c-0" data-toggle="tab" href="#asset-actions">
+                                        <span>Asset Actions ({{$kit->asset_actions->count()}})</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a role="tab" class="nav-link" id="tab-c-1" data-toggle="tab" href="#kit-assets">
+                                        <span>Kit Assets ({{$kit->kit_assets->count()}})</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+
+                                <div class="tab-pane active" id="asset-actions" role="tabpanel">
+                                    <div class="card-hover-shadow card-border mb-3 card">
+                                        <div class="card-header">
+                                            <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                            Kit Actions
+                                            <div class="btn-actions-pane-right">
+                                                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Kit Action</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div class="col-lg-12">
+                                                <div class="main-card mb-3 card">
+                                                    <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                                        <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Reference</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Date</th>
+                                                                    <th>Due Date</th>
+                                                                    <th>Action</th>
+                                                                    <th>User</th>
+                                                                    <th>Status</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach($kit->asset_actions as $assetAction)
+                                                                    <tr>
+                                                                        <td>{{$assetAction->reference}}</td>
+                                                                        <td>{{$assetAction->amount}}</td>
+                                                                        <td>{{$assetAction->date}}</td>
+                                                                        <td>{{$assetAction->due_date}}</td>
+                                                                        <td>{{$assetAction->action_type->name}}</td>
+                                                                        <td>{{$assetAction->user->name}}</td>
+                                                                        <td>
+                                                                            <span class="label {{$assetAction->status->label}}">{{$assetAction->status->name}}</span>
+                                                                        </td>
+
+                                                                        <td class="text-right">
+                                                                            <div class="btn-group">
+                                                                                <a href="{{ route('admin.asset.action.show', $assetAction->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th>Reference</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Date</th>
+                                                                    <th>Due Date</th>
+                                                                    <th>Action</th>
+                                                                    <th>User</th>
+                                                                    <th>Status</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="kit-assets" role="tabpanel">
+                                    <div class="card-hover-shadow card-border mb-3 card">
+                                        <div class="card-header">
+                                            <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                            Kits
+                                            <div class="btn-actions-pane-right">
+                                                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addKitAsset"><i class="fa fa-plus"></i> Add Asset to Kit</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div class="col-lg-12">
+                                                <div class="main-card mb-3 card">
+                                                    <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                                        <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Reference</th>
+                                                                    <th>Name</th>
+                                                                    <th>Status</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach($kit->kit_assets as $kitAsset)
+                                                                    <tr>
+                                                                        <td>{{$kitAsset->kit->reference}}</td>
+                                                                        <td>{{$kitAsset->kit->name}}</td>
+                                                                        <td>
+                                                                            <span class="label {{$kitAsset->status->label}}">{{$kitAsset->status->name}}</span>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            <div class="btn-group">
+                                                                                @if($kitAsset->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
+                                                                                    <a href="{{ route('admin.kit.asset.restore', $kitAsset->id) }}" class="mb-2 mr-2 btn btn-success">Restore</a>
+                                                                                @else
+                                                                                    <a href="{{ route('admin.kit.asset.delete', $kitAsset->id) }}" class="mb-2 mr-2 btn btn-danger">Delete</a>
+                                                                                @endif
+                                                                            </div>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th>Reference</th>
+                                                                    <th>Name</th>
+                                                                    <th>Status</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    <div class="card-footer">Footer</div>
                 </div>
             </div>
         </div>
+        {{-- action types --}}
 
-        {{--    To Dos    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>To Dos</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
-                        </div>
-                    </div>
-                    <div class="">
-                        <ul class="pending-to-do">
-                            @foreach($kit->pending_to_dos as $pendingToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$pendingToDo->due_date}}</small>
-                                        <h4>{{$pendingToDo->name}}</h4>
-                                        <p>{{$pendingToDo->notes}}.</p>
-                                        @if($pendingToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$pendingToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('admin.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-
-                        <ul class="in-progress-to-do">
-                            @foreach($kit->in_progress_to_dos as $inProgressToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$inProgressToDo->due_date}}</small>
-                                        <h4>{{$inProgressToDo->name}}</h4>
-                                        <p>{{$inProgressToDo->notes}}.</p>
-                                        @if($inProgressToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$inProgressToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('admin.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="overdue-to-do">
-                            @foreach($kit->overdue_to_dos as $overdueToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$overdueToDo->due_date}}</small>
-                                        <h4>{{$overdueToDo->name}}</h4>
-                                        <p>{{$overdueToDo->notes}}.</p>
-                                        @if($overdueToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$overdueToDo->design->name}}</span></p>
-                                        @endif
-                                        @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
-                                        @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="completed-to-do">
-                            @foreach($kit->completed_to_dos as $completedToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$completedToDo->due_date}}</small>
-                                        <h4>{{$completedToDo->name}}</h4>
-                                        <p>{{$completedToDo->notes}}.</p>
-                                        @if($completedToDo->is_design === 1)
-                                            <p><span class="badge badge-primary">{{$completedToDo->design->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('admin.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
-
 
 @endsection
 
-@include('admin.layouts.modals.kit_to_do')
+@include('admin.components.modals.add_kit_action_create')
+@include('admin.components.modals.add_kit_asset_create')
+
+@section('js')
+
+    <script>
+        $(document).ready(function() {
+            // Set date
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date = mm + '/' + dd + '/' + yyyy;
+
+            if(document.getElementById("asset_action_date")){
+                document.getElementById("asset_action_date").value = date;
+            }
+
+            // Set due date
+            var due = new Date();
+            due.setDate(due.getDate() + 14);
+            var due_dd = due.getDate();
+            var due_mm = due.getMonth()+1;
+            var due_yyyy = due.getFullYear();
+            if (dd < 10){
+                due_dd = '0'+due_dd;
+            }
+            if (due_mm < 10){
+                due_mm = '0'+due_mm;
+            }
+            var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
+            if(document.getElementById("due_date")){
+                document.getElementById("due_date").value = due_date;
+            }
+
+        });
+
+    </script>
+
+
+@endsection

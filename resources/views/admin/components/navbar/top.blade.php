@@ -687,7 +687,7 @@
                                                             <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">Alina Mcloughlin</div>
+                                                            <div class="widget-heading">{{$user->name}}</div>
                                                             <div class="widget-subheading opacity-8">A short profile description</div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
@@ -758,7 +758,7 @@
                         </div>
                         <div class="widget-content-left  ml-3 header-user-info">
                             <div class="widget-heading"> {{$user->name}} </div>
-                            <div class="widget-subheading"> VP People Manager </div>
+                            <div class="widget-subheading"> {{$user->name}} </div>
                         </div>
                         <div class="widget-content-right header-user-info ml-3">
                             <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">

@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Account;
-use App\ActionType;
-use Illuminate\Support\Facades\Auth;
 use App\Kit;
 use App\ToDo;
+use App\Loan;
 use App\Asset;
+use App\Order;
+use App\Quote;
+use App\Account;
+use App\Contact;
+use App\KitAsset;
+use App\ActionType;
 use App\AssetAction;
 use App\AssetCategory;
-use App\Contact;
 use App\Traits\UserTrait;
 use App\Traits\NavbarTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\KitAsset;
 use App\Traits\ReferenceNumberTrait;
 
 class AssetController extends Controller
@@ -113,7 +116,9 @@ class AssetController extends Controller
         // asset categories
         $assetCategories = AssetCategory::all();
         // asset
-        $asset = Asset::with('user','status','asset_category','expenses','kit_assets','asset_actions.action_type')->where('id',$asset_id)->first();
+        $asset = Asset::with('user','status','asset_category','expenses.expense_account','kit_assets','asset_actions.action_type')->where('id',$asset_id)->first();
+        // get assets
+        $assets = Asset::with('user','status','asset_category')->get();
         // kits
         $kits = Kit::all();
         // action types
@@ -121,7 +126,7 @@ class AssetController extends Controller
         // contacts
         $contacts = Contact::with('organization')->get();
 
-        return view('admin.assets.asset_show',compact('assetCategories','asset','user','navbarValues', 'actionTypes', 'contacts', 'kits'));
+        return view('admin.assets.asset_show',compact('assetCategories','asset','user','navbarValues', 'actionTypes', 'contacts', 'kits','assets','assetExists'));
     }
 
     public function assetAssetActionCreate($asset_id)
@@ -187,9 +192,17 @@ class AssetController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // get asset
+        $assets = Asset::all();
+        // get kits
+        $kits = Kit::all();
+        // action types
+        $actionTypes = ActionType::all();
+        // contacts
+        $contacts = Contact::with('organization')->get();
         $assetActions = AssetAction::with('user','status','action_type','contact','asset','kit')->get();
 
-        return view('admin.asset_actions',compact('assetActions','user','navbarValues'));
+        return view('admin.assets..asset_actions',compact('assetActions','user','navbarValues','assets','kits','actionTypes','contacts'));
     }
 
     public function assetActionCreate()
@@ -254,8 +267,18 @@ class AssetController extends Controller
         $navbarValues = $this->getNavbarValues();
         // kit
         $assetAction = AssetAction::with('user','status','asset','kit','action_type')->where('id',$asset_action_id)->first();
+        // get accounts
+        $accounts = Account::all();
+        // get asset actions
+        $assetActions = AssetAction::with('user','status','action_type','contact','asset','kit')->get();
+        // loans
+        $loans = Loan::all();
+        // orders
+        $orders = Order::all();
+        // quotes
+        $quotes = Quote::all();
 
-        return view('admin.asset_action_show',compact('assetAction','user','navbarValues'));
+        return view('admin.assets.asset_action_show',compact('assetAction','user','navbarValues','accounts','assetActionExists','assetActions','loans','orders','quotes'));
     }
 
     public function assetActionPaymentCreate($asset_action_id)
@@ -268,7 +291,7 @@ class AssetController extends Controller
         $accounts = Account::all();
         // asset actions
         $assetAction = AssetAction::findOrFail($asset_action_id);
-        return view('admin.asset_action_payment_create',compact('user','navbarValues','accounts','assetAction'));
+        return view('admin.assets.asset_action_payment_create',compact('user','navbarValues','accounts','assetAction'));
     }
 
     public function assetActionUpdate(Request $request, $asset_action_id)
@@ -319,7 +342,7 @@ class AssetController extends Controller
         $navbarValues = $this->getNavbarValues();
         $kits = Kit::with('user','status')->get();
 
-        return view('admin.kits',compact('kits','user','navbarValues'));
+        return view('admin.assets.kits',compact('kits','user','navbarValues'));
     }
 
     public function kitCreate()
@@ -329,7 +352,7 @@ class AssetController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
 
-        return view('admin.kit_create',compact('user','navbarValues'));
+        return view('admin.assets.kit_create',compact('user','navbarValues'));
     }
 
     public function kitStore(Request $request)
@@ -353,6 +376,14 @@ class AssetController extends Controller
     {
         // Check if kit exists
         $kitExists = Kit::findOrFail($kit_id);
+        // get assets
+        $assets = Asset::with('user','status','asset_category')->get();
+        // get all kits
+        $kits = Kit::with('user','status', 'kit_assets')->get();
+        // action types
+        $actionTypes = ActionType::all();
+        // contacts
+        $contacts = Contact::with('organization')->get();
         // User
         $user = $this->getAdmin();
         // Get the navbar values
@@ -360,7 +391,7 @@ class AssetController extends Controller
         // kit
         $kit = Kit::with('user','status','kit_assets.asset','asset_actions')->where('id',$kit_id)->first();
 
-        return view('admin.kit_show',compact('kit','user','navbarValues'));
+        return view('admin.assets.kit_show',compact('kit','user','navbarValues', 'kitExists', 'assets', 'kits', 'actionTypes', 'contacts'));
     }
 
     public function kitActionCreate($kit_id)
@@ -375,7 +406,7 @@ class AssetController extends Controller
         $actionTypes = ActionType::all();
         // contacts
         $contacts = Contact::with('organization')->get();
-        return view('admin.kit_action_create',compact('contacts','actionTypes','kit','user','navbarValues'));
+        return view('admin.assets.kit_action_create',compact('contacts','actionTypes','kit','user','navbarValues'));
     }
 
     public function kitUpdate(Request $request, $kit_id)
@@ -426,7 +457,7 @@ class AssetController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.kit_asset_create',compact('assets','kit','user','navbarValues'));
+        return view('admin.assets.kit_asset_create',compact('assets','kit','user','navbarValues'));
     }
 
     public function kitAssetStore(Request $request)

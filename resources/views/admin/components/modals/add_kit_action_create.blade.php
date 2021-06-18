@@ -100,7 +100,7 @@
                                 <label for="is_asset">
                                     Asset
                                 </label><br>
-                                <input id="is_asset" name="is_asset" checked type="checkbox"  data-on="Yes" data-off="No" {{ $errors->has('is_recurring') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal"><br>
+                                <input id="is_asset" name="is_asset" @isset($assetExists) checked @endisset type="checkbox"  data-on="Yes" data-off="No" {{ $errors->has('is_recurring') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal"><br>
                                 <i>asset</i>
                             </div>
                         </div>
@@ -110,6 +110,29 @@
                                     <option>Select Asset</option>
                                     @foreach($assets as $asset)
                                         <option @isset($assetExists) @if($assetExists->id == $asset->id) selected @endif @endisset value="{{$asset->id}}">{{$asset->name}}</option>
+                                    @endforeach()
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-info">
+                                <label for="is_kit">
+                                    Kit
+                                </label><br>
+                                <input id="is_kit" name="is_kit" @isset($kitExists) checked @endisset type="checkbox"  data-on="Yes" data-off="No" {{ $errors->has('is_recurring') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal"><br>
+                                <i>kit</i>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="has-warning">
+                                <select required="required" style="width: 100%" {{ $errors->has('kit') ? ' is-invalid' : '' }} name="kit" id="kit" class="kit-action-select form-control input-lg">
+                                    <option>Select Kit</option>
+                                    @foreach($kits as $kit)
+                                        <option @isset($kitExists) @if($kitExists->id == $kit->id) selected @endif @endisset value="{{$kit->id}}">{{$kit->name}}</option>
                                     @endforeach()
                                 </select>
                             </div>

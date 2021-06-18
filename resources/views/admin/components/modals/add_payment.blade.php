@@ -64,7 +64,7 @@
                             <label for="is_asset_action" class="">
                                 Asset Action
                             </label>
-                            <input name="is_asset_action" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_asset_action') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                            <input name="is_asset_action" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_asset_action') ? ' is-invalid' : '' }} @isset($assetActionExists) checked @endisset data-toggle="toggle" data-size="normal">
                             <br>
                             <i>check if asset action</i>
                         </div>
@@ -75,7 +75,7 @@
                             <select required="required" style="width: 100%" {{ $errors->has('asset_action') ? ' is-invalid' : '' }} name="asset_action" id="asset_action" class="account-asset-action-select form-control input-lg">
                                 <option>Select Asset Action</option>
                                 @foreach ($assetActions as $assetAction)
-                                    <option value="{{$assetAction->id}}">{{$assetAction->reference}} [{{$assetAction->amount}}]</option>
+                                    <option @isset($assetActionExists) @if($assetActionExists->id == $assetAction->id) selected @endif @endisset value="{{$assetAction->id}}">{{$assetAction->reference}} [{{$assetAction->amount}}]</option>
                                 @endforeach
                             </select>
                             <i>asset action</i>
@@ -85,7 +85,7 @@
                                 Loan
                             </label>
                             <br>
-                            <input name="is_loan" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_loan') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                            <input name="is_loan" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_loan') ? ' is-invalid' : '' }} @isset($loanExists) checked @endisset data-toggle="toggle" data-size="normal">
                             <br>
                             <i>check if loan</i>
                         </div>
@@ -96,7 +96,7 @@
                             <select required="required" style="width: 100%" {{ $errors->has('loan') ? ' is-invalid' : '' }} name="loan" id="payment_loan" class="account-payment-loan-select form-control input-lg">
                                 <option>Select Loan</option>
                                 @foreach ($loans as $loan)
-                                    <option value="{{$loan->id}}">{{$loan->reference}} [{{$loan->amount}}]</option>
+                                    <option @isset($loanExists) @if($loanExists->id == $loan->id) selected @endif @endisset value="{{$loan->id}}">{{$loan->reference}} [{{$loan->amount}}]</option>
                                 @endforeach
                             </select>
                             <i>loan</i>
@@ -111,7 +111,7 @@
                                 Order
                             </label>
                             <br>
-                            <input name="is_order" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_order') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                            <input name="is_order" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_order') ? ' is-invalid' : '' }} @isset($orderExists) checked @endisset data-toggle="toggle" data-size="normal">
                             <br>
                             <i>check if order</i>
                         </div>
@@ -122,7 +122,7 @@
                             <select required="required" style="width: 100%" {{ $errors->has('order') ? ' is-invalid' : '' }} name="order" id="order" class="account-order-select form-control input-lg">
                                 <option>Select Order</option>
                                 @foreach ($orders as $order)
-                                    <option value="{{$order->id}}">{{$order->order_number}} [{{$order->total}}]</option>
+                                    <option @isset($orderExists) @if($orderExists->id == $order->id) selected @endif @endisset value="{{$order->id}}">{{$order->order_number}} [{{$order->total}}]</option>
                                 @endforeach
                             </select>
                             <i>order</i>
@@ -132,7 +132,7 @@
                                 Quote
                             </label>
                             <br>
-                            <input name="is_quote" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_quote') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                            <input name="is_quote" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_quote') ? ' is-invalid' : '' }} @isset($quoteExists) checked @endisset data-toggle="toggle" data-size="normal">
                             <br>
                             <i>check if quote</i>
                         </div>
@@ -143,7 +143,7 @@
                             <select required="required" style="width: 100%" {{ $errors->has('quote') ? ' is-invalid' : '' }} name="quote" id="quote" class="account-quote-select form-control input-lg">
                                 <option>Select Quote</option>
                                 @foreach ($quotes as $quote)
-                                    <option value="{{$quote->id}}">{{$quote->reference}} [{{$quote->total}}]</option>
+                                    <option @isset($quoteExists) @if($quoteExists->id == $quote->id) selected @endif @endisset value="{{$quote->id}}">{{$quote->reference}} [{{$quote->total}}]</option>
                                 @endforeach
                             </select>
                             <i>quote</i>

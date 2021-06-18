@@ -1,16 +1,16 @@
 {{-- add action type modal --}}
-<div class="modal fade addKitAsset" tabindex="-1" role="dialog" aria-labelledby="addKitAsset" aria-hidden="true">
+<div class="modal fade addKit" tabindex="-1" role="dialog" aria-labelledby="addKit" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center" id="addKitAsset">Add Kit Asset</h5>
+                <h5 class="modal-title text-center" id="addAccount">Add Kit</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin.kit.asset.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.kit.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())
@@ -24,28 +24,20 @@
                     @endif
 
                     <div class="position-relative form-group">
-                        <label for="asset" class="">
-                            Asset
+                        <label for="name" class="">
+                            Name
                         </label>
-                        <select required="required" style="width: 100%" {{ $errors->has('asset') ? ' is-invalid' : '' }} name="asset" id="kit-asset" class="asset-kit-select form-control input-lg">
-                            <option value="{{$asset->id}}">{{$asset->name}}</option>
-                        </select>
-                        <i>asset</i>
+                        <input name="name" id="name" placeholder="name" type="text" class="mb-2 form-control input-lg" {{ $errors->has('name') ? ' is-invalid' : '' }} required="required">
+                        <i>name</i>
                     </div>
 
                     <div class="position-relative form-group">
-                        <label for="kit" class="">
-                            Kit
+                        <label for="notes" class="">
+                            Notes
                         </label>
-                        <select required="required" style="width: 100%" {{ $errors->has('kit') ? ' is-invalid' : '' }} name="kit" id="kit" class="kit-select form-control input-lg">
-                            <option>Select Kit</option>
-                            @foreach($kits as $kit)
-                                <option value="{{$kit->id}}">{{$kit->name}}</option>
-                            @endforeach()
-                        </select>
-                        <i>kit</i>
+                        <textarea id="notes" name="notes" class="mb-2 form-control {{ $errors->has('notes') ? ' is-invalid' : '' }}"></textarea>
+                        <i>notes</i>
                     </div>
-
 
                     <hr>
 

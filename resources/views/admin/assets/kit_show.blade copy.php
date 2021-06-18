@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Asset Create')
+@section('title', 'Kit Create')
 
 @section('content')
 
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-7">
-            <h2>Assets</h2>
+        <div class="col-lg-5">
+            <h2>Kits</h2>
             <ol class="breadcrumb">
                 <li>
                     <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
@@ -15,31 +15,31 @@
                     <strong>CRM</strong>
                 </li>
                 <li class="active">
-                    <strong><a href="{{route('admin.assets')}}">Assets</a></strong>
+                    <strong><a href="{{route('admin.kits')}}">Kits</a></strong>
                 </li>
                 <li class="active">
-                    <strong>Asset Create</strong>
+                    <strong>Kit Create</strong>
                 </li>
             </ol>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-7">
             <div class="title-action">
-                <a href="{{route('admin.asset.asset.action.create',$asset->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Asset Asset Action </a>
-                <a href="{{route('admin.asset.assign.kit',$asset->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Assign To Kit </a>
-                <a href="{{route('admin.asset.show',$asset->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Expense </a>
+                <a href="{{route('admin.kit.action.create',$kit->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Kit Action </a>
+                <a href="{{route('admin.kit.asset.create',$kit->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Kit Assign Asset </a>
             </div>
         </div>
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="ibox">
+
                     <div class="ibox-content">
 
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" action="{{ route('admin.asset.update',$asset->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                                <form method="post" action="{{ route('admin.kit.update',$kit->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                                 @csrf
 
                                 @if ($errors->any())
@@ -55,46 +55,15 @@
                                 <div class="col-md-12">
                                     <br>
                                     <div class="has-warning">
-                                        <input type="text" id="name" name="name" required="required" value="{{$asset->name}}" class="form-control input-lg">
+                                        <input type="text" id="name" name="name" required="required" value="{{$kit->name}}" class="form-control input-lg">
                                         <i>name</i>
                                     </div>
                                     <br>
-                                    <div class="has-warning" id="data_1">
-                                        <div class="input-group date">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
-                                            <input type="text" required="required" name="date_acquired" class="form-control input-lg" value="{{$asset->date_acquired}}">
-                                        </div>
-                                        <i>Date acquired?</i>
-                                        <span id="inputSuccess2Status4" class="sr-only">(success)</span>
-                                    </div>
-                                    <br>
                                     <div class="has-warning">
-                                        <select name="asset_category" class="select2_demo_tag form-control input-lg">
-                                            <option selected disabled >Select Category</option>
-                                            @foreach ($assetCategories as $assetCategory)
-                                                <option @if($assetCategory->id == $asset->asset_category_id)selected @endif value="{{$assetCategory->id}}">{{$assetCategory->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <i>type</i>
-                                    </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg">{{$asset->notes}}</textarea>
+                                        <textarea rows="5" id="notes" name="notes" required="required" placeholder="Brief description" class="form-control input-lg">{{$kit->notes}}</textarea>
                                         <i>notes</i>
                                     </div>
-                                    <br>
-                                    <div class="has-warning">
-                                        <label>Insured?</label>
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input name="is_insured" type="checkbox" class="js-switch" @if($asset->is_insured == 1) checked @endif />
-                                            <br>
-                                            <i>check if insured.</i>
-                                        </div>
-                                    </div>
 
-                                    <br>
                                     <hr>
 
                                     <div class="text-center">
@@ -126,19 +95,19 @@
                                                 <i class="fa fa-user fa-3x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$asset->user->name}}</h3>
+                                                <h3 class="font-bold">{{$kit->user->name}}</h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <div class="widget style1 {{$asset->status->label}}">
+                                    <div class="widget style1 {{$kit->status->label}}">
                                         <div class="row vertical-align">
                                             <div class="col-xs-3">
                                                 <i class="fa fa-ellipsis-v fa-3x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$asset->status->name}}</h3>
+                                                <h3 class="font-bold">{{$kit->status->name}}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +119,7 @@
                                                 <i class="fa fa-plus-square fa-3x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$asset->created_at}}</h3>
+                                                <h3 class="font-bold">{{$kit->created_at}}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +131,7 @@
                                                 <i class="fa fa-scissors fa-3x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$asset->updated_at}}</h3>
+                                                <h3 class="font-bold">{{$kit->updated_at}}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -175,8 +144,7 @@
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a href="#asset-actions" data-toggle="tab">Asset Actions</a></li>
-                                            <li class=""><a href="#kits" data-toggle="tab">Kits</a></li>
-                                            <li class=""><a href="#expenses" data-toggle="tab">Expenses</a></li>
+                                            <li class=""><a href="#kit-assets" data-toggle="tab">Kit Assets</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -200,7 +168,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach($asset->asset_actions as $assetAction)
+                                                        @foreach($kit->asset_actions as $assetAction)
                                                             <tr class="gradeX">
                                                                 <td>{{$assetAction->reference}}</td>
                                                                 <td>{{$assetAction->amount}}</td>
@@ -235,7 +203,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="tab-pane" id="kits">
+                                        <div class="tab-pane" id="kit-assets">
 
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
@@ -248,7 +216,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($asset->kit_assets as $kitAsset)
+                                                    @foreach($kit->kit_assets as $kitAsset)
                                                         <tr class="gradeX">
                                                             <td>{{$kitAsset->asset->reference}}</td>
                                                             <td>{{$kitAsset->asset->name}}</td>
@@ -273,67 +241,6 @@
                                                         <th>Name</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                        <div class="tab-pane" id="expenses">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Recurring</th>
-                                                        <th>Expense #</th>
-                                                        <th>Date</th>
-                                                        <th>Created</th>
-                                                        <th>Expense Type</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($asset->expenses as $expense)
-                                                        <tr class="gradeA">
-                                                            <td>
-                                                                @if($expense->is_recurring == 1)
-                                                                    <p><span class="badge badge-success">True</span></p>
-                                                                @else
-                                                                    <p><span class="badge badge-success">False</span></p>
-                                                                @endif
-                                                            </td>
-                                                            <td>{{$expense->reference}}</td>
-                                                            <td>{{$expense->date}}</td>
-                                                            <td>{{$expense->created_at}}</td>
-                                                            <td>{{$expense->expense_type->name}}</td>
-                                                            <td>{{$expense->total}}</td>
-                                                            <td>{{$expense->paid}}</td>
-                                                            <td>
-                                                                <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('admin.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Recurring</th>
-                                                        <th>Expense #</th>
-                                                        <th>Date</th>
-                                                        <th>Created</th>
-                                                        <th>Expense Type</th>
-                                                        <th>Total</th>
-                                                        <th>Paid</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
                                                     </tr>
                                                     </tfoot>
                                                 </table>
@@ -365,7 +272,7 @@
                     </div>
                     <div class="">
                         <ul class="pending-to-do">
-                            @foreach($asset->pending_to_dos as $pendingToDo)
+                            @foreach($kit->pending_to_dos as $pendingToDo)
                                 <li>
                                     <div>
                                         <small>{{$pendingToDo->due_date}}</small>
@@ -381,7 +288,7 @@
                         </ul>
 
                         <ul class="in-progress-to-do">
-                            @foreach($asset->in_progress_to_dos as $inProgressToDo)
+                            @foreach($kit->in_progress_to_dos as $inProgressToDo)
                                 <li>
                                     <div>
                                         <small>{{$inProgressToDo->due_date}}</small>
@@ -396,7 +303,7 @@
                             @endforeach
                         </ul>
                         <ul class="overdue-to-do">
-                            @foreach($asset->overdue_to_dos as $overdueToDo)
+                            @foreach($kit->overdue_to_dos as $overdueToDo)
                                 <li>
                                     <div>
                                         <small>{{$overdueToDo->due_date}}</small>
@@ -415,7 +322,7 @@
                             @endforeach
                         </ul>
                         <ul class="completed-to-do">
-                            @foreach($asset->completed_to_dos as $completedToDo)
+                            @foreach($kit->completed_to_dos as $completedToDo)
                                 <li>
                                     <div>
                                         <small>{{$completedToDo->due_date}}</small>
@@ -439,4 +346,4 @@
 
 @endsection
 
-@include('admin.layouts.modals.asset_to_do')
+@include('admin.layouts.modals.kit_to_do')

@@ -163,6 +163,9 @@
                 $('.asset-select').select2();
             });
             $(document).ready(function() {
+                $('.asset-kit-select').select2();
+            });
+            $(document).ready(function() {
                 $('.asset-category').select2();
             });
             $(document).ready(function() {
@@ -196,7 +199,10 @@
                 $('.frequency-type-select').select2();
             });
             $(document).ready(function() {
-                $('.kit-type-select').select2();
+                $('.kit-select').select2();
+            });
+            $(document).ready(function() {
+                $('.kit-action-select').select2();
             });
             $(document).ready(function() {
                 $('.liability-select').select2();

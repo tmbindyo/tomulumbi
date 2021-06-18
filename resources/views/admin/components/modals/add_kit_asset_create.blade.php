@@ -24,28 +24,30 @@
                     @endif
 
                     <div class="position-relative form-group">
-                        <label for="asset" class="">
-                            Asset
-                        </label>
-                        <select required="required" style="width: 100%" {{ $errors->has('asset') ? ' is-invalid' : '' }} name="asset" id="kit-asset" class="asset-kit-select form-control input-lg">
-                            <option value="{{$asset->id}}">{{$asset->name}}</option>
-                        </select>
-                        <i>asset</i>
-                    </div>
-
-                    <div class="position-relative form-group">
                         <label for="kit" class="">
-                            Kit
+                            Action Type
                         </label>
                         <select required="required" style="width: 100%" {{ $errors->has('kit') ? ' is-invalid' : '' }} name="kit" id="kit" class="kit-select form-control input-lg">
-                            <option>Select Kit</option>
+                            <option>Select Kits</option>
                             @foreach($kits as $kit)
-                                <option value="{{$kit->id}}">{{$kit->name}}</option>
+                                <option @isset($kitExists) @if($kitExists->id == $kit->id) selected @endif @endisset value="{{$kit->id}}">{{$kit->name}}</option>
                             @endforeach()
                         </select>
                         <i>kit</i>
                     </div>
 
+                    <div class="position-relative form-group">
+                        <label for="asset" class="">
+                            Asset
+                        </label>
+                        <select required="required" style="width: 100%" {{ $errors->has('asset') ? ' is-invalid' : '' }} name="asset" id="asset" class="asset-select form-control input-lg">
+                            <option>Select Asset</option>
+                            @foreach($assets as $asset)
+                                <option @foreach($kit->kit_assets as $kitAsset) @if($asset->id == $kitAsset->asset->id) disabled @endif @endforeach value="{{$asset->id}}">{{$asset->name}}</option>
+                            @endforeach()
+                        </select>
+                        <i>asset</i>
+                    </div>
 
                     <hr>
 
