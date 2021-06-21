@@ -88,7 +88,7 @@ class SaleController extends Controller
         $order->customer_notes = $request->customer_notes;
 
         $order->subtotal = $request->subtotal;
-        $order->discount = $request->discount;
+        $order->discount = $request->adjustment;
         $order->total = $request->grand_total;
         $order->refund = 0;
         $order->paid = 0;

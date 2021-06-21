@@ -226,6 +226,9 @@
                 $('.order-select').select2();
             });
             $(document).ready(function() {
+                $('.price-list-select').select2();
+            });
+            $(document).ready(function() {
                 $('.size-select').select2();
             });
             $(document).ready(function() {
