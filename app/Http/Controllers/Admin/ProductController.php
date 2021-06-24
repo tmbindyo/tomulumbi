@@ -53,7 +53,7 @@ class ProductController extends Controller
 
 //        return $productsStatusCount;
 
-        return view('admin.products',compact('products','user','navbarValues','productsStatusCount'));
+        return view('admin.store.products',compact('products','user','navbarValues','productsStatusCount'));
     }
 
     public function productCreate()

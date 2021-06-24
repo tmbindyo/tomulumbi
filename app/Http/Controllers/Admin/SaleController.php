@@ -83,7 +83,7 @@ class SaleController extends Controller
         $order->order_number = $reference;
         $order->cookie = $reference;
         $order->due_date = date('Y-m-d', strtotime($request->due_date));
-        $order->expiry_date = date('Y-m-d', strtotime($request->due_date));
+        $order->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
 
         $order->customer_notes = $request->customer_notes;
 
@@ -153,7 +153,7 @@ class SaleController extends Controller
         // Get orders
         // check if exists
         $orderExists = Order::findOrFail($order_id);
-        $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses.expense_type')->where('is_paid',False)->first();
+        $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses')->where('is_paid',False)->first();
 //        return $order;
         return view('admin.store.order_show',compact('order','user','navbarValues','ordersStatusCount','orderArray','orderStatuses'));
     }
@@ -175,10 +175,11 @@ class SaleController extends Controller
         $orderStatuses = Status::where('status_type_id','6649fd59-0fc2-44e5-b735-032d72ee3b60')->get();
 
         $orderExists = Order::findOrFail($order_id);
-        $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses.expense_type')->first();
+        $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses')->first();
+        // return $order;
         // Pending to dos
         // return $order;
-        return view('admin.order_edit',compact('priceLists','contacts','order','user','navbarValues','ordersStatusCount','orderArray','orderStatuses'));
+        return view('admin.store.order_edit',compact('priceLists','contacts','order','user','navbarValues','ordersStatusCount','orderArray','orderStatuses'));
     }
 
     public function orderUpdate(Request $request, $order_id){
@@ -263,8 +264,8 @@ class SaleController extends Controller
         // get project aggregations
 
         $orderExists = Order::findOrFail($order_id);
-        $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses.expense_type')->first();
-        return view('admin.order_print',compact('order'));
+        $order = Order::where('id',$order_id)->with('status','order_products.product','order_products.price_list.size','order_products.price_list.sub_type','order_products.price_list','promo_code_uses','contact','payments','expenses')->first();
+        return view('admin.store.order_print',compact('order'));
     }
 
     public function orderPaymentCreate($order_id)

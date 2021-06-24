@@ -14,11 +14,21 @@
     <link href="{{ asset('inspinia') }}/css/animate.css" rel="stylesheet">
     <link href="{{ asset('inspinia') }}/css/style.css" rel="stylesheet">
 
+    <style type="text/css" media="print">
+        @page {
+            size: A4;   /* auto is the initial value */
+            margin: 5px;  /* this affects the margin in the printer settings */
+        }
+    </style>
+
 </head>
 
-<body class="white-bg">
+<body class="tomulumbi-bg">
 <div class="wrapper wrapper-content p-xl">
-    <div class="ibox-content p-xl">
+    <div class="tomulumbi-content">
+        <img  width="80em" src="{{ asset('') }}tomulumbi/symbol/transparent/500px/1.png" alt="tomulumbi" title="tomulumbi"/>
+    <div>
+    <div class="tomulumbi-content">
         <div class="row">
             <div class="col-sm-6">
                 <h5>From:</h5>
@@ -29,15 +39,14 @@
                     <br>
                     Nairobi, Kenya 52824
                     <br>
-                    <abbr title="Phone">P:</abbr> + (254) 708 085 128
+                    <abbr>P:</abbr> + (254) 708 085 128
                     <br>
-                    <abbr title="Email">E:</abbr> info@tomulumbi.com
+                    <abbr>E:</abbr> info@tomulumbi.com
                 </address>
             </div>
 
             <div class="col-sm-6 text-right">
-                <h4>Order No.</h4>
-                <h4 class="text-navy">EXP-{{$order->reference}}</h4>
+                <h4>Order # <span class="text-navy">ODR-{{$order->order_number}}</span></h4>
                 @if($order->contact)
                 <span>To:</span>
                 <address>
@@ -53,8 +62,8 @@
                 </address>
                 @endif
                 <p>
-                    <span><strong>Order Date:</strong> {{$order->date}}</span><br/>
-                    <span><strong>Due Date:</strong> {{$order->due_date}}</span>
+                    <span><strong>Due Date:</strong> {{$order->due_date}}</span><br/>
+                    <span><strong>Expiry Date:</strong> {{$order->expiry_date}}</span>
                 </p>
             </div>
         </div>
@@ -63,10 +72,10 @@
             <table class="table order-table">
                 <thead>
                 <tr>
-                    <th>Item List</th>
-                    <th width="100em">Quantity</th>
-                    <th width="100em">Unit Price</th>
-                    <th width="100em">Total Price</th>
+                    <th>ITEM LIST</th>
+                    <th width="80em">QUANTITY</th>
+                    <th width="100em">UNIT PRICE</th>
+                    <th width="100em">TOTAL PRICE</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -92,11 +101,11 @@
         <table class="table invoice-total">
             <tbody>
             <tr>
-                <td><strong>Sub Total :</strong></td>
+                <td><strong>SUB TOTAL :</strong></td>
                 <td>{{$order->subtotal}}</td>
             </tr>
             <tr>
-                <td><strong>Discount :</strong></td>
+                <td><strong>ADJUSTMENT :</strong></td>
                 <td>{{$order->discount}}</td>
             </tr>
             <tr>
@@ -106,9 +115,26 @@
             </tbody>
         </table>
 
-        <div class="well m-t"><strong>Notes</strong>
-            {{$order->customer_notes}}
+        <div class="well m-t"><strong>Notes:</strong>
+            {!!$order->notes!!}
         </div>
+
+
+        <div >
+        {{-- <div class="tomulumbi-footer"> --}}
+            <div class="text-center">
+                <h2 style="color:#ffce00;"><strong> WWW.TOMULUMBI.COM</strong></h2>
+            </div>
+        </div>
+
+        {{-- <div class="footer">
+            <div class="">
+                tomulumbi.com
+            </div>
+            <div>
+                <strong>tomulumbi.com</strong>
+            </div>
+        </div> --}}
 
     </div>
 

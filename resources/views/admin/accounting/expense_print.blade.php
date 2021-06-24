@@ -120,7 +120,8 @@
         </div>
 
 
-        <div class="tomulumbi-footer">
+        <div >
+        {{-- <div class="tomulumbi-footer"> --}}
             <div class="text-center">
                 <h2 style="color:#ffce00;"><strong> WWW.TOMULUMBI.COM</strong></h2>
             </div>

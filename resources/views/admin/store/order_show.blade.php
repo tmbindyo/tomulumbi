@@ -1,480 +1,513 @@
-@extends('admin.layouts.app')
+@extends('admin.components.main')
 
-@section('title','Order '.$order->order_number)
+@section('title','Order '. $order->order_number)
 
 @section('content')
 
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-6">
-            <h2>Orders</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
-                </li>
-                <li>
-                    <strong>Settings</strong>
-                </li>
-                <li class="active">
-                    <strong>Order</strong>
-                </li>
-            </ol>
-        </div>
-        <div class="col-md-6">
-            <div class="title-action">
-                <a href="{{route('admin.order.edit',$order->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-pencil"></i> Edit </a>
-                <a href="{{route('admin.contact.show',$order->contact_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Contact </a>
-                <a href="{{route('admin.order.print',$order->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Print </a>
-                <a href="{{route('admin.order.payment.create',$order->id)}}" class="btn btn-success btn-outline"><i class="fa fa-plus"></i> Payment </a>
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+                        </i>
+                    </div>
+                    <div>
+                        <a href="#">
+                            Orders
+                        </a>
+                    </div>
+                </div>
+                <div class="page-title-actions">
+                    <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+                        <i class="fa fa-star"></i>
+                    </button>
+                    <div class="d-inline-block dropdown">
+                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+                            <span class="btn-icon-wrapper pr-2 opacity-7">
+                                <i class="fa fa-business-time fa-w-20"></i>
+                            </span>
+                            Buttons
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        <i class="nav-link-icon lnr-inbox"></i>
+                                        <span>
+                                            Inbox
+                                        </span>
+                                        <div class="ml-auto badge badge-pill badge-secondary">86</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        <i class="nav-link-icon lnr-book"></i>
+                                        <span>
+                                            Book
+                                        </span>
+                                        <div class="ml-auto badge badge-pill badge-danger">5</div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link">
+                                        <i class="nav-link-icon lnr-picture"></i>
+                                        <span>
+                                            Picture
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a disabled href="javascript:void(0);" class="nav-link disabled">
+                                        <i class="nav-link-icon lnr-file-empty"></i>
+                                        <span>
+                                            File Disabled
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="{{route('admin.order.edit',$order->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-pencil"></i> Edit </a>
+                    <a href="{{route('admin.contact.show',$order->contact_id)}}" class="btn btn-warning btn-outline"><i class="fa fa-eye"></i> Contact </a>
+                    <a href="{{route('admin.order.print',$order->id)}}" class="btn btn-warning btn-outline"><i class="fa fa-print"></i> Print </a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="wrapper wrapper-content animated fadeIn">
+        <div class="row">
+            <div class="col-md-3 col-xl-3">
+                <div class="card mb-3 widget-content bg-midnight-bloom">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Creator</div>
+                            <div class="widget-subheading">
+                                {{-- {{$order->user->name}} --}}
+                            </div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span><i class="fa fa-user fa-3x"></i></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-xl-3">
+                <div class="card mb-3 widget-content bg-arielle-smile">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Status</div>
+                            <div class="widget-subheading">{{$order->status->name}}</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span><i class="fa fa-ellipsis-v fa-3x"></i></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-xl-3">
+                <div class="card mb-3 widget-content bg-grow-early">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Created</div>
+                            <div class="widget-subheading">{{$order->created_at}}</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span><i class="fa fa-plus-square fa-3x"></i></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-xl-3">
+                <div class="card mb-3 widget-content bg-premium-dark">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Last Updated</div>
+                            <div class="widget-subheading">{{$order->updated_at}}</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-warning"><span><i class="fa fa-edit fa-3x"></i></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="main-card mb-3 card">
+
+                    <div class="card-header">
+                        <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                        Order Items
+                        <div class="btn-actions-pane-right">
+                            {{-- <a href="{{route('admin.order.create')}}" type="button" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Order</a> --}}
+                        </div>
+                    </div>
+
+                        <div class="card-body"><h5 class="card-title">Order Items (<strong>{{$order->order_items_count}}</strong>)</h5>
+                            <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                <thead>
+                                    <tr>
+                                        <th>Item Details</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($order->order_products as $order_item)
+                                        <tr>
+                                            <td>
+                                                <a href="{{route('admin.price.list.show',$order_item->price_list->id)}}" class="btn btn-success">
+                                                    {{$order_item->product->name}}
+                                                </a>
+                                            </td>
+                                            <td>{{ number_format($order_item->quantity, 2) }}</td>
+                                            <td>{{ number_format($order_item->rate, 2) }}</td>
+                                            <td>{{ number_format($order_item->amount, 2) }}</td>
+                                            <td>
+                                                <span class="label {{$order->status->label}}">{{$order->status->name}}</span>
+                                            </td>
+
+                                            <td class="text-right">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('admin.order.show', $order->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Item Details</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    <div class="card-footer">Footer</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="main-card mb-3 card">
+
+                    <div class="card-header">
+                        <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                        Order Summary
+                        <div class="btn-actions-pane-right">
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <ul class="list-group list-group-flush">
+                            <li class="p-0 list-group-item">
+                                <div class="grid-menu grid-menu-2col">
+                                    <div class="no-gutters row">
+                                        <div class="d-block col-sm-6">
+                                            <div class="p-1">
+                                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-dark">
+                                                    <i class="text-dark opacity-7 btn-icon-wrapper mb-2">{{$order->total}}</i>
+                                                    Total
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="d-block col-sm-6">
+                                            <div class="p-1">
+                                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">
+                                                    <i class="text-danger opacity-7 btn-icon-wrapper mb-2">{{$order->sub_total}}</i>
+                                                    Sub Total
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="d-md-none d-lg-block col-sm-6">
+                                            <div class="p-1">
+                                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success">
+                                                    <i class="text-success opacity-7 btn-icon-wrapper mb-2">{{$order->adjustment}}</i>
+                                                    Discount
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="d-md-none d-lg-block col-sm-6">
+                                            <div class="p-1">
+                                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-focus">
+                                                    <i class="text-focus opacity-7 btn-icon-wrapper mb-2">{{$order->paid}}</i>
+                                                    Paid
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <br>
+                        <div class="text-right">
+                            @if($order->is_contact)
+                                @if($order->contact->organization)
+                                    <span>To:</span>
+                                    <address>
+                                        <strong>{{$order->contact->organization->name}}</strong><br>
+                                        <strong>{{$order->contact->first_name}} {{$order->contact->last_name}} </strong><br>
+                                        {{$order->contact->organization->street}}<br>
+                                        {{$order->contact->organization->city}}<br>
+                                        <abbr title="Phone">P:</abbr> {{$order->contact->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$order->contact->email}}
+                                    </address>
+                                    @else
+                                    <span>To:</span>
+                                    <address>
+                                        <strong>{{$order->contact->first_name}} {{$order->contact->last_name}} </strong><br>
+                                        {{$order->contact->street}}<br>
+                                        {{$order->contact->city}}, {{$order->contact->postal_code}}<br>
+                                        <abbr title="Phone">P:</abbr> {{$order->contact->phone_number}}<br>
+                                        <abbr title="Email">E:</abbr> {{$order->contact->email}}
+                                    </address>
+                                @endif
+                            @endif
 
 
-        {{--  order products  --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
         <div class="row">
             <div class="col-md-9">
+                <div class="main-card mb-3 card">
 
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <span class="pull-right">(<strong>{{$orderArray['orderProductsCount']}}</strong>) items</span>
-                        <h5>Items in your cart</h5>
+                    <div class="card-header">
+                        <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                        Children Records
+                        {{-- <div class="btn-actions-pane-right">
+                            <a href="{{route('admin.transaction.create',$order->id)}}" type="button" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Make Payment</a>
+                        </div> --}}
                     </div>
-                    @foreach($order->order_products as $item)
-                        <div class="ibox-content">
 
+                    <div class="card-body">
+                        <ul class="tabs-animated-shadow tabs-animated nav">
+                            <li class="nav-item">
+                                <a role="tab" class="nav-link active" id="tab-c-0" data-toggle="tab" href="#asset-actions">
+                                    <span>Payments ({{$order->payments->count()}})
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a role="tab" class="nav-link" id="tab-c-1" data-toggle="tab" href="#expenses">
+                                    <span>Expenses ({{$order->expenses->count()}})</span>
+                                </a>
+                            </li>
+                        </ul>
 
-                            <div class="table-responsive">
-                                <table class="table shoping-cart-table">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="asset-actions" role="tabpanel">
+                                <div class="card-hover-shadow card-border mb-3 card">
+                                    <div class="card-header">
+                                        <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                        Payments
+                                        <div class="btn-actions-pane-right">
+                                            <a href="{{route('admin.order.payment.create',$order->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Payment</a>
+                                        </div>
+                                    </div>
 
-                                    <tbody>
-                                    <tr>
-                                        <td width="90">
-                                            <div class="cart-product-imitation">
-                                            </div>
-                                        </td>
-                                        <td class="desc">
-                                            <h3>
-                                                <a href="{{route('admin.price.list.show',$item->price_list->id)}}" class="text-navy">
-                                                    {{$item->product->name}}
-                                                </a>
-                                            </h3>
-                                            <p class="small">
-                                                {{$item->product->description}}
-                                            </p>
-                                            <dl class="small m-b-none">
-                                                <dt>Description lists</dt>
-                                                <dd>[{{$item->price_list->size->size}} {{$item->price_list->sub_type->name}}] ({{$item->price_list->product->status->name}}).</dd>
-                                            </dl>
-
-                                            @if($order->is_client == 0)
-                                                <div class="m-t-sm">
-                                                    <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
+                                    <div class="card-body">
+                                        <div class="col-lg-12">
+                                            <div class="main-card mb-3 card">
+                                                <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                                    <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Reference</th>
+                                                                <th>Date</th>
+                                                                <th>Initial #</th>
+                                                                <th>Paid</th>
+                                                                <th>Subsequent</th>
+                                                                <th>Account</th>
+                                                                <th>Status</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($order->payments as $payment)
+                                                            <tr>
+                                                                <td>
+                                                                    {{$payment->reference}}
+                                                                    <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                                </td>
+                                                                <td>{{$payment->date}}</td>
+                                                                <td>{{$payment->initial_balance}}</td>
+                                                                <td>{{$payment->amount}}</td>
+                                                                <td>{{$payment->current_balance}}</td>
+                                                                <td>{{$payment->account->name}}</td>
+                                                                <td>
+                                                                    <p><span class="label {{$payment->status->label}}">{{$payment->status->name}}</span></p>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Reference</th>
+                                                                <th>Date</th>
+                                                                <th>Initial #</th>
+                                                                <th>Paid</th>
+                                                                <th>Subsequent</th>
+                                                                <th>Account</th>
+                                                                <th>Status</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
                                                 </div>
-                                            @endif
-                                        </td>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                        <td width="65">
-                                            <input type="text" class="form-control" value="{{$item->quantity}}">
-                                        </td>
-                                        <td>
-                                            <h4>
-                                                ${{$item->rate}}
-                                            </h4>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                </div>
                             </div>
 
+                            <div class="tab-pane" id="expenses" role="tabpanel">
+                                <div class="card-hover-shadow card-border mb-3 card">
+                                    <div class="card-header">
+                                        <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                        Expenses
+                                        <div class="btn-actions-pane-right">
+                                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addDeposit"><i class="fa fa-plus"></i> Deposit</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="col-lg-12">
+                                            <div class="main-card mb-3 card">
+                                                <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                                    <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Recurring</th>
+                                                                <th>Expense #</th>
+                                                                <th>Date</th>
+                                                                <th>Created</th>
+                                                                <th>Expense Account</th>
+                                                                <th>Total</th>
+                                                                <th>Paid</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($order->expenses as $expense)
+                                                            <tr>
+                                                                <td>
+                                                                    @if($expense->is_recurring == 1)
+                                                                        <p><span class="badge badge-success">True</span></p>
+                                                                    @else
+                                                                        <p><span class="badge badge-success">False</span></p>
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>{{$expense->reference}}</td>
+                                                                <td>{{$expense->date}}</td>
+                                                                <td>{{$expense->created_at}}</td>
+                                                                <td>{{$expense->expense_account->name}}</td>
+                                                                <td>{{$expense->total}}</td>
+                                                                <td>{{$expense->paid}}</td>
+
+                                                                <td>
+                                                                    <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
+                                                                </td>
+
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        <a href="{{ route('admin.expense.show', $expense->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Recurring</th>
+                                                                <th>Expense #</th>
+                                                                <th>Date</th>
+                                                                <th>Created</th>
+                                                                <th>Expense Account</th>
+                                                                <th>Total</th>
+                                                                <th>Paid</th>
+                                                                <th>Status</th>
+                                                                <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                    @endforeach
 
-                    <div class="ibox-content">
-
-                        <button class="btn btn-primary btn-outline pull-right"><i class="fa fa fa-send-o"></i> Reminder Email</button>
-                        <button class="btn btn-warning btn-outline"><i class="fa fa-check"></i> Mark as Sale</button>
 
                     </div>
-                </div>
 
+                    <div class="card-footer">Footer</div>
+
+                </div>
             </div>
+
             <div class="col-md-3">
 
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Cart Summary</h5>
+                <div class="main-card mb-3 card">
+                    <div class="card-header">
+                        <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                        Orders Status
                     </div>
-                    <div class="ibox-content">
-                        <span>
-                            Total
-                        </span>
-                        <h2 class="font-bold">
-                            ${{$order->total}}
-                        </h2>
 
-                        <hr/>
-                        <span class="text-muted small">
-                            *For United States, France and Germany applicable sales tax will be applied
-                        </span>
-                        <div class="m-t-sm">
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
-                                <a href="#" class="btn btn-white btn-sm"> Cancel</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Order Status</h5>
-                    </div>
-                    <div class="ibox-content text-center">
+                    <div class="card-body"><h5 class="card-title text-center">Order Relationships</h5>
                         <form method="post" action="{{ route('admin.order.update.status',$order->id) }}" autocomplete="off">
                             @csrf
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <div class="has-warning">
-                                <select required="required" name="status" class="form-control input-lg" >
-                                    <option>Select Status</option>
+                                <select name="status" class="status-select form-control input-lg" required>
+                                    <option selected disabled>Select status</option>
                                     @foreach($orderStatuses as $orderStatus)
                                         <option @if($orderStatus->id == $order->status_id)selected @endif value="{{$orderStatus->id}}">{{$orderStatus->name}}</option>
                                     @endforeach
-                                </select>
-{{--                                <i>Tags: What kind of collection is this? Separate your tags with a comma. e.g. wedding, outdoor, summer</i>--}}
+                                </select><br>
+                                <i>status.</i>
                             </div>
-                            <br>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-block btn-sm btn-outline btn-success mt-4">{{ __('UPDATE') }}</button>
+
+                            <hr>
+
+                            <div class="row">
+                                    <button type="submit" class="btn btn-outline btn-block btn-lg btn-success">{{ __('SAVE') }}</button>
+                                </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
 
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Order Promo Code</h5>
-                    </div>
-                    <div class="ibox-content text-center">
-
-
-
-                        <h3><i class="fa fa-phone"></i> +43 100 783 001</h3>
-                        <span class="small">
-                            Please contact with us if you have any questions. We are avalible 24h.
-                        </span>
-
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        {{--  details  --}}
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="wrapper wrapper-content animated fadeInUp">
-                    <div class="ibox">
-                        <div class="ibox-content">
-                            <div class="row">
-
-                                <div class="col-lg-3">
-                                    <div class="widget style1 navy-bg">
-                                        <div class="row vertical-align">
-                                            <div class="col-xs-3">
-                                                <i class="fa fa-user fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$order->contact->first_name}} {{$order->contact->last_name}}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="widget style1 {{$order->status->label}}">
-                                        <div class="row vertical-align">
-                                            <div class="col-xs-3">
-                                                <i class="fa fa-ellipsis-v fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$order->status->name}}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="widget style1 navy-bg">
-                                        <div class="row vertical-align">
-                                            <div class="col-xs-3">
-                                                <i class="fa fa-plus-square fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$order->created_at}}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="widget style1 navy-bg">
-                                        <div class="row vertical-align">
-                                            <div class="col-xs-3">
-                                                <i class="fa fa-scissors fa-3x"></i>
-                                            </div>
-                                            <div class="col-xs-9 text-right">
-                                                <h3 class="font-bold">{{$order->updated_at}}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row m-t-sm">
-                                <div class="col-lg-12">
-                                <div class="panel blank-panel">
-                                <div class="panel-heading">
-                                    <div class="panel-options">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#payments" data-toggle="tab">Asset Actions</a></li>
-                                            <li class=""><a href="#expenses" data-toggle="tab">Expenses</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="panel-body">
-
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="payments">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Date</th>
-                                                        <th>Initial #</th>
-                                                        <th>Paid</th>
-                                                        <th>Subsequent</th>
-                                                        <th>Account</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($order->payments as $payment)
-                                                        <tr class="gradeX">
-                                                            <td>
-                                                                {{$payment->reference}}
-                                                                <span><i data-toggle="tooltip" data-placement="right" title="{{$payment->notes}}." class="fa fa-facebook-messenger"></i></span>
-                                                            </td>
-                                                            <td>{{$payment->date}}</td>
-                                                            <td>{{$payment->initial_balance}}</td>
-                                                            <td>{{$payment->amount}}</td>
-                                                            <td>{{$payment->current_balance}}</td>
-                                                            <td>{{$payment->account->name}}</td>
-                                                            <td>
-                                                                <p><span class="label {{$payment->status->label}}">{{$payment->status->name}}</span></p>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Reference</th>
-                                                        <th>Date</th>
-                                                        <th>Initial #</th>
-                                                        <th>Paid</th>
-                                                        <th>Subsequent</th>
-                                                        <th>Account</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="tab-pane" id="expenses">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Recurring</th>
-                                                        <th>Expense #</th>
-                                                        <th>Date</th>
-                                                        <th>Expense Type</th>
-                                                        <th>Amount</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($order->expenses as $expense)
-                                                        <tr class="gradeA">
-                                                            <td>
-                                                                @if($expense->is_recurring == 1)
-                                                                    <p><span class="badge badge-success">True</span></p>
-                                                                @else
-                                                                    <p><span class="badge badge-success">False</span></p>
-                                                                @endif
-                                                            </td>
-                                                            <td>{{$expense->reference}}</td>
-                                                            <td>{{$expense->date}}</td>
-                                                            <td>{{$expense->expense_type->name}}</td>
-                                                            <td>{{$expense->total}}</td>
-                                                            <td>
-                                                                <p><span class="label {{$expense->status->label}}">{{$expense->status->name}}</span></p>
-                                                            </td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group">
-                                                                    <a href="{{ route('admin.expense.show', $expense->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                    <tfoot>
-                                                    <tr>
-                                                        <th>Recurring</th>
-                                                        <th>Expense #</th>
-                                                        <th>Date</th>
-                                                        <th>Expense Type</th>
-                                                        <th>Amount</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                                    </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <br>
-        {{--  to do Counts  --}}
-        <div class="row">
-            <div class="col-lg-12">
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <button type="button" class="btn btn-warning m-r-sm">{{$orderArray['pendingToDos']}}</button>
-                            Pending
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-info m-r-sm">{{$orderArray['inProgressToDos']}}</button>
-                            In progress
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary m-r-sm">{{$orderArray['completedToDos']}}</button>
-                            Completed
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-success m-r-sm">{{$orderArray['overdueToDos']}}</button>
-                            Overdue
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        {{--    To Dos    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>To Dos</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
-                        </div>
-                    </div>
-                    <div class="">
-                        <ul class="pending-to-do">
-                            @foreach($order->pending_to_dos as $pendingToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$pendingToDo->due_date}}</small>
-                                        <h4>{{$pendingToDo->name}}</h4>
-                                        <p>{{$pendingToDo->notes}}.</p>
-                                        @if($pendingToDo->is_order === 1)
-                                            <p><span class="badge badge-primary">{{$pendingToDo->order->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('admin.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-
-                        <ul class="in-progress-to-do">
-                            @foreach($order->in_progress_to_dos as $inProgressToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$inProgressToDo->due_date}}</small>
-                                        <h4>{{$inProgressToDo->name}}</h4>
-                                        <p>{{$inProgressToDo->notes}}.</p>
-                                        @if($inProgressToDo->is_order === 1)
-                                            <p><span class="badge badge-primary">{{$inProgressToDo->order->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('admin.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="overdue-to-do">
-                            @foreach($order->overdue_to_dos as $overdueToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$overdueToDo->due_date}}</small>
-                                        <h4>{{$overdueToDo->name}}</h4>
-                                        <p>{{$overdueToDo->notes}}.</p>
-                                        @if($overdueToDo->is_order === 1)
-                                            <p><span class="badge badge-primary">{{$overdueToDo->order->name}}</span></p>
-                                        @endif
-                                        @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
-                                        @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="completed-to-do">
-                            @foreach($order->completed_to_dos as $completedToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$completedToDo->due_date}}</small>
-                                        <h4>{{$completedToDo->name}}</h4>
-                                        <p>{{$completedToDo->notes}}.</p>
-                                        @if($completedToDo->is_order === 1)
-                                            <p><span class="badge badge-primary">{{$completedToDo->order->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('admin.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                </div>
             </div>
         </div>
 
     </div>
 
 @endsection
-
-@include('admin.layouts.modals.order_to_do')
-@include('admin.layouts.modals.order_expense')
-@include('admin.layouts.modals.order_payment')

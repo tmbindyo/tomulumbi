@@ -113,19 +113,19 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="date" class="">
-                                                Date
+                                                Due Date
                                             </label>
-                                            <input required name="date" id="date" type="text" class="form-control" data-toggle="datepicker"/>
-                                            <i>date.</i>
+                                            <input required name="due_date" id="due_date" type="text" class="form-control" data-toggle="datepicker"/>
+                                            <i>due .</i>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="due_date" class="">
-                                                DueDate
+                                                Expiry Date
                                             </label>
-                                            <input required name="due_date" id="due_date" type="text" class="form-control" data-toggle="datepicker"/>
-                                            <i>due date.</i>
+                                            <input required name="expiry_date" id="expiry_date" type="text" class="form-control" data-toggle="datepicker"/>
+                                            <i>expiry date.</i>
                                         </div>
                                     </div>
                                 </div>
@@ -236,21 +236,6 @@
 
     <script>
         $(document).ready(function() {
-            // Set date
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth()+1;
-            var yyyy = today.getFullYear();
-            if (dd < 10){
-                dd = '0'+dd;
-            }
-            if (mm < 10){
-                mm = '0'+mm;
-            }
-            var date = mm + '/' + dd + '/' + yyyy;
-            if(document.getElementById("date")){
-                document.getElementById("date").value = date;
-            }
 
             // Set due date
             var due = new Date();
@@ -267,6 +252,24 @@
             var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
             if(document.getElementById("due_date")){
                 document.getElementById("due_date").value = due_date;
+            }
+
+
+            // Set expiry date
+            var expiry = new Date();
+            expiry.setDate(expiry.getDate() + 14);
+            var expiry_dd = expiry.getDate();
+            var expiry_mm = expiry.getMonth()+1;
+            var expiry_yyyy = expiry.getFullYear();
+            if (dd < 10){
+                expiry_dd = '0'+expiry_dd;
+            }
+            if (expiry_mm < 10){
+                expiry_mm = '0'+expiry_mm;
+            }
+            var expiry_date = expiry_mm + '/' + expiry_dd + '/' + expiry_yyyy;
+            if(document.getElementById("expiry_date")){
+                document.getElementById("expiry_date").value = expiry_date;
             }
         });
 
