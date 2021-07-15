@@ -197,7 +197,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_order" name="is_order" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_order') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                            <input id="is_order" name="is_order" @isset($orderExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_order') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                             <label for="is_order">
                                                 Order
                                             </label>
@@ -209,7 +209,7 @@
                                                 <select name="order" class="order-select form-control input-lg">
                                                     <option selected disabled>Select Order</option>
                                                     @foreach($orders as $order)
-                                                        <option value="{{$order->id}}" >{{$order->order_number}} [{{$order->total}}] ({{$order->created_at}})</option>
+                                                        <option @isset($orderExists) @if($orderExists->id == $order->id) selected @endif @endisset value="{{$order->id}}" >{{$order->order_number}} [{{$order->total}}] ({{$order->created_at}})</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -218,7 +218,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_album" name="is_album" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_album') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                            <input id="is_album" name="is_album" @isset($albumExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_album') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                             <label for="is_album">
                                                 Album
                                             </label>
@@ -231,12 +231,12 @@
                                                     <option selected disabled>Select Album</option>
                                                     <optgroup label="Personal">
                                                         @foreach($personalAlbums as $album)
-                                                            <option value="{{$album->id}}" >{{$album->name}}</option>
+                                                            <option @isset($albumExists) @if($albumExists->id == $album->id) selected @endif @endisset value="{{$album->id}}" >{{$album->name}}</option>
                                                         @endforeach
                                                     </optgroup>
                                                     <optgroup label="Client">
                                                         @foreach($clientProofs as $album)
-                                                            <option value="{{$album->id}}" >{{$album->name}}</option>
+                                                            <option @isset($albumExists) @if($albumExists->id == $album->id) selected @endif @endisset value="{{$album->id}}" >{{$album->name}}</option>
                                                         @endforeach
                                                     </optgroup>
                                                 </select>
@@ -249,7 +249,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_project" name="is_project" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_project') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                            <input id="is_project" name="is_project" @isset($projectExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_project') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                             <label for="is_project">
                                                 Project
                                             </label>
@@ -261,7 +261,7 @@
                                                 <select name="project" class="project-select form-control input-lg">
                                                     <option selected disabled>Select Project</option>
                                                     @foreach($projects as $project)
-                                                        <option value="{{$project->id}}" >{{$project->name}}</option>
+                                                        <option @isset($projectExists) @if($projectExists->id == $project->id) selected @endif @endisset value="{{$project->id}}" >{{$project->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -270,7 +270,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_design" name="is_design" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_design') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                            <input id="is_design" name="is_design" @isset($designExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_design') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                             <label for="is_design">
                                                 Design
                                             </label>
@@ -282,7 +282,7 @@
                                                 <select name="design" class="design-select form-control input-lg">
                                                     <option selected disabled>Select Design</option>
                                                     @foreach($designs as $design)
-                                                        <option value="{{$design->id}}" >{{$design->name}}</option>
+                                                        <option @isset($designExists) @if($designExists->id == $design->id) selected @endif @endisset value="{{$design->id}}" >{{$design->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -294,7 +294,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_transfer" name="is_transfer" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_transfer') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                            <input id="is_transfer" name="is_transfer" @isset($transferExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_transfer') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                             <label for="is_transfer">
                                                 Transfer
                                             </label>
@@ -306,7 +306,7 @@
                                                 <select name="transfer" class="transfer-select form-control input-lg">
                                                     <option selected disabled>Select Transfer</option>
                                                     @foreach($transfers as $transfer)
-                                                        <option value="{{$transfer->id}}" >{{$transfer->reference}} [{{$transfer->amount}}] ({{$transfer->date}})</option>
+                                                        <option @isset($transferExists) @if($transferExists->id == $transfer->id) selected @endif @endisset value="{{$transfer->id}}" >{{$transfer->reference}} [{{$transfer->amount}}] ({{$transfer->date}})</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -315,7 +315,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_campaign" name="is_campaign" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_campaign') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                            <input id="is_campaign" name="is_campaign" @isset($campaignExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_campaign') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                             <label for="is_campaign">
                                                 Campaign
                                             </label>
@@ -327,7 +327,7 @@
                                                 <select name="campaign" class="campaign-select form-control input-lg">
                                                     <option selected disabled>Select Campaign</option>
                                                     @foreach($campaigns as $campaign)
-                                                        <option value="{{$campaign->id}}" >{{$campaign->name}}</option>
+                                                        <option @isset($campaignExists) @if($campaignExists->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}" >{{$campaign->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -339,7 +339,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_asset" name="is_asset" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_asset') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                            <input id="is_asset" name="is_asset" @isset($assetExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_asset') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                             <label for="is_asset">
                                                 Asset
                                             </label>
@@ -351,7 +351,7 @@
                                                 <select name="asset" class="asset-select form-control input-lg">
                                                     <option selected disabled>Select Asset</option>
                                                     @foreach($assets as $asset)
-                                                        <option value="{{$asset->id}}" >{{$asset->name}} [{{$asset->reference}}]</option>
+                                                        <option @isset($assetExists) @if($assetExists->id == $asset->id) selected @endif @endisset value="{{$asset->id}}" >{{$asset->name}} [{{$asset->reference}}]</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -360,7 +360,7 @@
                                     <div class="col-md-2">
                                         {{--  Customer  --}}
                                         <div class="checkbox checkbox-info">
-                                            <input id="is_liability" name="is_liability" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_liability') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                            <input id="is_liability" name="is_liability" @isset($liabilityExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_liability') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                             <label for="is_liability">
                                                 Liability
                                             </label>
@@ -372,7 +372,7 @@
                                                 <select name="liability" class="liability-select form-control input-lg">
                                                     <option selected disabled>Select Liability</option>
                                                     @foreach($liabilities as $liability)
-                                                        <option value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
+                                                        <option @isset($liabilityExists) @if($liabilityExists->id == $liability->id) selected @endif @endisset value="{{$liability->id}}" >{{$liability->reference}} [{{$liability->amount}}] ({{$liability->date}})</option>
                                                     @endforeach
                                                 </select>
                                             </div>

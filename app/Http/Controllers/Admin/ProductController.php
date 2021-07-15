@@ -50,21 +50,12 @@ class ProductController extends Controller
         $products = Product::with('user','status')->withCount('order_products')->get();
         // Get the design status counts
         $productsStatusCount = $this->productsStatusCount();
+        // Types
+        $types = Type::all();
 
 //        return $productsStatusCount;
 
-        return view('admin.store.products',compact('products','user','navbarValues','productsStatusCount'));
-    }
-
-    public function productCreate()
-    {
-        // User
-        $user = $this->getAdmin();
-        // Get the navbar values
-        $navbarValues = $this->getNavbarValues();
-        // Types
-        $types = Type::all();
-        return view('admin.product_create',compact('user','types','navbarValues'));
+        return view('admin.store.products',compact('products','user','navbarValues','productsStatusCount', 'types'));
     }
 
     public function productStore(Request $request)
@@ -111,7 +102,7 @@ class ProductController extends Controller
         $sizes = Size::where('type_id', $product->type_id)->get();
         // product gallery
         $productGallery = ProductGallery::where('product_id',$product_id)->with('upload')->get();
-        return view('admin.product_show',compact('user','product','productGallery','productStatuses','thumbnailSizes','types','priceLists','subTypes','sizes','navbarValues','productViews','productArray'));
+        return view('admin.store.product_show',compact('user','product','productGallery','productStatuses','thumbnailSizes','types','priceLists','subTypes','sizes','navbarValues','productViews','productArray'));
     }
 
     public function productUpdate(Request $request, $product_id)
@@ -119,6 +110,8 @@ class ProductController extends Controller
 
         // User
         $user = $this->getAdmin();
+
+        // return $request;
 
         // Check if product exists and get
         $product = Product::findOrFail($product_id);
@@ -132,7 +125,7 @@ class ProductController extends Controller
         }
         // if has no price list
         $priceList = PriceList::where('product_id',$product_id)->first();
-        if (!($priceList)){
+        if ($request->status == "e5d06435-7df5-45dd-a4e9-e57f538b8366" && !($priceList)){
             return back()->withWarning(__("The product can't be set to live without a price list"));
         }
 

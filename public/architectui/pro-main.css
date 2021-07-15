@@ -1343,7 +1343,12 @@ table.fancytree-ext-table.fancytree-treefocus tbody tr.fancytree-selected {
   color: #3f2848;
   background-color: #cdbed4
 }
-
+.lightBoxGallery {
+    text-align: center;
+  }
+  .lightBoxGallery img {
+    margin: 5px;
+  }
 .list-group-item-alternate.list-group-item-action.active {
   color: #fff;
   background-color: #3f2848;

@@ -9,7 +9,7 @@ class MinioController extends Controller
 {
     public static function getAdminFileUrl($path)
     {
-        $file_url = Storage::cloud()->temporaryUrl($path, \Carbon\Carbon::now()->addSecond(20));
+        $file_url = Storage::cloud()->temporaryUrl($path, \Carbon\Carbon::now()->addHour(2));
         return $file_url;
     }
 

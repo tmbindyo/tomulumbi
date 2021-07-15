@@ -1,0 +1,121 @@
+{{-- edit product modal --}}
+<div class="modal fade editPersonalAlbum" tabindex="-1" role="dialog" aria-labelledby="editPersonalAlbum" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPersonalAlbum">Edit Personal Album {{$album->name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form method="post" action="{{ route('admin.personal.album.update.collection.settings',$album->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                    @csrf
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <div class="position-relative form-group">
+                        <label for="name" class="">
+                            Name
+                        </label>
+                        <input name="name" id="name" value="{{$album->name}}" type="text" class="mb-2 form-control" {{ $errors->has('name') ? ' is-invalid' : '' }} required="required">
+                        <i>name</i>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="date" class="">
+                                    Date
+                                </label>
+                                <input required name="date" id="date" type="text" class="form-control" data-toggle="datepicker"/>
+                                <i>date.</i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="expiry_date" class="">
+                                    Expiry Date
+                                </label>
+                                <input required name="expiry_date" id="expiry_date" type="text" class="form-control" data-toggle="datepicker"/>
+                                <i>expiry date.</i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="position-relative form-group">
+                        <label for="status" class="">
+                            Status
+                        </label>
+                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('status') ? ' is-invalid' : '' }} name="status" id="status" class="sub-type-select form-control input-lg">
+                            <option>Select Status</option>
+                            @foreach($albumStatuses as $albumStatus)
+                                <option value="{{$albumStatus->id}}" @if($albumStatus->id === $album->status_id) selected @endif>{{$albumStatus->name}}</option>
+                            @endforeach
+                        </select>
+                        <i>status</i>
+                    </div>
+
+                    <div class="position-relative form-group">
+                        <label for="thumbnail_size" class="">
+                            Thumbnail Size
+                        </label>
+                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('thumbnail_size') ? ' is-invalid' : '' }} name="thumbnail_size" id="thumbnail_size" class="thumbnail-size-select form-control input-lg">
+                            <option>Select Thumbnail Size</option>
+                            @foreach($thumbnailSizes as $thumbnailSize)
+                                <option value="{{$thumbnailSize->id}}" @if($thumbnailSize->id === $album->thumbnail_size_id) selected @endif>{{$thumbnailSize->name}}</option>
+                            @endforeach
+                        </select>
+                        <i>Adjust the display size of photos in the gallery.</i>
+                    </div>
+
+
+                    <div class="position-relative form-group">
+                        <label for="tag" class="">
+                            Tag
+                        </label>
+                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('tag') ? ' is-invalid' : '' }} name="tags[]" id="tags" class="tag-select form-control input-lg">
+                            <option>Select Tag</option>
+                            @foreach($tags as $tag)
+                                <option value="{{$tag->id}}" @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach >{{$tag->name}}</option>
+                            @endforeach
+                        </select>
+                        <i>tag</i>
+                    </div>
+
+                    <div class="position-relative form-group">
+                        <label for="location" class="">
+                            Location
+                        </label>
+                        <input name="location" id="location" value="{{$album->location}}" type="text" class="mb-2 form-control" {{ $errors->has('location') ? ' is-invalid' : '' }} required="required">
+                        <i>location</i>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-outline btn-block btn-success">{{ __('SAVE') }}</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -7,25 +7,34 @@ use Auth;
 use App\Tag;
 use Storage;
 use App\ToDo;
-use App\Album;
+use App\Asset;
+use App\Order;
 use App\Color;
 use App\Label;
+use Exception;
+use App\Album;
+use App\Design;
 use App\Status;
 use App\Scheme;
 use App\Upload;
 use App\Project;
 use App\Contact;
 use App\AlbumSet;
+use App\Campaign;
+use App\Transfer;
 use App\AlbumTag;
 use App\Category;
+use App\Liability;
+use App\Frequency;
 use App\AlbumImage;
 use App\Orientation;
 use App\CoverDesign;
 use App\ContentAlign;
+use App\AlbumContact;
 use App\ImagePosition;
 use App\AlbumCategory;
-use App\AlbumContact;
 use App\ThumbnailSize;
+use App\ExpenseAccount;
 use App\Traits\UserTrait;
 use App\Traits\AlbumTrait;
 use App\Traits\NavbarTrait;
@@ -68,6 +77,8 @@ class AlbumController extends Controller
 
     public function personalAlbums()
     {
+        // Tags
+        $tags = Tag::all();
         // User
         $user = $this->getAdmin();
         // Get the navbar values
@@ -77,7 +88,7 @@ class AlbumController extends Controller
         // Get albums
         $albums = Album::with('user','status')->where('album_type_id','6fdf4858-01ce-43ff-bbe6-827f09fa1cef')->get();
 //        return $albums;
-        return view('admin.personal_albums',compact('albums','user','navbarValues','personalAlbumsStatusCount'));
+        return view('admin.work.personal_albums',compact('albums','user','navbarValues','personalAlbumsStatusCount','tags'));
     }
 
     public function personalAlbumCreate()
@@ -88,7 +99,7 @@ class AlbumController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.personal_album_create',compact('user','tags','navbarValues'));
+        return view('admin.work.personal_album_create',compact('user','tags','navbarValues'));
     }
 
     public function personalAlbumStore(Request $request)
@@ -188,7 +199,7 @@ class AlbumController extends Controller
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         $albumViewRestrictionEmails = AlbumViewRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
+        return view('admin.work.personal_album_show',compact('album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function personalAlbumShowImages($album_id)
@@ -207,7 +218,7 @@ class AlbumController extends Controller
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
 
-        return view('admin.personal_album_show_images',compact('album','user','albumSets','navbarValues'));
+        return view('admin.work.personal_album_show_images',compact('album','user','albumSets','navbarValues'));
     }
 
     public function personalAlbumDelete($album_id)
@@ -238,8 +249,23 @@ class AlbumController extends Controller
         $album = Album::where('id',$album_id)->with('cover_image')->first();
         if ($album->cover_image){
             // delete file
-            Storage::disk('linode')->delete($album->cover_image->pixels750);
+            // $file_exists = Storage::disk('linode')->get($album->cover_image->pixels750);
+            // return $file_exists;
+            // Storage::disk('linode')->delete($album->cover_image->pixels750);
 
+            try {
+                if ($album->cover_image->pixels750) {
+
+                    if(Storage::disk('linode')->exists($album->cover_image->pixels750)) {
+                        Storage::disk('linode')->delete($album->cover_image->pixels750);
+                    }
+                }
+            } catch (Exception $e) {
+                report($e);
+
+                // return $e;
+
+            }
         }
         $folderName = str_replace(' ', '', "work/PersonalAlbums/".$album->name);
 
@@ -394,7 +420,10 @@ class AlbumController extends Controller
 
         $album->name = $request->name;
         $album->date = date('Y-m-d', strtotime($request->date));
+        $album->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
         $album->status_id = $request->status;
+        $album->thumbnail_size_id = $request->thumbnail_size;
+        $album->location = $request->location;
         $album->save();
 
         // Album tags update
@@ -733,9 +762,13 @@ class AlbumController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get the client proof status counts
         $clientProofsStatusCount = $this->clientProofsStatusCount();
+        // Tags
+        $tags = Tag::all();
+        // Contacts
+        $contacts = Contact::all();
         // Get albums
         $albums = Album::with('user','status')->where('album_type_id','ca64a5e0-d39b-4f2c-a136-9c523d935ea4')->get();
-        return view('admin.client_proofs',compact('albums','user','navbarValues','clientProofsStatusCount'));
+        return view('admin.work.client_proofs',compact('albums','user','navbarValues','clientProofsStatusCount', 'contacts', 'tags'));
     }
 
     public function clientProofCreate()
@@ -748,7 +781,7 @@ class AlbumController extends Controller
         $navbarValues = $this->getNavbarValues();
         // User
         $user = $this->getAdmin();
-        return view('admin.client_proof_create',compact('user','tags','contacts','navbarValues'));
+        return view('admin.work.client_proof_create',compact('user','tags','contacts','navbarValues'));
     }
 
     public function clientProofStore(Request $request)
@@ -881,7 +914,7 @@ class AlbumController extends Controller
         // album restricted emails
         $albumViewRestrictionEmails = AlbumViewRestrictionEmail::where('album_id',$album_id)->get();
 
-        return view('admin.client_proof_show',compact('albumContacts','contacts','album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
+        return view('admin.work.client_proof_show',compact('albumContacts','contacts','album','user','albumSets','tags','albumTags','albumStatuses','albumViewRestrictionEmails', 'albums', 'colors','schemes','orientations','contentAligns','imagePositions','coverDesigns','orientations','thumbnailSizes','navbarValues','albumViewsAndDownloads','albumArray'));
     }
 
     public function clientProofShowImages($album_id)
@@ -900,7 +933,7 @@ class AlbumController extends Controller
         // Album Sets
         $albumSets = AlbumSet::where('album_id',$album->id)->with('status','user','album_images.upload','album_set_favourites','album_set_downloads')->withCount('album_images')->orderBy('created_at', 'asc')->get();
 
-        return view('admin.client_proof_show_images',compact('album','user','albumSets','navbarValues','albumArray'));
+        return view('admin.work.client_proof_show_images',compact('album','user','albumSets','navbarValues','albumArray'));
     }
 
     public function clientProofDelete($album_id)
@@ -933,6 +966,7 @@ class AlbumController extends Controller
 
         $album = Album::findOrFail($album_id);
         $album->name = $request->name;
+        $album->thumbnail_size_id = $request->thumbnail_size;
         $album->date = date('Y-m-d', strtotime($request->date));
         $album->expiry_date = date('Y-m-d', strtotime($request->expiry_date));
         $album->status_id = $request->status;
@@ -1024,6 +1058,8 @@ class AlbumController extends Controller
 
         $pixel100FolderName = str_replace(' ', '', $folderName."/Cover Image"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
+        $pixel300FolderName = str_replace(' ', '', $folderName."/Cover Image"."/300/");
+        File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
         $pixel750FolderName = str_replace(' ', '', $folderName."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
         $pixel1500FolderName = str_replace(' ', '', $folderName."/Cover Image"."/1500/");
@@ -1050,6 +1086,9 @@ class AlbumController extends Controller
             $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $smallMediumImage = Image::make( $path )->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
             $mediumImage = Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
@@ -1064,6 +1103,9 @@ class AlbumController extends Controller
             $smallImage = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name)->encode();
+            $smallMediumImage = Image::make( $path )->resize(null, 750, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name)->encode();
             $mediumImage = Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name)->encode();
@@ -1075,6 +1117,7 @@ class AlbumController extends Controller
 
         // upload image
         $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $smallImage);
+        $created = Storage::disk('linode')->put( $pixel300FolderName.'/'.$image_name, (string) $mediumImage);
         $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $mediumImage);
         $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $largeImage);
 
@@ -1240,42 +1283,49 @@ class AlbumController extends Controller
 
     public function generateClientProofPassword ($album_id) {
         $password = $this->generatePassword();
-        return $password;
+
+        return response()->json([
+            $password
+        ]);
     }
 
     public function generateClientProofPin ($album_id) {
         $pin = $this->generatePin();
-        return $pin;
+
+        return response()->json([
+            $pin
+        ]);
     }
 
-    public function clientProofViewRestrictionEmail ($album_id,$email) {
-        // Remove appended %7D
-        $remove = '%7D' ;
-        $trimmed = str_replace($remove, '', $album_id) ;
+    public function clientProofViewRestrictionEmail(Request $request, $album_id)
+    {
 
-        $album = Album::where('id', $trimmed)->first();
+        $album = Album::where('id', $album_id)->first();
 
         // TODO check if already exists
-        $albumViewRestrictionEmail = AlbumViewRestrictionEmail::where('album_id',$album->id)->where('email',$email)->first();
+        $albumViewRestrictionEmail = AlbumViewRestrictionEmail::where('album_id',$album->id)->where('email',$request->email)->first();
         if($albumViewRestrictionEmail){
             if($albumViewRestrictionEmail->expiry<date("Y-m-d")){
                 // expired
                 $albumViewRestrictionEmail->expiry = date('Y-m-d', strtotime(date("Y-m-d") . "+7 day") );
                 $albumViewRestrictionEmail->save();
-                echo 'Client proof '.$album->name.' for '.$email.' has been extended by a week.';
+                $message = 'Client proof '.$album->name.' for '.$request->email.' has been extended by a week.';
+                return back()->withDanger($message);
             }else{
-                echo 'Client proof '.$album->name.' already has '.$email.' as a restriction';
+                $message = 'Client proof '.$album->name.' already has '.$request->email.' as a restriction';
+                return back()->withWarning($message);
             }
 
         }else{
             $albumViewRestrictionEmail = new AlbumViewRestrictionEmail();
             $albumViewRestrictionEmail->album_id = $album->id;
             $albumViewRestrictionEmail->expiry = date('Y-m-d', strtotime(date("Y-m-d") . "+1 months") );
-            $albumViewRestrictionEmail->email = $email;
+            $albumViewRestrictionEmail->email = $request->email;
             $albumViewRestrictionEmail->status_id = "c670f7a2-b6d1-4669-8ab5-9c764a1e403e";
             $albumViewRestrictionEmail->user_id = Auth::user()->id;
             $albumViewRestrictionEmail->save();
-            echo 'Client proof '.$album->name.' restricted to '.$email;
+            $message = 'Client proof '.$album->name.' restricted to '.$request->email;
+            return back()->withSuccess($message);
         }
 
 
@@ -1556,16 +1606,54 @@ class AlbumController extends Controller
         return back()->withSuccess('Album image deleted!');
     }
 
+    public function personalAlbumCreateExpense($album_id)
+    {
+        $albumExists = Album::findOrFail($album_id);
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+
+        // expense accounts
+        $expenseAccounts = ExpenseAccount::all();
+        // get orders
+        $orders = Order::with('status')->get();
+        // expense statuses
+        $expenseStatuses = Status::where('status_type_id','7805a9f3-c7ca-4a09-b021-cc9b253e2810')->get();
+        // get albums
+        $personalAlbums = Album::where('album_type_id','6fdf4858-01ce-43ff-bbe6-827f09fa1cef')->with('album_type')->get();
+        $clientProofs = Album::where('album_type_id','ca64a5e0-d39b-4f2c-a136-9c523d935ea4')->with('album_type')->get();
+        // get projects
+        $projects = Project::with('status')->get();
+        // get design
+        $designs = Design::with('status')->get();
+        // get transfers
+        $transfers = Transfer::all();
+        // get campaign
+        $campaigns = Campaign::all();
+        // get asset
+        $assets = Asset::all();
+        // get liabilities
+        $liabilities = Liability::all();
+        // get frequencies
+        $frequencies = Frequency::all();
+        // get contacts
+        $contacts = Contact::with('organization')->get();
+
+
+        return view('admin.accounting.expense_create',compact('albumExists','liabilities','assets','campaigns','orders','user','navbarValues','clientProofs','personalAlbums','projects','designs','frequencies','expenseAccounts','transfers','expenseStatuses','contacts'));
+    }
+
     public function personalAlbumCreateJournal($album_id)
     {
-        $album = Album::findOrFail($album_id);
+        $albumExists = Album::findOrFail($album_id);
         // User
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         // Labels
         $labels = Label::all();
-        return view('admin.album_journal_create',compact('album','user','labels','navbarValues'));
+        return view('admin.work.journal_create',compact('albumExists','user','labels','navbarValues'));
     }
 
 }

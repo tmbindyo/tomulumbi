@@ -451,6 +451,10 @@ Route::get('/personal/album/show/images/{album_id}', 'Admin\AlbumController@pers
 Route::get('/personal/album/create/journal/{album_id}', 'Admin\AlbumController@personalAlbumCreateJournal')->name('admin.personal.album.create.journal');
 Route::get('/personal/album/image/status/{image_id}', 'Admin\AlbumController@personalAlbumImageStatus')->name('admin.personal.album.image.status');
 
+
+Route::get('/personal/album/create/expense/{album_id}', 'Admin\AlbumController@personalAlbumCreateExpense')->name('admin.personal.album.create.expense');
+
+
 Route::post('/personal/album/update/{album_id}', 'Admin\AlbumController@personalAlbumUpdate')->name('admin.personal.album.update');
 Route::get('/personal/album/delete/{album_id}', 'Admin\AlbumController@personalAlbumDelete')->name('admin.personal.album.delete');
 Route::get('/personal/album/restore/{album_id}', 'Admin\AlbumController@personalAlbumRestore')->name('admin.personal.album.restore');
@@ -477,7 +481,7 @@ Route::post('/client/proof/set/cover/image/{album_id}', 'Admin\AlbumController@c
 Route::post('/client/proof/update/download/{album_id}', 'Admin\AlbumController@clientProofUpdateDownload')->name('admin.client.proof.update.download');
 Route::get('/client/proof/generate/password/{album_id}', 'Admin\AlbumController@generateClientProofPassword')->name('admin.client.proof.generate.password');
 Route::get('/client/proof/generate/pin/{album_id}', 'Admin\AlbumController@generateClientProofPin')->name('admin.client.proof.generate.pin');
-Route::get('/client/proof/restrict/to/specific/{album_id}/email/{email}', 'Admin\AlbumController@clientProofViewRestrictionEmail')->name('admin.client.proof.restrict.to.specific.email');
+Route::post('/client/proof/restrict/to/specific/{album_id}', 'Admin\AlbumController@clientProofViewRestrictionEmail')->name('admin.client.proof.restrict.to.specific.email');
 Route::get('/client/proof/restrict/to/specific/email/delete/{restriction_email_id}', 'Admin\AlbumController@clientProofViewRestrictionEmailDelete')->name('admin.client.proof.restrict.to.specific.email.delete');
 
 // Album set
@@ -485,7 +489,6 @@ Route::post('/client/proof/set/{album_id}/store', 'Admin\AlbumController@clientP
 Route::get('/client/proof/set/show/{album_set_id}', 'Admin\AlbumController@clientProofSetShow')->name('admin.client.proof.set.show');
 Route::get('/client/proof/set/status/{album_set_id}', 'Admin\AlbumController@clientProofSetStatus')->name('admin.client.proof.set.status');
 Route::post('/client/proof/set/image/upload/{album_set_id}', 'Admin\AlbumController@clientProofSetImageUpload')->name('admin.client.proof.set.image.upload');
-Route::get('/client/proof/set/restrict/to/specific/{album_id}/email/{email}', 'Admin\AlbumController@clientProofSetViewRestrictionEmail')->name('admin.client.proof.set.restrict.to.specific.email');
 Route::get('/client/proof/set/restrict/to/specific/email/delete/{restriction_email_id}', 'Admin\AlbumController@clientProofSetViewRestrictionEmailDelete')->name('admin.client.proof.set.restrict.to.specific.email.delete');
 
 Route::get('/album/image/delete/{album_image_id}', 'Admin\AlbumController@albumImageDelete')->name('admin.album.image.delete');

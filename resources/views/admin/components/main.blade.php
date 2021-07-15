@@ -24,6 +24,8 @@
 
     <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css" rel="stylesheet">
 
+    @yield ('css')
+
 </head>
 
 <body>
@@ -172,6 +174,9 @@
                 $('.campaign-select').select2();
             });
             $(document).ready(function() {
+                $('.color-select').select2();
+            });
+            $(document).ready(function() {
                 $('.contact-select').select2();
             });
             $(document).ready(function() {
@@ -179,6 +184,12 @@
             });
             $(document).ready(function() {
                 $('.contact-liability-select').select2();
+            });
+            $(document).ready(function() {
+                $('.content-align-select').select2();
+            });
+            $(document).ready(function() {
+                $('.cover-design-select').select2();
             });
             $(document).ready(function() {
                 $('.design-select').select2();
@@ -200,6 +211,9 @@
             });
             $(document).ready(function() {
                 $('.kit-select').select2();
+            });
+            $(document).ready(function() {
+                $('.image-position-select').select2();
             });
             $(document).ready(function() {
                 $('.kit-action-select').select2();
@@ -229,13 +243,28 @@
                 $('.order-status-select').select2();
             });
             $(document).ready(function() {
+                $('.orientation-select').select2();
+            });
+            $(document).ready(function() {
                 $('.price-list-select').select2();
             });
             $(document).ready(function() {
                 $('.size-select').select2();
             });
             $(document).ready(function() {
+                $('.scheme-select').select2();
+            });
+            $(document).ready(function() {
                 $('.status-select').select2();
+            });
+            $(document).ready(function() {
+                $('.sub-type-select').select2();
+            });
+            $(document).ready(function() {
+                $('.tag-select').select2();
+            });
+            $(document).ready(function() {
+                $('.thumbnail-size-select').select2();
             });
             $(document).ready(function() {
                 $('.transfer-destination-account-select').select2();
