@@ -291,6 +291,9 @@
                 $('.price-list-select').select2();
             });
             $(document).ready(function() {
+                $('.letter-tag-select').select2();
+            });
+            $(document).ready(function() {
                 $('.size-select').select2();
             });
             $(document).ready(function() {

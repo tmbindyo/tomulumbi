@@ -47,8 +47,10 @@ class LetterController extends Controller
         $letters = Letter::with('user','status','letterLetterTags')->get();
         // get letter statuses
         $letterStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
+        // letter tags
+        $letterTags = LetterTag::all();
 
-        return view('admin.letters',compact('letters','user','navbarValues','lettersStatusCount', 'letterStatuses'));
+        return view('admin.work.letters',compact('letters','user','navbarValues','lettersStatusCount', 'letterStatuses','letterTags'));
     }
 
     public function letterCreate()
@@ -107,7 +109,35 @@ class LetterController extends Controller
         // Letter status
         $letterStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
-        return view('admin.letter_show',compact('user','letter','letterStatuses','letterTags','navbarValues','letterArray'));
+        return view('admin.work.letter_show',compact('user','letter','letterStatuses','letterTags','navbarValues','letterArray'));
+    }
+
+    public function letterTextShow($letter_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get letter
+        $letter = Letter::findOrFail($letter_id);
+        $letter = Letter::where('id',$letter_id)->with('user','status','cover_image')->first();
+
+        return view('admin.work.letter_text_show',compact('user','letter','navbarValues'));
+    }
+
+    public function letterTextUpdate(Request $request, $letter_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+
+        // Check if letter exists and get
+        $letter = Letter::findOrFail($letter_id);
+        $letter->body = $request->body;
+        $letter->save();
+
+        return back()->withSuccess(__('Journal successfully uploaded.'));
     }
 
     public function letterUpdate(Request $request, $letter_id)
@@ -127,7 +157,7 @@ class LetterController extends Controller
         $letter->name = $request->name;
         $letter->description = $request->description;
         $letter->body = $request->body;
-        $letter->status_id = $request->status;
+        $letter->status_id = $request->letter_status;
         $letter->date = date('Y-m-d', strtotime($request->date));
         $letter->save();
 

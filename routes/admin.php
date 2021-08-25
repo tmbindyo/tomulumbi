@@ -542,6 +542,9 @@ Route::get('/letter/create', 'Admin\LetterController@letterCreate')->name('admin
 Route::post('/letter/store', 'Admin\LetterController@letterStore')->name('admin.letter.store');
 Route::get('/letter/show/{letter_id}', 'Admin\LetterController@letterShow')->name('admin.letter.show');
 
+Route::get('/letter/text/show/{letter_id}', 'Admin\letterController@letterTextShow')->name('admin.letter.text.show');
+Route::post('/letter/text/update/{letter_id}', 'Admin\letterController@letterTextUpdate')->name('admin.letter.text.update');
+
 Route::post('/letter/update/{letter_id}', 'Admin\LetterController@letterUpdate')->name('admin.letter.update');
 Route::post('/letter/cover/image/{letter_id}', 'Admin\LetterController@letterCoverImageUpload')->name('admin.letter.cover.image');
 Route::post('/letter/update/design/{letter_id}', 'Admin\LetterController@letterUpdateDesign')->name('admin.letter.update.design');
