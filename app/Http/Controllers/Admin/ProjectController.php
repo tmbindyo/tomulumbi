@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Tag;
 use Storage;
 use App\ToDo;
+use App\Deal;
 use App\Album;
 use App\Label;
 use App\Status;
 use App\Design;
+use App\Tudeme;
 use App\Upload;
 use App\Journal;
 use App\Contact;
@@ -58,8 +60,11 @@ class ProjectController extends Controller
         $projectsStatusCount = $this->projectsStatusCount();
         // Get albums
         $projects = Project::with('user','status','project_type')->get();
-
-        return view('admin.projects',compact('projects','user','navbarValues','projectsStatusCount'));
+        // contacts
+        $contacts = Contact::all();
+        // project types
+        $projectTypes = ProjectType::all();
+        return view('admin.work.projects',compact('projects','user','navbarValues','projectsStatusCount', 'projectTypes', 'contacts'));
     }
 
     public function projectCreate()
@@ -68,11 +73,11 @@ class ProjectController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        // Tags
+        // contacts
         $contacts = Contact::all();
         // project types
         $projectTypes = ProjectType::all();
-        return view('admin.project_create',compact('user','contacts','projectTypes','navbarValues'));
+        return view('admin.work.project_create',compact('user','contacts','projectTypes','navbarValues'));
     }
 
     public function projectStore(Request $request)
@@ -129,7 +134,7 @@ class ProjectController extends Controller
         // project types
         $projectTypes = ProjectType::all();
         // Get project
-        $project = Project::findOrFail($project_id);
+        $projectExists = Project::findOrFail($project_id);
         $project = Project::where('id',$project_id)->with('user','status','cover_image')->first();
         // project albums
         $projectAlbums = Album::with('user','status')->where('project_id',$project_id)->withCount('album_views')->get();
@@ -141,8 +146,19 @@ class ProjectController extends Controller
         $projectContacts = ProjectContact::where('project_id',$project_id)->get();
         // Project status
         $projectStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
-
-        return view('admin.project_show',compact('projectContacts','projectJournals','projectDesigns','projectAlbums','user','contacts','project','projectStatuses','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews'));
+        // Tags
+        $tags = Tag::all();
+        // Contacts
+        $contacts = Contact::all();
+        // Projects
+        $projects = Project::all();
+        // Design
+        $designs = Design::all();
+        // Tudeme
+        $tudemes = Tudeme::all();
+        // Deal
+        $deals = Deal::all();
+        return view('admin.work.project_show',compact('projectContacts','projectJournals','projectDesigns','projectAlbums','user','contacts','project','projectStatuses','thumbnailSizes','projectTypes','navbarValues','projectArray','projectViews','tags','contacts','projectExists','projects','designs','tudemes','deals'));
     }
 
     public function projectPersonalAlbumCreate($project_id)
@@ -253,6 +269,37 @@ class ProjectController extends Controller
 
 
         return back()->withSuccess(__('Project successfully uploaded.'));
+    }
+
+
+    public function projectTextShow($project_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get project
+        $project = Project::findOrFail($project_id);
+        $project = Project::where('id',$project_id)->with('user','status','cover_image')->first();
+
+        return view('admin.work.project_text_show',compact('user','project','navbarValues'));
+    }
+
+    public function projectTextUpdate(Request $request, $project_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+
+        // Check if project exists and get
+        $project = Project::findOrFail($project_id);
+
+        $project->body = $request->body;
+        $project->save();
+
+
+        return back()->withSuccess(__('Project text successfully uploaded.'));
     }
 
     public function projectCoverImageUpload(Request $request,$project_id)

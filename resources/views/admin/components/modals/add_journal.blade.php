@@ -1,16 +1,16 @@
 {{-- add action type modal --}}
-<div class="modal fade addClientProof" tabindex="-1" role="dialog" aria-labelledby="addClientProof" aria-hidden="true">
+<div class="modal fade addJournal" tabindex="-1" role="dialog" aria-labelledby="addJournal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addClientProof">Add Client Proof</h5>
+                <h5 class="modal-title" id="addJournal">Add Journal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin.client.proof.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.journal.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())
@@ -27,70 +27,52 @@
                         <label for="name" class="">
                             Name
                         </label>
-                        <input name="name" id="client_proof_name" placeholder="name" type="text" class="mb-2 form-control" {{ $errors->has('name') ? ' is-invalid' : '' }} required="required">
+                        <input name="name" id="journal_name" placeholder="name" type="text" class="mb-2 form-control" {{ $errors->has('name') ? ' is-invalid' : '' }} required="required">
                         <i>name</i>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="position-relative form-group">
-                                <label for="date" class="">
-                                    Date
-                                </label>
-                                <input required name="date" id="client_proof_date" type="text" class="form-control" data-toggle="datepicker"/>
-                                <i>date.</i>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="position-relative form-group">
-                                <label for="expiry_date" class="">
-                                    Expiry Date
-                                </label>
-                                <input required name="expiry_date" id="client_proof_expiry_date" type="text" class="form-control" data-toggle="datepicker"/>
-                                <i>expiry date.</i>
-                            </div>
-                        </div>
+                    <div class="position-relative form-group">
+                        <label for="date" class="">
+                            Date
+                        </label>
+                        <input required name="date" id="date" type="text" class="form-control" data-toggle="datepicker"/>
+                        <i>date.</i>
                     </div>
 
                     <div class="position-relative form-group">
-                        <label for="tag" class="">
-                            Tag
+                        <label for="color" class="">
+                            Color
                         </label>
-                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('tag') ? ' is-invalid' : '' }} name="tags[]" id="client_proof_tag" class="client-proof-tag-select form-control input-lg">
-                            <option>Select Tag</option>
-                            @foreach($tags as $tag)
-                                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                        <input type="color" name="color" class="form-control demo1  input-lg" value="#fffef4" />
+                        <i>color</i>
+                    </div>
+
+                    <div class="position-relative form-group">
+                        <label for="label" class="">
+                            Label
+                        </label>
+                        <select name="labels[]" style="width: 100%" class="label-select form-control input-lg" multiple="multiple">
+                            <option selected disabled>Select Label</option>
+                            @foreach($labels as $label)
+                                <option value="{{$label->id}}">{{$label->name}}</option>
                             @endforeach
                         </select>
-                        <i>tag</i>
+                        <i>label</i>
                     </div>
 
                     <div class="position-relative form-group">
-                        <label for="tag" class="">
-                            Contact
+                        <label for="description" class="">
+                            Description
                         </label>
-                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('tag') ? ' is-invalid' : '' }} name="contacts[]" id="contact" class="contact-select form-control input-lg">
-                            <option>Select Contact</option>
-                            @foreach($contacts as $contact)
-                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
-                            @endforeach
-                        </select>
-                        <i>tag</i>
-                    </div>
-
-                    <div class="position-relative form-group">
-                        <label for="location" class="">
-                            Location
-                        </label>
-                        <input name="location" id="client_proof_location" placeholder="location" type="text" class="mb-2 form-control" {{ $errors->has('location') ? ' is-invalid' : '' }} required="required">
-                        <i>location</i>
+                        <textarea id="description" name="description" class="mb-2 form-control {{ $errors->has('description') ? ' is-invalid' : '' }}"></textarea>
+                        <i>description</i>
                     </div>
 
                     <div class="row">
                         <div class="col-md-2">
                             {{--  Customer  --}}
                             <div class="checkbox checkbox-info">
-                                <input id="is_client_proof_project" name="is_project" @isset($projectExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_project') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                <input id="is_journal_project" name="is_project" @isset($projectExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_project') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                 <label for="is_project">
                                     Project
                                 </label>
@@ -115,7 +97,7 @@
                         <div class="col-md-2">
                             {{--  Customer  --}}
                             <div class="checkbox checkbox-info">
-                                <input id="is_client_proof_design" name="is_design" @isset($designExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_design') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                <input id="is_journal_design" name="is_design" @isset($designExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_design') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                 <label for="is_design">
                                     Design
                                 </label>
@@ -142,7 +124,34 @@
                         <div class="col-md-2">
                             {{--  Customer  --}}
                             <div class="checkbox checkbox-info">
-                                <input id="is_client_proof_tudeme" name="is_tudeme" @isset($tudemeExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_tudeme') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                <input id="is_journal_album" name="is_album" @isset($albumExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_album') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                <label for="is_album">
+                                    Album
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="has-warning">
+                                <div class="has-warning">
+                                    <select name="album" style="width: 100%" class="album-select form-control input-lg">
+                                        <option selected disabled>Select Design</option>
+                                        @foreach($albums as $album)
+                                            <option @isset($albumExists) @if($albumExists->id == $album->id) selected @endif @endisset value="{{$album->id}}" >{{$album->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <i>album</i>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{--  Customer  --}}
+                            <div class="checkbox checkbox-info">
+                                <input id="is_journal_tudeme" name="is_tudeme" @isset($tudemeExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_tudeme') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
                                 <label for="is_tudeme">
                                     Tudeme
                                 </label>
@@ -169,23 +178,23 @@
                         <div class="col-md-2">
                             {{--  Customer  --}}
                             <div class="checkbox checkbox-info">
-                                <input id="is_client_proof_deal" name="is_deal" @isset($dealExists) checked @endisset type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_deal') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
-                                <label for="is_deal">
-                                    Deal
+                                <input id="is_journal_series_journal_series" name="is_journal_series" type="checkbox" data-on="Yes" data-off="No" {{ $errors->has('is_journal_series') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal">
+                                <label for="is_journal_series">
+                                    Journal Series
                                 </label>
                             </div>
                         </div>
                         <div class="col-md-10">
                             <div class="has-warning">
                                 <div class="has-warning">
-                                    <select name="deal" style="width: 100%" class="deal-select form-control input-lg">
-                                        <option selected disabled>Select Deal</option>
-                                        @foreach($deals as $deal)
-                                            <option @isset($dealExists) @if($dealExists->id == $deal->id) selected @endif @endisset value="{{$deal->id}}" >{{$deal->name}}</option>
+                                    <select name="deal" style="width: 100%" class="journal-series-select form-control input-lg">
+                                        <option selected disabled>Select Journal Series</option>
+                                        @foreach($journalSeries as $journal)
+                                            <option value="{{$journal->id}}" >{{$journal->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <i>deal</i>
+                                <i>journal series</i>
                             </div>
                         </div>
                     </div>

@@ -520,6 +520,9 @@ Route::get('/project/create', 'Admin\ProjectController@projectCreate')->name('ad
 Route::post('/project/store', 'Admin\ProjectController@projectStore')->name('admin.project.store');
 Route::get('/project/show/{project_id}', 'Admin\ProjectController@projectShow')->name('admin.project.show');
 
+Route::get('/project/text/show/{project_id}', 'Admin\ProjectController@projectTextShow')->name('admin.project.text.show');
+Route::post('/project/text/update/{project_id}', 'Admin\ProjectController@projectTextUpdate')->name('admin.project.text.update');
+
 Route::get('/project/personal/album/create/{project_id}', 'Admin\ProjectController@projectPersonalAlbumCreate')->name('admin.project.personal.album.create');
 Route::get('/project/client/proof/create/{project_id}', 'Admin\ProjectController@projectClientProofCreate')->name('admin.project.client.proof.create');
 Route::get('/project/design/create/{project_id}', 'Admin\ProjectController@projectDesignCreate')->name('admin.project.design.create');
@@ -563,6 +566,10 @@ Route::get('/journals', 'Admin\JournalController@journals')->name('admin.journal
 Route::get('/journal/create', 'Admin\JournalController@journalCreate')->name('admin.journal.create');
 Route::post('/journal/store', 'Admin\JournalController@journalStore')->name('admin.journal.store');
 Route::get('/journal/show/{journal_id}', 'Admin\JournalController@journalShow')->name('admin.journal.show');
+
+Route::get('/journal/text/show/{journal_id}', 'Admin\JournalController@journalTextShow')->name('admin.journal.text.show');
+Route::post('/journal/text/update/{journal_id}', 'Admin\JournalController@journalTextUpdate')->name('admin.journal.text.update');
+
 Route::post('/journal/update/{journal_id}', 'Admin\JournalController@journalUpdate')->name('admin.journal.update');
 Route::post('/journal/cover/image/{journal_id}', 'Admin\JournalController@journalCoverImageUpload')->name('admin.journal.cover.image');
 Route::post('/journal/update/design/{journal_id}', 'Admin\JournalController@journalUpdateDesign')->name('admin.journal.update.design');
@@ -576,6 +583,10 @@ Route::get('/tudeme/create', 'Admin\TudemeController@tudemeCreate')->name('admin
 Route::post('/tudeme/store', 'Admin\TudemeController@tudemeStore')->name('admin.tudeme.store');
 Route::get('/tudeme/show/{tudeme_id}', 'Admin\TudemeController@tudemeShow')->name('admin.tudeme.show');
 Route::post('/tudeme/update/{tudeme_id}', 'Admin\TudemeController@tudemeUpdate')->name('admin.tudeme.update');
+
+Route::get('/tudeme/text/show/{journal_id}', 'Admin\TudemeController@tudemeTextShow')->name('admin.tudeme.text.show');
+Route::post('/tudeme/text/update/{journal_id}', 'Admin\TudemeController@tudemeTextUpdate')->name('admin.tudeme.text.update');
+
 Route::post('/tudeme/cover/image/{tudeme_id}', 'Admin\TudemeController@tudemeCoverImageUpload')->name('admin.tudeme.cover.image');
 Route::post('/tudeme/spread/{tudeme_id}', 'Admin\TudemeController@tudemeSpreadUpload')->name('admin.tudeme.spread.image');
 Route::post('/tudeme/icon/{tudeme_id}', 'Admin\TudemeController@tudemeIconUpload')->name('admin.tudeme.icon.image');

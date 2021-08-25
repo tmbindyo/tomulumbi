@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use DB;
 use Storage;
 use App\ToDo;
+use App\Album;
 use App\Label;
+use App\Design;
 use App\Upload;
+use App\Tudeme;
 use App\Status;
 use App\Project;
 use App\Contact;
@@ -52,7 +55,7 @@ class JournalController extends Controller
         $navbarValues = $this->getNavbarValues();
         // get journal series
         $journalSeries = JournalSeries::all();
-        return view('admin.journal_series_create',compact('journalSeries','user','navbarValues'));
+        return view('admin.work.journal_series_create',compact('journalSeries','user','navbarValues'));
     }
 
     public function journalSeriesStore(Request $request)
@@ -94,7 +97,7 @@ class JournalController extends Controller
         // project journals
         $journalSeriesJournals = Journal::with('user','status')->where('journal_series_id',$journal_series_id)->get();
 
-        return view('admin.journal_series_show',compact('journalSeriesJournals','journalSeries','journalSerieses','user','navbarValues'));
+        return view('admin.work.journal_series_show',compact('journalSeriesJournals','journalSeries','journalSerieses','user','navbarValues'));
     }
 
     public function journalSeriesJournalCreate($journal_series_id)
@@ -124,9 +127,17 @@ class JournalController extends Controller
         $journals = Journal::with('user','status')->get();
         // get journal series
         $journalSeries = JournalSeries::with('user','status')->withCount('journals')->get();
-
-
-        return view('admin.journals',compact('journalSeries','journals','user','navbarValues','journalsStatusCount'));
+        // get albums
+        $albums = Album::with('user','status')->get();
+        // Projects
+        $projects = Project::all();
+        // Design
+        $designs = Design::all();
+        // Tudeme
+        $tudemes = Tudeme::all();
+        // Label
+        $labels = Label::all();
+        return view('admin.work.journals',compact('journalSeries','journals','user','navbarValues','journalsStatusCount','albums','projects','designs','tudemes','labels'));
     }
 
     public function journalCreate()
@@ -137,7 +148,7 @@ class JournalController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Labels
         $labels = Label::all();
-        return view('admin.journal_create',compact('user','labels','navbarValues'));
+        return view('admin.work.journal_create',compact('user','labels','navbarValues'));
     }
 
     public function journalStore(Request $request)
@@ -218,7 +229,31 @@ class JournalController extends Controller
         $journalStatuses = Status::where('status_type_id','12a49330-14a5-41d2-b62d-87cdf8b252f8')->get();
 
         $journalLabels = JournalLabel::where('journal_id',$journal_id)->with('journal','label')->get();
-        return view('admin.journal_show',compact('user','journal','journalStatuses','thumbnailSizes','labels','journalLabels','navbarValues','journalArray','journalViews'));
+        // projects
+        $projects = Project::all();
+        // designs
+        $designs = Design::all();
+        // albums
+        $albums = Album::all();
+        // tudemes
+        $tudemes = Tudeme::all();
+        // journal series
+        $journalSeries = JournalSeries::all();
+        return view('admin.work.journal_show',compact('user','journal','journalStatuses','thumbnailSizes','labels','journalLabels','navbarValues','journalArray','journalViews','projects', 'designs', 'albums', 'tudemes', 'journalSeries'));
+    }
+
+    public function journalTextShow($journal_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get journal
+        $journal = Journal::findOrFail($journal_id);
+        $journal = Journal::where('id',$journal_id)->with('user','status','cover_image')->first();
+
+        return view('admin.work.journal_text_show',compact('user','journal','navbarValues'));
     }
 
     public function journalUpdate(Request $request, $journal_id)
@@ -265,6 +300,21 @@ class JournalController extends Controller
         $journal->color = $request->color;
         $journal->status_id = $request->status;
         $journal->date = date('Y-m-d', strtotime($request->date));
+        $journal->save();
+
+
+        return back()->withSuccess(__('Journal successfully uploaded.'));
+    }
+
+    public function journalTextUpdate(Request $request, $journal_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+
+        // Check if journal exists and get
+        $journal = Journal::findOrFail($journal_id);
+        $journal->body = $request->body;
         $journal->save();
 
 

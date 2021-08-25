@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Auth;
 use App\Tag;
 use Storage;
+use App\Deal;
 use App\ToDo;
 use App\Album;
 use App\Label;
@@ -12,6 +13,8 @@ use App\Design;
 use App\Upload;
 use App\Client;
 use App\Status;
+use App\Tudeme;
+use App\Project;
 use App\Journal;
 use App\Contact;
 use App\Category;
@@ -55,8 +58,12 @@ class DesignController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get the design status counts
         $designsStatusCount = $this->designsStatusCount();
+        // Tags
+        $contacts = Contact::all();
+        // Categories
+        $categories = Category::all();
 
-        return view('admin.designs',compact('designs','user','navbarValues','designsStatusCount'));
+        return view('admin.work.designs',compact('designs','user','navbarValues','designsStatusCount', 'contacts', 'categories'));
     }
 
     public function designCreate()
@@ -70,7 +77,7 @@ class DesignController extends Controller
         // Categories
         $categories = Category::all();
 
-        return view('admin.design_create',compact('user','contacts','categories','navbarValues'));
+        return view('admin.work.design_create',compact('user','contacts','categories','navbarValues'));
     }
 
     public function designStore(Request $request)
@@ -154,7 +161,19 @@ class DesignController extends Controller
         $designCategories = DesignCategory::where('design_id',$design_id)->get();
         // design contacts
         $designContacts = DesignContact::where('design_id',$design_id)->get();
-        return view('admin.design_show',compact('designCategories','designContacts','designJournals','designAlbums','user','contacts','categories','design','designGallery','designWork','designStatuses','navbarValues','designArray','designViews'));
+        // Tags
+        $tags = Tag::all();
+        // Contacts
+        $contacts = Contact::all();
+        // Projects
+        $projects = Project::all();
+        // Get designs
+        $designs = Design::with('user','status')->get();
+        // Tudeme
+        $tudemes = Tudeme::all();
+        // Deal
+        $deals = Deal::all();
+        return view('admin.work.design_show',compact('designCategories','designContacts','designJournals','designAlbums','user','contacts','categories','design','designGallery','designWork','designStatuses','navbarValues','designArray','designViews', 'tags', 'contacts','projects','designs','tudemes','deals'));
     }
 
     public function designPersonalAlbumCreate($design_id)

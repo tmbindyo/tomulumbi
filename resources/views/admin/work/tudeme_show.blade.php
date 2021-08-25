@@ -1,541 +1,107 @@
-@extends('admin.layouts.app')
+@extends('admin.components.main')
 
-@section('title', $tudeme->name)
+@section('title', 'Tudeme '.$tudeme->name)
+
+@section('css')
+    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/basic.css" rel="stylesheet">
+    <link href="{{ asset('inspinia') }}/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+    <!-- lightgallery -->
+    <link type="text/css" rel="stylesheet" href="{{ asset('inspinia') }}/lightgallery/dist/css/lightgallery.css" />
+    <!-- lightgallery plugins -->
+    <link type="text/css" rel="stylesheet" href="{{ asset('inspinia') }}/lightgallery/dist/css/lg-zoom.css" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('inspinia') }}/lightgallery/dist/css/lg-thumbnail.css" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('inspinia') }}/lightgallery/dist/css/lg-fullscreen.css" />
+@endsection
 
 @section('content')
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-8">
-            <h2>Tudemes</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <strong><a href="{{route('admin.dashboard')}}">Home</a></strong>
-                </li>
-                <li>
-                    <strong><a href="{{route('admin.tudeme')}}">Tudeme</a></strong>
-                </li>
-                <li class="active">
-                    <strong>Tudeme</strong>
-                </li>
-            </ol>
-        </div>
-        <div class="col-lg-4">
-            <div class="title-action">
-                <a href="{{route('admin.tudeme.personal.album.create',$tudeme->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Personal Album </a>
-                <a href="{{route('admin.tudeme.meal.create',$tudeme->id)}}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Tudeme Meal </a>
+
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-graph icon-gradient bg-ripe-malin"></i>
+                </div>
+                <div>Tudeme {{$tudeme->name}}
+                    {{-- <div class="page-title-subheading">Examples of just how powerful ArchitectUI really is!</div> --}}
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom"
+                    class="btn-shadow mr-3 btn btn-dark">
+                    <i class="fa fa-star"></i>
+                </button>
+                <div class="d-inline-block dropdown">
+                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                            <i class="fa fa-business-time fa-w-20"></i>
+                        </span>
+                        Buttons
+                    </button>
+                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link">
+                                    <i class="nav-link-icon lnr-inbox"></i>
+                                    <span> Inbox</span>
+                                    <div class="ml-auto badge badge-pill badge-secondary">86</div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link">
+                                    <i class="nav-link-icon lnr-book"></i>
+                                    <span> Book</span>
+                                    <div class="ml-auto badge badge-pill badge-danger">5</div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link">
+                                    <i class="nav-link-icon lnr-picture"></i>
+                                    <span> Picture</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a disabled class="nav-link disabled">
+                                    <i class="nav-link-icon lnr-file-empty"></i>
+                                    <span> File Disabled</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addClientProof"><i class="fa fa-plus"></i> Client Proof</button>
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addPersonalAlbum"><i class="fa fa-plus"></i> Personal Album</button>
+
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".editTudeme"><i class="fa fa-paint-brush"></i> Tudeme</button>
+
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".editTudemeCoverImage"><i class="fa fa-paint-brush"></i> Cover Image</button>
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".editTudemeSpread"><i class="fa fa-paint-brush"></i> Spread</button>
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".editTudemeIcon"><i class="fa fa-paint-brush"></i> Icon</button>
+
+                <a href="{{route('admin.tudeme.meal.create',$tudeme->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Tudeme Meal</a>
+                <a href="{{route('admin.tudeme.text.show',$tudeme->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Text</a>
+
                 @if($tudeme->project_id)
-                    <a href="{{route('admin.project.show',$tudeme->project_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Project </a>
+                    <a href="{{route('admin.project.show',$tudeme->project_id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Project</a>
                 @endif
                 @if($tudeme->design_id)
-                    <a href="{{route('admin.design.show',$tudeme->design_id)}}" class="btn btn-primary btn-outline"><i class="fa fa-eye"></i> Design </a>
+                    <a href="{{route('admin.design.show',$tudeme->design_id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Design</a>
                 @endif
                 @if($tudeme->album_id)
                     @if($tudeme->album->album_type_id == "ca64a5e0-d39b-4f2c-a136-9c523d935ea4")
-                        <a href="{{ route('admin.client.proof.show', $tudeme->album_id) }}" class="btn-primary btn btn-outline"> <i class="fa fa-eye"></i> Album</a>
+                        <a href="{{route('admin.client.proof.show', $tudeme->album_id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Album</a>
                     @elseif($tudeme->album->album_type_id == "6fdf4858-01ce-43ff-bbe6-827f09fa1cef")
-                        <a href="{{ route('admin.personal.album.show', $tudeme->album_id) }}" class="btn-primary btn btn-outline"> <i class="fa fa-eye"></i> Album</a>
+                        <a href="{{route('admin.personal.album.show', $tudeme->album_id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Album</a>
                     @endif
                 @endif
             </div>
         </div>
     </div>
 
-    <div class="wrapper wrapper-content animated fadeIn">
 
-        {{--   tudeme work view  --}}
-        <div class="row">
+    <div class="tabs-animation">
 
-            <div class="col-lg-12">
-                <div>
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-primary m-r-sm">{{$tudemeArray['tudemeViews']}}</button>
-                                Tudeme Views
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        {{--  view graphy  --}}
-        <div class="row">
-            <div class="">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>
-                            Views x Gallery Views
-                        </h5>
-                    </div>
-                    <div class="ibox-content">
-                        <div>
-                            <canvas id="lineChart" height="100"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{--    Client proof images    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12 col-md-12">
-                <div class="tabs-container">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab-3"> <i class="fa fa-image"> Album Sets</i></a></li>
-                        <li class=""><a data-toggle="tab" href="#{{$tudeme->id}}"><i class="fa fa-desktop"> Tudeme Gallery</i></a></li>
-                        <li class=""><a  data-toggle="modal" data-target="#albumSetRegistration" aria-expanded="false"><i class="fa fa-plus"></i></a></li>
-                    </ul>
-                    <div class="row">
-                        <div class="tab-content">
-                            <div id="tab-3" class="tab-pane active">
-                                <div class="panel-body">
-                                    <strong>Album sets</strong>
-
-                                    <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
-                                        existence in this spot, which was created for the bliss of souls like mine.</p>
-
-                                    <p>I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-                                        the present moment; and yet I feel that I never was a greater artist than now. When.</p>
-                                </div>
-                            </div>
-
-                            <div id="{{$tudeme->id}}" class="tab-pane">
-                                <div class="panel-body">
-
-                                    <div class="lightBoxGallery">
-
-                                        @isset($tudemeGallery)
-                                            @foreach($tudemeGallery as $tudemeGalleryImage)
-                                                <a href="{{ asset('') }}{{ $tudemeGalleryImage->upload->pixels500 }}" title="{{ $tudemeGalleryImage->upload->name }}" data-gallery=""><img src="{{ asset('') }}{{ $tudemeGalleryImage->upload->pixels100 }}"></a>
-                                            @endforeach
-                                        @endisset
-                                        <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-                                        <div id="blueimp-gallery" class="blueimp-gallery">
-                                            <div class="slides"></div>
-                                            <h3 class="title"></h3>
-                                            <a class="prev">‹</a>
-                                            <a class="next">›</a>
-                                            <a class="close">×</a>
-                                            <a class="play-pause"></a>
-                                            <ol class="indicator"></ol>
-                                        </div>
-
-                                    </div>
-
-                                    <br>
-                                    <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.tudeme.gallery.image.upload',$tudeme->id)}}">
-                                        @csrf
-                                        <div class="dropzone-previews"></div>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <br>
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="widget style1 navy-bg">
-                    <div class="row vertical-align">
-                        <div class="col-xs-3">
-                            <i class="fa fa-user fa-3x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <h3 class="font-bold">{{$tudeme->user->name}}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="widget style1 {{$tudeme->status->label}}">
-                    <div class="row vertical-align">
-                        <div class="col-xs-3">
-                            <i class="fa fa-ellipsis-v fa-3x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <h3 class="font-bold">{{$tudeme->status->name}}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="widget style1 navy-bg">
-                    <div class="row vertical-align">
-                        <div class="col-xs-3">
-                            <i class="fa fa-plus-square fa-3x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <h3 class="font-bold">{{$tudeme->created_at}}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="widget style1 navy-bg">
-                    <div class="row vertical-align">
-                        <div class="col-xs-3">
-                            <i class="fa fa-scissors fa-3x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <h3 class="font-bold">{{$tudeme->updated_at}}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{--    Client proof settings    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12 col-md-12">
-                <div class="tabs-container">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#collection_settings"> <i class="fa fa-cogs"></i> Collection Settings</a></li>
-                        <li class=""><a data-toggle="tab" href="#design"><i class="fa fa-bookmark"></i> Design</a></li>
-                        <li class=""><a data-toggle="tab" href="#cover-image"><i class="fa fa-bookmark"></i> Cover Image</a></li>
-                        <li class=""><a data-toggle="tab" href="#spread"><i class="fa fa-bookmark"></i> Spread</a></li>
-                        <li class=""><a data-toggle="tab" href="#icon"><i class="fa fa-bookmark"></i> Icon</a></li>
-                        <li class=""><a data-toggle="tab" href="#journals"><i class="fa fa-bookmark"></i> Journal</a></li>
-                        <li class=""><a data-toggle="tab" href="#meals"><i class="fa fa-lemon-o"></i> Meals</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="collection_settings" class="tab-pane active">
-                            <div class="panel-body">
-                                <div class="col-md-10 col-md-offset-1">
-
-                                    <form method="post" action="{{ route('admin.tudeme.update',$tudeme->id) }}" autocomplete="off">
-                                        @csrf
-
-                                        @if (session('status'))
-                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                {{ session('status') }}
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                        @endif
-
-                                        <div class="has-warning">
-                                            <div class="form-group">
-                                                <label>Collection Name</label>
-                                                <input name="name" type="text" value="{{$tudeme->name}}" class="form-control input-lg">
-                                                <i>Pick something short and sweet. Imagine choosing a title for a photo tudeme cover.</i>
-                                            </div>
-                                        </div>
-
-                                        <div class="has-warning">
-                                            <div class="form-group" id="data_1">
-                                                <label>Event Date</label>
-                                                <div class="input-group date">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-calendar"></i>
-                                                        </span>
-                                                    <input type="text" name="date" class="form-control input-lg" value="{{date("m/d/Y", strtotime($tudeme->date))}}">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="has-warning">
-                                            <label class="control-label">Status</label>
-                                            <select required="required" name="status" class="select2_demo_status form-control input-lg">
-                                                @foreach($tudemeStatuses as $tudemeStatus)
-                                                    <option value="{{$tudemeStatus->id}}" @if($tudemeStatus->id == $tudeme->status_id) selected @endif>{{$tudemeStatus->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <i>You can take the collection online/offline quickly. Hidden collections can only be seen by you.</i>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="has-warning">
-                                                    <input type="number" id="prep_time" name="prep_time" required="required" value="{{$tudeme->prep_time}}" class="form-control input-lg">
-                                                    <i>prep time</i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="has-warning">
-                                                    <input type="number" id="cook_time" name="cook_time" required="required" value="{{$tudeme->cook_time}}" class="form-control input-lg">
-                                                    <i>cook time</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="has-warning">
-                                                    <input type="number" id="yield" name="yield" required="required" value="{{$tudeme->yield}}" class="form-control input-lg">
-                                                    <i>yield</i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="has-warning">
-                                                    <input type="number" id="serves" name="serves" required="required" value="{{$tudeme->serves}}" class="form-control input-lg">
-                                                    <i>serves</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="has-warning">
-                                                    <select required="required" name="tudeme_types[]" class="select2_demo_tudeme_types form-control input-lg" multiple>
-                                                        <option></option>
-                                                        @foreach($tudemeTypes as $tudemeType)
-                                                            <option @foreach ($tudemeTudemeTypes as $tudemeTudemeType) @if($tudemeTudemeType->tudeme_type_id == $tudemeType->id) selected @endif @endforeach value="{{$tudemeType->id}}">{{$tudemeType->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>tudeme types</i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="has-warning">
-                                                    <select required="required" name="tudeme_tags[]" class="select2_demo_tudeme_tags form-control input-lg" multiple>
-                                                        <option></option>
-                                                        @foreach($tudemeTags as $tudemeTag)
-                                                            <option @foreach ($tudemeTudemeTags as $tudemeTudemeTag) @if($tudemeTudemeTag->tudeme_tag_id == $tudemeTag->id) selected @endif @endforeach value="{{$tudemeTag->id}}">{{$tudemeTag->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i>tudeme tags</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-
-                                        <div class="has-warning">
-                                            <div class="form-group">
-                                                <textarea rows="5" id="description" name="description" required="required" class="form-control input-lg">{{$tudeme->description}}</textarea>
-                                                <i>Give a brief description on what the tudeme is about</i>
-                                            </div>
-                                        </div>
-
-                                        <br>
-
-                                        <textarea name="body"  class="summernote">
-                                            @if($tudeme->body)
-                                                {{$tudeme->body}}
-                                            @else
-                                                <h3>Lorem Ipsum is simply</h3>
-                                                dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industrys</strong> standard dummy text ever since the 1500s,
-                                                when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-                                                typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                                                <br/>
-                                                <br/>
-                                                <ul>
-                                                    <li>Remaining essentially unchanged</li>
-                                                    <li>Make a type specimen book</li>
-                                                    <li>Unknown printer</li>
-                                                </ul>
-                                            @endif
-                                        </textarea>
-
-                                        <br>
-
-                                        <hr>
-
-                                        <div>
-                                            <button class="btn btn-block btn-primary btn-outline btn-lg m-t-n-xs" type="submit"><strong>Update Collection Settings</strong></button>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="design" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="row m-t-lg">
-                                    <div class="col-md-6 col-md-offset-3">
-
-                                        <form method="post" action="{{ route('admin.tudeme.update.design',$tudeme->id) }}" autocomplete="off" enctype = "multipart/form-data">
-                                            @csrf
-                                            {{--  Tudeme thumbnail size  --}}
-                                            <div class="col-md-12">
-                                                <h4 class="text-center">Thumbnail Size</h4>
-                                                <div class="form-group">
-                                                    <select class="form-control m-b input-lg" name="thumbnail_size" required>
-                                                        {{--  @foreach($thumbnailSizes as $thumbnailSize)
-                                                            <option value="{{$thumbnailSize->id}}" @if($thumbnailSize->id === $tudeme->thumbnail_size_id) selected @endif>{{$thumbnailSize->name}}</option>
-                                                        @endforeach  --}}
-                                                    </select>
-                                                    <i>Adjust the display size of photos in the gallery.</i>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <button type="submit" class="btn btn-lg btn-primary btn-outline btn-block">Update Album Images Tudeme Settings</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="cover-image" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="row m-t-lg">
-                                    <div class="col-md-6 col-md-offset-3">
-                                        <div class="">
-                                            {{--  Cover Image  --}}
-                                            <div class="col-md-12">
-                                                <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#tudemeCoverImageRegistration" aria-expanded="false">Update Cover Image</button>
-                                                <hr>
-                                            </div>
-                                            <div class="col-md-12">
-
-                                                <div class="center">
-                                                    <img alt="image" width="470em" class="img-responsive" @isset($tudeme->cover_image) src="{{ asset('') }}{{ $tudeme->cover_image->pixels750 }}" @endisset>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="spread" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="row m-t-lg">
-                                    <div class="col-md-6 col-md-offset-3">
-                                        <div class="">
-                                            {{--  Cover Image  --}}
-                                            <div class="col-md-12">
-                                                <h2 class="text-center">Spread</h2>
-                                                <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#spreadImageRegistration" aria-expanded="false">Update Spread</button>
-                                                <hr>
-                                            </div>
-                                            <div class="col-md-12">
-
-                                                <div class="center">
-                                                    <img alt="image" width="470em" class="img-responsive" @isset($tudeme->spread) src="{{ asset('') }}{{ $tudeme->spread->pixels750 }}" @endisset>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="icon" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="row m-t-lg">
-                                    <div class="col-md-6 col-md-offset-3">
-                                        <div class="row">
-                                            {{--  Cover Image  --}}
-                                            <div class="col-md-12">
-                                                <button class="btn btn-primary btn-lg btn-outline btn-block" data-toggle="modal" data-target="#iconImageRegistration" aria-expanded="false">Update Icon</button>
-                                                <hr>
-                                            </div>
-                                            <div class="col-md-12">
-
-                                                <div class="center">
-                                                    <img alt="image" width="470em" class="img-responsive" @isset($tudeme->icon) src="{{ asset('') }}{{ $tudeme->icon->pixels750 }}" @endisset>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="journals" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                        <thead>
-                                        <tr>
-                                            <th>Number</th>
-                                            <th>Name</th>
-                                            <th>Cook Time</th>
-                                            <th>Status</th>
-                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($journals as $tudeme)
-                                            <tr class="gradeA">
-                                                <td>{{$tudeme->number}}</td>
-                                                <td>{{$tudeme->name}}</td>
-                                                <td>{{$tudeme->cook_time}}</td>
-                                                <td>
-                                                    <p><span class="label {{$tudeme->status->label}}">{{$tudeme->status->name}}</span></p>
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('admin.tudeme.tudeme.show', $tudeme->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Number</th>
-                                            <th>Name</th>
-                                            <th>Cook Time</th>
-                                            <th>Status</th>
-                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="meals" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                        <thead>
-                                        <tr>
-                                            <th>Number</th>
-                                            <th>Name</th>
-                                            <th>Cook Time</th>
-                                            <th>Status</th>
-                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($meals as $meal)
-                                            <tr class="gradeA">
-                                                <td>{{$meal->number}}</td>
-                                                <td>{{$meal->name}}</td>
-                                                <td>{{$meal->cook_time}}</td>
-                                                <td>
-                                                    <p><span class="label {{$meal->status->label}}">{{$meal->status->name}}</span></p>
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('admin.tudeme.meal.show', $meal->id) }}" class="btn-success btn-outline btn btn-xs">View</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Number</th>
-                                            <th>Name</th>
-                                            <th>Cook Time</th>
-                                            <th>Status</th>
-                                            <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <br>
         {{--  to do Counts  --}}
         <div class="row">
             <div class="col-lg-12">
@@ -564,172 +130,671 @@
             </div>
         </div>
 
-        {{--    To Dos    --}}
-        <div class="row m-t-lg">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>To Dos</h5>
-                        <div class="ibox-tools">
-                            <a data-toggle="modal" data-target="#toDoRegistration" class="btn btn-success btn-round btn-outline"> <span class="fa fa-plus"></span> New</a>
+        <div class="mb-3 card">
+            <div class="tabs-lg-alternate card-header">
+                <ul class="nav nav-justified">
+                    <li class="nav-item">
+                        <a href="#tab-minimal-1" data-toggle="tab" class="nav-link minimal-tab-btn-1">
+                            <div class="widget-number"><span>$15,065</span></div>
+                            <div class="tab-subheading">
+                                <span class="pr-2 opactiy-6">
+                                    <i class="fa fa-comment-dots"></i>
+                                </span>
+                                Totals
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tab-minimal-2" data-toggle="tab" class="nav-link active minimal-tab-btn-2">
+                            <div class="widget-number">
+                                <span class="pr-2 text-success">
+                                    <i class="fa fa-angle-up"></i>
+                                </span>
+                                <span>4531</span>
+                            </div>
+                            <div class="tab-subheading">Designs</div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#tab-minimal-3" data-toggle="tab" class="nav-link minimal-tab-btn-3">
+                            <div class="widget-number text-danger">
+                                <span>$6,784.0</span>
+                            </div>
+                            <div class="tab-subheading">
+                                <span class="pr-2 opactiy-6">
+                                    <i class="fa fa-bullhorn"></i>
+                                </span>
+                                Income
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane" id="tab-minimal-1">
+                    <div class="card-body">
+                        <div id="chart-combined-tab"></div>
+                    </div>
+                </div>
+                <div class="tab-pane fade active show" id="tab-minimal-2">
+                    <div class="card-body">
+                        <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                            <div id="chart-apex-negative"></div>
+                        </div>
+                        <h5 class="card-title">Target Sales</h5>
+                        <div class="mt-3 row">
+                            <div class="col-sm-12 col-md-4">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-numbers text-dark">65%</div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-progress-wrapper mt-1">
+                                            <div class="progress-bar-xs progress-bar-animated-alt progress">
+                                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="65"
+                                                    aria-valuemin="0" aria-valuemax="100" style="width: 65%;"></div>
+                                            </div>
+                                            <div class="progress-sub-label">
+                                                <div class="sub-label-left font-size-md">Sales</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-numbers text-dark">22%</div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-progress-wrapper mt-1">
+                                            <div class="progress-bar-xs progress-bar-animated-alt progress">
+                                                <div class="progress-bar bg-warning" role="progressbar"
+                                                    aria-valuenow="22" aria-valuemin="0" aria-valuemax="100"
+                                                    style="width: 22%;">
+                                                </div>
+                                            </div>
+                                            <div class="progress-sub-label">
+                                                <div class="sub-label-left font-size-md">Profiles</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-numbers text-dark">83%</div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-progress-wrapper mt-1">
+                                            <div class="progress-bar-xs progress-bar-animated-alt progress">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                    aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"
+                                                    style="width: 83%;">
+                                                </div>
+                                            </div>
+                                            <div class="progress-sub-label">
+                                                <div class="sub-label-left font-size-md">Tickets</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="">
-                        <ul class="pending-to-do">
-                            @foreach($tudeme->pending_to_dos as $pendingToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$pendingToDo->due_date}}</small>
-                                        <h4>{{$pendingToDo->name}}</h4>
-                                        <p>{{$pendingToDo->notes}}.</p>
-                                        @if($pendingToDo->is_tudeme === 1)
-                                            <p><span class="badge badge-primary">{{$pendingToDo->tudeme->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('admin.to.do.set.in.progress',$pendingToDo->id)}}"><i class="fa fa-arrow-circle-o-right "></i></a>
+                </div>
+                <div class="tab-pane fade" id="tab-minimal-3">
+                    <div class="rm-border card-header">
+                        <div>
+                            <h5 class="menu-header-title text-capitalize text-primary">Income Report</h5>
+                        </div>
+                        <div class="btn-actions-pane-right text-capitalize">
+                            <div class="btn-group dropdown">
+                                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    class="btn-wide mr-1 dropdown-toggle btn btn-outline-focus btn-sm">Options
+                                </button>
+                                <div tabindex="-1" role="menu" aria-hidden="true"
+                                    class="dropdown-menu-lg rm-pointers dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-menu-header">
+                                        <div class="dropdown-menu-header-inner bg-primary">
+                                            <div class="menu-header-image"
+                                                style="background-image: url('assets/images/dropdown-header/abstract2.jpg');">
+                                            </div>
+                                            <div class="menu-header-content">
+                                                <div>
+                                                    <h5 class="menu-header-title">Settings</h5>
+                                                    <h6 class="menu-header-subtitle">Example Dropdown Menu</h6>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                                    <div class="scroll-area-xs">
+                                        <div class="scrollbar-container">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item-header nav-item">Activity</li>
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" class="nav-link">Chat
+                                                        <div class="ml-auto badge badge-pill badge-info">8</div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" class="nav-link">Recover Password</a>
+                                                </li>
+                                                <li class="nav-item-header nav-item">My Account</li>
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" class="nav-link">Settings
+                                                        <div class="ml-auto badge badge-success">New</div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" class="nav-link">Messages
+                                                        <div class="ml-auto badge badge-warning">512</div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="javascript:void(0);" class="nav-link">Logs</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                            <div style="height: 274px;">
+                                <div id="chart-combined-tab-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top bg-light card-header">
+                        <div class="actions-icon-btn mx-auto">
+                            <div>
+                                <div role="group" class="btn-group-lg btn-group nav">
+                                    <button type="button" data-toggle="tab" href="#tab-content-income"
+                                        class="btn-pill pl-3 active btn btn-focus">Income</button>
+                                    <button type="button" data-toggle="tab" href="#tab-content-expenses"
+                                        class="btn-pill pr-3  btn btn-focus">Expenses</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active fade show" id="tab-content-income" role="tabpanel">
+                                <h5 class="menu-header-title">Target Sales</h5>
+                                <h6 class="menu-header-subtitle opacity-6">Total performance for this month</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="card-border mb-sm-3 mb-md-0 border-light no-shadow card">
+                                            <div class="widget-content">
+                                                <div class="widget-content-outer">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Orders</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers line-height-1 text-primary">
+                                                                <span>366</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-progress-wrapper mt-1">
+                                                        <div class="progress-bar-xs progress">
+                                                            <div class="progress-bar bg-success" role="progressbar"
+                                                                aria-valuenow="76" aria-valuemin="0" aria-valuemax="100"
+                                                                style="width: 76%;">
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-sub-label">
+                                                            <div class="sub-label-left">Monthly Target</div>
+                                                            <div class="sub-label-right">100%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="card-border border-light no-shadow card">
+                                            <div class="widget-content">
+                                                <div class="widget-content-outer">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Income</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers line-height-1 text-success">
+                                                                <span>$2797</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-progress-wrapper mt-1">
+                                                        <div class="progress-bar-xs progress-bar-animated progress">
+                                                            <div class="progress-bar bg-danger" role="progressbar"
+                                                                aria-valuenow="23" aria-valuemin="0" aria-valuemax="100"
+                                                                style="width: 23%;">
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-sub-label">
+                                                            <div class="sub-label-left">Monthly Target</div>
+                                                            <div class="sub-label-right">100%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-content-expenses" role="tabpanel">
+                                <h5 class="menu-header-title">Tabbed Content</h5>
+                                <h6 class="menu-header-subtitle opacity-6">Example of various options built with
+                                    ArchitectUI</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div
+                                            class="card-hover-shadow-2x mb-sm-3 mb-md-0 widget-chart widget-chart2 bg-premium-dark text-left card">
+                                            <div class="widget-chart-content text-white">
+                                                <div class="widget-chart-flex">
+                                                    <div class="widget-title">Sales</div>
+                                                    <div class="widget-subtitle opacity-7">Monthly Goals</div>
+                                                </div>
+                                                <div class="widget-chart-flex">
+                                                    <div class="widget-numbers text-success">
+                                                        <small>$</small>
+                                                        976
+                                                        <small class="opacity-8 pl-2">
+                                                            <i class="fa fa-angle-up"></i>
+                                                        </small>
+                                                    </div>
+                                                    <div class="widget-description ml-auto opacity-7">
+                                                        <i class="fa fa-angle-up"></i>
+                                                        <span class="pl-1">175%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <div
+                                            class="card-hover-shadow-2x widget-chart widget-chart2 bg-premium-dark text-left card">
+                                            <div class="widget-chart-content text-white">
+                                                <div class="widget-chart-flex">
+                                                    <div class="widget-title">Clients</div>
+                                                    <div class="widget-subtitle text-warning">Returning</div>
+                                                </div>
+                                                <div class="widget-chart-flex">
+                                                    <div class="widget-numbers text-warning">84
+                                                        <small>%</small>
+                                                        <small class="opacity-8 pl-2">
+                                                            <i class="fa fa-angle-down"></i>
+                                                        </small>
+                                                    </div>
+                                                    <div class="widget-description ml-auto text-warning">
+                                                        <span class="pr-1">45</span>
+                                                        <i class="fa fa-angle-up"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <ul class="in-progress-to-do">
-                            @foreach($tudeme->in_progress_to_dos as $inProgressToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$inProgressToDo->due_date}}</small>
-                                        <h4>{{$inProgressToDo->name}}</h4>
-                                        <p>{{$inProgressToDo->notes}}.</p>
-                                        @if($inProgressToDo->is_tudeme === 1)
-                                            <p><span class="badge badge-primary">{{$inProgressToDo->tudeme->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('admin.to.do.set.completed',$inProgressToDo->id)}}"><i class="fa fa-check "></i></a>
+
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <h5 class="card-title"> Tudeme Gallery </h5>
+                <ul class="nav nav-pills">
+                    <li class="nav-item active"><a data-toggle="tab" href="#tudeme_gallery" class="nav-link"> Tudeme Gallery </a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tudeme_gallery" role="tabpanel">
+                        <div class="card-hover-shadow card-border mb-3 card">
+                            <div class="card-header">
+                                <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                Gallery
+                                <div class="btn-actions-pane-right">
+                                    {{-- <a href="{{route('admin.order.payment.create',$order->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Payment</a> --}}
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="col-lg-12">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                            <form id="my-awesome-dropzone" class="dropzone" action="{{route('admin.tudeme.gallery.image.upload',$tudeme->id)}}">
+                                                @csrf
+                                                <div class="dropzone-previews"></div>
+                                            </form>
+
+                                            <br>
+
+                                            @isset($tudemeGallery)
+                                                <div id="lightgallery">
+                                                    @foreach($tudemeGallery as $tudemeGalleryImage)
+                                                        {{-- {{$albumSetImage}} --}}
+                                                        <a href="{{Minio::getAdminFileUrl( $tudemeGalleryImage->upload->pixels1500 )}}" data-lg-size="1600-2400">
+                                                            <img alt="{{ $tudemeGalleryImage->upload->name }}" src="{{Minio::getAdminFileUrl( $tudemeGalleryImage->upload->pixels100 )}}" />
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            @endisset
+                                        </div>
                                     </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="overdue-to-do">
-                            @foreach($tudeme->overdue_to_dos as $overdueToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$overdueToDo->due_date}}</small>
-                                        <h4>{{$overdueToDo->name}}</h4>
-                                        <p>{{$overdueToDo->notes}}.</p>
-                                        @if($overdueToDo->is_tudeme === 1)
-                                            <p><span class="badge badge-primary">{{$overdueToDo->tudeme->name}}</span></p>
-                                        @endif
-                                        @if($overdueToDo->status->name === "Pending")
-                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
-                                        @elseif($overdueToDo->status->name === "In progress")
-                                            <a href="{{route('admin.to.do.set.completed',$overdueToDo->id)}}"><i class="fa fa-check-double "></i></a>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <ul class="completed-to-do">
-                            @foreach($tudeme->completed_to_dos as $completedToDo)
-                                <li>
-                                    <div>
-                                        <small>{{$completedToDo->due_date}}</small>
-                                        <h4>{{$completedToDo->name}}</h4>
-                                        <p>{{$completedToDo->notes}}.</p>
-                                        @if($completedToDo->is_tudeme === 1)
-                                            <p><span class="badge badge-primary">{{$completedToDo->tudeme->name}}</span></p>
-                                        @endif
-                                        <a href="{{route('admin.to.do.delete',$completedToDo->id)}}"><i class="fa fa-trash-o "></i></a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
+
+
+        <div class="main-card mb-3 card">
+
+            <div class="card-header">
+                <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                Children Records
+                {{-- <div class="btn-actions-pane-right">
+                    <a href="{{route('admin.transaction.create',$order->id)}}" type="button" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Make Payment</a>
+                </div> --}}
+            </div>
+
+            <div class="card-body">
+                <ul class="tabs-animated-shadow tabs-animated nav">
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link active" id="tab-c-0" data-toggle="tab" href="#journals">
+                            <span>Journals ({{$journals->count()}})
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link" id="tab-c-1" data-toggle="tab" href="#meals">
+                            <span>Meals ({{$meals->count()}})</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="journals" role="tabpanel">
+                        <div class="card-hover-shadow card-border mb-3 card">
+                            <div class="card-header">
+                                <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                Journals
+                                <div class="btn-actions-pane-right">
+                                    {{-- <a href="{{route('admin.order.payment.create',$order->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Payment</a> --}}
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="col-lg-12">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                            <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Number</th>
+                                                        <th>Name</th>
+                                                        <th>Cook Time</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($journals as $journal)
+                                                        <tr>
+                                                            <td>{{$journal->number}}</td>
+                                                            <td>{{$journal->name}}</td>
+                                                            <td>{{$journal->cook_time}}</td>
+                                                            <td>
+                                                                <span class="label {{$journal->status->label}}">{{$journal->status->name}}</span>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    <a href="{{ route('admin.journal.show', $journal->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Number</th>
+                                                        <th>Name</th>
+                                                        <th>Cook Time</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="meals" role="tabpanel">
+                        <div class="card-hover-shadow card-border mb-3 card">
+                            <div class="card-header">
+                                <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                Meal
+                                <div class="btn-actions-pane-right">
+                                    {{-- <a href="{{route('admin.order.payment.create',$order->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Payment</a> --}}
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="col-lg-12">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                            <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Number</th>
+                                                        <th>Name</th>
+                                                        <th>Cook Time</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($meals as $meal)
+                                                        <tr>
+                                                            <td>{{$meal->number}}</td>
+                                                            <td>{{$meal->name}}</td>
+                                                            <td>{{$meal->cook_time}}</td>
+                                                            <td>
+                                                                <span class="label {{$meal->status->label}}">{{$meal->status->name}}</span>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <div class="btn-group">
+                                                                    <a href="{{ route('admin.tudeme.meal.show', $meal->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Number</th>
+                                                        <th>Name</th>
+                                                        <th>Cook Time</th>
+                                                        <th>Status</th>
+                                                        <th class="text-right" width="35px" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="card-footer">Footer</div>
+
+        </div>
+
+
+
+
     </div>
+
+</div>
+
 
 @endsection
 
-@include('admin.layouts.modals.tudeme_to_do')
-@include('admin.layouts.modals.tudeme_cover_image')
-@include('admin.layouts.modals.tudeme_spread')
-@include('admin.layouts.modals.tudeme_icon')
+@include('admin.components.modals.add_client_proof')
+@include('admin.components.modals.add_personal_album')
+
+@include('admin.components.modals.edit_tudeme')
+@include('admin.components.modals.edit_tudeme_cover_image')
+@include('admin.components.modals.edit_tudeme_spread')
+@include('admin.components.modals.edit_tudeme_icon')
+
+
 
 @section('js')
 
-    {{-- download x views line chart  --}}
+    <script src="{{ asset('inspinia') }}/lightgallery/dist/lightgallery.umd.js"></script>
+    <!-- Or use the minified version -->
+    {{-- <script src="{{ asset('inspinia') }}/lightgallery/dist/lightgallery.min.js"></script> --}}
+
+    <!-- lightgallery plugins -->
+    <script src="{{ asset('inspinia') }}/lightgallery/dist/plugins/thumbnail/lg-thumbnail.umd.js"></script>
+    <script src="{{ asset('inspinia') }}/lightgallery/dist/plugins/zoom/lg-zoom.umd.js"></script>
+    <script src="{{ asset('inspinia') }}/lightgallery/dist/plugins/fullscreen/lg-fullscreen.umd.js"></script>
+    <script type="text/javascript">
+        lightGallery(document.getElementById('lightgallery'), {
+            plugins: [lgZoom, lgThumbnail, lgFullscreen],
+            speed: 500,
+        });
+    </script>
+    <!-- DROPZONE -->
+    <script src="{{ asset('inspinia') }}/js/plugins/dropzone/dropzone.js"></script>
+    {{--  dropzone  --}}
     <script>
-        $(function () {
-            var lineData = {
-                labels: ["January", "February", "March", "April", "May", "June", "July","August","September","October","November","December"],
-                datasets: [
-                    {
-                        label: "Example dataset",
-                        fillColor: "rgba(220,220,220,0.5)",
-                        strokeColor: "rgba(220,220,220,1)",
-                        pointColor: "rgba(220,220,220,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: [
-                            {{$tudemeViews['views']['1']}},
-                            {{$tudemeViews['views']['2']}},
-                            {{$tudemeViews['views']['3']}},
-                            {{$tudemeViews['views']['4']}},
-                            {{$tudemeViews['views']['5']}},
-                            {{$tudemeViews['views']['6']}},
-                            {{$tudemeViews['views']['7']}},
-                            {{$tudemeViews['views']['8']}},
-                            {{$tudemeViews['views']['9']}},
-                            {{$tudemeViews['views']['10']}},
-                            {{$tudemeViews['views']['11']}},
-                            {{$tudemeViews['views']['12']}}
-                        ]
+        $(document).ready(function() {
+            // Set date
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date = mm + '/' + dd + '/' + yyyy;
+            if(document.getElementById("client_proof_date")){
+                document.getElementById("client_proof_date").value = date;
+            }
+            if(document.getElementById("personal_album_date")){
+                document.getElementById("personal_album_date").value = date;
+            }
+
+            // Set date
+            let date_set = {!! json_encode($tudeme->date) !!};
+            let substrings = date_set.split('-');
+            var set_date = substrings[1] + '/' + substrings[2] + '/' + substrings[0];
+
+            if(document.getElementById("date")){
+                document.getElementById("date").value = set_date;
+            }
+
+            // Set due date
+            var due = new Date();
+            due.setDate(due.getDate() + 14);
+            var due_dd = due.getDate();
+            var due_mm = due.getMonth()+1;
+            var due_yyyy = due.getFullYear();
+            if (dd < 10){
+                due_dd = '0'+due_dd;
+            }
+            if (due_mm < 10){
+                due_mm = '0'+due_mm;
+            }
+            var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
+            if(document.getElementById("client_proof_expiry_date")){
+                document.getElementById("client_proof_expiry_date").value = due_date;
+            }
+            if(document.getElementById("personal_album_expiry_date")){
+                document.getElementById("personal_album_expiry_date").value = due_date;
+            }
+        });
+
+    </script>
+
+    {{--  dropzone  --}}
+    <script>
+        $(document).ready(function(){
+
+            Dropzone.options.dropzone =
+                {
+                    maxFilesize: 12,
+                    renameFile: function(file) {
+                        var dt = new Date();
+                        var time = dt.getTime();
+                        return time+file.name;
                     },
+                    addRemoveLinks: true,
+                    timeout: 50000,
+                    removedfile: function(file)
                     {
-                        label: "Example dataset",
-                        fillColor: "rgba(26,179,148,0.5)",
-                        strokeColor: "rgba(26,179,148,0.7)",
-                        pointColor: "rgba(26,179,148,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(26,179,148,1)",
-                        data: [
-                            {{$tudemeViews['galleryViews']['1']}},
-                            {{$tudemeViews['galleryViews']['2']}},
-                            {{$tudemeViews['galleryViews']['3']}},
-                            {{$tudemeViews['galleryViews']['4']}},
-                            {{$tudemeViews['galleryViews']['5']}},
-                            {{$tudemeViews['galleryViews']['6']}},
-                            {{$tudemeViews['galleryViews']['7']}},
-                            {{$tudemeViews['galleryViews']['8']}},
-                            {{$tudemeViews['galleryViews']['9']}},
-                            {{$tudemeViews['galleryViews']['10']}},
-                            {{$tudemeViews['galleryViews']['11']}},
-                            {{$tudemeViews['galleryViews']['12']}}
-                        ]
+                        var name = file.upload.filename;
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            },
+                            type: 'POST',
+                            url: '{{ url("image/delete") }}',
+                            data: {filename: name},
+                            success: function (data){
+                                console.log("File has been successfully removed!!");
+                            },
+                            error: function(e) {
+                                console.log(e);
+                            }});
+                        var fileRef;
+                        return (fileRef = file.previewElement) != null ?
+                            fileRef.parentNode.removeChild(file.previewElement) : void 0;
+                    },
+
+                    success: function(file, response)
+                    {
+                        console.log(response);
+                    },
+                    error: function(file, response)
+                    {
+                        return false;
                     }
-                ]
-            };
-
-            var lineOptions = {
-                scaleShowGridLines: true,
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-                scaleGridLineWidth: 1,
-                bezierCurve: true,
-                bezierCurveTension: 0.4,
-                pointDot: true,
-                pointDotRadius: 4,
-                pointDotStrokeWidth: 1,
-                pointHitDetectionRadius: 20,
-                datasetStroke: true,
-                datasetStrokeWidth: 2,
-                datasetFill: true,
-                responsive: true,
-            };
-
-
-            var ctx = document.getElementById("lineChart").getContext("2d");
-            var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+                };
         });
     </script>
 @endsection

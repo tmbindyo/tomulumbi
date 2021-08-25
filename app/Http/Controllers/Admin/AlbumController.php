@@ -6,6 +6,7 @@ use DB;
 use Auth;
 use App\Tag;
 use Storage;
+use App\Deal;
 use App\ToDo;
 use App\Asset;
 use App\Order;
@@ -17,6 +18,7 @@ use App\Design;
 use App\Status;
 use App\Scheme;
 use App\Upload;
+use App\Tudeme;
 use App\Project;
 use App\Contact;
 use App\AlbumSet;
@@ -83,12 +85,20 @@ class AlbumController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // Get projects
+        $projects = Project::with('user','status','project_type')->get();
         // Get the Personal album status counts
         $personalAlbumsStatusCount = $this->personalAlbumsStatusCount();
         // Get albums
         $albums = Album::with('user','status')->where('album_type_id','6fdf4858-01ce-43ff-bbe6-827f09fa1cef')->get();
+        // Design
+        $designs = Design::all();
+        // Tudeme
+        $tudemes = Tudeme::all();
+        // Deals
+        $deals = Deal::all();
 //        return $albums;
-        return view('admin.work.personal_albums',compact('albums','user','navbarValues','personalAlbumsStatusCount','tags'));
+        return view('admin.work.personal_albums',compact('albums','user','navbarValues','personalAlbumsStatusCount','tags','projects','designs','tudemes','deals'));
     }
 
     public function personalAlbumCreate()
@@ -766,9 +776,17 @@ class AlbumController extends Controller
         $tags = Tag::all();
         // Contacts
         $contacts = Contact::all();
+        // Design
+        $designs = Design::all();
+        // Tudeme
+        $tudemes = Tudeme::all();
+        // Deals
+        $deals = Deal::all();
+        // Projects
+        $projects = Project::all();
         // Get albums
         $albums = Album::with('user','status')->where('album_type_id','ca64a5e0-d39b-4f2c-a136-9c523d935ea4')->get();
-        return view('admin.work.client_proofs',compact('albums','user','navbarValues','clientProofsStatusCount', 'contacts', 'tags'));
+        return view('admin.work.client_proofs',compact('albums','user','navbarValues','clientProofsStatusCount', 'contacts', 'tags','designs','tudemes','deals','projects'));
     }
 
     public function clientProofCreate()

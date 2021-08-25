@@ -1,16 +1,16 @@
 {{-- add action type modal --}}
-<div class="modal fade addClientProof" tabindex="-1" role="dialog" aria-labelledby="addClientProof" aria-hidden="true">
+<div class="modal fade addDesign" tabindex="-1" role="dialog" aria-labelledby="addDesign" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addClientProof">Add Client Proof</h5>
+                <h5 class="modal-title" id="addDesign">Add Design</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin.client.proof.update.collection.settings',$album->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.design.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())
@@ -27,7 +27,7 @@
                         <label for="name" class="">
                             Name
                         </label>
-                        <input name="name" id="name" value="{{$album->name}}" type="text" class="mb-2 form-control" {{ $errors->has('name') ? ' is-invalid' : '' }} required="required">
+                        <input name="name" id="name" placeholder="name" type="text" class="mb-2 form-control" {{ $errors->has('name') ? ' is-invalid' : '' }} required="required">
                         <i>name</i>
                     </div>
 
@@ -53,16 +53,16 @@
                     </div>
 
                     <div class="position-relative form-group">
-                        <label for="tag" class="">
-                            Tag
+                        <label for="category" class="">
+                            Categories
                         </label>
-                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('tag') ? ' is-invalid' : '' }} name="tags[]" id="tag" class="tag-select form-control input-lg">
-                            <option>Select Tag</option>
-                            @foreach($tags as $tag)
-                                <option @foreach($albumTags as $albumTag) @if($tag->id === $albumTag->tag->id) selected @endif @endforeach value="{{$tag->id}}">{{$tag->name}}</option>
+                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('categories') ? ' is-invalid' : '' }} name="categories[]" id="category" class="category-select form-control input-lg">
+                            <option>Select Categories</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                         </select>
-                        <i>tag</i>
+                        <i>categories</i>
                     </div>
 
                     <div class="position-relative form-group">
@@ -72,18 +72,18 @@
                         <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('tag') ? ' is-invalid' : '' }} name="contacts[]" id="contact" class="contact-select form-control input-lg">
                             <option>Select Contact</option>
                             @foreach($contacts as $contact)
-                                <option @foreach($albumContacts as $albumContact) @if($contact->id === $albumContact->contact->id) selected @endif @endforeach value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
+                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                             @endforeach
                         </select>
                         <i>tag</i>
                     </div>
 
                     <div class="position-relative form-group">
-                        <label for="location" class="">
-                            Location
+                        <label for="description" class="">
+                            Description
                         </label>
-                        <input name="location" id="location" value="{{$album->location}}" type="text" class="mb-2 form-control" {{ $errors->has('location') ? ' is-invalid' : '' }} required="required">
-                        <i>location</i>
+                        <textarea id="description" name="description" class="mb-2 form-control {{ $errors->has('description') ? ' is-invalid' : '' }}"></textarea>
+                        <i>description</i>
                     </div>
 
                     <div class="row">

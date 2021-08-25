@@ -174,10 +174,37 @@
                 $('.campaign-select').select2();
             });
             $(document).ready(function() {
+                $('.category-select').select2();
+            });
+            $(document).ready(function() {
                 $('.color-select').select2();
             });
             $(document).ready(function() {
                 $('.contact-select').select2();
+            });
+            $(document).ready(function() {
+                $('.cooking-skill-select').select2();
+            });
+            $(document).ready(function() {
+                $('.cuisine-select').select2();
+            });
+            $(document).ready(function() {
+                $('.course-select').select2();
+            });
+            $(document).ready(function() {
+                $('.dietary-preference-select').select2();
+            });
+            $(document).ready(function() {
+                $('.cooking-style-select').select2();
+            });
+            $(document).ready(function() {
+                $('.ingredient-measurment-select').select2();
+            });
+            $(document).ready(function() {
+                $('.ingredient-select').select2();
+            });
+            $(document).ready(function() {
+                $('.dish-type-select').select2();
             });
             $(document).ready(function() {
                 $('.contact-loan-select').select2();
@@ -192,6 +219,9 @@
                 $('.cover-design-select').select2();
             });
             $(document).ready(function() {
+                $('.deal-select').select2();
+            });
+            $(document).ready(function() {
                 $('.design-select').select2();
             });
             $(document).ready(function() {
@@ -199,6 +229,12 @@
             });
             $(document).ready(function() {
                 $('.expense-account-select').select2();
+            });
+            $(document).ready(function() {
+                $('.journal-series-select').select2();
+            });
+            $(document).ready(function() {
+                $('.journal-select').select2();
             });
             $(document).ready(function() {
                 $('.thumbnail-size-select').select2();
@@ -217,6 +253,9 @@
             });
             $(document).ready(function() {
                 $('.kit-action-select').select2();
+            });
+            $(document).ready(function() {
+                $('.label-select').select2();
             });
             $(document).ready(function() {
                 $('.liability-select').select2();
@@ -246,6 +285,9 @@
                 $('.orientation-select').select2();
             });
             $(document).ready(function() {
+                $('.project-type-select').select2();
+            });
+            $(document).ready(function() {
                 $('.price-list-select').select2();
             });
             $(document).ready(function() {
@@ -262,6 +304,21 @@
             });
             $(document).ready(function() {
                 $('.tag-select').select2();
+            });
+            $(document).ready(function() {
+                $('.tudeme-select').select2();
+            });
+            $(document).ready(function() {
+                $('.tudeme-type-select').select2();
+            });
+            $(document).ready(function() {
+                $('.tudeme-tags-select').select2();
+            });
+            $(document).ready(function() {
+                $('.client-proof-tag-select').select2();
+            });
+            $(document).ready(function() {
+                $('.personal-album-tag-select').select2();
             });
             $(document).ready(function() {
                 $('.thumbnail-size-select').select2();

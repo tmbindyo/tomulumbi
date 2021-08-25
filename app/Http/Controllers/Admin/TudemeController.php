@@ -3,49 +3,54 @@
 namespace App\Http\Controllers\Admin;
 
 use DB;
-use App\CookingSkill;
-use App\CookingStyle;
-use App\Course;
-use App\Cuisine;
-use App\DietaryPreference;
-use App\DishType;
+use App\Tag;
+use Storage;
+use App\Meal;
+use App\Note;
+use App\Deal;
+use App\Label;
 use App\ToDo;
 use App\Status;
+use App\Course;
+use App\Upload;
 use App\Tudeme;
+use App\Design;
+use App\Journal;
+use App\Cuisine;
+use App\Project;
+use App\Contact;
+use App\DishType;
+use App\TudemeTag;
+use App\MealCourse;
+use App\Ingredient;
+use App\TudemeType;
+use App\Measurment;
+use App\Instruction;
+use App\CookingSkill;
+use App\CookingStyle;
+use App\JournalSeries;
+use App\TudemeGallery;
+use App\MealIngredient;
+use App\TudemeTudemeTag;
+use App\TudemeTopRecipie;
+use App\MealCookingStyle;
+use App\TudemeTudemeType;
+use App\TudemeTopSection;
+use App\DietaryPreference;
 use App\Traits\UserTrait;
+use App\TudemeTopLocation;
 use App\Traits\NavbarTrait;
-use Illuminate\Http\Request;
 use App\Traits\TudemeTrait;
+use Illuminate\Http\Request;
+use App\MealDietaryPreference;
+use App\TudemeFeaturedRecipie;
 use App\Traits\StatusCountTrait;
 use App\Http\Controllers\Controller;
-use App\Ingredient;
-use App\Instruction;
-use App\Journal;
-use App\JournalSeries;
-use App\Label;
-use App\Meal;
-use App\MealCookingStyle;
-use App\MealCourse;
-use App\MealDietaryPreference;
-use App\MealIngredient;
-use App\Measurment;
-use App\Note;
-use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use App\Traits\DocumentExtensionTrait;
 use App\Traits\DownloadViewNumbersTrait;
-use App\TudemeFeaturedRecipie;
-use App\TudemeGallery;
-use App\TudemeTag;
-use App\TudemeTopLocation;
-use App\TudemeTopRecipie;
-use App\TudemeTopSection;
-use App\TudemeTudemeTag;
-use App\TudemeTudemeType;
-use App\TudemeType;
-use App\Upload;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class TudemeController extends Controller
@@ -98,7 +103,7 @@ class TudemeController extends Controller
 
 
 
-        return view('admin.tudeme_homepage',compact('user','navbarValues','tudemeStatusCount','tudemeTopLocations','tudemes','tudemeTopSections','tudemeTopRecipies','tudemeFeaturedRecipies','unassignedTopRecipieTudeme','unassignedFeaturedRecipieTudeme'));
+        return view('admin.work.tudeme_homepage',compact('user','navbarValues','tudemeStatusCount','tudemeTopLocations','tudemes','tudemeTopSections','tudemeTopRecipies','tudemeFeaturedRecipies','unassignedTopRecipieTudeme','unassignedFeaturedRecipieTudeme'));
     }
 
     public function tudemeTopSectionStore(Request $request)
@@ -228,8 +233,11 @@ class TudemeController extends Controller
         $tudemeStatusCount = $this->tudemeStatusCount();
         // Get tudemes
         $tudemes = Tudeme::with('user','status')->get();
-
-        return view('admin.tudeme',compact('tudemes','user','navbarValues','tudemeStatusCount'));
+        // tudeme types
+        $tudemeTypes = TudemeType::all();
+        // tudeme tags
+        $tudemeTags = TudemeTag::all();
+        return view('admin.work.tudeme',compact('tudemes','user','navbarValues','tudemeStatusCount','tudemeTags','tudemeTypes'));
     }
 
     public function tudemeCreate()
@@ -242,7 +250,7 @@ class TudemeController extends Controller
         $tudemeTypes = TudemeType::all();
         // tudeme tags
         $tudemeTags = TudemeTag::all();
-        return view('admin.tudeme_create',compact('user','navbarValues','tudemeTags','tudemeTypes'));
+        return view('admin.work.tudeme_create',compact('user','navbarValues','tudemeTags','tudemeTypes'));
     }
 
     public function tudemeStore(Request $request)
@@ -310,6 +318,19 @@ class TudemeController extends Controller
         // tudeme tags
         $tudemeTags = TudemeTag::all();
 
+        // Tags
+        $tags = Tag::all();
+        // Contacts
+        $contacts = Contact::all();
+        // Projects
+        $projects = Project::all();
+        // Design
+        $designs = Design::all();
+        // Design
+        $tudemes = Tudeme::all();
+        // Deal
+        $deals = Deal::all();
+
         // tudeme tudeme types
         $tudemeTudemeTypes = TudemeTudemeType::where('tudeme_id',$tudeme->id)->get();
         // tudeme tudeme tags
@@ -317,7 +338,7 @@ class TudemeController extends Controller
 
         // tudeme gallery
         $tudemeGallery = TudemeGallery::where('tudeme_id',$tudeme_id)->with('upload')->get();
-        return view('admin.tudeme_show',compact('user','tudeme','tudemeGallery','tudemeStatuses','navbarValues','tudemeArray','tudemeViews','meals','journals','tudemeTypes','tudemeTags','tudemeTudemeTypes','tudemeTudemeTags'));
+        return view('admin.work.tudeme_show',compact('user','tudeme','tudemeGallery','tudemeStatuses','navbarValues','tudemeArray','tudemeViews','meals','journals','tudemeTypes','tudemeTags','tudemeTudemeTypes','tudemeTudemeTags','tags','contacts','projects','designs','tudemes','deals'));
     }
 
     public function tudemePersonalAlbumCreate($tudeme_id)
@@ -331,7 +352,7 @@ class TudemeController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-        return view('admin.tudeme_personal_album_create',compact('user','tags','navbarValues','tudeme'));
+        return view('admin.work.tudeme_personal_album_create',compact('user','tags','navbarValues','tudeme'));
 
     }
 
@@ -350,7 +371,7 @@ class TudemeController extends Controller
         $journalSeries = JournalSeries::with('user','status')->where('is_tudeme',True)->withCount('journals')->get();
 
 
-        return view('admin.journals',compact('journalSeries','journals','user','navbarValues','journalsStatusCount'));
+        return view('admin.work.journals',compact('journalSeries','journals','user','navbarValues','journalsStatusCount'));
     }
 
     public function tudemeJournalCreate()
@@ -361,7 +382,36 @@ class TudemeController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Labels
         $labels = Label::all();
-        return view('admin.tudeme_journal_create',compact('user','labels','navbarValues'));
+        return view('admin.work.tudeme_journal_create',compact('user','labels','navbarValues'));
+    }
+
+    public function tudemeTextShow($tudeme_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+        // Get the navbar values
+        $navbarValues = $this->getNavbarValues();
+        // Get tudeme
+        $tudeme = Tudeme::findOrFail($tudeme_id);
+        $tudeme = Tudeme::where('id',$tudeme_id)->with('user','status','cover_image')->first();
+
+        return view('admin.work.tudeme_text_show',compact('user','tudeme','navbarValues'));
+    }
+
+    public function tudemeTextUpdate(Request $request, $tudeme_id)
+    {
+
+        // User
+        $user = $this->getAdmin();
+
+        // Check if tudeme exists and get
+        $tudeme = Tudeme::findOrFail($tudeme_id);
+        $tudeme->body = $request->body;
+        $tudeme->save();
+
+
+        return back()->withSuccess(__('Journal successfully uploaded.'));
     }
 
     public function tudemeUpdate(Request $request, $tudeme_id)
@@ -442,32 +492,32 @@ class TudemeController extends Controller
     {
 
         $tudeme = Tudeme::where('id',$tudeme_id)->first();
-        $folderName = str_replace(' ', '', $tudeme->name."/Banner/");
-        $originalFolderName = str_replace(' ', '', $tudeme->name."/Cover Image/Original/");
+        $folderName = str_replace(' ', '', "work/tudeme/".$tudeme->name);
+        $originalFolderName = str_replace(' ', '', $folderName."/Cover Image/Original/");
 
-        $pixel100FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/100/");
+        $pixel100FolderName = str_replace(' ', '', $folderName."/Cover Image"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/300/");
+        $pixel300FolderName = str_replace(' ', '', $folderName."/Cover Image"."/300/");
         File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/500/");
+        $pixel500FolderName = str_replace(' ', '', $folderName."/Cover Image"."/500/");
         File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/750/");
+        $pixel750FolderName = str_replace(' ', '', $folderName."/Cover Image"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1000/");
+        $pixel1000FolderName = str_replace(' ', '', $folderName."/Cover Image"."/1000/");
         File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/Cover Image"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/2500/");
+        $pixel2500FolderName = str_replace(' ', '', $folderName."/Cover Image"."/2500/");
         File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/3600/");
+        $pixel3600FolderName = str_replace(' ', '', $folderName."/Cover Image"."/3600/");
         File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/tudeme/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/tudeme/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -479,13 +529,17 @@ class TudemeController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $cover100Image = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
 
-            Image::make( $path )->fit(750, 730)->save(public_path()."/".$pixel750FolderName.$image_name);
+            $cover300Image = Image::make( $path )->resize(null, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path()."/".$pixel300FolderName.$image_name)->encode();
 
-            Image::make( $path )->resize(1766, 698, function ($constraint) {
+            $cover750Image = Image::make( $path )->fit(750, 730)->save(public_path()."/".$pixel750FolderName.$image_name);
+
+            $cover1500Image = Image::make( $path )->resize(1766, 698, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
 
@@ -493,16 +547,17 @@ class TudemeController extends Controller
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $cover100Image = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 300, function ($constraint) {
+
+            $cover300Image = Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
 
-            Image::make( $path )->fit(750, 730)->save(public_path()."/".$pixel500FolderName.$image_name);
+            $cover750Image =  Image::make( $path )->fit(750, 730)->save(public_path()."/".$pixel500FolderName.$image_name);
 
-            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
+            $cover1500Image = Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
 
             Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
@@ -518,6 +573,12 @@ class TudemeController extends Controller
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
+
+        // upload image
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $cover100Image);
+        $created = Storage::disk('linode')->put( $pixel300FolderName.'/'.$image_name, (string) $cover300Image);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $cover750Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover1500Image);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -622,32 +683,32 @@ class TudemeController extends Controller
     {
 
         $tudeme = Tudeme::where('id',$tudeme_id)->first();
-        $folderName = str_replace(' ', '', $tudeme->name."/Banner/");
-        $originalFolderName = str_replace(' ', '', $tudeme->name."/Cover Image/Original/");
+        $folderName = str_replace(' ', '', "work/tudeme/".$tudeme->name);
+        $originalFolderName = str_replace(' ', '', $folderName."/Spread/Original/");
 
-        $pixel100FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/100/");
+        $pixel100FolderName = str_replace(' ', '', $folderName."/Spread"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/300/");
+        $pixel300FolderName = str_replace(' ', '', $folderName."/Spread"."/300/");
         File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/500/");
+        $pixel500FolderName = str_replace(' ', '', $folderName."/Spread"."/500/");
         File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/750/");
+        $pixel750FolderName = str_replace(' ', '', $folderName."/Spread"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1000/");
+        $pixel1000FolderName = str_replace(' ', '', $folderName."/Spread"."/1000/");
         File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/Spread"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/2500/");
+        $pixel2500FolderName = str_replace(' ', '', $folderName."/Spread"."/2500/");
         File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/3600/");
+        $pixel3600FolderName = str_replace(' ', '', $folderName."/Spread"."/3600/");
         File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/tudeme/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/tudeme/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -659,29 +720,29 @@ class TudemeController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $cover100Image = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(300, null, function ($constraint) {
+            $cover300Image = Image::make( $path )->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
 
-            Image::make( $path )->resize(500, null, function ($constraint) {
+            $cover500Image = Image::make( $path )->resize(500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
 
-            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
+            $cover750Image = Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
 
-            Image::make( $path )->resize(1000, null, function ($constraint) {
+            $cover1000Image = Image::make( $path )->resize(1000, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
+            $cover1500Image = Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(2500, null, function ($constraint) {
+            $cover2500Image = Image::make( $path )->resize(2500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->resize(3600, null, function ($constraint) {
+            $cover3600Image = Image::make( $path )->resize(3600, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
@@ -689,32 +750,41 @@ class TudemeController extends Controller
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $cover100Image = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 300, function ($constraint) {
+            $cover300Image = Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
-            Image::make( $path )->resize(null, 500, function ($constraint) {
+            $cover500Image = Image::make( $path )->resize(null, 500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
 
-            Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
+            $cover750Image = Image::make( $path )->fit(1766, 698)->save(public_path()."/".$pixel750FolderName.$image_name);
 
-            Image::make( $path )->resize(null, 1000, function ($constraint) {
+            $cover1000Image = Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
+            $cover1500Image = Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(null, 2500, function ($constraint) {
+            $cover2500Image = Image::make( $path )->resize(null, 2500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->resize(null, 3600, function ($constraint) {
+            $cover3600Image = Image::make( $path )->resize(null, 3600, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
+
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $cover100Image);
+        $created = Storage::disk('linode')->put( $pixel300FolderName.'/'.$image_name, (string) $cover300Image);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $cover500Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover750Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover1000Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover1500Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover2500Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover3600Image);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -819,32 +889,32 @@ class TudemeController extends Controller
     {
 
         $tudeme = Tudeme::where('id',$tudeme_id)->first();
-        $folderName = str_replace(' ', '', $tudeme->name."/Banner/");
-        $originalFolderName = str_replace(' ', '', $tudeme->name."/Cover Image/Original/");
+        $folderName = str_replace(' ', '', "work/tudeme/".$tudeme->name);
+        $originalFolderName = str_replace(' ', '', $folderName."/Icon/Original/");
 
-        $pixel100FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/100/");
+        $pixel100FolderName = str_replace(' ', '', $folderName."/Icon"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/300/");
+        $pixel300FolderName = str_replace(' ', '', $folderName."/Icon"."/300/");
         File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/500/");
+        $pixel500FolderName = str_replace(' ', '', $folderName."/Icon"."/500/");
         File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/750/");
+        $pixel750FolderName = str_replace(' ', '', $folderName."/Icon"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1000/");
+        $pixel1000FolderName = str_replace(' ', '', $folderName."/Icon"."/1000/");
         File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/Icon"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/2500/");
+        $pixel2500FolderName = str_replace(' ', '', $folderName."/Icon"."/2500/");
         File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/Cover Image"."/3600/");
+        $pixel3600FolderName = str_replace(' ', '', $folderName."/Icon"."/3600/");
         File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("cover_image");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/tudeme/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/tudeme/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -856,31 +926,31 @@ class TudemeController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $cover100Image = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(300, null, function ($constraint) {
+            $cover300Image = Image::make( $path )->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
 
-            Image::make( $path )->resize(500, null, function ($constraint) {
+            $cover500Image = Image::make( $path )->resize(500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
 
-            Image::make( $path )->resize(750, null, function ($constraint) {
+            $cover750Image = Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name);
 
-            Image::make( $path )->resize(1000, null, function ($constraint) {
+            $cover1000Image = Image::make( $path )->resize(1000, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
+            $cover1500Image = Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(2500, null, function ($constraint) {
+            $cover2500Image = Image::make( $path )->resize(2500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->resize(3600, null, function ($constraint) {
+            $cover3600Image = Image::make( $path )->resize(3600, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
@@ -888,33 +958,42 @@ class TudemeController extends Controller
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $cover100Image = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 300, function ($constraint) {
+            $cover300Image = Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
-            Image::make( $path )->resize(null, 500, function ($constraint) {
+            $cover500Image = Image::make( $path )->resize(null, 500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
-            Image::make( $path )->resize(null, 750, function ($constraint) {
+            $cover750Image = Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name);
 
-            Image::make( $path )->resize(null, 1000, function ($constraint) {
+            $cover1000Image = Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
+            $cover1500Image = Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(null, 2500, function ($constraint) {
+            $cover2500Image = Image::make( $path )->resize(null, 2500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->resize(null, 3600, function ($constraint) {
+            $cover3600Image = Image::make( $path )->resize(null, 3600, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
+
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $cover100Image);
+        $created = Storage::disk('linode')->put( $pixel300FolderName.'/'.$image_name, (string) $cover300Image);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $cover500Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover750Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover1000Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover1500Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover2500Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover3600Image);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -1020,32 +1099,32 @@ class TudemeController extends Controller
         // todo If already image delete
         // todo hash the folder name
         $tudeme = Tudeme::where('id',$tudeme_id)->first();
-        $folderName = str_replace(' ', '', $tudeme->name.'/');
-        $originalFolderName = str_replace(' ', '', $tudeme->name."/Original/");
+        $folderName = str_replace(' ', '', "work/tudeme/".$tudeme->name);
+        $originalFolderName = str_replace(' ', '', $folderName."/Gallery/Original/");
 
-        $pixel100FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/100/");
+        $pixel100FolderName = str_replace(' ', '', $folderName."/Gallery"."/100/");
         File::makeDirectory(public_path()."/".$pixel100FolderName, $mode = 0750, true, true);
-        $pixel300FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/300/");
+        $pixel300FolderName = str_replace(' ', '', $folderName."/Gallery"."/300/");
         File::makeDirectory(public_path()."/".$pixel300FolderName, $mode = 0750, true, true);
-        $pixel500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/500/");
+        $pixel500FolderName = str_replace(' ', '', $folderName."/Gallery"."/500/");
         File::makeDirectory(public_path()."/".$pixel500FolderName, $mode = 0750, true, true);
-        $pixel750FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/750/");
+        $pixel750FolderName = str_replace(' ', '', $folderName."/Gallery"."/750/");
         File::makeDirectory(public_path()."/".$pixel750FolderName, $mode = 0750, true, true);
-        $pixel1000FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/1000/");
+        $pixel1000FolderName = str_replace(' ', '', $folderName."/Gallery"."/1000/");
         File::makeDirectory(public_path()."/".$pixel1000FolderName, $mode = 0750, true, true);
-        $pixel1500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/1500/");
+        $pixel1500FolderName = str_replace(' ', '', $folderName."/Gallery"."/1500/");
         File::makeDirectory(public_path()."/".$pixel1500FolderName, $mode = 0750, true, true);
-        $pixel2500FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/2500/");
+        $pixel2500FolderName = str_replace(' ', '', $folderName."/Gallery"."/2500/");
         File::makeDirectory(public_path()."/".$pixel2500FolderName, $mode = 0750, true, true);
-        $pixel3600FolderName = str_replace(' ', '', "work/tudeme/".$tudeme->name."/3600/");
+        $pixel3600FolderName = str_replace(' ', '', $folderName."/Gallery"."/3600/");
         File::makeDirectory(public_path()."/".$pixel3600FolderName, $mode = 0750, true, true);
 
         $file = Input::file("file");
         $file_name_extension = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $file->move(public_path()."/work/tudeme/".$originalFolderName, $file_name_extension);
-        $path = public_path()."/work/tudeme/".$originalFolderName.$file_name_extension;
+        $file->move(public_path()."/".$originalFolderName, $file_name_extension);
+        $path = public_path()."/".$originalFolderName.$file_name_extension;
 
         $file_name = pathinfo($path, PATHINFO_FILENAME);
         $image_name = $file_name.'.'.$extension;
@@ -1057,28 +1136,28 @@ class TudemeController extends Controller
 
             $orientation = "landscape";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $cover100Image = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(300, null, function ($constraint) {
+            $cover300Image = Image::make( $path )->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
-            Image::make( $path )->resize(500, null, function ($constraint) {
+            $cover500Image = Image::make( $path )->resize(500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
-            Image::make( $path )->resize(750, null, function ($constraint) {
+            $cover750Image = Image::make( $path )->resize(750, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(1000, null, function ($constraint) {
+            $cover1000Image = Image::make( $path )->resize(1000, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(1500, null, function ($constraint) {
+            $cover1500Image = Image::make( $path )->resize(1500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(2500, null, function ($constraint) {
+            $cover2500Image = Image::make( $path )->resize(2500, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->resize(3600, null, function ($constraint) {
+            $cover3600Image = Image::make( $path )->resize(3600, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
@@ -1086,32 +1165,41 @@ class TudemeController extends Controller
 
             $orientation = "portrait";
 
-            Image::make( $path )->resize(null, 100, function ($constraint) {
+            $cover100Image = Image::make( $path )->resize(null, 100, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel100FolderName.$image_name);
-            Image::make( $path )->resize(null, 300, function ($constraint) {
+            $cover300Image = Image::make( $path )->resize(null, 300, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel300FolderName.$image_name);
-            Image::make( $path )->resize(null, 500, function ($constraint) {
+            $cover500Image = Image::make( $path )->resize(null, 500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel500FolderName.$image_name);
-            Image::make( $path )->resize(null, 750, function ($constraint) {
+            $cover750Image = Image::make( $path )->resize(null, 750, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel750FolderName.$image_name);
-            Image::make( $path )->resize(null, 1000, function ($constraint) {
+            $cover1000Image = Image::make( $path )->resize(null, 1000, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1000FolderName.$image_name);
-            Image::make( $path )->resize(null, 1500, function ($constraint) {
+            $cover1500Image = Image::make( $path )->resize(null, 1500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel1500FolderName.$image_name);
-            Image::make( $path )->resize(null, 2500, function ($constraint) {
+            $cover2500Image = Image::make( $path )->resize(null, 2500, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel2500FolderName.$image_name);
-            Image::make( $path )->resize(null, 3600, function ($constraint) {
+            $cover3600Image = Image::make( $path )->resize(null, 3600, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path()."/".$pixel3600FolderName.$image_name);
 
         }
+
+        $created = Storage::disk('linode')->put( $pixel100FolderName.'/'.$image_name, (string) $cover100Image);
+        $created = Storage::disk('linode')->put( $pixel300FolderName.'/'.$image_name, (string) $cover300Image);
+        $created = Storage::disk('linode')->put( $pixel750FolderName.'/'.$image_name, (string) $cover500Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover750Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover1000Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover1500Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover2500Image);
+        $created = Storage::disk('linode')->put( $pixel1500FolderName.'/'.$image_name, (string) $cover3600Image);
 
         $img = Image::make($path);
         $size = $img->filesize();
@@ -1271,7 +1359,7 @@ class TudemeController extends Controller
         // measurments
         $measurments = Measurment::all();
 
-        return view('admin.tudeme_meal_create',compact('measurments','ingredients','user','navbarValues','tudeme','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
+        return view('admin.work.tudeme_meal_create',compact('measurments','ingredients','user','navbarValues','tudeme','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
 
     }
 
@@ -1304,8 +1392,9 @@ class TudemeController extends Controller
             $mealCookingStyle->save();
         }
 
+
         // meal course
-        foreach ($request->course as $course){
+        foreach ($request->courses as $course){
             $mealCourse = new MealCourse();
             $mealCourse->meal_id = $meal->id;
             $mealCourse->course_id = $course;
@@ -1402,7 +1491,7 @@ class TudemeController extends Controller
 
         // return $tudemeMeal;
 
-        return view('admin.tudeme_meal_show',compact('measurments','ingredients','user','navbarValues','tudemeMeal','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
+        return view('admin.work.tudeme_meal_show',compact('measurments','ingredients','user','navbarValues','tudemeMeal','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
 
     }
 
@@ -1450,7 +1539,7 @@ class TudemeController extends Controller
 
         // course update
         $mealCourseRequestIds =array();
-        foreach ($request->course as $mealCourseId){
+        foreach ($request->courses as $mealCourseId){
             // Append to array
             $mealCourseRequestIds[]['id'] = $mealCourseId;
 
