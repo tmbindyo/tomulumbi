@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                     </div>
-                    <a href="{{route('admin.tudeme.show',$tudemeMeal->tudeme->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Tudeme</a>
+                    <a href="{{route('admin.tudeme.show',$tudeme->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Tudeme</a>
                 </div>
             </div>
         </div>

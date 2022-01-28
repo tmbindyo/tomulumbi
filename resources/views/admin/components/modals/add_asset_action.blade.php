@@ -67,7 +67,7 @@
                         <select required="required" style="width: 100%" {{ $errors->has('action_type') ? ' is-invalid' : '' }} name="action_type" id="action_type" class="account-liability-select form-control input-lg">
                             <option>Select Action Type</option>
                             @foreach($actionTypes as $actionType)
-                                <option value="{{$actionType->id}}">{{$actionType->name}}</option>
+                                <option @isset($actionTypeExists) @if($actionTypeExists->id == $actionType->id) selected @endif @endisset value="{{$actionType->id}}">{{$actionType->name}}</option>
                             @endforeach()
                         </select>
                         <i>action type</i>
@@ -80,7 +80,7 @@
                         <select required="required" style="width: 100%" {{ $errors->has('contact') ? ' is-invalid' : '' }} name="contact" id="contact_liability" class="contact-liability-select form-control input-lg">
                             <option>Select Contact</option>
                             @foreach($contacts as $contact)
-                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
+                                <option @isset($contactExists) @if($contactExists->id == $contact->id) selected @endif @endisset value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}}</option>
                             @endforeach()
                         </select>
                         <i>contact</i>

@@ -38,7 +38,7 @@
                         <select required="required" style="width: 100%" {{ $errors->has('asset_category') ? ' is-invalid' : '' }} name="asset_category" id="asset_category" class="account-liability-select form-control input-lg">
                             <option>Select Category</option>
                             @foreach($assetCategories as $assetCategory)
-                                <option value="{{$assetCategory->id}}">{{$assetCategory->name}}</option>
+                                <option @isset($assetCategoryExists) @if($assetCategoryExists->id == $assetCategory->id) selected @endif @endisset value="{{$assetCategory->id}}">{{$assetCategory->name}}</option>
                             @endforeach
                         </select>
                         <i>category</i>

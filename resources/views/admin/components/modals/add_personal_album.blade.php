@@ -59,7 +59,7 @@
                         <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('tag') ? ' is-invalid' : '' }} name="tags[]" id="personal_album_tag" class="personal-album-tag-select form-control input-lg">
                             <option>Select Tag</option>
                             @foreach($tags as $tag)
-                                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                            <option @isset($tagExists) @if($tagExists->id == $tag->id) selected @endif @endisset value="{{$tag->id}}">{{$tag->name}}</option>
                             @endforeach
                         </select>
                         <i>tag</i>

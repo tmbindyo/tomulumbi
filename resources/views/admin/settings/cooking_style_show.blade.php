@@ -170,9 +170,6 @@
                     <div class="card-header">
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Meals ({{$cookingStyleMeals->count()}})
-                        <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.tudeme.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Tudeme</a>
-                        </div>
                     </div>
 
                         <div class="card-body"><h5 class="card-title">Cooking Style Meals</h5>
@@ -201,7 +198,7 @@
 
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('admin.tudeme.show', $meal->meal->tudeme->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                    <a href="{{ route('admin.tudeme.meal.show', $meal->meal->tudeme->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
                                                 </div>
                                             </td>
                                         </tr>

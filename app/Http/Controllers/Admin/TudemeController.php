@@ -1486,12 +1486,10 @@ class TudemeController extends Controller
         // measurments
         $measurments = Measurment::all();
 
-        $tudemeMeal = Meal::findOrFail($tudeme_meal_id);
+        $tudemeMealExists = Meal::findOrFail($tudeme_meal_id);
         $tudemeMeal = Meal::where('id',$tudeme_meal_id)->with('cooking_skill','dish_type','tudeme','meal_cooking_styles','meal_courses','meal_dietary_preferences','meal_ingredients.measurment','meal_ingredients.ingredient','instructions')->withCount('instructions')->first();
 
-        // return $tudemeMeal;
-
-        return view('admin.work.tudeme_meal_show',compact('measurments','ingredients','user','navbarValues','tudemeMeal','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines'));
+        return view('admin.work.tudeme_meal_show',compact('measurments','ingredients','user','navbarValues','tudemeMeal','dishTypes','dietaryPreferences','courses','cookingStyles','cookingSkills','cuisines', 'tudemeMealExists'));
 
     }
 

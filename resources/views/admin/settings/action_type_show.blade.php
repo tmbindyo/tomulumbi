@@ -177,7 +177,7 @@
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Asset Actions ({{$actionTypeAssetActions->count()}})
                         <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.asset.action.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Asset Action</a>
+                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Asset Action</button>
                         </div>
                     </div>
 
@@ -249,5 +249,50 @@
         {{-- action types --}}
 
     </div>
+
+@endsection
+
+@include('admin.components.modals.add_asset_action')
+
+@section('js')
+
+    <script>
+        $(document).ready(function() {
+            // Set date
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date = mm + '/' + dd + '/' + yyyy;
+            if(document.getElementById("asset_action_date")){
+                document.getElementById("asset_action_date").value = date;
+            }
+
+
+            // Set due date
+            var due = new Date();
+            due.setDate(due.getDate() + 14);
+            var due_dd = due.getDate();
+            var due_mm = due.getMonth()+1;
+            var due_yyyy = due.getFullYear();
+            if (dd < 10){
+                due_dd = '0'+due_dd;
+            }
+            if (due_mm < 10){
+                due_mm = '0'+due_mm;
+            }
+            var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
+            if(document.getElementById("due_date")){
+                document.getElementById("due_date").value = due_date;
+            }
+        });
+
+    </script>
 
 @endsection

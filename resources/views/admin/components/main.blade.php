@@ -216,6 +216,9 @@
                 $('.content-align-select').select2();
             });
             $(document).ready(function() {
+                $('.contact-type-select').select2();
+            });
+            $(document).ready(function() {
                 $('.cover-design-select').select2();
             });
             $(document).ready(function() {
@@ -307,6 +310,9 @@
             });
             $(document).ready(function() {
                 $('.tag-select').select2();
+            });
+            $(document).ready(function() {
+                $('.organization-select').select2();
             });
             $(document).ready(function() {
                 $('.tudeme-select').select2();

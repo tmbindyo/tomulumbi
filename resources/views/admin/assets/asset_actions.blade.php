@@ -1,6 +1,6 @@
 @extends('admin.components.main')
 
-@section('title','Assets')
+@section('title','Asset Actions')
 
 @section('content')
 
@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Asset</button>
+                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Asset Action</button>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Assets ({{$assetActions->count()}})
                         <div class="btn-actions-pane-right">
-                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Asset</button>
+                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Asset Action</button>
                         </div>
                     </div>
 

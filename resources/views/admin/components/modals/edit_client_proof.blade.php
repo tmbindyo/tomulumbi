@@ -66,6 +66,19 @@
                     </div>
 
                     <div class="position-relative form-group">
+                        <label for="status" class="">
+                            Status
+                        </label>
+                        <select required="required" style="width: 100%" {{ $errors->has('status') ? ' is-invalid' : '' }} name="status" id="status" class="sub-type-select form-control input-lg">
+                            <option>Select Status</option>
+                            @foreach($albumStatuses as $albumStatus)
+                                <option value="{{$albumStatus->id}}" @if($albumStatus->id === $album->status_id) selected @endif>{{$albumStatus->name}}</option>
+                            @endforeach
+                        </select>
+                        <i>status</i>
+                    </div>
+
+                    <div class="position-relative form-group">
                         <label for="contact" class="">
                             Contact
                         </label>

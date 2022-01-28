@@ -171,7 +171,7 @@
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Contacts ({{$contactContactTypes->count()}})
                         <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.contact.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Contact</a>
+                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addContact"><i class="fa fa-plus"></i> Contact</button>
                         </div>
                     </div>
 
@@ -229,3 +229,6 @@
     </div>
 
 @endsection
+
+
+@include('admin.components.modals.add_contact')

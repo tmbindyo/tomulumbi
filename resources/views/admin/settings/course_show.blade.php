@@ -170,9 +170,6 @@
                     <div class="card-header">
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Meals ({{$courseMeals->count()}})
-                        <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.tudeme.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Meal</a>
-                        </div>
                     </div>
 
                         <div class="card-body"><h5 class="card-title">Course Meals</h5>
@@ -188,20 +185,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($courseMeals as $meal)
+                                    @foreach($courseMeals as $courseMeal)
                                         <tr>
-                                            <td>{{$meal->name}}</td>
-                                            <td>{{$meal->tudeme->name}}</td>
-                                            <td>{{$meal->description}}</td>
-                                            <td>{{$meal->user->name}}</td>
+                                            <td>{{$courseMeal->meal->name}}</td>
+                                            <td>{{$courseMeal->meal->tudeme->name}}</td>
+                                            <td>{{$courseMeal->meal->description}}</td>
+                                            <td>{{$courseMeal->meal->user->name}}</td>
 
                                             <td>
-                                                <span class="label {{$meal->status->label}}">{{$meal->status->name}}</span>
+                                                <span class="label {{$courseMeal->status->label}}">{{$courseMeal->status->name}}</span>
                                             </td>
 
                                             <td class="text-right">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('admin.cooking.style.show', $meal->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                    <a href="{{ route('admin.tudeme.meal.show', $courseMeal->meal->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
                                                 </div>
                                             </td>
                                         </tr>

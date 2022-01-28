@@ -83,7 +83,7 @@
                                 <select required="required" style="width: 100%" {{ $errors->has('tudeme_types') ? ' is-invalid' : '' }} name="tudeme_types[]" id="tudeme_types" class="tudeme-type-select form-control input-lg">
                                     <option>Select Tudeme Type</option>
                                     @foreach($tudemeTypes as $tudemeType)
-                                        <option value="{{$tudemeType->id}}">{{$tudemeType->name}}</option>
+                                        <option @isset($tudemeTypeExists) @if($tudemeTypeExists->id == $tudemeType->id) @endif @endisset  value="{{$tudemeType->id}}">{{$tudemeType->name}}</option>
                                     @endforeach
                                 </select>
                                 <i>tudeme types</i>
@@ -97,7 +97,7 @@
                                 <select required="required" style="width: 100%" {{ $errors->has('tudeme_tags') ? ' is-invalid' : '' }} name="tudeme_tags[]" id="tudeme_tags" class="tudeme-tags-select form-control input-lg">
                                     <option>Select Tudeme Tags</option>
                                     @foreach($tudemeTags as $tudemeTag)
-                                        <option value="{{$tudemeTag->id}}">{{$tudemeTag->name}}</option>
+                                        <option @isset($tudemeTagExists) @if($tudemeTagExists->id == $tudemeTag->id) @endif @endisset value="{{$tudemeTag->id}}">{{$tudemeTag->name}}</option>
                                     @endforeach
                                 </select>
                                 <i>tudeme tags</i>

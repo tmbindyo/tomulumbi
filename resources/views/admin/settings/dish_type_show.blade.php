@@ -80,7 +80,7 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Dish Type</h5>
-                        <form method="post" action="{{ route('admin.contact.type.update',$dishType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
+                        <form method="post" action="{{ route('admin.dish.type.update',$dishType->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                             @csrf
                             @if ($errors->any())
                                 <div class="alert alert-danger">

@@ -59,7 +59,7 @@
                         <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('categories') ? ' is-invalid' : '' }} name="categories[]" id="category" class="category-select form-control input-lg">
                             <option>Select Categories</option>
                             @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                <option @isset($categoryExists) @if($categoryExists->id == $category->id) selected @endif @endisset value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                         </select>
                         <i>categories</i>
@@ -72,7 +72,7 @@
                         <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('tag') ? ' is-invalid' : '' }} name="contacts[]" id="contact" class="contact-select form-control input-lg">
                             <option>Select Contact</option>
                             @foreach($contacts as $contact)
-                                <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
+                                <option @isset($contactExists) @if($contactExists->id == $contact->id) selected @endif @endisset value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                             @endforeach
                         </select>
                         <i>tag</i>

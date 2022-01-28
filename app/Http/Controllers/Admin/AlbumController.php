@@ -436,6 +436,7 @@ class AlbumController extends Controller
         $album->location = $request->location;
         $album->save();
 
+        return $request->tags;
         // Album tags update
         $albumRequestTags =array();
         foreach ($request->tags as $albumAlbumTag){
@@ -560,6 +561,7 @@ class AlbumController extends Controller
 
         $albumSet = AlbumSet::where('id',$album_set_id)->with('album')->first();
         $tag = Tag::where('name',$albumSet->name)->first();
+
         $folderName = str_replace(' ', '', "work/PersonalAlbums/".$albumSet->album->name);
 
         $originalFolderName = str_replace(' ', '', $folderName."/Original/" .$albumSet->name.'/');
@@ -713,7 +715,8 @@ class AlbumController extends Controller
         $upload->is_restrict_to_specific_email = False;
         $upload->album_id = $albumSet->album_id;
         $upload->album_set_id = $album_set_id;
-        $upload->tag_id = $tag->id;
+        // todo check why I had added this
+        // $upload->tag_id = $tag->id;
         $upload->upload_type_id = "b3399a38-b355-4235-8f93-36baf410eef2";
         $upload->status_id = $album->status_id;
         $upload->user_id = Auth::user()->id;

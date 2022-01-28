@@ -56,7 +56,7 @@
                         <label for="status" class="">
                             Status
                         </label>
-                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('status') ? ' is-invalid' : '' }} name="status" id="status" class="sub-type-select form-control input-lg">
+                        <select required="required" style="width: 100%" {{ $errors->has('status') ? ' is-invalid' : '' }} name="status" id="status" class="sub-type-select form-control input-lg">
                             <option>Select Status</option>
                             @foreach($albumStatuses as $albumStatus)
                                 <option value="{{$albumStatus->id}}" @if($albumStatus->id === $album->status_id) selected @endif>{{$albumStatus->name}}</option>
@@ -69,7 +69,7 @@
                         <label for="thumbnail_size" class="">
                             Thumbnail Size
                         </label>
-                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('thumbnail_size') ? ' is-invalid' : '' }} name="thumbnail_size" id="thumbnail_size" class="thumbnail-size-select form-control input-lg">
+                        <select required="required" style="width: 100%" {{ $errors->has('thumbnail_size') ? ' is-invalid' : '' }} name="thumbnail_size" id="thumbnail_size" class="thumbnail-size-select form-control input-lg">
                             <option>Select Thumbnail Size</option>
                             @foreach($thumbnailSizes as $thumbnailSize)
                                 <option value="{{$thumbnailSize->id}}" @if($thumbnailSize->id === $album->thumbnail_size_id) selected @endif>{{$thumbnailSize->name}}</option>

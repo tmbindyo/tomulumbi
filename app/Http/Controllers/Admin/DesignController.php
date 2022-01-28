@@ -58,7 +58,7 @@ class DesignController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get the design status counts
         $designsStatusCount = $this->designsStatusCount();
-        // Tags
+        // Contacts
         $contacts = Contact::all();
         // Categories
         $categories = Category::all();

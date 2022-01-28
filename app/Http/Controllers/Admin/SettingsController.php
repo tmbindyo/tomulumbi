@@ -7,16 +7,20 @@ use App\LetterLetterTag;
 use Auth;
 use App\Tag;
 use App\Size;
+use App\Deal;
 use App\Type;
 use App\Label;
 use App\Title;
 use App\Album;
+use App\Status;
+use App\Tudeme;
 use App\Upload;
 use App\Design;
 use App\Project;
 use App\SubType;
 use App\Contact;
 use App\Journal;
+use App\Campaign;
 use App\Category;
 use App\AlbumSet;
 use App\AlbumTag;
@@ -27,6 +31,7 @@ use App\LeadSource;
 use App\ActionType;
 use App\ContactType;
 use App\AssetAction;
+use App\Organization;
 use App\ProjectType;
 use App\CampaignType;
 use App\AlbumCategory;
@@ -164,11 +169,17 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // action types
+        $actionTypes = ActionType::all();
+        // contacts
+        $contacts = Contact::with('organization')->get();
+        // get asset
+        $assets = Asset::all();
         // action type
         $actionType = ActionType::with('user','status')->withCount('asset_actions')->where('id',$action_type_id)->first();
         // action type actions
         $actionTypeAssetActions = AssetAction::with('contact','user','status','asset','kit')->where('action_type_id',$action_type_id)->get();
-        return view('admin.settings.action_type_show',compact('actionType','user','actionTypeAssetActions','navbarValues'));
+        return view('admin.settings.action_type_show',compact('actionType','user','actionTypeAssetActions','navbarValues', 'actionTypes', 'contacts', 'assets', 'actionTypeExists'));
     }
 
     public function actionTypeAssetActionCreate($action_type_id)
@@ -244,11 +255,23 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // Tags
+        $tags = Tag::all();
+        // Contacts
+        $contacts = Contact::all();
+        // Projects
+        $projects = Project::all();
+        // Design
+        $designs = Design::all();
+        // Tudeme
+        $tudemes = Tudeme::all();
+        // Deals
+        $deals = Deal::all();
         // album type
         $albumType = AlbumType::with('user','status','albums.status')->where('id',$album_type_id)->withCount('albums')->first();
         // album type albums
         $albumTypeAlbums = Album::with('user','status')->where('album_type_id',$album_type_id)->withCount('album_views')->get();
-        return view('admin.settings.album_type_show',compact('albumType','user','albumTypeAlbums','navbarValues'));
+        return view('admin.settings.album_type_show',compact('albumType','user','albumTypeAlbums','navbarValues', 'tags', 'contacts', 'projects', 'designs', 'tudemes', 'deals'));
     }
 
     public function albumTypeUpdate(Request $request, $album_type_id)
@@ -299,13 +322,15 @@ class SettingsController extends Controller
     public function assetCategoryShow($asset_category_id)
     {
         // Check if category exists
-        $categoryExists = AssetCategory::findOrFail($asset_category_id);
+        $assetCategoryExists = AssetCategory::findOrFail($asset_category_id);
         // User
         $user = $this->getAdmin();
+        // asset categories
+        $assetCategories = AssetCategory::all();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $assetCategory = AssetCategory::with('user','status','assets.asset_category')->where('id',$asset_category_id)->withCount('assets')->first();
-        return view('admin.settings.asset_category_show',compact('assetCategory','user','navbarValues'));
+        return view('admin.settings.asset_category_show',compact('assetCategory','user','navbarValues', 'assetCategories', 'assetCategoryExists'));
     }
 
     public function assetCategoryUpdate(Request $request, $asset_category_id)
@@ -361,8 +386,12 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // Contacts
+        $contacts = Contact::all();
+        // Categories
+        $categories = Category::all();
         $category = Category::with('user','status','design_categories.design.status')->where('id',$category_id)->withCount('design_categories')->first();
-        return view('admin.settings.category_show',compact('category','user','navbarValues'));
+        return view('admin.settings.category_show',compact('category','user','navbarValues' , 'contacts', 'categories', 'categoryExists'));
     }
 
     public function categoryUpdate(Request $request, $category_id)
@@ -419,9 +448,15 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // campaigns
+        $campaignTypes = CampaignType::with('user','status')->get();
+        // campaigns
+        $campaigns = Campaign::with('user','status','campaign_type')->get();
+        // campaign status
+        $campaignStatus = Status::where('status_type_id','4e730295-3dc3-44a4-bff8-149e66a51493')->get();
         // Get campaign type
         $campaignType = CampaignType::with('user','status','campaigns.user')->where('id',$campaign_type_id)->withCount('campaigns')->first();
-        return view('admin.settings.campaign_type_show',compact('campaignType','user','navbarValues'));
+        return view('admin.settings.campaign_type_show',compact('campaignType','user','navbarValues', 'campaigns', 'campaignTypeExists', 'campaignTypes', 'campaigns', 'campaignStatus'));
     }
 
     public function campaignTypeUpdate(Request $request, $campaign_type_id)
@@ -476,10 +511,18 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // get organizations
+        $organizations = Organization::all();
+        // get contact types
+        $contactTypes = ContactType::all();
+        // get campaigns
+        $campaigns = Campaign::all();
+        // get lead sources
+        $leadSources = LeadSource::all();
         // Get contact type
         $contactType = ContactType::with('user','status')->where('id',$contact_type_id)->withCount('contact_type_contacts')->first();
         $contactContactTypes = ContactContactType::with('user','status','contact')->where('contact_type_id',$contact_type_id)->get();
-        return view('admin.settings.contact_type_show',compact('contactType','user','contactContactTypes','navbarValues'));
+        return view('admin.settings.contact_type_show',compact('contactType','user','contactContactTypes','navbarValues', 'organizations', 'contactTypeExists', 'contactTypes', 'campaigns', 'leadSources'));
     }
 
     public function contactTypeUpdate(Request $request, $contact_type_id)
@@ -618,9 +661,7 @@ class SettingsController extends Controller
     {
 
         $frequency = Frequency::findOrFail($Frequency_id);
-        $frequency->status_id = "b810f2f1-91c2-4fc9-b8e1-acc068caa03a";
-        $frequency->user_id = Auth::user()->id;
-        $frequency->save();
+        $frequency->delete();
 
         return back()->withSuccess(__('Frequeny '.$frequency->name.' successfully deleted.'));
     }
@@ -734,6 +775,7 @@ class SettingsController extends Controller
     {
 
         $leadSource = LeadSource::findOrFail($lead_source_id);
+        $leadSource->name = $request->name;
         $leadSource->save();
 
         return redirect()->route('admin.lead.source.show',$leadSource->id)->withSuccess('Expense account updated!');
@@ -1028,7 +1070,18 @@ class SettingsController extends Controller
         // Check if tag exists
         $tagExists = Tag::findOrFail($tag_id);
         $tag = Tag::with('user','status')->where('id',$tag_id)->first();
-
+        // Tags
+        $tags = Tag::all();
+        // Projects
+        $projects = Project::all();
+        // Design
+        $designs = Design::all();
+        // Tudeme
+        $tudemes = Tudeme::all();
+        // Deals
+        $deals = Deal::all();
+        // Contacts
+        $contacts = Contact::all();
         // Get thumbnail sizes
         $thumbnailSizes = ThumbnailSize::all();
         // Get albums
@@ -1036,7 +1089,7 @@ class SettingsController extends Controller
         // Get albums
         $tagAlbums = Album::whereIn('id', $albums)->with('user','status','album_type')->get();
 
-        return view('admin.settings.tag_show',compact('tag','user','tagAlbums','thumbnailSizes','navbarValues'));
+        return view('admin.settings.tag_show',compact('tag','user','tagAlbums','thumbnailSizes','navbarValues', 'tags', 'projects', 'designs', 'tudemes', 'deals', 'contacts', 'tagExists'));
     }
 
     public function tagUpdate(Request $request, $album_type_id)

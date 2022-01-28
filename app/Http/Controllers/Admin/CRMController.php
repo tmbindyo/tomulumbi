@@ -103,7 +103,20 @@ class CRMController extends Controller
         // Get contact types
         $contactTypes = ContactType::all();
 
-        return view('admin.leads',compact('leads','user','contactTypes','navbarValues'));
+        // get contacts
+        $contacts = Contact::with('user','status','contact_type')->get();
+        // get contact types
+        $contactTypes = ContactType::all();
+        // get organizations
+        $organizations = Organization::all();
+        // get titles
+        $titles = Title::all();
+        // get lead sources
+        $leadSources = LeadSource::all();
+        // get campaigns
+        $campaigns = Campaign::all();
+
+        return view('admin.crm.leads',compact('leads','user','contactTypes','navbarValues','organizations','titles','leadSources','campaigns'));
     }
 
     public function leadCreate()
@@ -124,7 +137,8 @@ class CRMController extends Controller
         $leadSources = LeadSource::all();
         // get campaigns
         $campaigns = Campaign::all();
-        return view('admin.lead_create',compact('contacts','user','contactTypes','navbarValues','organizations','titles','leadSources','campaigns'));
+
+        return view('admin.crm.lead_create',compact('contacts','user','contactTypes','navbarValues','organizations','titles','leadSources','campaigns'));
     }
 
     // campaigns
@@ -138,7 +152,12 @@ class CRMController extends Controller
         // campaigns
         $campaigns = Campaign::with('user','status','campaign_type')->get();
 
-        return view('admin.crm.campaigns',compact('campaigns','user','navbarValues'));
+        // campaign types
+        $campaignTypes = CampaignType::all();
+        // campaign status
+        $campaignStatus = Status::where('status_type_id','4e730295-3dc3-44a4-bff8-149e66a51493')->get();
+
+        return view('admin.crm.campaigns',compact('campaigns','user','navbarValues','campaignStatus','campaignTypes'));
 
     }
 
@@ -199,7 +218,7 @@ class CRMController extends Controller
         $campaign = Campaign::with('user','status','campaign_type','campaign_uploads','contacts','expenses','leads','organizations','to_dos','deals','campaigns','pending_to_dos','in_progress_to_dos','completed_to_dos','overdue_to_dos')->withCount('campaign_uploads','contacts','expenses','organizations','to_dos','pending_to_dos','in_progress_to_dos','completed_to_dos','overdue_to_dos')->where('id',$campaign_id)->first();
         // return $campaign;
 
-        return view('admin.campaign_show',compact('campaign','user','navbarValues','campaignTypes','campaigns','campaignStatus'));
+        return view('admin.crm.campaign_show',compact('campaign','user','navbarValues','campaignTypes','campaigns','campaignStatus'));
     }
 
     public function campaignContactCreate($campaign_id)
@@ -490,10 +509,15 @@ class CRMController extends Controller
         $navbarValues = $this->getNavbarValues();
         // Get all contacts
         $contacts = Contact::where('is_lead',False)->with('status','contact_type','title')->get();
+        // get organizations
+        $organizations = Organization::all();
         // Get contact types
         $contactTypes = ContactType::all();
-
-        return view('admin.contacts',compact('contacts','user','contactTypes','navbarValues'));
+        // get campaigns
+        $campaigns = Campaign::all();
+        // get lead sources
+        $leadSources = LeadSource::all();
+        return view('admin.crm.contacts',compact('contacts','user','contactTypes','navbarValues', 'organizations', 'campaigns', 'leadSources'));
     }
 
     public function contactCreate()
@@ -514,7 +538,7 @@ class CRMController extends Controller
         $leadSources = LeadSource::all();
         // get campaigns
         $campaigns = Campaign::all();
-        return view('admin.contact_create',compact('contacts','user','contactTypes','navbarValues','organizations','titles','leadSources','campaigns'));
+        return view('admin.crm.contact_create',compact('contacts','user','contactTypes','navbarValues','organizations','titles','leadSources','campaigns'));
     }
 
     public function contactStore(Request $request)

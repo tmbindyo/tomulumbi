@@ -217,9 +217,6 @@
                                 <div class="card-header">
                                     <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                                     Album Types
-                                    <div class="btn-actions-pane-right">
-                                        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAlbumTypes"><i class="fa fa-plus"></i> Album Type</button>
-                                    </div>
                                 </div>
 
                                 <div class="card-body">
