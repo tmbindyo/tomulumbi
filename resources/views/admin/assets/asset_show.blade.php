@@ -300,9 +300,7 @@
                                             <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                                             Kits
                                             <div class="btn-actions-pane-right">
-                                                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addKitAsset"><i class="fa fa-plus"></i> Kits</button>
-
-                                                <a href="{{route('admin.asset.assign.kit',$asset->id)}}" type="button" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Kits</a>
+                                                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addKitAsset"><i class="fa fa-plus"></i> Kit</button>
                                             </div>
                                         </div>
 
@@ -329,6 +327,7 @@
                                                                         </td>
                                                                         <td class="text-right">
                                                                             <div class="btn-group">
+                                                                                <a href="{{ route('admin.kit.show', $kitAsset->kit->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
                                                                                 @if($kitAsset->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
                                                                                     <a href="{{ route('admin.kit.asset.restore', $kitAsset->id) }}" class="mb-2 mr-2 btn btn-success">Restore</a>
                                                                                 @else
@@ -498,6 +497,9 @@
             var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
             if(document.getElementById("due_date")){
                 document.getElementById("due_date").value = due_date;
+            }
+            if(document.getElementById("asset_action_due_date")){
+                document.getElementById("asset_action_due_date").value = due_date;
             }
 
         });

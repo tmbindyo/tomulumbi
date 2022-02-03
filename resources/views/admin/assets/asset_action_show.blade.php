@@ -69,14 +69,14 @@
                         </div>
                     </div>
                     @if($assetAction->is_asset == 1)
-                        <a type="button" class="btn btn-success btn-lg" href="{{route('admin.asset.show',$assetAction->asset_id)}}"><i class="fa fa-eye"></i> Asset Action</a>
+                        <a type="button" class="btn btn-success btn-lg" href="{{route('admin.asset.show',$assetAction->asset_id)}}"><i class="fa fa-eye"></i> Asset</a>
                     @elseif($assetAction->is_kit == 1)
-                        <a type="button" class="btn btn-success btn-lg" href="{{route('admin.kit.show',$assetAction->kit_id)}}"><i class="fa fa-eye"></i> Asset Action</a>
+                        <a type="button" class="btn btn-success btn-lg" href="{{route('admin.kit.show',$assetAction->kit_id)}}"><i class="fa fa-eye"></i> Kit</a>
                     @endif
 
                     <a type="button" class="btn btn-success btn-lg" href="{{route('admin.contact.show',$assetAction->contact_id)}}"><i class="fa fa-eye"></i> Contact</a>
                     <a type="button" class="btn btn-success btn-lg" href="{{route('admin.action.type.show',$assetAction->action_type_id)}}"><i class="fa fa-eye"></i> Action Type</a>
-                    <a type="button" class="btn btn-success btn-lg" href="#" data-toggle="modal" data-target=".addPayment"><i class="fa fa-plus"></i> Payment</a>
+
                 </div>
             </div>
         </div>
@@ -285,6 +285,9 @@
                                         <div class="card-header">
                                             <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                                             Payments
+                                            <div class="btn-actions-pane-right">
+                                                <a type="button" class="btn btn-success btn-lg" href="#" data-toggle="modal" data-target=".addPayment"><i class="fa fa-plus"></i> Payment</a>
+                                            </div>
                                         </div>
 
                                         <div class="card-body">

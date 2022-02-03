@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Asset Action</button>
+                    {{-- <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Asset Action</button> --}}
                 </div>
             </div>
         </div>
@@ -80,13 +80,13 @@
 
                     <div class="card-header">
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
-                        Assets ({{$assetActions->count()}})
+                        Asset Actions ({{$assetActions->count()}})
                         <div class="btn-actions-pane-right">
                             <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Asset Action</button>
                         </div>
                     </div>
 
-                    <div class="card-body"><h5 class="card-title">Assets</h5>
+                    <div class="card-body"><h5 class="card-title">Asset Actions</h5>
                         <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
                             <thead>
                                 <tr>
