@@ -1,6 +1,6 @@
 {{-- edit action type modal --}}
 <div class="modal fade editContact" tabindex="-1" role="dialog" aria-labelledby="editContact" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editContact">Edit Contact</h5>
@@ -104,7 +104,7 @@
                                 <label for="organization" class="">
                                     Organization
                                 </label>
-                                <select required="required" style="width: 100%" {{ $errors->has('organization') ? ' is-invalid' : '' }} name="organization" id="organization" class="organization-select form-control input-lg">
+                                <select required="required" style="width: 100%" {{ $errors->has('organization') ? ' is-invalid' : '' }} name="organization" id="contact_organization" class="contact-organization-select form-control input-lg">
                                     <option>Select Organization</option>
                                     @foreach ($organizations as $organization)
                                     <option @if($contact->organization_id == $organization->id) selected @endif value="{{$organization->id}}">{{$organization->name}}</option>
@@ -123,7 +123,7 @@
                                 <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('type') ? ' is-invalid' : '' }} name="type" id="letter_tag" class="type-select form-control input-lg">
                                     <option>Select Contact Type</option>
                                     @foreach ($contactTypes as $contactType)
-                                        <option @if($contact->contact_type_id == $contactType->id) selected @endif  value="{{$contactType->id}}">{{$contactType->name}}</option>
+                                        <option @foreach($contactContactTypes as $contactContactType) @if($contactContactType->contact_type_id == $contactType->id) selected @endif @endforeach value="{{$contactType->id}}">{{$contactType->name}}</option>
                                     @endforeach
                                 </select>
                                 <i>contact type</i>

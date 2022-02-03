@@ -607,6 +607,10 @@ class CRMController extends Controller
         $leadSources = LeadSource::all();
         // get campaigns
         $campaigns = Campaign::all();
+        // Categories
+        $categories = Category::all();
+        // project types
+        $projectTypes = ProjectType::all();
         // contact designs
         $designContacts = DesignContact::with('user','status','design')->where('contact_id',$contact_id)->get();
         // contact projects
@@ -627,6 +631,8 @@ class CRMController extends Controller
         $contacts = Contact::with('organization')->get();
         // action types
         $actionTypes = ActionType::all();
+        // organization
+        $organizations = Organization::all();
         // Tags
         $tags = Tag::all();
         // Projects
@@ -635,6 +641,14 @@ class CRMController extends Controller
         $designs = Design::all();
         // Tudeme
         $tudemes = Tudeme::all();
+        // deal stage
+        $dealStages = DealStage::all();
+        // get accounts
+        $accounts = Account::all();
+        // deal status
+        $dealStatus = Status::where('status_type_id','cf5d25dc-dcf1-425c-9fdc-d580a7e0b334')->get();
+        // geet promo codes
+        $promoCodes = PromoCode::with('user','status')->withCount('promo_code_assignments','promo_code_uses')->get();
         // contact promo codes
         $assignedPromoCodes = PromoCodeAssignment::with('user','status','promo_code')->get();
         $assignedPromoCodes = PromoCodeAssignment::with('user','status','promo_code')->where('contact_id',$contact_id)->get();
@@ -642,7 +656,7 @@ class CRMController extends Controller
         $contactContactTypes = ContactContactType::with('user','status','contact_type')->where('contact_id',$contact_id)->get();
         // contact deals
         $deals = Deal::with('user','status','deal_stage','lead_source')->where('contact_id',$contact_id)->get();
-        return view('admin.crm.contact_show',compact('assetActions','loans','contactContactTypes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount','loans', 'actionTypes', 'contacts', 'assets', 'tags', 'projects', 'designs', 'tudemes', 'contactExists'));
+        return view('admin.crm.contact_show',compact('assetActions','loans','contactContactTypes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount','loans', 'actionTypes', 'contacts', 'assets', 'tags', 'projects', 'designs', 'tudemes', 'contactExists', 'promoCodes', 'organizations', 'dealStatus', 'dealStages', 'categories', 'accounts', 'projectTypes'));
     }
 
     public function contactAssetActionCreate($contact_id)
@@ -768,7 +782,7 @@ class CRMController extends Controller
         // contacts
         $contact = Contact::where('id',$contact_id)->with('organization')->first();
 
-        return view('admin.contact_order_create',compact('contact','priceLists','user','navbarValues'));
+        return view('admin.store.contact_order_create',compact('contact','priceLists','user','navbarValues'));
     }
 
     public function contactProjectCreate($contact_id)
@@ -1038,7 +1052,7 @@ class CRMController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $deals = Deal::with('user','status')->get();
-        return view('admin.deals',compact('deals','user','navbarValues'));
+        return view('admin.crm.deals',compact('deals','user','navbarValues'));
 
     }
 
@@ -1123,7 +1137,7 @@ class CRMController extends Controller
         // deal quotes
         $quotes = Quote::with('user','status')->where('deal_id',$deal_id)->get();
 
-        return view('admin.deal_show',compact('quotes','albums','projects','designs','dealStages','leadSources','contacts','campaigns','organizations','deal','user','navbarValues'));
+        return view('admin.crm.deal_show',compact('quotes','albums','projects','designs','dealStages','leadSources','contacts','campaigns','organizations','deal','user','navbarValues'));
     }
 
     public function dealClientProofCreate($deal_id)

@@ -461,8 +461,8 @@
             <div class="card-body">
                 <ul class="tabs-animated-shadow tabs-animated nav">
                     <li class="nav-item">
-                        <a role="tab" class="nav-link active" id="tab-c-0" data-toggle="tab" href="#asset-actions">
-                            <span>Restrictions ({{$albumViewRestrictionEmails->count()}})
+                        <a role="tab" class="nav-link active" id="tab-c-0" data-toggle="tab" href="#clients">
+                            <span>CLients ({{$albumContacts->count()}})
                             </span>
                         </a>
                     </li>
@@ -471,14 +471,20 @@
                             <span>Expenses ({{$album->expenses->count()}})</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a role="tab" class="nav-link" id="tab-c-0" data-toggle="tab" href="#restrictions">
+                            <span>Restrictions ({{$albumViewRestrictionEmails->count()}})
+                            </span>
+                        </a>
+                    </li>
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="asset-actions" role="tabpanel">
+                    <div class="tab-pane active" id="clients" role="tabpanel">
                         <div class="card-hover-shadow card-border mb-3 card">
                             <div class="card-header">
                                 <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
-                                Restrictions
+                                Clients
                                 <div class="btn-actions-pane-right">
                                     {{-- <a href="{{route('admin.order.payment.create',$order->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Payment</a> --}}
                                 </div>
@@ -491,17 +497,30 @@
                                             <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
                                                 <thead>
                                                     <tr>
+                                                        <th>Name</th>
                                                         <th>Email</th>
-                                                        <th class="text-right" data-sort-ignore="true">Action</th>
+                                                        <th>Phone Number</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($albumViewRestrictionEmails as $albumDownloadRestrictionEmail)
+                                                    @foreach($albumContacts as $albumContact)
                                                     <tr>
-                                                        <td>{{$albumDownloadRestrictionEmail->email}}</td>
+                                                        <td>@if($albumContact->contact->title){{$albumContact->contact->title->name}}.@endif {{$albumContact->contact->first_name}} {{$albumContact->contact->last_name}}</td>
+                                                        <td>{{$albumContact->contact->email}}</td>
+                                                        <td>{{$albumContact->contact->phone_number}}</td>
+                                                        <td>
+                                                            <span class="label {{$albumContact->contact->status->label}}">{{$albumContact->contact->status->name}}</span>
+                                                        </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">
-                                                                <a href="{{route('admin.client.proof.restrict.to.specific.email.delete',$albumDownloadRestrictionEmail->id)}}" class="mb-2 mr-2 btn btn-danger">Remove</a>
+                                                                <a href="{{ route('admin.contact.show', $albumContact->contact->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                @if($albumContact->contact->status->name == "Deleted")
+                                                                    <a href=""{{ route('admin.contact.restore', $albumContact->contact->id) }}" class="mb-2 mr-2 btn btn-warning">Restore</a>
+                                                                @else
+                                                                    <a href=""{{ route('admin.contact.delete', $albumContact->contact->id) }}" class="mb-2 mr-2 btn btn-danger">Delete</a>
+                                                                @endif
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -509,8 +528,11 @@
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
+                                                        <th>Name</th>
                                                         <th>Email</th>
-                                                        <th class="text-right" data-sort-ignore="true">Action</th>
+                                                        <th>Phone Number</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -601,6 +623,56 @@
 
                         </div>
                     </div>
+
+                    <div class="tab-pane" id="restrictions" role="tabpanel">
+                        <div class="card-hover-shadow card-border mb-3 card">
+                            <div class="card-header">
+                                <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                Restrictions
+                                <div class="btn-actions-pane-right">
+                                    {{-- <a href="{{route('admin.order.payment.create',$order->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Payment</a> --}}
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="col-lg-12">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                            <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <th class="text-right" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($albumViewRestrictionEmails as $albumDownloadRestrictionEmail)
+                                                    <tr>
+                                                        <td>{{$albumDownloadRestrictionEmail->email}}</td>
+                                                        <td class="text-right">
+                                                            <div class="btn-group">
+                                                                <a href="{{route('admin.client.proof.restrict.to.specific.email.delete',$albumDownloadRestrictionEmail->id)}}" class="mb-2 mr-2 btn btn-danger">Remove</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <th class="text-right" data-sort-ignore="true">Action</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                 </div>
 
 

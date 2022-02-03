@@ -38,7 +38,7 @@
                         <select required="required" style="width: 100%" {{ $errors->has('type') ? ' is-invalid' : '' }} name="type" id="type" class="type-select form-control input-lg">
                             <option selected disabled>Select Type</option>
                             @foreach($types as $type)
-                                <option value="{{$type->id}}">{{$type->name}}</option>
+                                <option @isset($typeExists) @if($typeExists->id == $type->id) selected @endif @endisset value="{{$type->id}}">{{$type->name}}</option>
                             @endforeach
                         </select>
                         <i>type</i>

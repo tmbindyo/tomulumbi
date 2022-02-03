@@ -169,56 +169,162 @@
 
                     <div class="card-header">
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
-                        Sub Types ({{$type->sub_types->count()}})
-                        <div class="btn-actions-pane-right">
-
-                        </div>
+                        Children Records
+                        {{-- <div class="btn-actions-pane-right">
+                            <a href="{{route('admin.transaction.create',$order->id)}}" type="button" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Make Payment</a>
+                        </div> --}}
                     </div>
 
-                        <div class="card-body"><h5 class="card-title">Course Meals</h5>
-                            <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>User</th>
-                                        <th>Status</th>
-                                        <th width="13em">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($type->sub_types as $typeSubType)
-                                        <tr>
-                                            <td>{{$typeSubType->name}}</td>
-                                            <td>{{$typeSubType->description}}</td>
-                                            <td>{{$typeSubType->user->name}}</td>
+                    <div class="card-body">
+                        <ul class="tabs-animated-shadow tabs-animated nav">
+                            <li class="nav-item">
+                                <a role="tab" class="nav-link active" id="tab-c-0" data-toggle="tab" href="#sub-types">
+                                    <span>Sub Types ({{$type->sub_types->count()}})
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a role="tab" class="nav-link" id="tab-c-1" data-toggle="tab" href="#products">
+                                    <span>Products ({{$type->products->count()}})</span>
+                                </a>
+                            </li>
+                        </ul>
 
-                                            <td>
-                                                <span class="label {{$typeSubType->status->label}}">{{$typeSubType->status->name}}</span>
-                                            </td>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="sub-types" role="tabpanel">
+                                <div class="card-hover-shadow card-border mb-3 card">
+                                    <div class="card-header">
+                                        <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                        Sub Types ({{$type->sub_types->count()}})
+                                        <div class="btn-actions-pane-right">
+                                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addSubType"><i class="fa fa-plus"></i> Sub Type</button>
+                                        </div>
+                                    </div>
 
-                                            <td class="text-right">
-                                                <div class="btn-group">
-                                                    <a href="{{ route('admin.sub.type.show', $typeSubType->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                    <div class="card-body">
+                                        <div class="col-lg-12">
+                                            <div class="main-card mb-3 card">
+                                                <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                                    <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Description</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th width="13em">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($type->sub_types as $typeSubType)
+                                                                <tr>
+                                                                    <td>{{$typeSubType->name}}</td>
+                                                                    <td>{{$typeSubType->description}}</td>
+                                                                    <td>{{$typeSubType->user->name}}</td>
+
+                                                                    <td>
+                                                                        <span class="label {{$typeSubType->status->label}}">{{$typeSubType->status->name}}</span>
+                                                                    </td>
+                                                                    <td class="text-right">
+                                                                        <div class="btn-group">
+                                                                            <a href="{{ route('admin.sub.type.show', $typeSubType->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Description</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th width="13em">Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>User</th>
-                                        <th>Status</th>
-                                        <th width="13em">Action</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="products" role="tabpanel">
+                                <div class="card-hover-shadow card-border mb-3 card">
+                                    <div class="card-header">
+                                        <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                        Products ({{$type->products->count()}})
+                                        <div class="btn-actions-pane-right">
+                                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addProduct"><i class="fa fa-plus"></i> Product</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="col-lg-12">
+                                            <div class="main-card mb-3 card">
+                                                <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                                    <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Sales</th>
+                                                                <th>Views</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($type->products as $product)
+                                                            <tr>
+                                                                <td>{{$product->name}}</td>
+                                                                <td>{{$product->order_products_count}}</td>
+                                                                <td>{{$product->views}}</td>
+                                                                <td>{{$product->user->name}}</td>
+                                                                <td>
+                                                                    <span class="label {{$product->status->label}}">{{$product->status->name}}</span>
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    <div class="btn-group">
+                                                                        <a href="{{ route('admin.product.show', $product->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Sales</th>
+                                                                <th>Views</th>
+                                                                <th>User</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
                         </div>
 
+
+                    </div>
+
                     <div class="card-footer">Footer</div>
+
                 </div>
+            </div>
+        </div>
+
             </div>
         </div>
         {{-- action types --}}
@@ -226,3 +332,7 @@
     </div>
 
 @endsection
+
+
+@include('admin.components.modals.add_sub_type')
+@include('admin.components.modals.add_product')

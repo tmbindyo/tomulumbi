@@ -68,6 +68,7 @@
                             </ul>
                         </div>
                     </div>
+                    <a href="{{route('admin.contact.show',$loan->contact_id)}}" class="btn btn-success btn-lg"><i class="fa fa-eye"></i> Contact </a>
                 </div>
             </div>
         </div>

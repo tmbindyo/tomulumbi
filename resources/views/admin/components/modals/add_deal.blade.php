@@ -1,16 +1,16 @@
 {{-- add action type modal --}}
-<div class="modal fade addContact" tabindex="-1" role="dialog" aria-labelledby="addContact" aria-hidden="true">
+<div class="modal fade addDeal" tabindex="-1" role="dialog" aria-labelledby="addDeal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addContact">Add Contact</h5>
+                <h5 class="modal-title" id="addDeal">Add Deeal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin.contact.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.deal.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())
@@ -23,53 +23,31 @@
                         </div>
                     @endif
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="position-relative form-group">
-                                <div class="checkbox checkbox-info">
-                                    <label for="is_lead">
-                                        Lead
-                                    </label><br>
-                                    <input id="is_lead" name="is_lead" type="checkbox"  data-on="Yes" data-off="No" {{ $errors->has('is_lead') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal"><br>
-                                    <i>lead</i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="position-relative form-group">
-                                <label for="title" class="">
-                                    Title
-                                </label>
-                                <select required="required" style="width: 100%" {{ $errors->has('title') ? ' is-invalid' : '' }} name="title" id="title" class="title-select form-control input-lg">
-                                    <option>Select Title</option>
-                                    @foreach ($titles as $title)
-                                        <option @isset($titleExists) @if($titleExists->id == $title->id) selected @endif @endisset value="{{$title->id}}">{{$title->name}}</option>
-                                    @endforeach
-                                </select>
-                                <i>campaign</i>
-                            </div>
-                        </div>
+                    <div class="position-relative form-group">
+                        <label for="name" class="">
+                            Name
+                        </label>
+                        <input name="name" id="name" placeholder="Name" type="text" class="mb-2 form-control" {{ $errors->has('name') ? ' is-invalid' : '' }} required="required">
+                        <i>name</i>
                     </div>
 
-
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="first_name" class="">
-                                    First Name
+                                <label for="amount" class="">
+                                    Amount
                                 </label>
-                                <input name="first_name" id="first_name" placeholder="First Name" type="text" class="mb-2 form-control" {{ $errors->has('first_name') ? ' is-invalid' : '' }} required="required">
-                                <i>first name</i>
+                                <input name="amount" id="amount" placeholder="Amount" type="number" class="mb-2 form-control" {{ $errors->has('amount') ? ' is-invalid' : '' }} required="required">
+                                <i>amount</i>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="last_name" class="">
-                                    Last Name
+                                <label for="probability" class="">
+                                    Probability
                                 </label>
-                                <input name="last_name" id="last_name" placeholder="Last Name" type="text" class="mb-2 form-control" {{ $errors->has('last_name') ? ' is-invalid' : '' }} required="required">
-                                <i>last name</i>
+                                <input name="probability" id="probability" placeholder="Probability" type="number" class="mb-2 form-control" {{ $errors->has('probability') ? ' is-invalid' : '' }} required="required">
+                                <i>probability</i>
                             </div>
                         </div>
                     </div>
@@ -77,20 +55,20 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="phone_number" class="">
-                                    Phone Number
+                                <label for="date" class="">
+                                    Date
                                 </label>
-                                <input name="phone_number" id="phone_number" placeholder="Phone Number" type="text" class="mb-2 form-control" {{ $errors->has('phone_number') ? ' is-invalid' : '' }} required="required">
-                                <i>phone number</i>
+                                <input required name="date" id="deal_date" type="text" class="form-control" data-toggle="datepicker"/>
+                                <i>date.</i>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="email" class="">
-                                    Email
+                                <label for="expiry_date" class="">
+                                    Expiry Date
                                 </label>
-                                <input name="email" id="email" placeholder="Email" type="email" class="mb-2 form-control" {{ $errors->has('email') ? ' is-invalid' : '' }} required="required">
-                                <i>email</i>
+                                <input required name="expiry_date" id="deal_expiry_date" type="text" class="form-control" data-toggle="datepicker"/>
+                                <i>expiry date.</i>
                             </div>
                         </div>
                     </div>
@@ -101,7 +79,7 @@
                                 <label for="organization" class="">
                                     Organization
                                 </label>
-                                <select required="required" style="width: 100%" {{ $errors->has('organization') ? ' is-invalid' : '' }} name="organization" id="organization" class="organization-select form-control input-lg">
+                                <select required="required" style="width: 100%" {{ $errors->has('organization') ? ' is-invalid' : '' }} name="organization" id="deal_organization" class="deal-organization-select form-control input-lg">
                                     <option>Select Organization</option>
                                     @foreach ($organizations as $organization)
                                         <option @isset($organizationExists) @if($organizationExists->id == $organization->id) selected @endif @endisset value="{{$organization->id}}">{{$organization->name}}</option>
@@ -113,16 +91,16 @@
 
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="contact_type" class="">
-                                    Contact Type
+                                <label for="contact" class="">
+                                    Contact
                                 </label>
-                                <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('contact_type') ? ' is-invalid' : '' }} name="contact_type" id="contact_type" class="contact-type-select form-control input-lg">
-                                    <option>Select Contact Type</option>
-                                    @foreach ($contactTypes as $contactType)
-                                        <option @isset($contactTypeExists) @if($contactTypeExists->id == $contactType->id) selected @endif @endisset value="{{$contactType->id}}">{{$contactType->name}}</option>
+                                <select required="required" style="width: 100%" {{ $errors->has('contact') ? ' is-invalid' : '' }} name="contact" id="deal_contact" class="deal-contact-select form-control input-lg">
+                                    <option>Select Contact</option>
+                                    @foreach($contacts as $contact)
+                                        <option @isset($contactExists) @if($contactExists->id == $contact->id) selected @endif @endisset value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                                     @endforeach
                                 </select>
-                                <i>contact type</i>
+                                <i>contact</i>
                             </div>
                         </div>
                     </div>
@@ -155,6 +133,39 @@
                                     @endforeach
                                 </select>
                                 <i>lead source</i>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="status" class="">
+                                    Status
+                                </label>
+                                <select required="required" style="width: 100%" {{ $errors->has('status') ? ' is-invalid' : '' }} name="status" id="status" class="status-select form-control input-lg">
+                                    <option>Select Status</option>
+                                    @foreach ($dealStatus as $status)
+                                        <option @isset($statusExists) @if($statusExists->id == $status->id) selected @endif @endisset value="{{$status->id}}">{{$status->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>status</i>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="type" class="">
+                                    Deal Stage
+                                </label>
+                                <select required="required" style="width: 100%" {{ $errors->has('type') ? ' is-invalid' : '' }} name="deal_stage" id="deal_stage" class="deal-stage-select form-control input-lg">
+                                    <option>Select Deal Stage</option>
+                                    @foreach ($dealStages as $dealStage)
+                                        <option @isset($dealStageExists) @if($dealStageExists->id == $dealStage->id) selected @endif @endisset value="{{$dealStage->id}}">{{$dealStage->name}}</option>
+                                    @endforeach
+                                </select>
+                                <i>deal stage</i>
                             </div>
                         </div>
                     </div>

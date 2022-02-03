@@ -521,7 +521,7 @@
                                                             <td>{{$campaignCampaign->end_date}}</td>
                                                             <td>{{$campaignCampaign->user->name}}</td>
                                                             <td>
-                                                                <span class="label {{$album->status->label}}">{{$album->status->name}}</span>
+                                                                <span class="label {{$campaignCampaign->status->label}}">{{$campaignCampaign->status->name}}</span>
                                                             </td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">

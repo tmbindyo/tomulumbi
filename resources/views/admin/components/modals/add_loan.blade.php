@@ -79,9 +79,9 @@
                             Contact
                         </label>
                         <select required="required" style="width: 100%" {{ $errors->has('contact') ? ' is-invalid' : '' }} name="contact" id="contact_loan" class="contact-loan-select form-control input-lg">
-                                <option>Select Contact</option>
+                            <option>Select Contact</option>
                                 @foreach($contacts as $contact)
-                                    <option value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
+                                    <option @isset($contactExists) @if($contactExists->id == $contact->id) selected @endif @endisset value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                                 @endforeach
                         </select>
                         <i>contact</i>
@@ -93,7 +93,7 @@
                                 <label for="date" class="">
                                     Date
                                 </label>
-                                <input required name="date" id="date" type="text" class="form-control" data-toggle="datepicker"/>
+                                <input required name="date" id="loan_date" type="text" class="form-control" data-toggle="datepicker"/>
                                 <i>date.</i>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                 <label for="due_date" class="">
                                     Due Date
                                 </label>
-                                <input required name="due_date" id="due_date" type="text" class="form-control" data-toggle="datepicker"/>
+                                <input required name="due_date" id="loan_due_date" type="text" class="form-control" data-toggle="datepicker"/>
                                 <i>due date.</i>
                             </div>
                         </div>

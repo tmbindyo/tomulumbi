@@ -659,7 +659,7 @@ Route::post('/promo/code/store', 'Admin\SaleController@promoCodeStore')->name('a
 Route::get('/promo/code/show/{promo_code_id}', 'Admin\SaleController@promoCodeShow')->name('admin.promo.code.show');
 
 Route::get('/promo/code/assign/{promo_code_id}', 'Admin\SaleController@promoCodeAssign')->name('admin.promo.code.assign');
-Route::post('/promo/code/assignment/{promo_code_id}', 'Admin\SaleController@promoCodeAssignment')->name('admin.promo.code.assignment');
+Route::post('/promo/code/assignment', 'Admin\SaleController@promoCodeAssignment')->name('admin.promo.code.assignment');
 
 Route::post('/promo/code/update/{promo_code_id}', 'Admin\SaleController@promoCodeUpdate')->name('admin.promo.code.update');
 Route::get('/promo/code/delete/{promo_code_id}', 'Admin\ProductController@promoCodeDelete')->name('admin.promo.code.delete');

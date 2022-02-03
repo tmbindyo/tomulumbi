@@ -254,7 +254,7 @@ class AssetController extends Controller
         $assetAction->user_id = Auth::user()->id;
         $assetAction->save();
 
-        return redirect()->route('admin.asset.action.show',$assetAction->id)->withSuccess('Kit updated!');
+        return redirect()->route('admin.asset.action.show',$assetAction->id)->withSuccess('Asset Action updated!');
     }
 
     public function assetActionShow($asset_action_id)

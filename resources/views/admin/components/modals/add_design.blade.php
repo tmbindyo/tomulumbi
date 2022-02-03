@@ -37,7 +37,7 @@
                                 <label for="date" class="">
                                     Date
                                 </label>
-                                <input required name="date" id="date" type="text" class="form-control" data-toggle="datepicker"/>
+                                <input required name="date" id="design_date" type="text" class="form-control" data-toggle="datepicker"/>
                                 <i>date.</i>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                 <label for="expiry_date" class="">
                                     Expiry Date
                                 </label>
-                                <input required name="expiry_date" id="expiry_date" type="text" class="form-control" data-toggle="datepicker"/>
+                                <input required name="expiry_date" id="design_expiry_date" type="text" class="form-control" data-toggle="datepicker"/>
                                 <i>expiry date.</i>
                             </div>
                         </div>

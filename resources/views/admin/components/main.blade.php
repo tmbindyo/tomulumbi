@@ -180,7 +180,13 @@
                 $('.color-select').select2();
             });
             $(document).ready(function() {
+                $('.promo-code-contact-select').select2();
+            });
+            $(document).ready(function() {
                 $('.contact-select').select2();
+            });
+            $(document).ready(function() {
+                $('.contact-organization-select').select2();
             });
             $(document).ready(function() {
                 $('.cooking-skill-select').select2();
@@ -190,6 +196,15 @@
             });
             $(document).ready(function() {
                 $('.course-select').select2();
+            });
+            $(document).ready(function() {
+                $('.deal-contact-select').select2();
+            });
+            $(document).ready(function() {
+                $('.deal-organization-select').select2();
+            });
+            $(document).ready(function() {
+                $('.deal-stage-select').select2();
             });
             $(document).ready(function() {
                 $('.dietary-preference-select').select2();
@@ -286,6 +301,9 @@
             });
             $(document).ready(function() {
                 $('.orientation-select').select2();
+            });
+            $(document).ready(function() {
+                $('.promo-code-select').select2();
             });
             $(document).ready(function() {
                 $('.project-type-select').select2();

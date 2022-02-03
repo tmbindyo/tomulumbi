@@ -186,8 +186,8 @@
                 mm = '0'+mm;
             }
             var date = mm + '/' + dd + '/' + yyyy;
-            if(document.getElementById("date")){
-                document.getElementById("date").value = date;
+            if(document.getElementById("tudeme_date")){
+                document.getElementById("tudeme_date").value = date;
             }
 
         });

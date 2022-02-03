@@ -842,10 +842,14 @@ class SettingsController extends Controller
         $organizationTypeExists = OrganizationType::findOrFail($organization_type_id);
         // User
         $user = $this->getAdmin();
+        // organization types
+        $organizationTypes = OrganizationType::all();
+        // organizations
+        $organizations = Organization::with('user','status','organization_type')->withCount('contacts')->get();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
         $organizationType = OrganizationType::with('user','status','organizations')->withCount('organizations')->where('id',$organization_type_id)->first();
-        return view('admin.settings.organization_type_show',compact('organizationType','user','navbarValues'));
+        return view('admin.settings.organization_type_show',compact('organizationType','user','navbarValues', 'organizations', 'organizationTypes'));
     }
 
     public function organizationTypeUpdate(Request $request, $organization_type_id)
@@ -903,9 +907,14 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // project types
+        $projectTypes = ProjectType::all();
+        // contacts
+        $contacts = Contact::all();
+        // get project type
         $projectType = ProjectType::with('user','status')->where('id',$project_type_id)->first();
         $projectTypeProjects = Project::with('user','status')->where('project_type_id',$project_type_id)->get();
-        return view('admin.settings.project_type_show',compact('projectType','user','projectTypeProjects','navbarValues'));
+        return view('admin.settings.project_type_show',compact('projectType','user','projectTypeProjects','navbarValues', 'projectTypes', 'contacts', 'projectTypeExists'));
     }
 
     public function projectTypeUpdate(Request $request, $project_type_id)
@@ -1317,11 +1326,21 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // organization
+        $organizations = Organization::all();
+        // contact types
+        $contactTypes = ContactType::all();
+        // get campaigns
+        $campaigns = Campaign::all();
+        // get lead sources
+        $leadSources = LeadSource::all();
+        // get titles
+        $titles = Title::all();
         // Check if title exists
         $titleExists = Title::findOrFail($title_id);
         $title = Title::with('user','status','contacts')->withCount('contacts')->where('id',$title_id)->first();
 
-        return view('admin.settings.title_show',compact('title','user','navbarValues'));
+        return view('admin.settings.title_show',compact('title','user','navbarValues', 'organizations', 'titleExists', 'contactTypes', 'campaigns', 'leadSources', 'titles'));
     }
 
     public function titleUpdate(Request $request, $title_id)
@@ -1376,11 +1395,13 @@ class SettingsController extends Controller
         $typeExists = Type::findOrFail($type_id);
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // get types
+        $types = Type::all();
         // User
         $user = $this->getAdmin();
-        $type = Type::with('user','status')->where('id',$type_id)->with('sub_types')->first();
+        $type = Type::with('user','status')->where('id',$type_id)->with('sub_types', 'products')->first();
 
-        return view('admin.settings.type_show',compact('type','user','navbarValues'));
+        return view('admin.settings.type_show',compact('type','user','navbarValues', 'types', 'typeExists'));
     }
 
     public function typeUpdate(Request $request, $type_id)
@@ -2511,13 +2532,16 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
-
+        // tudeme types
+        $tudemeTypes = TudemeType::all();
+        // tudeme tags
+        $tudemeTags = TudemeTag::all();
         // tudeme tag
         $tudemeTag = TudemeTag::with('user','status')->where('id',$tudeme_tag_id)->withCount('tudeme_tudeme_tags')->first();
         // tudeme tag meals
         $tudemeTudemeTags = TudemeTudemeTag::with('user','status','tudeme')->where('tudeme_tag_id',$tudeme_tag_id)->get();
 
-        return view('admin.settings.tudeme_tag_show',compact('tudemeTag','user','tudemeTudemeTags','navbarValues'));
+        return view('admin.settings.tudeme_tag_show',compact('tudemeTag','user','tudemeTudemeTags','navbarValues', 'tudemeTags', 'tudemeTypes', 'tudemeTagExists'));
     }
 
     public function tudemeTagUpdate(Request $request, $tudeme_tag_id)
@@ -2576,12 +2600,16 @@ class SettingsController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
 
+        // tudeme types
+        $tudemeTypes = TudemeType::all();
+        // tudeme tags
+        $tudemeTags = TudemeTag::all();
         // tudeme type
         $tudemeType = TudemeType::with('user','status')->where('id',$tudeme_type_id)->withCount('tudeme_tudeme_types')->first();
         // tudeme type meals
         $tudemeTudemeTypes = TudemeTudemeType::with('user','status','tudeme')->where('tudeme_type_id',$tudeme_type_id)->get();
 
-        return view('admin.settings.tudeme_type_show',compact('tudemeType','user','tudemeTudemeTypes','navbarValues'));
+        return view('admin.settings.tudeme_type_show',compact('tudemeType','user','tudemeTudemeTypes','navbarValues', 'tudemeTypes', 'tudemeTypeExists', 'tudemeTags'));
     }
 
     public function tudemeTypeUpdate(Request $request, $tudeme_type_id)

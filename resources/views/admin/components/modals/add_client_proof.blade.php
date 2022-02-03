@@ -57,7 +57,7 @@
                             Tag
                         </label>
                         <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('tag') ? ' is-invalid' : '' }} name="tags[]" id="client_proof_tag" class="client-proof-tag-select form-control input-lg">
-                            <option>Select Tag</option>
+                            <option selected invalid>Select Tag</option>
                             @foreach($tags as $tag)
                                 <option @isset($tagExists) @if($tagExists->id == $tag->id) selected @endif @endisset value="{{$tag->id}}">{{$tag->name}}</option>
                             @endforeach
@@ -69,13 +69,13 @@
                         <label for="tag" class="">
                             Contact
                         </label>
-                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('tag') ? ' is-invalid' : '' }} name="contacts[]" id="contact" class="contact-select form-control input-lg">
+                        <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('contact') ? ' is-invalid' : '' }} name="contacts[]" id="contact" class="contact-select form-control input-lg">
                             <option>Select Contact</option>
                             @foreach($contacts as $contact)
                                 <option @isset($contactExists) @if($contactExists->id == $contact->id) selected @endif @endisset value="{{$contact->id}}">{{$contact->first_name}} {{$contact->last_name}} @if($contact->organization)[{{$contact->organization->name}}]@endif</option>
                             @endforeach
                         </select>
-                        <i>tag</i>
+                        <i>contact</i>
                     </div>
 
                     <div class="position-relative form-group">

@@ -26,4 +26,8 @@ class Type extends Model
     {
         return $this->hasMany('App\SubType');
     }
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
 }

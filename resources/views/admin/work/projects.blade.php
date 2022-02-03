@@ -184,8 +184,8 @@
                 mm = '0'+mm;
             }
             var date = mm + '/' + dd + '/' + yyyy;
-            if(document.getElementById("date")){
-                document.getElementById("date").value = date;
+            if(document.getElementById("project_date")){
+                document.getElementById("project_date").value = date;
             }
 
         });

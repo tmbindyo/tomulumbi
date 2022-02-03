@@ -36,10 +36,10 @@
                         <label for="type" class="">
                             Type
                         </label>
-                        <select required="required" style="width: 100%" name="type" id="type" class="type-select form-control input-lg">
+                        <select required="required" style="width: 100%" name="type" id="sub_type_type" class="type-select form-control input-lg">
                             <option>Select type</option>
                             @foreach ($types as $type)
-                                <option value="{{$type->id}}">{{$type->name}}</option>
+                                <option @isset($typeExists) @if($typeExists->id == $type->id) selected @endif @endisset value="{{$type->id}}">{{$type->name}}</option>
                             @endforeach
                         </select>
                         <i>type</i>

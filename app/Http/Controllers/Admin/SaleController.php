@@ -300,7 +300,7 @@ class SaleController extends Controller
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
 
-        // Get albums
+        // Get promo codes
         $promoCodes = PromoCode::with('user','status')->withCount('promo_code_assignments','promo_code_uses')->get();
 
         return view('admin.store.promo_codes',compact('promoCodes','user','navbarValues'));
@@ -357,7 +357,7 @@ class SaleController extends Controller
         $promoCode = PromoCode::where('id',$promo_code_id)->with('status','user')->first();
         // get contacts
         $contacts = Contact::with('organization')->get();
-        return view('admin.promo_code_assign',compact('promoCode','contacts','user','navbarValues'));
+        return view('admin.store.promo_code_assign',compact('promoCode','contacts','user','navbarValues'));
     }
 
     public function promoCodeAssignment(Request $request)

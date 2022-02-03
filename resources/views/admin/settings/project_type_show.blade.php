@@ -171,7 +171,7 @@
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Projects ({{$projectTypeProjects->count()}})
                         <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.project.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Project</a>
+                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addProject"><i class="fa fa-plus"></i> Project</button>
                         </div>
                     </div>
 
@@ -225,4 +225,30 @@
 
     </div>
 
+@endsection
+
+@include('admin.components.modals.add_project')
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            // Set date
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date = mm + '/' + dd + '/' + yyyy;
+            if(document.getElementById("project_date")){
+                document.getElementById("project_date").value = date;
+            }
+
+        });
+
+    </script>
 @endsection

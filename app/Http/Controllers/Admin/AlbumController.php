@@ -931,7 +931,7 @@ class AlbumController extends Controller
         // album tags
         $albumTags = AlbumTag::where('album_id',$album_id)->with('album','tag')->get();
         // album contacts
-        $albumContacts = AlbumContact::where('album_id',$album_id)->get();
+        $albumContacts = AlbumContact::where('album_id',$album_id)->with('contact.organization')->get();
         // album restricted emails
         $albumViewRestrictionEmails = AlbumViewRestrictionEmail::where('album_id',$album_id)->get();
 

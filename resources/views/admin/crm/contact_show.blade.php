@@ -1,6 +1,6 @@
 @extends('admin.components.main')
 
-@section('title', 'Contact '.$contact->name)
+@section('title', 'Contact '.$contact->first_name. ' ' .$contact->last_name)
 
 @section('css')
     <link href="{{ asset('inspinia') }}/css/plugins/dropzone/basic.css" rel="stylesheet">
@@ -68,17 +68,17 @@
                 <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".editContact"><i class="fa fa-paint-brush"></i> Contact</button>
 
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".addAssetAction"><i class="fa fa-plus"></i> Asset Action</button>
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".addPromoCode"><i class="fa fa-plus"></i> Promo Code</button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".assignPromoCode"><i class="fa fa-plus"></i> Promo Code</button>
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".addClientProof"><i class="fa fa-plus"></i> Client Proof</button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".addDeal"><i class="fa fa-plus"></i> Deal</button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".addDesign"><i class="fa fa-plus"></i> Design</button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".addLiability"><i class="fa fa-plus"></i> Liability</button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".addLoan"><i class="fa fa-plus"></i> Loan</button>
 
-                {{-- <a href="{{route('admin.contact.promo.code.assign',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Assign Promo Code </a> --}}
-                {{-- <a href="{{route('admin.contact.client.proof.create',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Client Proof </a> --}}
-                <a href="{{route('admin.contact.deal.create',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Deal </a>
-                <a href="{{route('admin.contact.design.create',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Design </a>
-                <a href="{{route('admin.contact.liability.create',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Liability </a>
-                <a href="{{route('admin.contact.loan.create',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Loan </a>
-                <a href="{{route('admin.contact.order.create',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Order </a>
-                <a href="{{route('admin.contact.project.create',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Project </a>
+                {{-- <a href="{{route('admin.contact.liability.create',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Liability </a> --}}
+                {{-- <a href="{{route('admin.contact.loan.create',$contact->id)}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Loan </a> --}}
+                <a href="{{route('admin.order.create')}}" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Order </a>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".addProject"><i class="fa fa-plus"></i> Project</button>
                 @if($contact->campaign_id)
                     <a href="{{route('admin.campaign.show',$contact->campaign_id)}}" class="btn btn-success btn-lg"><i class="fa fa-eye"></i> Campaign </a>
                 @endif
@@ -562,11 +562,6 @@
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     <a href="{{ route('admin.asset.action.show', $assetAction->id) }}" class="mb-2 mr-2 btn btn-success">View</a>
-                                                                    @if($assetAction->status_id == "b810f2f1-91c2-4fc9-b8e1-acc068caa03a")
-                                                                        <a href="{{ route('admin.asset.action.restore', $assetAction->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
-                                                                    @else
-                                                                        <a href="{{ route('admin.asset.action.delete', $assetAction->id) }}" class="mb-2 mr-2 btn btn-warning">Delete</a>
-                                                                    @endif
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -881,11 +876,18 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Reference</th>
-                                                        <th>Amount</th>
+                                                        <th>Total</th>
+                                                        <th>Principal</th>
+                                                        <th>Interest</th>
+                                                        <th>Interest Amount</th>
                                                         <th>Paid</th>
+                                                        <th>Balance</th>
                                                         <th>Date</th>
                                                         <th>Due Date</th>
+                                                        <th>User</th>
                                                         <th>Account</th>
+                                                        <th>Contact</th>
+                                                        <th>User</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -893,15 +895,26 @@
                                                 <tbody>
                                                     @foreach($liabilities as $liability)
                                                     <tr>
-                                                        <td>{{$liability->reference}}</td>
-                                                        <td>{{$liability->amount}}</td>
-                                                        <td>{{$liability->paid}}</td>
+                                                        <td>
+                                                            {{$liability->reference}}
+                                                            <span><i data-toggle="tooltip" data-placement="right" title="{{$liability->notes}}." class="fa fa-facebook-messenger"></i></span>
+                                                        </td>
+                                                        <td>{{ number_format($liability->total, 2) }}</td>
+                                                        <td>{{ number_format($liability->principal, 2) }}</td>
+                                                        <td>{{ number_format($liability->interest, 2) }}</td>
+                                                        <td>{{ number_format($liability->interest_amount, 2) }}</td>
+                                                        <td>{{ number_format($liability->paid, 2) }}</td>
+                                                        <td>{{ number_format($liability->balance, 2) }}</td>
                                                         <td>{{$liability->date}}</td>
                                                         <td>{{$liability->due_date}}</td>
+                                                        <td>{{$liability->user->name}}</td>
                                                         <td>{{$liability->account->name}}</td>
+                                                        <td>{{$liability->contact->first_name}} {{$liability->contact->last_name}}</td>
+                                                        <td>{{$liability->user->name}}</td>
                                                         <td>
                                                             <span class="label {{$liability->status->label}}">{{$liability->status->name}}</span>
                                                         </td>
+
                                                         <td class="text-right">
                                                             <div class="btn-group">
                                                                 <a href="{{ route('admin.liability.show', $liability->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
@@ -913,11 +926,18 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th>Reference</th>
-                                                        <th>Amount</th>
+                                                        <th>Total</th>
+                                                        <th>Principal</th>
+                                                        <th>Interest</th>
+                                                        <th>Interest Amount</th>
                                                         <th>Paid</th>
+                                                        <th>Balance</th>
                                                         <th>Date</th>
                                                         <th>Due Date</th>
+                                                        <th>User</th>
                                                         <th>Account</th>
+                                                        <th>Contact</th>
+                                                        <th>User</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -949,8 +969,12 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Reference</th>
-                                                        <th>Amount</th>
+                                                        <th>Total</th>
+                                                        <th>Principal</th>
+                                                        <th>Interest</th>
+                                                        <th>Interest Amount</th>
                                                         <th>Paid</th>
+                                                        <th>Balance</th>
                                                         <th>Date</th>
                                                         <th>Due Date</th>
                                                         <th>User</th>
@@ -968,8 +992,12 @@
                                                             {{$loan->reference}}
                                                             <span><i data-toggle="tooltip" data-placement="right" title="{{$loan->notes}}." class="fa fa-facebook-messenger"></i></span>
                                                         </td>
-                                                        <td>{{$loan->amount}}</td>
-                                                        <td>{{$loan->paid}}</td>
+                                                        <td>{{ number_format($loan->total, 2) }}</td>
+                                                        <td>{{ number_format($loan->principal, 2) }}</td>
+                                                        <td>{{ number_format($loan->interest, 2) }}</td>
+                                                        <td>{{ number_format($loan->interest_amount, 2) }}</td>
+                                                        <td>{{ number_format($loan->paid, 2) }}</td>
+                                                        <td>{{ number_format($loan->balance, 2) }}</td>
                                                         <td>{{$loan->date}}</td>
                                                         <td>{{$loan->due_date}}</td>
                                                         <td>{{$loan->user->name}}</td>
@@ -990,8 +1018,12 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th>Reference</th>
-                                                        <th>Amount</th>
+                                                        <th>Total</th>
+                                                        <th>Principal</th>
+                                                        <th>Interest</th>
+                                                        <th>Interest Amount</th>
                                                         <th>Paid</th>
+                                                        <th>Balance</th>
                                                         <th>Date</th>
                                                         <th>Due Date</th>
                                                         <th>User</th>
@@ -1196,8 +1228,13 @@
 
 @include('admin.components.modals.edit_contact')
 @include('admin.components.modals.add_asset_action')
-@include('admin.components.modals.add_promo_code')
+@include('admin.components.modals.assign_promo_code')
 @include('admin.components.modals.add_client_proof')
+@include('admin.components.modals.add_deal')
+@include('admin.components.modals.add_design')
+@include('admin.components.modals.add_liability')
+@include('admin.components.modals.add_loan')
+@include('admin.components.modals.add_project')
 
 {{-- @include('admin.components.modals.add_client_proof')
 @include('admin.components.modals.add_personal_album') --}}
@@ -1225,8 +1262,23 @@
                 due_mm = '0'+due_mm;
             }
             var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
-            if(document.getElementById("promo_code_expiry_date")){
-                document.getElementById("promo_code_expiry_date").value = due_date;
+            if(document.getElementById("assign_promo_code_date")){
+                document.getElementById("assign_promo_code_date").value = due_date;
+            }
+            if(document.getElementById("deal_date")){
+                document.getElementById("deal_date").value = due_date;
+            }
+            if(document.getElementById("design_date")){
+                document.getElementById("design_date").value = due_date;
+            }
+            if(document.getElementById("liability_date")){
+                document.getElementById("liability_date").value = due_date;
+            }
+            if(document.getElementById("loan_date")){
+                document.getElementById("loan_date").value = due_date;
+            }
+            if(document.getElementById("project_date")){
+                document.getElementById("project_date").value = due_date;
             }
         });
     </script>
@@ -1267,6 +1319,18 @@
             var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
             if(document.getElementById("asset_action_due_date")){
                 document.getElementById("asset_action_due_date").value = due_date;
+            }
+            if(document.getElementById("deal_expiry_date")){
+                document.getElementById("deal_expiry_date").value = due_date;
+            }
+            if(document.getElementById("design_expiry_date")){
+                document.getElementById("design_expiry_date").value = due_date;
+            }
+            if(document.getElementById("liability_due_date")){
+                document.getElementById("liability_due_date").value = due_date;
+            }
+            if(document.getElementById("loan_due_date")){
+                document.getElementById("loan_due_date").value = due_date;
             }
         });
 
@@ -1366,5 +1430,69 @@
                     }
                 };
         });
+    </script>
+
+
+    {{--  liability and loan calculate interest  --}}
+    <script>
+
+        function liabilityGetPercentAmount() {
+            var principal = document.getElementById('liability_principal').value;
+            var interest = document.getElementById('liability_interest').value;
+            {{--  get percentage  --}}
+            var percentage = interest /100;
+            var interest_amount = parseFloat(principal) * parseFloat(percentage);
+            var payback = parseFloat(principal) + parseFloat(interest_amount);
+            {{--  set values  --}}
+            document.getElementById("liability_interest_amount").value = interest_amount;
+            document.getElementById("liability_total").value = payback;
+
+        }
+
+        function liabilityGetPercentFromAmount() {
+            var principal = document.getElementById('liability_principal').value;
+            var interest_amount = document.getElementById('liability_interest_amount').value;
+            {{--  get total  --}}
+            var total = parseFloat(principal)+parseFloat(interest_amount)
+            {{--  get percentage  --}}
+            var percentage = parseFloat(interest_amount)/parseFloat(principal)
+            var interestPercentage = parseFloat(percentage)*100;
+            {{--  set values  --}}
+            document.getElementById("liability_interest").value = interestPercentage.toFixed(5);
+            document.getElementById("liability_total").value = total;
+
+        }
+    </script>
+
+
+    {{--  loan and loan calculate interest  --}}
+    <script>
+
+        function loanGetPercentAmount() {
+            var principal = document.getElementById('loan_principal').value;
+            var interest = document.getElementById('loan_interest').value;
+            {{--  get percentage  --}}
+            var percentage = interest /100;
+            var interest_amount = parseFloat(principal) * parseFloat(percentage);
+            var payback = parseFloat(principal) + parseFloat(interest_amount);
+            {{--  set values  --}}
+            document.getElementById("loan_interest_amount").value = interest_amount;
+            document.getElementById("loan_total").value = payback;
+
+        }
+
+        function loanGetPercentFromAmount() {
+            var principal = document.getElementById('loan_principal').value;
+            var interest_amount = document.getElementById('loan_interest_amount').value;
+            {{--  get total  --}}
+            var total = parseFloat(principal)+parseFloat(interest_amount)
+            {{--  get percentage  --}}
+            var percentage = parseFloat(interest_amount)/parseFloat(principal)
+            var interestPercentage = parseFloat(percentage)*100;
+            {{--  set values  --}}
+            document.getElementById("loan_interest").value = interestPercentage.toFixed(5);
+            document.getElementById("loan_total").value = total;
+
+        }
     </script>
 @endsection

@@ -183,9 +183,7 @@
                     <div class="card-header">
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Price Lists ({{$size->price_lists->count()}})
-                        <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.product.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Product</a>
-                        </div>
+
                     </div>
 
                         <div class="card-body"><h5 class="card-title">Price Lists</h5>

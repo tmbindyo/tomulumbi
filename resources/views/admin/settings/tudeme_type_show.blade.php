@@ -169,13 +169,13 @@
 
                     <div class="card-header">
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
-                        Meals ({{$tudemeTudemeTypes->count()}})
+                        Tudeme ({{$tudemeTudemeTypes->count()}})
                         <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.tudeme.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Tudeme</a>
+                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addTudeme"><i class="fa fa-plus"></i> Tudeme</button>
                         </div>
                     </div>
 
-                        <div class="card-body"><h5 class="card-title">Tudeme Type Meals</h5>
+                        <div class="card-body"><h5 class="card-title">Tudeme </h5>
                             <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
                                 <thead>
                                     <tr>
@@ -225,4 +225,30 @@
 
     </div>
 
+@endsection
+
+@include('admin.components.modals.add_tudeme')
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            // Set date
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date = mm + '/' + dd + '/' + yyyy;
+            if(document.getElementById("tudeme_date")){
+                document.getElementById("tudeme_date").value = date;
+            }
+
+        });
+
+    </script>
 @endsection

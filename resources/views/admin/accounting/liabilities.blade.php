@@ -193,8 +193,8 @@
                 mm = '0'+mm;
             }
             var date = mm + '/' + dd + '/' + yyyy;
-            if(document.getElementById("date")){
-                document.getElementById("date").value = date;
+            if(document.getElementById("liability_date")){
+                document.getElementById("liability_date").value = date;
             }
 
 
@@ -211,8 +211,8 @@
                 due_mm = '0'+due_mm;
             }
             var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
-            if(document.getElementById("due_date")){
-                document.getElementById("due_date").value = due_date;
+            if(document.getElementById("liability_due_date")){
+                document.getElementById("liability_due_date").value = due_date;
             }
         });
 

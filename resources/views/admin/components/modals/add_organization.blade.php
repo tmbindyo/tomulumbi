@@ -113,7 +113,7 @@
                                 <label for="city" class="">
                                     City
                                 </label>
-                                <input name="city" id="city" placeholder="Email" type="text" class="mb-2 form-control" {{ $errors->has('city') ? ' is-invalid' : '' }} required="required">
+                                <input name="city" id="city" placeholder="City" type="text" class="mb-2 form-control" {{ $errors->has('city') ? ' is-invalid' : '' }} required="required">
                                 <i>city</i>
                             </div>
                         </div>

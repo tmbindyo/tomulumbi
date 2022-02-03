@@ -109,7 +109,7 @@
                         <label for="date" class="">
                             Date
                         </label>
-                        <input required name="date" id="date" type="text" class="form-control" data-toggle="datepicker"/>
+                        <input required name="date" id="tudeme_date" type="text" class="form-control" data-toggle="datepicker"/>
                         <i>date.</i>
                     </div>
 

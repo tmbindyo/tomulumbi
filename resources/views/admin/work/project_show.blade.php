@@ -463,6 +463,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a role="tab" class="nav-link" id="tab-c-1" data-toggle="tab" href="#clients">
+                            <span>Clients ({{$projectContacts->count()}})</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a role="tab" class="nav-link" id="tab-c-1" data-toggle="tab" href="#designs">
                             <span>Designs ({{$project->designs->count()}})</span>
                         </a>
@@ -533,6 +538,70 @@
                                                         <th>Date</th>
                                                         <th>Views</th>
                                                         <th>User</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="clients" role="tabpanel">
+                        <div class="card-hover-shadow card-border mb-3 card">
+                            <div class="card-header">
+                                <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
+                                Clients
+                                <div class="btn-actions-pane-right">
+                                    {{-- <a href="{{route('admin.order.payment.create',$order->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Payment</a> --}}
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="col-lg-12">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body"><h5 class="card-title">Table striped</h5>
+                                            <table class="mb-0 table table-bordered table-hover table-striped dataTables-example" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone Number</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($projectContacts as $projectContact)
+                                                    <tr>
+                                                        <td>@if($projectContact->contact->title){{$projectContact->contact->title->name}}.@endif {{$projectContact->contact->first_name}} {{$projectContact->contact->last_name}}</td>
+                                                        <td>{{$projectContact->contact->email}}</td>
+                                                        <td>{{$projectContact->contact->phone_number}}</td>
+                                                        <td>
+                                                            <span class="label {{$projectContact->contact->status->label}}">{{$projectContact->contact->status->name}}</span>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="btn-group">
+                                                                <a href="{{ route('admin.contact.show', $projectContact->contact->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                @if($projectContact->contact->status->name == "Deleted")
+                                                                    <a href=""{{ route('admin.contact.restore', $projectContact->contact->id) }}" class="mb-2 mr-2 btn btn-warning">Restore</a>
+                                                                @else
+                                                                    <a href=""{{ route('admin.contact.delete', $projectContact->contact->id) }}" class="mb-2 mr-2 btn btn-danger">Delete</a>
+                                                                @endif
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone Number</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
