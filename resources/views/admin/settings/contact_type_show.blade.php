@@ -170,9 +170,6 @@
                     <div class="card-header">
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Contacts ({{$contactContactTypes->count()}})
-                        <div class="btn-actions-pane-right">
-                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addContact"><i class="fa fa-plus"></i> Contact</button>
-                        </div>
                     </div>
 
                         <div class="card-body"><h5 class="card-title">Asset Contacts</h5>

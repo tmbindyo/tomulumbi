@@ -179,7 +179,7 @@
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Journals ({{$label->journal_labels->count()}})
                         <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.tudeme.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Tudeme</a>
+                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addJournal"><i class="fa fa-plus"></i> Journal</button>
                         </div>
                     </div>
 
@@ -241,4 +241,30 @@
 
     </div>
 
+@endsection
+
+@include('admin.components.modals.add_journal')
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            // Set date
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date = mm + '/' + dd + '/' + yyyy;
+            if(document.getElementById("date")){
+                document.getElementById("date").value = date;
+            }
+
+        });
+
+    </script>
 @endsection

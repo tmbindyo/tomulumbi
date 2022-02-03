@@ -315,6 +315,15 @@
                 $('.organization-select').select2();
             });
             $(document).ready(function() {
+                $('.lead-source-select').select2();
+            });
+            $(document).ready(function() {
+                $('.organization-type-select').select2();
+            });
+            $(document).ready(function() {
+                $('.title-select').select2();
+            });
+            $(document).ready(function() {
                 $('.tudeme-select').select2();
             });
             $(document).ready(function() {

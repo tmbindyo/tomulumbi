@@ -1,16 +1,16 @@
 {{-- add action type modal --}}
-<div class="modal fade addContact" tabindex="-1" role="dialog" aria-labelledby="addContact" aria-hidden="true">
+<div class="modal fade addOrganization" tabindex="-1" role="dialog" aria-labelledby="addOrganization" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addContact">Add Contact</h5>
+                <h5 class="modal-title" id="addOrganization">Add Organization</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin.contact.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.organization.store') }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())
@@ -23,33 +23,24 @@
                         </div>
                     @endif
 
-                    <div class="position-relative form-group">
-                        <div class="checkbox checkbox-info">
-                            <label for="is_lead">
-                                Lead
-                            </label><br>
-                            <input id="is_lead" name="is_lead" type="checkbox"  data-on="Yes" data-off="No" {{ $errors->has('is_lead') ? ' is-invalid' : '' }} data-toggle="toggle" data-size="normal"><br>
-                            <i>lead</i>
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="first_name" class="">
-                                    First Name
+                                <label for="name" class="">
+                                    Name
                                 </label>
-                                <input name="first_name" id="first_name" placeholder="First Name" type="text" class="mb-2 form-control" {{ $errors->has('first_name') ? ' is-invalid' : '' }} required="required">
-                                <i>first name</i>
+                                <input name="name" id="name" placeholder="Name" type="text" class="mb-2 form-control" {{ $errors->has('name') ? ' is-invalid' : '' }} required="required">
+                                <i>name</i>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="last_name" class="">
-                                    Last Name
+                                <label for="email" class="">
+                                    Email
                                 </label>
-                                <input name="last_name" id="last_name" placeholder="Last Name" type="text" class="mb-2 form-control" {{ $errors->has('last_name') ? ' is-invalid' : '' }} required="required">
-                                <i>last name</i>
+                                <input name="email" id="email" placeholder="Email" type="text" class="mb-2 form-control" {{ $errors->has('email') ? ' is-invalid' : '' }} required="required">
+                                <i>email</i>
                             </div>
                         </div>
                     </div>
@@ -66,11 +57,11 @@
                         </div>
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="email" class="">
-                                    Email
+                                <label for="website" class="">
+                                    Website
                                 </label>
-                                <input name="email" id="email" placeholder="Email" type="email" class="mb-2 form-control" {{ $errors->has('email') ? ' is-invalid' : '' }} required="required">
-                                <i>email</i>
+                                <input name="website" id="website" placeholder="Email" type="text" class="mb-2 form-control" {{ $errors->has('website') ? ' is-invalid' : '' }} required="required">
+                                <i>website</i>
                             </div>
                         </div>
                     </div>
@@ -93,16 +84,16 @@
 
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="contact_type" class="">
-                                    Contact Type
+                                <label for="organization_type" class="">
+                                    Organization Type
                                 </label>
-                                <select required="required" multiple="multiple" style="width: 100%" {{ $errors->has('contact_type') ? ' is-invalid' : '' }} name="contact_type" id="contact_type" class="contact-type-select form-control input-lg">
-                                    <option>Select Contact Type</option>
-                                    @foreach ($contactTypes as $contactType)
-                                        <option @isset($contactTypeExists) @if($contactTypeExists->id == $contactType->id) selected @endif @endisset value="{{$contactType->id}}">{{$contactType->name}}</option>
+                                <select required="required" style="width: 100%" {{ $errors->has('organization_type') ? ' is-invalid' : '' }} name="organization_type" id="organization_type" class="organization-type-select form-control input-lg">
+                                    <option>Select Organization Type</option>
+                                    @foreach ($organizationTypes as $organizationType)
+                                        <option @isset($organizationTypeExists) @if($organizationTypeExists->id == $organizationType->id) selected @endif @endisset value="{{$organizationType->id}}">{{$organizationType->name}}</option>
                                     @endforeach
                                 </select>
-                                <i>contact type</i>
+                                <i>organization type</i>
                             </div>
                         </div>
                     </div>
@@ -110,41 +101,30 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="campaign" class="">
-                                    Campaign
+                                <label for="street" class="">
+                                    Street
                                 </label>
-                                <select required="required" style="width: 100%" {{ $errors->has('campaign') ? ' is-invalid' : '' }} name="campaign" id="campaign" class="campaign-select form-control input-lg">
-                                    <option>Select Campaign</option>
-                                    @foreach ($campaigns as $campaign)
-                                        <option @isset($campaignExists) @if($campaignExists->id == $campaign->id) selected @endif @endisset value="{{$campaign->id}}">{{$campaign->name}}</option>
-                                    @endforeach
-                                </select>
-                                <i>campaign</i>
+                                <input name="street" id="street" placeholder="Street" type="text" class="mb-2 form-control" {{ $errors->has('street') ? ' is-invalid' : '' }} required="required">
+                                <i>street</i>
                             </div>
                         </div>
-
                         <div class="col-md-6">
                             <div class="position-relative form-group">
-                                <label for="type" class="">
-                                    Lead Source
+                                <label for="city" class="">
+                                    City
                                 </label>
-                                <select required="required" style="width: 100%" {{ $errors->has('type') ? ' is-invalid' : '' }} name="type" id="letter_tag" class="type-select form-control input-lg">
-                                    <option>Select Lead Source</option>
-                                    @foreach ($leadSources as $leadSource)
-                                        <option @isset($leadSourceExists) @if($leadSourceExists->id == $leadSource->id) selected @endif @endisset value="{{$leadSource->id}}">{{$leadSource->name}}</option>
-                                    @endforeach
-                                </select>
-                                <i>lead source</i>
+                                <input name="city" id="city" placeholder="Email" type="text" class="mb-2 form-control" {{ $errors->has('city') ? ' is-invalid' : '' }} required="required">
+                                <i>city</i>
                             </div>
                         </div>
                     </div>
 
                     <div class="position-relative form-group">
-                        <label for="about" class="">
-                            About
+                        <label for="description" class="">
+                            Description
                         </label>
-                        <textarea id="about" name="about" rows='5' class="mb-2 form-control {{ $errors->has('about') ? ' is-invalid' : '' }}"></textarea>
-                        <i>about</i>
+                        <textarea id="description" name="description" rows='5' class="mb-2 form-control {{ $errors->has('description') ? ' is-invalid' : '' }}"></textarea>
+                        <i>description</i>
                     </div>
 
                     <div class="row">

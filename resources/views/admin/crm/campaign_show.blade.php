@@ -66,12 +66,12 @@
 
                 <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".editCampaign"><i class="fa fa-paint-brush"></i> Campaign</button>
 
-                <a href="{{route('admin.campaign.contact.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Campaign</a>
-                <a href="{{route('admin.campaign.deal.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Campaign</a>
-                <a href="{{route('admin.campaign.expense.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Campaign</a>
-                <a href="{{route('admin.campaign.lead.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Campaign</a>
-                <a href="{{route('admin.campaign.organization.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Campaign</a>
-                <a href="{{route('admin.campaign.uploads',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Campaign</a>
+                <a href="{{route('admin.campaign.contact.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Contact</a>
+                <a href="{{route('admin.campaign.deal.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Deal</a>
+                <a href="{{route('admin.campaign.expense.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Expense</a>
+                <a href="{{route('admin.campaign.lead.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Lead</a>
+                <a href="{{route('admin.campaign.organization.create',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-plus"></i> Organization</a>
+                <a href="{{route('admin.campaign.uploads',$campaign->id)}}" class="btn btn-success btn-lg" ><i class="fa fa-eye"></i> Uploads</a>
 
             </div>
         </div>
@@ -592,7 +592,7 @@
                                                         <td>{{$contact->phone_number}}</td>
                                                         <td>{{$contact->user->name}}</td>
                                                         <td>
-                                                            <span class="label {{$contact->status->label}}">{{$design->status->name}}</span>
+                                                            <span class="label {{$contact->status->label}}">{{$contact->status->name}}</span>
                                                         </td>
                                                         <td class="text-right">
                                                             <div class="btn-group">

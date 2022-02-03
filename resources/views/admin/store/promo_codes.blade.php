@@ -168,8 +168,8 @@
                 due_mm = '0'+due_mm;
             }
             var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
-            if(document.getElementById("expiry_date")){
-                document.getElementById("expiry_date").value = due_date;
+            if(document.getElementById("promo_code_expiry_date")){
+                document.getElementById("promo_code_expiry_date").value = due_date;
             }
         });
 

@@ -55,7 +55,7 @@
                         <label for="expiry_date" class="">
                             Expiry Date
                         </label>
-                        <input required name="expiry_date" id="expiry_date" type="text" class="form-control" data-toggle="datepicker"/>
+                        <input required name="expiry_date" id="promo_code_expiry_date" type="text" class="form-control" data-toggle="datepicker"/>
                         <i>expiry date.</i>
                     </div>
 

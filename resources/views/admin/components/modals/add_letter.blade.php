@@ -47,7 +47,7 @@
                         <select required="required" style="width: 100%" {{ $errors->has('letter_tag') ? ' is-invalid' : '' }} name="letter_tag" id="letter_tag" class="letter-tag-select form-control input-lg">
                             <option>Select Letter Tag</option>
                             @foreach($letterTags as $letterTag)
-                                <option value="{{$letterTag->id}}">{{$letterTag->name}}</option>
+                                <option @isset($letterTagExists) @if($letterTagExists->id == $letterTag->id) selected @endif @endisset value="{{$letterTag->id}}">{{$letterTag->name}}</option>
                             @endforeach
                         </select>
                         <i>letter type</i>

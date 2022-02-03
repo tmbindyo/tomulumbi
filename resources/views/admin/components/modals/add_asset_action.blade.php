@@ -54,7 +54,7 @@
                                 <label for="due_date" class="">
                                     Due Date
                                 </label>
-                                <input required name="due_date" id="due_date" type="text" class="form-control" data-toggle="datepicker"/>
+                                <input required name="due_date" id="asset_action_due_date" type="text" class="form-control" data-toggle="datepicker"/>
                                 <i>due date.</i>
                             </div>
                         </div>

@@ -171,7 +171,7 @@
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
                         Letter ({{$letterLetterTags->count()}})
                         <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.letter.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Letter</a>
+                            <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addLetter"><i class="fa fa-plus"></i> Letter</button>
                         </div>
                     </div>
 
@@ -225,4 +225,30 @@
 
     </div>
 
+@endsection
+
+@include('admin.components.modals.add_letter')
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            // Set date
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if (dd < 10){
+                dd = '0'+dd;
+            }
+            if (mm < 10){
+                mm = '0'+mm;
+            }
+            var date = mm + '/' + dd + '/' + yyyy;
+            if(document.getElementById("date")){
+                document.getElementById("date").value = date;
+            }
+
+        });
+
+    </script>
 @endsection

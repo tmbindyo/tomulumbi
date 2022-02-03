@@ -12,6 +12,7 @@ use App\Type;
 use App\Label;
 use App\Title;
 use App\Album;
+use App\Asset;
 use App\Status;
 use App\Tudeme;
 use App\Upload;
@@ -35,7 +36,7 @@ use App\Organization;
 use App\ProjectType;
 use App\CampaignType;
 use App\AlbumCategory;
-use App\Asset;
+use App\JournalSeries;
 use App\AssetCategory;
 use App\ThumbnailSize;
 use App\ExpenseAccount;
@@ -704,9 +705,21 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // Label
+        $labels = Label::all();
+        // Projects
+        $projects = Project::all();
+        // Design
+        $designs = Design::all();
+        // get albums
+        $albums = Album::with('user','status')->get();
+        // get journal series
+        $journalSeries = JournalSeries::with('user','status')->withCount('journals')->get();
+        // Tudeme
+        $tudemes = Tudeme::all();
         // Get contact type
         $label = Label::with('user','status','journal_labels.journal')->where('id',$label_id)->withCount('journal_labels')->first();
-        return view('admin.settings.label_show',compact('label','user','navbarValues'));
+        return view('admin.settings.label_show',compact('label','user','navbarValues', 'labels', 'projects', 'designs', 'albums', 'tudemes', 'journalSeries', 'labelExists'));
     }
 
     public function labelUpdate(Request $request, $label_id)
@@ -766,9 +779,17 @@ class SettingsController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // get organizations
+        $organizations = Organization::all();
+        // Get contact types
+        $contactTypes = ContactType::all();
+        // get campaigns
+        $campaigns = Campaign::all();
+        // get lead sources
+        $leadSources = LeadSource::all();
         // Get contact type
         $leadSource = LeadSource::with('user','status','contacts','deals')->where('id',$lead_source_id)->withCount('contacts','deals')->first();
-        return view('admin.settings.lead_source_show',compact('leadSource','user','navbarValues'));
+        return view('admin.settings.lead_source_show',compact('leadSource','user','navbarValues' ,'leadSourceExists', 'organizations', 'contactTypes', 'campaigns', 'leadSources'));
     }
 
     public function leadSourceUpdate(Request $request, $lead_source_id)
@@ -2839,9 +2860,11 @@ class SettingsController extends Controller
         $navbarValues = $this->getNavbarValues();
         // letter tag
         $letterTag = LetterTag::with('user','status')->where('id',$letter_tag_id)->withCount('letterLetterTags')->first();
+        // letter tags
+        $letterTags = LetterTag::all();
         // letter tag letters
         $letterLetterTags = LetterLetterTag::with('user','status')->where('letter_tag_id',$letter_tag_id)->with('letter')->get();
-        return view('admin.settings.letter_tag_show',compact('letterTag','user','letterLetterTags','navbarValues'));
+        return view('admin.settings.letter_tag_show',compact('letterTag','user','letterLetterTags','navbarValues', 'letterTags', 'letterTagExists'));
     }
 
     public function letterTagUpdate(Request $request, $letter_tag_id)

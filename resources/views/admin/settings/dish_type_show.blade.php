@@ -169,10 +169,7 @@
 
                     <div class="card-header">
                         <i class="header-icon lnr-screen icon-gradient bg-warm-flame"></i>
-                        Tudeme ({{$dishTypeMeals->count()}})
-                        <div class="btn-actions-pane-right">
-                            <a href="{{route('admin.tudeme.create')}}" type="button" class="btn btn-primary btn-lg" ><i class="fa fa-plus"></i> Tudeme</a>
-                        </div>
+                        Tudeme Meals ({{$dishTypeMeals->count()}})
                     </div>
 
                         <div class="card-body"><h5 class="card-title"> Meals</h5>

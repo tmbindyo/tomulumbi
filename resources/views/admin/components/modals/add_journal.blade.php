@@ -54,7 +54,7 @@
                         <select name="labels[]" style="width: 100%" class="label-select form-control input-lg" multiple="multiple">
                             <option selected disabled>Select Label</option>
                             @foreach($labels as $label)
-                                <option value="{{$label->id}}">{{$label->name}}</option>
+                                <option @isset($labelExists) @if($labelExists->id == $label->id) selected @endif @endisset value="{{$label->id}}">{{$label->name}}</option>
                             @endforeach
                         </select>
                         <i>label</i>

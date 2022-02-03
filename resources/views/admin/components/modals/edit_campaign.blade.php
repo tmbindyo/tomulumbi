@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin.campaign.store') }}" autocomplete="off" class="form-horizontal form-label-left">
+                <form method="post" action="{{ route('admin.campaign.update', $campaign->id) }}" autocomplete="off" class="form-horizontal form-label-left">
                     @csrf
 
                     @if ($errors->any())

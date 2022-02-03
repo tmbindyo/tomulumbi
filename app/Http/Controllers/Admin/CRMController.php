@@ -17,8 +17,9 @@ use App\AssetAction;
 use App\Title;
 use App\Design;
 use App\Upload;
-use App\Contact;
+use App\Tudeme;
 use App\Project;
+use App\Contact;
 use App\Campaign;
 use App\Liability;
 use App\UploadType;
@@ -620,6 +621,20 @@ class CRMController extends Controller
         $loans = Loan::with('user','status')->where('contact_id',$contact_id)->get();
         // asset actions
         $assetActions = AssetAction::with('user','status')->where('contact_id',$contact_id)->get();
+        // get asset
+        $assets = Asset::all();
+        // contacts
+        $contacts = Contact::with('organization')->get();
+        // action types
+        $actionTypes = ActionType::all();
+        // Tags
+        $tags = Tag::all();
+        // Projects
+        $projects = Project::all();
+        // Design
+        $designs = Design::all();
+        // Tudeme
+        $tudemes = Tudeme::all();
         // contact promo codes
         $assignedPromoCodes = PromoCodeAssignment::with('user','status','promo_code')->get();
         $assignedPromoCodes = PromoCodeAssignment::with('user','status','promo_code')->where('contact_id',$contact_id)->get();
@@ -627,7 +642,7 @@ class CRMController extends Controller
         $contactContactTypes = ContactContactType::with('user','status','contact_type')->where('contact_id',$contact_id)->get();
         // contact deals
         $deals = Deal::with('user','status','deal_stage','lead_source')->where('contact_id',$contact_id)->get();
-        return view('admin.contact_show',compact('assetActions','loans','contactContactTypes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount','loans'));
+        return view('admin.crm.contact_show',compact('assetActions','loans','contactContactTypes','deals','assignedPromoCodes','liabilities','orders','campaigns','leadSources','titles','organizations','contact','user','designContacts','projectContacts','albumContacts','contactTypes','navbarValues','contactWorkCount','loans', 'actionTypes', 'contacts', 'assets', 'tags', 'projects', 'designs', 'tudemes', 'contactExists'));
     }
 
     public function contactAssetActionCreate($contact_id)
@@ -861,8 +876,11 @@ class CRMController extends Controller
         $user = $this->getAdmin();
         // Get the navbar values
         $navbarValues = $this->getNavbarValues();
+        // organization types
+        $organizationTypes = OrganizationType::all();
+        // organizations
         $organizations = Organization::with('user','status','organization_type')->withCount('contacts')->get();
-        return view('admin.organizations',compact('organizations','user','navbarValues'));
+        return view('admin.crm.organizations',compact('organizations','user','navbarValues', 'organizationTypes'));
 
     }
 
@@ -923,7 +941,7 @@ class CRMController extends Controller
         // Get organizations
         $organization = Organization::with('user','status','organization_type','contacts','deals','pending_to_dos','in_progress_to_dos','completed_to_dos','overdue_to_dos')->withCount('contacts','deals','pending_to_dos','in_progress_to_dos','completed_to_dos','overdue_to_dos')->where('id',$organization_id)->first();
 
-        return view('admin.organization_show',compact('organization','organizations','user','navbarValues','organizationTypes'));
+        return view('admin.crm.organization_show',compact('organization','organizations','user','navbarValues','organizationTypes'));
     }
 
     public function organizationContactCreate($organization_id)
