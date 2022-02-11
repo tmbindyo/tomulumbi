@@ -68,7 +68,6 @@
                             </ul>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAsset"><i class="fa fa-plus"></i> Asset</button>
                 </div>
             </div>
         </div>

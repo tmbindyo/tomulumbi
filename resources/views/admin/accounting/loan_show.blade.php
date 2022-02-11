@@ -68,6 +68,7 @@
                             </ul>
                         </div>
                     </div>
+                    <a href="{{route('admin.account.show',$loan->account_id)}}" class="btn btn-success btn-lg"><i class="fa fa-eye"></i> Account </a>
                     <a href="{{route('admin.contact.show',$loan->contact_id)}}" class="btn btn-success btn-lg"><i class="fa fa-eye"></i> Contact </a>
                 </div>
             </div>
@@ -319,18 +320,18 @@
                                                             <tbody>
                                                                 @foreach($loan->payments as $payment)
                                                                     <tr>
-                                                                        <td>{{$transaction->date}}</td>
-                                                                        <td>{{$transaction->reference}}</td>
+                                                                        <td>{{$payment->date}}</td>
+                                                                        <td>{{$payment->reference}}</td>
                                                                         <td>
-                                                                            {{$transaction->account->name}}
+                                                                            {{$payment->account->name}}
                                                                         </td>
-                                                                        <td>{{$transaction->amount}}</td>
+                                                                        <td>{{$payment->amount}}</td>
                                                                         <td>
-                                                                            <p><span class="label {{$transaction->status->label}}">{{$transaction->status->name}}</span></p>
+                                                                            <p><span class="label {{$payment->status->label}}">{{$payment->status->name}}</span></p>
                                                                         </td>
-                                                                        @if($transaction->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
+                                                                        @if($payment->status_id == '04f83a7c-9c4e-47ff-8e26-41b3b83b03d0')
                                                                             <td class="text-right">
-                                                                                @if($transaction->is_billed == False)
+                                                                                @if($payment->is_billed == False)
                                                                                     <div class="btn-group">
                                                                                         <a href="{{ route('admin.expense.show', $expense->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
                                                                                     </div>

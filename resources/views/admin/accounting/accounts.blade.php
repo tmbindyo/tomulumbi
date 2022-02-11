@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAccount"><i class="fa fa-plus"></i> Account</button>
+                    {{-- <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target=".addAccount"><i class="fa fa-plus"></i> Account</button> --}}
                 </div>
             </div>
         </div>

@@ -425,7 +425,8 @@ class AccountController extends Controller
         $deposit->user_id = Auth::user()->id;
         $deposit->save();
 
-        return redirect()->route('admin.deposit.show',$deposit->id)->withSuccess('Deposit updated!');
+        // return redirect()->route('admin.deposit.show',$deposit->id)->withSuccess('Deposit updated!');
+        return back()->withSuccess(__('Deposit '.$reference.' of '.$request->amount.' has been added. New balancee '.$new.'.'));
     }
 
     public function depositShow($deposit_id)
@@ -438,7 +439,7 @@ class AccountController extends Controller
         $navbarValues = $this->getNavbarValues();
         // get deposit
         $deposit = Deposit::with('user','status','account','account_adjustments')->where('id',$deposit_id)->first();
-        return view('admin.deposit_show',compact('deposit','user','navbarValues'));
+        return view('admin.accounting.deposit_show',compact('deposit','user','navbarValues'));
     }
 
     public function depositAccountAdjustmentCreate($deposit_id)

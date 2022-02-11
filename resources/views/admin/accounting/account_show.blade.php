@@ -361,7 +361,7 @@
 
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('admin.deposit.show', $deposit->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                            {{-- <a href="{{ route('admin.deposit.show', $deposit->id) }}" class="mb-2 mr-2 btn btn-primary">View</a> --}}
                                                                             @if($deposit->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
                                                                                 <a href="{{ route('admin.deposit.restore', $deposit->id) }}" class="mb-2 mr-2 btn btn-danger">Restore</a>
                                                                             @else
@@ -691,7 +691,7 @@
 
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('admin.refund.show', $refund->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                            {{-- <a href="{{ route('admin.refund.show', $refund->id) }}" class="mb-2 mr-2 btn btn-primary">View</a> --}}
                                                                             @if($refund->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
                                                                                 <a href="{{ route('admin.refund.restore', $refund->id) }}" class="mb-2 mr-2 btn btn-danger">Restore</a>
                                                                             @else
@@ -850,7 +850,7 @@
 
                                                                     <td class="text-right">
                                                                         <div class="btn-group">
-                                                                            <a href="{{ route('admin.withdrawal.show', $withdrawal->id) }}" class="mb-2 mr-2 btn btn-primary">View</a>
+                                                                            {{-- <a href="{{ route('admin.withdrawal.show', $withdrawal->id) }}" class="mb-2 mr-2 btn btn-primary">View</a> --}}
                                                                             @if($withdrawal->status_id == "c670f7a2-b6d1-4669-8ab5-9c764a1e403e")
                                                                                 <a href="{{ route('admin.withdrawal.restore', $withdrawal->id) }}" class="mb-2 mr-2 btn btn-danger">Restore</a>
                                                                             @else
@@ -971,6 +971,12 @@
             var due_date = due_mm + '/' + due_dd + '/' + due_yyyy;
             if(document.getElementById("due_date")){
                 document.getElementById("due_date").value = due_date;
+            }
+            if(document.getElementById("liability_due_date")){
+                document.getElementById("liability_due_date").value = due_date;
+            }
+            if(document.getElementById("loan_due_date")){
+                document.getElementById("loan_due_date").value = due_date;
             }
             if(document.getElementById("end_date")){
                 document.getElementById("end_date").value = due_date;

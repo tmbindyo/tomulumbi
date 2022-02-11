@@ -7,11 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <title>tomulumbi | @yield('title')</title>
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="Create stunning tree like views with this awesome React plugin.">
-    <link rel="shortcut icon" href="{{ asset('') }}tomulumbi_logo.ico" type="image/x-icon">
+
+    {{-- <link rel="shortcut icon" href="{{ asset('') }}tomulumbi_logo.ico" type="image/x-icon"> --}}
+    <link rel="icon" href="{{ asset('') }}tomulumbi_logo.ico" type="image/x-icon">
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">

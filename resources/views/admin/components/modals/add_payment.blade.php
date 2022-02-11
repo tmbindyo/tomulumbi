@@ -96,7 +96,7 @@
                             <select required="required" style="width: 100%" {{ $errors->has('loan') ? ' is-invalid' : '' }} name="loan" id="payment_loan" class="account-payment-loan-select form-control input-lg">
                                 <option>Select Loan</option>
                                 @foreach ($loans as $loan)
-                                    <option @isset($loanExists) @if($loanExists->id == $loan->id) selected @endif @endisset value="{{$loan->id}}">{{$loan->reference}} [{{$loan->amount}}]</option>
+                                    <option @isset($loanExists) @if($loanExists->id == $loan->id) selected @endif @endisset value="{{$loan->id}}">{{$loan->reference}} [{{$loan->balance}}]</option>
                                 @endforeach
                             </select>
                             <i>loan</i>

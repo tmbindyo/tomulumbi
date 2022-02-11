@@ -237,6 +237,8 @@ class ExpenseController extends Controller
         $journalsStatusCount = $this->expensesStatusCount();
         // get expense
         $expense = Expense::where('id',$expense_id)->with('transfer','status','expense_items','transactions','design','expense_account','frequency','order','project','user','album','contact.organization')->withCount('expense_items')->first();
+
+
         $payments = Transaction::where('expense_id',$expense->id)->where('status_id','2fb4fa58-f73d-40e6-ab80-f0d904393bf2')->with('expense','account','status')->get();
         $pendingPayments = Transaction::where('expense_id',$expense->id)->where('status_id','a40b5983-3c6b-4563-ab7c-20deefc1992b')->with('expense','account','status')->get();
         return view('admin.accounting.expense_show',compact('expense','user','navbarValues','journalsStatusCount','payments','pendingPayments'));
@@ -767,7 +769,9 @@ class ExpenseController extends Controller
             // update loan as paid
             $loan = Loan::findOrFail($request->loan);
             $paid = doubleval($request->amount) + doubleval($loan->paid);
+            $balance = doubleval($loan->balance) - doubleval($request->amount);
             $loan->paid = $paid;
+            $loan->balance = $balance;
             $loan->save();
         }else{
             $payment->is_loan = False;

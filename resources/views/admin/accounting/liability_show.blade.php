@@ -68,6 +68,7 @@
                             </ul>
                         </div>
                     </div>
+                    <a href="{{route('admin.account.show',$liability->account_id)}}" class="btn btn-success btn-lg"><i class="fa fa-eye"></i> Account </a>
                     <a href="{{route('admin.contact.show',$liability->contact_id)}}" class="btn btn-success btn-lg"><i class="fa fa-eye"></i> Contact </a>
                 </div>
             </div>
