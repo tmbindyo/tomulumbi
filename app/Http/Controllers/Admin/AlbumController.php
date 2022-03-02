@@ -436,7 +436,7 @@ class AlbumController extends Controller
         $album->location = $request->location;
         $album->save();
 
-        return $request->tags;
+        // return $request->tags;
         // Album tags update
         $albumRequestTags =array();
         foreach ($request->tags as $albumAlbumTag){
